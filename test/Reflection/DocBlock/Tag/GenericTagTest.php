@@ -13,43 +13,37 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Code_Scanner
+ * @package    Zend_Reflection
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
-
-use Zend\Code\Scanner\DocBlockScanner,
-    PHPUnit_Framework_TestCase as TestCase;
+/**
+ * @namespace
+ */
+namespace ZendTest\Code\Reflection\DocBlock\Tag;
+use Zend\Code\Reflection\DocBlock\GenericTag;
 
 /**
  * @category   Zend
- * @package    Zend_Code_Scanner
+ * @package    Zend_Reflection
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Code_Scanner
+ * @group      Zend_Reflection
+ * @group      Zend_Reflection_Docblock
  */
-class DocBlockScannerTest extends TestCase
+class GenericTagTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @group ZF2-110
+     * @group ZF2-146
      */
-    public function testDocBlockScannerParsesTagsWithNoValuesProperly()
+    public function testParse()
     {
-        $docComment = <<<EOB
-/**
- * @mytag
- */
-EOB;
-        $tokenScanner = new DocBlockScanner($docComment);
-        $tags = $tokenScanner->getTags();
-        $this->assertCount(1, $tags);
-        $this->assertArrayHasKey('name', $tags[0]);
-        $this->assertEquals('@mytag', $tags[0]['name']);
-        $this->assertArrayHasKey('value', $tags[0]);
-        $this->assertEquals('', $tags[0]['value']);
+        $tag = new GenericTag();
+        $tag->initialize('baz zab');
+        $this->assertEquals('baz', $tag->returnValue(0));
+        $this->assertEquals('zab', $tag->returnValue(1));
     }
 }
