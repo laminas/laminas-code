@@ -22,36 +22,28 @@
 /**
  * @namespace
  */
-namespace ZendTest\Code\Reflection\TestAsset;
-
-function function1() {
-    return 'foo';
-}
-
+namespace ZendTest\Code\Reflection\DocBlock\Tag;
+use Zend\Code\Reflection\DocBlock\GenericTag;
 
 /**
- * Zend Function Two
- *
- * This is the long description for funciton two
- *
- * @param unknown_type $one
- * @param unknown_type $two
- * @return string
+ * @category   Zend
+ * @package    Zend_Reflection
+ * @subpackage UnitTests
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Reflection
+ * @group      Zend_Reflection_Docblock
  */
-function function2($one, $two = 'two') {
-
-    return 'blah';
+class GenericTagTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @group ZF2-146
+     */
+    public function testParse()
+    {
+        $tag = new GenericTag();
+        $tag->initialize('baz zab');
+        $this->assertEquals('baz', $tag->returnValue(0));
+        $this->assertEquals('zab', $tag->returnValue(1));
+    }
 }
-
-
-/**
- * Enter description here...
- *
- * @param string $one
- * @param int $two
- * @return true
- */
-function function6($one, $two = 2) {
-    return true;
-}
-
