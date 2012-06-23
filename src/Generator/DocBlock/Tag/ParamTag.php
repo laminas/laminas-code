@@ -13,44 +13,43 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_CodeGenerator
+ * @package    Zend_Code_Generator
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Code\Generator\Docblock\Tag;
+namespace Zend\Code\Generator\DocBlock\Tag;
+
+use Zend\Code\Generator\DocBlock\Tag;
+use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionDocBlockTag;
 
 /**
- * @uses       \Zend\Code\Generator\DocBlock\Tag
  * @category   Zend
- * @package    Zend_CodeGenerator
+ * @package    Zend_Code_Generator
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ParamTag extends \Zend\Code\Generator\Docblock\Tag
+class ParamTag extends Tag
 {
 
     /**
      * @var string
      */
-    protected $_datatype = null;
+    protected $datatype = null;
 
     /**
      * @var string
      */
-    protected $_paramName = null;
+    protected $paramName = null;
 
     /**
      * fromReflection()
      *
-     * @param \Zend\Code\Reflection\ReflectionDocblockTag $reflectionTagParam
-     * @return \Zend\Code\Generator\DocBlock\Tag\ParamTag
+     * @param ReflectionDocBlockTag $reflectionTagParam
+     * @return ParamTag
      */
-    public static function fromReflection(\Zend\Code\Reflection\ReflectionDocblockTag $reflectionTagParam)
+    public static function fromReflection(ReflectionDocBlockTag $reflectionTagParam)
     {
         $paramTag = new self();
 
@@ -66,11 +65,11 @@ class ParamTag extends \Zend\Code\Generator\Docblock\Tag
      * setDatatype()
      *
      * @param string $datatype
-     * @return \Zend\Code\Generator\DocBlock\Tag\ParamTag
+     * @return ParamTag
      */
     public function setDatatype($datatype)
     {
-        $this->_datatype = $datatype;
+        $this->datatype = $datatype;
         return $this;
     }
 
@@ -81,18 +80,18 @@ class ParamTag extends \Zend\Code\Generator\Docblock\Tag
      */
     public function getDatatype()
     {
-        return $this->_datatype;
+        return $this->datatype;
     }
 
     /**
      * setParamName()
      *
      * @param string $paramName
-     * @return \Zend\Code\Generator\DocBlock\Tag\ParamTag
+     * @return ParamTag
      */
     public function setParamName($paramName)
     {
-        $this->_paramName = $paramName;
+        $this->paramName = $paramName;
         return $this;
     }
 
@@ -103,7 +102,7 @@ class ParamTag extends \Zend\Code\Generator\Docblock\Tag
      */
     public function getParamName()
     {
-        return $this->_paramName;
+        return $this->paramName;
     }
 
     /**
@@ -114,8 +113,8 @@ class ParamTag extends \Zend\Code\Generator\Docblock\Tag
     public function generate()
     {
         $output = '@param '
-            . (($this->_datatype  != null) ? $this->_datatype : 'unknown')
-            . (($this->_paramName != null) ? ' $' . $this->_paramName : '')
+            . (($this->datatype != null) ? $this->datatype : 'unknown')
+            . (($this->paramName != null) ? ' $' . $this->paramName : '')
             . (($this->description != null) ? ' ' . $this->description : '');
         return $output;
     }
