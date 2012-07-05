@@ -18,22 +18,15 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Code\Reflection\DocBlock;
-
-use Zend\Code\Reflection\Exception;
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
 /**
- * @uses       \Zend\Code\Reflection\ReflectionDocblockTag
- * @uses       \Zend\Code\Reflection\Exception
  * @category   Zend
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ParamTag implements Tag
+class ParamTag implements TagInterface
 {
     /**
      * @var string
@@ -61,12 +54,12 @@ class ParamTag implements Tag
     /**
      * Initializer
      *
-     * @param string $tagDocblockLine
+     * @param string $tagDocBlockLine
      */
-    public function initialize($tagDocblockLine)
+    public function initialize($tagDocBlockLine)
     {
         $matches = array();
-        preg_match('#([\w|\\\]+)(?:\s+(\$\S+)){0,1}(?:\s+(.*))?#s', $tagDocblockLine, $matches);
+        preg_match('#([\w|\\\]+)(?:\s+(\$\S+)){0,1}(?:\s+(.*))?#s', $tagDocBlockLine, $matches);
 
         $this->type = $matches[1];
 
@@ -75,7 +68,7 @@ class ParamTag implements Tag
         }
 
         if (isset($matches[3])) {
-            $this->description = preg_replace('#\s+#', ' ', $matches[3]);
+            $this->description = trim(preg_replace('#\s+#', ' ', $matches[3]));
         }
     }
 

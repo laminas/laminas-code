@@ -13,25 +13,22 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_CodeGenerator
- * @subpackage PHP
+ * @package    Zend_Code
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Code\Generator;
+namespace ZendTest\Code\Annotation\TestAsset;
 
-/**
- * @uses       \Zend\CodeGenerator\Exception
- * @category   Zend
- * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
-interface Exception extends \Zend\CodeGenerator\Exception
+use Zend\Code\Annotation\AnnotationInterface;
+
+class Foo implements AnnotationInterface
 {
+    public $content;
 
+    public function initialize($content)
+    {
+        $this->content = $content;
+    }
 }

@@ -18,27 +18,25 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Code\Reflection\DocBlock;
-
-use Zend\Code\Reflection\Exception;
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
 /**
- * @uses       \Zend\Code\Reflection\Exception
- * @uses       \Zend\Code\Reflection\ReflectionDocblockTag
  * @category   Zend
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ReturnTag implements Tag
+class PropertyTag implements TagInterface
 {
     /**
      * @var string
      */
     protected $type = null;
+
+    /**
+     * @var string
+     */
+    protected $propertyName = null;
 
     /**
      * @var string
@@ -50,39 +48,63 @@ class ReturnTag implements Tag
      */
     public function getName()
     {
-        return 'return';
+        return 'property';
     }
 
     /**
-     * Constructor
+     * Initializer
      *
-     * @param  string $tagDocblockLine
-     * @return void
+     * @param string $tagDocBlockLine
      */
     public function initialize($tagDocblockLine)
     {
-        $matches = array();
-        preg_match('#([\w|\\\]+)(?:\s+(.*))?#', $tagDocblockLine, $matches);
+        if (preg_match('#^(.+)?(\$[\S]+)[\s]*(.*)$#m', $tagDocblockLine, $match)) {
+            if ($match[1] !== '') {
+                $this->type = rtrim($match[1]);
+            }
 
-        $this->type = $matches[1];
+            if ($match[2] !== '') {
+                $this->propertyName = $match[2];
+            }
 
-        if (isset($matches[2])) {
-            $this->description = $matches[2];
+            if ($match[3] !== '') {
+                $this->description = $match[3];
+            }
         }
     }
 
     /**
-     * Get return variable type
+     * Get property variable type
      *
-     * @return string
+     * @return null|string
      */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * Get property name
+     *
+     * @return null|string
+     */
+    public function getPropertyName()
+    {
+        return $this->propertyName;
+    }
+
+    /**
+     * Get property description
+     *
+     * @return null|string
+     */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function __toString()
+    {
+        return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . PHP_EOL;
     }
 }

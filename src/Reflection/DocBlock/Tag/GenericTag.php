@@ -18,22 +18,15 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Code\Reflection\DocBlock;
-
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
 /**
- * @uses       Reflector
- * @uses       \Zend\Loader
- * @uses       \Zend\Code\Reflection\Exception
  * @category   Zend
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class GenericTag implements Tag
+class GenericTag implements TagInterface
 {
 
     /**
@@ -46,6 +39,7 @@ class GenericTag implements Tag
      */
     protected $content = null;
 
+    /** @var null|string */
     protected $contentSplitCharacter = null;
 
     /**
@@ -62,14 +56,12 @@ class GenericTag implements Tag
     }
 
     /**
-     * Constructor
-     *
-     * @param string $tagDocblockLine
-     * @return ReflectionDocblockTag
+     * @param string $tagDocBlockLine
+     * @return void
      */
-    public function initialize($tagDocblockLine)
+    public function initialize($tagDocBlockLine)
     {
-        $this->parse($tagDocblockLine);
+        $this->parse($tagDocBlockLine);
     }
 
     /**
@@ -109,10 +101,11 @@ class GenericTag implements Tag
     {
         return 'DocBlock Tag [ * @' . $this->name . ' ]' . PHP_EOL;
     }
-    
-    protected function parse($docblockLine)
+
+    protected function parse($docBlockLine)
     {
-        $this->values = explode($this->contentSplitCharacter, $docblockLine);
+        $this->content = trim($docBlockLine);
+        $this->values = explode($this->contentSplitCharacter, $docBlockLine);
     }
-    
+
 }
