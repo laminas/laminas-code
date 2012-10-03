@@ -9,7 +9,7 @@
     "homepage": "https://github.com/zendframework/zend-code",
     "autoload": {
         "psr-4": {
-            "Zend\\Code": "src/"
+            "Zend\\Code\\": "src/"
         }
     },
     "require": {
