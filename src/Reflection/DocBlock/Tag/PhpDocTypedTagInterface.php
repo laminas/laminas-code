@@ -8,21 +8,14 @@
  * @package   Zend_Code
  */
 
-namespace ZendTest\Code\Annotation\TestAsset;
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
-/**
- * @Foo(first)
- * @Bar(second)
- * @Bar(third)
- * @Bogus(does not exist)
- */
-class EntityWithAnnotations
+interface PhpDocTypedTagInterface
 {
     /**
-     * @Foo(first)
-     * @Bar(second)
-     * @Bar(third)
-     * @Bogus(does not exist)
+     * Return all types supported by the tag definition
+     *
+     * @return string[]
      */
-    public $test;
+    public function getTypes();
 }
