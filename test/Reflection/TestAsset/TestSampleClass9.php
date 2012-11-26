@@ -4,7 +4,9 @@ namespace ZendTest\Code\Reflection\TestAsset;
 
 use ZendTest\Code\Reflection\TestAsset\SampleAnnotation as Sample;
 
-class TestSampleClass2 implements \IteratorAggregate
+class TestSampleClass9
+    extends Sample
+    implements \IteratorAggregate
 {
     protected $_prop1 = null;
 

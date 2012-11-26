@@ -2,10 +2,11 @@
 
 namespace ZendTest\Code\TestAsset {
 
-    use Foo\Bar,
-        A\B\C as X;
+    use Foo\Bar;
+    use A\B\C as X;
 
-    class Baz {
+    class Baz
+    {
         public function __construct(Bar\Boo $boo, Bam $bam)
         {
 
@@ -27,7 +28,8 @@ namespace {
 
     use X\Y\Z;
 
-    class Foo {
+    class Foo
+    {
         public function setGlobalStuff(GlobalStuff $stuff)
         {
 
@@ -35,4 +37,3 @@ namespace {
     }
 
 }
-

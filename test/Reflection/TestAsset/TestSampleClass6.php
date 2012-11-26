@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace ZendTest\Code\Reflection\TestAsset;
 
@@ -37,4 +37,3 @@ class TestSampleClass6
         return 'mixedValue';
     }
 }
-

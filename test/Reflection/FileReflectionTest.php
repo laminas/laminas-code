@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Reflection
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Reflection;
@@ -27,8 +16,6 @@ use Zend\Code\Reflection\FileReflection;
  * @category   Zend
  * @package    Zend_Reflection
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Reflection
  * @group      Zend_Reflection_File
  */
@@ -36,8 +23,8 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testFileConstructor()
     {
-        require_once 'Zend/Version.php';
-        $reflectionFile = new FileReflection('Zend/Version.php');
+        require_once 'Zend/Version/Version.php';
+        $reflectionFile = new FileReflection('Zend/Version/Version.php');
         $this->assertEquals(get_class($reflectionFile), 'Zend\Code\Reflection\FileReflection');
     }
 
@@ -72,7 +59,7 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
         $nonExistentClass = 'Some_Non_Existent_Class';
-        
+
         $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException', 'Class by name Some_Non_Existent_Class not found');
         $reflectionFile->getClass($nonExistentClass);
     }
@@ -81,18 +68,18 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull(FileReflection::export());
 
-        require_once 'Zend/Version.php';
-        $reflectionFile = new FileReflection('Zend/Version.php');
+        require_once 'Zend/Version/Version.php';
+        $reflectionFile = new FileReflection('Zend/Version/Version.php');
         $this->assertEquals('', $reflectionFile->__toString());
     }
 
     public function testFileGetFilenameReturnsCorrectFilename()
     {
-        require_once 'Zend/Version.php';
-        $reflectionFile = new FileReflection('Zend/Version.php');
+        require_once 'Zend/Version/Version.php';
+        $reflectionFile = new FileReflection('Zend/Version/Version.php');
 
         // Make sure this test works on all platforms
-        $this->assertRegExp('#^.*Zend.Version.php$#i', $reflectionFile->getFileName());
+        $this->assertRegExp('#^.*Zend.Version.Version.php$#i', $reflectionFile->getFileName());
     }
 
     public function testFileGetLineNumbersWorks()
@@ -111,7 +98,7 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass7.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        
+
         $this->assertTrue($reflectionFile->getDocBlock() instanceof \Zend\Code\Reflection\DocBlockReflection);
         $this->assertEquals('Jeremiah Small <jsmall@soliantconsulting.com>', $reflectionFile->getDocBlock()->getTag('author')->getContent());
     }
@@ -136,7 +123,7 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleInterface', $class->getName());
         $this->assertTrue($class->isInterface());
     }
-    
+
     public function testFileCanReflectFileWithUses()
     {
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass8.php';

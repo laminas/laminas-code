@@ -1,28 +1,17 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Reflection
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Reflection;
 
-use Zend\Code\Reflection\DocBlockReflection;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\DocBlockReflection;
 
 /**
  * @category   Zend
@@ -131,5 +120,53 @@ EOS;
                         . '}' . PHP_EOL;
 
         $this->assertEquals($expectedString, (string)$classDocBlock);
+    }
+
+    public function testFunctionDocBlockTags()
+    {
+        $docblock = '
+    /**
+     * Method ShortDescription
+     *
+     * @param int $one Description for one
+     * @param int[] Description for two
+     * @param string|null $three Description for three
+     *                      which spans multiple lines
+     * @return int[]|null Description
+     * @throws Exception
+     */
+';
+
+        $docblockReflection = new DocBlockReflection($docblock);
+
+        $paramTags = $docblockReflection->getTags('param');
+
+        $this->assertEquals(5, count($docblockReflection->getTags()));
+        $this->assertEquals(3, count($paramTags));
+        $this->assertEquals(1, count($docblockReflection->getTags('return')));
+        $this->assertEquals(1, count($docblockReflection->getTags('throws')));
+
+        $returnTag = $docblockReflection->getTag('return');
+        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ReturnTag', $returnTag);
+        $this->assertEquals('int[]', $returnTag->getType());
+        $this->assertEquals(array('int[]', 'null'), $returnTag->getTypes());
+        $this->assertEquals('Description', $returnTag->getDescription());
+
+        $throwsTag = $docblockReflection->getTag('throws');
+        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ThrowsTag', $throwsTag);
+        $this->assertEquals('Exception', $throwsTag->getType());
+
+        $paramTag = $paramTags[0];
+        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertEquals('int', $paramTag->getType());
+
+        $paramTag = $paramTags[1];
+        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertEquals('int[]', $paramTag->getType());
+
+        $paramTag = $paramTags[2];
+        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertEquals('string', $paramTag->getType());
+        $this->assertEquals(array('string', 'null'), $paramTag->getTypes());
     }
 }

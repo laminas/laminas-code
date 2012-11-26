@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Code_Generator
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Generator;
@@ -30,8 +19,6 @@ use Zend\Code\Reflection\ClassReflection;
  * @category   Zend
  * @package    Zend_Code_Generator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
@@ -374,5 +361,20 @@ CODE;
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
         $this->assertContains('class FunClass', $received, $received);
+    }
+
+    /**
+     * @group ZF2-151
+     */
+    public function testAddUses()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('My\Class');
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+        $generated = $classGenerator->generate();
+
+        $this->assertContains('use My\First\Use\Class;', $generated);
+        $this->assertContains('use My\Second\Use\Class as MyAlias;', $generated);
     }
 }

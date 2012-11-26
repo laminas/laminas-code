@@ -8,23 +8,14 @@
  * @package   Zend_Code
  */
 
-namespace Zend\Code\Generator;
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
-/**
- * @category   Zend
- * @package    Zend_Code_Generator
- */
-class PropertyValueGenerator extends ValueGenerator
+interface PhpDocTypedTagInterface
 {
-
     /**
-     * generate()
+     * Return all types supported by the tag definition
      *
-     * @return string
+     * @return string[]
      */
-    public function generate()
-    {
-        return parent::generate() . ';';
-    }
-
+    public function getTypes();
 }

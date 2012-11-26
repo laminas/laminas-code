@@ -8,23 +8,13 @@
  * @package   Zend_Code
  */
 
-namespace Zend\Code\Generator;
+use ArrayObject;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * This is a test class, declaring no namespace at all.
+ * It is used to test, if the token scanner can find use
+ * statements in classes with no namespace defined.
  */
-class PropertyValueGenerator extends ValueGenerator
+class ZendTest_Code_TestAsset_FooBar extends ArrayObject
 {
-
-    /**
-     * generate()
-     *
-     * @return string
-     */
-    public function generate()
-    {
-        return parent::generate() . ';';
-    }
-
 }

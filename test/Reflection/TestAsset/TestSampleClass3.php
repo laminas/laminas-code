@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace ZendTest\Code\Reflection\TestAsset;
 
@@ -12,4 +12,3 @@ abstract class TestSampleClass3 extends \ArrayObject implements \Iterator, \Trav
 
 
 }
-
