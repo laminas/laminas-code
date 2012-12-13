@@ -8,9 +8,14 @@
  * @package   Zend_Code
  */
 
-namespace Zend\Code\Scanner;
+namespace Zend\Code\Reflection\DocBlock\Tag;
 
-class VariableScanner
+interface PhpDocTypedTagInterface
 {
-    // @todo
+    /**
+     * Return all types supported by the tag definition
+     *
+     * @return string[]
+     */
+    public function getTypes();
 }
