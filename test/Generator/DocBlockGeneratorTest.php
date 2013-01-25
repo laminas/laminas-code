@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Code_Generator
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Generator;
@@ -28,20 +17,32 @@ use Zend\Code\Generator\DocBlock\Tag;
  * @category   Zend
  * @package    Zend_Code_Generator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @group      Zend_Code_Generator
  * @group      Zend_Code_Generator_Php
  */
 class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var DocBlockGenerator */
+    /**
+     * @var DocBlockGenerator
+     */
     protected $docBlockGenerator;
 
     protected function setUp()
     {
         $this->docBlockGenerator = $this->docBlockGenerator = new DocBlockGenerator();
+    }
+
+    public function testCanPassTagsToConstructor()
+    {
+        $docBlockGenerator = new DocBlockGenerator(null, null, array(
+            array('name' => 'foo')
+        ));
+
+        $tags = $docBlockGenerator->getTags();
+        $this->assertCount(1, $tags);
+
+        $this->assertEquals('foo', $tags[0]->getName());
     }
 
     public function testShortDescriptionGetterAndSetter()
@@ -79,7 +80,6 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
 EOS;
 
         $this->assertEquals($target, $this->docBlockGenerator->generate());
-
     }
 
     public function testGenerationOfDocBlock()
@@ -89,6 +89,24 @@ EOS;
         $expected = '/**' . DocBlockGenerator::LINE_FEED . ' * @var Foo this is foo bar'
             . DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
         $this->assertEquals($expected, $this->docBlockGenerator->generate());
+    }
+
+    public function testCreateFromArray()
+    {
+        $docBlock = DocBlockGenerator::fromArray(array(
+            'shortdescription' => 'foo',
+            'longdescription'  => 'bar',
+            'tags' => array(
+                array(
+                    'name'        => 'foo',
+                    'description' => 'bar',
+                )
+            ),
+        ));
+
+        $this->assertEquals('foo', $docBlock->getShortDescription());
+        $this->assertEquals('bar', $docBlock->getLongDescription());
+        $this->assertCount(1, $docBlock->getTags());
     }
 
 }

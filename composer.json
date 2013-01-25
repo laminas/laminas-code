@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-code",
-    "description": "Zend\\Code component",
+    "description": "provides facilities to generate arbitrary code using an object oriented interface",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.3.3",
         "zendframework/zend-eventmanager": "self.version"
     },
     "require-dev": {

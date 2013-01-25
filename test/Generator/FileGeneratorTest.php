@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Code_Generator
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Generator;
@@ -29,7 +18,7 @@ use Zend\Code\Reflection\FileReflection;
  * @category   Zend
  * @package    Zend_Code_Generator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @group Zend_Code_Generator
@@ -62,14 +51,14 @@ class FileGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $codeGenFile = FileGenerator::fromArray(array(
-            'requiredFiles' => array('SampleClass.php'),
-            'class' => array(
-                'flags' => ClassGenerator::FLAG_ABSTRACT,
-                'name' => 'SampleClass',
-                'extendedClass' => 'ExtendedClassName',
-                'implementedInterfaces' => array('Iterator', 'Traversable')
-                )
-            ));
+                                                     'requiredFiles' => array('SampleClass.php'),
+                                                     'class' => array(
+                                                         'flags' => ClassGenerator::FLAG_ABSTRACT,
+                                                         'name' => 'SampleClass',
+                                                         'extendedClass' => 'ExtendedClassName',
+                                                         'implementedInterfaces' => array('Iterator', 'Traversable')
+                                                     )
+                                                ));
 
 
         $expectedOutput = <<<EOS
@@ -95,10 +84,10 @@ EOS;
         $tempFile = tempnam(sys_get_temp_dir(), 'UnitFile');
 
         $codeGenFile = FileGenerator::fromArray(array(
-            'class' => array(
-                'name' => 'SampleClass'
-            )
-        ));
+                                                     'class' => array(
+                                                         'name' => 'SampleClass'
+                                                     )
+                                                ));
 
         file_put_contents($tempFile, $codeGenFile->generate());
 
@@ -213,4 +202,63 @@ EOS;
         $generated = $file->generate();
         $this->assertContains('namespace Foo\\Bar', $generated, $generated);
     }
+
+    public function testSetUseDoesntGenerateMultipleIdenticalUseStatements()
+    {
+        $file = new FileGenerator();
+        $file->setUse('My\Baz')
+             ->setUse('My\Baz');
+        $generated = $file->generate();
+        $this->assertSame(strpos($generated, 'use My\\Baz'), strrpos($generated, 'use My\\Baz'));
+    }
+
+    public function testSetUsesDoesntGenerateMultipleIdenticalUseStatements()
+    {
+        $file = new FileGenerator();
+        $file->setUses(array(
+                 array('Your\Bar', 'bar'),
+                 array('Your\Bar', 'bar'),
+        ));
+        $generated = $file->generate();
+        $this->assertSame(strpos($generated, 'use Your\\Bar as bar;'), strrpos($generated, 'use Your\\Bar as bar;'));
+    }
+
+    public function testSetUseAllowsMultipleAliasedUseStatements()
+    {
+        $file = new FileGenerator();
+        $file->setUses(array(
+                 array('Your\Bar', 'bar'),
+                 array('Your\Bar', 'bar2'),
+        ));
+        $generated = $file->generate();
+        $this->assertContains('use Your\\Bar as bar;', $generated);
+        $this->assertContains('use Your\\Bar as bar2;', $generated);
+    }
+
+    public function testSetUsesWithArrays()
+    {
+        $file = new FileGenerator();
+        $file->setUses(array(
+                 array('Your\\Bar', 'bar'),
+                 array('My\\Baz', 'FooBaz')
+             ));
+        $generated = $file->generate();
+        $this->assertContains('use My\\Baz as FooBaz;', $generated);
+        $this->assertContains('use Your\\Bar as bar;', $generated);
+    }
+
+    public function testSetUsesWithString()
+    {
+        $file = new FileGenerator();
+        $file->setUses(array(
+            'Your\\Bar',
+            'My\\Baz',
+            array('Another\\Baz', 'Baz2')
+        ));
+        $generated = $file->generate();
+        $this->assertContains('use My\\Baz;', $generated);
+        $this->assertContains('use Your\\Bar;', $generated);
+        $this->assertContains('use Another\\Baz as Baz2;', $generated);
+    }
+
 }
