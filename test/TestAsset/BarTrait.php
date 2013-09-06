@@ -7,15 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Code\Reflection\DocBlock\Tag;
+namespace ZendTest\Code\TestAsset;
 
-use Zend\Code\Generic\Prototype\PrototypeInterface;
-
-interface TagInterface extends PrototypeInterface
+trait BarTrait
 {
-    /**
-     * @param  string $content
-     * @return void
-     */
-    public function initialize($content);
+    public function bar()
+    {
+    }
 }
