@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Code\Generator\TestAsset;
-
-interface TwoInterface
+class ZendTest_Code_NsTest_BarClass
 {
-
+    public function fooMethod(ZendTest_Code_NsTest_BarClass $parameter)
+    {
+    }
 }

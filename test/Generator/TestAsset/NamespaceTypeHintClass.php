@@ -7,9 +7,23 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace Namespaced\TypeHint {
 
-interface TwoInterface
-{
+    use OtherNamespace\ParameterClass;
 
+    class Bar
+    {
+
+        public function method(ParameterClass $object)
+        {
+        }
+    }
+}
+
+namespace OtherNamespace {
+
+    class ParameterClass
+    {
+
+    }
 }

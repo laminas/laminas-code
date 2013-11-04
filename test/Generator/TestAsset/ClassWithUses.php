@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -9,7 +10,9 @@
 
 namespace ZendTest\Code\Generator\TestAsset;
 
-interface TwoInterface
+use ZendTest\Code\Generator\TestAsset\ClassWithNamespace;
+
+class ClassWithUses
 {
 
 }
