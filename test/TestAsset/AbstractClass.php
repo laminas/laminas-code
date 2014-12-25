@@ -7,14 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace ZendTest\Code\TestAsset;
 
-use PHPUnit_Framework_TestCase;
-
-class AggregateDirectoryScannerTest extends PHPUnit_Framework_TestCase
+abstract class AbstractClass
 {
-    public function testAggregationOfDirectories()
+    protected $config = array();
+
+    public function getConfig()
     {
-        $this->markTestIncomplete('This test needs to be filled out');
+        return $this->config;
     }
+
+    abstract public function helloWorld();
 }
