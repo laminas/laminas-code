@@ -7,18 +7,25 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Code\TestAsset;
+namespace ZendTest\Code\Generator\TestAsset;
 
-trait FooTrait
+/**
+ * class docblock
+ */
+class TestSampleSingleClassMultiLines
 {
-    use BarTrait;
 
-    public function fooBarBaz()
+    /**
+     * Enter description here...
+     *
+     * @return bool
+     */
+    public function someMethod()
     {
-    }
+        /* test test */
 
-    public function foo()
-    {
-        
+        /* test test */
+
+        /* test test */
     }
 }
