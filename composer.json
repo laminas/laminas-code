@@ -27,6 +27,8 @@
         "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
         "zendframework/zend-stdlib": "Zend\\Stdlib component"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "branch-alias": {
             "dev-master": "2.4-dev",
