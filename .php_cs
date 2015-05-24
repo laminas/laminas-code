@@ -2,10 +2,6 @@
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in('src')
     ->in('test')
-    ->notPath('Generator/TestAsset')
-    ->notPath('Reflection/FunctionReflectionTest.php')
-    ->notPath('Reflection/MethodReflectionTest.php')
-    ->notPath('Reflection/TestAsset')
     ->notPath('TestAsset')
     ->notPath('_files')
     ->filter(function (SplFileInfo $file) {
@@ -35,7 +31,6 @@ $config->fixers(
         'method_argument_space',
         'object_operator',
         'php_closing_tag',
-        'psr0',
         'remove_lines_between_uses',
         'short_tag',
         'standardize_not_equal',
