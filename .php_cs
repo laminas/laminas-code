@@ -1,5 +1,7 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->in('src')
+    ->in('test')
     ->notPath('Generator/TestAsset')
     ->notPath('Reflection/FunctionReflectionTest.php')
     ->notPath('Reflection/MethodReflectionTest.php')
