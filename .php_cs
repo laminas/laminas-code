@@ -4,6 +4,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in('test')
     ->notPath('TestAsset')
     ->notPath('_files')
+    ->notPath('Reflection/MethodReflectionTest.php')
     ->filter(function (SplFileInfo $file) {
         if (strstr($file->getPath(), 'compatibility')) {
             return false;
