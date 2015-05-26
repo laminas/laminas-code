@@ -103,7 +103,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         );
         $body = $reflectionMethod->getBody();
         $this->assertEquals(trim($body), "");
-        
+
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass11', 'visibility');
         $body = $reflectionMethod->getBody();
         $this->assertEquals(trim($body), "return 'visibility';");
@@ -162,7 +162,7 @@ CONTENTS;
         $contents = ' public function inline3() { return \'inline3\'; }';
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass11', 'inline3');
         $this->assertEquals($contents, $reflectionMethod->getContents(false));
-        
+
         $contents = <<<'CONTENTS'
     public function visibility()
     {
@@ -189,7 +189,7 @@ CONTENTS;
         $this->assertEquals($contents, $reflectionMethod->getContents(true));
         $this->assertEquals($contents, $reflectionMethod->getContents());
 
-                $contents = <<<'CONTENTS'
+        $contents = <<<'CONTENTS'
 /**
      * Awesome doc block
      */
@@ -354,13 +354,12 @@ CONTENTS;
      */
     public function testCodeGetContentsDoesNotThrowExceptionOnDocBlock()
     {
-
         $contents = <<<'CONTENTS'
     function getCacheKey() {
         $args = func_get_args();
- 
+
         $cacheKey = '';
- 
+
         foreach($args as $arg) {
             if (is_array($arg)) {
                 foreach ($arg as $argElement) {
@@ -372,7 +371,7 @@ CONTENTS;
             }
             //blah
         }
- 
+
         return $cacheKey;
     }
 CONTENTS;
