@@ -2,6 +2,10 @@ sudo: false
 
 language: php
 
+env:
+  global:
+    - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
+
 matrix:
   fast_finish: true
   include:
@@ -27,8 +31,8 @@ install:
   - travis_retry composer install --no-interaction --ignore-platform-reqs
 
 script:
-  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/phpunit -c phpunit.xml.travis --coverage-clover clover.xml ; fi
-  - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then ./vendor/bin/phpunit -c phpunit.xml.travis ; fi
+  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; fi
+  - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then ./vendor/bin/phpunit ; fi
   - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/php-cs-fixer fix -v --diff --dry-run ; fi
 
 after_script:
