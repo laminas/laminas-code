@@ -2,6 +2,10 @@ sudo: false
 
 language: php
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 env:
   global:
     - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
