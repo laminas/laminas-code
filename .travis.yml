@@ -30,6 +30,7 @@ notifications:
 
 before_install:
   - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
+  - composer self-update
 
 install:
   - travis_retry composer install --no-interaction --ignore-platform-reqs
