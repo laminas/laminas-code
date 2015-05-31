@@ -14,10 +14,11 @@ matrix:
   fast_finish: true
   include:
     - php: 5.5
+      env:
+        - EXECUTE_CS_CHECK=true
     - php: 5.6
       env:
         - EXECUTE_TEST_COVERALLS=true
-        - EXECUTE_CS_CHECK=true
     - php: 7
     - php: hhvm 
   allow_failures:
