@@ -182,10 +182,6 @@ class ClassScannerTest extends TestCase
      */
     public function testClassScannerCanScanTraits()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
-
         $file  = new FileScanner(__DIR__ . '/../TestAsset/BarTrait.php');
         $class = $file->getClass('ZendTest\Code\TestAsset\BarTrait');
 
@@ -198,10 +194,6 @@ class ClassScannerTest extends TestCase
      */
     public function testClassScannerCanScanClassThatUsesTraits()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
-
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassUsesTraitSimple.php');
         $class = $file->getClass('ZendTest\Code\TestAsset\TestClassUsesTraitSimple');
 
@@ -217,10 +209,6 @@ class ClassScannerTest extends TestCase
      */
     public function testClassScannerCanScanClassAndGetTraitsAliases()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
-
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassWithTraitAliases.php');
         $class = $file->getClass('ZendTest\Code\TestAsset\TestClassWithTraitAliases');
 
@@ -239,10 +227,6 @@ class ClassScannerTest extends TestCase
      */
     public function testClassScannerCanGetTraitMethodsInGetMethods()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
-
         //load files or test may fail due to autoload issues
         require_once(__DIR__ . '/../TestAsset/TraitWithSameMethods.php');
         require_once(__DIR__ . '/../TestAsset/BarTrait.php');
@@ -283,10 +267,6 @@ class ClassScannerTest extends TestCase
      */
     public function testGetMethodsThrowsExceptionOnDuplicateMethods()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
-
         $this->setExpectedException('Zend\Code\Exception\RuntimeException');
 
         $file  = new FileScanner(__DIR__ . '/TestAsset/TestClassWithAliasException.php');
