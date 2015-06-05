@@ -33,6 +33,7 @@ $config->fixers(
         'object_operator',
         'php_closing_tag',
         'remove_lines_between_uses',
+        'short_array_syntax',
         'short_tag',
         'standardize_not_equal',
         'trailing_spaces',
