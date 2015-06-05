@@ -5,6 +5,7 @@ language: php
 branches:
   except:
     - /^release-.*$/
+    - /^ghgfk-.*$/
 
 cache:
   directories:
