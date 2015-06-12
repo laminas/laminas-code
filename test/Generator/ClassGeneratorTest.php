@@ -711,10 +711,6 @@ CODE;
 
     public function testCanAddTraitWithString()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait('myTrait');
         $this->assertTrue($classGenerator->hasTrait('myTrait'));
@@ -722,10 +718,6 @@ CODE;
 
     public function testCanAddTraitWithArray()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait(['traitName' => 'myTrait']);
         $this->assertTrue($classGenerator->hasTrait('myTrait'));
@@ -733,10 +725,6 @@ CODE;
 
     public function testCanRemoveTrait()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait(['traitName' => 'myTrait']);
         $this->assertTrue($classGenerator->hasTrait('myTrait'));
@@ -746,10 +734,6 @@ CODE;
 
     public function testCanGetTraitsMethod()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTraits(['myTrait', 'hisTrait']);
 
@@ -760,10 +744,6 @@ CODE;
 
     public function testCanAddTraitAliasWithString()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $classGenerator->addTrait('myTrait');
@@ -777,10 +757,6 @@ CODE;
 
     public function testCanAddTraitAliasWithArray()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $classGenerator->addTrait('myTrait');
@@ -797,10 +773,6 @@ CODE;
 
     public function testAddTraitAliasExceptionInvalidMethodFormat()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -814,10 +786,6 @@ CODE;
 
     public function testAddTraitAliasExceptionInvalidMethodTraitDoesNotExist()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -831,10 +799,6 @@ CODE;
 
     public function testAddTraitAliasExceptionMethodAlreadyExists()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -849,10 +813,6 @@ CODE;
 
     public function testAddTraitAliasExceptionInvalidVisibilityValue()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -867,10 +827,6 @@ CODE;
 
     public function testAddTraitAliasExceptionInvalidAliasArgument()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -884,10 +840,6 @@ CODE;
 
     public function testCanAddTraitOverride()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTraits(['myTrait', 'histTrait']);
         $classGenerator->addTraitOverride('myTrait::foo', 'hisTrait');
@@ -900,10 +852,6 @@ CODE;
 
     public function testCanAddMultipleTraitOverrides()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
@@ -915,10 +863,6 @@ CODE;
 
     public function testAddTraitOverrideExceptionInvalidMethodFormat()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -932,10 +876,6 @@ CODE;
 
     public function testAddTraitOverrideExceptionInvalidMethodTraitDoesNotExist()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -949,10 +889,6 @@ CODE;
 
     public function testAddTraitOverrideExceptionInvalidTraitName()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -966,10 +902,6 @@ CODE;
 
     public function testAddTraitOverrideExceptionInvalidTraitToReplaceArgument()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -983,10 +915,6 @@ CODE;
 
     public function testAddTraitOverrideExceptionInvalidMethodArgInArray()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
 
         $this->setExpectedException(
@@ -1000,10 +928,6 @@ CODE;
 
     public function testCanRemoveTraitOverride()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
@@ -1020,10 +944,6 @@ CODE;
 
     public function testCanRemoveAllTraitOverrides()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
@@ -1042,10 +962,6 @@ CODE;
      */
     public function testUseTraitGeneration()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('myClass');
         $classGenerator->addTrait('myTrait');
@@ -1070,10 +986,6 @@ CODE;
      */
     public function testTraitGenerationWithAliasesAndOverrides()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('myClass');
         $classGenerator->addTrait('myTrait');

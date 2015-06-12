@@ -52,9 +52,9 @@ class TestSampleClass11
 
     function getCacheKey() {
         $args = func_get_args();
- 
+
         $cacheKey = '';
- 
+
         foreach($args as $arg) {
             if (is_array($arg)) {
                 foreach ($arg as $argElement) {

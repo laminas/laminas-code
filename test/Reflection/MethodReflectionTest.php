@@ -103,7 +103,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         );
         $body = $reflectionMethod->getBody();
         $this->assertEquals(trim($body), "");
-        
+
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass11', 'visibility');
         $body = $reflectionMethod->getBody();
         $this->assertEquals(trim($body), "return 'visibility';");
@@ -162,7 +162,7 @@ CONTENTS;
         $contents = ' public function inline3() { return \'inline3\'; }';
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass11', 'inline3');
         $this->assertEquals($contents, $reflectionMethod->getContents(false));
-        
+
         $contents = <<<'CONTENTS'
     public function visibility()
     {
@@ -358,9 +358,9 @@ CONTENTS;
         $contents = <<<'CONTENTS'
     function getCacheKey() {
         $args = func_get_args();
- 
+
         $cacheKey = '';
- 
+
         foreach($args as $arg) {
             if (is_array($arg)) {
                 foreach ($arg as $argElement) {
@@ -396,10 +396,6 @@ CONTENTS;
      */
     public function testCanParseClassBodyWhenUsingTrait()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
-
         require_once __DIR__ .'/TestAsset/TestTraitClass1.php';
         require_once __DIR__. '/TestAsset/TestTraitClass2.php';
         // $method = new \Zend\Code\Reflection\ClassReflection('\FooClass');
