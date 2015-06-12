@@ -23,9 +23,6 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('This test requires PHP version 5.4+');
-        }
     }
 
     public function testConstruction()
