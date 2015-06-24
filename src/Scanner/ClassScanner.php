@@ -236,7 +236,7 @@ class ClassScanner implements ScannerInterface
     public function isInstantiable()
     {
         $this->scan();
-        return (!$this->isAbstract && !$this->isInterface);
+        return (!$this->isAbstract && !$this->isInterface && !$this->isTrait);
     }
 
     /**
