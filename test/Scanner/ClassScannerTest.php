@@ -274,4 +274,36 @@ class ClassScannerTest extends TestCase
 
         $class->getMethods();
     }
+
+    public function testClassIsInstantiable()
+    {
+        $file  = new FileScanner(__DIR__ . '/../TestAsset/FooBarClass.php');
+        $class = $file->getClass('ZendTest_Code_TestAsset_FooBar');
+        $this->assertFalse($class->isAbstract());
+        $this->assertTrue($class->isInstantiable());
+    }
+
+    public function testAbstractClassIsNotInstantiable()
+    {
+        $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
+        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $this->assertTrue($class->isAbstract());
+        $this->assertFalse($class->isInstantiable());
+    }
+
+    public function testInterfaceIsNotInstantiable()
+    {
+        $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
+        $class = $file->getClass('ZendTest\Code\TestAsset\FooInterface');
+        $this->assertTrue($class->isInterface());
+        $this->assertFalse($class->isInstantiable());
+    }
+
+    public function testTraitIsNotInstantiable()
+    {
+        $file  = new FileScanner(__DIR__ . '/../TestAsset/FooTrait.php');
+        $class = $file->getClass('ZendTest\Code\TestAsset\FooTrait');
+        $this->assertTrue($class->isTrait());
+        $this->assertFalse($class->isInstantiable());
+    }
 }
