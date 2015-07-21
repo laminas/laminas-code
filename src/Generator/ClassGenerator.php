@@ -510,28 +510,27 @@ class ClassGenerator extends AbstractGenerator
     /**
      * Add Constant
      *
-     * @param  string $name
-     * @param  string $value
+     * @param  string                      $name non-empty string
+     * @param  string|int|null|float|array $value scalar
+     *
      * @throws Exception\InvalidArgumentException
+     *
      * @return ClassGenerator
      */
     public function addConstant($name, $value)
     {
-        if (!is_string($name)) {
+        if (empty($name) || !is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects string for name',
                 __METHOD__
             ));
         }
 
-        if (empty($value) || !is_string($value)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects value for constant, value must be a string',
-                __METHOD__
-            ));
-        }
+        $this->validateConstantValue($value);
 
-        return $this->addConstantFromGenerator(new PropertyGenerator($name, $value, PropertyGenerator::FLAG_CONSTANT));
+        return $this->addConstantFromGenerator(
+            new PropertyGenerator($name, new PropertyValueGenerator($value), PropertyGenerator::FLAG_CONSTANT)
+        );
     }
 
     /**
@@ -983,5 +982,30 @@ class ClassGenerator extends AbstractGenerator
         $output .= self::LINE_FEED . '}' . self::LINE_FEED;
 
         return $output;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return void
+     *
+     * @throws Exception\InvalidArgumentException
+     */
+    private function validateConstantValue($value)
+    {
+        if (null === $value || is_scalar($value)) {
+            return;
+        }
+
+        if (is_array($value)) {
+            array_walk($value, [$this, 'validateConstantValue']);
+
+            return;
+        }
+
+        throw new Exception\InvalidArgumentException(sprintf(
+            'Expected value for constant, value must be a "scalar" or "null", "%s" found',
+            gettype($value)
+        ));
     }
 }
