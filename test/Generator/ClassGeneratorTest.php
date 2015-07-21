@@ -592,6 +592,15 @@ CODE;
         $this->assertEquals(null, $classGenerator->getConstant('f')->getDefaultValue()->getValue());
     }
 
+    public function testAddConstantRejectsObjectConstantValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $classGenerator->addConstant('a', new \stdClass());
+    }
+
     /**
      * @group 6274
      */
