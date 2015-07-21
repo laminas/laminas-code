@@ -12,6 +12,7 @@ namespace ZendTest\Code\Generator;
 use ReflectionMethod;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Reflection\ClassReflection;
@@ -563,16 +564,69 @@ CODE;
         $classGenerator->addConstant([], 'value1');
     }
 
-    /**
-     * @group 6274
-     */
-    public function testAddConstantThrowsExceptionWithInvalidValue()
+    public function testAddConstantThrowsExceptionWithEmptyConstantName()
     {
-        $this->setExpectedException('InvalidArgumentException');
-
         $classGenerator = new ClassGenerator();
 
-        $classGenerator->addConstant('x', null);
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $classGenerator->addConstant('', 'value');
+    }
+
+    public function testAddConstantAcceptsMixedScalars()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $classGenerator->addConstant('a', 'v');
+        $classGenerator->addConstant('b', 123);
+        $classGenerator->addConstant('c', 123.456);
+        $classGenerator->addConstant('d', []);
+        $classGenerator->addConstant('e', ['v1' => 'v2']);
+        $classGenerator->addConstant('f', ['v1' => ['v2' => 'v3']]);
+        $classGenerator->addConstant('g', null);
+
+        $this->assertEquals('v', $classGenerator->getConstant('a')->getDefaultValue()->getValue());
+        $this->assertEquals(123, $classGenerator->getConstant('b')->getDefaultValue()->getValue());
+        $this->assertEquals(123.456, $classGenerator->getConstant('c')->getDefaultValue()->getValue());
+        $this->assertEquals([], $classGenerator->getConstant('d')->getDefaultValue()->getValue());
+        $this->assertEquals(['v1' => 'v2'], $classGenerator->getConstant('e')->getDefaultValue()->getValue());
+        $this->assertEquals(['v1' => ['v2' => 'v3']], $classGenerator->getConstant('f')->getDefaultValue()->getValue());
+        $this->assertEquals(null, $classGenerator->getConstant('g')->getDefaultValue()->getValue());
+    }
+
+    public function testAddConstantRejectsObjectConstantValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $classGenerator->addConstant('a', new \stdClass());
+    }
+
+    public function testAddConstantRejectsResourceConstantValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $resource = fopen('php://memory', 'r');
+
+        try {
+            $classGenerator->addConstant('a', $resource);
+
+            $this->fail('Not supposed to be reached');
+        } catch (InvalidArgumentException $e) {
+            $this->assertEmpty($classGenerator->getConstants());
+        } finally {
+            fclose($resource);
+        }
+    }
+
+    public function testAddConstantRejectsArrayWithInvalidNestedValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $classGenerator->addConstant('a', [new \stdClass()]);
     }
 
     /**
