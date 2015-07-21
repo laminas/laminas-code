@@ -563,6 +563,15 @@ CODE;
         $classGenerator->addConstant([], 'value1');
     }
 
+    public function testAddConstantThrowsExceptionWithEmptyConstantName()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $classGenerator->addConstant('', 'value');
+    }
+
     /**
      * @group 6274
      */
