@@ -573,6 +573,25 @@ CODE;
         $classGenerator->addConstant('', 'value');
     }
 
+    public function testAddConstantAcceptsMixedScalars()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $classGenerator->addConstant('a', 'v');
+        $classGenerator->addConstant('b', 123);
+        $classGenerator->addConstant('c', 123.456);
+        $classGenerator->addConstant('d', []);
+        $classGenerator->addConstant('e', ['v1' => 'v2']);
+        $classGenerator->addConstant('f', null);
+
+        $this->assertEquals('v', $classGenerator->getConstant('a')->getDefaultValue()->getValue());
+        $this->assertEquals(123, $classGenerator->getConstant('b')->getDefaultValue()->getValue());
+        $this->assertEquals(123.456, $classGenerator->getConstant('c')->getDefaultValue()->getValue());
+        $this->assertEquals([], $classGenerator->getConstant('d')->getDefaultValue()->getValue());
+        $this->assertEquals(['v1' => 'v2'], $classGenerator->getConstant('e')->getDefaultValue()->getValue());
+        $this->assertEquals(null, $classGenerator->getConstant('f')->getDefaultValue()->getValue());
+    }
+
     /**
      * @group 6274
      */
