@@ -526,14 +526,11 @@ class ClassGenerator extends AbstractGenerator
             ));
         }
 
-        if (empty($value) || !is_string($value)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects value for constant, value must be a string',
-                __METHOD__
-            ));
-        }
+        $this->validateConstantValue($value);
 
-        return $this->addConstantFromGenerator(new PropertyGenerator($name, $value, PropertyGenerator::FLAG_CONSTANT));
+        return $this->addConstantFromGenerator(
+            new PropertyGenerator($name, new PropertyValueGenerator($value), PropertyGenerator::FLAG_CONSTANT)
+        );
     }
 
     /**
@@ -985,5 +982,30 @@ class ClassGenerator extends AbstractGenerator
         $output .= self::LINE_FEED . '}' . self::LINE_FEED;
 
         return $output;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return void
+     *
+     * @throws Exception\InvalidArgumentException
+     */
+    private function validateConstantValue($value)
+    {
+        if (null === $value || is_scalar($value)) {
+            return;
+        }
+
+        if (is_array($value)) {
+            array_walk($value, [$this, 'validateConstantValue']);
+
+            return;
+        }
+
+        throw new Exception\InvalidArgumentException(sprintf(
+            'Expected value for constant, value must be a "scalar" or "null", "%s" found',
+            gettype($value)
+        ));
     }
 }
