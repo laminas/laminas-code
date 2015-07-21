@@ -601,6 +601,23 @@ CODE;
         $classGenerator->addConstant('a', new \stdClass());
     }
 
+    public function testAddConstantRejectsResourceConstantValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $resource = fopen('php://memory', 'r');
+
+        try {
+            $classGenerator->addConstant('a', $resource);
+
+            $this->fail('Not supposed to be reached');
+        } catch (InvalidArgumentException $e) {
+            $this->assertEmpty($classGenerator->getConstants());
+        } finally {
+            fclose($resource);
+        }
+    }
+
     /**
      * @group 6274
      */
