@@ -620,6 +620,15 @@ CODE;
         }
     }
 
+    public function testAddConstantRejectsArrayWithInvalidNestedValue()
+    {
+        $classGenerator = new ClassGenerator();
+
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        $classGenerator->addConstant('a', [new \stdClass()]);
+    }
+
     /**
      * @group 6274
      */
