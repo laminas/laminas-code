@@ -12,6 +12,7 @@ namespace ZendTest\Code\Generator;
 use ReflectionMethod;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Reflection\ClassReflection;
@@ -567,21 +568,9 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $classGenerator->addConstant('', 'value');
-    }
-
-    /**
-     * @group 6274
-     */
-    public function testAddConstantThrowsExceptionWithInvalidValue()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-
-        $classGenerator = new ClassGenerator();
-
-        $classGenerator->addConstant('x', null);
     }
 
     /**
