@@ -510,14 +510,16 @@ class ClassGenerator extends AbstractGenerator
     /**
      * Add Constant
      *
-     * @param  string $name
-     * @param  string $value
+     * @param  string                      $name non-empty string
+     * @param  string|int|null|float|array $value scalar
+     *
      * @throws Exception\InvalidArgumentException
+     *
      * @return ClassGenerator
      */
     public function addConstant($name, $value)
     {
-        if (!is_string($name)) {
+        if (empty($name) || !is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects string for name',
                 __METHOD__
