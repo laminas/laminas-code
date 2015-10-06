@@ -100,4 +100,30 @@ CLASS;
             }
         }
     }
+
+    /**
+     * @group issue-8
+     */
+    public function testPropertyScannerReturnsProperValueRegardlessOfOrder()
+    {
+        $class = <<<'CLASS'
+<?php
+class Foo
+{
+    private $string = 'string';
+    private $int = 123;
+}
+CLASS;
+
+        $tokenScanner = new TokenArrayScanner(token_get_all($class));
+        $class = $tokenScanner->getClass('Foo');
+
+        $property = $class->getProperty('string');
+        $this->assertEquals('string', $property->getValue());
+        $this->assertEquals('string', $property->getValueType());
+
+        $property = $class->getProperty('int');
+        $this->assertEquals('int', $property->getValueType());
+        $this->assertEquals(123, $property->getValue());
+    }
 }
