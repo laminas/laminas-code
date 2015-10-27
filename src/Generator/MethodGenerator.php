@@ -144,9 +144,9 @@ class MethodGenerator extends AbstractMemberGenerator
                     break;
                 case 'final':
                     $method->setFinal($value);
+                    break;
                 case 'interface':
                     $method->setInterface($value);
-                    break;
                     break;
                 case 'static':
                     $method->setStatic($value);
