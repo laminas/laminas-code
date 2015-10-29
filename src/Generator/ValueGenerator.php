@@ -356,7 +356,15 @@ class ValueGenerator extends AbstractGenerator
             case self::TYPE_ARRAY:
             case self::TYPE_ARRAY_LONG:
             case self::TYPE_ARRAY_SHORT:
-                $output .= ($type == self::TYPE_ARRAY_SHORT) ? '[' : 'array(';
+                if ($type == self::TYPE_ARRAY_SHORT) {
+                    $startArray = '[';
+                    $endArray   = ']';
+                } else {
+                    $startArray = 'array(';
+                    $endArray = ')';
+                }
+
+                $output .= $startArray;
                 if ($this->outputMode == self::OUTPUT_MULTIPLE_LINE) {
                     $output .= self::LINE_FEED . str_repeat($this->indentation, $this->arrayDepth + 1);
                 }
@@ -392,7 +400,7 @@ class ValueGenerator extends AbstractGenerator
                     }
                     $output .= self::LINE_FEED . str_repeat($this->indentation, $this->arrayDepth);
                 }
-                $output .= ($type == self::TYPE_ARRAY_SHORT) ? ']' : ')';
+                $output .= $endArray;
                 break;
             case self::TYPE_OTHER:
             default:
