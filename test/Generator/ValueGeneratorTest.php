@@ -36,7 +36,7 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('foo');
-        $this->assertEquals('\'foo\'', $valueGenerator->generate());
+        $this->assertEquals("'foo'", $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueCanHandleArray()
@@ -88,7 +88,7 @@ EOS;
             5,
             'one' => 1,
             'two' => '2',
-            'constant1' => '__DIR__ . \'/anydir1/anydir2\'',
+            'constant1' => "__DIR__ . '/anydir1/anydir2'",
             [
                 'baz' => true,
                 'foo',
@@ -135,7 +135,7 @@ EOS;
             5,
             'one' => 1,
             'two' => '2',
-            'constant1' => '__DIR__ . \'/anydir1/anydir2\'',
+            'constant1' => "__DIR__ . '/anydir1/anydir2'",
             [
                 'baz' => true,
                 'foo',
