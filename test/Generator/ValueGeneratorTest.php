@@ -20,9 +20,6 @@ use Zend\Code\Generator\ValueGenerator;
 class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @param $longOutput
-     * @param $value
-     *
      * @return array
      */
     protected function generateArrayData($longOutput, $value)
@@ -144,10 +141,6 @@ EOS;
 
     /**
      * @dataProvider unsortedKeysArrayProvider
-     *
-     * @param string $type
-     * @param array $value
-     * @param string $expected
      */
     public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys($type, $value, $expected)
     {
@@ -180,10 +173,6 @@ EOS;
 
     /**
      * @dataProvider simpleArrayProvider
-     *
-     * @param string $type
-     * @param array $value
-     * @param string $expected
      */
     public function testPropertyDefaultValueCanHandleArray($type, $value, $expected)
     {
@@ -212,10 +201,6 @@ EOS;
 
     /**
      * @dataProvider complexArrayProvider
-     *
-     * @param string $type
-     * @param array $value
-     * @param string $expected
      */
     public function testPropertyDefaultValueCanHandleComplexArrayOfTypes($type, $value, $expected)
     {
