@@ -52,6 +52,20 @@ EOS;
         $this->assertEquals($expectedSource, $valueGenerator->generate());
     }
 
+    public function testPropertyDefaultValueCanHandleShortArray()
+    {
+        $expectedSource = <<<EOS
+[
+    'foo',
+]
+EOS;
+
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue(['foo']);
+        $valueGenerator->setType(ValueGenerator::TYPE_ARRAY_SHORT);
+        $this->assertEquals($expectedSource, $valueGenerator->generate());
+    }
+
     public function testPropertyDefaultValueCanHandleUnquotedString()
     {
         $valueGenerator = new ValueGenerator();
@@ -115,6 +129,54 @@ EOS;
         $this->assertEquals($expectedSource, $generatedTargetSource);
     }
 
+    public function testPropertyDefaultValueCanHandleComplexShortArrayOfTypes()
+    {
+        $targetValue = [
+            5,
+            'one' => 1,
+            'two' => '2',
+            'constant1' => '__DIR__ . \'/anydir1/anydir2\'',
+            [
+                'baz' => true,
+                'foo',
+                'bar',
+                [
+                    'baz1',
+                    'baz2',
+                    'constant2' => 'ArrayObject::STD_PROP_LIST',
+                ]
+            ],
+            new ValueGenerator('PHP_EOL', 'constant')
+        ];
+
+        $expectedSource = <<<EOS
+[
+    5,
+    'one' => 1,
+    'two' => '2',
+    'constant1' => __DIR__ . '/anydir1/anydir2',
+    [
+        'baz' => true,
+        'foo',
+        'bar',
+        [
+            'baz1',
+            'baz2',
+            'constant2' => ArrayObject::STD_PROP_LIST,
+        ],
+    ],
+    PHP_EOL,
+]
+EOS;
+
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->initEnvironmentConstants();
+        $valueGenerator->setValue($targetValue);
+        $valueGenerator->setType(ValueGenerator::TYPE_ARRAY_SHORT);
+        $generatedTargetSource = $valueGenerator->generate();
+        $this->assertEquals($expectedSource, $generatedTargetSource);
+    }
+
     public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys()
     {
         $value = [
@@ -135,6 +197,32 @@ array(
     7 => 'd',
     3 => 'e',
 )
+EOS;
+
+        $this->assertEquals($expectedSource, $valueGenerator->generate());
+    }
+
+    public function testPropertyDefaultValueCanHandleShortArrayWithUnsortedKeys()
+    {
+        $value = [
+            1 => 'a',
+            0 => 'b',
+            'c',
+            7 => 'd',
+            3 => 'e'
+        ];
+
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue($value);
+        $valueGenerator->setType(ValueGenerator::TYPE_ARRAY_SHORT);
+        $expectedSource = <<<EOS
+[
+    1 => 'a',
+    0 => 'b',
+    'c',
+    7 => 'd',
+    3 => 'e',
+]
 EOS;
 
         $this->assertEquals($expectedSource, $valueGenerator->generate());
