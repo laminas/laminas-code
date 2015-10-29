@@ -316,14 +316,16 @@ class ValueGenerator extends AbstractGenerator
             $type = $this->getAutoDeterminedType($value);
         }
 
-        if (in_array($type, array(self::TYPE_ARRAY, self::TYPE_ARRAY_LONG, self::TYPE_ARRAY_SHORT))) {
+        $isArrayType = in_array($type, [self::TYPE_ARRAY, self::TYPE_ARRAY_LONG, self::TYPE_ARRAY_SHORT]);
+
+        if ($isArrayType) {
             foreach ($value as &$curValue) {
                 if ($curValue instanceof self) {
                     continue;
                 }
 
-                if (is_array($curValue) && $type == self::TYPE_ARRAY_SHORT) {
-                    $newType = self::TYPE_ARRAY_SHORT;
+                if (is_array($curValue)) {
+                    $newType = $type;
                 } else {
                     $newType = self::TYPE_AUTO;
                 }
