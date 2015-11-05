@@ -261,7 +261,7 @@ $file = FileGenerator::fromArray(array(
 Calling `generate()` will generate the code -- but not write it to a file. You will need to capture
 the contents and write them to a file yourself. As an example:
 
-``` sourceCode
+```php
 $code = $file->generate();
 file_put_contents('Foo.php', $code);
 ```
