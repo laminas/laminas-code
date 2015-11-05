@@ -4,7 +4,7 @@
 
 The following example generates an empty class with a class-level DocBlock.
 
-``` sourceCode
+```php
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 
@@ -30,7 +30,7 @@ echo $foo->generate();
 
 The above code will result in the following:
 
-``` sourceCode
+```php
 /**
  * Sample generated class
  *
@@ -50,7 +50,7 @@ class Foo
 
 Building on the previous example, we now add properties to our generated class.
 
-``` sourceCode
+```php
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\PropertyGenerator;
@@ -84,7 +84,7 @@ echo $foo->generate();
 
 The above results in the following class definition:
 
-``` sourceCode
+```php
 /**
  * Sample generated class
  *
@@ -112,7 +112,7 @@ class Foo
 classes. Methods may be attached as either arrays or concrete `Zend\Code\Generator\MethodGenerator`
 instances.
 
-``` sourceCode
+```php
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\DocBlock\Tag;
@@ -186,7 +186,7 @@ echo $foo->generate();
 
 The above generates the following output:
 
-``` sourceCode
+```php
 /**
  * Sample generated class
  *
@@ -238,7 +238,7 @@ concrete `Zend\Code\Generator\ClassGenerator` instances or an array defining the
 In the example below, we will assume you've defined `$foo` per one of the class definitions in a
 previous example.
 
-``` sourceCode
+```php
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\FileGenerator;
 
@@ -268,7 +268,7 @@ file_put_contents('Foo.php', $code);
 
 The above will generate the following file:
 
-``` sourceCode
+```php
 <?php
 /**
  * Foo class file
@@ -327,7 +327,7 @@ define('APPLICATION_ENV', 'testing');
 You can add *PHP* code to an existing *PHP* file using the code generator. To do so, you need to
 first do reflection on it. The static method `fromReflectedFileName()` allows you to do this.
 
-``` sourceCode
+```php
 $generator = Zend\Code\Generator\FileGenerator::fromReflectedFileName($path);   
 $generator->setBody("\$foo->bar();");
 file_put_contents($path, $generator->generate());
@@ -339,7 +339,7 @@ You may add code to an existing class. To do so, first use the static `fromRefle
 map the class into a generator object. From there, you may add additional properties or methods, and
 then regenerate the class.
 
-``` sourceCode
+```php
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\DocBlock\Tag;
