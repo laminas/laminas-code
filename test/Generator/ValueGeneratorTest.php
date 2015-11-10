@@ -25,8 +25,8 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function generateArrayData($longOutput, $value)
     {
         $shortOutput = str_replace(
-            array('array(', ')'),
-            array('[', ']'),
+            ['array(', ')'],
+            ['[', ']'],
             $longOutput
         );
 
