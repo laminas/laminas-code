@@ -45,6 +45,7 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
     /**
      * Data provider for testPropertyDefaultValueCanHandleArray test
      *
@@ -235,5 +236,4 @@ EOS;
             ["\\'", "\\\\\\'"],
         ];
     }
-
 }
