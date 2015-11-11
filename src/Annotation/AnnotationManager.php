@@ -98,9 +98,9 @@ class AnnotationManager implements EventManagerAwareInterface
         ]);
 
         $eventManager = $this->getEventManager();
-        $results = $eventManager->trigger($event, function ($r) {
+        $results = $eventManager->triggerEventUntil(function ($r) {
             return (is_object($r));
-        });
+        }, $event);
 
         $annotation = $results->last();
 
