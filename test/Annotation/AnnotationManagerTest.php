@@ -28,7 +28,6 @@ class AnnotationManagerTest extends TestCase
     {
         $genericParser = new Annotation\Parser\GenericAnnotationParser();
         $genericParser->registerAnnotation(__NAMESPACE__ . '\TestAsset\Foo');
-
         $doctrineParser = new Annotation\Parser\DoctrineAnnotationParser();
         $doctrineParser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation');
 
