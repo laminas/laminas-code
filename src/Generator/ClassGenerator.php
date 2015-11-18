@@ -14,6 +14,7 @@ use Zend\Code\Reflection\ClassReflection;
 class ClassGenerator extends AbstractGenerator
 {
     const OBJECT_TYPE = "class";
+    const IMPLEMENTS_KEYWORD = "implements";
 
     const FLAG_ABSTRACT = 0x01;
     const FLAG_FINAL    = 0x02;
@@ -955,7 +956,7 @@ class ClassGenerator extends AbstractGenerator
         $implemented = $this->getImplementedInterfaces();
 
         if (!empty($implemented)) {
-            $output .= ' implements ' . implode(', ', $implemented);
+            $output .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }
 
         $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
