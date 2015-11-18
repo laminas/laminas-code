@@ -59,56 +59,63 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testPropertyDefaultValueIsSettable()
+    /**
+     * @return array
+     */
+    protected function generateArrayData($longOutput, $value)
     {
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue('foo');
-        $this->assertEquals('foo', $valueGenerator->getValue());
+        $shortOutput = str_replace(
+            ['array(', ')'],
+            ['[', ']'],
+            $longOutput
+        );
+
+        return [
+            'auto'        => [
+                ValueGenerator::TYPE_AUTO, $value, $longOutput
+            ],
+            'array'       => [
+                ValueGenerator::TYPE_ARRAY, $value, $longOutput
+            ],
+            'array long'  => [
+                ValueGenerator::TYPE_ARRAY_LONG, $value, $longOutput
+            ],
+            'array short' => [
+                ValueGenerator::TYPE_ARRAY_SHORT, $value, $shortOutput
+            ],
+        ];
     }
 
-    public function testPropertyDefaultValueCanHandleStrings()
+    /**
+     * Data provider for testPropertyDefaultValueCanHandleArray test
+     *
+     * @return array
+     */
+    public function simpleArrayProvider()
     {
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue('foo');
-        $this->assertEquals('\'foo\'', $valueGenerator->generate());
-    }
+        $value = ['foo'];
 
-    public function testPropertyDefaultValueCanHandleArray()
-    {
-        $expectedSource = <<<EOS
+        $longOutput = <<<EOS
 array(
     'foo',
 )
 EOS;
 
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue(['foo']);
-        $this->assertEquals($expectedSource, $valueGenerator->generate());
+        return $this->generateArrayData($longOutput, $value);
     }
 
-    public function testPropertyDefaultValueCanHandleUnquotedString()
+    /**
+     * Data provider for testPropertyDefaultValueCanHandleComplexArrayOfTypes test
+     *
+     * @return array
+     */
+    public function complexArrayProvider()
     {
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue('PHP_EOL');
-        $valueGenerator->setType('constant');
-        $this->assertEquals('PHP_EOL', $valueGenerator->generate());
-
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue(5);
-        $this->assertEquals('5', $valueGenerator->generate());
-
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue(5.25);
-        $this->assertEquals('5.25', $valueGenerator->generate());
-    }
-
-    public function testPropertyDefaultValueCanHandleComplexArrayOfTypes()
-    {
-        $targetValue = [
+        $value = [
             5,
             'one' => 1,
             'two' => '2',
-            'constant1' => '__DIR__ . \'/anydir1/anydir2\'',
+            'constant1' => "__DIR__ . '/anydir1/anydir2'",
             [
                 'baz' => true,
                 'foo',
@@ -122,7 +129,7 @@ EOS;
             new ValueGenerator('PHP_EOL', 'constant')
         ];
 
-        $expectedSource = <<<EOS
+        $longOutput = <<<EOS
 array(
     5,
     'one' => 1,
@@ -142,14 +149,15 @@ array(
 )
 EOS;
 
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->initEnvironmentConstants();
-        $valueGenerator->setValue($targetValue);
-        $generatedTargetSource = $valueGenerator->generate();
-        $this->assertEquals($expectedSource, $generatedTargetSource);
+        return $this->generateArrayData($longOutput, $value);
     }
 
-    public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys()
+    /**
+     * Data provider for testPropertyDefaultValueCanHandleArrayWithUnsortedKeys test
+     *
+     * @return array
+     */
+    public function unsortedKeysArrayProvider()
     {
         $value = [
             1 => 'a',
@@ -159,9 +167,7 @@ EOS;
             3 => 'e'
         ];
 
-        $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue($value);
-        $expectedSource = <<<EOS
+        $longOutput = <<<EOS
 array(
     1 => 'a',
     0 => 'b',
@@ -171,7 +177,80 @@ array(
 )
 EOS;
 
-        $this->assertEquals($expectedSource, $valueGenerator->generate());
+        return $this->generateArrayData($longOutput, $value);
+    }
+
+    /**
+     * @dataProvider unsortedKeysArrayProvider
+     */
+    public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys($type, $value, $expected)
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setType($type);
+        $valueGenerator->setValue($value);
+
+        $this->assertEquals($expected, $valueGenerator->generate());
+    }
+
+    public function testPropertyDefaultValueConstructor()
+    {
+        $valueGenerator = new ValueGenerator();
+        $this->isInstanceOf($valueGenerator, 'Zend\Code\Generator\ValueGenerator');
+    }
+
+    public function testPropertyDefaultValueIsSettable()
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue('foo');
+        $this->assertEquals('foo', $valueGenerator->getValue());
+    }
+
+    public function testPropertyDefaultValueCanHandleStrings()
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue('foo');
+        $this->assertEquals("'foo'", $valueGenerator->generate());
+    }
+
+    /**
+     * @dataProvider simpleArrayProvider
+     */
+    public function testPropertyDefaultValueCanHandleArray($type, $value, $expected)
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setType($type);
+        $valueGenerator->setValue($value);
+
+        $this->assertEquals($expected, $valueGenerator->generate());
+    }
+
+    public function testPropertyDefaultValueCanHandleUnquotedString()
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue('PHP_EOL');
+        $valueGenerator->setType('constant');
+        $this->assertEquals('PHP_EOL', $valueGenerator->generate());
+
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue(5);
+        $this->assertEquals('5', $valueGenerator->generate());
+
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setValue(5.25);
+        $this->assertEquals('5.25', $valueGenerator->generate());
+    }
+
+    /**
+     * @dataProvider complexArrayProvider
+     */
+    public function testPropertyDefaultValueCanHandleComplexArrayOfTypes($type, $value, $expected)
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->initEnvironmentConstants();
+        $valueGenerator->setType($type);
+        $valueGenerator->setValue($value);
+
+        $this->assertEquals($expected, $valueGenerator->generate());
     }
 
     /**
