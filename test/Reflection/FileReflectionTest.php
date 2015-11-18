@@ -18,14 +18,6 @@ use Zend\Code\Reflection\FileReflection;
  */
 class FileReflectionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFileConstructor()
-    {
-        $filePath = __DIR__ . '/../../vendor/zendframework/zend-version/src/Version.php';
-        require_once $filePath;
-        $reflectionFile = new FileReflection($filePath);
-        $this->assertEquals(get_class($reflectionFile), 'Zend\Code\Reflection\FileReflection');
-    }
-
     public function testFileConstructorThrowsExceptionOnNonExistentFile()
     {
         $nonExistentFile = 'Non/Existent/File.php';
@@ -108,19 +100,15 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull(FileReflection::export());
 
-        $filePath = __DIR__ . '/../../vendor/zendframework/zend-version/src/Version.php';
-        require_once $filePath;
-        $reflectionFile = new FileReflection($filePath);
+        $reflectionFile = new FileReflection(__FILE__);
         $this->assertEquals('', $reflectionFile->__toString());
     }
 
     public function testFileGetFilenameReturnsCorrectFilename()
     {
-        $filePath = __DIR__ . '/../../vendor/zendframework/zend-version/src/Version.php';
-        require_once $filePath;
-        $reflectionFile = new FileReflection($filePath);
+        $reflectionFile = new FileReflection(__FILE__);
 
-        $this->assertEquals('Version.php', $reflectionFile->getFileName());
+        $this->assertEquals('FileReflectionTest.php', $reflectionFile->getFileName());
     }
 
     public function testFileGetLineNumbersWorks()
