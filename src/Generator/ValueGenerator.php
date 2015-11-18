@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Generator;
 
-use ArrayAccess;
 use ArrayObject as SplArrayObject;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Stdlib\ArrayObject as StdlibArrayObject;
@@ -74,7 +73,7 @@ class ValueGenerator extends AbstractGenerator
      * @param string      $outputMode
      * @param null|SplArrayObject|StdlibArrayObject $constants
      */
-    public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE, ArrayAccess $constants = null)
+    public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE, $constants = null)
     {
         // strict check is important here if $type = AUTO
         if ($value !== null) {
