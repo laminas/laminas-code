@@ -7,7 +7,7 @@
 The base interface from which all CodeGenerator classes implement provides the minimal functionality
 necessary. It's *API* is as follows:
 
-``` sourceCode
+```php
 interface Zend\Code\Generator\GeneratorInterface
 {
     public function generate();
@@ -20,7 +20,7 @@ interface Zend\Code\Generator\GeneratorInterface
 adds some properties for tracking whether content has changed as well as the amount of indentation
 that should appear before generated content. Its *API* is as follows:
 
-``` sourceCode
+```php
 abstract class Zend\Code\Generator\AbstractGenerator
     implements Zend\Code\Generator\GeneratorInterface
 {
@@ -50,7 +50,7 @@ properties and methods -- and provides accessors and mutators for establishing v
 or not the member is abstract, static, or final; and the name of the member. Its *API* is as
 follows:
 
-``` sourceCode
+```php
 abstract class Zend\Code\Generator\AbstractMemberGenerator
     extends Zend\Code\Generator\AbstractGenerator
 {
@@ -75,7 +75,7 @@ you invoke `generate()`.
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\BodyGenerator extends Zend\Code\Generator\AbstractGenerator
 {
     public function setContent($content)
@@ -94,7 +94,7 @@ methods.
 
 The *API* is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\ClassGenerator extends Zend\Code\Generator\AbstractGenerator
 {
     public static function fromReflection(
@@ -147,7 +147,7 @@ or an instance of that class.
 
 The *API* is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\DocBlockGenerator extends Zend\Code\Generator\AbstractGenerator
 {
     public static function fromReflection(
@@ -172,7 +172,7 @@ symbol) and a description (everything following the tag name).
 
 The class *API* is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\DocBlock\Tag
     extends Zend\Code\Generator\AbstractGenerator
 {
@@ -196,7 +196,7 @@ order to generate it: the parameter name and data type it represents.
 
 The class *API* is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\DocBlock\Tag\ParamTag
     extends Zend\Code\Generator\DocBlock\Tag
 {
@@ -219,7 +219,7 @@ tag variant for representing a method return value. In this case, the annotation
 
 The class *API* is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\DocBlock\Tag\ParamTag
     extends Zend\Code\Generator\DocBlock\Tag
 {
@@ -245,7 +245,7 @@ constructor to consume or an instance of the class.
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\FileGenerator extends Zend\Code\Generator\AbstractGenerator
 {
     public static function fromReflectedFilePath(
@@ -278,7 +278,7 @@ These are indexed by name, using the concrete instances of the members as values
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\Member\ContainerGenerator extends ArrayObject
 {
     public function __construct($type = self::TYPE_PROPERTY)
@@ -298,7 +298,7 @@ constructor or an instance of that class.
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\MethodGenerator
     extends Zend\Code\Generator\AbstractMemberGenerator
 {
@@ -325,7 +325,7 @@ used), a default value, and a data type; a parameter name is required.
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\ParameterGenerator extends Zend\Code\Generator\AbstractGenerator
 {
     public static function fromReflection(
@@ -349,7 +349,7 @@ There are several problems that might occur when trying to set `NULL`, booleans 
 values. For this the value holder object `Zend\Code\Generator\ParameterDefaultValueGenerator` can be
 used, for example:
 
-``` sourceCode
+```php
 $parameter = new Zend\Code\Generator\ParameterGenerator();
 $parameter->setDefaultValue(
     new Zend\Code\Generator\ValueGenerator("null")
@@ -371,7 +371,7 @@ Additionally, the visibility of variable properties may be set, per the parent c
 
 The *API* of the class is as follows:
 
-``` sourceCode
+```php
 class Zend\Code\Generator\PropertyGenerator
     extends Zend\Code\Generator\AbstractMemberGenerator
 {
