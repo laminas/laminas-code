@@ -11,7 +11,7 @@ In the most typical use case, you will simply instantiate a code generator class
 the appropriate configuration or configure it after instantiation. To generate the code, you will
 simply echo the object or call its `generate()` method.
 
-``` sourceCode
+```php
 // Passing configuration to the constructor:
 $file = new Zend\Code\Generator\FileGenerator(array(
     'classes' => array(
@@ -63,7 +63,7 @@ file_put_contents('World.php', $file->generate());
 
 Both of the above samples will render the same result:
 
-``` sourceCode
+```php
 <?php
 
 class World
@@ -85,7 +85,7 @@ method. `Zend\Code\Generator` makes this trivially simple, by leveraging
 As an example, let's say we've saved the above to the file `World.php`, and have already included
 it. We could then do the following:
 
-``` sourceCode
+```php
 $class = Zend\Code\Generator\ClassGenerator::fromReflection(
     new Zend\Code\Reflection\ClassReflection('World')
 );
@@ -107,7 +107,7 @@ file_put_contents('World.php', $file->generate());
 
 The resulting class file will now look like this:
 
-``` sourceCode
+```php
 <?php
 
 class World
