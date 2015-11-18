@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file, in reverse 
   `ValueGenerator::TYPE_ARRAY_SHORT` instead of using `TYPE_ARRAY`.
   Additionally, you can use `TYPE_ARRAY_LONG` instead of `TYPE_ARRAY`; the two
   constants are synonyms.
+- [#11](https://github.com/zendframework/zend-code/pull/11) adds the ability to
+  generate interfaces via the new class `Zend\Code\Generator\InterfaceGenerator`.
 
 ### Deprecated
 
