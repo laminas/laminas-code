@@ -6,7 +6,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#12](https://github.com/zendframework/zend-code/pull/12) adds the ability to
+  generate arrays using either long/standard syntax (`array(...)`) or short
+  syntax (`[...]`). This can be accomplished by setting the value type to
+  `ValueGenerator::TYPE_ARRAY_SHORT` instead of using `TYPE_ARRAY`.
+  Additionally, you can use `TYPE_ARRAY_LONG` instead of `TYPE_ARRAY`; the two
+  constants are synonyms.
 
 ### Deprecated
 
