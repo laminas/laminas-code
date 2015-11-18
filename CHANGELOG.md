@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file, in reverse 
   the zend-eventmanager dependency to `^2.6|^3.0`, and changes its
   internal usage to use the `triggerEventUntil()` signature.
 
-## 2.5.3 - TBD
+## 2.5.3 - 2015-11-18
 
 ### Added
 
