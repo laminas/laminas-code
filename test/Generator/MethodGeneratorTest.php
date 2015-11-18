@@ -244,4 +244,29 @@ EOS;
         $this->assertTrue($methodGenerator->isStatic());
         $this->assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
     }
+
+    public function testCreateInterfaceMethodFromArray()
+    {
+        $methodGenerator = MethodGenerator::fromArray([
+            'name'       => 'execute',
+            'interface'  => true,
+            'docblock'   => [
+                'shortdescription' => 'Short Description',
+            ]
+        ]);
+
+        $expected = <<<CODE
+    /**
+     * Short Description
+     */
+    public function execute(Runnable \$command);
+CODE;
+
+        $methodGenerator->setParameter(['name' => 'command', 'type' => 'Runnable']);
+
+        $this->assertTrue($methodGenerator->isInterface());
+        $this->assertEquals('execute', $methodGenerator->getName());
+        $this->assertEquals($expected, $methodGenerator->generate());
+        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
+    }
 }
