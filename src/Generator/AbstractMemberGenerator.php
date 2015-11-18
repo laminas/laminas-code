@@ -17,6 +17,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     const FLAG_ABSTRACT  = 0x01;
     const FLAG_FINAL     = 0x02;
     const FLAG_STATIC    = 0x04;
+    const FLAG_INTERFACE = 0x08;
     const FLAG_PUBLIC    = 0x10;
     const FLAG_PROTECTED = 0x20;
     const FLAG_PRIVATE   = 0x40;
@@ -99,6 +100,23 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     public function isAbstract()
     {
         return (bool) ($this->flags & self::FLAG_ABSTRACT);
+    }
+
+    /**
+     * @param  bool $isInterface
+     * @return AbstractMemberGenerator
+     */
+    public function setInterface($isInterface)
+    {
+        return (($isInterface) ? $this->addFlag(self::FLAG_INTERFACE) : $this->removeFlag(self::FLAG_INTERFACE));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInterface()
+    {
+        return (bool) ($this->flags & self::FLAG_INTERFACE);
     }
 
     /**
