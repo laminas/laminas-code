@@ -9,7 +9,9 @@
 
 namespace Zend\Code\Generator;
 
-use Zend\Stdlib\ArrayObject;
+use ArrayObject as SplArrayObject;
+use Zend\Code\Exception\InvalidArgumentException;
+use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 
 class ValueGenerator extends AbstractGenerator
 {
@@ -61,17 +63,17 @@ class ValueGenerator extends AbstractGenerator
     protected $allowedTypes = null;
     /**
      * Autodetectable constants
-     * @var ArrayObject
+     * @var SplArrayObject|StdlibArrayObject
      */
-    protected $constants = null;
+    protected $constants;
 
     /**
      * @param mixed       $value
      * @param string      $type
      * @param string      $outputMode
-     * @param ArrayObject $constants
+     * @param null|SplArrayObject|StdlibArrayObject $constants
      */
-    public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE, ArrayObject $constants = null)
+    public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE, $constants = null)
     {
         // strict check is important here if $type = AUTO
         if ($value !== null) {
@@ -83,11 +85,14 @@ class ValueGenerator extends AbstractGenerator
         if ($outputMode !== self::OUTPUT_MULTIPLE_LINE) {
             $this->setOutputMode($outputMode);
         }
-        if ($constants !== null) {
-            $this->constants = $constants;
-        } else {
-            $this->constants = new ArrayObject();
+        if ($constants === null) {
+            $constants = new SplArrayObject();
+        } elseif (!(($constants instanceof SplArrayObject) || ($constants instanceof StdlibArrayObject))) {
+            throw new InvalidArgumentException(
+                '$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject'
+            );
         }
+        $this->constants = $constants;
     }
 
     /**
@@ -143,7 +148,7 @@ class ValueGenerator extends AbstractGenerator
     /**
      * Return constant list
      *
-     * @return ArrayObject
+     * @return SplArrayObject|StdlibArrayObject
      */
     public function getConstants()
     {

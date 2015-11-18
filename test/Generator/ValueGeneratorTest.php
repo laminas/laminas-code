@@ -9,6 +9,10 @@
 
 namespace ZendTest\Code\Generator;
 
+use ArrayAccess;
+use ArrayObject as SplArrayObject;
+use Zend\Code\Exception\InvalidArgumentException;
+use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 use Zend\Code\Generator\ValueGenerator;
 
 /**
@@ -19,10 +23,40 @@ use Zend\Code\Generator\ValueGenerator;
  */
 class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPropertyDefaultValueConstructor()
+    public function testDefaultInstance()
     {
         $valueGenerator = new ValueGenerator();
-        $this->isInstanceOf($valueGenerator, 'Zend\Code\Generator\ValueGenerator');
+
+        $this->assertInstanceOf(SplArrayObject::class, $valueGenerator->getConstants());
+    }
+
+    public function testInvalidConstantsType()
+    {
+        $this->setExpectedException(
+            InvalidArgumentException::class,
+            '$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject'
+        );
+
+        $constants = $this->getMock(ArrayAccess::class);
+        new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
+    }
+
+    /**
+     * @dataProvider constantsTypeProvider
+     */
+    public function testAllowedPossibleConstantsType($constants)
+    {
+        $valueGenerator = new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
+
+        $this->assertSame($constants, $valueGenerator->getConstants());
+    }
+
+    public function constantsTypeProvider()
+    {
+        return [
+            SplArrayObject::class => [new SplArrayObject()],
+            StdlibArrayObject::class => [new StdlibArrayObject()],
+        ];
     }
 
     public function testPropertyDefaultValueIsSettable()
