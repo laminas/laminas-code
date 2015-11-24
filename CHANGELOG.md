@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.1 - TBD
+## 2.6.1 - 2015-11-24
 
 ### Added
 
@@ -36,7 +36,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#25](https://github.com/zendframework/zend-code/pull/25) changes the
+  `doctrine/common` suggestion/dev-dependency to the more specific
+  `doctrine/annotations` package (which is what is actually consumed).
 
 ## 2.6.0 - 2015-11-18
 
