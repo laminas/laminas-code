@@ -679,6 +679,18 @@ class ClassGenerator extends AbstractGenerator
 
     /**
      * @param  string $propertyName
+     * @return ClassGenerator
+     */
+    public function removeProperty($propertyName)
+    {
+        if ($this->hasProperty($propertyName)) {
+            unset($this->properties[$propertyName]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param  string $propertyName
      * @return bool
      */
     public function hasProperty($propertyName)
