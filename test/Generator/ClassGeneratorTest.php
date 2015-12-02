@@ -193,6 +193,16 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($classGenerator->hasProperty('propertyOne'));
     }
 
+    public function testRemoveProperty()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addProperty('propertyOne');
+        $this->assertTrue($classGenerator->hasProperty('propertyOne'));
+
+        $classGenerator->removeProperty('propertyOne');
+        $this->assertFalse($classGenerator->hasProperty('propertyOne'));
+    }
+
     public function testToString()
     {
         $classGenerator = ClassGenerator::fromArray([
