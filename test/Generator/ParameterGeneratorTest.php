@@ -411,6 +411,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             $parameterName
         ));
 
+        self::assertTrue($parameter->getVariadic());
         self::assertSame($expectedGeneratedSignature, $parameter->generate());
     }
 
@@ -427,6 +428,18 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
                 'typeHintedVariadicParameter',
                 'bar',
                 VariadicParametersClass::class . ' ... $foo'
+            ],
+            [
+                VariadicParametersClass::class,
+                'byRefVariadic',
+                'bar',
+                '& ... $foo'
+            ],
+            [
+                VariadicParametersClass::class,
+                'byRefTypeHintedVariadic',
+                'bar',
+                VariadicParametersClass::class . ' & ... $foo'
             ],
         ];
     }
