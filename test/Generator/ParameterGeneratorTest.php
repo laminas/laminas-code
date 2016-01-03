@@ -12,6 +12,7 @@ namespace ZendTest\Code\Generator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ParameterReflection;
+use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
  * @group Zend_Code_Generator
@@ -325,6 +326,41 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             ['resource'],
             ['Resource'],
             ['RESOURCE'],
+        ];
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider internalReflectionHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedType
+     */
+    public function testTypeHintFromReflection($className, $methodName, $parameterName, $expectedType)
+    {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        ));
+
+        self::assertSame($expectedType, $parameter->getType());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function internalReflectionHintsProvider()
+    {
+        return [
+            [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
+            [InternalHintsClass::class, 'callableParameter', 'foo', 'callable'],
+            [InternalHintsClass::class, 'intParameter', 'foo', 'int'],
+            [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
+            [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
+            [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
         ];
     }
 }
