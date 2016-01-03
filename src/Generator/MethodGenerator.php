@@ -29,6 +29,11 @@ class MethodGenerator extends AbstractMemberGenerator
     protected $body = null;
 
     /**
+     * @var null|ReturnTypeGenerator
+     */
+    private $returnType;
+
+    /**
      * @param  MethodReflection $reflectionMethod
      * @return MethodGenerator
      */
@@ -259,6 +264,24 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
+     * @param string|null
+     *
+     * @return MethodGenerator
+     */
+    public function setReturnType(string $returnType = null)
+    {
+        if (null === $returnType) {
+            $this->returnType = null;
+
+            return $this;
+        }
+
+        $this->returnType = ReturnTypeGenerator::fromReturnTypeString($returnType);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function generate()
@@ -294,6 +317,10 @@ class MethodGenerator extends AbstractMemberGenerator
         }
 
         $output .= ')';
+
+        if ($this->returnType) {
+            $output .= ' : ' . $this->returnType->generate();
+        }
 
         if ($this->isAbstract()) {
             return $output . ';';
