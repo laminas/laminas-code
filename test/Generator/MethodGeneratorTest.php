@@ -269,4 +269,36 @@ CODE;
         $this->assertEquals($expected, $methodGenerator->generate());
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
     }
+
+    public function testSetReturnType()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setName('foo');
+        $methodGenerator->setReturnType('bar');
+
+        $expected = <<<'PHP'
+    public function foo() : \bar
+    {
+    }
+
+PHP;
+        self::assertSame($expected, $methodGenerator->generate());
+    }
+
+    public function testSetReturnTypeWithNull()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setName('foo');
+        $methodGenerator->setReturnType(null);
+
+        $expected = <<<'PHP'
+    public function foo()
+    {
+    }
+
+PHP;
+        self::assertSame($expected, $methodGenerator->generate());
+    }
 }
