@@ -75,10 +75,10 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
      */
     public function detectType()
     {
-        if ($this->isArray()) {
-            return 'array';
-        } elseif (method_exists($this, 'isCallable') && $this->isCallable()) {
-            return 'callable';
+        $type = $this->getType();
+
+        if ($type && $type->isBuiltin()) {
+            return (string) $type;
         }
 
         if (($class = $this->getClass()) instanceof \ReflectionClass) {
