@@ -95,7 +95,7 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function invalidReturnTypeProvider() : array
+    public function invalidReturnTypeProvider()
     {
         return [
             [''],
