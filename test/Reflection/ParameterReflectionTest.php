@@ -149,6 +149,25 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
         self::assertNull($reflection->getType());
     }
 
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider docBlockHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedType
+     */
+    public function testDetectTypeWithDocBlockOnlyTypes($className, $methodName, $parameterName, $expectedType)
+    {
+        $reflection = new Reflection\ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        );
+
+        self::assertSame($expectedType, $reflection->detectType());
+    }
 
     /**
      * @return string[][]
@@ -156,15 +175,15 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     public function docBlockHintsProvider()
     {
         return [
-            [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'floatParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'stringParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'boolParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', null],
-            [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', 'array'],
+            [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', 'callable'],
+            [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', 'int'],
+            [DocBlockOnlyHintsClass::class, 'floatParameter', 'foo', 'float'],
+            [DocBlockOnlyHintsClass::class, 'stringParameter', 'foo', 'string'],
+            [DocBlockOnlyHintsClass::class, 'boolParameter', 'foo', 'bool'],
+            [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', 'self'],
+            [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', 'DocBlockOnlyHintsClass'],
+            [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', 'InternalHintsClass'],
         ];
     }
 }
