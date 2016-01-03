@@ -103,6 +103,11 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             $parameterName
         );
 
+        // following is just due to an incompatibility between this test method and `testGetType`
+        if ('self' === $expectedType) {
+            $expectedType = $className;
+        }
+
         self::assertSame($expectedType, $reflection->detectType());
     }
 
