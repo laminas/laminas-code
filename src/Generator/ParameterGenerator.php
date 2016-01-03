@@ -41,11 +41,6 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * @var string[]
      */
-    protected static $simple = ['int', 'bool', 'string', 'float', 'resource', 'mixed', 'object'];
-
-    /**
-     * @var string[]
-     */
     private static $internalHintedTypes = ['int', 'bool', 'string', 'float', 'callable', 'array'];
 
     /**
@@ -312,10 +307,6 @@ class ParameterGenerator extends AbstractGenerator
 
         if ($this->isInternalHintedType($type)) {
             return strtolower($type) . ' ';
-        }
-
-        if (in_array($this->type, static::$simple)) {
-            return '';
         }
 
         return $this->type . ' ';
