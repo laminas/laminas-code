@@ -41,13 +41,13 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     public function testTypeReturn($param, $type)
     {
         $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'], $param);
-        $this->assertEquals($type, $parameter->getType());
+        $this->assertEquals($type, $parameter->detectType());
     }
 
     public function testCallableTypeHint()
     {
         $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'], 'bar');
-        $this->assertEquals('callable', $parameter->getType());
+        $this->assertEquals('callable', $parameter->detectType());
     }
 
     public function paramTypeTestProvider()

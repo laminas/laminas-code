@@ -71,9 +71,9 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /**
      * Get parameter type
      *
-     * @return string
+     * @return string|null
      */
-    public function getType()
+    public function detectType()
     {
         if ($this->isArray()) {
             return 'array';
@@ -94,8 +94,6 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
         if (isset($params[$this->getPosition()])) {
             return $params[$this->getPosition()]->getType();
         }
-
-        return;
     }
 
     /**
