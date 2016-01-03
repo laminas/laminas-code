@@ -10,6 +10,7 @@
 namespace ZendTest\Code\Reflection;
 
 use Zend\Code\Reflection;
+use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
@@ -117,6 +118,9 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
             [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
             [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
+            [ClassTypeHintedClass::class, 'selfParameter', 'foo', 'self'],
+            [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
         ];
     }
 }
