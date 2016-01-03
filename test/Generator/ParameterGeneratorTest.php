@@ -462,7 +462,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param string $parameterName
      * @param string $expectedGeneratedSignature
      */
-    public function testSetGetVariadic() {
+    public function testSetGetVariadic()
+    {
         $parameter = new ParameterGenerator('foo');
 
         self::assertFalse($parameter->getVariadic(), 'Is not variadic by default');
