@@ -13,6 +13,8 @@ use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
+use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
 /**
  * @group Zend_Code_Generator
@@ -300,5 +302,34 @@ PHP;
 
 PHP;
         self::assertSame($expected, $methodGenerator->generate());
+    }
+
+    /**
+     * @dataProvider returnTypeHintClassesProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $expectedReturnSignature
+     */
+    public function testFrom(string $className, string $methodName, string $expectedReturnSignature)
+    {
+        $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
+
+        self::assertStringMatchesFormat('%A : ' . $expectedReturnSignature . '%A', $methodGenerator->generate());
+    }
+
+    public function returnTypeHintClassesProvider() : array
+    {
+        return [
+            [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
+            [ReturnTypeHintedClass::class, 'callableReturn', 'callable'],
+            [ReturnTypeHintedClass::class, 'intReturn', 'int'],
+            [ReturnTypeHintedClass::class, 'floatReturn', 'float'],
+            [ReturnTypeHintedClass::class, 'stringReturn', 'string'],
+            [ReturnTypeHintedClass::class, 'boolReturn', 'bool'],
+            [ReturnTypeHintedClass::class, 'selfReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'classReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
+        ];
     }
 }
