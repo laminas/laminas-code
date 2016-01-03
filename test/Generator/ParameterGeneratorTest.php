@@ -257,36 +257,6 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         self::assertSame($expectedType . ' $foo', $parameter->generate());
     }
 
-    public function testTypeHintWithMixedClassName()
-    {
-        $parameter = new ParameterGenerator();
-
-        $parameter->setName('foo');
-        $parameter->setType('mixed');
-
-        self::assertSame('mixed $foo', $parameter->generate());
-    }
-
-    public function testTypeHintWithObjectClassName()
-    {
-        $parameter = new ParameterGenerator();
-
-        $parameter->setName('foo');
-        $parameter->setType('object');
-
-        self::assertSame('object $foo', $parameter->generate());
-    }
-
-    public function testTypeHintWithResourceClassName()
-    {
-        $parameter = new ParameterGenerator();
-
-        $parameter->setName('foo');
-        $parameter->setType('resource');
-
-        self::assertSame('resource $foo', $parameter->generate());
-    }
-
     /**
      * @return string[][]
      */
