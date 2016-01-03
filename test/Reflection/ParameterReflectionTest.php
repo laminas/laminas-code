@@ -10,6 +10,7 @@
 namespace ZendTest\Code\Reflection;
 
 use Zend\Code\Reflection;
+use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
  * @group      Zend_Reflection
@@ -58,6 +59,64 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             ['three','string'],
             ['array','array'],
             ['class','ZendTest\Code\Reflection\TestAsset\TestSampleClass']
+        ];
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider internalReflectionHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedType
+     */
+    public function testGetType($className, $methodName, $parameterName, $expectedType)
+    {
+        $reflection = new Reflection\ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        );
+
+        $type = $reflection->getType();
+
+        self::assertInstanceOf(\ReflectionType::class, $type);
+        self::assertSame($expectedType, (string) $type);
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider internalReflectionHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedType
+     */
+    public function testDetectType($className, $methodName, $parameterName, $expectedType)
+    {
+        $reflection = new Reflection\ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        );
+
+        self::assertSame($expectedType, $reflection->detectType());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function internalReflectionHintsProvider()
+    {
+        return [
+            [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
+            [InternalHintsClass::class, 'callableParameter', 'foo', 'callable'],
+            [InternalHintsClass::class, 'intParameter', 'foo', 'int'],
+            [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
+            [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
+            [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
         ];
     }
 }
