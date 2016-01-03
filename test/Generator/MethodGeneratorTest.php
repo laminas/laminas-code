@@ -332,7 +332,7 @@ PHP;
         self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
-    public function returnTypeHintClassesProvider() : array
+    public function returnTypeHintClassesProvider()
     {
         return [
             [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
