@@ -44,6 +44,7 @@ class MethodGenerator extends AbstractMemberGenerator
 
         $method->setSourceContent($reflectionMethod->getContents(false));
         $method->setSourceDirty(false);
+        $method->setReturnType(self::extractReturnTypeFromMethodReflection($reflectionMethod));
 
         if ($reflectionMethod->getDocComment() != '') {
             $method->setDocBlock(DocBlockGenerator::fromReflection($reflectionMethod->getDocBlock()));
@@ -345,5 +346,25 @@ class MethodGenerator extends AbstractMemberGenerator
     public function __toString()
     {
         return $this->generate();
+    }
+
+    /**
+     * @param MethodReflection $methodReflection
+     *
+     * @return null|string
+     */
+    private static function extractReturnTypeFromMethodReflection(MethodReflection $methodReflection)
+    {
+        if (! $returnType = $methodReflection->getReturnType()) {
+            return null;
+        }
+
+        $returnTypeString = (string) $returnType;
+
+        if ('self' === strtolower($returnType)) {
+            return $methodReflection->getDeclaringClass()->getName();
+        }
+
+        return $returnTypeString;
     }
 }
