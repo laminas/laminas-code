@@ -427,19 +427,19 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
                 VariadicParametersClass::class,
                 'typeHintedVariadicParameter',
                 'bar',
-                VariadicParametersClass::class . ' ... $foo'
+                '\\' . VariadicParametersClass::class . ' ... $bar'
             ],
             [
                 VariadicParametersClass::class,
                 'byRefVariadic',
                 'bar',
-                '& ... $foo'
+                '&... $bar'
             ],
             [
                 VariadicParametersClass::class,
                 'byRefTypeHintedVariadic',
                 'bar',
-                VariadicParametersClass::class . ' & ... $foo'
+                '\\' . VariadicParametersClass::class . ' &... $bar'
             ],
         ];
     }
