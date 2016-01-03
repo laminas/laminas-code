@@ -53,12 +53,8 @@ class ParameterGenerator extends AbstractGenerator
 
         $param->setName($reflectionParameter->getName());
 
-        if ($type = $reflectionParameter->getType()) {
-            $typeString = $type->isBuiltin()
-                ? (string) $type
-                : '\\' . $type;
-
-            $param->setType($typeString);
+        if ($type = self::extractFQCNTypeFromReflectionType($reflectionParameter)) {
+            $param->setType($type);
         }
 
         $param->setPosition($reflectionParameter->getPosition());
@@ -281,6 +277,26 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $output;
+    }
+
+    private static function extractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
+    {
+        $type = $reflectionParameter->getType();
+
+        if (! $type) {
+            return null;
+        }
+
+        $typeString = (string) $type;
+
+        if ('self' === strtolower($typeString)) {
+            // exceptional case: `self` must expand to the reflection type declaring class
+            return '\\' . $reflectionParameter->getDeclaringClass()->getName();
+        }
+
+        return $type->isBuiltin()
+            ? (string) $type
+            : '\\' . $type;
     }
 
     /**
