@@ -13,6 +13,7 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ParameterReflection;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
+use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
@@ -335,10 +336,10 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider internalReflectionHintsProvider
      *
-     * @param string $className
-     * @param string $methodName
-     * @param string $parameterName
-     * @param string $expectedType
+     * @param string      $className
+     * @param string      $methodName
+     * @param string      $parameterName
+     * @param string|null $expectedType
      */
     public function testTypeHintFromReflection($className, $methodName, $parameterName, $expectedType)
     {
@@ -355,7 +356,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function internalReflectionHintsProvider()
     {
-        return [
+        $parameters = [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
             [InternalHintsClass::class, 'callableParameter', 'foo', 'callable'],
             [InternalHintsClass::class, 'intParameter', 'foo', 'int'],
@@ -365,6 +366,26 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [ClassTypeHintedClass::class, 'selfParameter', 'foo', '\\' . ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
+            [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'floatParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'stringParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'boolParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
         ];
+
+        // just re-organizing the keys so that the phpunit data set makes sense in errors:
+        return array_combine(
+            array_map(
+                function (array $definition) {
+                    return $definition[0] . '#' . $definition[1];
+                },
+                $parameters
+            ),
+            $parameters
+        );
     }
 }
