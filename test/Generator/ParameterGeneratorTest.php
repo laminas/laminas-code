@@ -12,6 +12,7 @@ namespace ZendTest\Code\Generator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ParameterReflection;
+use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
@@ -361,6 +362,9 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
             [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
             [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
+            [ClassTypeHintedClass::class, 'selfParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
         ];
     }
 }
