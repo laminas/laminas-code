@@ -67,6 +67,8 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
+     * @requires PHP 7.0
+     *
      * @dataProvider reflectionHintsProvider
      *
      * @param string $className
@@ -89,6 +91,8 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
      *
      * @dataProvider reflectionHintsProvider
      *
@@ -132,6 +136,8 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
      *
      * @dataProvider docBlockHintsProvider
      *

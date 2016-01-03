@@ -75,7 +75,9 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
      */
     public function detectType()
     {
-        $type = $this->getType();
+        $type = method_exists($this, 'getType')
+            ? $this->getType()
+            : null;
 
         if ($type && $type->isBuiltin()) {
             return (string) $type;

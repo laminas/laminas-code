@@ -16,6 +16,10 @@ use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\ReturnTypeGenerator;
 
 /**
+ * @group zendframework/zend-code#29
+ *
+ * @requires PHP 7.0
+ *
  * @covers \Zend\Code\Generator\ReturnTypeGenerator
  */
 class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase

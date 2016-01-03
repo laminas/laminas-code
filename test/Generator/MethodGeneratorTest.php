@@ -272,6 +272,11 @@ CODE;
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
     }
 
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     */
     public function testSetReturnType()
     {
         $methodGenerator = new MethodGenerator();
@@ -288,6 +293,11 @@ PHP;
         self::assertSame($expected, $methodGenerator->generate());
     }
 
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     */
     public function testSetReturnTypeWithNull()
     {
         $methodGenerator = new MethodGenerator();
@@ -305,6 +315,10 @@ PHP;
     }
 
     /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     *
      * @dataProvider returnTypeHintClassesProvider
      *
      * @param string $className

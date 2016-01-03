@@ -246,6 +246,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
+     * @requires PHP 7.0
+     *
      * @dataProvider simpleHintsProvider
      *
      * @param string $type
@@ -291,6 +293,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
+     * @requires PHP 7.0
+     *
      * @dataProvider validClassNameProvider
      *
      * @param string $className
@@ -334,6 +338,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
      *
      * @dataProvider internalReflectionHintsProvider
      *
@@ -393,6 +399,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
+     * @requires PHP 7.0
+     *
      * @dataProvider variadicHintsProvider
      *
      * @param string $className
@@ -446,6 +454,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group zendframework/zend-code#29
+     *
+     * @requires PHP 5.6
      *
      * @param string $className
      * @param string $methodName
