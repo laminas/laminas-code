@@ -39,6 +39,11 @@ class ParameterGenerator extends AbstractGenerator
     protected $passedByReference = false;
 
     /**
+     * @var bool
+     */
+    private $variadic = false;
+
+    /**
      * @var string[]
      */
     private static $internalHintedTypes = ['int', 'bool', 'string', 'float', 'callable', 'array'];
@@ -59,9 +64,14 @@ class ParameterGenerator extends AbstractGenerator
 
         $param->setPosition($reflectionParameter->getPosition());
 
-        if ($reflectionParameter->isOptional()) {
+        $variadic = $reflectionParameter->isVariadic();
+
+        $param->setVariadic($variadic);
+
+        if (! $variadic && $reflectionParameter->isOptional()) {
             $param->setDefaultValue($reflectionParameter->getDefaultValue());
         }
+
         $param->setPassedByReference($reflectionParameter->isPassedByReference());
 
         return $param;
@@ -252,6 +262,26 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
+     * @param bool $variadic
+     *
+     * @return ParameterGenerator
+     */
+    public function setVariadic(bool $variadic)
+    {
+        $this->variadic = $variadic;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getVariadic() : bool
+    {
+        return $this->variadic;
+    }
+
+    /**
      * @return string
      */
     public function generate()
@@ -260,6 +290,10 @@ class ParameterGenerator extends AbstractGenerator
 
         if (true === $this->passedByReference) {
             $output .= '&';
+        }
+
+        if ($this->variadic) {
+            $output .= '... ';
         }
 
         $output .= '$' . $this->name;
