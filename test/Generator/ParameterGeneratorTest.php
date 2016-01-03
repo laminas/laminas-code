@@ -238,4 +238,31 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame("stdClass \$foo = '\\\\\\''", $parameter->generate());
     }
+
+    /**
+     * @return string[][]
+     */
+    public function simpleHintsProvider()
+    {
+        return [
+            ['callable', 'callable'],
+            ['Callable', 'callable'],
+            ['CALLABLE', 'callable'],
+            ['array', 'array'],
+            ['Array', 'array'],
+            ['ARRAY', 'array'],
+            ['string', 'string'],
+            ['String', 'string'],
+            ['STRING', 'string'],
+            ['bool', 'bool'],
+            ['Bool', 'bool'],
+            ['BOOL', 'bool'],
+            ['int', 'int'],
+            ['Int', 'int'],
+            ['INT', 'int'],
+            ['float', 'float'],
+            ['Float', 'float'],
+            ['FLOAT', 'float'],
+        ];
+    }
 }
