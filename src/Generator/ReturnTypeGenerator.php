@@ -7,8 +7,6 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-declare(strict_types=1);
-
 namespace Zend\Code\Generator;
 
 use Zend\Code\Generator\Exception\InvalidArgumentException;
