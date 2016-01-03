@@ -240,6 +240,24 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider simpleHintsProvider
+     *
+     * @param string $type
+     * @param string $expectedType
+     */
+    public function testGeneratesSimpleHints($type, $expectedType)
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('foo');
+        $parameter->setType($type);
+
+        self::assertSame($expectedType . ' $foo', $parameter->generate());
+    }
+
+    /**
      * @return string[][]
      */
     public function simpleHintsProvider()
