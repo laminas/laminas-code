@@ -11,6 +11,7 @@ namespace ZendTest\Code\Reflection;
 
 use Zend\Code\Reflection;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
+use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
@@ -66,7 +67,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider internalReflectionHintsProvider
+     * @dataProvider reflectionHintsProvider
      *
      * @param string $className
      * @param string $methodName
@@ -89,7 +90,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider internalReflectionHintsProvider
+     * @dataProvider reflectionHintsProvider
      *
      * @param string $className
      * @param string $methodName
@@ -114,7 +115,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @return string[][]
      */
-    public function internalReflectionHintsProvider()
+    public function reflectionHintsProvider()
     {
         return [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -126,6 +127,44 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             [ClassTypeHintedClass::class, 'selfParameter', 'foo', 'self'],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
+        ];
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider docBlockHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     */
+    public function testGetTypeWithDocBlockOnlyTypes($className, $methodName, $parameterName)
+    {
+        $reflection = new Reflection\ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        );
+
+        self::assertNull($reflection->getType());
+    }
+
+
+    /**
+     * @return string[][]
+     */
+    public function docBlockHintsProvider()
+    {
+        return [
+            [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'floatParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'stringParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'boolParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', null],
+            [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
         ];
     }
 }
