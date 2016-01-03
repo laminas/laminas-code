@@ -315,7 +315,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        self::assertStringMatchesFormat('%A : ' . $expectedReturnSignature . '%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
     public function returnTypeHintClassesProvider() : array
