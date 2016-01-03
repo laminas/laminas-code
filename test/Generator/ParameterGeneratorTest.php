@@ -15,6 +15,7 @@ use Zend\Code\Reflection\ParameterReflection;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\VariadicParametersClass;
 
 /**
  * @group Zend_Code_Generator
@@ -250,7 +251,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param string $type
      * @param string $expectedType
      */
-    public function testGeneratesSimpleHints($type, $expectedType)
+    public function testGeneratesSimpleHints(string $type, string $expectedType)
     {
         $parameter = new ParameterGenerator();
 
@@ -294,7 +295,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $className
      */
-    public function testTypeHintWithValidClassName($className)
+    public function testTypeHintWithValidClassName(string $className)
     {
         $parameter = new ParameterGenerator();
 
@@ -387,5 +388,46 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             ),
             $parameters
         );
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider variadicHintsProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedGeneratedSignature
+     */
+    public function testVariadicArgumentFromReflection(
+        string $className,
+        string $methodName,
+        string $parameterName,
+        string $expectedGeneratedSignature
+    ) {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        ));
+
+        self::assertSame($expectedGeneratedSignature, $parameter->generate());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function variadicHintsProvider() : array
+    {
+        return [
+            [VariadicParametersClass::class, 'firstVariadicParameter', 'foo', '... $foo'],
+            [VariadicParametersClass::class, 'secondVariadicParameter', 'bar', '... $bar'],
+            [
+                VariadicParametersClass::class,
+                'typeHintedVariadicParameter',
+                'bar',
+                VariadicParametersClass::class . ' ... $foo'
+            ],
+        ];
     }
 }
