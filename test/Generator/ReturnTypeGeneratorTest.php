@@ -7,8 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Code\Generator;
 
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\ReturnTypeGenerator;
 
@@ -35,6 +38,18 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
         self::assertSame($expectedReturnType, $generator->generate());
     }
 
+    /**
+     * @dataProvider invalidReturnTypeProvider
+     *
+     * @param string $typeString
+     */
+    public function testRejectsInvalidTypeString(string $typeString)
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        ReturnTypeGenerator::fromReturnTypeString($typeString);
+    }
+
     public function validReturnTypeProvider() : array
     {
         return [
@@ -42,6 +57,7 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['foo', '\\foo'],
             ['foo1', '\\foo1'],
             ['foo\\bar', '\\foo\\bar'],
+            ['a\\b\\c', '\\a\\b\\c'],
             ['foo\\bar\\baz', '\\foo\\bar\\baz'],
             ['foo\\bar\\baz1', '\\foo\\bar\\baz1'],
             ['FOO', '\\FOO'],
@@ -73,6 +89,25 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['resource', '\\resource'],
             ['Resource', '\\Resource'],
             ['RESOURCE', '\\RESOURCE'],
+            ['foo_bar', '\\foo_bar'],
+        ];
+    }
+
+    public function invalidReturnTypeProvider() : array
+    {
+        return [
+            [''],
+            ['\\foo'],
+            ['\\FOO'],
+            ['1'],
+            ['\\1'],
+            ['\\1\\2'],
+            ['foo\\1'],
+            ['foo\\bar\\1'],
+            ['1foo'],
+            ['foo\\1foo'],
+            ['*'],
+            ["\0"],
         ];
     }
 }
