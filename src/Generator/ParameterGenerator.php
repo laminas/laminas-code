@@ -19,7 +19,7 @@ class ParameterGenerator extends AbstractGenerator
     protected $name = null;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $type = null;
 
@@ -39,9 +39,14 @@ class ParameterGenerator extends AbstractGenerator
     protected $passedByReference = false;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected static $simple = ['int', 'bool', 'string', 'float', 'resource', 'mixed', 'object'];
+
+    /**
+     * @var string[]
+     */
+    private static $internalHintedTypes = ['int', 'bool', 'string', 'float', 'callable', 'array'];
 
     /**
      * @param  ParameterReflection $reflectionParameter
@@ -271,11 +276,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function generate()
     {
-        $output = '';
-
-        if ($this->type && !in_array($this->type, static::$simple)) {
-            $output .= $this->type . ' ';
-        }
+        $output = $this->generateTypeHint($this->type);
 
         if (true === $this->passedByReference) {
             $output .= '&';
@@ -296,5 +297,39 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $output;
+    }
+
+    /**
+     * @param string|null $type
+     *
+     * @return string
+     */
+    private function generateTypeHint($type)
+    {
+        if (null === $type) {
+            return '';
+        }
+
+        if ($this->isInternalHintedType($type)) {
+            return strtolower($type) . ' ';
+        }
+
+        if (in_array($this->type, static::$simple)) {
+            return '';
+        }
+
+        return $this->type . ' ';
+    }
+
+    /**
+     * Whether the given $type is a simple PHP type-hinted type (scalar or special type hint)
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    private function isInternalHintedType($type)
+    {
+        return in_array(strtolower($type), self::$internalHintedTypes, true);
     }
 }
