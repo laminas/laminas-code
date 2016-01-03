@@ -426,7 +426,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @return string[][]
      */
-    public function variadicHintsProvider() : array
+    public function variadicHintsProvider()
     {
         return [
             [VariadicParametersClass::class, 'firstVariadicParameter', 'foo', '... $foo'],

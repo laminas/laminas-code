@@ -52,7 +52,7 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
         ReturnTypeGenerator::fromReturnTypeString($typeString);
     }
 
-    public function validReturnTypeProvider() : array
+    public function validReturnTypeProvider()
     {
         return [
             ['foo', '\\foo'],
