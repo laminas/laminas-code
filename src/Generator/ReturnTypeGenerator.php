@@ -7,7 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Code\Generator;
+
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 
 final class ReturnTypeGenerator implements GeneratorInterface
 {
@@ -22,12 +26,25 @@ final class ReturnTypeGenerator implements GeneratorInterface
     private static $internalPhpTypes = ['int', 'float', 'string', 'bool', 'array', 'callable'];
 
     /**
+     * @var string a regex pattern to match valid class names or types
+     */
+    private static $validIdentifierMatcher = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'
+        . '(\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)*$/';
+
+    /**
      * @param string $returnType
      *
      * @return ReturnTypeGenerator
      */
     public static function fromReturnTypeString(string $returnType) : ReturnTypeGenerator
     {
+        if (! preg_match(self::$validIdentifierMatcher, $returnType)) {
+            throw new InvalidArgumentException(sprintf(
+                'Provided return type "%s" is invalid',
+                $returnType
+            ));
+        }
+
         $instance = new self();
 
         $instance->returnType = $returnType;
