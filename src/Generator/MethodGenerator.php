@@ -355,7 +355,11 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     private static function extractReturnTypeFromMethodReflection(MethodReflection $methodReflection)
     {
-        if (! $returnType = $methodReflection->getReturnType()) {
+        $returnType = method_exists($methodReflection, 'getReturnType')
+            ? $methodReflection->getReturnType()
+            : null;
+
+        if (! $returnType) {
             return null;
         }
 
