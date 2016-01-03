@@ -313,4 +313,48 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             ['FLOAT', 'float'],
         ];
     }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @dataProvider validClassNameProvider
+     *
+     * @param string $className
+     */
+    public function testTypeHintWithValidClassName($className)
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('foo');
+        $parameter->setType($className);
+
+        self::assertSame($className . ' $foo', $parameter->generate());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function validClassNameProvider()
+    {
+        return [
+            ['stdClass'],
+            ['foo'],
+            ['FOO'],
+            ['bar'],
+            ['bar1'],
+            ['BAR1'],
+            ['baz\\tab'],
+            ['baz\\tab\\taz'],
+            ['baz\\tab\\taz1'],
+            ['mixed'],
+            ['Mixed'],
+            ['MIXED'],
+            ['object'],
+            ['Object'],
+            ['OBJECT'],
+            ['resource'],
+            ['Resource'],
+            ['RESOURCE'],
+        ];
+    }
 }
