@@ -28,15 +28,14 @@ final class ReturnTypeGenerator implements GeneratorInterface
     /**
      * @var string a regex pattern to match valid class names or types
      */
-    private static $validIdentifierMatcher = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'
-        . '(\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)*$/';
+    private static $validIdentifierMatcher = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)*$/';
 
     /**
      * @param string $returnType
      *
      * @return ReturnTypeGenerator
      */
-    public static function fromReturnTypeString(string $returnType) : ReturnTypeGenerator
+    public static function fromReturnTypeString(string $returnType)
     {
         if (! preg_match(self::$validIdentifierMatcher, $returnType)) {
             throw new InvalidArgumentException(sprintf(
@@ -59,7 +58,7 @@ final class ReturnTypeGenerator implements GeneratorInterface
     /**
      * {@inheritDoc}
      */
-    public function generate() : string
+    public function generate()
     {
         if ($this->isInternalPhpType()) {
             return strtolower($this->returnType);
@@ -71,7 +70,7 @@ final class ReturnTypeGenerator implements GeneratorInterface
     /**
      * @return bool
      */
-    private function isInternalPhpType() : bool
+    private function isInternalPhpType()
     {
         return in_array(strtolower($this->returnType), self::$internalPhpTypes, true);
     }

@@ -64,7 +64,7 @@ class ParameterGenerator extends AbstractGenerator
 
         $param->setPosition($reflectionParameter->getPosition());
 
-        $variadic = $reflectionParameter->isVariadic();
+        $variadic = method_exists($reflectionParameter, 'isVariadic') && $reflectionParameter->isVariadic();
 
         $param->setVariadic($variadic);
 
@@ -268,7 +268,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setVariadic(bool $variadic)
     {
-        $this->variadic = $variadic;
+        $this->variadic = (bool) $variadic;
 
         return $this;
     }
@@ -276,7 +276,7 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * @return bool
      */
-    public function getVariadic() : bool
+    public function getVariadic()
     {
         return $this->variadic;
     }
@@ -315,7 +315,9 @@ class ParameterGenerator extends AbstractGenerator
 
     private static function extractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
     {
-        $type = $reflectionParameter->getType();
+        $type = method_exists($reflectionParameter, 'getType')
+            ? $reflectionParameter->getType()
+            : null;
 
         if (! $type) {
             return null;
