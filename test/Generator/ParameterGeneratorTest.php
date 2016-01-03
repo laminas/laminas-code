@@ -443,4 +443,29 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param string $expectedGeneratedSignature
+     */
+    public function testSetGetVariadic() {
+        $parameter = new ParameterGenerator('foo');
+
+        self::assertFalse($parameter->getVariadic(), 'Is not variadic by default');
+        self::assertSame('$foo', $parameter->generate());
+
+        $parameter->setVariadic(true);
+
+        self::assertTrue($parameter->getVariadic());
+        self::assertSame('... $foo', $parameter->generate());
+
+        $parameter->setVariadic(false);
+
+        self::assertFalse($parameter->getVariadic());
+        self::assertSame('$foo', $parameter->generate());
+    }
 }
