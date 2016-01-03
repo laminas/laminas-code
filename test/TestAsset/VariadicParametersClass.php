@@ -15,4 +15,12 @@ class VariadicParametersClass
     public function typeHintedVariadicParameter(VariadicParametersClass ...$bar)
     {
     }
+
+    public function byRefVariadic(& ...$bar)
+    {
+    }
+
+    public function byRefTypeHintedVariadic(VariadicParametersClass & ...$bar)
+    {
+    }
 }
