@@ -19,6 +19,6 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsAGenerator()
     {
-        $this->assertTrue(class_implements(ReturnTypeGenerator::class, GeneratorInterface::class));
+        self::assertContains(GeneratorInterface::class, class_implements(ReturnTypeGenerator::class));
     }
 }
