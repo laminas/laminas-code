@@ -83,6 +83,16 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
             return (string) $type;
         }
 
+        // can be dropped when dropping PHP7 support:
+        if ($this->isArray()) {
+            return 'array';
+        }
+
+        // can be dropped when dropping PHP7 support:
+        if ($this->isCallable()) {
+            return 'callable';
+        }
+
         if (($class = $this->getClass()) instanceof \ReflectionClass) {
             return $class->getName();
         }

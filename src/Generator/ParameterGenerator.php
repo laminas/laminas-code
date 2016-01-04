@@ -315,8 +315,17 @@ class ParameterGenerator extends AbstractGenerator
         return $output;
     }
 
+    /**
+     * @param ParameterReflection $reflectionParameter
+     *
+     * @return null|string
+     */
     private static function extractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
     {
+        if (! method_exists($reflectionParameter, 'getType')) {
+            return self::prePhp7ExtractFQCNTypeFromReflectionType($reflectionParameter);
+        }
+
         $type = method_exists($reflectionParameter, 'getType')
             ? $reflectionParameter->getType()
             : null;
@@ -333,6 +342,30 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $typeString;
+    }
+
+    /**
+     * For ancient PHP versions (yes, you should upgrade to 7.0):
+     *
+     * @param ParameterReflection $reflectionParameter
+     *
+     * @return string|null
+     */
+    private static function prePhp7ExtractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
+    {
+        if ($reflectionParameter->isCallable()) {
+            return 'callable';
+        }
+
+        if ($reflectionParameter->isArray()) {
+            return 'array';
+        }
+
+        if ($class = $reflectionParameter->getClass()) {
+            return $class->getName();
+        }
+
+        return null;
     }
 
     /**
