@@ -346,4 +346,24 @@ PHP;
             [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
         ];
     }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $expectedReturnSignature
+     */
+    public function testByRefReturnType()
+    {
+        $methodGenerator = new MethodGenerator('foo');
+
+        $methodGenerator->setReturnsReference(true);
+
+        self::assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
+
+        $methodGenerator->setReturnsReference(false);
+
+        self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+    }
 }
