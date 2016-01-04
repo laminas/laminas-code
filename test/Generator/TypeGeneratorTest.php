@@ -41,6 +41,19 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider validReturnTypeProvider
+     *
+     * @param string $typeString
+     * @param string $expectedReturnType
+     */
+    public function testStringCastFromValidTypeString(string $typeString, string $expectedReturnType)
+    {
+        $generator = TypeGenerator::fromTypeString($typeString);
+
+        self::assertSame($expectedReturnType, (string) $generator);
+    }
+
+    /**
      * @dataProvider invalidReturnTypeProvider
      *
      * @param string $typeString
