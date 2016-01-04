@@ -276,13 +276,9 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     public function setReturnType(string $returnType = null)
     {
-        if (null === $returnType) {
-            $this->returnType = null;
-
-            return $this;
-        }
-
-        $this->returnType = TypeGenerator::fromTypeString($returnType);
+        $this->returnType = null === $returnType
+            ? null
+            : TypeGenerator::fromTypeString($returnType);
 
         return $this;
     }
