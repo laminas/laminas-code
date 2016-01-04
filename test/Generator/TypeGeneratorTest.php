@@ -150,8 +150,6 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['\\'],
             ['\\\\'],
             ['\\\\foo'],
-            ['\\foo'],
-            ['\\FOO'],
             ['1'],
             ['\\1'],
             ['\\1\\2'],
