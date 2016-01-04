@@ -29,7 +29,7 @@ class MethodGenerator extends AbstractMemberGenerator
     protected $body = null;
 
     /**
-     * @var null|ReturnTypeGenerator
+     * @var null|TypeGenerator
      */
     private $returnType;
 
@@ -282,7 +282,7 @@ class MethodGenerator extends AbstractMemberGenerator
             return $this;
         }
 
-        $this->returnType = ReturnTypeGenerator::fromReturnTypeString($returnType);
+        $this->returnType = TypeGenerator::fromTypeString($returnType);
 
         return $this;
     }

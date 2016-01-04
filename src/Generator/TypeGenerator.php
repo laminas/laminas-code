@@ -11,12 +11,12 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 
-final class ReturnTypeGenerator implements GeneratorInterface
+final class TypeGenerator implements GeneratorInterface
 {
     /**
      * @var string
      */
-    private $returnType;
+    private $type;
 
     /**
      * @var string[]
@@ -31,20 +31,21 @@ final class ReturnTypeGenerator implements GeneratorInterface
     /**
      * @param string $returnType
      *
-     * @return ReturnTypeGenerator
+     * @return TypeGenerator
      */
-    public static function fromReturnTypeString(string $returnType)
+    public static function fromTypeString(string $type)
     {
-        if (! preg_match(self::$validIdentifierMatcher, $returnType)) {
+        if (! preg_match(self::$validIdentifierMatcher, $type)) {
             throw new InvalidArgumentException(sprintf(
-                'Provided return type "%s" is invalid',
-                $returnType
+                'Provided type "%s" is invalid: must conform "%s"',
+                $type,
+                self::$validIdentifierMatcher
             ));
         }
 
         $instance = new self();
 
-        $instance->returnType = $returnType;
+        $instance->type = $type;
 
         return $instance;
     }
@@ -59,10 +60,10 @@ final class ReturnTypeGenerator implements GeneratorInterface
     public function generate()
     {
         if ($this->isInternalPhpType()) {
-            return strtolower($this->returnType);
+            return strtolower($this->type);
         }
 
-        return '\\' . $this->returnType;
+        return '\\' . $this->type;
     }
 
     /**
@@ -70,6 +71,6 @@ final class ReturnTypeGenerator implements GeneratorInterface
      */
     private function isInternalPhpType()
     {
-        return in_array(strtolower($this->returnType), self::$internalPhpTypes, true);
+        return in_array(strtolower($this->type), self::$internalPhpTypes, true);
     }
 }

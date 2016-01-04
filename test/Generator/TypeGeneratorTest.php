@@ -11,20 +11,20 @@ namespace ZendTest\Code\Generator;
 
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
-use Zend\Code\Generator\ReturnTypeGenerator;
+use Zend\Code\Generator\TypeGenerator;
 
 /**
  * @group zendframework/zend-code#29
  *
  * @requires PHP 7.0
  *
- * @covers \Zend\Code\Generator\ReturnTypeGenerator
+ * @covers \Zend\Code\Generator\TypeGenerator
  */
-class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
+class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsAGenerator()
     {
-        self::assertContains(GeneratorInterface::class, class_implements(ReturnTypeGenerator::class));
+        self::assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
     }
 
     /**
@@ -33,9 +33,9 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param string $typeString
      * @param string $expectedReturnType
      */
-    public function testFromValidReturnTypeString(string $typeString, string $expectedReturnType)
+    public function testFromValidTypeString(string $typeString, string $expectedReturnType)
     {
-        $generator = ReturnTypeGenerator::fromReturnTypeString($typeString);
+        $generator = TypeGenerator::fromTypeString($typeString);
 
         self::assertSame($expectedReturnType, $generator->generate());
     }
@@ -49,7 +49,7 @@ class ReturnTypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class);
 
-        ReturnTypeGenerator::fromReturnTypeString($typeString);
+        TypeGenerator::fromTypeString($typeString);
     }
 
     public function validReturnTypeProvider()
