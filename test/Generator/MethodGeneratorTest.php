@@ -13,6 +13,7 @@ use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
+use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
@@ -349,10 +350,6 @@ PHP;
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @param string $className
-     * @param string $methodName
-     * @param string $expectedReturnSignature
      */
     public function testByRefReturnType()
     {
@@ -365,5 +362,17 @@ PHP;
         $methodGenerator->setReturnsReference(false);
 
         self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     */
+    public function testFromByReferenceMethodReflection()
+    {
+        $methodGenerator = MethodGenerator::fromReflection(
+            new MethodReflection(ClassWithByRefReturnMethod::class, 'byRefReturn')
+        );
+
+        self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
     }
 }
