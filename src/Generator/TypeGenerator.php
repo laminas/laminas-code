@@ -78,7 +78,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        if ($this->isInternalPhpType($this->type)) {
+        if ($this->isInternalPhpType) {
             return strtolower($this->type);
         }
 
