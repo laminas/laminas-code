@@ -40,7 +40,7 @@ final class TypeGenerator implements GeneratorInterface
      *
      * @throws InvalidArgumentException
      */
-    public static function fromTypeString(string $type)
+    public static function fromTypeString($type)
     {
         list($wasTrimmed, $trimmedType) = self::trimType($type);
 
