@@ -67,6 +67,14 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->generate();
+    }
+
+    /**
      * @return bool
      */
     private function isInternalPhpType()
