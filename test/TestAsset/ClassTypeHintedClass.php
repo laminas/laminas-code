@@ -15,4 +15,8 @@ class ClassTypeHintedClass
     public function otherClassParameter(InternalHintsClass $foo)
     {
     }
+
+    public function closureParameter(\Closure $foo)
+    {
+    }
 }
