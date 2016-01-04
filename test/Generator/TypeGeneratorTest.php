@@ -28,7 +28,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validReturnTypeProvider
+     * @dataProvider validTypeProvider
      *
      * @param string $typeString
      * @param string $expectedReturnType
@@ -41,7 +41,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validReturnTypeProvider
+     * @dataProvider validTypeProvider
      *
      * @param string $typeString
      * @param string $expectedReturnType
@@ -54,7 +54,21 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider invalidReturnTypeProvider
+     * @dataProvider validClassNameProvider
+     *
+     * @param string $typeString
+     * @param string $expectedReturnType
+     */
+    public function testStripsPrefixingBackslashFromClassNames(string $typeString, string $expectedReturnType)
+    {
+        $generator = TypeGenerator::fromTypeString('\\' . $typeString);
+
+        self::assertSame($expectedReturnType, $generator->generate());
+        self::assertSame($expectedReturnType, (string) $generator);
+    }
+
+    /**
+     * @dataProvider invalidTypeProvider
      *
      * @param string $typeString
      */
@@ -65,7 +79,10 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
         TypeGenerator::fromTypeString($typeString);
     }
 
-    public function validReturnTypeProvider()
+    /**
+     * @return string[][]
+     */
+    public function validTypeProvider()
     {
         return [
             ['foo', '\\foo'],
@@ -108,10 +125,31 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function invalidReturnTypeProvider()
+    /**
+     * Valid class names - just the same as validTypeProvider, but with only those elements prefixed by '\\'
+     *
+     * @return string[][]
+     */
+    public function validClassNameProvider()
+    {
+        return array_filter(
+            $this->validTypeProvider(),
+            function (array $pair) {
+                return 0 === strpos($pair[1], '\\');
+            }
+        );
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function invalidTypeProvider()
     {
         return [
             [''],
+            ['\\'],
+            ['\\\\'],
+            ['\\\\foo'],
             ['\\foo'],
             ['\\FOO'],
             ['1'],
