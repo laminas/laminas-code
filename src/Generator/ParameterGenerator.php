@@ -44,11 +44,6 @@ class ParameterGenerator extends AbstractGenerator
     private $variadic = false;
 
     /**
-     * @var string[]
-     */
-    private static $internalHintedTypes = ['int', 'bool', 'string', 'float', 'callable', 'array'];
-
-    /**
      * @param  ParameterReflection $reflectionParameter
      * @return ParameterGenerator
      */
