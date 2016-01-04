@@ -19,7 +19,7 @@ class ParameterGenerator extends AbstractGenerator
     protected $name = null;
 
     /**
-     * @var string|null
+     * @var TypeGenerator|null
      */
     protected $type = null;
 
@@ -169,7 +169,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setType($type)
     {
-        $this->type = (string) TypeGenerator::fromTypeString($type);
+        $this->type = TypeGenerator::fromTypeString($type);
 
         return $this;
     }
@@ -179,7 +179,9 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function getType()
     {
-        return $this->type;
+        return $this->type
+            ? (string) $this->type
+            : null;
     }
 
     /**
@@ -287,7 +289,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function generate()
     {
-        $output = $this->generateTypeHint($this->type);
+        $output = $this->generateTypeHint();
 
         if (true === $this->passedByReference) {
             $output .= '&';
@@ -339,28 +341,12 @@ class ParameterGenerator extends AbstractGenerator
      *
      * @return string
      */
-    private function generateTypeHint($type)
+    private function generateTypeHint()
     {
-        if (null === $type) {
+        if (null === $this->type) {
             return '';
         }
 
-        if ($this->isInternalHintedType($type)) {
-            return strtolower($type) . ' ';
-        }
-
-        return '\\' . $this->type . ' ';
-    }
-
-    /**
-     * Whether the given $type is a simple PHP type-hinted type (scalar or special type hint)
-     *
-     * @param string $type
-     *
-     * @return bool
-     */
-    private function isInternalHintedType($type)
-    {
-        return in_array(strtolower($type), self::$internalHintedTypes, true);
+        return $this->type->generate() . ' ';
     }
 }
