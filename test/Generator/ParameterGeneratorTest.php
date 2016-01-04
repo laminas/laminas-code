@@ -62,7 +62,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Foo $bar = 15', $parameterGenerator->generate());
 
         $parameterGenerator->setDefaultValue('foo');
-        $this->assertEquals('Foo $bar = \'foo\'', $parameterGenerator->generate());
+        $this->assertEquals('\\Foo $bar = \'foo\'', $parameterGenerator->generate());
     }
 
     public function testFromReflectionGetParameterName()
@@ -240,7 +240,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $parameter->setDefaultValue("\\'");
         $parameter->setType('stdClass');
 
-        $this->assertSame("stdClass \$foo = '\\\\\\''", $parameter->generate());
+        $this->assertSame("\\stdClass \$foo = '\\\\\\''", $parameter->generate());
     }
 
     /**
@@ -306,7 +306,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $parameter->setName('foo');
         $parameter->setType($className);
 
-        self::assertSame($className . ' $foo', $parameter->generate());
+        self::assertSame('\\' . $className . ' $foo', $parameter->generate());
     }
 
     /**
