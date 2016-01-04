@@ -14,6 +14,11 @@ use Zend\Code\Generator\Exception\InvalidArgumentException;
 final class TypeGenerator implements GeneratorInterface
 {
     /**
+     * @var bool
+     */
+    private $isInternalPhpType;
+
+    /**
      * @var string
      */
     private $type;
@@ -29,13 +34,17 @@ final class TypeGenerator implements GeneratorInterface
     private static $validIdentifierMatcher = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)*$/';
 
     /**
-     * @param string $returnType
+     * @param string $type
      *
      * @return TypeGenerator
+     *
+     * @throws InvalidArgumentException
      */
     public static function fromTypeString(string $type)
     {
-        if (! preg_match(self::$validIdentifierMatcher, $type)) {
+        list($wasTrimmed, $trimmedType) = self::trimType($type);
+
+        if (! preg_match(self::$validIdentifierMatcher, $trimmedType)) {
             throw new InvalidArgumentException(sprintf(
                 'Provided type "%s" is invalid: must conform "%s"',
                 $type,
@@ -43,9 +52,19 @@ final class TypeGenerator implements GeneratorInterface
             ));
         }
 
+        $isInternalPhpType = self::isInternalPhpType($trimmedType);
+
+        if ($wasTrimmed && $isInternalPhpType) {
+            throw new InvalidArgumentException(sprintf(
+                'Provided type "%s" is an internal PHP type, but was provided with a namespace separator prefix',
+                $type
+            ));
+        }
+
         $instance = new self();
 
-        $instance->type = $type;
+        $instance->type              = $trimmedType;
+        $instance->isInternalPhpType = self::isInternalPhpType($trimmedType);
 
         return $instance;
     }
@@ -59,7 +78,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        if ($this->isInternalPhpType()) {
+        if ($this->isInternalPhpType($this->type)) {
             return strtolower($this->type);
         }
 
@@ -75,10 +94,27 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
+     * @param string $type
+     *
+     * @return bool[]|int[] ordered tuple, first key represents whether the values was trimmed, second is the
+     *                      trimmed string
+     */
+    private static function trimType($type)
+    {
+        if (0 === strpos($type, '\\')) {
+            return [true, substr($type, 1)];
+        }
+
+        return [false, $type];
+    }
+
+    /**
+     * @param string $type
+     *
      * @return bool
      */
-    private function isInternalPhpType()
+    private static function isInternalPhpType($type)
     {
-        return in_array(strtolower($this->type), self::$internalPhpTypes, true);
+        return in_array(strtolower($type), self::$internalPhpTypes, true);
     }
 }
