@@ -50,7 +50,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame($expectedReturnType, (string) $generator);
+        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
     }
 
     /**
@@ -64,7 +64,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = TypeGenerator::fromTypeString('\\' . $typeString);
 
         self::assertSame($expectedReturnType, $generator->generate());
-        self::assertSame($expectedReturnType, (string) $generator);
+        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
     }
 
     /**

@@ -86,11 +86,11 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
-     * @return string
+     * @return string the cleaned type string
      */
     public function __toString()
     {
-        return $this->generate();
+        return ltrim($this->generate(), '\\');
     }
 
     /**
