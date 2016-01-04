@@ -169,7 +169,8 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setType($type)
     {
-        $this->type = (string) $type;
+        $this->type = (string) TypeGenerator::fromTypeString($type);
+
         return $this;
     }
 
