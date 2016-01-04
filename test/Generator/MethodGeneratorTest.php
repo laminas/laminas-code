@@ -258,11 +258,11 @@ EOS;
             ]
         ]);
 
-        $expected = <<<CODE
+        $expected = <<<'CODE'
     /**
      * Short Description
      */
-    public function execute(Runnable \$command);
+    public function execute(\Runnable $command);
 CODE;
 
         $methodGenerator->setParameter(['name' => 'command', 'type' => 'Runnable']);
