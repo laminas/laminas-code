@@ -75,11 +75,11 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
      */
     public function detectType()
     {
-        $type = method_exists($this, 'getType')
-            ? $this->getType()
-            : null;
-
-        if ($type && $type->isBuiltin()) {
+        if (
+            method_exists($this, 'getType')
+            && ($type = $this->getType())
+            && $type->isBuiltin()
+        ) {
             return (string) $type;
         }
 
@@ -88,14 +88,18 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
         }
 
         $docBlock = $this->getDeclaringFunction()->getDocBlock();
-        if (!$docBlock instanceof DocBlockReflection) {
-            return;
+
+        if (! $docBlock instanceof DocBlockReflection) {
+            return null;
         }
 
         $params = $docBlock->getTags('param');
+
         if (isset($params[$this->getPosition()])) {
             return $params[$this->getPosition()]->getType();
         }
+
+        return null;
     }
 
     /**
