@@ -266,7 +266,7 @@ class ParameterGenerator extends AbstractGenerator
      *
      * @return ParameterGenerator
      */
-    public function setVariadic(bool $variadic)
+    public function setVariadic($variadic)
     {
         $this->variadic = (bool) $variadic;
 
