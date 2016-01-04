@@ -69,7 +69,11 @@ class ParameterGenerator extends AbstractGenerator
         $param->setVariadic($variadic);
 
         if (! $variadic && $reflectionParameter->isOptional()) {
-            $param->setDefaultValue($reflectionParameter->getDefaultValue());
+            try {
+                $param->setDefaultValue($reflectionParameter->getDefaultValue());
+            } catch (\ReflectionException $e) {
+                $param->setDefaultValue(null);
+            }
         }
 
         $param->setPassedByReference($reflectionParameter->isPassedByReference());
