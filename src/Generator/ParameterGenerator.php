@@ -327,12 +327,10 @@ class ParameterGenerator extends AbstractGenerator
 
         if ('self' === strtolower($typeString)) {
             // exceptional case: `self` must expand to the reflection type declaring class
-            return '\\' . $reflectionParameter->getDeclaringClass()->getName();
+            return $reflectionParameter->getDeclaringClass()->getName();
         }
 
-        return $type->isBuiltin()
-            ? (string) $type
-            : '\\' . $type;
+        return $typeString;
     }
 
     /**
@@ -350,7 +348,7 @@ class ParameterGenerator extends AbstractGenerator
             return strtolower($type) . ' ';
         }
 
-        return $this->type . ' ';
+        return '\\' . $this->type . ' ';
     }
 
     /**
