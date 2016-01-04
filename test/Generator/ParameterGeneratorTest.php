@@ -481,4 +481,14 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         self::assertFalse($parameter->getVariadic());
         self::assertSame('$foo', $parameter->generate());
     }
+
+    /**
+     * @group zendframework/zend-code#29
+     */
+    public function testGetInternalClassDefaultParameterValue()
+    {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection([\Phar::class, 'compress'], 1));
+
+        $this->assertSame('null', strtolower((string) $parameter->getDefaultValue()));
+    }
 }
