@@ -17,6 +17,7 @@
         "zendframework/zend-eventmanager": "^2.6|^3.0"
     },
     "require-dev": {
+        "ext-phar": "*",
         "doctrine/annotations": "~1.0",
         "zendframework/zend-stdlib": "2.7",
         "fabpot/php-cs-fixer": "1.7.*",
