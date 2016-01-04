@@ -2,6 +2,8 @@
 
 namespace ZendTest\Code\TestAsset;
 
+use Closure;
+
 class ClassTypeHintedClass
 {
     public function selfParameter(self $foo)
@@ -17,6 +19,10 @@ class ClassTypeHintedClass
     }
 
     public function closureParameter(\Closure $foo)
+    {
+    }
+
+    public function importedClosureParameter(Closure $foo)
     {
     }
 }

@@ -374,6 +374,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
             [ClassTypeHintedClass::class, 'closureParameter', 'foo', '\\' . \Closure::class],
+            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', '\\' . \Closure::class],
             [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],

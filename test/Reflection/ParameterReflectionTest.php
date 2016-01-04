@@ -132,6 +132,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
             [ClassTypeHintedClass::class, 'closureParameter', 'foo', \Closure::class],
+            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', \Closure::class],
         ];
     }
 
