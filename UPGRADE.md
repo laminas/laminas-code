@@ -60,3 +60,22 @@ var_dump($methodGenerator->getParameters()[0]->getType());
 
 In version 2.x, this code produces `"string"`, in version 3.x it returns `null`.
 
+### Type strings are validated
+
+If you attempt to generate type-hints for parameters or return types, those types are
+now validated before the code is generated.
+
+Be sure to check which values you pass to `Zend\Code\Generator\MethodGenerator#setReturnType()`
+or `Zend\Code\Generator\ParameterGenerator#setType()`, as you may incur in a
+`Zend\Code\Generator\Exception\InvalidArgumentException` being thrown if any
+of those types are invalid strings:
+
+```php
+$parameterGenerator->setType('foo'); // valid
+$parameterGenerator->setType('array'); // valid
+$parameterGenerator->setType('bool'); // valid
+$parameterGenerator->setType('123'); // invalid (throws exception)
+$parameterGenerator->setType(''); // invalid (throws exception)
+$parameterGenerator->setType('*'); // invalid (throws exception)
+$parameterGenerator->setType('\\'); // invalid (throws exception)
+```
