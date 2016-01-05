@@ -284,7 +284,7 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param boolean $returnsReference
+     * @param bool $returnsReference
      *
      * @return MethodGenerator
      */
