@@ -274,7 +274,7 @@ class MethodGenerator extends AbstractMemberGenerator
      *
      * @return MethodGenerator
      */
-    public function setReturnType(string $returnType = null)
+    public function setReturnType($returnType = null)
     {
         $this->returnType = null === $returnType
             ? null
