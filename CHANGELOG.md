@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.0.0 - TBD
+
+### Changed
+
+This section refers to breaking changes: please refer to [UPGRADE.md](UPGRADE.md)
+for migration instructions.
+
+- Types `string`, `int`, `float`, `bool` passed to `Zend\Code\ParameterGenerator#setType()`
+  are no longer ignored in generated code [#30](https://github.com/zendframework/zend-code/pull/30)
+- Types declared in DocBlocks are now ignored when creating a `Zend\Code\ParameterGenerator` via
+  `Zend\Code\ParameterGenerator::fromReflection()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- Type strings are now validated: passing an invalid type to any method in the generator API
+  may lead to a `Zend\Code\Generator\InvalidArgumentException` being thrown.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\ParameterGenerator::$simple` was removed. [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\ParameterGenerator#$type` is now a `null|Zend\Code\Generator\TypeGenerator`: was a
+  `string` before. [#30](https://github.com/zendframework/zend-code/pull/30)
+
+### Added
+
+- PHP 7 return type hints generation support via `Zend\Code\MethodGenerator#setReturnType()`.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+- PHP 7 scalar type hints generation support via `Zend\Code\ParameterGenerator#setType()` and 
+  `Zend\Code\ParameterGenerator#getType()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- PHP 5.6 variadic arguments support via `Zend\Code\ParameterGenerator#setVariadic()` and
+  `Zend\Code\ParameterGenerator#getVariadic()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- Generation of methods returning by reference is supported via `Zend\Code\ParameterGenerator#setReturnsReference()`.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- `Zend\Code\ParameterGenerator::$simple` was removed. [#30](https://github.com/zendframework/zend-code/pull/30)
+
+### Fixed
+
+- Nothing.
+
 ## 2.7.0 - TBD
 
 ### Added
