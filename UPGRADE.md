@@ -109,3 +109,10 @@ names to `Zend\Code\Generator\MethodGenerator` and `Zend\Code\Generator\Paramete
 If you extended `Zend\Code\Generator\ParameterGenerator`, be sure to check if you
 are accessing the protected static variable `$simple`: it was removed, and you should
 adapt your code by either copying it into your class or avoiding its usage.
+
+### `Zend\Code\Generator\ParameterGenerator::$type` has changed
+
+If you extended `Zend\Code\Generator\ParameterGenerator`, be sure to check if you
+are accessing the protected variable `$type`: its type has changed.
+While it can still be used as a string via an explicit `(string)` cast, the type of
+this protected member is now `null|Zend\Code\Generator\TypeGenerator`.
