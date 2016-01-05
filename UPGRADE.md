@@ -32,3 +32,31 @@ was renamed to `Zend\Code\Reflection\ParameterReflection#detectType()`.
 If you relied on `Zend\Code\Reflection\ParameterReflection#getType()`, you can
 simply replace the method calls in your code.
  
+### DocBlock types ignored by `Zend\Code\Generator\ParameterGenerator::fromReflection()`
+
+As a direct consequence of the previous change, calls to 
+`Zend\Code\Generator\ParameterGenerator::fromReflection()` will not mirror the
+type hints read from a method's DocBlock.
+
+As an example, take following code:
+
+```php
+class Foo
+{
+    /**
+     * @param string $baz
+     */
+    public function bar($baz)
+    {
+    }
+}
+
+$methodGenerator = \Zend\Code\Generator\MethodGenerator::fromReflection(
+    new \Zend\Code\Reflection\MethodReflection('Foo', 'bar')
+);
+
+var_dump($methodGenerator->getParameters()[0]->getType());
+```
+
+In version 2.x, this code produces `"string"`, in version 3.x it returns `null`.
+
