@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.2 - TBD
+## 2.6.3 - TBD
 
 ### Added
 
@@ -37,6 +37,24 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Fixed
 
 - Nothing.
+
+## 2.6.2 - 2015-01-05
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#31](https://github.com/zendframework/zend-code/pull/31) updated license year.
 
 ## 2.6.1 - 2015-11-24
 
