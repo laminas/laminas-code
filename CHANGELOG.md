@@ -19,6 +19,9 @@ for migration instructions.
 - `Zend\Code\Generator\ParameterGenerator::$simple` was removed. [#30](https://github.com/zendframework/zend-code/pull/30)
 - `Zend\Code\Generator\ParameterGenerator#$type` is now a `null|Zend\Code\Generator\TypeGenerator`: was a
   `string` before. [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\Reflection\ParameterReflection#getType()` was renamed 
+  to `Zend\Code\Reflection\ParameterReflection#detectType()` in order to not override the inherited
+  `ReflectionParameter#getType()`, introduced in PHP 7. [#30](https://github.com/zendframework/zend-code/pull/30)
 
 ### Added
 
