@@ -102,3 +102,10 @@ In version 3.x, it produces `public function foo(\baz $bar) : \tab {}`.
 
 In order to avoid migration problems, be sure to always pass fully qualified class
 names to `Zend\Code\Generator\MethodGenerator` and `Zend\Code\Generator\ParameterGenerator`.
+
+
+### `Zend\Code\Generator\ParameterGenerator::$simple` was removed
+
+If you extended `Zend\Code\Generator\ParameterGenerator`, be sure to check if you
+are accessing the protected static variable `$simple`: it was removed, and you should
+adapt your code by either copying it into your class or avoiding its usage.
