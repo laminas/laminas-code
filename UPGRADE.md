@@ -79,3 +79,26 @@ $parameterGenerator->setType(''); // invalid (throws exception)
 $parameterGenerator->setType('*'); // invalid (throws exception)
 $parameterGenerator->setType('\\'); // invalid (throws exception)
 ```
+
+
+### Generated type-hints are now prefixed by `"\"`
+
+Generated type-hints are now prefixed with the `NAMESPACE_SEPARATOR`,
+`"\"`.
+
+Take following example code:
+
+```php
+$parameter = new \Zend\Code\Generator\ParameterGenerator('bar', 'baz');
+$method    = new \Zend\Code\Generator\MethodGenerator('foo', [$parameter]);
+
+$method->setReturnType('tab');
+
+echo $method->generate();
+```
+
+This code produces `public function foo(baz $bar) {}` in 2.x.
+In version 3.x, it produces `public function foo(\baz $bar) : \tab {}`.
+
+In order to avoid migration problems, be sure to always pass fully qualified class
+names to `Zend\Code\Generator\MethodGenerator` and `Zend\Code\Generator\ParameterGenerator`.
