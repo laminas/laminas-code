@@ -84,6 +84,26 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
     }
 
+    public function testHasImplementedInterface()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+    }
+
+    public function testRemoveImplementedInterface()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+
+        $classGenerator->removeImplementedInterface('Class1');
+        $this->assertFalse($classGenerator->hasImplementedInterface('Class1'));
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class2'));
+    }
+
     public function testPropertyAccessors()
     {
         $classGenerator = new ClassGenerator();
