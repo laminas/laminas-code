@@ -59,6 +59,24 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($classGenerator->getExtendedClass(), 'ExtendedClass');
     }
 
+    public function testHasExtendedClass()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setExtendedClass('ExtendedClass');
+
+        $this->assertTrue($classGenerator->hasExtentedClass());
+    }
+
+    public function testRemoveExtendedClass()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setExtendedClass('ExtendedClass');
+        $this->assertTrue($classGenerator->hasExtentedClass());
+
+        $classGenerator->removeExtentedClass();
+        $this->assertFalse($classGenerator->hasExtentedClass());
+    }
+
     public function testImplementedInterfacesAccessors()
     {
         $classGenerator = new ClassGenerator();
