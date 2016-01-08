@@ -652,6 +652,16 @@ CODE;
         $classGenerator->addConstant('x', 'value1');
     }
 
+    public function testRemoveConstant()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addConstant('constantOne', 'foo');
+        $this->assertTrue($classGenerator->hasConstant('constantOne'));
+
+        $classGenerator->removeConstant('constantOne');
+        $this->assertFalse($classGenerator->hasConstant('constantOne'));
+    }
+
     /**
      * @group 6274
      */
