@@ -465,8 +465,28 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
+     * @param string $implementedInterface
+     * @return bool
+     */
+    public function hasImplementedInterface($implementedInterface)
+    {
+        return in_array($implementedInterface, $this->implementedInterfaces);
+    }
+
+    /**
+     * @param $implementedInterface
+     * @return ClassGenerator
+     */
+    public function removeImplementedInterface($implementedInterface)
+    {
+        if ($this->hasImplementedInterface($implementedInterface)) {
+            unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
+        }
+        return $this;
+    }
+
+    /**
      * @param  string $constantName
-     *
      * @return PropertyGenerator|false
      */
     public function getConstant($constantName)
