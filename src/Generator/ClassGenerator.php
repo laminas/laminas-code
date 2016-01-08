@@ -430,6 +430,23 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
+     * @return boolean
+     */
+    public function hasExtentedClass()
+    {
+        return !empty($this->extendedClass);
+    }
+
+    /**
+     * @return ClassGenerator
+     */
+    public function removeExtentedClass()
+    {
+        $this->setExtendedClass(null);
+        return $this;
+    }
+
+    /**
      * @param  array $implementedInterfaces
      * @return ClassGenerator
      */
