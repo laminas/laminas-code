@@ -471,6 +471,18 @@ class ClassGenerator extends AbstractGenerator
 
     /**
      * @param  string $constantName
+     * @return ClassGenerator
+     */
+    public function removeConstant($constantName)
+    {
+        if ($this->hasConstant($constantName)) {
+            unset($this->constants[$constantName]);
+        }
+        return $this;
+    }
+
+    /**
+     * @param  string $constantName
      * @return bool
      */
     public function hasConstant($constantName)
