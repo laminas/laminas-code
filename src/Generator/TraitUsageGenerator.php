@@ -54,6 +54,8 @@ class TraitUsageGenerator extends AbstractGenerator
      */
     public function addUse($use, $useAlias = null)
     {
+        $this->removeUse($use);
+
         if (! empty($useAlias)) {
             $use .= ' as ' . $useAlias;
         }
