@@ -11,6 +11,14 @@ namespace Zend\Code\Generator;
 use Reflection;
 use ReflectionMethod;
 
+/**
+ * Class TraitUsageGenerator
+ *
+ * @todo    rewrite $this->uses storage such that it easier to differentiate between the class and its alias for 3.0
+ * @todo    pull this logic into ClassGenerator OR rename this class to UsageGenerator for 3.0
+ *
+ * @package Zend\Code\Generator
+ */
 class TraitUsageGenerator extends AbstractGenerator
 {
     /**
