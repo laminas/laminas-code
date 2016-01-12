@@ -422,6 +422,48 @@ CODE;
         $this->assertContains('class FunClass', $received, $received);
     }
 
+    public function testHasUse()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+
+        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+    }
+
+    public function testRemoveUse()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+
+        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+        $classGenerator->removeUse('My\First\Use\Class');
+        $classGenerator->removeUse('My\Second\Use\Class');
+        $this->assertFalse($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertFalse($classGenerator->hasUse('My\Second\Use\Class'));
+    }
+
+    public function testHasUseAlias()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUseAlias('My\Second\Use\Class'));
+    }
+
+    public function testRemoveUseAlias()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
+        $this->assertTrue($classGenerator->hasUseAlias('My\First\Use\Class'));
+        $classGenerator->removeUseAlias('My\First\Use\Class');
+        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
+    }
+
     /**
      * @group ZF2-151
      */
