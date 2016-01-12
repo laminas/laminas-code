@@ -14,9 +14,7 @@ use ReflectionMethod;
 /**
  * Class TraitUsageGenerator
  *
- * @todo    rewrite $this->uses storage such that it easier to differentiate between the class and its alias for 3.0
- * @todo    pull this logic into ClassGenerator OR rename this class to UsageGenerator for 3.0
- *
+ * @deprecated Deprecated in 2.7. Use UsageGenerator instead
  * @package Zend\Code\Generator
  */
 class TraitUsageGenerator extends AbstractGenerator
