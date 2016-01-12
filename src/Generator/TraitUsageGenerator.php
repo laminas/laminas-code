@@ -72,10 +72,13 @@ class TraitUsageGenerator extends AbstractGenerator
         return array_values($this->uses);
     }
 
+    /**
+     * @param $use
+     * @return bool
+     */
     public function hasUse($use)
     {
-        $uses = array_values($this->uses);
-        foreach($this->uses as $key=>$value) {
+        foreach ($this->uses as $key => $value) {
             $parts = explode(' ', $value);
             if ($parts[0] === $use) {
                 return true;
@@ -91,7 +94,7 @@ class TraitUsageGenerator extends AbstractGenerator
      */
     public function hasUseAlias($use)
     {
-        foreach($this->uses as $key=>$value) {
+        foreach ($this->uses as $key => $value) {
             $parts = explode(' as ', $value);
             if ($parts[0] === $use and count($parts) == 2) {
                 return true;
@@ -107,7 +110,7 @@ class TraitUsageGenerator extends AbstractGenerator
      */
     public function removeUse($use)
     {
-        foreach($this->uses as $key=>$value) {
+        foreach ($this->uses as $key => $value) {
             $parts = explode(' ', $value);
             if ($parts[0] === $use) {
                 unset($this->uses[$value]);
@@ -123,7 +126,7 @@ class TraitUsageGenerator extends AbstractGenerator
      */
     public function removeUseAlias($use)
     {
-        foreach($this->uses as $key=>$value) {
+        foreach ($this->uses as $key => $value) {
             $parts = explode(' as ', $value);
             if ($parts[0] === $use and count($parts) == 2) {
                 unset($this->uses[$value]);
