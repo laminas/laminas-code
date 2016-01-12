@@ -64,6 +64,67 @@ class TraitUsageGenerator extends AbstractGenerator
         return array_values($this->uses);
     }
 
+    public function hasUse($use)
+    {
+        $uses = array_values($this->uses);
+        foreach($this->uses as $key=>$value) {
+            $parts = explode(' ', $value);
+            if ($parts[0] === $use) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $use
+     * @return bool
+     */
+    public function hasUseAlias($use)
+    {
+        foreach($this->uses as $key=>$value) {
+            $parts = explode(' as ', $value);
+            if ($parts[0] === $use and count($parts) == 2) {
+                return true;
+            }
+        };
+
+        return false;
+    }
+
+    /**
+     * @param $use
+     * @return TraitUsageGenerator
+     */
+    public function removeUse($use)
+    {
+        foreach($this->uses as $key=>$value) {
+            $parts = explode(' ', $value);
+            if ($parts[0] === $use) {
+                unset($this->uses[$value]);
+            }
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param $use
+     * @return TraitUsageGenerator
+     */
+    public function removeUseAlias($use)
+    {
+        foreach($this->uses as $key=>$value) {
+            $parts = explode(' as ', $value);
+            if ($parts[0] === $use and count($parts) == 2) {
+                unset($this->uses[$value]);
+            }
+        };
+
+        return $this;
+    }
+
     /**
      * @inherit Zend\Code\Generator\TraitUsageInterface
      */

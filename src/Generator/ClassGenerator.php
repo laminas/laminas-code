@@ -717,6 +717,44 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
+     * @param string $use
+     * @return ClassGenerator
+     */
+    public function hasUse($use)
+    {
+        return $this->traitUsageGenerator->hasUse($use);
+    }
+
+    /**
+     * @param  string $use
+     * @return ClassGenerator
+     */
+    public function removeUse($use)
+    {
+        $this->traitUsageGenerator->removeUse($use);
+        return $this;
+    }
+
+    /**
+     * @param string $use
+     * @return bool
+     */
+    public function hasUseAlias($use)
+    {
+        return $this->traitUsageGenerator->hasUseAlias($use);
+    }
+
+    /**
+     * @param $use
+     * @return ClassGenerator
+     */
+    public function removeUseAlias($use)
+    {
+        $this->traitUsageGenerator->removeUseAlias($use);
+        return $this;
+    }
+
+    /**
      * Returns the "use" classes
      *
      * @return array
@@ -725,6 +763,7 @@ class ClassGenerator extends AbstractGenerator
     {
         return $this->traitUsageGenerator->getUses();
     }
+
 
     /**
      * @param  string $propertyName
