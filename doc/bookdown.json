@@ -1,10 +1,9 @@
 {
-    "title": "Zend\\Code",
-    "target": "html/",
-    "content": [
-        "book/zend.code.generator.introduction.md",
-        "book/zend.code.generator.reference.md",
-        "book/zend.code.generator.examples.md",
-        "book/zend.code.migrate.2.to.3.md"
-    ]
+  "title": "zend-code: Tools for reflecting, scanning, and generating PHP code",
+  "content": [
+    {"Intro": "../README.md"},
+    "book/generator/bookdown.json",
+    {"Migration from v2 to v3": "book/migration.md"}
+  ],
+  "target": "./html"
 }
