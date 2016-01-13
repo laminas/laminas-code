@@ -70,9 +70,9 @@ class ClassGenerator extends AbstractGenerator
     protected $methods = [];
 
     /**
-     * @var UsageGenerator Object to encapsulate trait usage logic
+     * @var TraitUsageGenerator Object to encapsulate trait usage logic
      */
-    protected $usageGenerator;
+    protected $traitUsageGenerator;
 
     /**
      * Build a Code Generation Php Object from a Class Reflection
@@ -232,7 +232,7 @@ class ClassGenerator extends AbstractGenerator
         $methods = [],
         $docBlock = null
     ) {
-        $this->usageGenerator = new UsageGenerator($this);
+        $this->traitUsageGenerator = new TraitUsageGenerator($this);
 
         if ($name !== null) {
             $this->setName($name);
@@ -712,7 +712,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addUse($use, $useAlias = null)
     {
-        $this->usageGenerator->addUse($use, $useAlias);
+        $this->traitUsageGenerator->addUse($use, $useAlias);
         return $this;
     }
 
@@ -722,7 +722,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function hasUse($use)
     {
-        return $this->usageGenerator->hasUse($use);
+        return $this->traitUsageGenerator->hasUse($use);
     }
 
     /**
@@ -731,7 +731,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeUse($use)
     {
-        $this->usageGenerator->removeUse($use);
+        $this->traitUsageGenerator->removeUse($use);
         return $this;
     }
 
@@ -741,7 +741,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function hasUseAlias($use)
     {
-        return $this->usageGenerator->hasUseAlias($use);
+        return $this->traitUsageGenerator->hasUseAlias($use);
     }
 
     /**
@@ -750,7 +750,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeUseAlias($use)
     {
-        $this->usageGenerator->removeUseAlias($use);
+        $this->traitUsageGenerator->removeUseAlias($use);
         return $this;
     }
 
@@ -761,7 +761,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function getUses()
     {
-        return $this->usageGenerator->getUses();
+        return $this->traitUsageGenerator->getUses();
     }
 
 
@@ -902,7 +902,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addTrait($trait)
     {
-        $this->usageGenerator->addTrait($trait);
+        $this->traitUsageGenerator->addTrait($trait);
         return $this;
     }
 
@@ -911,7 +911,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addTraits(array $traits)
     {
-        $this->usageGenerator->addTraits($traits);
+        $this->traitUsageGenerator->addTraits($traits);
         return $this;
     }
 
@@ -920,7 +920,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function hasTrait($traitName)
     {
-        return $this->usageGenerator->hasTrait($traitName);
+        return $this->traitUsageGenerator->hasTrait($traitName);
     }
 
     /**
@@ -928,7 +928,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function getTraits()
     {
-        return $this->usageGenerator->getTraits();
+        return $this->traitUsageGenerator->getTraits();
     }
 
     /**
@@ -936,7 +936,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeTrait($traitName)
     {
-        return $this->usageGenerator->removeTrait($traitName);
+        return $this->traitUsageGenerator->removeTrait($traitName);
     }
 
     /**
@@ -944,7 +944,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addTraitAlias($method, $alias, $visibility = null)
     {
-        $this->usageGenerator->addTraitAlias($method, $alias, $visibility);
+        $this->traitUsageGenerator->addTraitAlias($method, $alias, $visibility);
         return $this;
     }
 
@@ -953,7 +953,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function getTraitAliases()
     {
-        return $this->usageGenerator->getTraitAliases();
+        return $this->traitUsageGenerator->getTraitAliases();
     }
 
     /**
@@ -961,7 +961,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addTraitOverride($method, $traitsToReplace)
     {
-        $this->usageGenerator->addTraitOverride($method, $traitsToReplace);
+        $this->traitUsageGenerator->addTraitOverride($method, $traitsToReplace);
         return $this;
     }
 
@@ -970,7 +970,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeTraitOverride($method, $overridesToRemove = null)
     {
-        $this->usageGenerator->removeTraitOverride($method, $overridesToRemove);
+        $this->traitUsageGenerator->removeTraitOverride($method, $overridesToRemove);
 
         return $this;
     }
@@ -980,7 +980,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function getTraitOverrides()
     {
-        return $this->usageGenerator->getTraitOverrides();
+        return $this->traitUsageGenerator->getTraitOverrides();
     }
 
     /**
@@ -1061,7 +1061,7 @@ class ClassGenerator extends AbstractGenerator
         }
 
         $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
-        $output .= $this->usageGenerator->generate();
+        $output .= $this->traitUsageGenerator->generate();
 
         $constants = $this->getConstants();
 
