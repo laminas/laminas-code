@@ -4,5 +4,5 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 .travis.yml export-ignore
-.php_cs export-ignore
+phpcs.xml.dist export-ignore
 phpunit.xml.dist export-ignore
