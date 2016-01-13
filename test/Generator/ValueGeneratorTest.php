@@ -46,7 +46,12 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllowedPossibleConstantsType($constants)
     {
-        $valueGenerator = new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
+        $valueGenerator = new ValueGenerator(
+            null,
+            ValueGenerator::TYPE_AUTO,
+            ValueGenerator::OUTPUT_MULTIPLE_LINE,
+            $constants
+        );
 
         $this->assertSame($constants, $valueGenerator->getConstants());
     }

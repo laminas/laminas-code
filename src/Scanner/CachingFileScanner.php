@@ -41,7 +41,9 @@ class CachingFileScanner extends FileScanner
 
         $file = realpath($file);
 
-        $cacheId = md5($file) . '/' . ((isset($annotationManager) ? spl_object_hash($annotationManager) : 'no-annotation'));
+        $cacheId = md5($file) . '/' . ((isset($annotationManager)
+            ? spl_object_hash($annotationManager)
+            : 'no-annotation'));
 
         if (isset(static::$cache[$cacheId])) {
             $this->fileScanner = static::$cache[$cacheId];
