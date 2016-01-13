@@ -119,7 +119,13 @@ class Zend\Code\Generator\ClassGenerator extends Zend\Code\Generator\AbstractGen
     public function getProperties()
     public function getProperty($propertyName)
     public function addMethods(Array $methods)
-    public function addMethod($method)
+    public function addMethod(
+        $name,
+        Array $parameters = [],
+        $flags = Zend\Code\Generator\MethodGenerator::FLAG_PUBLIC,
+        $body = null,
+        $docBlock = null
+    )
     public function getMethods()
     public function getMethod($methodName)
     public function hasMethod($methodName)
