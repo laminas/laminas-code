@@ -1,9 +1,4 @@
-# Upgrade/Migration guide
-
-All changes required for users to upgrade to newer versions of
-`zendframework/zend-code` will be documented or referenced here.
-
-## 2.* -> 3.0.0
+# Migrating from `Zend\Code` `2.*` to `3.0.0`
 
 ### `string`, `int`, `float`, `bool` are no longer ignored
 

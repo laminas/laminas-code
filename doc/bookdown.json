@@ -5,6 +5,6 @@
         "book/zend.code.generator.introduction.md",
         "book/zend.code.generator.reference.md",
         "book/zend.code.generator.examples.md",
-        "book/zend.code.migration.md"
+        "book/zend.code.migrate.2.to.3.md"
     ]
 }
