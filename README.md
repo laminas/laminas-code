@@ -9,6 +9,6 @@ code. While the current implementation is limited to generating PHP code, you
 can easily extend the base class in order to provide code generation for other
 tasks: JavaScript, configuration files, apache vhosts, etc.
 
-
 - File issues at https://github.com/zendframework/zend-code/issues
-- Documentation is at http://framework.zend.com/manual/current/en/index.html#zend-code
+- Documentation is at http://zend-code.rtfd.org
+- Migration documentation from v2 to v3 is at http://zend-code.rtfd.org/en/latest/book/migration/

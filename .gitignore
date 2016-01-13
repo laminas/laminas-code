@@ -6,8 +6,9 @@
 .*.sw*
 .*.un~
 nbproject
-tmp/
 
+doc/html/
+tmp/
 clover.xml
 composer.lock
 coveralls-upload.json
