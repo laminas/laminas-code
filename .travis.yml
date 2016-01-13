@@ -21,6 +21,7 @@ matrix:
     - php: 5.5
       env:
         - EXECUTE_CS_CHECK=true
+        - EXECUTE_DOC_CHECK=true
     - php: 5.6
       env:
         - EXECUTE_TEST_COVERALLS=true
@@ -36,15 +37,20 @@ notifications:
 before_install:
   - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
   - composer self-update
+  - if [[ $EXECUTE_DOC_CHECK == 'true' ]]; then composer require --dev --no-update phly/bookdown2mkdocs ; fi
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --dev --no-update satooshi/php-coveralls ; fi
 
 install:
   - travis_retry composer install --no-interaction --ignore-platform-reqs
 
+before_script:
+  - if [[ $EXECUTE_DOC_CHECK == 'true' ]]; then cp mkdocs.yml mkdocs.yml.orig ; fi
+
 script:
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; fi
   - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then ./vendor/bin/phpunit ; fi
   - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/phpcs ; fi
+  - if [[ $EXECUTE_DOC_CHECK == 'true' ]]; then make mkdocs ; diff mkdocs.yml mkdocs.yml.orig ; return $? ; fi
 
 after_script:
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/coveralls ; fi

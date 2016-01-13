@@ -1,0 +1,12 @@
+docs_dir: doc/book
+site_dir: doc/html
+pages:
+    - index.md
+    - zend.code.generator.introduction.md
+    - zend.code.generator.reference.md
+    - zend.code.generator.examples.md
+    - zend.code.migrate.2.to.3.md
+site_name: zend-code
+site_description: Zend\Code
+repo_url: 'https://github.com/zendframework/zend-code'
+copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
