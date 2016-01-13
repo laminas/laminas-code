@@ -30,10 +30,12 @@ final class TypeGenerator implements GeneratorInterface
      */
     private static $internalPhpTypes = ['int', 'float', 'string', 'bool', 'array', 'callable'];
 
+    // @codingStandardsIgnoreStart
     /**
      * @var string a regex pattern to match valid class names or types
      */
     private static $validIdentifierMatcher = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)*$/';
+    // @codingStandardsIgnoreEnd
 
     /**
      * @param string $type

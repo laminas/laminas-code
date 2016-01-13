@@ -47,9 +47,9 @@ class DerivedClassScanner extends ClassScanner
         while ($currentScannerClass && $currentScannerClass->hasParentClass()) {
             $currentParentClassName = $currentScannerClass->getParentClass();
             if ($directoryScanner->hasClass($currentParentClassName)) {
-                $currentParentClass                                 = $directoryScanner->getClass($currentParentClassName);
+                $currentParentClass = $directoryScanner->getClass($currentParentClassName);
                 $this->parentClassScanners[$currentParentClassName] = $currentParentClass;
-                $currentScannerClass                                = $currentParentClass;
+                $currentScannerClass = $currentParentClass;
             } else {
                 $currentScannerClass = false;
             }

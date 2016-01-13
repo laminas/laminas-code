@@ -11,6 +11,8 @@ namespace ZendTest\Code\Reflection;
 
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
+use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\PropertyReflection;
 use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
 
 /**
@@ -21,9 +23,9 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
-        $property = new \Zend\Code\Reflection\PropertyReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop1');
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $property->getDeclaringClass());
-        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', $property->getDeclaringClass()->getName());
+        $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop1');
+        $this->assertInstanceOf(ClassReflection::class, $property->getDeclaringClass());
+        $this->assertEquals(TestAsset\TestSampleClass2::class, $property->getDeclaringClass()->getName());
     }
 
     public function testAnnotationScanningIsPossible()
@@ -33,10 +35,10 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $parser->registerAnnotation(new TestAsset\SampleAnnotation());
         $manager->attach($parser);
 
-        $property = new \Zend\Code\Reflection\PropertyReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop2');
+        $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop2');
         $annotations = $property->getAnnotations($manager);
         $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
-        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Reflection\TestAsset\SampleAnnotation'));
+        $this->assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
         $found = false;
         foreach ($annotations as $key => $annotation) {
             if (!$annotation instanceof TestAsset\SampleAnnotation) {

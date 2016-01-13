@@ -22,19 +22,28 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
-        $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'], 0);
+        $parameter = new Reflection\ParameterReflection(
+            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            0
+        );
         $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getDeclaringClass());
     }
 
-    public function testClassReturn_NoClassGiven_ReturnsNull()
+    public function testClassReturnNoClassGivenReturnsNull()
     {
-        $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'], 'param1');
+        $parameter = new Reflection\ParameterReflection(
+            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            'param1'
+        );
         $this->assertNull($parameter->getClass());
     }
 
     public function testClassReturn()
     {
-        $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'], 'param2');
+        $parameter = new Reflection\ParameterReflection(
+            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            'param2'
+        );
         $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getClass());
     }
 
@@ -43,13 +52,19 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testTypeReturn($param, $type)
     {
-        $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'], $param);
+        $parameter = new Reflection\ParameterReflection(
+            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'],
+            $param
+        );
         $this->assertEquals($type, $parameter->detectType());
     }
 
     public function testCallableTypeHint()
     {
-        $parameter = new Reflection\ParameterReflection(['ZendTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'], 'bar');
+        $parameter = new Reflection\ParameterReflection(
+            ['ZendTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'],
+            'bar'
+        );
         $this->assertEquals('callable', $parameter->detectType());
     }
 
