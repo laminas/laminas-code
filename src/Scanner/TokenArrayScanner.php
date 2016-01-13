@@ -316,7 +316,14 @@ class TokenArrayScanner implements ScannerInterface
         /*
          * MACRO creation
          */
-        $MACRO_TOKEN_ADVANCE             = function () use (&$tokens, &$tokenIndex, &$token, &$tokenType, &$tokenContent, &$tokenLine) {
+        $MACRO_TOKEN_ADVANCE = function () use (
+            &$tokens,
+            &$tokenIndex,
+            &$token,
+            &$tokenType,
+            &$tokenContent,
+            &$tokenLine
+        ) {
             $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
             if (!isset($tokens[$tokenIndex])) {
                 $token        = false;
@@ -385,15 +392,12 @@ class TokenArrayScanner implements ScannerInterface
         $MACRO_DOC_COMMENT_VALIDATE();
 
         switch ($tokenType) {
-
             case T_DOC_COMMENT:
-
                 $MACRO_DOC_COMMENT_START();
                 goto SCANNER_CONTINUE;
-                //goto no break needed
+                // goto no break needed
 
             case T_NAMESPACE:
-
                 $infos[$infoIndex] = [
                     'type'       => 'namespace',
                     'tokenStart' => $MACRO_TOKEN_LOGICAL_START_INDEX(),
@@ -435,10 +439,9 @@ class TokenArrayScanner implements ScannerInterface
 
                 $MACRO_INFO_ADVANCE();
                 goto SCANNER_CONTINUE;
-                //goto no break needed
+                // goto no break needed
 
             case T_USE:
-
                 $infos[$infoIndex] = [
                     'type'       => 'use',
                     'tokenStart' => $MACRO_TOKEN_LOGICAL_START_INDEX(),
@@ -498,13 +501,12 @@ class TokenArrayScanner implements ScannerInterface
 
                 $MACRO_INFO_ADVANCE();
                 goto SCANNER_CONTINUE;
-                //goto no break needed
+                // goto no break needed
 
             case T_INCLUDE:
             case T_INCLUDE_ONCE:
             case T_REQUIRE:
             case T_REQUIRE_ONCE:
-
                 // Static for performance
                 static $includeTypes = [
                     T_INCLUDE      => 'include',
@@ -547,7 +549,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 $MACRO_INFO_ADVANCE();
                 goto SCANNER_CONTINUE;
-                //goto no break needed
+                // goto no break needed
 
             case T_FUNCTION:
             case T_FINAL:
@@ -555,7 +557,6 @@ class TokenArrayScanner implements ScannerInterface
             case T_CLASS:
             case T_INTERFACE:
             case T_TRAIT:
-
                 $infos[$infoIndex] = [
                     'type'        => ($tokenType === T_FUNCTION) ? 'function' : 'class',
                     'tokenStart'  => $MACRO_TOKEN_LOGICAL_START_INDEX(),
@@ -576,11 +577,16 @@ class TokenArrayScanner implements ScannerInterface
 
                 // process the name
                 if ($infos[$infoIndex]['shortName'] == ''
-                    && (($tokenType === T_CLASS || $tokenType === T_INTERFACE || $tokenType === T_TRAIT) && $infos[$infoIndex]['type'] === 'class'
+                    && (($tokenType === T_CLASS
+                            || $tokenType === T_INTERFACE
+                            || $tokenType === T_TRAIT)
+                        && $infos[$infoIndex]['type'] === 'class'
                         || ($tokenType === T_FUNCTION && $infos[$infoIndex]['type'] === 'function'))
                 ) {
                     $infos[$infoIndex]['shortName'] = $tokens[$tokenIndex + 2][1];
-                    $infos[$infoIndex]['name']      = (($namespace !== null) ? $namespace . '\\' : '') . $infos[$infoIndex]['shortName'];
+                    $infos[$infoIndex]['name']      = (($namespace !== null)
+                        ? $namespace . '\\'
+                        : '') . $infos[$infoIndex]['shortName'];
                 }
 
                 if ($tokenType === null) {
@@ -606,7 +612,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 $MACRO_INFO_ADVANCE();
                 goto SCANNER_CONTINUE;
-
+                // goto no break needed
         }
 
         SCANNER_CONTINUE:

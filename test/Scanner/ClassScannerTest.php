@@ -172,9 +172,9 @@ class ClassScannerTest extends TestCase
         $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Foo'));
         $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Bar'));
 
-        $this->assertEquals('first',  $annotations[0]->content);
+        $this->assertEquals('first', $annotations[0]->content);
         $this->assertEquals('second', $annotations[1]->content);
-        $this->assertEquals('third',  $annotations[2]->content);
+        $this->assertEquals('third', $annotations[2]->content);
     }
 
     /**

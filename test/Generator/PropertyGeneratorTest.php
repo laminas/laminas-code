@@ -11,6 +11,7 @@ namespace ZendTest\Code\Generator;
 
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
+use Zend\Code\Reflection\ClassReflection;
 
 /**
  * @group Zend_Code_Generator
@@ -161,7 +162,7 @@ EOS;
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
         $this->assertEquals('_bazStaticProperty', $cgProp->getName());
-        $this->assertEquals(\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
+        $this->assertEquals(TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
         $this->assertTrue($cgProp->isStatic());
         $this->assertEquals('private', $cgProp->getVisibility());
     }
@@ -243,7 +244,7 @@ EOS;
      */
     public function testPropertyDocBlockWillLoadFromReflection()
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection('\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties');
+        $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
         $reflProp = $reflectionClass->getProperty('fooProperty');
         $cgProp   = PropertyGenerator::fromReflection($reflProp);

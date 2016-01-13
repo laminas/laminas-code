@@ -132,7 +132,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $parameters = $this->getParameters();
         foreach ($parameters as $parameter) {
             $prototype['arguments'][$parameter->getName()] = [
-                'type'     => $parameter->getType(),
+                'type'     => $parameter->detectType(),
                 'required' => !$parameter->isOptional(),
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
@@ -143,7 +143,9 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             $line = $prototype['visibility'] . ' ' . $prototype['return'] . ' ' . $prototype['name'] . '(';
             $args = [];
             foreach ($prototype['arguments'] as $name => $argument) {
-                $argsLine = ($argument['type'] ? $argument['type'] . ' ' : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
+                $argsLine = ($argument['type'] ?
+                    $argument['type'] . ' '
+                    : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
                 if (!$argument['required']) {
                     $argsLine .= ' = ' . var_export($argument['default'], true);
                 }
@@ -343,7 +345,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             return $content;
         }
 
-        for ($i = $position-1;$i >= 0;$i--) {
+        for ($i = $position-1; $i >= 0; $i--) {
             $tokenType = (is_array($haystack[$i])) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = (is_array($haystack[$i])) ? $haystack[$i][1] : $haystack[$i];
 
@@ -376,7 +378,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             return true;
         }
 
-        for ($i = $position;$i < $count; $i++) {
+        for ($i = $position; $i < $count; $i++) {
             $tokenType = (is_array($haystack[$i])) ? token_name($haystack[$i][0]) : $haystack[$i];
             switch ($tokenType) {
                 case "T_FINAL":
@@ -396,7 +398,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                     return false;
 
                 case "}":
-                case ";";
+                case ";":
                 case "T_BREAK":
                 case "T_CATCH":
                 case "T_DO":
@@ -420,7 +422,6 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                 case "T_VARIABLE":
                 case "T_WHILE":
                 case "T_YIELD":
-
                     return false;
             }
         }

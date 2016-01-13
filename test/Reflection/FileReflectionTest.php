@@ -82,7 +82,10 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClass', $reflectionFile->getClass()->getName());
+        $this->assertEquals(
+            'ZendTest\Code\Reflection\TestAsset\TestSampleClass',
+            $reflectionFile->getClass()->getName()
+        );
     }
 
     public function testFileGetClassThrowsExceptionOnNonExistentClassName()
@@ -92,7 +95,10 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionFile = new FileReflection($fileToReflect);
         $nonExistentClass = 'Some_Non_Existent_Class';
 
-        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException', 'Class by name Some_Non_Existent_Class not found');
+        $this->setExpectedException(
+            'Zend\Code\Reflection\Exception\InvalidArgumentException',
+            'Class by name Some_Non_Existent_Class not found'
+        );
         $reflectionFile->getClass($nonExistentClass);
     }
 

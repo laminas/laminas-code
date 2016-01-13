@@ -75,8 +75,12 @@ class ValueGenerator extends AbstractGenerator
      * @param string      $outputMode
      * @param null|SplArrayObject|StdlibArrayObject $constants
      */
-    public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE, $constants = null)
-    {
+    public function __construct(
+        $value = null,
+        $type = self::TYPE_AUTO,
+        $outputMode = self::OUTPUT_MULTIPLE_LINE,
+        $constants = null
+    ) {
         // strict check is important here if $type = AUTO
         if ($value !== null) {
             $this->setValue($value);

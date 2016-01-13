@@ -490,41 +490,40 @@ class MethodScanner implements ScannerInterface
                     $this->docComment = $tokenContent;
                 }
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_FINAL:
                 $this->isFinal = true;
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_ABSTRACT:
                 $this->isAbstract = true;
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_PUBLIC:
                 // use defaults
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_PROTECTED:
                 $this->setVisibility(T_PROTECTED);
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_PRIVATE:
                 $this->setVisibility(T_PRIVATE);
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_STATIC:
                 $this->isStatic = true;
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case T_VARIABLE:
             case T_STRING:
-
                 if ($tokenType === T_STRING && $parentCount === 0) {
                     $this->name = $tokenContent;
                 }
@@ -539,21 +538,20 @@ class MethodScanner implements ScannerInterface
                 }
 
                 goto SCANNER_CONTINUE_SIGNATURE;
-                //goto (no break needed);
+                // goto (no break needed);
 
             case null:
-
                 switch ($tokenContent) {
                     case '&':
                         if (!isset($infos[$infoIndex])) {
                             $MACRO_INFO_START();
                         }
                         goto SCANNER_CONTINUE_SIGNATURE;
-                        //goto (no break needed);
+                        // goto (no break needed);
                     case '(':
                         $parentCount++;
                         goto SCANNER_CONTINUE_SIGNATURE;
-                        //goto (no break needed);
+                        // goto (no break needed);
                     case ')':
                         $parentCount--;
                         if ($parentCount > 0) {
@@ -566,7 +564,7 @@ class MethodScanner implements ScannerInterface
                             $context = 'body';
                         }
                         goto SCANNER_CONTINUE_BODY;
-                        //goto (no break needed);
+                        // goto (no break needed);
                     case ',':
                         if ($parentCount === 1) {
                             $MACRO_INFO_ADVANCE();

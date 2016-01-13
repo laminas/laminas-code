@@ -23,13 +23,17 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
     public function testDocBlockShortDescription()
     {
         $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
-        $this->assertEquals('TestSampleClass5 DocBlock Short Desc', $classReflection->getDocBlock()->getShortDescription());
+        $this->assertEquals(
+            'TestSampleClass5 DocBlock Short Desc',
+            $classReflection->getDocBlock()->getShortDescription()
+        );
     }
 
     public function testDocBlockLongDescription()
     {
         $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
-        $expectedOutput = 'This is a long description for the docblock of this class, it should be longer than 3 lines. It indeed is longer than 3 lines now.';
+        $expectedOutput = 'This is a long description for the docblock of this class, it should be longer '
+            . 'than 3 lines. It indeed is longer than 3 lines now.';
 
 
         $this->assertEquals($expectedOutput, $classReflection->getDocBlock()->getLongDescription());
@@ -64,7 +68,10 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
         $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass13');
         $this->assertEquals(0, count($classReflection->getDocBlock()->getTags()));
 
-        $this->assertSame('Short Method Description', $classReflection->getMethod('doSomething')->getDocBlock()->getShortDescription());
+        $this->assertSame(
+            'Short Method Description',
+            $classReflection->getMethod('doSomething')->getDocBlock()->getShortDescription()
+        );
         $this->assertSame('Short Class Description', $classReflection->getDocBlock()->getShortDescription());
 
         $returnTag = $classReflection->getMethod('returnSomething')->getDocBlock()->getTag('return');

@@ -57,7 +57,10 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $this->assertEquals($prototype, $function->getPrototype());
-        $this->assertEquals('string function2(string $one, string $two = \'two\')', $function->getPrototype(FunctionReflection::PROTOTYPE_AS_STRING));
+        $this->assertEquals(
+            'string function2(string $one, string $two = \'two\')',
+            $function->getPrototype(FunctionReflection::PROTOTYPE_AS_STRING)
+        );
     }
 
     public function testInternalFunctionBodyReturn()
@@ -185,7 +188,10 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function6');
         $content = $function->getContents(false);
-        $this->assertEquals("function function6()\n{\n    \$closure = function() { return 'bar'; };\n    return 'function6';\n}", trim($content));
+        $this->assertEquals(
+            "function function6()\n{\n    \$closure = function() { return 'bar'; };\n    return 'function6';\n}",
+            trim($content)
+        );
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function7');
         $content = $function->getContents(false);
@@ -201,7 +207,10 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function10');
         $content = $function->getContents(false);
-        $this->assertEquals("function function10() { \$closure = function() { return 'function10'; }; return \$closure(); }", trim($content));
+        $this->assertEquals(
+            "function function10() { \$closure = function() { return 'function10'; }; return \$closure(); }",
+            trim($content)
+        );
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function11');
         $content = $function->getContents(false);
@@ -238,8 +247,11 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function3');
         $content = $function->getContents();
-        $this->assertEquals("/**\n * Enter description here...\n *\n * @param string \$one\n * @param int \$two"
-                          . "\n * @return true\n */\nfunction function3(\$one, \$two = 2)\n{\n    return true;\n}", trim($content));
+        $this->assertEquals(
+            "/**\n * Enter description here...\n *\n * @param string \$one\n * @param int \$two"
+            . "\n * @return true\n */\nfunction function3(\$one, \$two = 2)\n{\n    return true;\n}",
+            trim($content)
+        );
     }
 
     public function testFunctionClosureContentsReturnWithDocBlock()
