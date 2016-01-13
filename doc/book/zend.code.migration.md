@@ -1,6 +1,7 @@
-# Upgrade
+# Upgrade/Migration guide
 
-All changes required for users to upgrade to newer versions of this library will be documented or referenced here.
+All changes required for users to upgrade to newer versions of
+`zendframework/zend-code` will be documented or referenced here.
 
 ## 2.* -> 3.0.0
 

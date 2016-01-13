@@ -6,8 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-This section refers to breaking changes: please refer to [UPGRADE.md](UPGRADE.md)
-for migration instructions.
+This section refers to breaking changes: please refer to
+[doc/book/zend.code.migration.md](doc/book/zend.code.migration.md) for migration instructions.
 
 - Types `string`, `int`, `float`, `bool` passed to `Zend\Code\Generator\ParameterGenerator#setType()`
   are no longer ignored in generated code [#30](https://github.com/zendframework/zend-code/pull/30)
