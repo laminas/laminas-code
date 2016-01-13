@@ -19,7 +19,7 @@ class ParameterGenerator extends AbstractGenerator
     protected $name = null;
 
     /**
-     * @var string
+     * @var TypeGenerator|null
      */
     protected $type = null;
 
@@ -39,9 +39,9 @@ class ParameterGenerator extends AbstractGenerator
     protected $passedByReference = false;
 
     /**
-     * @var array
+     * @var bool
      */
-    protected static $simple = ['int', 'bool', 'string', 'float', 'resource', 'mixed', 'object'];
+    private $variadic = false;
 
     /**
      * @param  ParameterReflection $reflectionParameter
@@ -50,33 +50,27 @@ class ParameterGenerator extends AbstractGenerator
     public static function fromReflection(ParameterReflection $reflectionParameter)
     {
         $param = new ParameterGenerator();
+
         $param->setName($reflectionParameter->getName());
 
-        if ($reflectionParameter->isArray()) {
-            $param->setType('array');
-        } elseif (method_exists($reflectionParameter, 'isCallable') && $reflectionParameter->isCallable()) {
-            $param->setType('callable');
-        } else {
-            $typeClass = $reflectionParameter->getClass();
-            if ($typeClass) {
-                $parameterType = $typeClass->getName();
-                $currentNamespace = $reflectionParameter->getDeclaringClass()->getNamespaceName();
-
-                if (!empty($currentNamespace) && substr($parameterType, 0, strlen($currentNamespace)) == $currentNamespace) {
-                    $parameterType = substr($parameterType, strlen($currentNamespace) + 1);
-                } else {
-                    $parameterType = '\\' . trim($parameterType, '\\');
-                }
-
-                $param->setType($parameterType);
-            }
+        if ($type = self::extractFQCNTypeFromReflectionType($reflectionParameter)) {
+            $param->setType($type);
         }
 
         $param->setPosition($reflectionParameter->getPosition());
 
-        if ($reflectionParameter->isOptional()) {
-            $param->setDefaultValue($reflectionParameter->getDefaultValue());
+        $variadic = method_exists($reflectionParameter, 'isVariadic') && $reflectionParameter->isVariadic();
+
+        $param->setVariadic($variadic);
+
+        if (! $variadic && $reflectionParameter->isOptional()) {
+            try {
+                $param->setDefaultValue($reflectionParameter->getDefaultValue());
+            } catch (\ReflectionException $e) {
+                $param->setDefaultValue(null);
+            }
         }
+
         $param->setPassedByReference($reflectionParameter->isPassedByReference());
 
         return $param;
@@ -174,7 +168,8 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setType($type)
     {
-        $this->type = (string) $type;
+        $this->type = TypeGenerator::fromTypeString($type);
+
         return $this;
     }
 
@@ -183,7 +178,9 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function getType()
     {
-        return $this->type;
+        return $this->type
+            ? (string) $this->type
+            : null;
     }
 
     /**
@@ -267,18 +264,38 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
+     * @param bool $variadic
+     *
+     * @return ParameterGenerator
+     */
+    public function setVariadic($variadic)
+    {
+        $this->variadic = (bool) $variadic;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getVariadic()
+    {
+        return $this->variadic;
+    }
+
+    /**
      * @return string
      */
     public function generate()
     {
-        $output = '';
-
-        if ($this->type && !in_array($this->type, static::$simple)) {
-            $output .= $this->type . ' ';
-        }
+        $output = $this->generateTypeHint();
 
         if (true === $this->passedByReference) {
             $output .= '&';
+        }
+
+        if ($this->variadic) {
+            $output .= '... ';
         }
 
         $output .= '$' . $this->name;
@@ -296,5 +313,72 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $output;
+    }
+
+    /**
+     * @param ParameterReflection $reflectionParameter
+     *
+     * @return null|string
+     */
+    private static function extractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
+    {
+        if (! method_exists($reflectionParameter, 'getType')) {
+            return self::prePhp7ExtractFQCNTypeFromReflectionType($reflectionParameter);
+        }
+
+        $type = method_exists($reflectionParameter, 'getType')
+            ? $reflectionParameter->getType()
+            : null;
+
+        if (! $type) {
+            return null;
+        }
+
+        $typeString = (string) $type;
+
+        if ('self' === strtolower($typeString)) {
+            // exceptional case: `self` must expand to the reflection type declaring class
+            return $reflectionParameter->getDeclaringClass()->getName();
+        }
+
+        return $typeString;
+    }
+
+    /**
+     * For ancient PHP versions (yes, you should upgrade to 7.0):
+     *
+     * @param ParameterReflection $reflectionParameter
+     *
+     * @return string|null
+     */
+    private static function prePhp7ExtractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
+    {
+        if ($reflectionParameter->isCallable()) {
+            return 'callable';
+        }
+
+        if ($reflectionParameter->isArray()) {
+            return 'array';
+        }
+
+        if ($class = $reflectionParameter->getClass()) {
+            return $class->getName();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string|null $type
+     *
+     * @return string
+     */
+    private function generateTypeHint()
+    {
+        if (null === $this->type) {
+            return '';
+        }
+
+        return $this->type->generate() . ' ';
     }
 }
