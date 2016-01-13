@@ -11,4 +11,4 @@ tasks: JavaScript, configuration files, apache vhosts, etc.
 
 - File issues at https://github.com/zendframework/zend-code/issues
 - Documentation is at http://zend-code.rtfd.org
-- Migration documentation from v2 to v3 is at http://zend-code.rtfd.org/en/latest/book/migration/
+- Migration documentation from v2 to v3 is at http://zend-code.rtfd.org/en/latest/migration/
