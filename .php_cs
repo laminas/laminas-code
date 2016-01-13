@@ -17,7 +17,6 @@ $config->fixers(
         'braces',
         'duplicate_semicolon',
         'elseif',
-        'empty_return',
         'encoding',
         'eof_ending',
         'function_call_space',

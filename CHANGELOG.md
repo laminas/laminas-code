@@ -2,11 +2,39 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.7.0 - TBD
+## 3.0.0 - TBD
+
+### Changed
+
+This section refers to breaking changes: please refer to
+[doc/book/zend.code.migrate.2.to.3.md](doc/book/zend.code.migrate.2.to.3.md) for migration instructions.
+
+- Types `string`, `int`, `float`, `bool` passed to `Zend\Code\Generator\ParameterGenerator#setType()`
+  are no longer ignored in generated code [#30](https://github.com/zendframework/zend-code/pull/30)
+- Types declared in DocBlocks are now ignored when creating a `Zend\Code\Generator\ParameterGenerator` via
+  `Zend\Code\Generator\ParameterGenerator::fromReflection()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- Type strings are now validated: passing an invalid type to any method in the generator API
+  may lead to a `Zend\Code\Generator\InvalidArgumentException` being thrown.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\Generator\ParameterGenerator::$simple` was removed. [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\Generator\ParameterGenerator#$type` is now a `null|Zend\Code\Generator\TypeGenerator`: was a
+  `string` before. [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\Generator` type-hints are now always prefixed with the namespace separator `\`.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+- `Zend\Code\Reflection\ParameterReflection#getType()` was renamed 
+  to `Zend\Code\Reflection\ParameterReflection#detectType()` in order to not override the inherited
+  `ReflectionParameter#getType()`, introduced in PHP 7. [#30](https://github.com/zendframework/zend-code/pull/30)
 
 ### Added
 
-- Nothing.
+- PHP 7 return type hints generation support via `Zend\Code\Generator\MethodGenerator#setReturnType()`.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
+- PHP 7 scalar type hints generation support via `Zend\Code\Generator\ParameterGenerator#setType()` and 
+  `Zend\Code\Generator\ParameterGenerator#getType()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- PHP 5.6 variadic arguments support via `Zend\Code\Generator\ParameterGenerator#setVariadic()` and
+  `Zend\Code\Generator\ParameterGenerator#getVariadic()`. [#30](https://github.com/zendframework/zend-code/pull/30)
+- Generation of methods returning by reference is supported via `Zend\Code\Generator\ParameterGenerator#setReturnsReference()`.
+  [#30](https://github.com/zendframework/zend-code/pull/30)
 
 ### Deprecated
 
@@ -14,25 +42,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.6.3 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
+- `Zend\Code\ParameterGenerator::$simple` was removed. [#30](https://github.com/zendframework/zend-code/pull/30)
 
 ### Fixed
 

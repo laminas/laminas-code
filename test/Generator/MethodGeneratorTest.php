@@ -13,6 +13,9 @@ use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
+use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
+use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
 /**
  * @group Zend_Code_Generator
@@ -255,11 +258,11 @@ EOS;
             ]
         ]);
 
-        $expected = <<<CODE
+        $expected = <<<'CODE'
     /**
      * Short Description
      */
-    public function execute(Runnable \$command);
+    public function execute(\Runnable $command);
 CODE;
 
         $methodGenerator->setParameter(['name' => 'command', 'type' => 'Runnable']);
@@ -268,5 +271,108 @@ CODE;
         $this->assertEquals('execute', $methodGenerator->getName());
         $this->assertEquals($expected, $methodGenerator->generate());
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     */
+    public function testSetReturnType()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setName('foo');
+        $methodGenerator->setReturnType('bar');
+
+        $expected = <<<'PHP'
+    public function foo() : \bar
+    {
+    }
+
+PHP;
+        self::assertSame($expected, $methodGenerator->generate());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     */
+    public function testSetReturnTypeWithNull()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setName('foo');
+        $methodGenerator->setReturnType(null);
+
+        $expected = <<<'PHP'
+    public function foo()
+    {
+    }
+
+PHP;
+        self::assertSame($expected, $methodGenerator->generate());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     *
+     * @dataProvider returnTypeHintClassesProvider
+     *
+     * @param string $className
+     * @param string $methodName
+     * @param string $expectedReturnSignature
+     */
+    public function testFrom(string $className, string $methodName, string $expectedReturnSignature)
+    {
+        $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
+
+        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
+    }
+
+    public function returnTypeHintClassesProvider()
+    {
+        return [
+            [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
+            [ReturnTypeHintedClass::class, 'callableReturn', 'callable'],
+            [ReturnTypeHintedClass::class, 'intReturn', 'int'],
+            [ReturnTypeHintedClass::class, 'floatReturn', 'float'],
+            [ReturnTypeHintedClass::class, 'stringReturn', 'string'],
+            [ReturnTypeHintedClass::class, 'boolReturn', 'bool'],
+            [ReturnTypeHintedClass::class, 'selfReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'classReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
+        ];
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     */
+    public function testByRefReturnType()
+    {
+        $methodGenerator = new MethodGenerator('foo');
+
+        $methodGenerator->setReturnsReference(true);
+
+        self::assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
+
+        $methodGenerator->setReturnsReference(false);
+
+        self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     */
+    public function testFromByReferenceMethodReflection()
+    {
+        $methodGenerator = MethodGenerator::fromReflection(
+            new MethodReflection(ClassWithByRefReturnMethod::class, 'byRefReturn')
+        );
+
+        self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
     }
 }

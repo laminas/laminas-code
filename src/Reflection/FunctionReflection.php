@@ -135,7 +135,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
         $parameters = $this->getParameters();
         foreach ($parameters as $parameter) {
             $prototype['arguments'][$parameter->getName()] = [
-                'type'     => $parameter->getType(),
+                'type'     => $parameter->detectType(),
                 'required' => !$parameter->isOptional(),
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
