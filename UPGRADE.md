@@ -20,7 +20,16 @@ echo $generator->generate(); // "$foo"
 In 3.x, this code will instead produce `"string $foo"`.
 If you generate code that should run in PHP 5.x, it is advisable to strip
 `string`, `int`, `float` and `bool` from type definitions passed to
-`Zend\Code\ParameterGenerator` instances.
+`Zend\Code\ParameterGenerator` instances. The quickest way is to set the 
+type to `null`, if it matches any of these scalar types:
+
+```php
+if (in_array($type, ['string', 'int', 'float', 'bool'])) {
+    $type = null;
+}
+
+$generator->setType($type);
+```
 
 ### `Zend\Code\Reflection\ParameterReflection#getType()` changes
 
