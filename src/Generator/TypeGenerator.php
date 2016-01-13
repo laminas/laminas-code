@@ -25,6 +25,8 @@ final class TypeGenerator implements GeneratorInterface
 
     /**
      * @var string[]
+     *
+     * @link http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration
      */
     private static $internalPhpTypes = ['int', 'float', 'string', 'bool', 'array', 'callable'];
 
