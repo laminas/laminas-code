@@ -67,7 +67,15 @@ $methodGenerator = \Zend\Code\Generator\MethodGenerator::fromReflection(
 var_dump($methodGenerator->getParameters()[0]->getType());
 ```
 
-In version 2.x, this code produces `"string"`, in version 3.x it returns `null`.
+In version 2.x, this code produces `"string"`, in version 3.x it returns `null`. If you 
+need to rely on the types in the annotations, please use
+`Zend\Code\Reflection\ParameterReflection#detectType()` instead, and build a
+`MethodGenerator` instance manually.
+
+This change is required: since signatures in PHP 7 include scalar type hints.
+That also means that reflecting scalar type hints from DocBlocks into the
+signature of a generated method may lead to fatal errors (due to signature
+mismatch) at runtime.
 
 ### Type strings are validated
 
