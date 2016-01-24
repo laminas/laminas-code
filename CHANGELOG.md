@@ -18,7 +18,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#34](https://github.com/zendframework/zend-code/pull/34) method name cannot be optional when adding a method
+  to a class generator.
 
 ## 3.0.0 - 2016-01-13
 
