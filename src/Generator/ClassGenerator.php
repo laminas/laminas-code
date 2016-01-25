@@ -479,9 +479,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeImplementedInterface($implementedInterface)
     {
-        if ($this->hasImplementedInterface($implementedInterface)) {
-            unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
-        }
+        unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
         return $this;
     }
 
@@ -512,9 +510,8 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeConstant($constantName)
     {
-        if ($this->hasConstant($constantName)) {
-            unset($this->constants[$constantName]);
-        }
+        unset($this->constants[$constantName]);
+
         return $this;
     }
 
@@ -771,9 +768,8 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeProperty($propertyName)
     {
-        if ($this->hasProperty($propertyName)) {
-            unset($this->properties[$propertyName]);
-        }
+        unset($this->properties[$propertyName]);
+
         return $this;
     }
 
@@ -881,9 +877,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeMethod($methodName)
     {
-        if ($this->hasMethod($methodName)) {
-            unset($this->methods[strtolower($methodName)]);
-        }
+        unset($this->methods[strtolower($methodName)]);
 
         return $this;
     }
