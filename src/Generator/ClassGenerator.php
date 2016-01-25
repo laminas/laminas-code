@@ -452,6 +452,10 @@ class ClassGenerator extends AbstractGenerator
      */
     public function setImplementedInterfaces(array $implementedInterfaces)
     {
+        array_map(function($implementedInterface) {
+            return (string) TypeGenerator::fromTypeString($implementedInterface);
+        }, $implementedInterfaces);
+
         $this->implementedInterfaces = $implementedInterfaces;
         return $this;
     }
@@ -470,6 +474,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function hasImplementedInterface($implementedInterface)
     {
+        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
         return in_array($implementedInterface, $this->implementedInterfaces);
     }
 
@@ -479,6 +484,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function removeImplementedInterface($implementedInterface)
     {
+        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
         unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
         return $this;
     }
