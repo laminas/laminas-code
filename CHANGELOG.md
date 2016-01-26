@@ -2,7 +2,25 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.1 - TBD
+## 3.0.2 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 3.0.1 - 2016-01-26
 
 ### Added
 
@@ -21,7 +39,6 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#34](https://github.com/zendframework/zend-code/pull/34) method name cannot be optional when adding a method
   to a class generator.
 - [#38](https://github.com/zendframework/zend-code/pull/38) PHP_CodeSniffer was moved to dev dependencies
-
 
 ## 3.0.0 - 2016-01-13
 
