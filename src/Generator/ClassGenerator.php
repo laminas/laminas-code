@@ -452,7 +452,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function setImplementedInterfaces(array $implementedInterfaces)
     {
-        array_map(function($implementedInterface) {
+        array_map(function ($implementedInterface) {
             return (string) TypeGenerator::fromTypeString($implementedInterface);
         }, $implementedInterfaces);
 
