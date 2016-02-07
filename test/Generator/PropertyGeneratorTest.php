@@ -17,6 +17,7 @@ use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\DocBlock\Tag\VarTag;
 
 /**
  * @group Zend_Code_Generator
@@ -258,7 +259,7 @@ EOS;
         self::assertInternalType('array', $tags);
         self::assertCount(1, $tags);
         $tag = array_shift($tags);
-        self::assertInstanceOf(GenericTag::class, $tag);
+        self::assertInstanceOf(VarTag::class, $tag);
         self::assertEquals('var', $tag->getName());
     }
 
@@ -267,9 +268,8 @@ EOS;
      * @dataProvider dataSetTypeSetValueGenerate
      * @param string $type
      * @param mixed $value
-     * @param string $code
      */
-    public function testSetDefaultValue($type, $value, $code)
+    public function testSetDefaultValue($type, $value)
     {
         $property = new PropertyGenerator();
         $property->setDefaultValue($value, $type);
