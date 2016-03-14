@@ -69,6 +69,6 @@ class LicenseTag implements TagInterface
 
     public function __toString()
     {
-        return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . PHP_EOL;
+        return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";
     }
 }
