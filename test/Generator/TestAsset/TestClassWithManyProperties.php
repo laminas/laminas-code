@@ -36,7 +36,7 @@ class TestClassWithManyProperties
         array(
             'bar',
             'baz',
-            //PHP_EOL
+            "\n"
         )
     );
 
