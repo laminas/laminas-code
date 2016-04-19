@@ -144,14 +144,14 @@ EOS;
 
         $classDocBlock = $classReflection->getDocBlock();
 
-        $expectedString = 'DocBlock [ /* DocBlock */ ] {' . PHP_EOL
-                        . PHP_EOL
-                        . '  - Tags [3] {' . PHP_EOL
-                        . '    DocBlock Tag [ * @author ]' . PHP_EOL
-                        . '    DocBlock Tag [ * @method ]' . PHP_EOL
-                        . '    DocBlock Tag [ * @property ]' . PHP_EOL
-                        . '  }' . PHP_EOL
-                        . '}' . PHP_EOL;
+        $expectedString = 'DocBlock [ /* DocBlock */ ] {' . "\n"
+                        . "\n"
+                        . '  - Tags [3] {' . "\n"
+                        . '    DocBlock Tag [ * @author ]' . "\n"
+                        . '    DocBlock Tag [ * @method ]' . "\n"
+                        . '    DocBlock Tag [ * @property ]' . "\n"
+                        . '  }' . "\n"
+                        . '}' . "\n";
 
         $this->assertEquals($expectedString, (string) $classDocBlock);
     }
