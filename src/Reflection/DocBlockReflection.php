@@ -271,15 +271,15 @@ class DocBlockReflection implements ReflectionInterface
      */
     public function toString()
     {
-        $str = "DocBlock [ /* DocBlock */ ] {" . PHP_EOL . PHP_EOL;
-        $str .= "  - Tags [" . count($this->tags) . "] {" . PHP_EOL;
+        $str = "DocBlock [ /* DocBlock */ ] {" . "\n" . "\n";
+        $str .= "  - Tags [" . count($this->tags) . "] {" . "\n";
 
         foreach ($this->tags as $tag) {
             $str .= "    " . $tag;
         }
 
-        $str .= "  }" . PHP_EOL;
-        $str .= "}" . PHP_EOL;
+        $str .= "  }" . "\n";
+        $str .= "}" . "\n";
 
         return $str;
     }

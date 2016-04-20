@@ -25,7 +25,7 @@ class Mapper
 
     public function __toString()
     {
-        return 'I am a ' . get_class($this) . ' object (hash ' . spl_object_hash($this) . '), using this dbAdapter ' . PHP_EOL . '    ' . $this->dbAdapter;
+        return 'I am a ' . get_class($this) . ' object (hash ' . spl_object_hash($this) . '), using this dbAdapter ' . "\n" . '    ' . $this->dbAdapter;
     }
 
 }
