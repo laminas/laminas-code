@@ -19,7 +19,7 @@
     "require-dev": {
         "ext-phar": "*",
         "doctrine/annotations": "~1.0",
-        "zendframework/zend-stdlib": "~2.7",
+        "zendframework/zend-stdlib": "^2.7 || ^3.0",
         "squizlabs/php_codesniffer": "^2.5",
         "phpunit/PHPUnit": "^4.8.21"
     },
