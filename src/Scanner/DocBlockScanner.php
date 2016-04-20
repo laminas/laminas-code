@@ -159,7 +159,6 @@ class DocBlockScanner implements ScannerInterface
 
             case 'DOCBLOCK_COMMENTEND':
                 goto SCANNER_END;
-
         }
 
         SCANNER_CONTINUE:
