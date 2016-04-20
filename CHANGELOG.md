@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.2 - TBD
+## 2.6.3 - 2016-04-20
 
 ### Added
 
@@ -18,7 +18,27 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#51](https://github.com/zendframework/zend-code/pull/51) updates the
+  zend-stdlib dependency to allow either 2.7 or 3.0 releases, as the
+  functionality consumed maintains its API between releases.
+
+## 2.6.2 - 2016-01-05
+
+### Added
+
 - Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#31](https://github.com/zendframework/zend-code/pull/31) updated license year.
 
 ## 2.6.1 - 2015-11-24
 
