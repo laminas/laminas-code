@@ -50,7 +50,7 @@ class ReflectionDocBlockTagTest extends \PHPUnit_Framework_TestCase
 
         $tag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('descriptionTag');
 
-        $expectedString = 'DocBlock Tag [ * @descriptionTag ]' . PHP_EOL;
+        $expectedString = 'DocBlock Tag [ * @descriptionTag ]' . "\n";
 
         $this->assertEquals($expectedString, (string) $tag);
     }

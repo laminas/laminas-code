@@ -37,7 +37,7 @@ class RepositoryA
 
     public function __toString()
     {
-        return 'I am a ' . get_class($this) . ' object (hash ' . spl_object_hash($this) . '), using this mapper object ' . PHP_EOL . '    ' . $this->mapper;
+        return 'I am a ' . get_class($this) . ' object (hash ' . spl_object_hash($this) . '), using this mapper object ' . "\n" . '    ' . $this->mapper;
     }
 
 }

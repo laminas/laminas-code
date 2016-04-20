@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.2 - TBD
+## 3.0.2 - 2016-04-20
 
 ### Added
 
@@ -24,6 +24,9 @@ All notable changes to this project will be documented in this file, in reverse 
     zend-code are compatible across versions.
   - PHP now excludes the 7.0.5 release, as it has known issues in its tokenizer
     implementation that make the zend-code token scanner unusable.
+- [#46](https://github.com/zendframework/zend-code/pull/46) updates all
+  generators to use `\n` for line endings in generated code, vs `PHP_EOL`,
+  ensuring cross-platform consistency.
 
 ## 3.0.1 - 2016-01-26
 
