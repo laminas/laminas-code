@@ -18,7 +18,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#52](https://github.com/zendframework/zend-code/pull/52) updates several
+  dependency constraints:
+  - zend-stdlib now allows either the 2.7 or 3.0 series, as the APIs consumed by
+    zend-code are compatible across versions.
+  - PHP now excludes the 7.0.5 release, as it has known issues in its tokenizer
+    implementation that make the zend-code token scanner unusable.
 
 ## 3.0.1 - 2016-01-26
 
