@@ -522,6 +522,12 @@ class MethodScanner implements ScannerInterface
                 goto SCANNER_CONTINUE_SIGNATURE;
                 // goto (no break needed);
 
+            case T_NS_SEPARATOR:
+                if (!isset($infos[$infoIndex])) {
+                    $MACRO_INFO_START();
+                }
+                goto SCANNER_CONTINUE_SIGNATURE;
+
             case T_VARIABLE:
             case T_STRING:
                 if ($tokenType === T_STRING && $parentCount === 0) {
