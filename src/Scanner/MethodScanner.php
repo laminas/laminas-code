@@ -527,6 +527,7 @@ class MethodScanner implements ScannerInterface
                     $MACRO_INFO_START();
                 }
                 goto SCANNER_CONTINUE_SIGNATURE;
+                // goto (no break needed);
 
             case T_VARIABLE:
             case T_STRING:
