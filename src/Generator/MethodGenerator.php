@@ -165,6 +165,9 @@ class MethodGenerator extends AbstractMemberGenerator
                 case 'visibility':
                     $method->setVisibility($value);
                     break;
+                case 'returntype':
+                    $method->setReturnType($value);
+                    break;
             }
         }
 
