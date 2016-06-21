@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#66](https://github.com/zendframework/zend-code/pull/66) publishes the
+  documentation to https://docs.zendframework.com/zend-code/.
 
 ### Deprecated
 
