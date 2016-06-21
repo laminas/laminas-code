@@ -24,7 +24,7 @@ that should appear before generated content. Its *API* is as follows:
 abstract class Zend\Code\Generator\AbstractGenerator
     implements Zend\Code\Generator\GeneratorInterface
 {
-    public function __construct(Array|Traversable $options = array())
+    public function __construct(Array|Traversable $options = [])
     public function setOptions(Array $options)
     public function setSourceContent($sourceContent)
     public function getSourceContent()
@@ -361,7 +361,7 @@ $parameter->setDefaultValue(
     new Zend\Code\Generator\ValueGenerator("null")
 );
 $parameter->setDefaultValue(
-    new Zend\Code\Generator\ValueGenerator("array('foo', 'bar')")
+    new Zend\Code\Generator\ValueGenerator("['foo', 'bar']")
 );
 ```
 

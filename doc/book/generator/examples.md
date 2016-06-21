@@ -9,20 +9,20 @@ use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 
 $foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray(array(
+$docblock = DocBlockGenerator::fromArray([
     'shortDescription' => 'Sample generated class',
     'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
-    'tags'             => array(
-        array(
+    'tags'             => [
+        [
             'name'        => 'version',
             'description' => '$Rev:$',
-        ),
-        array(
+        ],
+        [
             'name'        => 'license',
             'description' => 'New BSD',
-        ),
-    ),
-));
+        ],
+    ],
+]);
 $foo->setName('Foo')
     ->setDocblock($docblock);
 echo $foo->generate();
@@ -56,29 +56,29 @@ use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\PropertyGenerator;
 
 $foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray(array(
+$docblock = DocBlockGenerator::fromArray([
     'shortDescription' => 'Sample generated class',
     'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
-    'tags'             => array(
-        array(
+    'tags'             => [
+        [
             'name'        => 'version',
             'description' => '$Rev:$',
-        ),
-        array(
+        ],
+        [
             'name'        => 'license',
             'description' => 'New BSD',
-        ),
-    ),
-));
+        ],
+    ],
+]);
 $foo->setName('Foo')
     ->setDocblock($docblock)
-    ->addProperties(array(
-         array('_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED),
-         array('baz',  'bat',          PropertyGenerator::FLAG_PUBLIC)
-   ))
-   ->addConstants(array(
-         array('bat',  'foobarbazbat')
-    ));
+    ->addProperties([
+         ['_bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
+         ['baz',  'bat', PropertyGenerator::FLAG_PUBLIC]
+   ])
+   ->addConstants([
+         ['bat',  'foobarbazbat']
+    ]);
 echo $foo->generate();
 ```
 
@@ -120,66 +120,66 @@ use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\PropertyGenerator;
 
 $foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray(array(
+$docblock = DocBlockGenerator::fromArray([
     'shortDescription' => 'Sample generated class',
     'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
-    'tags'             => array(
-        array(
+    'tags'             => [
+        [
             'name'        => 'version',
             'description' => '$Rev:$',
-        ),
-        array(
+        ],
+        [
             'name'        => 'license',
             'description' => 'New BSD',
-        ),
-    ),
-));
+        ],
+    ],
+]);
 $foo->setName('Foo')
     ->setDocblock($docblock)
-    ->addProperties(array(
-        array('_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED),
-        array('baz',  'bat',          PropertyGenerator::FLAG_PUBLIC)
-    ))
-    ->addConstants(array(
-        array('bat',  'foobarbazbat', PropertyGenerator::FLAG_CONSTANT)
-    ))
-    ->addMethods(array(
+    ->addProperties([
+        ['_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED],
+        ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
+    ])
+    ->addConstants([
+        ['bat',  'foobarbazbat', PropertyGenerator::FLAG_CONSTANT]
+    ])
+    ->addMethods([
         // Method passed as array
-        MethodGenerator::fromArray(array(
+        MethodGenerator::fromArray([
             'name'       => 'setBar',
-            'parameters' => array('bar'),
+            'parameters' => ['bar'],
             'body'       => '$this->_bar = $bar;' . "\n" . 'return $this;',
-            'docblock'   => DocBlockGenerator::fromArray(array(
+            'docblock'   => DocBlockGenerator::fromArray([
                 'shortDescription' => 'Set the bar property',
                 'longDescription'  => null,
-                'tags'             => array(
-                    new Tag\ParamTag(array(
+                'tags'             => [
+                    new Tag\ParamTag([
                         'paramName' => 'bar',
                         'datatype'  => 'string'
-                    )),
-                    new Tag\ReturnTag(array(
+                    ]),
+                    new Tag\ReturnTag([
                         'datatype'  => 'string',
-                    )),
-                ),
-            )),
-        )),
+                    ]),
+                ],
+            ]),
+        ]),
         // Method passed as concrete instance
         new MethodGenerator(
             'getBar',
-            array(),
+            [],
             MethodGenerator::FLAG_PUBLIC,
             'return $this->_bar;',
-            DocBlockGenerator::fromArray(array(
+            DocBlockGenerator::fromArray([
                 'shortDescription' => 'Retrieve the bar property',
                 'longDescription'  => null,
-                'tags'             => array(
-                    new Tag\ReturnTag(array(
+                'tags'             => [
+                    new Tag\ReturnTag([
                         'datatype'  => 'string|null',
-                    )),
-                ),
-            ))
+                    ]),
+                ],
+            ])
         ),
-    ));
+    ]);
 
 echo $foo->generate();
 ```
@@ -242,20 +242,20 @@ previous example.
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\FileGenerator;
 
-$file = FileGenerator::fromArray(array(
-    'classes'  => array($foo),
-    'docblock' => DocBlockGenerator::fromArray(array(
+$file = FileGenerator::fromArray([
+    'classes'  => [$foo],
+    'docblock' => DocBlockGenerator::fromArray([
         'shortDescription' => 'Foo class file',
         'longDescription'   => null,
-        'tags'             => array(
-            array(
+        'tags'             => [
+            [
                 'name'        => 'license',
                 'description' => 'New BSD',
-            ),
-        ),
-    )),
+            ],
+        ],
+    ]),
     'body'     => 'define(\'APPLICATION_ENV\', \'testing\');',
-));
+]);
 ```
 
 Calling `generate()` will generate the code -- but not write it to a file. You will need to capture
@@ -351,22 +351,22 @@ $generator = ClassGenerator::fromReflection(
 );
 $generator->addMethod(
     'setBaz',
-    array('baz'),
+    ['baz'],
     MethodGenerator::FLAG_PUBLIC,
     '$this->_baz = $baz;' . "\n" . 'return $this;',
-    DocBlockGenerator::fromArray(array(
+    DocBlockGenerator::fromArray([
         'shortDescription' => 'Set the baz property',
         'longDescription'  => null,
-        'tags'             => array(
-            new Tag\ParamTag(array(
+        'tags'             => [
+            new Tag\ParamTag([
                 'paramName' => 'baz',
                 'datatype'  => 'string'
-            )),
-            new Tag\ReturnTag(array(
+            ]),
+            new Tag\ReturnTag([
                 'datatype'  => 'string',
-            )),
-        ),
-    ))
+            ]),
+        ],
+    ])
 );
 $code = $generator->generate();
 ```
