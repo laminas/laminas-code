@@ -16,7 +16,7 @@ cache:
 env:
   global:
     - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
-    - SITE_URL=https://docs.zendframework.com/zend-code
+    - SITE_URL=https://zendframework.github.io/zend-code
     - GH_USER_NAME="Matthew Weier O'Phinney"
     - GH_USER_EMAIL=matthew@weierophinney.net
     - GH_REF=github.com/zendframework/zend-code.git
