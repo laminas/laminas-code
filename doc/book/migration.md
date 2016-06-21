@@ -27,7 +27,7 @@ if (in_array($type, ['string', 'int', 'float', 'bool'])) {
 $generator->setType($type);
 ```
 
-## `Zend\Code\Reflection\ParameterReflection#getType()` changes
+## `ParameterReflection::getType()` changes
 
 PHP 7 introduced [`ReflectionParameter#getType()`](http://php.net/manual/en/reflectionparameter.gettype.php).
 
@@ -37,7 +37,7 @@ was renamed to `Zend\Code\Reflection\ParameterReflection#detectType()`.
 If you relied on `Zend\Code\Reflection\ParameterReflection#getType()`, you can
 simply replace the method calls in your code.
  
-## DocBlock types ignored by `Zend\Code\Generator\ParameterGenerator::fromReflection()`
+## DocBlock types ignored by `ParameterGenerator::fromReflection()`
 
 As a direct consequence of the previous change, calls to 
 `Zend\Code\Generator\ParameterGenerator::fromReflection()` will not mirror the
@@ -116,13 +116,13 @@ In version 3.x, it produces `public function foo(\baz $bar) : \tab {}`.
 In order to avoid migration problems, be sure to always pass fully qualified class
 names to `Zend\Code\Generator\MethodGenerator` and `Zend\Code\Generator\ParameterGenerator`.
 
-## `Zend\Code\Generator\ParameterGenerator::$simple` was removed
+## `ParameterGenerator::$simple` was removed
 
 If you extended `Zend\Code\Generator\ParameterGenerator`, be sure to check if you
 are accessing the protected static variable `$simple`: it was removed, and you should
 adapt your code by either copying it into your class or avoiding its usage.
 
-## `Zend\Code\Generator\ParameterGenerator::$type` has changed
+## `ParameterGenerator::$type` has changed
 
 If you extended `Zend\Code\Generator\ParameterGenerator`, be sure to check if you
 are accessing the protected variable `$type`: its type has changed.
