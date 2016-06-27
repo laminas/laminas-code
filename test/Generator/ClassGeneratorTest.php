@@ -242,8 +242,8 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class ClassWithInterface'
-            . ' implements ZendTest\Code\Generator\TestAsset\OneInterface'
-            . ', ZendTest\Code\Generator\TestAsset\TwoInterface';
+            . ' implements OneInterface'
+            . ', TwoInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -260,8 +260,8 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class NewClassWithInterface'
-            . ' extends ZendTest\Code\Generator\TestAsset\ClassWithInterface'
-            . ' implements ZendTest\Code\Generator\TestAsset\ThreeInterface';
+            . ' extends ClassWithInterface'
+            . ' implements ThreeInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -1084,5 +1084,42 @@ EOS;
 
         $output = $classGenerator->generate();
         $this->assertEquals($expectedOutput, $output, $output);
+    }
+
+    public function testCorrectExtendNames()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Zend\Code\NameInformation');
+        $classGenerator->setExtendedClass('Zend\Code\NameInformation');
+        $this->assertContains('class ClassName extends NameInformation', $classGenerator->generate());
+
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->setExtendedClass('DateTime');
+        $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setExtendedClass('DateTime');
+        $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
+    }
+
+    public function testCorrectImplementNames()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Zend\Code\Generator\GeneratorInterface');
+        $classGenerator->setImplementedInterfaces([
+           'SomeNamespace\ClassInterface',
+           'Zend\Code\Generator\GeneratorInterface',
+           'Iteratable'
+        ]);
+
+        $expected = 'class ClassName implements ClassInterface, GeneratorInterface, \Iteratable';
+        $this->assertContains($expected, $classGenerator->generate());
     }
 }
