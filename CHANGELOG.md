@@ -19,7 +19,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#72](https://github.com/zendframework/zend-code/pull/72) fixes an issue
+  within the `TokenArrayScanner` when scanning closures.
 
 ## 3.0.2 - 2016-04-20
 
