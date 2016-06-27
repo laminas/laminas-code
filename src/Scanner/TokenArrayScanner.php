@@ -583,7 +583,9 @@ class TokenArrayScanner implements ScannerInterface
                         && $infos[$infoIndex]['type'] === 'class'
                         || ($tokenType === T_FUNCTION && $infos[$infoIndex]['type'] === 'function'))
                 ) {
-                    $infos[$infoIndex]['shortName'] = $tokens[$tokenIndex + 2][1];
+                    $infos[$infoIndex]['shortName'] = is_array($tokens[$tokenIndex + 2])
+                        ? $tokens[$tokenIndex + 2][1]
+                        : $tokens[$tokenIndex + 2];
                     $infos[$infoIndex]['name']      = (($namespace !== null)
                         ? $namespace . '\\'
                         : '') . $infos[$infoIndex]['shortName'];
