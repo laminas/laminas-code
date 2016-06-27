@@ -950,12 +950,13 @@ class ClassGenerator extends AbstractGenerator
         $output .= static::OBJECT_TYPE . ' ' . $this->getName();
 
         if (!empty($this->extendedClass)) {
-            $output .= ' extends ' . $this->extendedClass;
+            $output .= ' extends ' .  $this->generateShortOrCompleteClassname($this->extendedClass);
         }
 
         $implemented = $this->getImplementedInterfaces();
 
         if (!empty($implemented)) {
+            $implemented = array_map([$this, 'generateShortOrCompleteClassname'], $implemented);
             $output .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }
 
@@ -1008,5 +1009,24 @@ class ClassGenerator extends AbstractGenerator
             'Expected value for constant, value must be a "scalar" or "null", "%s" found',
             gettype($value)
         ));
+    }
+
+    /**
+     * @param string $fqnClassName
+     *
+     * @return string
+     */
+    private function generateShortOrCompleteClassname($fqnClassName)
+    {
+        $parts = explode('\\', $fqnClassName);
+        $className = array_pop($parts);
+        $classNamespace = implode('\\', $parts);
+        $currentNamespace = (string) $this->getNamespaceName();
+
+        if ($classNamespace === $currentNamespace || in_array($fqnClassName, $this->getUses())) {
+            return $className;
+        }
+
+        return '\\' . $fqnClassName;
     }
 }
