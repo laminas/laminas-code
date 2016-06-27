@@ -34,4 +34,9 @@ abstract class BarClass
     {
         // four
     }
+
+    private function five(\ZendTest\Code\TestAsset\AbstractClass $a)
+    {
+        // five
+    }
 }
