@@ -45,6 +45,8 @@ All notable changes to this project will be documented in this file, in reverse 
   how class names under the same namespace are generated when generating
   typehints, extends, and implements values; they now strip the
   common namespace from the class name.
+- [#72](https://github.com/zendframework/zend-code/pull/72) fixes an issue
+  within the `TokenArrayScanner` when scanning closures.
 
 ## 3.0.2 - 2016-04-20
 
