@@ -19,7 +19,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#61](https://github.com/zendframework/zend-code/pull/61) fixes an issue with
+  how parameter typehints were generated; previously, fully-qualified class
+  names were not being generated with the leading backslash, causing them to
+  attempt to resolve as if they were relative to the current namespace.
 
 ## 3.0.2 - 2016-04-20
 

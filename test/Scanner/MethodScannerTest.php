@@ -48,6 +48,16 @@ class MethodScannerTest extends TestCase
         $this->assertEquals('t', $parameter->getName());
     }
 
+    public function testMethodScannerParsesClassNames()
+    {
+        $file   = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
+        $class  = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $method = $class->getMethod('five');
+        $this->assertEquals(['a'], $method->getParameters());
+        $parameter = $method->getParameter('a');
+        $this->assertEquals('ZendTest\Code\TestAsset\AbstractClass', $parameter->getClass());
+    }
+
     public function testMethodScannerReturnsPropertyWithNoDefault()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/BazClass.php');
