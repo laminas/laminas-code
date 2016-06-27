@@ -175,4 +175,16 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
             ];
         $this->assertSame($expected, $reflectionFile->getUses());
     }
+
+    /**
+     * @group 70
+     * @group 43
+     */
+    public function testFileReflectionShouldNotRaiseNoticesWhenReflectingClosures()
+    {
+        require_once __DIR__ . '/TestAsset/issue-70.php';
+        $r = new FileReflection(__DIR__ . '/TestAsset/issue-70.php');
+        $this->assertContains('spl_autoload_register', $r->getContents());
+        $this->assertContains('function ()', $r->getContents());
+    }
 }
