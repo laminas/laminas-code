@@ -18,7 +18,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#59](https://github.com/zendframework/zend-code/pull/59) fixes an issue with
+  detection of multiple trait `use` statements.
 
 ## 3.0.3 - 2016-06-27
 
