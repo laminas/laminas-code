@@ -1018,6 +1018,7 @@ class ClassGenerator extends AbstractGenerator
      */
     private function generateShortOrCompleteClassname($fqnClassName)
     {
+        $fqnClassName = trim($fqnClassName, '\\');
         $parts = explode('\\', $fqnClassName);
         $className = array_pop($parts);
         $classNamespace = implode('\\', $parts);
