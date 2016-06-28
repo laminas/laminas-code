@@ -547,6 +547,8 @@ class ClassScanner implements ScannerInterface
      */
     public function getTraitNames()
     {
+        $this->scan();
+
         $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
@@ -562,7 +564,6 @@ class ClassScanner implements ScannerInterface
                     $return[] = $traitName;
                 }
             }
-            break;
         }
 
         return $return;
@@ -575,6 +576,8 @@ class ClassScanner implements ScannerInterface
      */
     public function getTraitAliases()
     {
+        $this->scan();
+
         $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
@@ -598,7 +601,6 @@ class ClassScanner implements ScannerInterface
                     $return[$alias['alias']] = $trait . '::' . $method;
                 }
             }
-            break;
         }
 
         return $return;
@@ -612,6 +614,8 @@ class ClassScanner implements ScannerInterface
      */
     protected function getVisibilityForAlias($aliasName)
     {
+        $this->scan();
+
         $return = null;
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
@@ -632,7 +636,6 @@ class ClassScanner implements ScannerInterface
                     }
                 }
             }
-            break;
         }
 
         return $return;
@@ -645,6 +648,8 @@ class ClassScanner implements ScannerInterface
      */
     protected function getBlockedTraitMethods()
     {
+        $this->scan();
+
         $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
@@ -668,7 +673,6 @@ class ClassScanner implements ScannerInterface
                     $return[] = $trait . '::' . $method;
                 }
             }
-            break;
         }
 
         return $return;
