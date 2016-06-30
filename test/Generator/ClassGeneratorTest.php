@@ -1094,16 +1094,45 @@ EOS;
         $classGenerator->addUse('Zend\Code\NameInformation');
         $classGenerator->setExtendedClass('Zend\Code\NameInformation');
         $this->assertContains('class ClassName extends NameInformation', $classGenerator->generate());
+    }
 
+    /**
+     * @group 75
+     */
+    public function testCorrectlyExtendsFullyQualifiedParentClass()
+    {
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->setExtendedClass('DateTime');
         $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+    }
 
+    /**
+     * @group 75
+     */
+    public function testCorrectlyExtendsRelativeParentClass()
+    {
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setExtendedClass('DateTime');
+        $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
+    }
+
+    /**
+     * @group 75
+     */
+    public function testCorrectExtendNamesFromGlobalNamespace()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->setExtendedClass('\DateTime');
+        $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setExtendedClass('\DateTime');
         $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
