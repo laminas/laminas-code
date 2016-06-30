@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.4 - TBD
+## 3.0.4 - 2016-06-30
 
 ### Added
 
@@ -20,6 +20,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#59](https://github.com/zendframework/zend-code/pull/59) fixes an issue with
   detection of multiple trait `use` statements.
+- [#75](https://github.com/zendframework/zend-code/pull/75) provides a patch to
+  ensure that `extends` statements qualify the parent class based on the current
+  namespace and/or import statements.
 
 ## 3.0.3 - 2016-06-27
 
