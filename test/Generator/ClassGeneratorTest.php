@@ -1107,6 +1107,23 @@ EOS;
         $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
+    /**
+     * @group 75
+     */
+    public function testCorrectExtendNamesFromGlobalNamespace()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->setExtendedClass('\DateTime');
+        $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setExtendedClass('\DateTime');
+        $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
+    }
+
     public function testCorrectImplementNames()
     {
         $classGenerator = new ClassGenerator();
