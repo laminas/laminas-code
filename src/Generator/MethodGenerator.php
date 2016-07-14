@@ -287,6 +287,14 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
+     * @return TypeGenerator|null
+     */
+    public function getReturnType()
+    {
+        return $this->returnType;
+    }
+
+    /**
      * @param bool $returnsReference
      *
      * @return MethodGenerator

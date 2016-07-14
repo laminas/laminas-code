@@ -237,6 +237,7 @@ EOS;
             'final'      => true,
             'static'     => true,
             'visibility' => MethodGenerator::VISIBILITY_PROTECTED,
+            'returntype' => '\\SampleType',
         ]);
 
         $this->assertEquals('SampleMethod', $methodGenerator->getName());
@@ -246,6 +247,8 @@ EOS;
         $this->assertTrue($methodGenerator->isFinal());
         $this->assertTrue($methodGenerator->isStatic());
         $this->assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
+        $this->assertInstanceOf('Zend\Code\Generator\TypeGenerator', $methodGenerator->getReturnType());
+        $this->assertEquals('\\SampleType', $methodGenerator->getReturnType()->generate());
     }
 
     public function testCreateInterfaceMethodFromArray()
