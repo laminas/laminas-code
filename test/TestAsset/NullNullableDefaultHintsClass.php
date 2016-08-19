@@ -32,7 +32,7 @@ class NullNullableDefaultHintsClass
     {
     }
 
-    public function nullDefaultHintsClassParameter(?NullDefaultHintsClass $foo = null)
+    public function nullableDefaultHintsClassParameter(?NullDefaultHintsClass $foo = null)
     {
     }
 }
