@@ -334,14 +334,15 @@ class ParameterGenerator extends AbstractGenerator
             return null;
         }
 
+        $nullable   = $type->allowsNull() ? '?' : '';
         $typeString = $type->getName();
 
         if ('self' === strtolower($typeString)) {
             // exceptional case: `self` must expand to the reflection type declaring class
-            return $reflectionParameter->getDeclaringClass()->getName();
+            return $nullable . $reflectionParameter->getDeclaringClass()->getName();
         }
 
-        return $typeString;
+        return (string) $type;
     }
 
     /**
