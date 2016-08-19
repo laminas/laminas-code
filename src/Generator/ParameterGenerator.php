@@ -334,7 +334,7 @@ class ParameterGenerator extends AbstractGenerator
             return null;
         }
 
-        $typeString = (string) $type;
+        $typeString = $type->getName();
 
         if ('self' === strtolower($typeString)) {
             // exceptional case: `self` must expand to the reflection type declaring class
