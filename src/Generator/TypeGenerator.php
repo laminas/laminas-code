@@ -70,6 +70,10 @@ final class TypeGenerator implements GeneratorInterface
             ));
         }
 
+        if ($nullable && $isInternalPhpType && 'void' === strtolower($trimmedType)) {
+            throw new InvalidArgumentException(sprintf('Provided type "%s" cannot be nullable', $type));
+        }
+
         $instance = new self();
 
         $instance->type              = $trimmedType;
