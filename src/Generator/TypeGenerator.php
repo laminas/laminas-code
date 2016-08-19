@@ -109,8 +109,8 @@ final class TypeGenerator implements GeneratorInterface
     /**
      * @param string $type
      *
-     * @return bool[]|int[] ordered tuple, first key represents whether the type is nullable, second is the
-     *                      trimmed string
+     * @return bool[]|string[] ordered tuple, first key represents whether the type is nullable, second is the
+     *                         trimmed string
      */
     private static function trimNullable($type)
     {
@@ -124,8 +124,8 @@ final class TypeGenerator implements GeneratorInterface
     /**
      * @param string $type
      *
-     * @return bool[]|int[] ordered tuple, first key represents whether the values was trimmed, second is the
-     *                      trimmed string
+     * @return bool[]|string[] ordered tuple, first key represents whether the values was trimmed, second is the
+     *                         trimmed string
      */
     private static function trimType($type)
     {
