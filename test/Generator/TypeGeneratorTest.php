@@ -150,7 +150,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidTypeProvider()
     {
-        return [
+        $invalid = [
             [''],
             ['\\'],
             ['\\\\'],
@@ -192,5 +192,10 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['?Void'],
             ['?VOID'],
         ];
+
+        return array_combine(
+            array_map('reset', $invalid),
+            $invalid
+        );
     }
 }
