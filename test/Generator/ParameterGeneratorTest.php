@@ -30,7 +30,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $parameterGenerator = new ParameterGenerator();
         $parameterGenerator->setType('Foo');
-        $this->assertEquals('Foo', $parameterGenerator->getType());
+        $this->assertEquals('\Foo', $parameterGenerator->getType());
     }
 
     public function testNameGetterAndSetterPersistValue()
@@ -81,7 +81,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('type');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals('stdClass', $codeGenParam->getType());
+        $this->assertEquals('\stdClass', $codeGenParam->getType());
     }
 
     public function testFromReflectionGetReference()
@@ -228,7 +228,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('ZendTest_Code_NsTest_BarClass', $param->getType());
+        $this->assertEquals('\ZendTest_Code_NsTest_BarClass', $param->getType());
     }
 
     /**
@@ -243,7 +243,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('OtherNamespace\ParameterClass', $param->getType());
+        $this->assertEquals('\OtherNamespace\ParameterClass', $param->getType());
     }
 
     /**
@@ -360,7 +360,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @requires PHP 7.0
      *
-     * @dataProvider internalReflectionHintsProvider
+     * @dataProvider reflectionHintsProvider
      *
      * @param string      $className
      * @param string      $methodName
@@ -374,13 +374,19 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             $parameterName
         ));
 
+        if (null === $expectedType) {
+            self::assertNull($parameter->getType());
+
+            return;
+        }
+
         self::assertSame($expectedType, $parameter->getType());
     }
 
     /**
      * @return string[][]
      */
-    public function internalReflectionHintsProvider()
+    public function reflectionHintsProvider()
     {
         $parameters = [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -392,16 +398,16 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [NullableHintsClass::class, 'arrayParameter', 'foo', '?array'],
             [NullableHintsClass::class, 'callableParameter', 'foo', '?callable'],
             [NullableHintsClass::class, 'intParameter', 'foo', '?int'],
-            [NullableHintsClass::class, 'floatParameter', 'foo', 'f?loat'],
-            [NullableHintsClass::class, 'stringParameter', 'foo', '?string'],
+            [NullableHintsClass::class, 'floatParameter', 'foo', '?float'],
+//            [NullableHintsClass::class, 'stringParameter', 'foo', '?string'],
             [NullableHintsClass::class, 'boolParameter', 'foo', '?bool'],
-            [NullableHintsClass::class, 'selfParameter', 'foo', '?' . NullableHintsClass::class],
-            [NullableHintsClass::class, 'nullDefaultHintsClassParameter', 'foo', '?' . NullableHintsClass::class],
-            [ClassTypeHintedClass::class, 'selfParameter', 'foo', ClassTypeHintedClass::class],
-            [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
-            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
-            [ClassTypeHintedClass::class, 'closureParameter', 'foo', \Closure::class],
-            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', \Closure::class],
+            [NullableHintsClass::class, 'selfParameter', 'foo', '?\\' . NullableHintsClass::class],
+            [NullableHintsClass::class, 'nullDefaultHintsClassParameter', 'foo', '?\\' . NullableHintsClass::class],
+            [ClassTypeHintedClass::class, 'selfParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
+            [ClassTypeHintedClass::class, 'closureParameter', 'foo', '\\' . \Closure::class],
+            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', '\\' . \Closure::class],
             [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],
