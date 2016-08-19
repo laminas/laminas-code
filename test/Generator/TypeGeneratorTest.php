@@ -84,7 +84,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function validTypeProvider()
     {
-        return [
+        $valid = [
             ['foo', '\\foo'],
             ['foo', '\\foo'],
             ['foo1', '\\foo1'],
@@ -128,6 +128,11 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ["\x80", "\\\x80"],
             ["\x80\\\x80", "\\\x80\\\x80"],
         ];
+
+        return array_combine(
+            array_map('reset', $valid),
+            $valid
+        );
     }
 
     /**
