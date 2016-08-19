@@ -384,6 +384,34 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     *
+     * @dataProvider reflectionHintsProvider
+     *
+     * @param string      $className
+     * @param string      $methodName
+     * @param string      $parameterName
+     * @param string|null $expectedType
+     */
+    public function testTypeHintFromReflectionGeneratedCode($className, $methodName, $parameterName, $expectedType)
+    {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        ));
+
+        if (null === $expectedType) {
+            self::assertStringStartsWith('$' . $parameterName,  $parameter->generate());
+
+            return;
+        }
+
+        self::assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
+    }
+
+    /**
      * @return string[][]
      */
     public function reflectionHintsProvider()
