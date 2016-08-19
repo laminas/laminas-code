@@ -353,7 +353,7 @@ PHP;
             [NullableReturnTypeHintedClass::class, 'callableReturn', '?callable'],
             [NullableReturnTypeHintedClass::class, 'intReturn', '?int'],
             [NullableReturnTypeHintedClass::class, 'floatReturn', '?float'],
-//            [NullableReturnTypeHintedClass::class, 'stringReturn', '?string'],
+            [NullableReturnTypeHintedClass::class, 'stringReturn', '?string'],
             [NullableReturnTypeHintedClass::class, 'boolReturn', '?bool'],
             [NullableReturnTypeHintedClass::class, 'selfReturn', '?\\' . NullableReturnTypeHintedClass::class],
             [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
