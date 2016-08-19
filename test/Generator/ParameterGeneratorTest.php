@@ -31,7 +31,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $parameterGenerator = new ParameterGenerator();
         $parameterGenerator->setType('Foo');
-        $this->assertEquals('\Foo', $parameterGenerator->getType());
+        $this->assertEquals('Foo', $parameterGenerator->getType());
     }
 
     public function testNameGetterAndSetterPersistValue()
@@ -82,7 +82,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('type');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals('\stdClass', $codeGenParam->getType());
+        $this->assertEquals('stdClass', $codeGenParam->getType());
     }
 
     public function testFromReflectionGetReference()
@@ -229,7 +229,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('\ZendTest_Code_NsTest_BarClass', $param->getType());
+        $this->assertEquals('ZendTest_Code_NsTest_BarClass', $param->getType());
     }
 
     /**
@@ -244,7 +244,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('\OtherNamespace\ParameterClass', $param->getType());
+        $this->assertEquals('OtherNamespace\ParameterClass', $param->getType());
     }
 
     /**
@@ -381,7 +381,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        self::assertSame($expectedType, $parameter->getType());
+        self::assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
     }
 
     /**
