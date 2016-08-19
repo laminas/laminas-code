@@ -15,6 +15,7 @@ use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
 /**
@@ -348,6 +349,15 @@ PHP;
             [ReturnTypeHintedClass::class, 'selfReturn', '\\' . ReturnTypeHintedClass::class],
             [ReturnTypeHintedClass::class, 'classReturn', '\\' . ReturnTypeHintedClass::class],
             [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
+            [NullableReturnTypeHintedClass::class, 'arrayReturn', '?array'],
+            [NullableReturnTypeHintedClass::class, 'callableReturn', '?callable'],
+            [NullableReturnTypeHintedClass::class, 'intReturn', '?int'],
+            [NullableReturnTypeHintedClass::class, 'floatReturn', '?float'],
+//            [NullableReturnTypeHintedClass::class, 'stringReturn', '?string'],
+            [NullableReturnTypeHintedClass::class, 'boolReturn', '?bool'],
+            [NullableReturnTypeHintedClass::class, 'selfReturn', '?\\' . NullableReturnTypeHintedClass::class],
+            [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
+            [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
         ];
     }
 
