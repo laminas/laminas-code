@@ -24,6 +24,11 @@ final class TypeGenerator implements GeneratorInterface
     private $type;
 
     /**
+     * @var bool
+     */
+    private $nullable;
+
+    /**
      * @var string[]
      *
      * @link http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration
@@ -34,7 +39,7 @@ final class TypeGenerator implements GeneratorInterface
     /**
      * @var string a regex pattern to match valid class names or types
      */
-    private static $validIdentifierMatcher = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*(\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)*$/';
+    private static $validIdentifierMatcher = '/^\??[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*(\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)*$/';
     // @codingStandardsIgnoreEnd
 
     /**
@@ -46,7 +51,8 @@ final class TypeGenerator implements GeneratorInterface
      */
     public static function fromTypeString($type)
     {
-        list($wasTrimmed, $trimmedType) = self::trimType($type);
+        list($nullable, $trimmedNullable) = self::trimNullable($type);
+        list($wasTrimmed, $trimmedType) = self::trimType($trimmedNullable);
 
         if (! preg_match(self::$validIdentifierMatcher, $trimmedType)) {
             throw new InvalidArgumentException(sprintf(
@@ -68,6 +74,7 @@ final class TypeGenerator implements GeneratorInterface
         $instance = new self();
 
         $instance->type              = $trimmedType;
+        $instance->nullable          = $nullable;
         $instance->isInternalPhpType = self::isInternalPhpType($trimmedType);
 
         return $instance;
@@ -82,11 +89,13 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate()
     {
+        $nullable = $this->nullable ? '?' : '';
+
         if ($this->isInternalPhpType) {
-            return strtolower($this->type);
+            return $nullable . strtolower($this->type);
         }
 
-        return '\\' . $this->type;
+        return $nullable . '\\' . $this->type;
     }
 
     /**
@@ -94,7 +103,22 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function __toString()
     {
-        return ltrim($this->generate(), '\\');
+        return ltrim($this->generate(), '?\\');
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool[]|int[] ordered tuple, first key represents whether the type is nullable, second is the
+     *                      trimmed string
+     */
+    private static function trimNullable($type)
+    {
+        if (0 === strpos($type, '?')) {
+            return [true, substr($type, 1)];
+        }
+
+        return [false, $type];
     }
 
     /**
