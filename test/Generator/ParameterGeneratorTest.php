@@ -17,6 +17,7 @@ use ZendTest\Code\Generator\TestAsset\ParameterClass;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
 
 /**
@@ -388,6 +389,14 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
             [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
             [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
+            [NullableHintsClass::class, 'arrayParameter', 'foo', '?array'],
+            [NullableHintsClass::class, 'callableParameter', 'foo', '?callable'],
+            [NullableHintsClass::class, 'intParameter', 'foo', '?int'],
+            [NullableHintsClass::class, 'floatParameter', 'foo', 'f?loat'],
+            [NullableHintsClass::class, 'stringParameter', 'foo', '?string'],
+            [NullableHintsClass::class, 'boolParameter', 'foo', '?bool'],
+            [NullableHintsClass::class, 'selfParameter', 'foo', '?' . NullableHintsClass::class],
+            [NullableHintsClass::class, 'nullDefaultHintsClassParameter', 'foo', '?' . NullableHintsClass::class],
             [ClassTypeHintedClass::class, 'selfParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
