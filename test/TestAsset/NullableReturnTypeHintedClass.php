@@ -32,7 +32,7 @@ class NullableReturnTypeHintedClass
     {
     }
 
-    public function classReturn() : ?ReturnTypeHintedClass
+    public function classReturn() : ?NullableReturnTypeHintedClass
     {
     }
 
