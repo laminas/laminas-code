@@ -188,6 +188,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['\\void'],
             ['\\Void'],
             ['\\VOID'],
+            ['?void'],
+            ['?Void'],
+            ['?VOID'],
         ];
     }
 }
