@@ -4,6 +4,10 @@ namespace ZendTest\Code\TestAsset;
 
 class ReturnTypeHintedClass
 {
+    public function voidReturn() : void
+    {
+    }
+
     public function arrayReturn() : array
     {
     }
