@@ -405,7 +405,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         ));
 
         if (null === $expectedType) {
-            self::assertStringStartsWith('$' . $parameterName,  $parameter->generate());
+            self::assertStringStartsWith('$' . $parameterName, $parameter->generate());
 
             return;
         }
