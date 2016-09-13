@@ -339,7 +339,7 @@ PHP;
 
     public function returnTypeHintClassesProvider()
     {
-        return [
+        $parameters = [
             [ReturnTypeHintedClass::class, 'voidReturn', 'void'],
             [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
             [ReturnTypeHintedClass::class, 'callableReturn', 'callable'],
@@ -360,6 +360,14 @@ PHP;
             [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
             [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
         ];
+
+        return array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70100
+                    || (false === strpos($parameter[2], '?') && 'void' !== strtolower($parameter[2]));
+            }
+        );
     }
 
     /**
