@@ -456,15 +456,22 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
         ];
 
+        $compatibleParameters = array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70100 || false === strpos($parameter[3], '?');
+            }
+        );
+
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
             array_map(
                 function (array $definition) {
                     return $definition[0] . '#' . $definition[1];
                 },
-                $parameters
+                $compatibleParameters
             ),
-            $parameters
+            $compatibleParameters
         );
     }
 
