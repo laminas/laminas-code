@@ -16,6 +16,7 @@ use Zend\Code\Reflection\ParameterReflection;
 use ZendTest\Code\Generator\TestAsset\ParameterClass;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
+use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
@@ -431,6 +432,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [NullableHintsClass::class, 'stringParameter', 'foo', '?string'],
             [NullableHintsClass::class, 'boolParameter', 'foo', '?bool'],
             [NullableHintsClass::class, 'selfParameter', 'foo', '?\\' . NullableHintsClass::class],
+            [NullableHintsClass::class, 'parentParameter', 'foo', '?\\' . EmptyClass::class],
             [NullableHintsClass::class, 'nullableHintsClassParameter', 'foo', '?\\' . NullableHintsClass::class],
             [NullNullableDefaultHintsClass::class, 'arrayParameter', 'foo', '?array'],
             [NullNullableDefaultHintsClass::class, 'callableParameter', 'foo', '?callable'],
