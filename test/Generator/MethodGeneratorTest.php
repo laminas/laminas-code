@@ -359,6 +359,7 @@ PHP;
             [NullableReturnTypeHintedClass::class, 'stringReturn', '?string'],
             [NullableReturnTypeHintedClass::class, 'boolReturn', '?bool'],
             [NullableReturnTypeHintedClass::class, 'selfReturn', '?\\' . NullableReturnTypeHintedClass::class],
+            [NullableReturnTypeHintedClass::class, 'parentReturn', '?\\' . EmptyClass::class],
             [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
             [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
         ];
