@@ -32,6 +32,10 @@ class NullNullableDefaultHintsClass
     {
     }
 
+    public function parentParameter(?parent $foo = null)
+    {
+    }
+
     public function nullableDefaultHintsClassParameter(?NullNullableDefaultHintsClass $foo = null)
     {
     }
