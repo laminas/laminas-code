@@ -14,6 +14,7 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
+use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
@@ -348,6 +349,7 @@ PHP;
             [ReturnTypeHintedClass::class, 'stringReturn', 'string'],
             [ReturnTypeHintedClass::class, 'boolReturn', 'bool'],
             [ReturnTypeHintedClass::class, 'selfReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'parentReturn', '\\' . EmptyClass::class],
             [ReturnTypeHintedClass::class, 'classReturn', '\\' . ReturnTypeHintedClass::class],
             [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
             [NullableReturnTypeHintedClass::class, 'arrayReturn', '?array'],
