@@ -2,7 +2,7 @@
 
 namespace ZendTest\Code\TestAsset;
 
-class NullableHintsClass
+class NullableHintsClass extends EmptyClass
 {
     public function arrayParameter(?array $foo)
     {
@@ -29,6 +29,10 @@ class NullableHintsClass
     }
 
     public function selfParameter(?self $foo)
+    {
+    }
+
+    public function parentParameter(?parent $foo)
     {
     }
 
