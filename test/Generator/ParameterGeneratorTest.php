@@ -444,6 +444,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [NullNullableDefaultHintsClass::class, 'parentParameter', 'foo', '?\\' . EmptyClass::class],
             [NullNullableDefaultHintsClass::class, 'nullableDefaultHintsClassParameter', 'foo', '?\\' . NullNullableDefaultHintsClass::class],
             [ClassTypeHintedClass::class, 'selfParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'parentParameter', 'foo', '\\' . EmptyClass::class],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
             [ClassTypeHintedClass::class, 'closureParameter', 'foo', '\\' . \Closure::class],

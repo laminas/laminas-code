@@ -4,9 +4,13 @@ namespace ZendTest\Code\TestAsset;
 
 use Closure;
 
-class ClassTypeHintedClass
+class ClassTypeHintedClass extends EmptyClass
 {
     public function selfParameter(self $foo)
+    {
+    }
+
+    public function parentParameter(parent $foo)
     {
     }
 

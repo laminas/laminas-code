@@ -2,7 +2,7 @@
 
 namespace ZendTest\Code\TestAsset;
 
-class NullNullableDefaultHintsClass
+class NullNullableDefaultHintsClass extends EmptyClass
 {
     public function arrayParameter(?array $foo = null)
     {
