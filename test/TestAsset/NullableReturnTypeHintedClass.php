@@ -2,7 +2,7 @@
 
 namespace ZendTest\Code\TestAsset;
 
-class NullableReturnTypeHintedClass
+class NullableReturnTypeHintedClass extends EmptyClass
 {
     public function arrayReturn() : ?array
     {
@@ -29,6 +29,10 @@ class NullableReturnTypeHintedClass
     }
 
     public function selfReturn() : ?self
+    {
+    }
+
+    public function parentReturn() : ?parent
     {
     }
 
