@@ -389,6 +389,14 @@ class MethodGenerator extends AbstractMemberGenerator
             return null;
         }
 
+        if (! method_exists($returnType, 'getName')) {
+            $literalReturnType = (string) $returnType;
+
+            return 'self' === $literalReturnType
+                ? $methodReflection->getDeclaringClass()->getName()
+                : $literalReturnType;
+        }
+
         $nullable         = $returnType->allowsNull() ? '?' : '';
         $returnTypeString = $returnType->getName();
 

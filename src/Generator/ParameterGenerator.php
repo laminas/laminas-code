@@ -334,6 +334,14 @@ class ParameterGenerator extends AbstractGenerator
             return null;
         }
 
+        if (! method_exists($type, 'getName')) {
+            $literalReturnType = (string) $type;
+
+            return 'self' === $literalReturnType
+                ? $reflectionParameter->getDeclaringClass()->getName()
+                : $literalReturnType;
+        }
+
         $nullable   = $type->allowsNull() ? '?' : '';
         $typeString = $type->getName();
 
