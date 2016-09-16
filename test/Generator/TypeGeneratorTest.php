@@ -122,6 +122,8 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['Resource', '\\Resource'],
             ['RESOURCE', '\\RESOURCE'],
             ['foo_bar', '\\foo_bar'],
+            ["\x80", "\\\x80"],
+            ["\x80\\\x80", "\\\x80\\\x80"],
         ];
     }
 
@@ -150,6 +152,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['\\'],
             ['\\\\'],
             ['\\\\foo'],
+            ["\x7f"],
+            ["foo\\\x7f"],
+            ["foo\x7f\\foo"],
             ['1'],
             ['\\1'],
             ['\\1\\2'],
