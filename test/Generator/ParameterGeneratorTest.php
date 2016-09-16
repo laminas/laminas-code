@@ -18,6 +18,7 @@ use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\IterableHintsClass;
 use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
@@ -468,6 +469,9 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
+            [IterableHintsClass::class, 'iterableParameter', 'foo', 'iterable'],
+            [IterableHintsClass::class, 'nullableIterableParameter', 'foo', '?iterable'],
+            [IterableHintsClass::class, 'nullDefaultIterableParameter', 'foo', '?iterable'],
         ];
 
         $compatibleParameters = array_filter(
