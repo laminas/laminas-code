@@ -16,6 +16,7 @@ use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\IterableHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
@@ -362,13 +363,18 @@ PHP;
             [NullableReturnTypeHintedClass::class, 'parentReturn', '?\\' . EmptyClass::class],
             [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
             [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
+            [IterableHintsClass::class, 'iterableReturnValue', 'iterable'],
+            [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
         ];
 
         return array_filter(
             $parameters,
             function (array $parameter) {
                 return PHP_VERSION_ID >= 70100
-                    || (false === strpos($parameter[2], '?') && 'void' !== strtolower($parameter[2]));
+                    || (
+                        false === strpos($parameter[2], '?')
+                        && ! in_array(strtolower($parameter[2]), ['void', 'iterable'])
+                    );
             }
         );
     }
