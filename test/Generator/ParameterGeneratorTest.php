@@ -477,7 +477,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $compatibleParameters = array_filter(
             $parameters,
             function (array $parameter) {
-                return PHP_VERSION_ID >= 70100 || false === strpos($parameter[3], '?');
+                return PHP_VERSION_ID >= 70100
+                    || (false === strpos($parameter[3], '?') && 'iterable' !== strtolower($parameter[3]));
             }
         );
 
