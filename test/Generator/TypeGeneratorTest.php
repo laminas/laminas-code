@@ -233,6 +233,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['?void'],
             ['?Void'],
             ['?VOID'],
+            ['\\iterable'],
+            ['\\Iterable'],
+            ['\\ITERABLE'],
         ];
 
         return array_combine(
