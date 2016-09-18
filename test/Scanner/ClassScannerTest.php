@@ -316,6 +316,4 @@ class ClassScannerTest extends TestCase
         $this->assertEquals(1, count($class->getInterfaces()));
         $this->assertEquals('ArrayAccess', $class->getInterfaces()[0]);
     }
-
-
 }
