@@ -307,4 +307,15 @@ class ClassScannerTest extends TestCase
         $this->assertTrue($class->isTrait());
         $this->assertFalse($class->isInstantiable());
     }
+
+    public function testGetInterfacesFromInterface()
+    {
+        $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
+        $class = $file->getClass('ZendTest\Code\TestAsset\FooInterface');
+        $this->assertTrue($class->isInterface());
+        $this->assertEquals(1, count($class->getInterfaces()));
+        $this->assertEquals('ArrayAccess', $class->getInterfaces()[0]);
+    }
+
+
 }
