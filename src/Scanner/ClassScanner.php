@@ -985,9 +985,9 @@ class ClassScanner implements ScannerInterface
                     case T_STRING:
                         switch ($classContext) {
                             case T_EXTENDS:
-                                if( $this->isInterface ) {
+                                if ($this->isInterface) {
                                     $this->shortInterfaces[$classInterfaceIndex] .= $tokenContent;
-                                }else{
+                                } else {
                                     $this->shortParentClass .= $tokenContent;
                                 }
                                 break;
