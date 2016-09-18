@@ -1010,10 +1010,9 @@ class ClassScanner implements ScannerInterface
                         // goto no break needed
 
                     case null:
-                        if ($classContext == T_IMPLEMENTS && $tokenContent == ',') {
-                            $classInterfaceIndex++;
-                            $this->shortInterfaces[$classInterfaceIndex] = '';
-                        } elseif ($classContext == T_EXTENDS && $tokenContent == ',' && $this->isInterface) {
+                        if (($classContext == T_IMPLEMENTS && $tokenContent == ',')
+                            || ($classContext == T_EXTENDS && $tokenContent == ',' && $this->isInterface))
+                        {
                             $classInterfaceIndex++;
                             $this->shortInterfaces[$classInterfaceIndex] = '';
                         }
