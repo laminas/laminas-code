@@ -165,6 +165,9 @@ class MethodGenerator extends AbstractMemberGenerator
                 case 'visibility':
                     $method->setVisibility($value);
                     break;
+                case 'returntype':
+                    $method->setReturnType($value);
+                    break;
             }
         }
 
@@ -281,6 +284,14 @@ class MethodGenerator extends AbstractMemberGenerator
             : TypeGenerator::fromTypeString($returnType);
 
         return $this;
+    }
+
+    /**
+     * @return TypeGenerator|null
+     */
+    public function getReturnType()
+    {
+        return $this->returnType;
     }
 
     /**
