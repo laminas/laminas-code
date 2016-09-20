@@ -48,6 +48,8 @@ class TraitUsageGenerator extends AbstractGenerator
      */
     public function addUse($use, $useAlias = null)
     {
+        $this->removeUse($use);
+
         if (! empty($useAlias)) {
             $use .= ' as ' . $useAlias;
         }
@@ -62,6 +64,70 @@ class TraitUsageGenerator extends AbstractGenerator
     public function getUses()
     {
         return array_values($this->uses);
+    }
+
+    /**
+     * @param $use
+     * @return bool
+     */
+    public function hasUse($use)
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' ', $value);
+            if ($parts[0] === $use) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $use
+     * @return bool
+     */
+    public function hasUseAlias($use)
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' as ', $value);
+            if ($parts[0] === $use and count($parts) == 2) {
+                return true;
+            }
+        };
+
+        return false;
+    }
+
+    /**
+     * @param $use
+     * @return TraitUsageGenerator
+     */
+    public function removeUse($use)
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' ', $value);
+            if ($parts[0] === $use) {
+                unset($this->uses[$value]);
+            }
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param $use
+     * @return TraitUsageGenerator
+     */
+    public function removeUseAlias($use)
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' as ', $value);
+            if ($parts[0] === $use and count($parts) == 2) {
+                unset($this->uses[$value]);
+            }
+        };
+
+        return $this;
     }
 
     /**
