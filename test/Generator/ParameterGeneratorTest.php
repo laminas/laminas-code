@@ -98,6 +98,21 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('\'foo\'', (string) $defaultValue);
     }
 
+    public function testFromReflectionGetDefaultValueNotOptional()
+    {
+        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
+            'ZendTest\Code\Generator\TestAsset\ParameterClass'
+        );
+        $method = $reflectionClass->getMethod('defaultObjectEqualsNullAndNotOptional');
+
+        $params = $method->getParameters();
+        $this->assertCount(2, $params);
+
+        $firstParameter = $codeGenParam = ParameterGenerator::fromReflection($params[0]);
+        $this->assertInstanceOf(ValueGenerator::class, $firstParameter->getDefaultValue());
+        $this->assertNull($firstParameter->getDefaultValue()->getSourceContent());
+    }
+
     public function testFromReflectionGetArrayHint()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('fromArray');
