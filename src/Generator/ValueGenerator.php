@@ -172,8 +172,7 @@ class ValueGenerator extends AbstractGenerator
             $type = $this->type;
         }
 
-        // valid types for constants
-        $scalarTypes = [
+        $validConstantTypes = [
             self::TYPE_ARRAY,
             self::TYPE_ARRAY_LONG,
             self::TYPE_ARRAY_SHORT,
@@ -189,7 +188,7 @@ class ValueGenerator extends AbstractGenerator
             self::TYPE_NULL
         ];
 
-        return in_array($type, $scalarTypes);
+        return in_array($type, $validConstantTypes);
     }
 
     /**
