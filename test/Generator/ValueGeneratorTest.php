@@ -12,6 +12,8 @@ namespace ZendTest\Code\Generator;
 use ArrayAccess;
 use ArrayObject as SplArrayObject;
 use Zend\Code\Exception\InvalidArgumentException;
+use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 use Zend\Code\Generator\ValueGenerator;
 
@@ -61,6 +63,36 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
         return [
             SplArrayObject::class => [new SplArrayObject()],
             StdlibArrayObject::class => [new StdlibArrayObject()],
+        ];
+    }
+
+    /**
+     * @dataProvider validConstantTypesProvider
+     */
+    public function testValidConstantTypes($generator)
+    {
+        $propertyGenerator = new PropertyGenerator('FOO', $generator);
+        $propertyGenerator->setConst(true);
+
+        $this->assertInternalType('string', $propertyGenerator->generate());
+    }
+
+    public function validConstantTypesProvider()
+    {
+        return [
+            [new PropertyValueGenerator([], PropertyValueGenerator::TYPE_ARRAY)],
+            [new PropertyValueGenerator([], PropertyValueGenerator::TYPE_ARRAY_LONG)],
+            [new PropertyValueGenerator([], PropertyValueGenerator::TYPE_ARRAY_SHORT)],
+            [new PropertyValueGenerator(true, PropertyValueGenerator::TYPE_BOOL)],
+            [new PropertyValueGenerator(true, PropertyValueGenerator::TYPE_BOOLEAN)],
+            [new PropertyValueGenerator(1, PropertyValueGenerator::TYPE_INT)],
+            [new PropertyValueGenerator(1, PropertyValueGenerator::TYPE_INTEGER)],
+            [new PropertyValueGenerator(0.1, PropertyValueGenerator::TYPE_DOUBLE)],
+            [new PropertyValueGenerator(0.1, PropertyValueGenerator::TYPE_FLOAT)],
+            [new PropertyValueGenerator('bar', PropertyValueGenerator::TYPE_STRING)],
+            [new PropertyValueGenerator(null, PropertyValueGenerator::TYPE_NULL)],
+            [new PropertyValueGenerator(null, PropertyValueGenerator::TYPE_NULL)],
+            [new PropertyValueGenerator('PHP_EOL', PropertyValueGenerator::TYPE_CONSTANT)],
         ];
     }
 
