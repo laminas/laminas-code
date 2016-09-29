@@ -175,6 +175,8 @@ class ValueGenerator extends AbstractGenerator
         // valid types for constants
         $scalarTypes = [
             self::TYPE_ARRAY,
+            self::TYPE_ARRAY_LONG,
+            self::TYPE_ARRAY_SHORT,
             self::TYPE_BOOLEAN,
             self::TYPE_BOOL,
             self::TYPE_NUMBER,
