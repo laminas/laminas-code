@@ -11,7 +11,9 @@ namespace ZendTest\Code\Generator;
 
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
+use Zend\Code\Reflection\MethodReflection;
 use Zend\Code\Reflection\ParameterReflection;
+use ZendTest\Code\Generator\TestAsset\ParameterClass;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
@@ -98,17 +100,18 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('\'foo\'', (string) $defaultValue);
     }
 
+    /**
+     * @group 95
+     */
     public function testFromReflectionGetDefaultValueNotOptional()
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            'ZendTest\Code\Generator\TestAsset\ParameterClass'
-        );
-        $method = $reflectionClass->getMethod('defaultObjectEqualsNullAndNotOptional');
+        $method = new MethodReflection(ParameterClass::class, 'defaultObjectEqualsNullAndNotOptional');
 
         $params = $method->getParameters();
+
         $this->assertCount(2, $params);
 
-        $firstParameter = $codeGenParam = ParameterGenerator::fromReflection($params[0]);
+        $firstParameter = ParameterGenerator::fromReflection($params[0]);
         $this->assertInstanceOf(ValueGenerator::class, $firstParameter->getDefaultValue());
         $this->assertNull($firstParameter->getDefaultValue()->getSourceContent());
     }
