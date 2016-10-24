@@ -67,6 +67,7 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group #94
      * @dataProvider validConstantTypesProvider
      */
     public function testValidConstantTypes($generator, $expectedOutput)
@@ -76,6 +77,9 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedOutput, $propertyGenerator->generate());
     }
 
+    /**
+     * @return array
+     */
     public function validConstantTypesProvider()
     {
         return [
