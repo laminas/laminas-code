@@ -50,7 +50,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
+        self::assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
     }
 
     /**
@@ -84,7 +84,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function validTypeProvider()
     {
-        return [
+        $valid = [
             ['foo', '\\foo'],
             ['foo', '\\foo'],
             ['foo1', '\\foo1'],
@@ -94,6 +94,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['foo\\bar\\baz1', '\\foo\\bar\\baz1'],
             ['FOO', '\\FOO'],
             ['FOO1', '\\FOO1'],
+            ['void', 'void'],
+            ['Void', 'void'],
+            ['VOID', 'void'],
             ['array', 'array'],
             ['Array', 'array'],
             ['ARRAY', 'array'],
@@ -112,6 +115,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['bool', 'bool'],
             ['Bool', 'bool'],
             ['BOOL', 'bool'],
+            ['iterable', 'iterable'],
+            ['Iterable', 'iterable'],
+            ['ITERABLE', 'iterable'],
             ['object', '\\object'],
             ['Object', '\\Object'],
             ['OBJECT', '\\OBJECT'],
@@ -122,7 +128,54 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['Resource', '\\Resource'],
             ['RESOURCE', '\\RESOURCE'],
             ['foo_bar', '\\foo_bar'],
+            ['?foo', '?\\foo'],
+            ['?foo', '?\\foo'],
+            ['?foo1', '?\\foo1'],
+            ['?foo\\bar', '?\\foo\\bar'],
+            ['?a\\b\\c', '?\\a\\b\\c'],
+            ['?foo\\bar\\baz', '?\\foo\\bar\\baz'],
+            ['?foo\\bar\\baz1', '?\\foo\\bar\\baz1'],
+            ['?FOO', '?\\FOO'],
+            ['?FOO1', '?\\FOO1'],
+            ['?array', '?array'],
+            ['?Array', '?array'],
+            ['?ARRAY', '?array'],
+            ['?callable', '?callable'],
+            ['?Callable', '?callable'],
+            ['?CALLABLE', '?callable'],
+            ['?string', '?string'],
+            ['?String', '?string'],
+            ['?STRING', '?string'],
+            ['?int', '?int'],
+            ['?Int', '?int'],
+            ['?INT', '?int'],
+            ['?float', '?float'],
+            ['?Float', '?float'],
+            ['?FLOAT', '?float'],
+            ['?bool', '?bool'],
+            ['?Bool', '?bool'],
+            ['?BOOL', '?bool'],
+            ['?iterable', '?iterable'],
+            ['?Iterable', '?iterable'],
+            ['?ITERABLE', '?iterable'],
+            ['?object', '?\\object'],
+            ['?Object', '?\\Object'],
+            ['?OBJECT', '?\\OBJECT'],
+            ['?mixed', '?\\mixed'],
+            ['?Mixed', '?\\Mixed'],
+            ['?MIXED', '?\\MIXED'],
+            ['?resource', '?\\resource'],
+            ['?Resource', '?\\Resource'],
+            ['?RESOURCE', '?\\RESOURCE'],
+            ['?foo_bar', '?\\foo_bar'],
+            ["\x80", "\\\x80"],
+            ["\x80\\\x80", "\\\x80\\\x80"],
         ];
+
+        return array_combine(
+            array_map('reset', $valid),
+            $valid
+        );
     }
 
     /**
@@ -145,11 +198,14 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidTypeProvider()
     {
-        return [
+        $invalid = [
             [''],
             ['\\'],
             ['\\\\'],
             ['\\\\foo'],
+            ["\x7f"],
+            ["foo\\\x7f"],
+            ["foo\x7f\\foo"],
             ['1'],
             ['\\1'],
             ['\\1\\2'],
@@ -177,6 +233,20 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['\\bool'],
             ['\\Bool'],
             ['\\BOOL'],
+            ['\\void'],
+            ['\\Void'],
+            ['\\VOID'],
+            ['?void'],
+            ['?Void'],
+            ['?VOID'],
+            ['\\iterable'],
+            ['\\Iterable'],
+            ['\\ITERABLE'],
         ];
+
+        return array_combine(
+            array_map('reset', $invalid),
+            $invalid
+        );
     }
 }

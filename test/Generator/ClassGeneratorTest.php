@@ -59,11 +59,49 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($classGenerator->getExtendedClass(), 'ExtendedClass');
     }
 
+    public function testHasExtendedClass()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setExtendedClass('ExtendedClass');
+
+        $this->assertTrue($classGenerator->hasExtentedClass());
+    }
+
+    public function testRemoveExtendedClass()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setExtendedClass('ExtendedClass');
+        $this->assertTrue($classGenerator->hasExtentedClass());
+
+        $classGenerator->removeExtentedClass();
+        $this->assertFalse($classGenerator->hasExtentedClass());
+    }
+
     public function testImplementedInterfacesAccessors()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
         $this->assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
+    }
+
+    public function testHasImplementedInterface()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+    }
+
+    public function testRemoveImplementedInterface()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+
+        $classGenerator->removeImplementedInterface('Class1');
+        $this->assertFalse($classGenerator->hasImplementedInterface('Class1'));
+        $this->assertTrue($classGenerator->hasImplementedInterface('Class2'));
     }
 
     public function testPropertyAccessors()
@@ -191,6 +229,16 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator->addProperty('propertyOne');
 
         $this->assertTrue($classGenerator->hasProperty('propertyOne'));
+    }
+
+    public function testRemoveProperty()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addProperty('propertyOne');
+        $this->assertTrue($classGenerator->hasProperty('propertyOne'));
+
+        $classGenerator->removeProperty('propertyOne');
+        $this->assertFalse($classGenerator->hasProperty('propertyOne'));
     }
 
     public function testToString()
@@ -372,6 +420,48 @@ CODE;
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
         $this->assertContains('class FunClass', $received, $received);
+    }
+
+    public function testHasUse()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+
+        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+    }
+
+    public function testRemoveUse()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+
+        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+        $classGenerator->removeUse('My\First\Use\Class');
+        $classGenerator->removeUse('My\Second\Use\Class');
+        $this->assertFalse($classGenerator->hasUse('My\First\Use\Class'));
+        $this->assertFalse($classGenerator->hasUse('My\Second\Use\Class'));
+    }
+
+    public function testHasUseAlias()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
+        $this->assertTrue($classGenerator->hasUseAlias('My\Second\Use\Class'));
+    }
+
+    public function testRemoveUseAlias()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
+        $this->assertTrue($classGenerator->hasUseAlias('My\First\Use\Class'));
+        $classGenerator->removeUseAlias('My\First\Use\Class');
+        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
     }
 
     /**
@@ -640,6 +730,16 @@ CODE;
 
         $classGenerator->addConstant('x', 'value1');
         $classGenerator->addConstant('x', 'value1');
+    }
+
+    public function testRemoveConstant()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addConstant('constantOne', 'foo');
+        $this->assertTrue($classGenerator->hasConstant('constantOne'));
+
+        $classGenerator->removeConstant('constantOne');
+        $this->assertFalse($classGenerator->hasConstant('constantOne'));
     }
 
     /**

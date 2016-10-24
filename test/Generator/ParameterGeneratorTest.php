@@ -16,7 +16,11 @@ use Zend\Code\Reflection\ParameterReflection;
 use ZendTest\Code\Generator\TestAsset\ParameterClass;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
+use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\IterableHintsClass;
+use ZendTest\Code\TestAsset\NullableHintsClass;
+use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
 
 /**
@@ -359,7 +363,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @requires PHP 7.0
      *
-     * @dataProvider internalReflectionHintsProvider
+     * @dataProvider reflectionHintsProvider
      *
      * @param string      $className
      * @param string      $methodName
@@ -373,13 +377,47 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             $parameterName
         ));
 
-        self::assertSame($expectedType, $parameter->getType());
+        if (null === $expectedType) {
+            self::assertNull($parameter->getType());
+
+            return;
+        }
+
+        self::assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
+    }
+
+    /**
+     * @group zendframework/zend-code#29
+     *
+     * @requires PHP 7.0
+     *
+     * @dataProvider reflectionHintsProvider
+     *
+     * @param string      $className
+     * @param string      $methodName
+     * @param string      $parameterName
+     * @param string|null $expectedType
+     */
+    public function testTypeHintFromReflectionGeneratedCode($className, $methodName, $parameterName, $expectedType)
+    {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
+            [$className, $methodName],
+            $parameterName
+        ));
+
+        if (null === $expectedType) {
+            self::assertStringStartsWith('$' . $parameterName, $parameter->generate());
+
+            return;
+        }
+
+        self::assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
     }
 
     /**
      * @return string[][]
      */
-    public function internalReflectionHintsProvider()
+    public function reflectionHintsProvider()
     {
         $parameters = [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -388,11 +426,40 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
             [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
             [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
-            [ClassTypeHintedClass::class, 'selfParameter', 'foo', ClassTypeHintedClass::class],
-            [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
-            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
-            [ClassTypeHintedClass::class, 'closureParameter', 'foo', \Closure::class],
-            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', \Closure::class],
+            [NullableHintsClass::class, 'arrayParameter', 'foo', '?array'],
+            [NullableHintsClass::class, 'callableParameter', 'foo', '?callable'],
+            [NullableHintsClass::class, 'intParameter', 'foo', '?int'],
+            [NullableHintsClass::class, 'floatParameter', 'foo', '?float'],
+            [NullableHintsClass::class, 'stringParameter', 'foo', '?string'],
+            [NullableHintsClass::class, 'boolParameter', 'foo', '?bool'],
+            [NullableHintsClass::class, 'selfParameter', 'foo', '?\\' . NullableHintsClass::class],
+            [NullableHintsClass::class, 'parentParameter', 'foo', '?\\' . EmptyClass::class],
+            [NullableHintsClass::class, 'nullableHintsClassParameter', 'foo', '?\\' . NullableHintsClass::class],
+            [NullNullableDefaultHintsClass::class, 'arrayParameter', 'foo', '?array'],
+            [NullNullableDefaultHintsClass::class, 'callableParameter', 'foo', '?callable'],
+            [NullNullableDefaultHintsClass::class, 'intParameter', 'foo', '?int'],
+            [NullNullableDefaultHintsClass::class, 'floatParameter', 'foo', '?float'],
+            [NullNullableDefaultHintsClass::class, 'stringParameter', 'foo', '?string'],
+            [NullNullableDefaultHintsClass::class, 'boolParameter', 'foo', '?bool'],
+            [
+                NullNullableDefaultHintsClass::class,
+                'selfParameter',
+                'foo',
+                '?\\' . NullNullableDefaultHintsClass::class,
+            ],
+            [NullNullableDefaultHintsClass::class, 'parentParameter', 'foo', '?\\' . EmptyClass::class],
+            [
+                NullNullableDefaultHintsClass::class,
+                'nullableDefaultHintsClassParameter',
+                'foo',
+                '?\\' . NullNullableDefaultHintsClass::class,
+            ],
+            [ClassTypeHintedClass::class, 'selfParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'parentParameter', 'foo', '\\' . EmptyClass::class],
+            [ClassTypeHintedClass::class, 'classParameter', 'foo', '\\' . ClassTypeHintedClass::class],
+            [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', '\\' . InternalHintsClass::class],
+            [ClassTypeHintedClass::class, 'closureParameter', 'foo', '\\' . \Closure::class],
+            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', '\\' . \Closure::class],
             [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'callableParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'intParameter', 'foo', null],
@@ -402,7 +469,18 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [DocBlockOnlyHintsClass::class, 'selfParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', null],
             [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', null],
+            [IterableHintsClass::class, 'iterableParameter', 'foo', 'iterable'],
+            [IterableHintsClass::class, 'nullableIterableParameter', 'foo', '?iterable'],
+            [IterableHintsClass::class, 'nullDefaultIterableParameter', 'foo', '?iterable'],
         ];
+
+        $compatibleParameters = array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70100
+                    || (false === strpos($parameter[3], '?') && 'iterable' !== strtolower($parameter[3]));
+            }
+        );
 
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
@@ -410,9 +488,9 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
                 function (array $definition) {
                     return $definition[0] . '#' . $definition[1];
                 },
-                $parameters
+                $compatibleParameters
             ),
-            $parameters
+            $compatibleParameters
         );
     }
 

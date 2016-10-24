@@ -9,6 +9,7 @@
 
 namespace Zend\Code\Generator;
 
+use ReflectionParameter;
 use Zend\Code\Reflection\ParameterReflection;
 
 class ParameterGenerator extends AbstractGenerator
@@ -334,14 +335,12 @@ class ParameterGenerator extends AbstractGenerator
             return null;
         }
 
-        $typeString = (string) $type;
-
-        if ('self' === strtolower($typeString)) {
-            // exceptional case: `self` must expand to the reflection type declaring class
-            return $reflectionParameter->getDeclaringClass()->getName();
+        if (! method_exists($type, 'getName')) {
+            return self::expandLiteralParameterType((string) $type, $reflectionParameter);
         }
 
-        return $typeString;
+        return ($type->allowsNull() ? '?' : '')
+            . self::expandLiteralParameterType($type->getName(), $reflectionParameter);
     }
 
     /**
@@ -366,6 +365,25 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return null;
+    }
+
+    /**
+     * @param string              $literalParameterType
+     * @param ReflectionParameter $reflectionParameter
+     *
+     * @return string
+     */
+    private static function expandLiteralParameterType($literalParameterType, ReflectionParameter $reflectionParameter)
+    {
+        if ('self' === strtolower($literalParameterType)) {
+            return $reflectionParameter->getDeclaringClass()->getName();
+        }
+
+        if ('parent' === strtolower($literalParameterType)) {
+            return $reflectionParameter->getDeclaringClass()->getParentClass()->getName();
+        }
+
+        return $literalParameterType;
     }
 
     /**
