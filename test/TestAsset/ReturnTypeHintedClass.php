@@ -2,8 +2,12 @@
 
 namespace ZendTest\Code\TestAsset;
 
-class ReturnTypeHintedClass
+class ReturnTypeHintedClass extends EmptyClass
 {
+    public function voidReturn() : void
+    {
+    }
+
     public function arrayReturn() : array
     {
     }
@@ -29,6 +33,10 @@ class ReturnTypeHintedClass
     }
 
     public function selfReturn() : self
+    {
+    }
+
+    public function parentReturn() : parent
     {
     }
 

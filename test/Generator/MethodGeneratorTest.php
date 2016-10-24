@@ -14,7 +14,10 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
+use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
+use ZendTest\Code\TestAsset\IterableHintsClass;
+use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
 /**
@@ -338,7 +341,8 @@ PHP;
 
     public function returnTypeHintClassesProvider()
     {
-        return [
+        $parameters = [
+            [ReturnTypeHintedClass::class, 'voidReturn', 'void'],
             [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
             [ReturnTypeHintedClass::class, 'callableReturn', 'callable'],
             [ReturnTypeHintedClass::class, 'intReturn', 'int'],
@@ -346,9 +350,33 @@ PHP;
             [ReturnTypeHintedClass::class, 'stringReturn', 'string'],
             [ReturnTypeHintedClass::class, 'boolReturn', 'bool'],
             [ReturnTypeHintedClass::class, 'selfReturn', '\\' . ReturnTypeHintedClass::class],
+            [ReturnTypeHintedClass::class, 'parentReturn', '\\' . EmptyClass::class],
             [ReturnTypeHintedClass::class, 'classReturn', '\\' . ReturnTypeHintedClass::class],
             [ReturnTypeHintedClass::class, 'otherClassReturn', '\\' . InternalHintsClass::class],
+            [NullableReturnTypeHintedClass::class, 'arrayReturn', '?array'],
+            [NullableReturnTypeHintedClass::class, 'callableReturn', '?callable'],
+            [NullableReturnTypeHintedClass::class, 'intReturn', '?int'],
+            [NullableReturnTypeHintedClass::class, 'floatReturn', '?float'],
+            [NullableReturnTypeHintedClass::class, 'stringReturn', '?string'],
+            [NullableReturnTypeHintedClass::class, 'boolReturn', '?bool'],
+            [NullableReturnTypeHintedClass::class, 'selfReturn', '?\\' . NullableReturnTypeHintedClass::class],
+            [NullableReturnTypeHintedClass::class, 'parentReturn', '?\\' . EmptyClass::class],
+            [NullableReturnTypeHintedClass::class, 'classReturn', '?\\' . NullableReturnTypeHintedClass::class],
+            [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
+            [IterableHintsClass::class, 'iterableReturnValue', 'iterable'],
+            [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
         ];
+
+        return array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70100
+                    || (
+                        false === strpos($parameter[2], '?')
+                        && ! in_array(strtolower($parameter[2]), ['void', 'iterable'])
+                    );
+            }
+        );
     }
 
     /**

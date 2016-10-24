@@ -9,6 +9,7 @@
 
 namespace Zend\Code\Generator;
 
+use ReflectionMethod;
 use Zend\Code\Reflection\MethodReflection;
 
 class MethodGenerator extends AbstractMemberGenerator
@@ -389,12 +390,30 @@ class MethodGenerator extends AbstractMemberGenerator
             return null;
         }
 
-        $returnTypeString = (string) $returnType;
+        if (! method_exists($returnType, 'getName')) {
+            return self::expandLiteralType((string) $returnType, $methodReflection);
+        }
 
-        if ('self' === strtolower($returnType)) {
+        return ($returnType->allowsNull() ? '?' : '')
+            . self::expandLiteralType($returnType->getName(), $methodReflection);
+    }
+
+    /**
+     * @param string           $literalReturnType
+     * @param ReflectionMethod $methodReflection
+     *
+     * @return string
+     */
+    private static function expandLiteralType($literalReturnType, ReflectionMethod $methodReflection)
+    {
+        if ('self' === strtolower($literalReturnType)) {
             return $methodReflection->getDeclaringClass()->getName();
         }
 
-        return $returnTypeString;
+        if ('parent' === strtolower($literalReturnType)) {
+            return $methodReflection->getDeclaringClass()->getParentClass()->getName();
+        }
+
+        return $literalReturnType;
     }
 }
