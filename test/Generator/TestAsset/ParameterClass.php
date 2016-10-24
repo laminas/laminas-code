@@ -82,6 +82,11 @@ class ParameterClass
 
     }
 
+    public function defaultObjectEqualsNullAndNotOptional(\stdClass $a = null, $b)
+    {
+
+    }
+
     /**
      * @param int $integer
      */
