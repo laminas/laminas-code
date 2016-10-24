@@ -38,11 +38,25 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 3.1.0 - TBD
+## 3.1.0 - 2016-10-24
 
 ### Added
 
-- Nothing.
+- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+  PHP 7.1's `void` return type declaration.
+- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+  PHP 7.1's nullable type declarations.
+- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+  PHP 7.1's `iterable` type declaration.
+- [#62](https://github.com/zendframework/zend-code/pull/62) added
+  `Zend\Code\Generator\MethodGenerator#getReturnType()` accessor.
+- [#68](https://github.com/zendframework/zend-code/pull/68)
+  [#26](https://github.com/zendframework/zend-code/pull/26) added mutators
+  to allow removing/checking for existence of methods, properties, constants,
+  parameters and type declarations across all the code generator API.
+- [#65](https://github.com/zendframework/zend-code/pull/65) continuous
+  integration testing now checks locked, newest and oldest dependency
+  sets.
 
 ### Deprecated
 
