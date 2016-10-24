@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.5 - TBD
+## 3.0.5 - 2016-10-24
 
 ### Added
 
@@ -18,7 +18,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#92](https://github.com/zendframework/zend-code/pull/92) corrected
+  `Zend\Code\Scanner\ClassScanner` to detect multiple interface inheritance.
+- [#95](https://github.com/zendframework/zend-code/pull/95) corrected
+  `Zend\Code\Generator\ParameterGenerator` to allow copying parameter signatures
+  for non-optional parameters that are still nullable via a default `= null`
+  value.
+- [#94](https://github.com/zendframework/zend-code/pull/94) corrected
+  `Zend\Code\Generator\ValueGenerator` so that class constants can now
+  be generated with arrays as default value (supported since PHP 5.6).
 
 ## 3.0.4 - 2016-06-30
 
