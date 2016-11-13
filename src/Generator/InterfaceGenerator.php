@@ -24,7 +24,7 @@ class InterfaceGenerator extends ClassGenerator
      */
     public static function fromReflection(ClassReflection $classReflection)
     {
-        if (!$classReflection->isInterface()) {
+        if (! $classReflection->isInterface()) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Class %s is not a interface',
                 $classReflection->getName()

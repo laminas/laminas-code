@@ -53,7 +53,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
      */
     public function getDocBlock()
     {
-        if (!($docComment = $this->getDocComment())) {
+        if (! ($docComment = $this->getDocComment())) {
             return false;
         }
 
@@ -80,7 +80,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         $cachingFileScanner = $this->createFileScanner($class->getFileName());
         $nameInformation    = $cachingFileScanner->getClassNameInformation($class->getName());
 
-        if (!$nameInformation) {
+        if (! $nameInformation) {
             return false;
         }
 

@@ -156,7 +156,7 @@ class ConstantScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -171,7 +171,7 @@ class ConstantScanner implements ScannerInterface
 
         $token = current($tokens);
 
-        if (!is_string($token)) {
+        if (! is_string($token)) {
             list($tokenType, $tokenContent, $tokenLine) = $token;
 
             switch ($tokenType) {

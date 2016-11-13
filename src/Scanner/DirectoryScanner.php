@@ -62,7 +62,7 @@ class DirectoryScanner implements ScannerInterface
             $this->directories[] = $directory;
         } elseif (is_string($directory)) {
             $realDir = realpath($directory);
-            if (!$realDir || !is_dir($realDir)) {
+            if (! $realDir || ! is_dir($realDir)) {
                 throw new Exception\InvalidArgumentException(sprintf(
                     'Directory "%s" does not exist',
                     $realDir
@@ -214,7 +214,7 @@ class DirectoryScanner implements ScannerInterface
             $this->createClassToFileScannerCache();
         }
 
-        if (!isset($this->classToFileScanner[$class])) {
+        if (! isset($this->classToFileScanner[$class])) {
             throw new Exception\InvalidArgumentException('Class not found.');
         }
 

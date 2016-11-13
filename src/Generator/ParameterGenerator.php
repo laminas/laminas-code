@@ -95,7 +95,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Paramerer generator requires that a name is provided for this object'
             );
@@ -212,7 +212,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setDefaultValue($defaultValue)
     {
-        if (!($defaultValue instanceof ValueGenerator)) {
+        if (! ($defaultValue instanceof ValueGenerator)) {
             $defaultValue = new ValueGenerator($defaultValue);
         }
         $this->defaultValue = $defaultValue;

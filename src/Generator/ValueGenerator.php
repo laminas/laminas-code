@@ -93,7 +93,7 @@ class ValueGenerator extends AbstractGenerator
         }
         if ($constants === null) {
             $constants = new SplArrayObject();
-        } elseif (!(($constants instanceof SplArrayObject) || ($constants instanceof StdlibArrayObject))) {
+        } elseif (! (($constants instanceof SplArrayObject) || ($constants instanceof StdlibArrayObject))) {
             throw new InvalidArgumentException(
                 '$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject'
             );

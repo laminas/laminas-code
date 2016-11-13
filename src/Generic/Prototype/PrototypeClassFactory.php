@@ -105,11 +105,11 @@ class PrototypeClassFactory
     {
         $prototypeName = $this->normalizeName($prototypeName);
 
-        if (!$this->hasPrototype($prototypeName) && !isset($this->genericPrototype)) {
+        if (! $this->hasPrototype($prototypeName) && ! isset($this->genericPrototype)) {
             throw new Exception\RuntimeException('This tag name is not supported by this tag manager');
         }
 
-        if (!$this->hasPrototype($prototypeName)) {
+        if (! $this->hasPrototype($prototypeName)) {
             $newPrototype = clone $this->genericPrototype;
             $newPrototype->setName($prototypeName);
         } else {

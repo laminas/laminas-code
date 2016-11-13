@@ -75,15 +75,15 @@ class FileReflection implements ReflectionInterface
             $fileRealPath = stream_resolve_include_path($filename);
         }
 
-        if (!$fileRealPath) {
+        if (! $fileRealPath) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'No file for %s was found.',
                 $filename
             ));
         }
 
-        if (!in_array($fileRealPath, get_included_files())) {
-            if (!$includeIfNotAlreadyIncluded) {
+        if (! in_array($fileRealPath, get_included_files())) {
+            if (! $includeIfNotAlreadyIncluded) {
                 throw new Exception\RuntimeException(sprintf(
                     'File %s must be required before it can be reflected',
                     $filename
@@ -151,7 +151,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getDocBlock()
     {
-        if (!($docComment = $this->getDocComment())) {
+        if (! ($docComment = $this->getDocComment())) {
             return false;
         }
 

@@ -98,7 +98,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
                 $content = $matches[0];
             }
         } else {
-            $name = substr($this->getName(), strrpos($this->getName(), '\\')+1);
+            $name = substr($this->getName(), strrpos($this->getName(), '\\') + 1);
             preg_match(
                 '#function\s+' . preg_quote($name) . '\s*\([^\)]*\)\s*{([^{}]+({[^}]+})*[^}]+)?}#',
                 $functionLine,
@@ -140,7 +140,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
         foreach ($parameters as $parameter) {
             $prototype['arguments'][$parameter->getName()] = [
                 'type'     => $parameter->detectType(),
-                'required' => !$parameter->isOptional(),
+                'required' => ! $parameter->isOptional(),
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
             ];
@@ -153,7 +153,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
                 $argsLine = ($argument['type']
                     ? $argument['type'] . ' '
                     : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
-                if (!$argument['required']) {
+                if (! $argument['required']) {
                     $argsLine .= ' = ' . var_export($argument['default'], true);
                 }
                 $args[] = $argsLine;
@@ -195,7 +195,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     public function getReturn()
     {
         $docBlock = $this->getDocBlock();
-        if (!$docBlock->hasTag('return')) {
+        if (! $docBlock->hasTag('return')) {
             throw new Exception\InvalidArgumentException(
                 'Function does not specify an @return annotation tag; cannot determine return type'
             );
@@ -245,7 +245,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
                 $body = $matches[2];
             }
         } else {
-            $name = substr($this->getName(), strrpos($this->getName(), '\\')+1);
+            $name = substr($this->getName(), strrpos($this->getName(), '\\') + 1);
             preg_match('#function\s+' . $name . '\s*\([^\)]*\)\s*{([^{}]+({[^}]+})*[^}]+)}#', $functionLine, $matches);
             if (isset($matches[1])) {
                 $body = $matches[1];

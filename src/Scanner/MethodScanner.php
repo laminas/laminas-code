@@ -323,7 +323,7 @@ class MethodScanner implements ScannerInterface
                 continue;
             }
 
-            if (!$returnScanner) {
+            if (! $returnScanner) {
                 $return[] = $info['name'];
             } else {
                 $return[] = $this->getParameter($info['name']);
@@ -354,7 +354,7 @@ class MethodScanner implements ScannerInterface
                 }
                 unset($info);
             }
-            if (!isset($info)) {
+            if (! isset($info)) {
                 throw new Exception\InvalidArgumentException('Index of info offset is not about a parameter');
             }
         }
@@ -400,7 +400,7 @@ class MethodScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -431,7 +431,7 @@ class MethodScanner implements ScannerInterface
         ) {
             static $lastTokenArray = null;
             $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
-            if (!isset($tokens[$tokenIndex])) {
+            if (! isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;
                 $tokenType    = false;
@@ -523,7 +523,7 @@ class MethodScanner implements ScannerInterface
                 // goto (no break needed);
 
             case T_NS_SEPARATOR:
-                if (!isset($infos[$infoIndex])) {
+                if (! isset($infos[$infoIndex])) {
                     $MACRO_INFO_START();
                 }
                 goto SCANNER_CONTINUE_SIGNATURE;
@@ -536,7 +536,7 @@ class MethodScanner implements ScannerInterface
                 }
 
                 if ($parentCount === 1) {
-                    if (!isset($infos[$infoIndex])) {
+                    if (! isset($infos[$infoIndex])) {
                         $MACRO_INFO_START();
                     }
                     if ($tokenType === T_VARIABLE) {
@@ -550,7 +550,7 @@ class MethodScanner implements ScannerInterface
             case null:
                 switch ($tokenContent) {
                     case '&':
-                        if (!isset($infos[$infoIndex])) {
+                        if (! isset($infos[$infoIndex])) {
                             $MACRO_INFO_START();
                         }
                         goto SCANNER_CONTINUE_SIGNATURE;

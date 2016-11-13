@@ -26,7 +26,7 @@ class ParamTag extends AbstractTypeableTag implements TagInterface
      */
     public function __construct($variableName = null, $types = [], $description = null)
     {
-        if (!empty($variableName)) {
+        if (! empty($variableName)) {
             $this->setVariableName($variableName);
         }
 
@@ -115,9 +115,9 @@ class ParamTag extends AbstractTypeableTag implements TagInterface
     public function generate()
     {
         $output = '@param'
-            . ((!empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
-            . ((!empty($this->variableName)) ? ' $' . $this->variableName : '')
-            . ((!empty($this->description)) ? ' ' . $this->description : '');
+            . ((! empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
+            . ((! empty($this->variableName)) ? ' $' . $this->variableName : '')
+            . ((! empty($this->description)) ? ' ' . $this->description : '');
 
         return $output;
     }

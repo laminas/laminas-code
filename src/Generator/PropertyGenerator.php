@@ -78,7 +78,7 @@ class PropertyGenerator extends AbstractMemberGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Property generator requires that a name is provided for this object'
             );
@@ -173,7 +173,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         $defaultValueType = PropertyValueGenerator::TYPE_AUTO,
         $defaultValueOutputMode = PropertyValueGenerator::OUTPUT_MULTIPLE_LINE
     ) {
-        if (!($defaultValue instanceof PropertyValueGenerator)) {
+        if (! ($defaultValue instanceof PropertyValueGenerator)) {
             $defaultValue = new PropertyValueGenerator($defaultValue, $defaultValueType, $defaultValueOutputMode);
         }
 
@@ -207,7 +207,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         }
 
         if ($this->isConst()) {
-            if ($defaultValue !== null && !$defaultValue->isValidConstantType()) {
+            if ($defaultValue !== null && ! $defaultValue->isValidConstantType()) {
                 throw new Exception\RuntimeException(sprintf(
                     'The property %s is said to be '
                     . 'constant but does not have a valid constant value.',

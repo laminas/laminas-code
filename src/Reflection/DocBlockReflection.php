@@ -83,7 +83,7 @@ class DocBlockReflection implements ReflectionInterface
      */
     public function __construct($commentOrReflector, DocBlockTagManager $tagManager = null)
     {
-        if (!$tagManager) {
+        if (! $tagManager) {
             $tagManager = new DocBlockTagManager();
             $tagManager->initializeDefaultTags();
         }
@@ -91,7 +91,7 @@ class DocBlockReflection implements ReflectionInterface
 
         if ($commentOrReflector instanceof Reflector) {
             $this->reflector = $commentOrReflector;
-            if (!method_exists($commentOrReflector, 'getDocComment')) {
+            if (! method_exists($commentOrReflector, 'getDocComment')) {
                 throw new Exception\InvalidArgumentException('Reflector must contain method "getDocComment"');
             }
             /* @var MethodReflection $commentOrReflector */
@@ -222,7 +222,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getTags($filter = null)
     {
         $this->reflect();
-        if ($filter === null || !is_string($filter)) {
+        if ($filter === null || ! is_string($filter)) {
             return $this->tags;
         }
 
