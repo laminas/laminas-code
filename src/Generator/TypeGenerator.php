@@ -78,7 +78,7 @@ final class TypeGenerator implements GeneratorInterface
 
         $instance->type              = $trimmedType;
         $instance->nullable          = $nullable;
-        $instance->isInternalPhpType = self::isInternalPhpType($trimmedType);
+        $instance->isInternalPhpType = $isInternalPhpType;
 
         return $instance;
     }
