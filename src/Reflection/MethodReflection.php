@@ -444,7 +444,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             $tokenType = (is_array($haystack[$i])) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = (is_array($haystack[$i])) ? $haystack[$i][1] : $haystack[$i];
 
-            //check for occurance of ( or
+            //check for occurrence of ( or
             if ($tokenType == "T_STRING") {
                 //check to see if function name is passed, if so validate against that
                 if ($functionName !== null && $tokenValue != $functionName) {
@@ -481,7 +481,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Creates a new FileScanner instance.
      *
-     * By having this as a seperate method it allows the method to be overridden
+     * By having this as a separate method it allows the method to be overridden
      * if a different FileScanner is needed.
      *
      * @param  string $filename
