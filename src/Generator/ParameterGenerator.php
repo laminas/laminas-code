@@ -97,7 +97,7 @@ class ParameterGenerator extends AbstractGenerator
     {
         if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
-                'Paramerer generator requires that a name is provided for this object'
+                'Parameter generator requires that a name is provided for this object'
             );
         }
 
