@@ -18,7 +18,6 @@ use Zend\Code\Scanner\FileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
 
 /**
- *
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Class
  */

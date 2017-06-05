@@ -65,7 +65,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
             }
         }
 
-        return (isset($scanner));
+        return isset($scanner);
     }
 
     /**

@@ -347,7 +347,6 @@ CONTENTS;
      */
     public function testCodeGetContentsDoesNotThrowExceptionOnDocBlock()
     {
-
         $contents = <<<'CONTENTS'
     function getCacheKey() {
         $args = func_get_args();
@@ -389,8 +388,8 @@ CONTENTS;
      */
     public function testCanParseClassBodyWhenUsingTrait()
     {
-        require_once __DIR__ .'/TestAsset/TestTraitClass1.php';
-        require_once __DIR__. '/TestAsset/TestTraitClass2.php';
+        require_once __DIR__ . '/TestAsset/TestTraitClass1.php';
+        require_once __DIR__ . '/TestAsset/TestTraitClass2.php';
         // $method = new \Zend\Code\Reflection\ClassReflection('\FooClass');
         // $traits = current($method->getTraits());
         $method = new MethodReflection('FooClass', 'getDummy');

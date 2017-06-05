@@ -73,11 +73,11 @@ class ParameterReflectionTest extends TestCase
     public function paramTypeTestProvider()
     {
         return [
-            ['one', 'int'],
-            ['two', 'int'],
-            ['three', 'string'],
-            ['array', 'array'],
-            ['class', TestAsset\TestSampleClass::class],
+            ['one','int'],
+            ['two','int'],
+            ['three','string'],
+            ['array','array'],
+            ['class',TestAsset\TestSampleClass::class],
         ];
     }
 

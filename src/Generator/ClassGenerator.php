@@ -13,8 +13,8 @@ use Zend\Code\Reflection\ClassReflection;
 
 class ClassGenerator extends AbstractGenerator
 {
-    const OBJECT_TYPE = "class";
-    const IMPLEMENTS_KEYWORD = "implements";
+    const OBJECT_TYPE = 'class';
+    const IMPLEMENTS_KEYWORD = 'implements';
 
     const FLAG_ABSTRACT = 0x01;
     const FLAG_FINAL    = 0x02;
@@ -22,22 +22,22 @@ class ClassGenerator extends AbstractGenerator
     /**
      * @var FileGenerator
      */
-    protected $containingFileGenerator = null;
+    protected $containingFileGenerator;
 
     /**
      * @var string
      */
-    protected $namespaceName = null;
+    protected $namespaceName;
 
     /**
      * @var DocBlockGenerator
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var bool
@@ -47,7 +47,7 @@ class ClassGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $extendedClass = null;
+    protected $extendedClass;
 
     /**
      * @var array Array of string names
@@ -131,7 +131,7 @@ class ClassGenerator extends AbstractGenerator
         foreach ($classReflection->getConstants() as $name => $value) {
             $constants[] = [
                 'name' => $name,
-                'value' => $value
+                'value' => $value,
             ];
         }
 
@@ -140,7 +140,7 @@ class ClassGenerator extends AbstractGenerator
         $methods = [];
 
         foreach ($classReflection->getMethods() as $reflectionMethod) {
-            $className = ($cg->getNamespaceName()) ? $cg->getNamespaceName() . "\\" . $cg->getName() : $cg->getName();
+            $className = $cg->getNamespaceName() ? $cg->getNamespaceName() . '\\' . $cg->getName() : $cg->getName();
 
             if ($reflectionMethod->getDeclaringClass()->getName() == $className) {
                 $methods[] = MethodGenerator::fromReflection($reflectionMethod);
@@ -188,7 +188,7 @@ class ClassGenerator extends AbstractGenerator
                     $cg->setNamespaceName($value);
                     break;
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $cg->setDocBlock($docBlock);
                     break;
                 case 'flags':
@@ -383,7 +383,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function setAbstract($isAbstract)
     {
-        return (($isAbstract) ? $this->addFlag(self::FLAG_ABSTRACT) : $this->removeFlag(self::FLAG_ABSTRACT));
+        return $isAbstract ? $this->addFlag(self::FLAG_ABSTRACT) : $this->removeFlag(self::FLAG_ABSTRACT);
     }
 
     /**
@@ -400,7 +400,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function setFinal($isFinal)
     {
-        return (($isFinal) ? $this->addFlag(self::FLAG_FINAL) : $this->removeFlag(self::FLAG_FINAL));
+        return $isFinal ? $this->addFlag(self::FLAG_FINAL) : $this->removeFlag(self::FLAG_FINAL);
     }
 
     /**
@@ -408,7 +408,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function isFinal()
     {
-        return ($this->flags & self::FLAG_FINAL);
+        return $this->flags & self::FLAG_FINAL;
     }
 
     /**
@@ -767,7 +767,6 @@ class ClassGenerator extends AbstractGenerator
         return $this->traitUsageGenerator->getUses();
     }
 
-
     /**
      * @param  string $propertyName
      * @return self
@@ -1050,7 +1049,7 @@ class ClassGenerator extends AbstractGenerator
         $output .= static::OBJECT_TYPE . ' ' . $this->getName();
 
         if (! empty($this->extendedClass)) {
-            $output .= ' extends ' .  $this->generateShortOrCompleteClassname($this->extendedClass);
+            $output .= ' extends ' . $this->generateShortOrCompleteClassname($this->extendedClass);
         }
 
         $implemented = $this->getImplementedInterfaces();

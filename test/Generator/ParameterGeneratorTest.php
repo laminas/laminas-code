@@ -151,6 +151,7 @@ class ParameterGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataFromReflectionGenerate
+     *
      * @param string $methodName
      * @param string $expectedCode
      */
@@ -179,7 +180,7 @@ class ParameterGeneratorTest extends TestCase
             ['defaultZero', '$number = 0'],
             ['defaultNumber', '$number = 1234'],
             ['defaultFloat', '$float = 1.34'],
-            ['defaultConstant', '$con = \'foo\'']
+            ['defaultConstant', '$con = \'foo\''],
         ];
     }
 
@@ -526,19 +527,19 @@ class ParameterGeneratorTest extends TestCase
                 VariadicParametersClass::class,
                 'typeHintedVariadicParameter',
                 'bar',
-                '\\' . VariadicParametersClass::class . ' ... $bar'
+                '\\' . VariadicParametersClass::class . ' ... $bar',
             ],
             [
                 VariadicParametersClass::class,
                 'byRefVariadic',
                 'bar',
-                '&... $bar'
+                '&... $bar',
             ],
             [
                 VariadicParametersClass::class,
                 'byRefTypeHintedVariadic',
                 'bar',
-                '\\' . VariadicParametersClass::class . ' &... $bar'
+                '\\' . VariadicParametersClass::class . ' &... $bar',
             ],
         ];
     }

@@ -18,12 +18,12 @@ class LicenseTag extends AbstractGenerator implements TagInterface
     /**
      * @var string
      */
-    protected $url = null;
+    protected $url;
 
     /**
      * @var string
      */
-    protected $licenseName = null;
+    protected $licenseName;
 
     /**
      * @param string $url
@@ -102,8 +102,8 @@ class LicenseTag extends AbstractGenerator implements TagInterface
     public function generate()
     {
         $output = '@license'
-            . ((! empty($this->url)) ? ' ' . $this->url : '')
-            . ((! empty($this->licenseName)) ? ' ' . $this->licenseName : '');
+            . (! empty($this->url) ? ' ' . $this->url : '')
+            . (! empty($this->licenseName) ? ' ' . $this->licenseName : '');
 
         return $output;
     }

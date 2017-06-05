@@ -21,42 +21,42 @@ class ParameterScanner
     /**
      * @var null|ClassScanner
      */
-    protected $declaringScannerClass = null;
+    protected $declaringScannerClass;
 
     /**
      * @var null|string
      */
-    protected $declaringClass = null;
+    protected $declaringClass;
 
     /**
      * @var null|MethodScanner
      */
-    protected $declaringScannerFunction = null;
+    protected $declaringScannerFunction;
 
     /**
      * @var null|string
      */
-    protected $declaringFunction = null;
+    protected $declaringFunction;
 
     /**
      * @var null|string
      */
-    protected $defaultValue = null;
+    protected $defaultValue;
 
     /**
      * @var null|string
      */
-    protected $class = null;
+    protected $class;
 
     /**
      * @var null|string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var null|int
      */
-    protected $position = null;
+    protected $position;
 
     /**
      * @var bool
@@ -81,12 +81,12 @@ class ParameterScanner
     /**
      * @var array|null
      */
-    protected $tokens = null;
+    protected $tokens;
 
     /**
      * @var null|NameInformation
      */
-    protected $nameInformation = null;
+    protected $nameInformation;
 
     /**
      * @param  array $parameterTokens
@@ -195,7 +195,7 @@ class ParameterScanner
         }
 
         if ($this->name !== null) {
-            $this->defaultValue .= trim((is_string($token)) ? $token : $token[1]);
+            $this->defaultValue .= trim(is_string($token) ? $token : $token[1]);
         }
 
         SCANNER_CONTINUE:

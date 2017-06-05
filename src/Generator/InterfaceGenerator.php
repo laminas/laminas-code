@@ -48,7 +48,7 @@ class InterfaceGenerator extends ClassGenerator
         }
 
         foreach ($classReflection->getMethods() as $reflectionMethod) {
-            $className = ($cg->getNamespaceName())
+            $className = $cg->getNamespaceName()
                 ? $cg->getNamespaceName() . '\\' . $cg->getName()
                 : $cg->getName();
 
@@ -99,7 +99,7 @@ class InterfaceGenerator extends ClassGenerator
                     $cg->setNamespaceName($value);
                     break;
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $cg->setDocBlock($docBlock);
                     break;
                 case 'methods':
@@ -115,7 +115,7 @@ class InterfaceGenerator extends ClassGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addPropertyFromGenerator(PropertyGenerator $property)
     {
@@ -123,7 +123,7 @@ class InterfaceGenerator extends ClassGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addMethodFromGenerator(MethodGenerator $method)
     {
@@ -133,7 +133,7 @@ class InterfaceGenerator extends ClassGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function setExtendedClass($extendedClass)
     {
@@ -141,7 +141,7 @@ class InterfaceGenerator extends ClassGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function setAbstract($isAbstract)
     {

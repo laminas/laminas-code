@@ -24,6 +24,7 @@ class PropertyTagTest extends TestCase
      * @var PropertyTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -47,7 +48,6 @@ class PropertyTagTest extends TestCase
         $this->tag->setPropertyName('property');
         self::assertEquals('property', $this->tag->getPropertyName());
     }
-
 
     public function testGetterForVariableNameTrimsCorrectly()
     {
@@ -73,7 +73,7 @@ class PropertyTagTest extends TestCase
         $this->tag->setOptions([
             'propertyName' => 'property',
             'types' => ['string'],
-            'description' => 'description'
+            'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new PropertyTag('property', ['string'], 'description');
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

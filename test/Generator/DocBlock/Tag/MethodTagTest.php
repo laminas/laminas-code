@@ -77,7 +77,7 @@ class MethodTagTest extends TestCase
             'isStatic' => true,
             'methodName' => 'method',
             'types' => ['string'],
-            'description' => 'description'
+            'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new MethodTag('method', ['string'], 'description', true);
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

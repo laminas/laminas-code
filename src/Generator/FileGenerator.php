@@ -17,12 +17,12 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $filename = null;
+    protected $filename;
 
     /**
      * @var DocBlockGenerator
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * @var array
@@ -32,7 +32,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $namespace = null;
+    protected $namespace;
 
     /**
      * @var array
@@ -47,7 +47,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $body = null;
+    protected $body;
 
     /**
      * Passes $options to {@link setOptions()}.
@@ -113,7 +113,7 @@ class FileGenerator extends AbstractGenerator
             $file->setUses($uses);
         }
 
-        if (($fileReflection->getDocComment() != '')) {
+        if ($fileReflection->getDocComment() != '') {
             $docBlock = $fileReflection->getDocBlock();
             $file->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
         }
@@ -127,7 +127,7 @@ class FileGenerator extends AbstractGenerator
      */
     public static function fromArray(array $values)
     {
-        $fileGenerator = new static;
+        $fileGenerator = new static();
         foreach ($values as $name => $value) {
             switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'filename':
@@ -135,7 +135,7 @@ class FileGenerator extends AbstractGenerator
                     continue;
                 case 'class':
                     $fileGenerator->setClass(
-                        ($value instanceof ClassGenerator)
+                        $value instanceof ClassGenerator
                         ? $value
                         : ClassGenerator::fromArray($value)
                     );
@@ -506,7 +506,7 @@ class FileGenerator extends AbstractGenerator
 
                 //don't duplicate use statements
                 if (! in_array($tempOutput, $classUses)) {
-                    $useOutput .= "use ". $tempOutput .";";
+                    $useOutput .= 'use ' . $tempOutput . ';';
                     $useOutput .= self::LINE_FEED;
                 }
             }

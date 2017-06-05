@@ -24,6 +24,7 @@ class GenericTagTest extends TestCase
      * @var GenericTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */

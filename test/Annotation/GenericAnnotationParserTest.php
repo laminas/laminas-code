@@ -105,7 +105,7 @@ class GenericAnnotationParserTest extends TestCase
 
     public function testRegisterAnnotations()
     {
-        $this->parser->registerAnnotations([new TestAsset\Foo]);
+        $this->parser->registerAnnotations([new TestAsset\Foo()]);
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
         self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);

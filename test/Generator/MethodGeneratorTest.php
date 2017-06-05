@@ -90,7 +90,6 @@ class MethodGeneratorTest extends TestCase
         self::assertSame($docblockGenerator, $method->getDocBlock());
     }
 
-
     public function testMethodFromReflection()
     {
         $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'someMethod');
@@ -110,7 +109,6 @@ class MethodGeneratorTest extends TestCase
 EOS;
         self::assertEquals($target, (string) $methodGenerator);
     }
-
 
     public function testMethodFromReflectionMultiLinesIndention()
     {
@@ -267,7 +265,7 @@ EOS;
             'interface'  => true,
             'docblock'   => [
                 'shortdescription' => 'Short Description',
-            ]
+            ],
         ]);
 
         $expected = <<<'CODE'

@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+
 namespace Zend\Code\Generator;
 
 use Reflection;
@@ -93,7 +94,7 @@ class TraitUsageGenerator extends AbstractGenerator
             if ($parts[0] === $use and count($parts) == 2) {
                 return true;
             }
-        };
+        }
 
         return false;
     }
@@ -109,7 +110,7 @@ class TraitUsageGenerator extends AbstractGenerator
             if ($parts[0] === $use) {
                 unset($this->uses[$value]);
             }
-        };
+        }
 
         return $this;
     }
@@ -125,7 +126,7 @@ class TraitUsageGenerator extends AbstractGenerator
             if ($parts[0] === $use and count($parts) == 2) {
                 unset($this->uses[$value]);
             }
-        };
+        }
 
         return $this;
     }
@@ -222,7 +223,7 @@ class TraitUsageGenerator extends AbstractGenerator
         }
 
         // Validations
-        if (false === strpos($traitAndMethod, "::")) {
+        if (false === strpos($traitAndMethod, '::')) {
             throw new Exception\InvalidArgumentException(
                 'Invalid Format: $method must be in the format of trait::method'
             );
@@ -251,7 +252,7 @@ class TraitUsageGenerator extends AbstractGenerator
 
         $this->traitAliases[$traitAndMethod] = [
             'alias'      => $alias,
-            'visibility' => $visibility
+            'visibility' => $visibility,
         ];
 
         return $this;
@@ -288,13 +289,13 @@ class TraitUsageGenerator extends AbstractGenerator
         }
 
         // Validations
-        if (false === strpos($traitAndMethod, "::")) {
+        if (false === strpos($traitAndMethod, '::')) {
             throw new Exception\InvalidArgumentException(
                 'Invalid Format: $method must be in the format of trait::method'
             );
         }
 
-        list($trait, $method) = explode("::", $traitAndMethod);
+        list($trait, $method) = explode('::', $traitAndMethod);
         if (! $this->hasTrait($trait)) {
             throw new Exception\InvalidArgumentException('Invalid trait: Trait does not exists on this class');
         }
@@ -332,7 +333,7 @@ class TraitUsageGenerator extends AbstractGenerator
             return $this;
         }
 
-        $overridesToRemove = (! is_array($overridesToRemove))
+        $overridesToRemove = ! is_array($overridesToRemove)
             ? [$overridesToRemove]
             : $overridesToRemove;
         foreach ($overridesToRemove as $traitToRemove) {
@@ -370,13 +371,13 @@ class TraitUsageGenerator extends AbstractGenerator
         $aliases   = $this->getTraitAliases();
         $overrides = $this->getTraitOverrides();
         if (empty($aliases) && empty($overrides)) {
-            $output .= ";" . self::LINE_FEED . self::LINE_FEED;
+            $output .= ';' . self::LINE_FEED . self::LINE_FEED;
             return $output;
         }
 
         $output .= ' {' . self::LINE_FEED;
         foreach ($aliases as $method => $alias) {
-            $visibility = (null !== $alias['visibility'])
+            $visibility = null !== $alias['visibility']
                 ? current(Reflection::getModifierNames($alias['visibility'])) . ' '
                 : '';
 

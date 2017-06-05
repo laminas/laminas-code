@@ -140,7 +140,7 @@ class DoctrineAnnotationParser implements ParserInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable; received "%s"',
                 __METHOD__,
-                (is_object($annotations) ? get_class($annotations) : gettype($annotations))
+                is_object($annotations) ? get_class($annotations) : gettype($annotations)
             ));
         }
 

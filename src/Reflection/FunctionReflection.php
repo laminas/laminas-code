@@ -85,7 +85,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
         $lines = array_slice(
             file($fileName, FILE_IGNORE_NEW_LINES),
             $startLine - 1,
-            ($endLine - ($startLine - 1)),
+            $endLine - ($startLine - 1),
             true
         );
 
@@ -232,7 +232,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
         $lines = array_slice(
             file($fileName, FILE_IGNORE_NEW_LINES),
             $startLine - 1,
-            ($endLine - ($startLine - 1)),
+            $endLine - ($startLine - 1),
             true
         );
 

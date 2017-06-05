@@ -52,6 +52,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
@@ -68,6 +69,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
@@ -262,9 +264,9 @@ EOS;
         self::assertEquals('var', $tag->getName());
     }
 
-
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      */

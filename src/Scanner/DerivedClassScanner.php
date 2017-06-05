@@ -16,12 +16,12 @@ class DerivedClassScanner extends ClassScanner
     /**
      * @var DirectoryScanner
      */
-    protected $directoryScanner = null;
+    protected $directoryScanner;
 
     /**
      * @var ClassScanner
      */
-    protected $classScanner = null;
+    protected $classScanner;
 
     /**
      * @var array
@@ -123,7 +123,7 @@ class DerivedClassScanner extends ClassScanner
      */
     public function hasParentClass()
     {
-        return ($this->classScanner->getParentClass() !== null);
+        return $this->classScanner->getParentClass() !== null;
     }
 
     /**

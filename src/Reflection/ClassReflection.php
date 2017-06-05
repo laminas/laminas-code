@@ -20,12 +20,12 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * @var AnnotationScanner
      */
-    protected $annotations = null;
+    protected $annotations;
 
     /**
      * @var DocBlockReflection
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * Return the reflection file of the declaring file.

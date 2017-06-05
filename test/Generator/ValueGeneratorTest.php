@@ -67,6 +67,7 @@ class ValueGeneratorTest extends TestCase
 
     /**
      * @group #94
+     *
      * @dataProvider validConstantTypesProvider
      */
     public function testValidConstantTypes($generator, $expectedOutput)
@@ -84,7 +85,7 @@ class ValueGeneratorTest extends TestCase
         return [
             [
                 new PropertyValueGenerator([], PropertyValueGenerator::TYPE_ARRAY, ValueGenerator::OUTPUT_SINGLE_LINE),
-                '    const FOO = array();'
+                '    const FOO = array();',
             ],
             [
                 new PropertyValueGenerator(
@@ -92,14 +93,15 @@ class ValueGeneratorTest extends TestCase
                     PropertyValueGenerator::TYPE_ARRAY_LONG,
                     ValueGenerator::OUTPUT_SINGLE_LINE
                 ),
-                '    const FOO = array();'],
+                '    const FOO = array();',
+            ],
             [
                 new PropertyValueGenerator(
                     [],
                     PropertyValueGenerator::TYPE_ARRAY_SHORT,
                     ValueGenerator::OUTPUT_SINGLE_LINE
                 ),
-                '    const FOO = [];'
+                '    const FOO = [];',
             ],
             [new PropertyValueGenerator(true, PropertyValueGenerator::TYPE_BOOL), '    const FOO = true;'],
             [new PropertyValueGenerator(true, PropertyValueGenerator::TYPE_BOOLEAN), '    const FOO = true;'],
@@ -126,16 +128,24 @@ class ValueGeneratorTest extends TestCase
 
         return [
             'auto'        => [
-                ValueGenerator::TYPE_AUTO, $value, $longOutput
+                ValueGenerator::TYPE_AUTO,
+                $value,
+                $longOutput,
             ],
             'array'       => [
-                ValueGenerator::TYPE_ARRAY, $value, $longOutput
+                ValueGenerator::TYPE_ARRAY,
+                $value,
+                $longOutput,
             ],
             'array long'  => [
-                ValueGenerator::TYPE_ARRAY_LONG, $value, $longOutput
+                ValueGenerator::TYPE_ARRAY_LONG,
+                $value,
+                $longOutput,
             ],
             'array short' => [
-                ValueGenerator::TYPE_ARRAY_SHORT, $value, $shortOutput
+                ValueGenerator::TYPE_ARRAY_SHORT,
+                $value,
+                $shortOutput,
             ],
         ];
     }
@@ -178,9 +188,9 @@ EOS;
                     'baz1',
                     'baz2',
                     'constant2' => 'ArrayObject::STD_PROP_LIST',
-                ]
+                ],
             ],
-            new ValueGenerator('PHP_EOL', 'constant')
+            new ValueGenerator('PHP_EOL', 'constant'),
         ];
 
         $longOutput = <<<EOS
@@ -218,7 +228,7 @@ EOS;
             0 => 'b',
             'c',
             7 => 'd',
-            3 => 'e'
+            3 => 'e',
         ];
 
         $longOutput = <<<EOS

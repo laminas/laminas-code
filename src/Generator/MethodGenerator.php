@@ -17,7 +17,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * @var DocBlockGenerator
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * @var ParameterGenerator[]
@@ -27,7 +27,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * @var string
      */
-    protected $body = null;
+    protected $body;
 
     /**
      * @var null|TypeGenerator
@@ -139,7 +139,7 @@ class MethodGenerator extends AbstractMemberGenerator
             // normalize key
             switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $method->setDocBlock($docBlock);
                     break;
                 case 'flags':
@@ -326,11 +326,11 @@ class MethodGenerator extends AbstractMemberGenerator
         if ($this->isAbstract()) {
             $output .= 'abstract ';
         } else {
-            $output .= (($this->isFinal()) ? 'final ' : '');
+            $output .= $this->isFinal() ? 'final ' : '';
         }
 
         $output .= $this->getVisibility()
-            . (($this->isStatic()) ? ' static' : '')
+            . ($this->isStatic() ? ' static' : '')
             . ' function '
             . ($this->returnsReference ? '& ' : '')
             . $this->getName() . '(';

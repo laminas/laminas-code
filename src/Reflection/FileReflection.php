@@ -16,12 +16,12 @@ class FileReflection implements ReflectionInterface
     /**
      * @var string
      */
-    protected $filePath = null;
+    protected $filePath;
 
     /**
      * @var string
      */
-    protected $docComment = null;
+    protected $docComment;
 
     /**
      * @var int
@@ -31,7 +31,7 @@ class FileReflection implements ReflectionInterface
     /**
      * @var int
      */
-    protected $endLine = null;
+    protected $endLine;
 
     /**
      * @var string[]
@@ -61,7 +61,7 @@ class FileReflection implements ReflectionInterface
     /**
      * @var string
      */
-    protected $contents = null;
+    protected $contents;
 
     /**
      * @param  string $filename

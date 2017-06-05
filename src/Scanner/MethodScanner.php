@@ -23,32 +23,32 @@ class MethodScanner implements ScannerInterface
     /**
      * @var string
      */
-    protected $docComment   = null;
+    protected $docComment;
 
     /**
      * @var ClassScanner
      */
-    protected $scannerClass = null;
+    protected $scannerClass;
 
     /**
      * @var string
      */
-    protected $class        = null;
+    protected $class;
 
     /**
      * @var string
      */
-    protected $name         = null;
+    protected $name;
 
     /**
      * @var int
      */
-    protected $lineStart    = null;
+    protected $lineStart;
 
     /**
      * @var int
      */
-    protected $lineEnd      = null;
+    protected $lineEnd;
 
     /**
      * @var bool
@@ -93,7 +93,7 @@ class MethodScanner implements ScannerInterface
     /**
      * @var NameInformation
      */
-    protected $nameInformation = null;
+    protected $nameInformation;
 
     /**
      * @var array
@@ -294,7 +294,7 @@ class MethodScanner implements ScannerInterface
                 break;
 
             default:
-                throw new Exception("Invalid visibility argument passed to setVisibility.");
+                throw new Exception('Invalid visibility argument passed to setVisibility.');
         }
 
         return $this;
@@ -407,7 +407,6 @@ class MethodScanner implements ScannerInterface
         /**
          * Variables & Setup
          */
-
         $tokens       = &$this->tokens; // localize
         $infos        = &$this->infos; // localize
         $tokenIndex   = null;
@@ -430,7 +429,7 @@ class MethodScanner implements ScannerInterface
             &$tokenLine
         ) {
             static $lastTokenArray = null;
-            $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
+            $tokenIndex = $tokenIndex === null ? 0 : $tokenIndex + 1;
             if (! isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;
@@ -475,13 +474,12 @@ class MethodScanner implements ScannerInterface
         /**
          * START FINITE STATE MACHINE FOR SCANNING TOKENS
          */
-
         // Initialize token
         $MACRO_TOKEN_ADVANCE();
 
         SCANNER_TOP:
 
-        $this->lineStart = ($this->lineStart) ? : $tokenLine;
+        $this->lineStart = $this->lineStart ? : $tokenLine;
 
         switch ($tokenType) {
             case T_DOC_COMMENT:

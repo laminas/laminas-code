@@ -19,39 +19,39 @@ class DocBlockReflection implements ReflectionInterface
     /**
      * @var Reflector
      */
-    protected $reflector = null;
+    protected $reflector;
 
     /**
      * @var string
      */
-    protected $docComment = null;
+    protected $docComment;
 
     /**
      * @var DocBlockTagManager
      */
-    protected $tagManager = null;
+    protected $tagManager;
 
     /**#@+
      * @var int
      */
-    protected $startLine = null;
-    protected $endLine = null;
+    protected $startLine;
+    protected $endLine;
     /**#@-*/
 
     /**
      * @var string
      */
-    protected $cleanDocComment = null;
+    protected $cleanDocComment;
 
     /**
      * @var string
      */
-    protected $longDescription = null;
+    protected $longDescription;
 
     /**
      * @var string
      */
-    protected $shortDescription = null;
+    protected $shortDescription;
 
     /**
      * @var array
@@ -271,15 +271,15 @@ class DocBlockReflection implements ReflectionInterface
      */
     public function toString()
     {
-        $str = "DocBlock [ /* DocBlock */ ] {" . "\n" . "\n";
-        $str .= "  - Tags [" . count($this->tags) . "] {" . "\n";
+        $str = 'DocBlock [ /* DocBlock */ ] {' . "\n" . "\n";
+        $str .= '  - Tags [' . count($this->tags) . '] {' . "\n";
 
         foreach ($this->tags as $tag) {
-            $str .= "    " . $tag;
+            $str .= '    ' . $tag;
         }
 
-        $str .= "  }" . "\n";
-        $str .= "}" . "\n";
+        $str .= '  }' . "\n";
+        $str .= '}' . "\n";
 
         return $str;
     }

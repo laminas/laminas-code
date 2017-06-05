@@ -19,12 +19,12 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var string
      */
-    protected $propertyName = null;
+    protected $propertyName;
 
     /**
      * @var string
      */
-    protected $description = null;
+    protected $description;
 
     /**
      * @return string

@@ -17,12 +17,12 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
     /**
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var string
      */
-    protected $content = null;
+    protected $content;
 
     /**
      * @param string $name
@@ -81,7 +81,7 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
     public function generate()
     {
         $output = '@' . $this->name
-            . ((! empty($this->content)) ? ' ' . $this->content : '');
+            . (! empty($this->content) ? ' ' . $this->content : '');
 
         return $output;
     }

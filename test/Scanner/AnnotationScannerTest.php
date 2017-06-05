@@ -26,7 +26,7 @@ class AnnotationScannerTest extends TestCase
         $parser = new GenericAnnotationParser();
         $parser->registerAnnotations([
             $foo = new TestAsset\Annotation\Foo(),
-            $bar = new TestAsset\Annotation\Bar()
+            $bar = new TestAsset\Annotation\Bar(),
         ]);
         $annotationManager->attach($parser);
 

@@ -15,11 +15,11 @@ use Zend\Code\NameInformation;
 
 class PropertyScanner implements ScannerInterface
 {
-    const T_BOOLEAN = "boolean";
-    const T_INTEGER = "int";
-    const T_STRING  = "string";
-    const T_ARRAY   = "array";
-    const T_UNKNOWN = "unknown";
+    const T_BOOLEAN = 'boolean';
+    const T_INTEGER = 'int';
+    const T_STRING  = 'string';
+    const T_ARRAY   = 'array';
+    const T_UNKNOWN = 'unknown';
 
     /**
      * @var bool
@@ -285,7 +285,7 @@ class PropertyScanner implements ScannerInterface
             }
 
             //end value concatenation
-            if (! is_array($token) && trim($token) == ";") {
+            if (! is_array($token) && trim($token) == ';') {
                 $concatenateValue = false;
             }
 
@@ -294,17 +294,17 @@ class PropertyScanner implements ScannerInterface
             }
 
             //start value concatenation
-            if (! is_array($token) && trim($token) == "=") {
+            if (! is_array($token) && trim($token) == '=') {
                 $concatenateValue = true;
             }
         }
 
         $this->valueType = self::T_UNKNOWN;
-        if ($value == "false" || $value == "true") {
+        if ($value == 'false' || $value == 'true') {
             $this->valueType = self::T_BOOLEAN;
         } elseif (is_numeric($value)) {
             $this->valueType = self::T_INTEGER;
-        } elseif (0 === strpos($value, 'array') || 0 === strpos($value, "[")) {
+        } elseif (0 === strpos($value, 'array') || 0 === strpos($value, '[')) {
             $this->valueType = self::T_ARRAY;
         } elseif (substr($value, 0, 1) === '"' || substr($value, 0, 1) === "'") {
             $value = substr($value, 1, -1); // Remove quotes

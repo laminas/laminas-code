@@ -114,7 +114,7 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addProperties([
             'propOne',
-            new PropertyGenerator('propTwo')
+            new PropertyGenerator('propTwo'),
         ]);
 
         $properties = $classGenerator->getProperties();
@@ -154,7 +154,7 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethods([
             'methodOne',
-            new MethodGenerator('methodTwo')
+            new MethodGenerator('methodTwo'),
         ]);
 
         $methods = $classGenerator->getMethods();
@@ -245,7 +245,8 @@ class ClassGeneratorTest extends TestCase
             'flags' => ClassGenerator::FLAG_ABSTRACT,
             'extendedClass' => 'ExtendedClassName',
             'implementedInterfaces' => ['Iterator', 'Traversable'],
-            'properties' => ['foo',
+            'properties' => [
+                'foo',
                 ['name' => 'bar'],
             ],
             'methods' => [
@@ -614,7 +615,7 @@ CODE;
 
         $classGenerator->addConstants([
             new PropertyGenerator('x', 'value1', PropertyGenerator::FLAG_CONSTANT),
-            new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT)
+            new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT),
         ]);
 
         self::assertCount(2, $classGenerator->getConstants());
@@ -630,8 +631,8 @@ CODE;
         $classGenerator = new ClassGenerator();
 
         $classGenerator->addConstants([
-            [ 'name' => 'x', 'value' => 'value1'],
-            ['name' => 'y', 'value' => 'value2']
+            ['name' => 'x', 'value' => 'value1'],
+            ['name' => 'y', 'value' => 'value2'],
         ]);
 
         self::assertCount(2, $classGenerator->getConstants());
@@ -753,7 +754,7 @@ CODE;
     {
         $constants = [
             new PropertyGenerator('x', 'value1', PropertyGenerator::FLAG_CONSTANT),
-            new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT)
+            new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT),
         ];
         $classGenerator = new ClassGenerator();
 
@@ -817,6 +818,7 @@ CODE;
 
         self::assertEquals($classGenerator->generate(), $contents);
     }
+
     /**
      * @group 6253
      */
@@ -973,7 +975,7 @@ CODE;
         $this->expectExceptionMessage('Invalid Alias: $alias must be a string or array.');
 
         $classGenerator->addTrait('myTrait');
-        $classGenerator->addTraitAlias('myTrait::method', new ClassGenerator, 'public');
+        $classGenerator->addTraitAlias('myTrait::method', new ClassGenerator(), 'public');
     }
 
     public function testCanAddTraitOverride()
@@ -1144,7 +1146,7 @@ CODE;
     {
         $classGenerator = ClassGenerator::fromArray([
             'name' => 'SomeClass',
-            'flags' => ClassGenerator::FLAG_FINAL
+            'flags' => ClassGenerator::FLAG_FINAL,
         ]);
 
         $expectedOutput = <<<EOS
@@ -1218,8 +1220,8 @@ EOS;
         $classGenerator->addUse(GeneratorInterface::class);
         $classGenerator->setImplementedInterfaces([
            'SomeNamespace\ClassInterface',
-            GeneratorInterface::class,
-           'Iteratable'
+           GeneratorInterface::class,
+           'Iteratable',
         ]);
 
         $expected = 'class ClassName implements ClassInterface, GeneratorInterface, \Iteratable';

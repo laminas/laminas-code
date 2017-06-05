@@ -18,12 +18,12 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * @var bool
      */
-    protected $isConst = null;
+    protected $isConst;
 
     /**
      * @var PropertyValueGenerator
      */
-    protected $defaultValue = null;
+    protected $defaultValue;
 
     /**
      * @param  PropertyReflection $reflectionProperty
@@ -95,7 +95,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $property->setDefaultValue($value);
                     break;
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $property->setDocBlock($docBlock);
                     break;
                 case 'flags':
@@ -173,7 +173,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         $defaultValueType = PropertyValueGenerator::TYPE_AUTO,
         $defaultValueOutputMode = PropertyValueGenerator::OUTPUT_MULTIPLE_LINE
     ) {
-        if (! ($defaultValue instanceof PropertyValueGenerator)) {
+        if (!$defaultValue instanceof PropertyValueGenerator) {
             $defaultValue = new PropertyValueGenerator($defaultValue, $defaultValueType, $defaultValueOutputMode);
         }
 
@@ -215,13 +215,13 @@ class PropertyGenerator extends AbstractMemberGenerator
                 ));
             }
             $output .= $this->indentation . 'const ' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         } else {
             $output .= $this->indentation
                 . $this->getVisibility()
-                . (($this->isStatic()) ? ' static' : '')
+                . ($this->isStatic() ? ' static' : '')
                 . ' $' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         }
 
         return $output;

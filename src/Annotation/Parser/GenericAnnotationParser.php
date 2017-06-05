@@ -96,7 +96,7 @@ class GenericAnnotationParser implements ParserInterface
                 '%s: expects an instance of %s\AnnotationInterface; received "%s"',
                 __METHOD__,
                 __NAMESPACE__,
-                (is_object($annotation) ? get_class($annotation) : gettype($annotation))
+                is_object($annotation) ? get_class($annotation) : gettype($annotation)
             ));
         }
 
@@ -126,7 +126,7 @@ class GenericAnnotationParser implements ParserInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable; received "%s"',
                 __METHOD__,
-                (is_object($annotations) ? get_class($annotations) : gettype($annotations))
+                is_object($annotations) ? get_class($annotations) : gettype($annotations)
             ));
         }
 
@@ -203,7 +203,7 @@ class GenericAnnotationParser implements ParserInterface
     {
         $alias = $this->normalizeAlias($alias);
 
-        return (isset($this->aliases[$alias]));
+        return isset($this->aliases[$alias]);
     }
 
     /**

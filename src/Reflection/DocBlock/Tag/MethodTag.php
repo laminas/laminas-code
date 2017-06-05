@@ -21,12 +21,12 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var string
      */
-    protected $methodName = null;
+    protected $methodName;
 
     /**
      * @var string
      */
-    protected $description = null;
+    protected $description;
 
     /**
      * Is static method

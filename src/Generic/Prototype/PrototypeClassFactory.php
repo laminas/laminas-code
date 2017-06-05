@@ -32,7 +32,7 @@ class PrototypeClassFactory
     /**
      * @var PrototypeGenericInterface
      */
-    protected $genericPrototype = null;
+    protected $genericPrototype;
 
     /**
      * @param PrototypeInterface[] $prototypes
@@ -40,7 +40,7 @@ class PrototypeClassFactory
      */
     public function __construct($prototypes = [], PrototypeGenericInterface $genericPrototype = null)
     {
-        foreach ((array)$prototypes as $prototype) {
+        foreach ((array) $prototypes as $prototype) {
             $this->addPrototype($prototype);
         }
 

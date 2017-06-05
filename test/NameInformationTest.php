@@ -45,7 +45,7 @@ class NameInformationTest extends TestCase
 
     public function testNamespaceResolverCorrectlyResolvesNames()
     {
-        $nr = new NameInformation;
+        $nr = new NameInformation();
         $nr->setNamespace('Zend\MagicComponent');
         $nr->setUses([
             'ArrayObject',

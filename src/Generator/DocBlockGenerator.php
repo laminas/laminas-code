@@ -19,12 +19,12 @@ class DocBlockGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $shortDescription = null;
+    protected $shortDescription;
 
     /**
      * @var string
      */
-    protected $longDescription = null;
+    protected $longDescription;
 
     /**
      * @var array
