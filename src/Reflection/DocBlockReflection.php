@@ -31,12 +31,15 @@ class DocBlockReflection implements ReflectionInterface
      */
     protected $tagManager;
 
-    /**#@+
+    /**
      * @var int
      */
     protected $startLine;
+
+    /**
+     * @var int
+     */
     protected $endLine;
-    /**#@-*/
 
     /**
      * @var string
@@ -271,7 +274,7 @@ class DocBlockReflection implements ReflectionInterface
      */
     public function toString()
     {
-        $str = 'DocBlock [ /* DocBlock */ ] {' . "\n" . "\n";
+        $str = 'DocBlock [ /* DocBlock */ ] {' . "\n\n";
         $str .= '  - Tags [' . count($this->tags) . '] {' . "\n";
 
         foreach ($this->tags as $tag) {

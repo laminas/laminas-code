@@ -387,8 +387,6 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
-     * @param string|null $type
-     *
      * @return string
      */
     private function generateTypeHint()

@@ -1,6 +1,19 @@
 <?xml version="1.0"?>
 <ruleset name="Zend Framework coding standard">
     <rule ref="./vendor/zendframework/zend-coding-standard/ruleset.xml"/>
+
+    <rule ref="ZendCodingStandard.Commenting.FunctionComment.TypeHintMissing">
+        <severity>0</severity>
+    </rule>
+
+    <rule ref="ZendCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps">
+        <exclude-pattern>src/Scanner/AnnotationScanner.php</exclude-pattern>
+        <exclude-pattern>src/Scanner/ClassScanner.php</exclude-pattern>
+        <exclude-pattern>src/Scanner/DocBlockScanner.php</exclude-pattern>
+        <exclude-pattern>src/Scanner/MethodScanner.php</exclude-pattern>
+        <exclude-pattern>src/Scanner/TokenArrayScanner.php</exclude-pattern>
+    </rule>
+
     <!-- Paths to check -->
     <file>src</file>
     <file>test</file>

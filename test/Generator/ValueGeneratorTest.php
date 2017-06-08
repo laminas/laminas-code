@@ -43,7 +43,9 @@ class ValueGeneratorTest extends TestCase
     }
 
     /**
-     * @dataProvider constantsTypeProvider
+     * @dataProvider constantsType
+     *
+     * @param SplArrayObject|StdlibArrayObject $constants
      */
     public function testAllowedPossibleConstantsType($constants)
     {
@@ -57,7 +59,7 @@ class ValueGeneratorTest extends TestCase
         self::assertSame($constants, $valueGenerator->getConstants());
     }
 
-    public function constantsTypeProvider()
+    public function constantsType()
     {
         return [
             SplArrayObject::class => [new SplArrayObject()],
@@ -68,9 +70,12 @@ class ValueGeneratorTest extends TestCase
     /**
      * @group #94
      *
-     * @dataProvider validConstantTypesProvider
+     * @dataProvider validConstantTypes
+     *
+     * @param PropertyValueGenerator $generator
+     * @param string $expectedOutput
      */
-    public function testValidConstantTypes($generator, $expectedOutput)
+    public function testValidConstantTypes(PropertyValueGenerator $generator, $expectedOutput)
     {
         $propertyGenerator = new PropertyGenerator('FOO', $generator);
         $propertyGenerator->setConst(true);
@@ -80,7 +85,7 @@ class ValueGeneratorTest extends TestCase
     /**
      * @return array
      */
-    public function validConstantTypesProvider()
+    public function validConstantTypes()
     {
         return [
             [
@@ -116,9 +121,11 @@ class ValueGeneratorTest extends TestCase
     }
 
     /**
+     * @param string $longOutput
+     * @param array $value
      * @return array
      */
-    protected function generateArrayData($longOutput, $value)
+    protected function generateArrayData($longOutput, array $value)
     {
         $shortOutput = str_replace(
             ['array(', ')'],
@@ -155,7 +162,7 @@ class ValueGeneratorTest extends TestCase
      *
      * @return array
      */
-    public function simpleArrayProvider()
+    public function simpleArray()
     {
         $value = ['foo'];
 
@@ -173,7 +180,7 @@ EOS;
      *
      * @return array
      */
-    public function complexArrayProvider()
+    public function complexArray()
     {
         $value = [
             5,
@@ -221,7 +228,7 @@ EOS;
      *
      * @return array
      */
-    public function unsortedKeysArrayProvider()
+    public function unsortedKeysArray()
     {
         $value = [
             1 => 'a',
@@ -245,9 +252,13 @@ EOS;
     }
 
     /**
-     * @dataProvider unsortedKeysArrayProvider
+     * @dataProvider unsortedKeysArray
+     *
+     * @param string $type
+     * @param array $value
+     * @param string $expected
      */
-    public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys($type, $value, $expected)
+    public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
@@ -277,9 +288,13 @@ EOS;
     }
 
     /**
-     * @dataProvider simpleArrayProvider
+     * @dataProvider simpleArray
+     *
+     * @param string $type
+     * @param array $value
+     * @param string $expected
      */
-    public function testPropertyDefaultValueCanHandleArray($type, $value, $expected)
+    public function testPropertyDefaultValueCanHandleArray($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
@@ -305,9 +320,13 @@ EOS;
     }
 
     /**
-     * @dataProvider complexArrayProvider
+     * @dataProvider complexArray
+     *
+     * @param string $type
+     * @param array $value
+     * @param string $expected
      */
-    public function testPropertyDefaultValueCanHandleComplexArrayOfTypes($type, $value, $expected)
+    public function testPropertyDefaultValueCanHandleComplexArrayOfTypes($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->initEnvironmentConstants();
@@ -321,6 +340,9 @@ EOS;
      * @group 6023
      *
      * @dataProvider getEscapedParameters
+     *
+     * @param string $input
+     * @param string $expectedEscapedValue
      */
     public function testEscaping($input, $expectedEscapedValue)
     {

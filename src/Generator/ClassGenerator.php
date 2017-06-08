@@ -11,7 +11,7 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Reflection\ClassReflection;
 
-class ClassGenerator extends AbstractGenerator
+class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 {
     const OBJECT_TYPE = 'class';
     const IMPLEMENTS_KEYWORD = 'implements';
@@ -479,7 +479,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $implementedInterface
+     * @param string $implementedInterface
      * @return self
      */
     public function removeImplementedInterface($implementedInterface)
@@ -563,8 +563,8 @@ class ClassGenerator extends AbstractGenerator
     /**
      * Add Constant
      *
-     * @param  string                      $name non-empty string
-     * @param  string|int|null|float|array $value scalar
+     * @param  string                      $name Non-empty string
+     * @param  string|int|null|float|array $value Scalar
      *
      * @throws Exception\InvalidArgumentException
      *
@@ -748,7 +748,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $use
+     * @param string $use
      * @return self
      */
     public function removeUseAlias($use)
@@ -897,7 +897,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTrait($trait)
     {
@@ -906,7 +906,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraits(array $traits)
     {
@@ -915,7 +915,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function hasTrait($traitName)
     {
@@ -923,7 +923,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraits()
     {
@@ -931,7 +931,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function removeTrait($traitName)
     {
@@ -939,7 +939,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraitAlias($method, $alias, $visibility = null)
     {
@@ -948,7 +948,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraitAliases()
     {
@@ -956,7 +956,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraitOverride($method, $traitsToReplace)
     {
@@ -965,7 +965,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function removeTraitOverride($method, $overridesToRemove = null)
     {
@@ -975,7 +975,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraitOverrides()
     {
@@ -1007,7 +1007,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\GeneratorInterface
+     * @inheritDoc
      */
     public function generate()
     {

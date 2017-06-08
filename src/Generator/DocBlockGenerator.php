@@ -263,7 +263,7 @@ class DocBlockGenerator extends AbstractGenerator
         foreach ($lines as $line) {
             $output .= $indent . ' *';
             if ($line) {
-                $output .= " $line";
+                $output .= ' ' . $line;
             }
             $output .= self::LINE_FEED;
         }

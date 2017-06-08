@@ -18,7 +18,7 @@ class MethodScanner implements ScannerInterface
     /**
      * @var bool
      */
-    protected $isScanned    = false;
+    protected $isScanned = false;
 
     /**
      * @var string
@@ -131,7 +131,7 @@ class MethodScanner implements ScannerInterface
     }
 
     /**
-     * @return MethodScanner
+     * @return ClassScanner
      */
     public function getClassScanner()
     {
@@ -255,7 +255,7 @@ class MethodScanner implements ScannerInterface
      * Override the given name for a method, this is necessary to
      * support traits.
      *
-     * @param $name
+     * @param string $name
      * @return self
      */
     public function setName($name)
@@ -268,7 +268,7 @@ class MethodScanner implements ScannerInterface
      * Visibility must be of T_PUBLIC, T_PRIVATE or T_PROTECTED
      * Needed to support traits
      *
-     * @param $visibility   T_PUBLIC | T_PRIVATE | T_PROTECTED
+     * @param int $visibility   T_PUBLIC | T_PRIVATE | T_PROTECTED
      * @return self
      * @throws \Zend\Code\Exception
      */
@@ -604,7 +604,5 @@ class MethodScanner implements ScannerInterface
         SCANNER_END:
 
         $this->isScanned = true;
-
-        return;
     }
 }

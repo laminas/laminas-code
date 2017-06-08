@@ -185,7 +185,7 @@ class ParameterGeneratorTest extends TestCase
     }
 
     /**
-     * @param  string $method
+     * @param string $method
      * @return ParameterReflection
      */
     protected function getFirstReflectionParameter($method)
@@ -270,12 +270,12 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider simpleHintsProvider
+     * @dataProvider simpleHints
      *
      * @param string $type
      * @param string $expectedType
      */
-    public function testGeneratesSimpleHints(string $type, string $expectedType)
+    public function testGeneratesSimpleHints($type, $expectedType)
     {
         $parameter = new ParameterGenerator();
 
@@ -288,7 +288,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function simpleHintsProvider()
+    public function simpleHints()
     {
         return [
             ['callable', 'callable'],
@@ -315,11 +315,11 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider validClassNameProvider
+     * @dataProvider validClassName
      *
      * @param string $className
      */
-    public function testTypeHintWithValidClassName(string $className)
+    public function testTypeHintWithValidClassName($className)
     {
         $parameter = new ParameterGenerator();
 
@@ -332,7 +332,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function validClassNameProvider()
+    public function validClassName()
     {
         return [
             ['stdClass'],
@@ -356,7 +356,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider reflectionHintsProvider
+     * @dataProvider reflectionHints
      *
      * @param string      $className
      * @param string      $methodName
@@ -382,7 +382,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider reflectionHintsProvider
+     * @dataProvider reflectionHints
      *
      * @param string      $className
      * @param string      $methodName
@@ -408,7 +408,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function reflectionHintsProvider()
+    public function reflectionHints()
     {
         $parameters = [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -493,7 +493,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider variadicHintsProvider
+     * @dataProvider variadicHints
      *
      * @param string $className
      * @param string $methodName
@@ -501,10 +501,10 @@ class ParameterGeneratorTest extends TestCase
      * @param string $expectedGeneratedSignature
      */
     public function testVariadicArgumentFromReflection(
-        string $className,
-        string $methodName,
-        string $parameterName,
-        string $expectedGeneratedSignature
+        $className,
+        $methodName,
+        $parameterName,
+        $expectedGeneratedSignature
     ) {
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
             [$className, $methodName],
@@ -518,7 +518,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function variadicHintsProvider()
+    public function variadicHints()
     {
         return [
             [VariadicParametersClass::class, 'firstVariadicParameter', 'foo', '... $foo'],

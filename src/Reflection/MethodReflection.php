@@ -107,6 +107,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Get method prototype
      *
+     * @param string $format
      * @return array
      */
     public function getPrototype($format = MethodReflection::PROTOTYPE_AS_ARRAY)

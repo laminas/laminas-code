@@ -27,11 +27,6 @@ class AggregateDirectoryScanner extends DirectoryScanner
         // @todo
     }
 
-    /*
-    public function getUses($returnScannerClass = false)
-    {}
-    */
-
     public function getIncludes($returnScannerClass = false)
     {
     }

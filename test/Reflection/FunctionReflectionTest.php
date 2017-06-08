@@ -16,8 +16,8 @@ use Zend\Code\Reflection\FunctionReflection;
 use Zend\Code\Reflection\ParameterReflection;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Function
+ * @group Zend_Reflection
+ * @group Zend_Reflection_Function
  */
 class FunctionReflectionTest extends TestCase
 {
@@ -271,7 +271,7 @@ class FunctionReflectionTest extends TestCase
     {
         $functionName = uniqid('generatedFunction');
 
-        eval('name' . 'space ' . __NAMESPACE__ . '; ' . 'fun' . 'ction ' . $functionName . '()' . '{}');
+        eval('namespace ' . __NAMESPACE__ . '; function ' . $functionName . '(){}');
 
         $reflectionFunction = new FunctionReflection(__NAMESPACE__ . '\\' . $functionName);
 

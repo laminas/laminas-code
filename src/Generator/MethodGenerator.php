@@ -274,7 +274,7 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param string|null
+     * @param string|null $returnType
      *
      * @return MethodGenerator
      */

@@ -60,7 +60,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
     }
 
     /**
-     * @return null|string
+     * @return void|string
      * @deprecated 2.0.4 use getTypes instead
      */
     public function getType()

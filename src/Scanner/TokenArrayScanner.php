@@ -118,7 +118,7 @@ class TokenArrayScanner implements ScannerInterface
     }
 
     /**
-     * @return array
+     * @return void
      */
     public function getIncludes()
     {
@@ -255,11 +255,11 @@ class TokenArrayScanner implements ScannerInterface
         $this->scan();
 
         $functions = [];
-        foreach ($this->infos as $info) {
-            if ($info['type'] == 'function') {
-                // @todo $functions[] = new FunctionScanner($info['name']);
-            }
-        }
+//        foreach ($this->infos as $info) {
+//            if ($info['type'] == 'function') {
+//                // @todo $functions[] = new FunctionScanner($info['name']);
+//            }
+//        }
 
         return $functions;
     }
@@ -267,7 +267,7 @@ class TokenArrayScanner implements ScannerInterface
     /**
      * Export
      *
-     * @param $tokens
+     * @param mixed $tokens
      */
     public static function export($tokens)
     {
@@ -412,7 +412,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 SCANNER_NAMESPACE_TOP:
 
-                if ($tokenType === null && $tokenContent === ';' || $tokenContent === '{') {
+                if (($tokenType === null && $tokenContent === ';') || $tokenContent === '{') {
                     goto SCANNER_NAMESPACE_END;
                 }
 
@@ -656,7 +656,7 @@ class TokenArrayScanner implements ScannerInterface
 
     /**
      * @param  string $namespace
-     * @return null|array
+     * @return void|array
      * @throws Exception\InvalidArgumentException
      */
     protected function getUsesNoScan($namespace)

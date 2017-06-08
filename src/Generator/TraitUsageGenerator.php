@@ -12,7 +12,7 @@ namespace Zend\Code\Generator;
 use Reflection;
 use ReflectionMethod;
 
-class TraitUsageGenerator extends AbstractGenerator
+class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterface
 {
     /**
      * @var ClassGenerator
@@ -45,7 +45,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addUse($use, $useAlias = null)
     {
@@ -60,7 +60,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getUses()
     {
@@ -68,7 +68,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $use
+     * @param string $use
      * @return bool
      */
     public function hasUse($use)
@@ -84,14 +84,14 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $use
+     * @param string $use
      * @return bool
      */
     public function hasUseAlias($use)
     {
         foreach ($this->uses as $key => $value) {
             $parts = explode(' as ', $value);
-            if ($parts[0] === $use and count($parts) == 2) {
+            if ($parts[0] === $use && count($parts) == 2) {
                 return true;
             }
         }
@@ -100,7 +100,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $use
+     * @param string $use
      * @return TraitUsageGenerator
      */
     public function removeUse($use)
@@ -116,14 +116,14 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @param $use
+     * @param string $use
      * @return TraitUsageGenerator
      */
     public function removeUseAlias($use)
     {
         foreach ($this->uses as $key => $value) {
             $parts = explode(' as ', $value);
-            if ($parts[0] === $use and count($parts) == 2) {
+            if ($parts[0] === $use && count($parts) == 2) {
                 unset($this->uses[$value]);
             }
         }
@@ -132,7 +132,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTrait($trait)
     {
@@ -164,7 +164,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraits(array $traits)
     {
@@ -176,7 +176,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function hasTrait($traitName)
     {
@@ -184,7 +184,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraits()
     {
@@ -192,7 +192,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function removeTrait($traitName)
     {
@@ -205,7 +205,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraitAlias($method, $alias, $visibility = null)
     {
@@ -259,7 +259,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraitAliases()
     {
@@ -267,7 +267,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function addTraitOverride($method, $traitsToReplace)
     {
@@ -320,7 +320,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function removeTraitOverride($method, $overridesToRemove = null)
     {
@@ -346,7 +346,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inheritDoc
      */
     public function getTraitOverrides()
     {
@@ -354,7 +354,7 @@ class TraitUsageGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\GeneratorInterface
+     * @inheritDoc
      */
     public function generate()
     {

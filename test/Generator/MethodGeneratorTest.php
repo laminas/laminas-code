@@ -324,20 +324,20 @@ PHP;
     /**
      * @group zendframework/zend-code#29
      *
-     * @dataProvider returnTypeHintClassesProvider
+     * @dataProvider returnTypeHintClasses
      *
      * @param string $className
      * @param string $methodName
      * @param string $expectedReturnSignature
      */
-    public function testFrom(string $className, string $methodName, string $expectedReturnSignature)
+    public function testFrom($className, $methodName, $expectedReturnSignature)
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
         self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
-    public function returnTypeHintClassesProvider()
+    public function returnTypeHintClasses()
     {
         $parameters = [
             [ReturnTypeHintedClass::class, 'voidReturn', 'void'],

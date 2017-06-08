@@ -80,7 +80,7 @@ class GenericAnnotationParser implements ParserInterface
      *
      * @param  string|AnnotationInterface $annotation String class name of an
      *         AnnotationInterface implementation, or actual instance
-     * @return GenericAnnotationParser
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function registerAnnotation($annotation)

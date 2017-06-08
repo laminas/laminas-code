@@ -101,11 +101,10 @@ class FileReflection implements ReflectionInterface
      * Required by the Reflector interface.
      *
      * @todo   What should this do?
-     * @return null
+     * @return void
      */
     public static function export()
     {
-        return;
     }
 
     /**
@@ -169,7 +168,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * @return void|string
      */
     public function getNamespace()
     {

@@ -180,7 +180,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Returns an array of reflection classes of traits used by this class.
      *
-     * @return array|null
+     * @return void|array
      */
     public function getTraits()
     {
