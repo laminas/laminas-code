@@ -429,8 +429,7 @@ class FileGenerator extends AbstractGenerator
         if (preg_match('#/\* Zend_Code_Generator_Php_File-(.*?)Marker:#m', $body)) {
             $tokens = token_get_all($body);
             foreach ($tokens as $token) {
-                if (is_array($token) && in_array($token[0], [T_OPEN_TAG, T_COMMENT, T_DOC_COMMENT, T_WHITESPACE])
-                ) {
+                if (is_array($token) && in_array($token[0], [T_OPEN_TAG, T_COMMENT, T_DOC_COMMENT, T_WHITESPACE])) {
                     $output .= $token[1];
                 }
             }
