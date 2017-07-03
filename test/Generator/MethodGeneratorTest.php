@@ -22,6 +22,7 @@ use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\IterableHintsClass;
+use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
@@ -364,9 +365,19 @@ PHP;
             [NullableReturnTypeHintedClass::class, 'otherClassReturn', '?\\' . InternalHintsClass::class],
             [IterableHintsClass::class, 'iterableReturnValue', 'iterable'],
             [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
+            [ObjectHintsClass::class, 'objectReturnValue', 'object'],
+            [ObjectHintsClass::class, 'nullableObjectReturnValue', '?object'],
         ];
 
-        return $parameters;
+        return array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70200
+                    || (
+                        false === strpos($parameter[2], 'object')
+                    );
+            }
+        );
     }
 
     /**
