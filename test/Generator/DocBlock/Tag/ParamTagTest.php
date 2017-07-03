@@ -85,7 +85,7 @@ class ParamTagTest extends TestCase
 
         /** @var ParamTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ParamTag', $tag);
+        $this->assertInstanceOf(ParamTag::class, $tag);
         $this->assertEquals('foo', $tag->getVariableName());
         $this->assertEquals('description', $tag->getDescription());
         $this->assertEquals('int', $tag->getTypesAsString());

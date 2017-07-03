@@ -13,11 +13,11 @@ trait TraitWithSameMethods
 {
     public function bar()
     {
-        echo "bar";        
+        echo 'bar';
     }
 
     public function foo()
     {
-        echo "foo";
+        echo 'foo';
     }
 }

@@ -11,6 +11,7 @@ namespace ZendTest\Code\Reflection;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection;
+use Zend\Code\Reflection\ClassReflection;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
@@ -24,16 +25,16 @@ class ParameterReflectionTest extends TestCase
     public function testDeclaringClassReturn()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            [TestAsset\TestSampleClass2::class, 'getProp2'],
             0
         );
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getDeclaringClass());
+        $this->assertInstanceOf(ClassReflection::class, $parameter->getDeclaringClass());
     }
 
     public function testClassReturnNoClassGivenReturnsNull()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            [TestAsset\TestSampleClass2::class, 'getProp2'],
             'param1'
         );
         $this->assertNull($parameter->getClass());
@@ -42,10 +43,10 @@ class ParameterReflectionTest extends TestCase
     public function testClassReturn()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            [TestAsset\TestSampleClass2::class, 'getProp2'],
             'param2'
         );
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getClass());
+        $this->assertInstanceOf(ClassReflection::class, $parameter->getClass());
     }
 
     /**
@@ -54,7 +55,7 @@ class ParameterReflectionTest extends TestCase
     public function testTypeReturn($param, $type)
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'],
+            [TestAsset\TestSampleClass5::class, 'doSomething'],
             $param
         );
         $this->assertEquals($type, $parameter->detectType());
@@ -63,7 +64,7 @@ class ParameterReflectionTest extends TestCase
     public function testCallableTypeHint()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'],
+            [TestAsset\CallableTypeHintClass::class, 'foo'],
             'bar'
         );
         $this->assertEquals('callable', $parameter->detectType());
@@ -72,11 +73,11 @@ class ParameterReflectionTest extends TestCase
     public function paramTypeTestProvider()
     {
         return [
-            ['one','int'],
-            ['two','int'],
-            ['three','string'],
-            ['array','array'],
-            ['class','ZendTest\Code\Reflection\TestAsset\TestSampleClass']
+            ['one', 'int'],
+            ['two', 'int'],
+            ['three', 'string'],
+            ['array', 'array'],
+            ['class', TestAsset\TestSampleClass::class],
         ];
     }
 
@@ -99,8 +100,8 @@ class ParameterReflectionTest extends TestCase
 
         $type = $reflection->getType();
 
-        self::assertInstanceOf(\ReflectionType::class, $type);
-        self::assertSame($expectedType, (string) $type);
+        $this->assertInstanceOf(\ReflectionType::class, $type);
+        $this->assertSame($expectedType, (string) $type);
     }
 
     /**
@@ -125,7 +126,7 @@ class ParameterReflectionTest extends TestCase
             $expectedType = $className;
         }
 
-        self::assertSame($expectedType, $reflection->detectType());
+        $this->assertSame($expectedType, $reflection->detectType());
     }
 
     /**
@@ -164,7 +165,7 @@ class ParameterReflectionTest extends TestCase
             $parameterName
         );
 
-        self::assertNull($reflection->getType());
+        $this->assertNull($reflection->getType());
     }
 
     /**
@@ -184,7 +185,7 @@ class ParameterReflectionTest extends TestCase
             $parameterName
         );
 
-        self::assertSame($expectedType, $reflection->detectType());
+        $this->assertSame($expectedType, $reflection->detectType());
     }
 
     /**

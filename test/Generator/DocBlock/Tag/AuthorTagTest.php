@@ -80,7 +80,7 @@ class AuthorTagTest extends TestCase
 
         /** @var AuthorTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tag);
+        $this->assertInstanceOf(AuthorTag::class, $tag);
         $this->assertEquals('Mister Miller', $tag->getAuthorName());
         $this->assertEquals('mister.miller@zend.com', $tag->getAuthorEmail());
     }

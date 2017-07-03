@@ -10,7 +10,6 @@
 namespace ZendTest\Code\Annotation;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Annotation;
 use Zend\Code\Annotation\Parser\DoctrineAnnotationParser;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;

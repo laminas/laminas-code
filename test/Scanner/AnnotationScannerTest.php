@@ -10,10 +10,10 @@
 namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Scanner\AnnotationScanner;
-use Zend\Code\NameInformation;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
+use Zend\Code\NameInformation;
+use Zend\Code\Scanner\AnnotationScanner;
 
 class AnnotationScannerTest extends TestCase
 {
@@ -33,7 +33,7 @@ class AnnotationScannerTest extends TestCase
         $docComment = '/**' . $newLine
             . ' * @Test\Foo(\'anything I want()' . $newLine
             . ' * to be\')' . $newLine
-            . ' * @Test\Bar' . $newLine . " */";
+            . ' * @Test\Bar' . $newLine . ' */';
 
         $nameInfo = new NameInformation();
         $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');

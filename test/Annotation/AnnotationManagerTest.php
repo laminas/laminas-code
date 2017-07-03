@@ -29,27 +29,27 @@ class AnnotationManagerTest extends TestCase
     public function testAllowsMultipleParsingStrategies()
     {
         $genericParser = new Annotation\Parser\GenericAnnotationParser();
-        $genericParser->registerAnnotation(__NAMESPACE__ . '\TestAsset\Foo');
+        $genericParser->registerAnnotation(TestAsset\Foo::class);
         $doctrineParser = new Annotation\Parser\DoctrineAnnotationParser();
-        $doctrineParser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation');
+        $doctrineParser->registerAnnotation(TestAsset\DoctrineAnnotation::class);
 
         $this->manager->attach($genericParser);
         $this->manager->attach($doctrineParser);
 
-        $reflection = new Reflection\ClassReflection(__NAMESPACE__ . '\TestAsset\EntityWithMixedAnnotations');
+        $reflection = new Reflection\ClassReflection(TestAsset\EntityWithMixedAnnotations::class);
         $prop = $reflection->getProperty('test');
         $annotations = $prop->getAnnotations($this->manager);
 
-        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
-        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation'));
-        $this->assertFalse($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        $this->assertTrue($annotations->hasAnnotation(TestAsset\Foo::class));
+        $this->assertTrue($annotations->hasAnnotation(TestAsset\DoctrineAnnotation::class));
+        $this->assertFalse($annotations->hasAnnotation(TestAsset\Bar::class));
 
         foreach ($annotations as $annotation) {
             switch (get_class($annotation)) {
-                case __NAMESPACE__ . '\TestAsset\Foo':
+                case TestAsset\Foo::class:
                     $this->assertEquals('first', $annotation->content);
                     break;
-                case __NAMESPACE__ . '\TestAsset\DoctrineAnnotation':
+                case TestAsset\DoctrineAnnotation::class:
                     $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $annotation->value);
                     break;
                 default:

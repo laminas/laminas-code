@@ -90,7 +90,7 @@ class MethodTagTest extends TestCase
 
         /** @var MethodTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\MethodTag', $tag);
+        $this->assertInstanceOf(MethodTag::class, $tag);
         $this->assertEquals(true, $tag->isStatic());
         $this->assertEquals('int', $tag->getTypesAsString());
         $this->assertEquals('method', $tag->getMethodName());

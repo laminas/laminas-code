@@ -53,7 +53,7 @@ class PrototypeClassFactoryTest extends TestCase
 
     public function testSetNameOnGenericIsCalledOnce()
     {
-        $mockProto = $this->getMockBuilder('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass')
+        $mockProto = $this->getMockBuilder(PrototypeGenericClass::class)
             ->setMethods(['setName'])
             ->getMock();
         $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));

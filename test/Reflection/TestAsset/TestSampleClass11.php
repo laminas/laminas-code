@@ -58,11 +58,11 @@ class TestSampleClass11
         foreach($args as $arg) {
             if (is_array($arg)) {
                 foreach ($arg as $argElement) {
-                    $cacheKey = hash("sha256", $cacheKey.$argElement);
+                    $cacheKey = hash('sha256', $cacheKey.$argElement);
                 }
             }
             else {
-                $cacheKey = hash("sha256", $cacheKey.$arg);
+                $cacheKey = hash('sha256', $cacheKey.$arg);
             }
             //blah
         }

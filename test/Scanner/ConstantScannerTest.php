@@ -9,15 +9,16 @@
 
 namespace ZendTest\Code\Scanner;
 
-use Zend\Code\Scanner\FileScanner;
 use PHPUnit\Framework\TestCase;
+use Zend\Code\Scanner\FileScanner;
+use ZendTest\Code\TestAsset\FooClass;
 
 class ConstantScannerTest extends TestCase
 {
     public function testConstantScannerHasConstantInformation()
     {
         $file = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass(FooClass::class);
 
         $constant = $class->getConstant('BAR');
         $this->assertEquals('BAR', $constant->getName());

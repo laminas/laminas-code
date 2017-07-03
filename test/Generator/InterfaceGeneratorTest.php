@@ -10,12 +10,13 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\InterfaceGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use ZendTest\Code\TestAsset\FooInterface;
 
 /**
  * @group Zend_Code_Generator
@@ -142,7 +143,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass      = new ClassReflection('ZendTest\Code\TestAsset\FooInterface');
+        $reflClass      = new ClassReflection(FooInterface::class);
         $classGenerator = InterfaceGenerator::fromReflection($reflClass);
 
         $this->assertEquals('ZendTest\Code\TestAsset', $classGenerator->getNamespaceName());
@@ -208,7 +209,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -233,7 +234,7 @@ interface MyInterface
 
 CODE;
 
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
         $this->assertEquals($expected, $output);
     }
 

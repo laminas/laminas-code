@@ -10,10 +10,13 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\DocBlock\Tag\GenericTag;
+use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\Exception\RuntimeException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
+use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Generator\Exception\RuntimeException;
 
 /**
  * @group Zend_Code_Generator
@@ -34,11 +37,11 @@ class PropertyGeneratorTest extends TestCase
     {
         return [
             ['string', 'foo', "'foo';"],
-            ['int', 1, "1;"],
-            ['integer', 1, "1;"],
-            ['bool', true, "true;"],
-            ['bool', false, "false;"],
-            ['boolean', true, "true;"],
+            ['int', 1, '1;'],
+            ['integer', 1, '1;'],
+            ['bool', true, 'true;'],
+            ['bool', false, 'false;'],
+            ['boolean', true, 'true;'],
             ['number', 1, '1;'],
             ['float', 1.23, '1.23;'],
             ['double', 1.23, '1.23;'],
@@ -76,7 +79,7 @@ class PropertyGeneratorTest extends TestCase
         }
 
         $defaultValue = new PropertyValueGenerator();
-        $defaultValue->setType("bogus");
+        $defaultValue->setType('bogus');
         $defaultValue->setValue($value);
 
         $this->assertEquals($code, $defaultValue->generate());
@@ -145,9 +148,7 @@ EOS;
      */
     public function testPropertyWillLoadFromReflection()
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            '\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties'
-        );
+        $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
         // test property 1
         $reflProp = $reflectionClass->getProperty('_bazProperty');
@@ -231,8 +232,8 @@ EOS;
 
         $this->assertEquals('SampleProperty', $propertyGenerator->getName());
         $this->assertTrue($propertyGenerator->isConst());
-        $this->assertInstanceOf('Zend\Code\Generator\ValueGenerator', $propertyGenerator->getDefaultValue());
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $propertyGenerator->getDocBlock());
+        $this->assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
+        $this->assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
         $this->assertTrue($propertyGenerator->isAbstract());
         $this->assertTrue($propertyGenerator->isFinal());
         $this->assertTrue($propertyGenerator->isStatic());
@@ -252,12 +253,12 @@ EOS;
         $this->assertEquals('fooProperty', $cgProp->getName());
 
         $docBlock = $cgProp->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
         $tags     = $docBlock->getTags();
         $this->assertInternalType('array', $tags);
         $this->assertCount(1, $tags);
         $tag = array_shift($tags);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
+        $this->assertInstanceOf(GenericTag::class, $tag);
         $this->assertEquals('var', $tag->getName());
     }
 

@@ -80,7 +80,7 @@ class LicenseTagTest extends TestCase
 
         /** @var LicenseTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tag);
+        $this->assertInstanceOf(LicenseTag::class, $tag);
         $this->assertEquals('http://zend.com', $tag->getUrl());
         $this->assertEquals('License', $tag->getLicenseName());
     }

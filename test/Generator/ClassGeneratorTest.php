@@ -9,15 +9,18 @@
 
 namespace ZendTest\Code\Generator;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\Exception\InvalidArgumentException;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Generator\Exception\ExceptionInterface;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
+use Zend\Code\Generator\GeneratorInterface;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\NameInformation;
+use Zend\Code\Reflection\ClassReflection;
 
 /**
  * @group Zend_Code_Generator
@@ -116,10 +119,10 @@ class ClassGeneratorTest extends TestCase
 
         $properties = $classGenerator->getProperties();
         $this->assertCount(2, $properties);
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', current($properties));
+        $this->assertInstanceOf(PropertyGenerator::class, current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', $property);
+        $this->assertInstanceOf(PropertyGenerator::class, $property);
         $this->assertEquals($property->getName(), 'propTwo');
 
         // add a new property
@@ -160,11 +163,11 @@ class ClassGeneratorTest extends TestCase
 
         $method = $classGenerator->getMethod('methodOne');
         $this->assertInstanceOf(MethodGenerator::class, $method);
-        $this->assertEquals($method->getName(), 'methodOne');
+        $this->assertEquals('methodOne', $method->getName());
 
         // add a new property
         $classGenerator->addMethod('methodThree');
-        $this->assertEquals(count($classGenerator->getMethods()), 3);
+        $this->assertCount(3, $classGenerator->getMethods());
     }
 
     public function testSetMethodNoMethodOrArrayThrowsException()
@@ -180,9 +183,9 @@ class ClassGeneratorTest extends TestCase
     public function testSetMethodNameAlreadyExistsThrowsException()
     {
         $methodA = new MethodGenerator();
-        $methodA->setName("foo");
+        $methodA->setName('foo');
         $methodB = new MethodGenerator();
-        $methodB->setName("foo");
+        $methodB->setName('foo');
 
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethodFromGenerator($methodA);
@@ -243,10 +246,10 @@ class ClassGeneratorTest extends TestCase
             'extendedClass' => 'ExtendedClassName',
             'implementedInterfaces' => ['Iterator', 'Traversable'],
             'properties' => ['foo',
-                ['name' => 'bar']
+                ['name' => 'bar'],
             ],
             'methods' => [
-                ['name' => 'baz']
+                ['name' => 'baz'],
             ],
         ]);
 
@@ -276,7 +279,7 @@ EOS;
      */
     public function testClassFromReflectionThatImplementsInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithInterface');
+        $reflClass = new ClassReflection(TestAsset\ClassWithInterface::class);
 
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -294,7 +297,7 @@ EOS;
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
+        $reflClass = new ClassReflection(TestAsset\NewClassWithInterface::class);
 
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -366,7 +369,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
+        $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $this->assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         $this->assertEquals('ClassWithNamespace', $classGenerator->getName());
@@ -515,7 +518,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -526,12 +529,12 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testExtendedClassProperies()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ExtendedClassWithProperties');
+        $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
         $this->assertContains('publicExtendedClassProperty', $code);
@@ -597,7 +600,7 @@ CODE;
 
         $constant = $classGenerator->getConstant('x');
 
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', $constant);
+        $this->assertInstanceOf(PropertyGenerator::class, $constant);
         $this->assertTrue($constant->isConst());
         $this->assertEquals($constant->getDefaultValue()->getValue(), 'value');
     }
@@ -766,7 +769,7 @@ CODE;
      */
     public function testConstantsAddedFromReflection()
     {
-        $reflector      = new ClassReflection('ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties');
+        $reflector      = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
         $classGenerator = ClassGenerator::fromReflection($reflector);
         $constant       = $classGenerator->getConstant('FOO');
 
@@ -778,7 +781,7 @@ CODE;
      */
     public function testClassCanBeGeneratedWithConstantAndPropertyWithSameName()
     {
-        $reflector      = new ClassReflection('ZendTest\Code\Generator\TestAsset\TestSampleSingleClass');
+        $reflector      = new ClassReflection(TestAsset\TestSampleSingleClass::class);
         $classGenerator = ClassGenerator::fromReflection($reflector);
 
         $classGenerator->addProperty('fooProperty', true, PropertyGenerator::FLAG_PUBLIC);
@@ -819,10 +822,10 @@ CODE;
      */
     public function testHereDoc()
     {
-        $reflector = new ClassReflection('ZendTest\Code\Generator\TestAsset\TestClassWithHeredoc');
+        $reflector = new ClassReflection(TestAsset\TestClassWithHeredoc::class);
         $classGenerator = new ClassGenerator();
         $methods = $reflector->getMethods();
-        $classGenerator->setName("OutputClass");
+        $classGenerator->setName('OutputClass');
 
         foreach ($methods as $method) {
             $methodGenerator = MethodGenerator::fromReflection($method);
@@ -1116,7 +1119,7 @@ CODE;
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTrait('hisTrait');
         $classGenerator->addTrait('thatTrait');
-        $classGenerator->addTraitAlias("hisTrait::foo", "test", ReflectionMethod::IS_PUBLIC);
+        $classGenerator->addTraitAlias('hisTrait::foo', 'test', ReflectionMethod::IS_PUBLIC);
         $classGenerator->addTraitOverride('myTrait::bar', ['hisTrait', 'thatTrait']);
 
         $output = <<<'CODE'
@@ -1162,8 +1165,8 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
-        $classGenerator->addUse('Zend\Code\NameInformation');
-        $classGenerator->setExtendedClass('Zend\Code\NameInformation');
+        $classGenerator->addUse(NameInformation::class);
+        $classGenerator->setExtendedClass(NameInformation::class);
         $this->assertContains('class ClassName extends NameInformation', $classGenerator->generate());
     }
 
@@ -1198,12 +1201,12 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
-        $classGenerator->setExtendedClass('\DateTime');
+        $classGenerator->setExtendedClass(DateTime::class);
         $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
 
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
-        $classGenerator->setExtendedClass('\DateTime');
+        $classGenerator->setExtendedClass(DateTime::class);
         $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
@@ -1212,10 +1215,10 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
-        $classGenerator->addUse('Zend\Code\Generator\GeneratorInterface');
+        $classGenerator->addUse(GeneratorInterface::class);
         $classGenerator->setImplementedInterfaces([
            'SomeNamespace\ClassInterface',
-           'Zend\Code\Generator\GeneratorInterface',
+            GeneratorInterface::class,
            'Iteratable'
         ]);
 

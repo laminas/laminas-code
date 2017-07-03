@@ -10,8 +10,12 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\DocBlock\Tag;
+use Zend\Code\Generator\DocBlock\Tag\AuthorTag;
+use Zend\Code\Generator\DocBlock\Tag\LicenseTag;
+use Zend\Code\Generator\DocBlock\Tag\ParamTag;
+use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**
@@ -114,7 +118,7 @@ EOS;
                 [
                     'name'        => 'foo',
                     'description' => 'bar',
-                ]
+                ],
             ],
         ]);
 
@@ -153,54 +157,54 @@ EOS;
         $this->assertEquals($expected, $this->docBlockGenerator->generate());
     }
 
-    public function testDocBlockFromRefelectionLongDescription()
+    public function testDocBlockFromReflectionLongDescription()
     {
         $this->assertEquals('Long Description', $this->reflectionDocBlockGenerator->getLongDescription());
     }
 
-    public function testDocBlockFromRefelectionShortDescription()
+    public function testDocBlockFromReflectionShortDescription()
     {
         $this->assertEquals('Short Description', $this->reflectionDocBlockGenerator->getShortDescription());
     }
 
-    public function testDocBlockFromRefelectionTagsCount()
+    public function testDocBlockFromReflectionTagsCount()
     {
         $this->assertCount(4, $this->reflectionDocBlockGenerator->getTags());
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionParamTag()
+    public function testDocBlockFromReflectionParamTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ParamTag', $tags[0]);
+        $this->assertInstanceOf(ParamTag::class, $tags[0]);
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionAuthorTag()
+    public function testDocBlockFromReflectionAuthorTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tags[1]);
+        $this->assertInstanceOf(AuthorTag::class, $tags[1]);
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionLicenseTag()
+    public function testDocBlockFromReflectionLicenseTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tags[2]);
+        $this->assertInstanceOf(LicenseTag::class, $tags[2]);
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionReturnTag()
+    public function testDocBlockFromReflectionReturnTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ReturnTag', $tags[3]);
+        $this->assertInstanceOf(ReturnTag::class, $tags[3]);
     }
 }

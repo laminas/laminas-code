@@ -74,7 +74,7 @@ class GenericTagTest extends TestCase
 
         /** @var GenericTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
+        $this->assertInstanceOf(GenericTag::class, $tag);
         $this->assertEquals('var', $tag->getName());
         $this->assertEquals('string', $tag->getContent());
     }

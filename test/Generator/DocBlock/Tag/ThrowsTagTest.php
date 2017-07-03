@@ -61,7 +61,7 @@ class ThrowsTagTest extends TestCase
 
         /** @var ThrowsTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ThrowsTag', $tag);
+        $this->assertInstanceOf(ThrowsTag::class, $tag);
         $this->assertEquals('description', $tag->getDescription());
         $this->assertEquals('Exception\Invalid', $tag->getTypesAsString());
     }

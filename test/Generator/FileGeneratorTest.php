@@ -24,7 +24,7 @@ class FileGeneratorTest extends TestCase
     public function testConstruction()
     {
         $file = new FileGenerator();
-        $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($file));
+        $this->assertEquals(FileGenerator::class, get_class($file));
     }
 
     public function testSourceContentGetterAndSetter()
@@ -78,8 +78,8 @@ EOS;
 
         $codeGenFile = FileGenerator::fromArray([
             'class' => [
-                'name' => 'SampleClass'
-            ]
+                'name' => 'SampleClass',
+            ],
         ]);
 
         file_put_contents($tempFile, $codeGenFile->generate());
@@ -90,7 +90,7 @@ EOS;
 
         unlink($tempFile);
 
-        $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($fileGenerator));
+        $this->assertEquals(FileGenerator::class, get_class($fileGenerator));
         $this->assertCount(1, $fileGenerator->getClasses());
     }
 
@@ -270,7 +270,7 @@ EOS;
             'class'     => new ClassGenerator('bar'),
         ]);
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
+        $this->assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testCreateFromArrayWithClassFromArray()
@@ -282,13 +282,13 @@ EOS;
             ],
         ]);
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
+        $this->assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testGeneratingFromAReflectedFileName()
     {
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/OneInterface.php');
-        $this->assertInstanceOf('Zend\Code\Generator\FileGenerator', $generator);
+        $this->assertInstanceOf(FileGenerator::class, $generator);
     }
 
     public function testGeneratedClassesHaveUses()
@@ -296,7 +296,7 @@ EOS;
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
         $class = $generator->getClass();
 
-        $expectedUses = ['ZendTest\Code\Generator\TestAsset\ClassWithNamespace'];
+        $expectedUses = [TestAsset\ClassWithNamespace::class];
 
         $this->assertEquals($expectedUses, $class->getUses());
     }
@@ -306,7 +306,7 @@ EOS;
      */
     public function testIssue4747FileGenerationWithAddedMethodIsCorrectlyFormatted()
     {
-        $g = new \Zend\Code\Generator\FileGenerator();
+        $g = new FileGenerator();
         $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
         $g->setFilename(sys_get_temp_dir() . '/result_class.php');
         $g->getClass()->addMethod('added');
@@ -351,11 +351,11 @@ CODE;
      */
     public function testCanAppendToBodyOfReflectedFile()
     {
-        $g = new \Zend\Code\Generator\FileGenerator();
+        $g = new FileGenerator();
         $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
         $g->setFilename(sys_get_temp_dir() . '/result_class.php');
         $g->getClass()->addMethod('added');
-        $g->setBody("\$foo->bar();");
+        $g->setBody('$foo->bar();');
         $g->write();
 
         $expected = <<<'CODE'

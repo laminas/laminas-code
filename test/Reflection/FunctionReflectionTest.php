@@ -10,8 +10,10 @@
 namespace ZendTest\Code\Reflection;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Reflection\FunctionReflection;
+use Zend\Code\Reflection\DocBlockReflection;
 use Zend\Code\Reflection\Exception\InvalidArgumentException;
+use Zend\Code\Reflection\FunctionReflection;
+use Zend\Code\Reflection\ParameterReflection;
 
 /**
  * @group      Zend_Reflection
@@ -24,14 +26,14 @@ class FunctionReflectionTest extends TestCase
         $function = new FunctionReflection('array_splice');
         $parameters = $function->getParameters();
         $this->assertCount(4, $parameters);
-        $this->assertInstanceOf('Zend\Code\Reflection\ParameterReflection', array_shift($parameters));
+        $this->assertInstanceOf(ParameterReflection::class, array_shift($parameters));
     }
 
     public function testFunctionDocBlockReturn()
     {
         require_once __DIR__ . '/TestAsset/functions.php';
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function3');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlockReflection', $function->getDocBlock());
+        $this->assertInstanceOf(DocBlockReflection::class, $function->getDocBlock());
     }
 
     public function testGetPrototypeMethod()
@@ -69,7 +71,7 @@ class FunctionReflectionTest extends TestCase
     {
         $function = new FunctionReflection('array_splice');
         $this->expectException(InvalidArgumentException::class);
-        $body = $function->getBody();
+        $function->getBody();
     }
 
     public function testFunctionBodyReturn()
@@ -220,7 +222,7 @@ class FunctionReflectionTest extends TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function12');
         $content = $function->getContents(false);
-        $this->assertEquals("function function12() {}", trim($content));
+        $this->assertEquals('function function12() {}', trim($content));
     }
 
     /**
@@ -236,7 +238,7 @@ class FunctionReflectionTest extends TestCase
 
         $function = new FunctionReflection($function9);
         $content = $function->getContents(false);
-        $this->assertEquals("function() {}", trim($content));
+        $this->assertEquals('function() {}', trim($content));
 
         $function = new FunctionReflection($function10);
         $content = $function->getContents(false);

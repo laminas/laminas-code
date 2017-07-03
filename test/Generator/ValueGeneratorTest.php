@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
-use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 use Zend\Code\Generator\ValueGenerator;
+use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 
 /**
  * @group Zend_Code_Generator
@@ -249,7 +249,7 @@ EOS;
     public function testPropertyDefaultValueConstructor()
     {
         $valueGenerator = new ValueGenerator();
-        $this->isInstanceOf($valueGenerator, 'Zend\Code\Generator\ValueGenerator');
+        $this->assertInstanceOf(ValueGenerator::class, $valueGenerator);
     }
 
     public function testPropertyDefaultValueIsSettable()

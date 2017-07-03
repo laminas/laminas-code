@@ -10,8 +10,9 @@
 namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Scanner\CachingFileScanner;
 use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Scanner\CachingFileScanner;
+use ZendTest\Code\TestAsset\BarClass;
 
 class CachingFileScannerTest extends TestCase
 {
@@ -26,7 +27,7 @@ class CachingFileScannerTest extends TestCase
 
         // single entry, based on file
         $cfs1 = new CachingFileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $this->assertContains('ZendTest\Code\TestAsset\BarClass', $cfs1->getClassNames());
+        $this->assertContains(BarClass::class, $cfs1->getClassNames());
         $this->assertEquals(1, $this->getCacheCount($cfs1));
 
         // ensure same class is used internally

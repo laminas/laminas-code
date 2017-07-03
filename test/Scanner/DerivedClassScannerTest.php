@@ -10,8 +10,8 @@
 namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Scanner\DirectoryScanner;
 use Zend\Code\Scanner\AggregateDirectoryScanner;
+use Zend\Code\Scanner\DirectoryScanner;
 
 class DerivedClassScannerTest extends TestCase
 {
@@ -21,7 +21,7 @@ class DerivedClassScannerTest extends TestCase
         $ds->addDirectory(__DIR__ . '/TestAsset');
         $ads = new AggregateDirectoryScanner();
         $ads->addDirectoryScanner($ds);
-        $c = $ads->getClass('ZendTest\Code\Scanner\TestAsset\MapperExample\RepositoryB');
-        $this->assertEquals('ZendTest\Code\Scanner\TestAsset\MapperExample\RepositoryB', $c->getName());
+        $c = $ads->getClass(TestAsset\MapperExample\RepositoryB::class);
+        $this->assertEquals(TestAsset\MapperExample\RepositoryB::class, $c->getName());
     }
 }

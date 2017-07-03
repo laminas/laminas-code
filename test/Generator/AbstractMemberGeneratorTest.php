@@ -22,7 +22,7 @@ class AbstractMemberGeneratorTest extends TestCase
 
     protected function setUp()
     {
-        $this->fixture = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractMemberGenerator');
+        $this->fixture = $this->getMockForAbstractClass(AbstractMemberGenerator::class);
     }
 
     public function testSetFlagsWithArray()

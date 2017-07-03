@@ -61,7 +61,7 @@ class ReturnTagTest extends TestCase
 
         /** @var ReturnTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ReturnTag', $tag);
+        $this->assertInstanceOf(ReturnTag::class, $tag);
         $this->assertEquals('The return', $tag->getDescription());
         $this->assertEquals('int', $tag->getTypesAsString());
     }

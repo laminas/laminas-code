@@ -86,7 +86,7 @@ class PropertyTagTest extends TestCase
 
         /** @var PropertyTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\PropertyTag', $tag);
+        $this->assertInstanceOf(PropertyTag::class, $tag);
         $this->assertEquals('foo', $tag->getPropertyName());
         $this->assertEquals('description', $tag->getDescription());
         $this->assertEquals('int', $tag->getTypesAsString());

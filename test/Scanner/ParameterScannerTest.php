@@ -11,16 +11,17 @@ namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\FileScanner;
+use ZendTest\Code\TestAsset\BarClass;
 
 class ParameterScannerTest extends TestCase
 {
     public function testParameterScannerHasParameterInformation()
     {
         $file      = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class     = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class     = $file->getClass(BarClass::class);
         $method    = $class->getMethod('three');
         $parameter = $method->getParameter('t');
-        $this->assertEquals('ZendTest\Code\TestAsset\BarClass', $parameter->getDeclaringClass());
+        $this->assertEquals(BarClass::class, $parameter->getDeclaringClass());
         $this->assertEquals('three', $parameter->getDeclaringFunction());
         $this->assertEquals('t', $parameter->getName());
         $this->assertEquals(2, $parameter->getPosition());
