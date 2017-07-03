@@ -22,28 +22,28 @@ class PropertyScannerTest extends TestCase
         $class = $file->getClass(FooClass::class);
 
         $property = $class->getProperty('bar');
-        $this->assertEquals('bar', $property->getName());
-        $this->assertEquals('value', $property->getValue());
-        $this->assertFalse($property->isPublic());
-        $this->assertTrue($property->isProtected());
-        $this->assertFalse($property->isPrivate());
-        $this->assertTrue($property->isStatic());
+        self::assertEquals('bar', $property->getName());
+        self::assertEquals('value', $property->getValue());
+        self::assertFalse($property->isPublic());
+        self::assertTrue($property->isProtected());
+        self::assertFalse($property->isPrivate());
+        self::assertTrue($property->isStatic());
 
         $property = $class->getProperty('foo');
-        $this->assertEquals('foo', $property->getName());
-        $this->assertEquals('value2', $property->getValue());
-        $this->assertTrue($property->isPublic());
-        $this->assertFalse($property->isProtected());
-        $this->assertFalse($property->isPrivate());
-        $this->assertFalse($property->isStatic());
+        self::assertEquals('foo', $property->getName());
+        self::assertEquals('value2', $property->getValue());
+        self::assertTrue($property->isPublic());
+        self::assertFalse($property->isProtected());
+        self::assertFalse($property->isPrivate());
+        self::assertFalse($property->isStatic());
 
         $property = $class->getProperty('baz');
-        $this->assertEquals('baz', $property->getName());
-        $this->assertEquals(3, $property->getValue());
-        $this->assertFalse($property->isPublic());
-        $this->assertFalse($property->isProtected());
-        $this->assertTrue($property->isPrivate());
-        $this->assertFalse($property->isStatic());
+        self::assertEquals('baz', $property->getName());
+        self::assertEquals(3, $property->getValue());
+        self::assertFalse($property->isPublic());
+        self::assertFalse($property->isProtected());
+        self::assertTrue($property->isPrivate());
+        self::assertFalse($property->isStatic());
     }
 
     /**
@@ -72,31 +72,31 @@ CLASS;
             $valueType = $property->getValueType();
             switch ($property->getName()) {
                 case 'empty':
-                    $this->assertNull($value);
-                    $this->assertEquals('unknown', $valueType);
+                    self::assertNull($value);
+                    self::assertEquals('unknown', $valueType);
                     break;
                 case 'string':
-                    $this->assertEquals('string', $value);
-                    $this->assertEquals('string', $valueType);
+                    self::assertEquals('string', $value);
+                    self::assertEquals('string', $valueType);
                     break;
                 case 'int':
-                    $this->assertEquals('123', $value);
-                    $this->assertEquals('int', $valueType);
+                    self::assertEquals('123', $value);
+                    self::assertEquals('int', $valueType);
                     break;
                 case 'array':
-                    $this->assertEquals("array('test'=>2,2)", $value);
-                    $this->assertEquals('array', $valueType);
+                    self::assertEquals("array('test'=>2,2)", $value);
+                    self::assertEquals('array', $valueType);
                     break;
                 case 'arraynew':
-                    $this->assertEquals("['test'=>2,2]", $value);
-                    $this->assertEquals('array', $valueType);
+                    self::assertEquals("['test'=>2,2]", $value);
+                    self::assertEquals('array', $valueType);
                     break;
                 case 'notarray':
-                    $this->assertEquals('string', $valueType);
+                    self::assertEquals('string', $valueType);
                     break;
                 case 'status':
-                    $this->assertEquals('false', $value);
-                    $this->assertEquals('boolean', $valueType);
+                    self::assertEquals('false', $value);
+                    self::assertEquals('boolean', $valueType);
                     break;
             }
         }
@@ -120,11 +120,11 @@ CLASS;
         $class = $tokenScanner->getClass('Foo');
 
         $property = $class->getProperty('string');
-        $this->assertEquals('string', $property->getValue());
-        $this->assertEquals('string', $property->getValueType());
+        self::assertEquals('string', $property->getValue());
+        self::assertEquals('string', $property->getValueType());
 
         $property = $class->getProperty('int');
-        $this->assertEquals('int', $property->getValueType());
-        $this->assertEquals(123, $property->getValue());
+        self::assertEquals('int', $property->getValueType());
+        self::assertEquals(123, $property->getValue());
     }
 }

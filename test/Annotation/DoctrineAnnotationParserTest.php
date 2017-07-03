@@ -49,19 +49,19 @@ class DoctrineAnnotationParserTest extends TestCase
 
         $event = $this->getEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
-        $this->assertEquals(['foo' => 'bar'], $test->value);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
+        self::assertEquals(['foo' => 'bar'], $test->value);
     }
 
     public function testReturnsFalseDuringCreationIfAnnotationIsNotRegistered()
     {
         $event = $this->getEvent();
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testReturnsFalseClassNotSet()
     {
-        $this->assertFalse($this->parser->onCreateAnnotation(new Event()));
+        self::assertFalse($this->parser->onCreateAnnotation(new Event()));
     }
 
     public function testReturnsFalseRawNotSet()
@@ -70,7 +70,7 @@ class DoctrineAnnotationParserTest extends TestCase
         $event = $this->getEvent();
         $event->setParam('raw', false);
 
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testReturnsFalseEmptyAnnotations()
@@ -78,7 +78,7 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->parser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation');
         $event = $this->getEvent();
         $event->setParam('raw', 'foo');
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testRegisterAnnotationsThrowsException()
@@ -92,7 +92,7 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->parser->registerAnnotations([__NAMESPACE__ . '\TestAsset\DoctrineAnnotation']);
         $event = $this->getEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
-        $this->assertEquals(['foo' => 'bar'], $test->value);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
+        self::assertEquals(['foo' => 'bar'], $test->value);
     }
 }

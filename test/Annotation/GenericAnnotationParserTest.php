@@ -42,9 +42,9 @@ class GenericAnnotationParserTest extends TestCase
         $this->parser->registerAnnotation(new TestAsset\Foo());
         $this->parser->registerAnnotation(new TestAsset\Bar());
 
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
-        $this->assertFalse($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bogus'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        self::assertFalse($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bogus'));
     }
 
     public function testParserCreatesNewAnnotationInstances()
@@ -54,15 +54,15 @@ class GenericAnnotationParserTest extends TestCase
 
         $event = $this->getFooEvent();
         $test = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
-        $this->assertNotSame($foo, $test);
-        $this->assertEquals('test content', $test->content);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
+        self::assertNotSame($foo, $test);
+        self::assertEquals('test content', $test->content);
     }
 
     public function testReturnsFalseDuringCreationIfAnnotationIsNotRegistered()
     {
         $event = $this->getFooEvent();
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testParserAllowsPassingArrayOfAnnotationInstances()
@@ -71,8 +71,8 @@ class GenericAnnotationParserTest extends TestCase
             new TestAsset\Foo(),
             new TestAsset\Bar(),
         ]);
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
     }
 
     public function testAllowsSpecifyingAliases()
@@ -83,9 +83,9 @@ class GenericAnnotationParserTest extends TestCase
 
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Bar', $test);
-        $this->assertNotSame($bar, $test);
-        $this->assertEquals('test content', $test->content);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Bar', $test);
+        self::assertNotSame($bar, $test);
+        self::assertEquals('test content', $test->content);
     }
 
     public function testRegisterAnnotationAllowsAnnotationInterfaceOnly()
@@ -108,7 +108,7 @@ class GenericAnnotationParserTest extends TestCase
         $this->parser->registerAnnotations([new TestAsset\Foo]);
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
     }
 
     public function testRegisterAnnotationsThrowsException()

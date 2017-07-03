@@ -35,14 +35,14 @@ class ParameterGeneratorTest extends TestCase
     {
         $parameterGenerator = new ParameterGenerator();
         $parameterGenerator->setType('Foo');
-        $this->assertEquals('Foo', $parameterGenerator->getType());
+        self::assertEquals('Foo', $parameterGenerator->getType());
     }
 
     public function testNameGetterAndSetterPersistValue()
     {
         $parameterGenerator = new ParameterGenerator();
         $parameterGenerator->setName('Foo');
-        $this->assertEquals('Foo', $parameterGenerator->getName());
+        self::assertEquals('Foo', $parameterGenerator->getName());
     }
 
     public function testDefaultValueGetterAndSetterPersistValue()
@@ -51,14 +51,14 @@ class ParameterGeneratorTest extends TestCase
 
         $value = new ValueGenerator('Foo', ValueGenerator::TYPE_CONSTANT);
         $parameterGenerator->setDefaultValue($value);
-        $this->assertEquals('Foo', (string) $parameterGenerator->getDefaultValue());
+        self::assertEquals('Foo', (string) $parameterGenerator->getDefaultValue());
     }
 
     public function testPositionGetterAndSetterPersistValue()
     {
         $parameterGenerator = new ParameterGenerator();
         $parameterGenerator->setPosition(2);
-        $this->assertEquals(2, $parameterGenerator->getPosition());
+        self::assertEquals(2, $parameterGenerator->getPosition());
     }
 
     public function testGenerateIsCorrect()
@@ -67,10 +67,10 @@ class ParameterGeneratorTest extends TestCase
         $parameterGenerator->setType('Foo');
         $parameterGenerator->setName('bar');
         $parameterGenerator->setDefaultValue(15);
-        $this->assertEquals('\\Foo $bar = 15', $parameterGenerator->generate());
+        self::assertEquals('\\Foo $bar = 15', $parameterGenerator->generate());
 
         $parameterGenerator->setDefaultValue('foo');
-        $this->assertEquals('\\Foo $bar = \'foo\'', $parameterGenerator->generate());
+        self::assertEquals('\\Foo $bar = \'foo\'', $parameterGenerator->generate());
     }
 
     public function testFromReflectionGetParameterName()
@@ -78,7 +78,7 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('name');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals('param', $codeGenParam->getName());
+        self::assertEquals('param', $codeGenParam->getName());
     }
 
     public function testFromReflectionGetParameterType()
@@ -86,7 +86,7 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('type');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals('stdClass', $codeGenParam->getType());
+        self::assertEquals('stdClass', $codeGenParam->getType());
     }
 
     public function testFromReflectionGetReference()
@@ -94,7 +94,7 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('reference');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertTrue($codeGenParam->getPassedByReference());
+        self::assertTrue($codeGenParam->getPassedByReference());
     }
 
     public function testFromReflectionGetDefaultValue()
@@ -103,7 +103,7 @@ class ParameterGeneratorTest extends TestCase
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
         $defaultValue = $codeGenParam->getDefaultValue();
-        $this->assertEquals('\'foo\'', (string) $defaultValue);
+        self::assertEquals('\'foo\'', (string) $defaultValue);
     }
 
     /**
@@ -115,11 +115,11 @@ class ParameterGeneratorTest extends TestCase
 
         $params = $method->getParameters();
 
-        $this->assertCount(2, $params);
+        self::assertCount(2, $params);
 
         $firstParameter = ParameterGenerator::fromReflection($params[0]);
-        $this->assertInstanceOf(ValueGenerator::class, $firstParameter->getDefaultValue());
-        $this->assertNull($firstParameter->getDefaultValue()->getSourceContent());
+        self::assertInstanceOf(ValueGenerator::class, $firstParameter->getDefaultValue());
+        self::assertNull($firstParameter->getDefaultValue()->getSourceContent());
     }
 
     public function testFromReflectionGetArrayHint()
@@ -127,7 +127,7 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('fromArray');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals('array', $codeGenParam->getType());
+        self::assertEquals('array', $codeGenParam->getType());
     }
 
     public function testFromReflectionGetWithNativeType()
@@ -135,8 +135,8 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter('hasNativeDocTypes');
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertNotEquals('int', $codeGenParam->getType());
-        $this->assertEquals('', $codeGenParam->getType());
+        self::assertNotEquals('int', $codeGenParam->getType());
+        self::assertEquals('', $codeGenParam->getType());
     }
 
     public function testCallableTypeHint()
@@ -145,7 +145,7 @@ class ParameterGeneratorTest extends TestCase
             new ParameterReflection([TestAsset\CallableTypeHintClass::class, 'foo'], 'bar')
         );
 
-        $this->assertEquals('callable', $parameter->getType());
+        self::assertEquals('callable', $parameter->getType());
     }
 
     /**
@@ -158,7 +158,7 @@ class ParameterGeneratorTest extends TestCase
         $reflectionParameter = $this->getFirstReflectionParameter($methodName);
         $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
 
-        $this->assertEquals($expectedCode, $codeGenParam->generate());
+        self::assertEquals($expectedCode, $codeGenParam->generate());
     }
 
     public function dataFromReflectionGenerate()
@@ -209,14 +209,14 @@ class ParameterGeneratorTest extends TestCase
             'indentation'       => '-',
         ]);
 
-        $this->assertEquals('SampleParameter', $parameterGenerator->getName());
-        $this->assertEquals('int', $parameterGenerator->getType());
-        $this->assertInstanceOf(ValueGenerator::class, $parameterGenerator->getDefaultValue());
-        $this->assertFalse($parameterGenerator->getPassedByReference());
-        $this->assertEquals(1, $parameterGenerator->getPosition());
-        $this->assertFalse($parameterGenerator->isSourceDirty());
-        $this->assertEquals('foo', $parameterGenerator->getSourceContent());
-        $this->assertEquals('-', $parameterGenerator->getIndentation());
+        self::assertEquals('SampleParameter', $parameterGenerator->getName());
+        self::assertEquals('int', $parameterGenerator->getType());
+        self::assertInstanceOf(ValueGenerator::class, $parameterGenerator->getDefaultValue());
+        self::assertFalse($parameterGenerator->getPassedByReference());
+        self::assertEquals(1, $parameterGenerator->getPosition());
+        self::assertFalse($parameterGenerator->isSourceDirty());
+        self::assertEquals('foo', $parameterGenerator->getSourceContent());
+        self::assertEquals('-', $parameterGenerator->getIndentation());
     }
 
     /**
@@ -231,7 +231,7 @@ class ParameterGeneratorTest extends TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('ZendTest_Code_NsTest_BarClass', $param->getType());
+        self::assertEquals('ZendTest_Code_NsTest_BarClass', $param->getType());
     }
 
     /**
@@ -246,7 +246,7 @@ class ParameterGeneratorTest extends TestCase
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('OtherNamespace\ParameterClass', $param->getType());
+        self::assertEquals('OtherNamespace\ParameterClass', $param->getType());
     }
 
     /**
@@ -262,7 +262,7 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setDefaultValue("\\'");
         $parameter->setType('stdClass');
 
-        $this->assertSame("\\stdClass \$foo = '\\\\\\''", $parameter->generate());
+        self::assertSame("\\stdClass \$foo = '\\\\\\''", $parameter->generate());
     }
 
     /**
@@ -280,7 +280,7 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setName('foo');
         $parameter->setType($type);
 
-        $this->assertSame($expectedType . ' $foo', $parameter->generate());
+        self::assertSame($expectedType . ' $foo', $parameter->generate());
     }
 
     /**
@@ -324,7 +324,7 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setName('foo');
         $parameter->setType($className);
 
-        $this->assertSame('\\' . $className . ' $foo', $parameter->generate());
+        self::assertSame('\\' . $className . ' $foo', $parameter->generate());
     }
 
     /**
@@ -372,12 +372,12 @@ class ParameterGeneratorTest extends TestCase
         ));
 
         if (null === $expectedType) {
-            $this->assertNull($parameter->getType());
+            self::assertNull($parameter->getType());
 
             return;
         }
 
-        $this->assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
+        self::assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
     }
 
     /**
@@ -398,12 +398,12 @@ class ParameterGeneratorTest extends TestCase
         ));
 
         if (null === $expectedType) {
-            $this->assertStringStartsWith('$' . $parameterName, $parameter->generate());
+            self::assertStringStartsWith('$' . $parameterName, $parameter->generate());
 
             return;
         }
 
-        $this->assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
+        self::assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
     }
 
     /**
@@ -499,8 +499,8 @@ class ParameterGeneratorTest extends TestCase
             $parameterName
         ));
 
-        $this->assertTrue($parameter->getVariadic());
-        $this->assertSame($expectedGeneratedSignature, $parameter->generate());
+        self::assertTrue($parameter->getVariadic());
+        self::assertSame($expectedGeneratedSignature, $parameter->generate());
     }
 
     /**
@@ -539,18 +539,18 @@ class ParameterGeneratorTest extends TestCase
     {
         $parameter = new ParameterGenerator('foo');
 
-        $this->assertFalse($parameter->getVariadic(), 'Is not variadic by default');
-        $this->assertSame('$foo', $parameter->generate());
+        self::assertFalse($parameter->getVariadic(), 'Is not variadic by default');
+        self::assertSame('$foo', $parameter->generate());
 
         $parameter->setVariadic(true);
 
-        $this->assertTrue($parameter->getVariadic());
-        $this->assertSame('... $foo', $parameter->generate());
+        self::assertTrue($parameter->getVariadic());
+        self::assertSame('... $foo', $parameter->generate());
 
         $parameter->setVariadic(false);
 
-        $this->assertFalse($parameter->getVariadic());
-        $this->assertSame('$foo', $parameter->generate());
+        self::assertFalse($parameter->getVariadic());
+        self::assertSame('$foo', $parameter->generate());
     }
 
     /**
@@ -560,6 +560,6 @@ class ParameterGeneratorTest extends TestCase
     {
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection([\Phar::class, 'compress'], 1));
 
-        $this->assertSame('null', strtolower((string) $parameter->getDefaultValue()));
+        self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
     }
 }

@@ -25,7 +25,7 @@ class GenericTagTest extends TestCase
     {
         $tag = new GenericTag();
         $tag->initialize('baz zab');
-        $this->assertEquals('baz', $tag->returnValue(0));
-        $this->assertEquals('zab', $tag->returnValue(1));
+        self::assertEquals('baz', $tag->returnValue(0));
+        self::assertEquals('zab', $tag->returnValue(1));
     }
 }

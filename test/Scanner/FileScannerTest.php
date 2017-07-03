@@ -18,7 +18,7 @@ class FileScannerTest extends TestCase
     public function testFileScannerCanReturnClasses()
     {
         $tokenScanner = new FileScanner(__DIR__ . '/../TestAsset/MultipleNamespaces.php');
-        $this->assertEquals(Baz::class, $tokenScanner->getClass(Baz::class)->getName());
-        $this->assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
+        self::assertEquals(Baz::class, $tokenScanner->getClass(Baz::class)->getName());
+        self::assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
     }
 }

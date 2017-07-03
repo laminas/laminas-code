@@ -28,7 +28,7 @@ class ParameterReflectionTest extends TestCase
             [TestAsset\TestSampleClass2::class, 'getProp2'],
             0
         );
-        $this->assertInstanceOf(ClassReflection::class, $parameter->getDeclaringClass());
+        self::assertInstanceOf(ClassReflection::class, $parameter->getDeclaringClass());
     }
 
     public function testClassReturnNoClassGivenReturnsNull()
@@ -37,7 +37,7 @@ class ParameterReflectionTest extends TestCase
             [TestAsset\TestSampleClass2::class, 'getProp2'],
             'param1'
         );
-        $this->assertNull($parameter->getClass());
+        self::assertNull($parameter->getClass());
     }
 
     public function testClassReturn()
@@ -46,7 +46,7 @@ class ParameterReflectionTest extends TestCase
             [TestAsset\TestSampleClass2::class, 'getProp2'],
             'param2'
         );
-        $this->assertInstanceOf(ClassReflection::class, $parameter->getClass());
+        self::assertInstanceOf(ClassReflection::class, $parameter->getClass());
     }
 
     /**
@@ -58,7 +58,7 @@ class ParameterReflectionTest extends TestCase
             [TestAsset\TestSampleClass5::class, 'doSomething'],
             $param
         );
-        $this->assertEquals($type, $parameter->detectType());
+        self::assertEquals($type, $parameter->detectType());
     }
 
     public function testCallableTypeHint()
@@ -67,7 +67,7 @@ class ParameterReflectionTest extends TestCase
             [TestAsset\CallableTypeHintClass::class, 'foo'],
             'bar'
         );
-        $this->assertEquals('callable', $parameter->detectType());
+        self::assertEquals('callable', $parameter->detectType());
     }
 
     public function paramTypeTestProvider()
@@ -100,8 +100,8 @@ class ParameterReflectionTest extends TestCase
 
         $type = $reflection->getType();
 
-        $this->assertInstanceOf(\ReflectionType::class, $type);
-        $this->assertSame($expectedType, (string) $type);
+        self::assertInstanceOf(\ReflectionType::class, $type);
+        self::assertSame($expectedType, (string) $type);
     }
 
     /**
@@ -126,7 +126,7 @@ class ParameterReflectionTest extends TestCase
             $expectedType = $className;
         }
 
-        $this->assertSame($expectedType, $reflection->detectType());
+        self::assertSame($expectedType, $reflection->detectType());
     }
 
     /**
@@ -165,7 +165,7 @@ class ParameterReflectionTest extends TestCase
             $parameterName
         );
 
-        $this->assertNull($reflection->getType());
+        self::assertNull($reflection->getType());
     }
 
     /**
@@ -185,7 +185,7 @@ class ParameterReflectionTest extends TestCase
             $parameterName
         );
 
-        $this->assertSame($expectedType, $reflection->detectType());
+        self::assertSame($expectedType, $reflection->detectType());
     }
 
     /**

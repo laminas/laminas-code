@@ -48,40 +48,40 @@ class ClassScannerTest extends TestCase
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        $this->assertEquals(FooClass::class, $class->getName());
-        $this->assertEquals('FooClass', $class->getShortName());
-        $this->assertFalse($class->isFinal());
-        $this->assertTrue($class->isAbstract());
-        $this->assertFalse($class->isInterface());
+        self::assertEquals(FooClass::class, $class->getName());
+        self::assertEquals('FooClass', $class->getShortName());
+        self::assertFalse($class->isFinal());
+        self::assertTrue($class->isAbstract());
+        self::assertFalse($class->isInterface());
         $interfaces = $class->getInterfaces();
-        $this->assertContains('ArrayAccess', $interfaces);
-        $this->assertContains('A\B\C\D\Blarg', $interfaces);
-        $this->assertContains('ZendTest\Code\TestAsset\Local\SubClass', $interfaces);
+        self::assertContains('ArrayAccess', $interfaces);
+        self::assertContains('A\B\C\D\Blarg', $interfaces);
+        self::assertContains('ZendTest\Code\TestAsset\Local\SubClass', $interfaces);
         $methods = $class->getMethodNames();
-        $this->assertInternalType('array', $methods);
-        $this->assertContains('fooBarBaz', $methods);
+        self::assertInternalType('array', $methods);
+        self::assertContains('fooBarBaz', $methods);
     }
 
     public function testClassScannerHasConstant()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        $this->assertInternalType('array', $class->getConstantNames());
-        $this->assertContains('FOO', $class->getConstantNames());
+        self::assertInternalType('array', $class->getConstantNames());
+        self::assertContains('FOO', $class->getConstantNames());
     }
 
     public function testClassScannerHasProperties()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        $this->assertContains('bar', $class->getPropertyNames());
+        self::assertContains('bar', $class->getPropertyNames());
     }
 
     public function testClassScannerHasMethods()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        $this->assertContains('fooBarBaz', $class->getMethodNames());
+        self::assertContains('fooBarBaz', $class->getMethodNames());
     }
 
     /**
@@ -96,8 +96,8 @@ class ClassScannerTest extends TestCase
         $constants = $class->getConstants();
         $error = ErrorHandler::stop();
 
-        $this->assertInstanceOf(\ErrorException::class, $error);
-        $this->assertContains('FOO', $constants);
+        self::assertInstanceOf(\ErrorException::class, $error);
+        self::assertContains('FOO', $constants);
     }
 
     public function testGetConstantsReturnsInstancesOfConstantScanner()
@@ -106,7 +106,7 @@ class ClassScannerTest extends TestCase
         $class   = $file->getClass(FooClass::class);
         $constants = $class->getConstants(false);
         foreach ($constants as $constant) {
-            $this->assertInstanceOf(ConstantScanner::class, $constant);
+            self::assertInstanceOf(ConstantScanner::class, $constant);
         }
     }
 
@@ -114,26 +114,26 @@ class ClassScannerTest extends TestCase
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class   = $file->getClass(FooClass::class);
-        $this->assertTrue($class->hasConstant('FOO'));
-        $this->assertFalse($class->hasConstant('foo'));
+        self::assertTrue($class->hasConstant('FOO'));
+        self::assertFalse($class->hasConstant('foo'));
     }
 
     public function testHasProperty()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class   = $file->getClass(FooClass::class);
-        $this->assertTrue($class->hasProperty('foo'));
-        $this->assertFalse($class->hasProperty('FOO'));
-        $this->assertTrue($class->hasProperty('bar'));
+        self::assertTrue($class->hasProperty('foo'));
+        self::assertFalse($class->hasProperty('FOO'));
+        self::assertTrue($class->hasProperty('bar'));
     }
 
     public function testHasMethod()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class   = $file->getClass(FooClass::class);
-        $this->assertTrue($class->hasMethod('fooBarBaz'));
-        $this->assertFalse($class->hasMethod('FooBarBaz'));
-        $this->assertFalse($class->hasMethod('bar'));
+        self::assertTrue($class->hasMethod('fooBarBaz'));
+        self::assertFalse($class->hasMethod('FooBarBaz'));
+        self::assertFalse($class->hasMethod('bar'));
     }
 
     public function testClassScannerReturnsMethodsWithMethodScanners()
@@ -142,7 +142,7 @@ class ClassScannerTest extends TestCase
         $class   = $file->getClass(FooClass::class);
         $methods = $class->getMethods();
         foreach ($methods as $method) {
-            $this->assertInstanceOf(MethodScanner::class, $method);
+            self::assertInstanceOf(MethodScanner::class, $method);
         }
     }
 
@@ -152,7 +152,7 @@ class ClassScannerTest extends TestCase
         $class   = $file->getClass(FooClass::class);
         $properties = $class->getProperties();
         foreach ($properties as $property) {
-            $this->assertInstanceOf(PropertyScanner::class, $property);
+            self::assertInstanceOf(PropertyScanner::class, $property);
         }
     }
 
@@ -160,20 +160,20 @@ class ClassScannerTest extends TestCase
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
         $class = $file->getClass(FooInterface::class);
-        $this->assertEquals(FooInterface::class, $class->getName());
+        self::assertEquals(FooInterface::class, $class->getName());
     }
 
     public function testClassScannerCanReturnLineNumbers()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class   = $file->getClass(FooClass::class);
-        $this->assertEquals(11, $class->getLineStart());
-        $this->assertEquals(36, $class->getLineEnd());
+        self::assertEquals(11, $class->getLineStart());
+        self::assertEquals(36, $class->getLineEnd());
 
         $file    = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
         $class   = $file->getClass(BarClass::class);
-        $this->assertEquals(10, $class->getLineStart());
-        $this->assertEquals(42, $class->getLineEnd());
+        self::assertEquals(10, $class->getLineStart());
+        self::assertEquals(42, $class->getLineEnd());
     }
 
     public function testClassScannerCanScanAnnotations()
@@ -182,12 +182,12 @@ class ClassScannerTest extends TestCase
         $class   = $file->getClass(EntityWithAnnotations::class);
         $annotations = $class->getAnnotations($this->manager);
 
-        $this->assertTrue($annotations->hasAnnotation(Foo::class));
-        $this->assertTrue($annotations->hasAnnotation(Bar::class));
+        self::assertTrue($annotations->hasAnnotation(Foo::class));
+        self::assertTrue($annotations->hasAnnotation(Bar::class));
 
-        $this->assertEquals('first', $annotations[0]->content);
-        $this->assertEquals('second', $annotations[1]->content);
-        $this->assertEquals('third', $annotations[2]->content);
+        self::assertEquals('first', $annotations[0]->content);
+        self::assertEquals('second', $annotations[1]->content);
+        self::assertEquals('third', $annotations[2]->content);
     }
 
     /**
@@ -198,8 +198,8 @@ class ClassScannerTest extends TestCase
         $file  = new FileScanner(__DIR__ . '/../TestAsset/BarTrait.php');
         $class = $file->getClass(BarTrait::class);
 
-        $this->assertTrue($class->isTrait());
-        $this->assertTrue($class->hasMethod('bar'));
+        self::assertTrue($class->isTrait());
+        self::assertTrue($class->hasMethod('bar'));
     }
 
     /**
@@ -210,12 +210,12 @@ class ClassScannerTest extends TestCase
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassUsesTraitSimple.php');
         $class = $file->getClass(TestClassUsesTraitSimple::class);
 
-        $this->assertFalse($class->isTrait());
+        self::assertFalse($class->isTrait());
         $traitNames = $class->getTraitNames();
         $class->getTraitAliases();
-        $this->assertContains(BarTrait::class, $traitNames);
-        $this->assertContains(FooTrait::class, $traitNames);
-        $this->assertContains(BazTrait::class, $traitNames);
+        self::assertContains(BarTrait::class, $traitNames);
+        self::assertContains(FooTrait::class, $traitNames);
+        self::assertContains(BazTrait::class, $traitNames);
     }
 
     /**
@@ -226,14 +226,14 @@ class ClassScannerTest extends TestCase
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassWithTraitAliases.php');
         $class = $file->getClass(TestClassWithTraitAliases::class);
 
-        $this->assertFalse($class->isTrait());
+        self::assertFalse($class->isTrait());
 
         $aliases = $class->getTraitAliases();
 
-        $this->assertCount(1, $aliases);
+        self::assertCount(1, $aliases);
 
-        $this->assertEquals(key($aliases), 'test');
-        $this->assertEquals(current($aliases), 'ZendTest\Code\TestAsset\TraitWithSameMethods::foo');
+        self::assertEquals(key($aliases), 'test');
+        self::assertEquals(current($aliases), 'ZendTest\Code\TestAsset\TraitWithSameMethods::foo');
     }
 
     /**
@@ -249,7 +249,7 @@ class ClassScannerTest extends TestCase
 
         $class = $file->getClass(TestClassWithTraitAliases::class);
 
-        $this->assertFalse($class->isTrait());
+        self::assertFalse($class->isTrait());
 
         $testMethods = [
             'fooBarBaz' => 'isPublic',
@@ -259,19 +259,19 @@ class ClassScannerTest extends TestCase
             'bazFooBar' => 'isPublic',
         ];
 
-        $this->assertEquals($class->getMethodNames(), array_keys($testMethods));
+        self::assertEquals($class->getMethodNames(), array_keys($testMethods));
 
         foreach ($testMethods as $methodName => $testMethod) {
-            $this->assertTrue($class->hasMethod($methodName), "Cannot find method $methodName");
+            self::assertTrue($class->hasMethod($methodName), "Cannot find method $methodName");
 
             $method = $class->getMethod($methodName);
-            $this->assertInstanceOf(MethodScanner::class, $method, $methodName . ' not found.');
+            self::assertInstanceOf(MethodScanner::class, $method, $methodName . ' not found.');
 
-            $this->assertTrue($method->$testMethod());
+            self::assertTrue($method->$testMethod());
 
             // test that we got the right ::bar method based on declaration
             if ($testMethod === 'bar') {
-                $this->assertEquals(trim($method->getBody), 'echo "foo";');
+                self::assertEquals(trim($method->getBody), 'echo "foo";');
             }
         }
     }
@@ -292,40 +292,40 @@ class ClassScannerTest extends TestCase
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooBarClass.php');
         $class = $file->getClass('ZendTest_Code_TestAsset_FooBar');
-        $this->assertFalse($class->isAbstract());
-        $this->assertTrue($class->isInstantiable());
+        self::assertFalse($class->isAbstract());
+        self::assertTrue($class->isInstantiable());
     }
 
     public function testAbstractClassIsNotInstantiable()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        $this->assertTrue($class->isAbstract());
-        $this->assertFalse($class->isInstantiable());
+        self::assertTrue($class->isAbstract());
+        self::assertFalse($class->isInstantiable());
     }
 
     public function testInterfaceIsNotInstantiable()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
         $class = $file->getClass(FooInterface::class);
-        $this->assertTrue($class->isInterface());
-        $this->assertFalse($class->isInstantiable());
+        self::assertTrue($class->isInterface());
+        self::assertFalse($class->isInstantiable());
     }
 
     public function testTraitIsNotInstantiable()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooTrait.php');
         $class = $file->getClass(FooTrait::class);
-        $this->assertTrue($class->isTrait());
-        $this->assertFalse($class->isInstantiable());
+        self::assertTrue($class->isTrait());
+        self::assertFalse($class->isInstantiable());
     }
 
     public function testGetInterfacesFromInterface()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
         $class = $file->getClass(FooInterface::class);
-        $this->assertTrue($class->isInterface());
-        $this->assertCount(1, $class->getInterfaces());
-        $this->assertEquals('ArrayAccess', $class->getInterfaces()[0]);
+        self::assertTrue($class->isInterface());
+        self::assertCount(1, $class->getInterfaces());
+        self::assertEquals('ArrayAccess', $class->getInterfaces()[0]);
     }
 }

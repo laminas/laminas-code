@@ -47,20 +47,20 @@ class LicenseTagTest extends TestCase
         $this->tag->setUrl('foo');
         $this->tag->setLicenseName('bar');
 
-        $this->assertEquals('foo', $this->tag->getUrl());
-        $this->assertEquals('bar', $this->tag->getLicenseName());
+        self::assertEquals('foo', $this->tag->getUrl());
+        self::assertEquals('bar', $this->tag->getLicenseName());
     }
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('license', $this->tag->getName());
+        self::assertEquals('license', $this->tag->getName());
     }
 
     public function testLicenseProducesCorrectDocBlockLine()
     {
         $this->tag->setUrl('foo');
         $this->tag->setLicenseName('bar bar bar');
-        $this->assertEquals('@license foo bar bar bar', $this->tag->generate());
+        self::assertEquals('@license foo bar bar bar', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -70,7 +70,7 @@ class LicenseTagTest extends TestCase
             'licenseName' => 'bar',
         ]);
         $tagWithOptionsFromConstructor = new LicenseTag('foo', 'bar');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -80,8 +80,8 @@ class LicenseTagTest extends TestCase
 
         /** @var LicenseTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf(LicenseTag::class, $tag);
-        $this->assertEquals('http://zend.com', $tag->getUrl());
-        $this->assertEquals('License', $tag->getLicenseName());
+        self::assertInstanceOf(LicenseTag::class, $tag);
+        self::assertEquals('http://zend.com', $tag->getUrl());
+        self::assertEquals('License', $tag->getLicenseName());
     }
 }

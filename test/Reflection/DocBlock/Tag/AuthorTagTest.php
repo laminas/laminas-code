@@ -31,15 +31,15 @@ class AuthorTagTest extends TestCase
     public function testParseName()
     {
         $this->tag->initialize('Firstname Lastname');
-        $this->assertEquals('author', $this->tag->getName());
-        $this->assertEquals('Firstname Lastname', $this->tag->getAuthorName());
+        self::assertEquals('author', $this->tag->getName());
+        self::assertEquals('Firstname Lastname', $this->tag->getAuthorName());
     }
 
     public function testParseNameAndEmail()
     {
         $this->tag->initialize('Firstname Lastname <test@domain.fr>');
-        $this->assertEquals('author', $this->tag->getName());
-        $this->assertEquals('Firstname Lastname', $this->tag->getAuthorName());
-        $this->assertEquals('test@domain.fr', $this->tag->getAuthorEmail());
+        self::assertEquals('author', $this->tag->getName());
+        self::assertEquals('Firstname Lastname', $this->tag->getAuthorName());
+        self::assertEquals('test@domain.fr', $this->tag->getAuthorEmail());
     }
 }

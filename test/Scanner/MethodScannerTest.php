@@ -23,13 +23,13 @@ class MethodScannerTest extends TestCase
         $file   = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class  = $file->getClass(FooClass::class);
         $method = $class->getMethod('fooBarBaz');
-        $this->assertEquals('fooBarBaz', $method->getName());
-        $this->assertFalse($method->isAbstract());
-        $this->assertTrue($method->isFinal());
-        $this->assertTrue($method->isPublic());
-        $this->assertFalse($method->isProtected());
-        $this->assertFalse($method->isPrivate());
-        $this->assertFalse($method->isStatic());
+        self::assertEquals('fooBarBaz', $method->getName());
+        self::assertFalse($method->isAbstract());
+        self::assertTrue($method->isFinal());
+        self::assertTrue($method->isPublic());
+        self::assertFalse($method->isProtected());
+        self::assertFalse($method->isPrivate());
+        self::assertFalse($method->isStatic());
     }
 
     public function testMethodScannerReturnsParameters()
@@ -38,7 +38,7 @@ class MethodScannerTest extends TestCase
         $class      = $file->getClass(BarClass::class);
         $method     = $class->getMethod('three');
         $parameters = $method->getParameters();
-        $this->assertInternalType('array', $parameters);
+        self::assertInternalType('array', $parameters);
     }
 
     public function testMethodScannerReturnsParameterScanner()
@@ -46,10 +46,10 @@ class MethodScannerTest extends TestCase
         $file   = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
         $class  = $file->getClass(BarClass::class);
         $method = $class->getMethod('three');
-        $this->assertEquals(['o', 't', 'bbf'], $method->getParameters());
+        self::assertEquals(['o', 't', 'bbf'], $method->getParameters());
         $parameter = $method->getParameter('t');
-        $this->assertInstanceOf(ParameterScanner::class, $parameter);
-        $this->assertEquals('t', $parameter->getName());
+        self::assertInstanceOf(ParameterScanner::class, $parameter);
+        self::assertEquals('t', $parameter->getName());
     }
 
     public function testMethodScannerParsesClassNames()
@@ -57,9 +57,9 @@ class MethodScannerTest extends TestCase
         $file   = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
         $class  = $file->getClass(BarClass::class);
         $method = $class->getMethod('five');
-        $this->assertEquals(['a'], $method->getParameters());
+        self::assertEquals(['a'], $method->getParameters());
         $parameter = $method->getParameter('a');
-        $this->assertEquals(AbstractClass::class, $parameter->getClass());
+        self::assertEquals(AbstractClass::class, $parameter->getClass());
     }
 
     public function testMethodScannerReturnsPropertyWithNoDefault()
@@ -67,7 +67,7 @@ class MethodScannerTest extends TestCase
         $file  = new FileScanner(__DIR__ . '/../TestAsset/BazClass.php');
         $class = $file->getClass('BazClass');
         $method = $class->getMethod('__construct');
-        $this->assertTrue($method->isPublic());
+        self::assertTrue($method->isPublic());
     }
 
     public function testMethodScannerReturnsLineNumbersForMethods()
@@ -75,8 +75,8 @@ class MethodScannerTest extends TestCase
         $file       = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
         $class      = $file->getClass(BarClass::class);
         $method     = $class->getMethod('three');
-        $this->assertEquals(27, $method->getLineStart());
-        $this->assertEquals(31, $method->getLineEnd());
+        self::assertEquals(27, $method->getLineStart());
+        self::assertEquals(31, $method->getLineEnd());
     }
 
     public function testMethodScannerReturnsBodyMethods()
@@ -85,7 +85,7 @@ class MethodScannerTest extends TestCase
         $class    = $file->getClass(BarClass::class);
         $method   = $class->getMethod('three');
         $expected = "\n" . '        $x = 5 + 5;' . "\n" . '        $y = \'this string\';' . "\n    ";
-        $this->assertEquals($expected, $method->getBody());
+        self::assertEquals($expected, $method->getBody());
     }
 
     public function testMethodScannerMethodSignatureLatestOptionalParamHasParentheses()
@@ -95,7 +95,7 @@ class MethodScannerTest extends TestCase
         $method = $class->getMethod('four');
         $paramTwo = $method->getParameter(1);
         $optionalValue = $paramTwo->getDefaultValue();
-        $this->assertEquals('array(array(array(\'default\')))', $optionalValue);
+        self::assertEquals('array(array(array(\'default\')))', $optionalValue);
     }
 
     /**
@@ -108,6 +108,6 @@ class MethodScannerTest extends TestCase
         $class = $file->getClass(AbstractClass::class);
         $method = $class->getMethod('helloWorld');
 
-        $this->assertTrue($method->isAbstract());
+        self::assertTrue($method->isAbstract());
     }
 }

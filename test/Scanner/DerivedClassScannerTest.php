@@ -22,6 +22,6 @@ class DerivedClassScannerTest extends TestCase
         $ads = new AggregateDirectoryScanner();
         $ads->addDirectoryScanner($ds);
         $c = $ads->getClass(TestAsset\MapperExample\RepositoryB::class);
-        $this->assertEquals(TestAsset\MapperExample\RepositoryB::class, $c->getName());
+        self::assertEquals(TestAsset\MapperExample\RepositoryB::class, $c->getName());
     }
 }

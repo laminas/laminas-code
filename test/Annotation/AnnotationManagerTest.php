@@ -40,17 +40,17 @@ class AnnotationManagerTest extends TestCase
         $prop = $reflection->getProperty('test');
         $annotations = $prop->getAnnotations($this->manager);
 
-        $this->assertTrue($annotations->hasAnnotation(TestAsset\Foo::class));
-        $this->assertTrue($annotations->hasAnnotation(TestAsset\DoctrineAnnotation::class));
-        $this->assertFalse($annotations->hasAnnotation(TestAsset\Bar::class));
+        self::assertTrue($annotations->hasAnnotation(TestAsset\Foo::class));
+        self::assertTrue($annotations->hasAnnotation(TestAsset\DoctrineAnnotation::class));
+        self::assertFalse($annotations->hasAnnotation(TestAsset\Bar::class));
 
         foreach ($annotations as $annotation) {
             switch (get_class($annotation)) {
                 case TestAsset\Foo::class:
-                    $this->assertEquals('first', $annotation->content);
+                    self::assertEquals('first', $annotation->content);
                     break;
                 case TestAsset\DoctrineAnnotation::class:
-                    $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $annotation->value);
+                    self::assertEquals(['foo' => 'bar', 'bar' => 'baz'], $annotation->value);
                     break;
                 default:
                     $this->fail('Received unexpected annotation "' . get_class($annotation) . '"');

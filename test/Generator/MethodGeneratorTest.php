@@ -34,7 +34,7 @@ class MethodGeneratorTest extends TestCase
     public function testMethodConstructor()
     {
         $methodGenerator = new MethodGenerator();
-        $this->assertInstanceOf(MethodGenerator::class, $methodGenerator);
+        self::assertInstanceOf(MethodGenerator::class, $methodGenerator);
     }
 
     public function testMethodParameterAccessors()
@@ -43,7 +43,7 @@ class MethodGeneratorTest extends TestCase
         $methodGenerator->setParameters(['one']);
         $params = $methodGenerator->getParameters();
         $param = array_shift($params);
-        $this->assertInstanceOf(ParameterGenerator::class, $param);
+        self::assertInstanceOf(ParameterGenerator::class, $param);
     }
 
     public function testMethodParameterMutator()
@@ -55,19 +55,19 @@ class MethodGeneratorTest extends TestCase
         $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class]));
 
         $params = $methodGenerator->getParameters();
-        $this->assertCount(3, $params);
+        self::assertCount(3, $params);
 
         /** @var $foo ParameterGenerator */
         $foo = array_shift($params);
-        $this->assertInstanceOf(ParameterGenerator::class, $foo);
-        $this->assertEquals('foo', $foo->getName());
+        self::assertInstanceOf(ParameterGenerator::class, $foo);
+        self::assertEquals('foo', $foo->getName());
 
         $bar = array_shift($params);
-        $this->assertEquals(ParameterGenerator::fromArray(['name' => 'bar', 'type' => 'array']), $bar);
+        self::assertEquals(ParameterGenerator::fromArray(['name' => 'bar', 'type' => 'array']), $bar);
 
         /** @var $baz ParameterGenerator */
         $baz = array_shift($params);
-        $this->assertEquals('baz', $baz->getName());
+        self::assertEquals('baz', $baz->getName());
 
         $this->expectException(InvalidArgumentException::class);
         $methodGenerator->setParameter(new stdClass());
@@ -77,7 +77,7 @@ class MethodGeneratorTest extends TestCase
     {
         $method = new MethodGenerator();
         $method->setBody('Foo');
-        $this->assertEquals('Foo', $method->getBody());
+        self::assertEquals('Foo', $method->getBody());
     }
 
     public function testDocBlockGetterAndSetter()
@@ -86,7 +86,7 @@ class MethodGeneratorTest extends TestCase
 
         $method = new MethodGenerator();
         $method->setDocBlock($docblockGenerator);
-        $this->assertSame($docblockGenerator, $method->getDocBlock());
+        self::assertSame($docblockGenerator, $method->getDocBlock());
     }
 
 
@@ -107,7 +107,7 @@ class MethodGeneratorTest extends TestCase
     }
 
 EOS;
-        $this->assertEquals($target, (string) $methodGenerator);
+        self::assertEquals($target, (string) $methodGenerator);
     }
 
 
@@ -132,7 +132,7 @@ EOS;
     }
 
 EOS;
-        $this->assertEquals($target, (string) $methodGenerator);
+        self::assertEquals($target, (string) $methodGenerator);
     }
 
     /**
@@ -152,7 +152,7 @@ EOS;
 
 EOS;
 
-        $this->assertEquals($expected, $methodGenerator->generate());
+        self::assertEquals($expected, $methodGenerator->generate());
     }
 
     /**
@@ -171,7 +171,7 @@ EOS;
     }
 
 EOS;
-        $this->assertEquals($expected, $methodGenerator->generate());
+        self::assertEquals($expected, $methodGenerator->generate());
     }
 
     /**
@@ -188,7 +188,7 @@ EOS;
         $expected = <<<EOS
     abstract public function foo(\$one);
 EOS;
-        $this->assertEquals($expected, $methodGenerator->generate());
+        self::assertEquals($expected, $methodGenerator->generate());
     }
 
     /**
@@ -213,7 +213,7 @@ EOS;
     }
 
 EOS;
-        $this->assertEquals($expected, $methodGeneratorProperty->generate());
+        self::assertEquals($expected, $methodGeneratorProperty->generate());
     }
 
     /**
@@ -230,7 +230,7 @@ EOS;
 
         $method->setParameter($param);
         $generated = $method->generate();
-        $this->assertRegExp('/array \$options = array\(\)\)/', $generated, $generated);
+        self::assertRegExp('/array \$options = array\(\)\)/', $generated, $generated);
     }
 
     public function testCreateFromArray()
@@ -248,15 +248,15 @@ EOS;
             'returntype' => '\\SampleType',
         ]);
 
-        $this->assertEquals('SampleMethod', $methodGenerator->getName());
-        $this->assertEquals('foo', $methodGenerator->getBody());
-        $this->assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
-        $this->assertTrue($methodGenerator->isAbstract());
-        $this->assertTrue($methodGenerator->isFinal());
-        $this->assertTrue($methodGenerator->isStatic());
-        $this->assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
-        $this->assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
-        $this->assertEquals('\\SampleType', $methodGenerator->getReturnType()->generate());
+        self::assertEquals('SampleMethod', $methodGenerator->getName());
+        self::assertEquals('foo', $methodGenerator->getBody());
+        self::assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
+        self::assertTrue($methodGenerator->isAbstract());
+        self::assertTrue($methodGenerator->isFinal());
+        self::assertTrue($methodGenerator->isStatic());
+        self::assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
+        self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
+        self::assertEquals('\\SampleType', $methodGenerator->getReturnType()->generate());
     }
 
     public function testCreateInterfaceMethodFromArray()
@@ -278,10 +278,10 @@ CODE;
 
         $methodGenerator->setParameter(['name' => 'command', 'type' => 'Runnable']);
 
-        $this->assertTrue($methodGenerator->isInterface());
-        $this->assertEquals('execute', $methodGenerator->getName());
-        $this->assertEquals($expected, $methodGenerator->generate());
-        $this->assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
+        self::assertTrue($methodGenerator->isInterface());
+        self::assertEquals('execute', $methodGenerator->getName());
+        self::assertEquals($expected, $methodGenerator->generate());
+        self::assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
     }
 
     /**
@@ -300,7 +300,7 @@ CODE;
     }
 
 PHP;
-        $this->assertSame($expected, $methodGenerator->generate());
+        self::assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -319,7 +319,7 @@ PHP;
     }
 
 PHP;
-        $this->assertSame($expected, $methodGenerator->generate());
+        self::assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -335,7 +335,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        $this->assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
     public function returnTypeHintClassesProvider()
@@ -378,11 +378,11 @@ PHP;
 
         $methodGenerator->setReturnsReference(true);
 
-        $this->assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
 
         $methodGenerator->setReturnsReference(false);
 
-        $this->assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
     }
 
     /**
@@ -394,6 +394,6 @@ PHP;
             new MethodReflection(ClassWithByRefReturnMethod::class, 'byRefReturn')
         );
 
-        $this->assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
     }
 }
