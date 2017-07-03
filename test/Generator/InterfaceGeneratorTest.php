@@ -9,17 +9,20 @@
 
 namespace ZendTest\Code\Generator;
 
-use Zend\Code\Generator\InterfaceGenerator;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
+use Zend\Code\Generator\InterfaceGenerator;
 use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use ZendTest\Code\TestAsset\FooInterface;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
+class InterfaceGeneratorTest extends TestCase
 {
     public function testAbstractAccessorsReturnsFalse()
     {
@@ -140,7 +143,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass      = new ClassReflection('ZendTest\Code\TestAsset\FooInterface');
+        $reflClass      = new ClassReflection(FooInterface::class);
         $classGenerator = InterfaceGenerator::fromReflection($reflClass);
 
         $this->assertEquals('ZendTest\Code\TestAsset', $classGenerator->getNamespaceName());
@@ -206,7 +209,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -231,7 +234,7 @@ interface MyInterface
 
 CODE;
 
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
         $this->assertEquals($expected, $output);
     }
 
@@ -277,12 +280,10 @@ CODE;
         $this->assertEquals($expected, $output);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface
-     */
     public function testClassNotAnInterfaceException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface');
         InterfaceGenerator::fromReflection(new ClassReflection(__CLASS__));
     }
 }

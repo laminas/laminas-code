@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\AuthorTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class AuthorTagTest extends \PHPUnit_Framework_TestCase
+class AuthorTagTest extends TestCase
 {
     /**
      * @var AuthorTag
@@ -79,7 +80,7 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var AuthorTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tag);
+        $this->assertInstanceOf(AuthorTag::class, $tag);
         $this->assertEquals('Mister Miller', $tag->getAuthorName());
         $this->assertEquals('mister.miller@zend.com', $tag->getAuthorEmail());
     }

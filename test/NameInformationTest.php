@@ -9,9 +9,10 @@
 
 namespace ZendTest\Code;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\NameInformation;
 
-class NameInformationTest extends \PHPUnit_Framework_TestCase
+class NameInformationTest extends TestCase
 {
     public function testNamespaceResolverPersistsNamespace()
     {

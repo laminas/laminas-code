@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\LicenseTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class LicenseTagTest extends \PHPUnit_Framework_TestCase
+class LicenseTagTest extends TestCase
 {
     /**
      * @var LicenseTag
@@ -79,7 +80,7 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var LicenseTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tag);
+        $this->assertInstanceOf(LicenseTag::class, $tag);
         $this->assertEquals('http://zend.com', $tag->getUrl());
         $this->assertEquals('License', $tag->getLicenseName());
     }

@@ -9,18 +9,16 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\FileScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use ZendTest\Code\TestAsset\Baz;
 
 class FileScannerTest extends TestCase
 {
     public function testFileScannerCanReturnClasses()
     {
         $tokenScanner = new FileScanner(__DIR__ . '/../TestAsset/MultipleNamespaces.php');
-        $this->assertEquals(
-            'ZendTest\Code\TestAsset\Baz',
-            $tokenScanner->getClass('ZendTest\Code\TestAsset\Baz')->getName()
-        );
+        $this->assertEquals(Baz::class, $tokenScanner->getClass(Baz::class)->getName());
         $this->assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
     }
 }

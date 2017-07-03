@@ -9,8 +9,10 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
+use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\MethodReflection;
 use Zend\Code\Reflection\ParameterReflection;
 use ZendTest\Code\Generator\TestAsset\ParameterClass;
@@ -27,7 +29,7 @@ use ZendTest\Code\TestAsset\VariadicParametersClass;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
+class ParameterGeneratorTest extends TestCase
 {
     public function testTypeGetterAndSetterPersistValue()
     {
@@ -140,7 +142,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCallableTypeHint()
     {
         $parameter = ParameterGenerator::fromReflection(
-            new ParameterReflection(['ZendTest\Code\Generator\TestAsset\CallableTypeHintClass', 'foo'], 'bar')
+            new ParameterReflection([TestAsset\CallableTypeHintClass::class, 'foo'], 'bar')
         );
 
         $this->assertEquals('callable', $parameter->getType());
@@ -181,14 +183,12 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param  string                               $method
-     * @return \Zend\Code\Reflection\ParameterReflection
+     * @param  string $method
+     * @return ParameterReflection
      */
     protected function getFirstReflectionParameter($method)
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            'ZendTest\Code\Generator\TestAsset\ParameterClass'
-        );
+        $reflectionClass = new ClassReflection(TestAsset\ParameterClass::class);
         $method = $reflectionClass->getMethod($method);
 
         $params = $method->getParameters();
@@ -211,7 +211,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('SampleParameter', $parameterGenerator->getName());
         $this->assertEquals('int', $parameterGenerator->getType());
-        $this->assertInstanceOf('Zend\Code\Generator\ValueGenerator', $parameterGenerator->getDefaultValue());
+        $this->assertInstanceOf(ValueGenerator::class, $parameterGenerator->getDefaultValue());
         $this->assertFalse($parameterGenerator->getPassedByReference());
         $this->assertEquals(1, $parameterGenerator->getPosition());
         $this->assertFalse($parameterGenerator->isSourceDirty());
@@ -226,7 +226,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new \Zend\Code\Reflection\ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
         $params = $reflClass->getMethod('fooMethod')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
@@ -241,7 +241,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         require_once __DIR__ . '/TestAsset/NamespaceTypeHintClass.php';
 
-        $reflClass = new \Zend\Code\Reflection\ClassReflection('Namespaced\TypeHint\Bar');
+        $reflClass = new ClassReflection('Namespaced\TypeHint\Bar');
         $params = $reflClass->getMethod('method')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
@@ -268,8 +268,6 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider simpleHintsProvider
      *
      * @param string $type
@@ -282,7 +280,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $parameter->setName('foo');
         $parameter->setType($type);
 
-        self::assertSame($expectedType . ' $foo', $parameter->generate());
+        $this->assertSame($expectedType . ' $foo', $parameter->generate());
     }
 
     /**
@@ -315,8 +313,6 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider validClassNameProvider
      *
      * @param string $className
@@ -328,7 +324,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $parameter->setName('foo');
         $parameter->setType($className);
 
-        self::assertSame('\\' . $className . ' $foo', $parameter->generate());
+        $this->assertSame('\\' . $className . ' $foo', $parameter->generate());
     }
 
     /**
@@ -361,8 +357,6 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider reflectionHintsProvider
      *
      * @param string      $className
@@ -378,18 +372,16 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         ));
 
         if (null === $expectedType) {
-            self::assertNull($parameter->getType());
+            $this->assertNull($parameter->getType());
 
             return;
         }
 
-        self::assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
+        $this->assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider reflectionHintsProvider
      *
@@ -406,12 +398,12 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         ));
 
         if (null === $expectedType) {
-            self::assertStringStartsWith('$' . $parameterName, $parameter->generate());
+            $this->assertStringStartsWith('$' . $parameterName, $parameter->generate());
 
             return;
         }
 
-        self::assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
+        $this->assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
     }
 
     /**
@@ -474,30 +466,20 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             [IterableHintsClass::class, 'nullDefaultIterableParameter', 'foo', '?iterable'],
         ];
 
-        $compatibleParameters = array_filter(
-            $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 70100
-                    || (false === strpos($parameter[3], '?') && 'iterable' !== strtolower($parameter[3]));
-            }
-        );
-
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
             array_map(
                 function (array $definition) {
                     return $definition[0] . '#' . $definition[1];
                 },
-                $compatibleParameters
+                $parameters
             ),
-            $compatibleParameters
+            $parameters
         );
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider variadicHintsProvider
      *
@@ -517,8 +499,8 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             $parameterName
         ));
 
-        self::assertTrue($parameter->getVariadic());
-        self::assertSame($expectedGeneratedSignature, $parameter->generate());
+        $this->assertTrue($parameter->getVariadic());
+        $this->assertSame($expectedGeneratedSignature, $parameter->generate());
     }
 
     /**
@@ -552,30 +534,23 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 5.6
-     *
-     * @param string $className
-     * @param string $methodName
-     * @param string $parameterName
-     * @param string $expectedGeneratedSignature
      */
     public function testSetGetVariadic()
     {
         $parameter = new ParameterGenerator('foo');
 
-        self::assertFalse($parameter->getVariadic(), 'Is not variadic by default');
-        self::assertSame('$foo', $parameter->generate());
+        $this->assertFalse($parameter->getVariadic(), 'Is not variadic by default');
+        $this->assertSame('$foo', $parameter->generate());
 
         $parameter->setVariadic(true);
 
-        self::assertTrue($parameter->getVariadic());
-        self::assertSame('... $foo', $parameter->generate());
+        $this->assertTrue($parameter->getVariadic());
+        $this->assertSame('... $foo', $parameter->generate());
 
         $parameter->setVariadic(false);
 
-        self::assertFalse($parameter->getVariadic());
-        self::assertSame('$foo', $parameter->generate());
+        $this->assertFalse($parameter->getVariadic());
+        $this->assertSame('$foo', $parameter->generate());
     }
 
     /**

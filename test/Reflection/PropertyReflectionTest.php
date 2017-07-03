@@ -9,17 +9,20 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\PropertyReflection;
+use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Property
  */
-class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
+class PropertyReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
     {
@@ -37,7 +40,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 
         $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop2');
         $annotations = $property->getAnnotations($manager);
-        $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
+        $this->assertInstanceOf(AnnotationCollection::class, $annotations);
         $this->assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
         $found = false;
         foreach ($annotations as $key => $annotation) {
@@ -56,13 +59,13 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty = new InjectablePropertyReflection(
             // TestSampleClass5 has the annotations required to get to the
             // right point in the getAnnotations method.
-            'ZendTest\Code\Reflection\TestAsset\TestSampleClass2',
+            TestAsset\TestSampleClass2::class,
             '_prop2'
         );
 
-        $annotationManager = new \Zend\Code\Annotation\AnnotationManager();
+        $annotationManager = new AnnotationManager();
 
-        $fileScanner = $this->getMockBuilder('Zend\Code\Scanner\CachingFileScanner')
+        $fileScanner = $this->getMockBuilder(CachingFileScanner::class)
                             ->disableOriginalConstructor()
                             ->getMock();
 

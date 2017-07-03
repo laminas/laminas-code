@@ -9,7 +9,14 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\DocBlock\Tag\MethodTag;
+use Zend\Code\Reflection\DocBlock\Tag\ParamTag;
+use Zend\Code\Reflection\DocBlock\Tag\PropertyTag;
+use Zend\Code\Reflection\DocBlock\Tag\ReturnTag;
+use Zend\Code\Reflection\DocBlock\Tag\TagInterface;
+use Zend\Code\Reflection\DocBlock\Tag\ThrowsTag;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**
@@ -18,11 +25,11 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
+class DocBlockReflectionTest extends TestCase
 {
     public function testDocBlockShortDescription()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
         $this->assertEquals(
             'TestSampleClass5 DocBlock Short Desc',
             $classReflection->getDocBlock()->getShortDescription()
@@ -31,7 +38,7 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockLongDescription()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
         $expectedOutput = 'This is a long description for the docblock of this class, it should be longer '
             . 'than 3 lines. It indeed is longer than 3 lines now.';
 
@@ -41,32 +48,32 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockTags()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
 
-        $this->assertEquals(3, count($classReflection->getDocBlock()->getTags()));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('author')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('property')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('method')));
+        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
+        $this->assertInstanceOf(MethodTag::class, $methodTag);
 
         $propertyTag = $classReflection->getDocBlock()->getTag('property');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\PropertyTag', $propertyTag);
+        $this->assertInstanceOf(PropertyTag::class, $propertyTag);
 
         $this->assertFalse($classReflection->getDocBlock()->getTag('version'));
 
         $this->assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\TagInterface', $returnTag);
+        $this->assertInstanceOf(TagInterface::class, $returnTag);
         $this->assertEquals('mixed', $returnTag->getType());
     }
 
     public function testShortDocBlocks()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass13');
-        $this->assertEquals(0, count($classReflection->getDocBlock()->getTags()));
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass13::class);
+        $this->assertCount(0, $classReflection->getDocBlock()->getTags());
 
         $this->assertSame(
             'Short Method Description',
@@ -75,38 +82,38 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Short Class Description', $classReflection->getDocBlock()->getShortDescription());
 
         $returnTag = $classReflection->getMethod('returnSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\TagInterface', $returnTag);
+        $this->assertInstanceOf(TagInterface::class, $returnTag);
         $this->assertEquals('Something', $returnTag->getType());
         $this->assertEquals('This describes something', $returnTag->getDescription());
     }
 
     public function testTabbedDocBlockTags()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass10');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass10::class);
 
-        $this->assertEquals(3, count($classReflection->getDocBlock()->getTags()));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('author')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('property')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('method')));
+        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
+        $this->assertInstanceOf(MethodTag::class, $methodTag);
 
         $propertyTag = $classReflection->getDocBlock()->getTag('property');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\PropertyTag', $propertyTag);
+        $this->assertInstanceOf(PropertyTag::class, $propertyTag);
 
         $this->assertFalse($classReflection->getDocBlock()->getTag('version'));
 
         $this->assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\TagInterface', $returnTag);
+        $this->assertInstanceOf(TagInterface::class, $returnTag);
         $this->assertEquals('mixed', $returnTag->getType());
     }
 
     public function testDocBlockLines()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
 
         $classDocBlock = $classReflection->getDocBlock();
 
@@ -116,7 +123,7 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockContents()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
 
         $classDocBlock = $classReflection->getDocBlock();
 
@@ -140,7 +147,7 @@ EOS;
 
     public function testToString()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
 
         $classDocBlock = $classReflection->getDocBlock();
 
@@ -175,31 +182,31 @@ EOS;
 
         $paramTags = $docblockReflection->getTags('param');
 
-        $this->assertEquals(5, count($docblockReflection->getTags()));
-        $this->assertEquals(3, count($paramTags));
-        $this->assertEquals(1, count($docblockReflection->getTags('return')));
-        $this->assertEquals(1, count($docblockReflection->getTags('throws')));
+        $this->assertCount(5, $docblockReflection->getTags());
+        $this->assertCount(3, $paramTags);
+        $this->assertCount(1, $docblockReflection->getTags('return'));
+        $this->assertCount(1, $docblockReflection->getTags('throws'));
 
         $returnTag = $docblockReflection->getTag('return');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ReturnTag', $returnTag);
+        $this->assertInstanceOf(ReturnTag::class, $returnTag);
         $this->assertEquals('int[]', $returnTag->getType());
         $this->assertEquals(['int[]', 'null'], $returnTag->getTypes());
         $this->assertEquals('Description', $returnTag->getDescription());
 
         $throwsTag = $docblockReflection->getTag('throws');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ThrowsTag', $throwsTag);
+        $this->assertInstanceOf(ThrowsTag::class, $throwsTag);
         $this->assertEquals('Exception', $throwsTag->getType());
 
         $paramTag = $paramTags[0];
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertInstanceOf(ParamTag::class, $paramTag);
         $this->assertEquals('int', $paramTag->getType());
 
         $paramTag = $paramTags[1];
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertInstanceOf(ParamTag::class, $paramTag);
         $this->assertEquals('int[]', $paramTag->getType());
 
         $paramTag = $paramTags[2];
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
+        $this->assertInstanceOf(ParamTag::class, $paramTag);
         $this->assertEquals('string', $paramTag->getType());
         $this->assertEquals(['string', 'null'], $paramTag->getTypes());
     }

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generic\Prototype;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generic\Prototype\PrototypeClassFactory;
 use ZendTest\Code\Generator\TestAsset\PrototypeClass;
 use ZendTest\Code\Generator\TestAsset\PrototypeGenericClass;
@@ -17,7 +18,7 @@ use ZendTest\Code\Generator\TestAsset\PrototypeGenericClass;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
+class PrototypeClassFactoryTest extends TestCase
 {
     /**
      * @var PrototypeClassFactory
@@ -52,7 +53,9 @@ class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNameOnGenericIsCalledOnce()
     {
-        $mockProto = $this->getMock('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass', ['setName']);
+        $mockProto = $this->getMockBuilder(PrototypeGenericClass::class)
+            ->setMethods(['setName'])
+            ->getMock();
         $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));
         $this->prototypeFactory->setGenericPrototype($mockProto);
         $this->prototypeFactory->getClonedPrototype('notexist');

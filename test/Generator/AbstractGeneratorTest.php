@@ -9,31 +9,32 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\AbstractGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
+use Zend\Code\Generator\GeneratorInterface;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class AbstractGeneratorTest extends \PHPUnit_Framework_TestCase
+class AbstractGeneratorTest extends TestCase
 {
     public function testConstructor()
     {
-        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', [
+        $generator = $this->getMockForAbstractClass(AbstractGenerator::class, [
             [
                 'indentation' => 'foo',
-            ]
+            ],
         ]);
 
-        $this->assertInstanceOf('Zend\Code\Generator\GeneratorInterface', $generator);
+        $this->assertInstanceOf(GeneratorInterface::class, $generator);
         $this->assertEquals('foo', $generator->getIndentation());
     }
 
-    /**
-     * @expectedException \Zend\Code\Generator\Exception\InvalidArgumentException
-     */
     public function testSetOptionsThrowsExceptionOnInvalidArgument()
     {
-        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', [
-            'sss',
-        ]);
+        $this->expectException(InvalidArgumentException::class);
+        $this->getMockForAbstractClass(AbstractGenerator::class, ['sss']);
     }
 }

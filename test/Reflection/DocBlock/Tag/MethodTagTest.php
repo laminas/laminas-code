@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\MethodTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class MethodTagTest extends \PHPUnit_Framework_TestCase
+class MethodTagTest extends TestCase
 {
     public function testParseName()
     {

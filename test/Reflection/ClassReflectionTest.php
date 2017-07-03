@@ -9,7 +9,12 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\MethodReflection;
+use Zend\Code\Reflection\PropertyReflection;
+use Zend\Code\Scanner\FileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
 
 /**
@@ -17,17 +22,17 @@ use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Class
  */
-class ClassReflectionTest extends \PHPUnit_Framework_TestCase
+class ClassReflectionTest extends TestCase
 {
     public function testMethodReturns()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
 
         $methodByName = $reflectionClass->getMethod('getProp1');
-        $this->assertEquals('Zend\Code\Reflection\MethodReflection', get_class($methodByName));
+        $this->assertEquals(MethodReflection::class, get_class($methodByName));
 
         $methodsAll = $reflectionClass->getMethods();
-        $this->assertEquals(3, count($methodsAll));
+        $this->assertCount(3, $methodsAll);
 
         $firstMethod = array_shift($methodsAll);
         $this->assertEquals('getProp1', $firstMethod->getName());
@@ -35,13 +40,13 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testPropertyReturns()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
 
         $propertyByName = $reflectionClass->getProperty('_prop1');
-        $this->assertInstanceOf('Zend\Code\Reflection\PropertyReflection', $propertyByName);
+        $this->assertInstanceOf(PropertyReflection::class, $propertyByName);
 
         $propertiesAll = $reflectionClass->getProperties();
-        $this->assertEquals(2, count($propertiesAll));
+        $this->assertCount(2, $propertiesAll);
 
         $firstProperty = array_shift($propertiesAll);
         $this->assertEquals('_prop1', $firstProperty->getName());
@@ -49,27 +54,27 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testParentReturn()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
 
         $parent = $reflectionClass->getParentClass();
-        $this->assertEquals('Zend\Code\Reflection\ClassReflection', get_class($parent));
+        $this->assertEquals(ClassReflection::class, get_class($parent));
         $this->assertEquals('ArrayObject', $parent->getName());
     }
 
     public function testInterfaceReturn()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass4');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass4::class);
 
         $interfaces = $reflectionClass->getInterfaces();
-        $this->assertEquals(1, count($interfaces));
+        $this->assertCount(1, $interfaces);
 
         $interface = array_shift($interfaces);
-        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());
+        $this->assertEquals(TestAsset\TestSampleClassInterface::class, $interface->getName());
     }
 
     public function testGetContentsReturnsContents()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
         $target = <<<EOS
 {
     protected \$_prop1 = null;
@@ -102,7 +107,7 @@ EOS;
 
     public function testGetContentsReturnsContentsWithImplementsOnSeparateLine()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass9');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass9::class);
         $target = <<<EOS
 {
     protected \$_prop1 = null;
@@ -135,7 +140,7 @@ EOS;
 
     public function testStartLine()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass5::class);
 
         $this->assertEquals(18, $reflectionClass->getStartLine());
         $this->assertEquals(5, $reflectionClass->getStartLine(true));
@@ -143,7 +148,7 @@ EOS;
 
     public function testGetDeclaringFileReturnsFilename()
     {
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
         $this->assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 
@@ -152,12 +157,12 @@ EOS;
         $reflectionClass = new InjectableClassReflection(
             // TestSampleClass5 has the annotations required to get to the
             // right point in the getAnnotations method.
-            'ZendTest\Code\Reflection\TestAsset\TestSampleClass5'
+            TestAsset\TestSampleClass5::class
         );
 
-        $annotationManager = new \Zend\Code\Annotation\AnnotationManager();
+        $annotationManager = new AnnotationManager();
 
-        $fileScanner = $this->getMockBuilder('Zend\Code\Scanner\FileScanner')
+        $fileScanner = $this->getMockBuilder(FileScanner::class)
                             ->disableOriginalConstructor()
                             ->getMock();
 
@@ -192,13 +197,13 @@ EOS;
         // PHP documentations mentions that getTraits() return NULL in case of error. I don't know how to cause such
         // error so I test just normal behaviour.
 
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestTraitClass4');
+        $reflectionClass = new ClassReflection(TestAsset\TestTraitClass4::class);
         $traitsArray = $reflectionClass->getTraits();
         $this->assertInternalType('array', $traitsArray);
         $this->assertCount(1, $traitsArray);
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $traitsArray[0]);
+        $this->assertInstanceOf(ClassReflection::class, $traitsArray[0]);
 
-        $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass');
+        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
         $traitsArray = $reflectionClass->getTraits();
         $this->assertInternalType('array', $traitsArray);
         $this->assertCount(0, $traitsArray);

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\TypeGenerator;
@@ -16,15 +17,13 @@ use Zend\Code\Generator\TypeGenerator;
 /**
  * @group zendframework/zend-code#29
  *
- * @requires PHP 7.0
- *
  * @covers \Zend\Code\Generator\TypeGenerator
  */
-class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
+class TypeGeneratorTest extends TestCase
 {
     public function testIsAGenerator()
     {
-        self::assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
+        $this->assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
     }
 
     /**
@@ -37,7 +36,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame($expectedReturnType, $generator->generate());
+        $this->assertSame($expectedReturnType, $generator->generate());
     }
 
     /**
@@ -50,7 +49,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
+        $this->assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
     }
 
     /**
@@ -63,8 +62,8 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $generator = TypeGenerator::fromTypeString('\\' . $typeString);
 
-        self::assertSame($expectedReturnType, $generator->generate());
-        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
+        $this->assertSame($expectedReturnType, $generator->generate());
+        $this->assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
     }
 
     /**
@@ -74,7 +73,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRejectsInvalidTypeString(string $typeString)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         TypeGenerator::fromTypeString($typeString);
     }

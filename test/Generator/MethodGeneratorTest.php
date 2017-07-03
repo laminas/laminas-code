@@ -9,8 +9,13 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
+use stdClass;
+use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
+use Zend\Code\Generator\TypeGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
@@ -24,12 +29,12 @@ use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
+class MethodGeneratorTest extends TestCase
 {
     public function testMethodConstructor()
     {
         $methodGenerator = new MethodGenerator();
-        $this->isInstanceOf($methodGenerator, '\Zend\Code\Generator\PhpMethod');
+        $this->assertInstanceOf(MethodGenerator::class, $methodGenerator);
     }
 
     public function testMethodParameterAccessors()
@@ -38,7 +43,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
         $methodGenerator->setParameters(['one']);
         $params = $methodGenerator->getParameters();
         $param = array_shift($params);
-        $this->assertInstanceOf('Zend\Code\Generator\ParameterGenerator', $param);
+        $this->assertInstanceOf(ParameterGenerator::class, $param);
     }
 
     public function testMethodParameterMutator()
@@ -47,14 +52,14 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $methodGenerator->setParameter('foo');
         $methodGenerator->setParameter(['name' => 'bar', 'type' => 'array']);
-        $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => '\stdClass']));
+        $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class]));
 
         $params = $methodGenerator->getParameters();
         $this->assertCount(3, $params);
 
         /** @var $foo ParameterGenerator */
         $foo = array_shift($params);
-        $this->assertInstanceOf('Zend\Code\Generator\ParameterGenerator', $foo);
+        $this->assertInstanceOf(ParameterGenerator::class, $foo);
         $this->assertEquals('foo', $foo->getName());
 
         $bar = array_shift($params);
@@ -64,8 +69,8 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
         $baz = array_shift($params);
         $this->assertEquals('baz', $baz->getName());
 
-        $this->setExpectedException('Zend\Code\Generator\Exception\InvalidArgumentException');
-        $methodGenerator->setParameter(new \stdClass());
+        $this->expectException(InvalidArgumentException::class);
+        $methodGenerator->setParameter(new stdClass());
     }
 
     public function testMethodBodyGetterAndSetter()
@@ -77,7 +82,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockGetterAndSetter()
     {
-        $docblockGenerator = new \Zend\Code\Generator\DocBlockGenerator();
+        $docblockGenerator = new DocBlockGenerator();
 
         $method = new MethodGenerator();
         $method->setDocBlock($docblockGenerator);
@@ -87,7 +92,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testMethodFromReflection()
     {
-        $ref = new MethodReflection('ZendTest\Code\Generator\TestAsset\TestSampleSingleClass', 'someMethod');
+        $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'someMethod');
 
         $methodGenerator = MethodGenerator::fromReflection($ref);
         $target = <<<EOS
@@ -108,7 +113,7 @@ EOS;
 
     public function testMethodFromReflectionMultiLinesIndention()
     {
-        $ref = new MethodReflection('ZendTest\Code\Generator\TestAsset\TestSampleSingleClassMultiLines', 'someMethod');
+        $ref = new MethodReflection(TestAsset\TestSampleSingleClassMultiLines::class, 'someMethod');
 
         $methodGenerator = MethodGenerator::fromReflection($ref);
         $target = <<<EOS
@@ -225,7 +230,7 @@ EOS;
 
         $method->setParameter($param);
         $generated = $method->generate();
-        $this->assertRegexp('/array \$options = array\(\)\)/', $generated, $generated);
+        $this->assertRegExp('/array \$options = array\(\)\)/', $generated, $generated);
     }
 
     public function testCreateFromArray()
@@ -245,12 +250,12 @@ EOS;
 
         $this->assertEquals('SampleMethod', $methodGenerator->getName());
         $this->assertEquals('foo', $methodGenerator->getBody());
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
+        $this->assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
         $this->assertTrue($methodGenerator->isAbstract());
         $this->assertTrue($methodGenerator->isFinal());
         $this->assertTrue($methodGenerator->isStatic());
         $this->assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
-        $this->assertInstanceOf('Zend\Code\Generator\TypeGenerator', $methodGenerator->getReturnType());
+        $this->assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         $this->assertEquals('\\SampleType', $methodGenerator->getReturnType()->generate());
     }
 
@@ -276,13 +281,11 @@ CODE;
         $this->assertTrue($methodGenerator->isInterface());
         $this->assertEquals('execute', $methodGenerator->getName());
         $this->assertEquals($expected, $methodGenerator->generate());
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
+        $this->assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      */
     public function testSetReturnType()
     {
@@ -297,13 +300,11 @@ CODE;
     }
 
 PHP;
-        self::assertSame($expected, $methodGenerator->generate());
+        $this->assertSame($expected, $methodGenerator->generate());
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      */
     public function testSetReturnTypeWithNull()
     {
@@ -318,13 +319,11 @@ PHP;
     }
 
 PHP;
-        self::assertSame($expected, $methodGenerator->generate());
+        $this->assertSame($expected, $methodGenerator->generate());
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider returnTypeHintClassesProvider
      *
@@ -336,7 +335,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
     public function returnTypeHintClassesProvider()
@@ -367,16 +366,7 @@ PHP;
             [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
         ];
 
-        return array_filter(
-            $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 70100
-                    || (
-                        false === strpos($parameter[2], '?')
-                        && ! in_array(strtolower($parameter[2]), ['void', 'iterable'])
-                    );
-            }
-        );
+        return $parameters;
     }
 
     /**
@@ -388,11 +378,11 @@ PHP;
 
         $methodGenerator->setReturnsReference(true);
 
-        self::assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
 
         $methodGenerator->setReturnsReference(false);
 
-        self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
     }
 
     /**
@@ -404,6 +394,6 @@ PHP;
             new MethodReflection(ClassWithByRefReturnMethod::class, 'byRefReturn')
         );
 
-        self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
     }
 }

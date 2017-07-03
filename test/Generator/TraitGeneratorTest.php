@@ -9,17 +9,20 @@
 
 namespace ZendTest\Code\Generator;
 
-use Zend\Code\Generator\TraitGenerator;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\Exception\ExceptionInterface;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\TraitGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
+class TraitGeneratorTest extends TestCase
 {
     public function setUp()
     {
@@ -28,7 +31,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $class = new TraitGenerator();
-        $this->isInstanceOf($class, 'Zend\Code\Generator\TraitGenerator');
+        $this->assertInstanceOf(TraitGenerator::class, $class);
     }
 
     public function testNameAccessors()
@@ -62,7 +65,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
-        $this->assertEquals(count($classGenerator->getImplementedInterfaces()), 0);
+        $this->assertCount(0, $classGenerator->getImplementedInterfaces());
     }
 
     public function testPropertyAccessors()
@@ -74,16 +77,16 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $properties = $classGenerator->getProperties();
-        $this->assertEquals(count($properties), 2);
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', current($properties));
+        $this->assertCount(2, $properties);
+        $this->assertInstanceOf(PropertyGenerator::class, current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', $property);
+        $this->assertInstanceOf(PropertyGenerator::class, $property);
         $this->assertEquals($property->getName(), 'propTwo');
 
         // add a new property
         $classGenerator->addProperty('prop3');
-        $this->assertEquals(count($classGenerator->getProperties()), 3);
+        $this->assertCount(3, $classGenerator->getProperties());
     }
 
     public function testSetPropertyAlreadyExistsThrowsException()
@@ -91,10 +94,8 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new TraitGenerator();
         $classGenerator->addProperty('prop3');
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'A property by name prop3 already exists in this class'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('A property by name prop3 already exists in this class');
         $classGenerator->addProperty('prop3');
     }
 
@@ -102,10 +103,8 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $classGenerator = new TraitGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Zend\Code\Generator\TraitGenerator::addProperty expects string for name'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Zend\Code\Generator\TraitGenerator::addProperty expects string for name');
         $classGenerator->addProperty(true);
     }
 
@@ -118,26 +117,24 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $methods = $classGenerator->getMethods();
-        $this->assertEquals(count($methods), 2);
-        $this->isInstanceOf(current($methods), '\Zend\Code\Generator\PhpMethod');
+        $this->assertCount(2, $methods);
+        $this->assertInstanceOf(MethodGenerator::class, current($methods));
 
         $method = $classGenerator->getMethod('methodOne');
-        $this->isInstanceOf($method, '\Zend\Code\Generator\PhpMethod');
+        $this->assertInstanceOf(MethodGenerator::class, $method);
         $this->assertEquals($method->getName(), 'methodOne');
 
         // add a new property
         $classGenerator->addMethod('methodThree');
-        $this->assertEquals(count($classGenerator->getMethods()), 3);
+        $this->assertCount(3, $classGenerator->getMethods());
     }
 
     public function testSetMethodNoMethodOrArrayThrowsException()
     {
         $classGenerator = new TraitGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\ExceptionInterface',
-            'Zend\Code\Generator\TraitGenerator::addMethod expects string for name'
-        );
+        $this->expectException(ExceptionInterface::class);
+        $this->expectExceptionMessage('Zend\Code\Generator\TraitGenerator::addMethod expects string for name');
 
         $classGenerator->addMethod(true);
     }
@@ -145,17 +142,15 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testSetMethodNameAlreadyExistsThrowsException()
     {
         $methodA = new MethodGenerator();
-        $methodA->setName("foo");
+        $methodA->setName('foo');
         $methodB = new MethodGenerator();
-        $methodB->setName("foo");
+        $methodB->setName('foo');
 
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethodFromGenerator($methodA);
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'A method by name foo already exists in this class.'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('A method by name foo already exists in this class.');
 
         $classGenerator->addMethodFromGenerator($methodB);
     }
@@ -197,10 +192,10 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = TraitGenerator::fromArray([
             'name' => 'SampleClass',
             'properties' => ['foo',
-                ['name' => 'bar']
+                ['name' => 'bar'],
             ],
             'methods' => [
-                ['name' => 'baz']
+                ['name' => 'baz'],
             ],
         ]);
 
@@ -230,7 +225,7 @@ EOS;
      */
     public function testClassFromReflectionThatImplementsInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithInterface');
+        $reflClass = new ClassReflection(TestAsset\ClassWithInterface::class);
 
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -246,7 +241,7 @@ EOS;
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
+        $reflClass = new ClassReflection(TestAsset\NewClassWithInterface::class);
 
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -316,7 +311,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
+        $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $this->assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         $this->assertEquals('ClassWithNamespace', $classGenerator->getName());
@@ -423,7 +418,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -434,12 +429,12 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testExtendedClassProperies()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ExtendedClassWithProperties');
+        $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
         $this->assertContains('publicExtendedClassProperty', $code);

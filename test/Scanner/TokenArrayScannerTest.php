@@ -9,8 +9,12 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Scanner\ClassScanner;
 use Zend\Code\Scanner\TokenArrayScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use ZendTest\Code\TestAsset\Baz;
+use ZendTest\Code\TestAsset\FooClass;
+use ZendTest\Code\TestAsset\FooTrait;
 
 class TokenArrayScannerTest extends TestCase
 {
@@ -46,7 +50,7 @@ class TokenArrayScannerTest extends TestCase
         ));
         $classes = $tokenScanner->getClassNames();
         $this->assertInternalType('array', $classes);
-        $this->assertContains('ZendTest\Code\TestAsset\FooClass', $classes);
+        $this->assertContains(FooClass::class, $classes);
     }
 
     /**
@@ -59,7 +63,7 @@ class TokenArrayScannerTest extends TestCase
         ));
         $classes = $tokenScanner->getClassNames();
         $this->assertInternalType('array', $classes);
-        $this->assertContains('ZendTest\Code\TestAsset\FooTrait', $classes);
+        $this->assertContains(FooTrait::class, $classes);
     }
 
     public function testScannerReturnsFunctions()
@@ -77,10 +81,10 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
-        $classes = $tokenScanner->getClasses(true);
+        $classes = $tokenScanner->getClasses();
         $this->assertInternalType('array', $classes);
         foreach ($classes as $class) {
-            $this->assertInstanceOf('Zend\Code\Scanner\ClassScanner', $class);
+            $this->assertInstanceOf(ClassScanner::class, $class);
         }
     }
 
@@ -89,10 +93,7 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/MultipleNamespaces.php')
         ));
-        $this->assertEquals(
-            'ZendTest\Code\TestAsset\Baz',
-            $tokenScanner->getClass('ZendTest\Code\TestAsset\Baz')->getName()
-        );
+        $this->assertEquals(Baz::class, $tokenScanner->getClass(Baz::class)->getName());
         $this->assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
     }
 }

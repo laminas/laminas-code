@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\GenericTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class GenericTagTest extends \PHPUnit_Framework_TestCase
+class GenericTagTest extends TestCase
 {
     /**
      * @var GenericTag
@@ -73,7 +74,7 @@ class GenericTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var GenericTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
+        $this->assertInstanceOf(GenericTag::class, $tag);
         $this->assertEquals('var', $tag->getName());
         $this->assertEquals('string', $tag->getContent());
     }

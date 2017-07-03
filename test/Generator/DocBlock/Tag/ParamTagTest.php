@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\ParamTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class ParamTagTest extends \PHPUnit_Framework_TestCase
+class ParamTagTest extends TestCase
 {
     /**
      * @var ParamTag
@@ -84,7 +85,7 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var ParamTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ParamTag', $tag);
+        $this->assertInstanceOf(ParamTag::class, $tag);
         $this->assertEquals('foo', $tag->getVariableName());
         $this->assertEquals('description', $tag->getDescription());
         $this->assertEquals('int', $tag->getTypesAsString());

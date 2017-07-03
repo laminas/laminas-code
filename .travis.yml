@@ -15,7 +15,8 @@ cache:
 
 env:
   global:
-    - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
+    - COMPOSER_ARGS="--no-interaction"
+    - COVERAGE_DEPS="satooshi/php-coveralls"
     - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
     - SITE_URL="https://zendframework.github.io/zend-code"
     - GH_USER_NAME="Matthew Weier O'Phinney"
@@ -25,48 +26,30 @@ env:
 
 matrix:
   include:
-    - php: 5.6
+    - php: 7.1
       env:
         - DEPS=lowest
-    - php: 5.6
+    - php: 7.1
       env:
         - DEPS=locked
         - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
         - PATH="$HOME/.local/bin:$PATH"
         - TEST_COVERAGE=true
-    - php: 5.6
-      env:
-        - DEPS=latest
-    - php: 7
-      env:
-        - DEPS=lowest
-    - php: 7
-      env:
-        - DEPS=locked
         - CHECK_CS=true
-    - php: 7
-      env:
-        - DEPS=latest
-    - php: 7.1
-      env:
-        - DEPS=lowest
-    - php: 7.1
-      env:
-        - DEPS=locked
     - php: 7.1
       env:
         - DEPS=latest
-    - php: hhvm
+    - php: nightly
       env:
         - DEPS=lowest
-    - php: hhvm
+    - php: nightly
       env:
         - DEPS=locked
-    - php: hhvm
+    - php: nightly
       env:
         - DEPS=latest
   allow_failures:
-    - php: hhvm
+    - php: nightly
 
 notifications:
   irc: "irc.freenode.org#zftalk.dev"
@@ -78,10 +61,11 @@ before_install:
 
 install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
-  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS satooshi/php-coveralls:^1.0 ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update $COMPOSER_ARGS --prefer-lowest --prefer-stable ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
   - travis_retry composer install $COMPOSER_ARGS
-  - composer show
+  - stty cols 120
+  - COLUMNS=120 composer show
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\MethodTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class MethodTagTest extends \PHPUnit_Framework_TestCase
+class MethodTagTest extends TestCase
 {
     /**
      * @var MethodTag
@@ -89,7 +90,7 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var MethodTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\MethodTag', $tag);
+        $this->assertInstanceOf(MethodTag::class, $tag);
         $this->assertEquals(true, $tag->isStatic());
         $this->assertEquals('int', $tag->getTypesAsString());
         $this->assertEquals('method', $tag->getMethodName());
