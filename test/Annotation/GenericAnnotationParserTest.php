@@ -11,6 +11,7 @@ namespace ZendTest\Code\Annotation;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
 
 class GenericAnnotationParserTest extends TestCase
@@ -87,21 +88,18 @@ class GenericAnnotationParserTest extends TestCase
         $this->assertEquals('test content', $test->content);
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationAllowsAnnotationInterfaceOnly()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotation(new \stdClass());
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testAllowRegistrationOnceOnly()
     {
         $bar = new TestAsset\Bar();
         $this->parser->registerAnnotation($bar);
+
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotation($bar);
     }
 
@@ -113,19 +111,15 @@ class GenericAnnotationParserTest extends TestCase
         $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationsThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotations('some string');
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testSetAliasNotRegisteredClassThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->setAlias('bar', 'foo');
     }
 }

@@ -12,6 +12,7 @@ namespace ZendTest\Code\Annotation;
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
 use Zend\Code\Annotation\Parser\DoctrineAnnotationParser;
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
 
 class DoctrineAnnotationParserTest extends TestCase
@@ -81,11 +82,9 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->assertFalse($this->parser->onCreateAnnotation($event));
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationsThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotations('some string');
     }
 

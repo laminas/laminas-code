@@ -10,6 +10,7 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\InterfaceGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\PropertyGenerator;
@@ -278,12 +279,10 @@ CODE;
         $this->assertEquals($expected, $output);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface
-     */
     public function testClassNotAnInterfaceException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface');
         InterfaceGenerator::fromReflection(new ClassReflection(__CLASS__));
     }
 }

@@ -38,11 +38,9 @@ class AbstractMemberGeneratorTest extends TestCase
         $this->assertEquals(true, $this->fixture->isFinal());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSetDocBlockThrowsExceptionWithInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->fixture->setDocBlock(new \stdClass());
     }
 }
