@@ -24,13 +24,15 @@ class FileReflectionTest extends TestCase
     public function testFileConstructorThrowsExceptionOnNonExistentFile()
     {
         $nonExistentFile = 'Non/Existent/File.php';
-        $this->expectException(InvalidArgumentException::class, 'found');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('found');
         $reflectionFile = new FileReflection($nonExistentFile);
     }
 
     public function testFileConstructorFromAReflectedFilenameInIncludePathWithoutIncludeFlagEnabled()
     {
-        $this->expectException(RuntimeException::class, 'must be required');
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('must be required');
         $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
 
         try {
