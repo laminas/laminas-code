@@ -17,8 +17,6 @@ use Zend\Code\Generator\TypeGenerator;
 /**
  * @group zendframework/zend-code#29
  *
- * @requires PHP 7.0
- *
  * @covers \Zend\Code\Generator\TypeGenerator
  */
 class TypeGeneratorTest extends TestCase

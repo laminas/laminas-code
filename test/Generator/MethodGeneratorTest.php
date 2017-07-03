@@ -283,8 +283,6 @@ CODE;
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      */
     public function testSetReturnType()
     {
@@ -304,8 +302,6 @@ PHP;
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      */
     public function testSetReturnTypeWithNull()
     {
@@ -325,8 +321,6 @@ PHP;
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider returnTypeHintClassesProvider
      *
@@ -369,16 +363,7 @@ PHP;
             [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
         ];
 
-        return array_filter(
-            $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 70100
-                    || (
-                        false === strpos($parameter[2], '?')
-                        && ! in_array(strtolower($parameter[2]), ['void', 'iterable'])
-                    );
-            }
-        );
+        return $parameters;
     }
 
     /**

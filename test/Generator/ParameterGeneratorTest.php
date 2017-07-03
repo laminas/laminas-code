@@ -269,8 +269,6 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider simpleHintsProvider
      *
      * @param string $type
@@ -316,8 +314,6 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider validClassNameProvider
      *
      * @param string $className
@@ -362,8 +358,6 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      *
-     * @requires PHP 7.0
-     *
      * @dataProvider reflectionHintsProvider
      *
      * @param string      $className
@@ -389,8 +383,6 @@ class ParameterGeneratorTest extends TestCase
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider reflectionHintsProvider
      *
@@ -475,30 +467,20 @@ class ParameterGeneratorTest extends TestCase
             [IterableHintsClass::class, 'nullDefaultIterableParameter', 'foo', '?iterable'],
         ];
 
-        $compatibleParameters = array_filter(
-            $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 70100
-                    || (false === strpos($parameter[3], '?') && 'iterable' !== strtolower($parameter[3]));
-            }
-        );
-
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
             array_map(
                 function (array $definition) {
                     return $definition[0] . '#' . $definition[1];
                 },
-                $compatibleParameters
+                $parameters
             ),
-            $compatibleParameters
+            $parameters
         );
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 7.0
      *
      * @dataProvider variadicHintsProvider
      *
@@ -553,8 +535,6 @@ class ParameterGeneratorTest extends TestCase
 
     /**
      * @group zendframework/zend-code#29
-     *
-     * @requires PHP 5.6
      *
      * @param string $className
      * @param string $methodName
