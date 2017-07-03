@@ -29,7 +29,7 @@ class MethodReflectionTest extends TestCase
     {
         $method = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2');
         $parameters = $method->getParameters();
-        $this->assertEquals(2, count($parameters));
+        $this->assertCount(2, $parameters);
         $this->assertInstanceOf('Zend\Code\Reflection\ParameterReflection', array_shift($parameters));
     }
 

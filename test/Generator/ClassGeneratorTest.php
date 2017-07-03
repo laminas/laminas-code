@@ -28,7 +28,7 @@ class ClassGeneratorTest extends TestCase
     public function testConstruction()
     {
         $class = new ClassGenerator();
-        $this->isInstanceOf($class, 'Zend\Code\Generator\ClassGenerator');
+        $this->assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testNameAccessors()
@@ -115,7 +115,7 @@ class ClassGeneratorTest extends TestCase
         ]);
 
         $properties = $classGenerator->getProperties();
-        $this->assertEquals(count($properties), 2);
+        $this->assertCount(2, $properties);
         $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
@@ -124,7 +124,7 @@ class ClassGeneratorTest extends TestCase
 
         // add a new property
         $classGenerator->addProperty('prop3');
-        $this->assertEquals(count($classGenerator->getProperties()), 3);
+        $this->assertCount(3, $classGenerator->getProperties());
     }
 
     public function testSetPropertyAlreadyExistsThrowsException()
@@ -155,11 +155,11 @@ class ClassGeneratorTest extends TestCase
         ]);
 
         $methods = $classGenerator->getMethods();
-        $this->assertEquals(count($methods), 2);
-        $this->isInstanceOf(current($methods), '\Zend\Code\Generator\PhpMethod');
+        $this->assertCount(2, $methods);
+        $this->assertInstanceOf(MethodGenerator::class, current($methods));
 
         $method = $classGenerator->getMethod('methodOne');
-        $this->isInstanceOf($method, '\Zend\Code\Generator\PhpMethod');
+        $this->assertInstanceOf(MethodGenerator::class, $method);
         $this->assertEquals($method->getName(), 'methodOne');
 
         // add a new property
@@ -980,7 +980,7 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', 'hisTrait');
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertEquals(count($overrides), 1);
+        $this->assertCount(1, $overrides);
         $this->assertEquals(key($overrides), 'myTrait::foo');
         $this->assertEquals($overrides['myTrait::foo'][0], 'hisTrait');
     }
@@ -992,7 +992,7 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertEquals(count($overrides['myTrait::foo']), 2);
+        $this->assertCount(2, $overrides['myTrait::foo']);
         $this->assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
     }
 
@@ -1058,12 +1058,12 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertEquals(count($overrides['myTrait::foo']), 2);
+        $this->assertCount(2, $overrides['myTrait::foo']);
 
         $classGenerator->removeTraitOverride('myTrait::foo', 'hisTrait');
         $overrides = $classGenerator->getTraitOverrides();
 
-        $this->assertEquals(count($overrides['myTrait::foo']), 1);
+        $this->assertCount(1, $overrides['myTrait::foo']);
         $this->assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
     }
 
@@ -1074,12 +1074,12 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertEquals(count($overrides['myTrait::foo']), 2);
+        $this->assertCount(2, $overrides['myTrait::foo']);
 
         $classGenerator->removeTraitOverride('myTrait::foo');
         $overrides = $classGenerator->getTraitOverrides();
 
-        $this->assertEquals(count($overrides), 0);
+        $this->assertCount(0, $overrides);
     }
 
     /**

@@ -44,10 +44,10 @@ class DocBlockReflectionTest extends TestCase
     {
         $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
-        $this->assertEquals(3, count($classReflection->getDocBlock()->getTags()));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('author')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('property')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('method')));
+        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
         $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
@@ -85,10 +85,10 @@ class DocBlockReflectionTest extends TestCase
     {
         $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass10');
 
-        $this->assertEquals(3, count($classReflection->getDocBlock()->getTags()));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('author')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('property')));
-        $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('method')));
+        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
         $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
@@ -176,10 +176,10 @@ EOS;
 
         $paramTags = $docblockReflection->getTags('param');
 
-        $this->assertEquals(5, count($docblockReflection->getTags()));
-        $this->assertEquals(3, count($paramTags));
-        $this->assertEquals(1, count($docblockReflection->getTags('return')));
-        $this->assertEquals(1, count($docblockReflection->getTags('throws')));
+        $this->assertCount(5, $docblockReflection->getTags());
+        $this->assertCount(3, $paramTags);
+        $this->assertCount(1, $docblockReflection->getTags('return'));
+        $this->assertCount(1, $docblockReflection->getTags('throws'));
 
         $returnTag = $docblockReflection->getTag('return');
         $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ReturnTag', $returnTag);

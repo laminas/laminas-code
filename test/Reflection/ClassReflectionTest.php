@@ -28,7 +28,7 @@ class ClassReflectionTest extends TestCase
         $this->assertEquals('Zend\Code\Reflection\MethodReflection', get_class($methodByName));
 
         $methodsAll = $reflectionClass->getMethods();
-        $this->assertEquals(3, count($methodsAll));
+        $this->assertCount(3, $methodsAll);
 
         $firstMethod = array_shift($methodsAll);
         $this->assertEquals('getProp1', $firstMethod->getName());
@@ -42,7 +42,7 @@ class ClassReflectionTest extends TestCase
         $this->assertInstanceOf('Zend\Code\Reflection\PropertyReflection', $propertyByName);
 
         $propertiesAll = $reflectionClass->getProperties();
-        $this->assertEquals(2, count($propertiesAll));
+        $this->assertCount(2, $propertiesAll);
 
         $firstProperty = array_shift($propertiesAll);
         $this->assertEquals('_prop1', $firstProperty->getName());
@@ -62,7 +62,7 @@ class ClassReflectionTest extends TestCase
         $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass4');
 
         $interfaces = $reflectionClass->getInterfaces();
-        $this->assertEquals(1, count($interfaces));
+        $this->assertCount(1, $interfaces);
 
         $interface = array_shift($interfaces);
         $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());

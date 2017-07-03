@@ -31,7 +31,7 @@ class TraitGeneratorTest extends TestCase
     public function testConstruction()
     {
         $class = new TraitGenerator();
-        $this->isInstanceOf($class, 'Zend\Code\Generator\TraitGenerator');
+        $this->assertInstanceOf(TraitGenerator::class, $class);
     }
 
     public function testNameAccessors()
@@ -65,7 +65,7 @@ class TraitGeneratorTest extends TestCase
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
-        $this->assertEquals(count($classGenerator->getImplementedInterfaces()), 0);
+        $this->assertCount(0, $classGenerator->getImplementedInterfaces());
     }
 
     public function testPropertyAccessors()
@@ -77,7 +77,7 @@ class TraitGeneratorTest extends TestCase
         ]);
 
         $properties = $classGenerator->getProperties();
-        $this->assertEquals(count($properties), 2);
+        $this->assertCount(2, $properties);
         $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
@@ -86,7 +86,7 @@ class TraitGeneratorTest extends TestCase
 
         // add a new property
         $classGenerator->addProperty('prop3');
-        $this->assertEquals(count($classGenerator->getProperties()), 3);
+        $this->assertCount(3, $classGenerator->getProperties());
     }
 
     public function testSetPropertyAlreadyExistsThrowsException()
@@ -117,16 +117,16 @@ class TraitGeneratorTest extends TestCase
         ]);
 
         $methods = $classGenerator->getMethods();
-        $this->assertEquals(count($methods), 2);
-        $this->isInstanceOf(current($methods), '\Zend\Code\Generator\PhpMethod');
+        $this->assertCount(2, $methods);
+        $this->assertInstanceOf(MethodGenerator::class, current($methods));
 
         $method = $classGenerator->getMethod('methodOne');
-        $this->isInstanceOf($method, '\Zend\Code\Generator\PhpMethod');
+        $this->assertInstanceOf(MethodGenerator::class, $method);
         $this->assertEquals($method->getName(), 'methodOne');
 
         // add a new property
         $classGenerator->addMethod('methodThree');
-        $this->assertEquals(count($classGenerator->getMethods()), 3);
+        $this->assertCount(3, $classGenerator->getMethods());
     }
 
     public function testSetMethodNoMethodOrArrayThrowsException()

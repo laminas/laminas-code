@@ -23,7 +23,7 @@ class FunctionReflectionTest extends TestCase
     {
         $function = new FunctionReflection('array_splice');
         $parameters = $function->getParameters();
-        $this->assertEquals(count($parameters), 4);
+        $this->assertCount(4, $parameters);
         $this->assertInstanceOf('Zend\Code\Reflection\ParameterReflection', array_shift($parameters));
     }
 

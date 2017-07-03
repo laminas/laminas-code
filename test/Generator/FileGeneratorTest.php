@@ -91,7 +91,7 @@ EOS;
         unlink($tempFile);
 
         $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($fileGenerator));
-        $this->assertEquals(1, count($fileGenerator->getClasses()));
+        $this->assertCount(1, $fileGenerator->getClasses());
     }
 
     public function testFromFileReflection()

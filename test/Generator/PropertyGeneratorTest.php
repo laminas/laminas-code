@@ -24,7 +24,7 @@ class PropertyGeneratorTest extends TestCase
     public function testPropertyConstructor()
     {
         $codeGenProperty = new PropertyGenerator();
-        $this->isInstanceOf($codeGenProperty, 'Zend\Code\Generator\PropertyGenerator');
+        $this->assertInstanceOf(PropertyGenerator::class, $codeGenProperty);
     }
 
     /**
@@ -255,7 +255,7 @@ EOS;
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
         $tags     = $docBlock->getTags();
         $this->assertInternalType('array', $tags);
-        $this->assertEquals(1, count($tags));
+        $this->assertCount(1, $tags);
         $tag = array_shift($tags);
         $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
         $this->assertEquals('var', $tag->getName());

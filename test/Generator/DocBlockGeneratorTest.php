@@ -82,7 +82,7 @@ class DocBlockGeneratorTest extends TestCase
         $this->docBlockGenerator->setTag(['name' => 'blah']);
         $this->docBlockGenerator->setTag($paramTag);
         $this->docBlockGenerator->setTag($returnTag);
-        $this->assertEquals(3, count($this->docBlockGenerator->getTags()));
+        $this->assertCount(3, $this->docBlockGenerator->getTags());
 
         $target = <<<EOS
 /**

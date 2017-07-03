@@ -31,7 +31,7 @@ class MethodGeneratorTest extends TestCase
     public function testMethodConstructor()
     {
         $methodGenerator = new MethodGenerator();
-        $this->isInstanceOf($methodGenerator, '\Zend\Code\Generator\PhpMethod');
+        $this->assertInstanceOf(MethodGenerator::class, $methodGenerator);
     }
 
     public function testMethodParameterAccessors()

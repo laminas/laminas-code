@@ -79,7 +79,7 @@ class FileReflectionTest extends TestCase
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
         $this->assertEquals(get_class($reflectionFile), 'Zend\Code\Reflection\FileReflection');
-        $this->assertEquals(count($reflectionFile->getClasses()), 1);
+        $this->assertCount(1, $reflectionFile->getClasses());
     }
 
     public function testFileGetClassReturnsFirstClassWithNoOptions()

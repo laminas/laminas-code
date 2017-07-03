@@ -218,7 +218,7 @@ class ClassScannerTest extends TestCase
 
         $aliases = $class->getTraitAliases();
 
-        $this->assertEquals(count($aliases), 1);
+        $this->assertCount(1, $aliases);
 
         $this->assertEquals(key($aliases), 'test');
         $this->assertEquals(current($aliases), 'ZendTest\Code\TestAsset\TraitWithSameMethods::foo');
@@ -313,7 +313,7 @@ class ClassScannerTest extends TestCase
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
         $class = $file->getClass('ZendTest\Code\TestAsset\FooInterface');
         $this->assertTrue($class->isInterface());
-        $this->assertEquals(1, count($class->getInterfaces()));
+        $this->assertCount(1, $class->getInterfaces());
         $this->assertEquals('ArrayAccess', $class->getInterfaces()[0]);
     }
 }
