@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use ZendTest\Code\Generator\TestAsset\TypeableTag;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class TypableTagTest extends \PHPUnit_Framework_TestCase
+class TypableTagTest extends TestCase
 {
     /**
      * @var TypeableTag

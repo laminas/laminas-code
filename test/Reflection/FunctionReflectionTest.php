@@ -9,13 +9,15 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\FunctionReflection;
+use Zend\Code\Reflection\Exception\InvalidArgumentException;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Function
  */
-class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
+class FunctionReflectionTest extends TestCase
 {
     public function testParemeterReturn()
     {
@@ -66,7 +68,7 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
     public function testInternalFunctionBodyReturn()
     {
         $function = new FunctionReflection('array_splice');
-        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $body = $function->getBody();
     }
 

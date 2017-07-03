@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
@@ -27,7 +28,7 @@ use ZendTest\Code\TestAsset\VariadicParametersClass;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
+class ParameterGeneratorTest extends TestCase
 {
     public function testTypeGetterAndSetterPersistValue()
     {

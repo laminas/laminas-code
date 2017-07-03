@@ -9,12 +9,13 @@
 
 namespace ZendTest\Code\Scanner;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
 use Zend\Code\Scanner\FileScanner;
 use Zend\Stdlib\ErrorHandler;
 use ZendTest\Code\TestAsset\TraitWithSameMethods;
 use ZendTest\Code\TestAsset\TestClassWithTraitAliases;
+use Zend\Code\Exception\RuntimeException;
 
 class ClassScannerTest extends TestCase
 {
@@ -268,11 +269,10 @@ class ClassScannerTest extends TestCase
      */
     public function testGetMethodsThrowsExceptionOnDuplicateMethods()
     {
-        $this->setExpectedException('Zend\Code\Exception\RuntimeException');
-
         $file  = new FileScanner(__DIR__ . '/TestAsset/TestClassWithAliasException.php');
         $class = $file->getClass('ZendTest\Code\Scanner\TestAsset\TestClassWithAliasException');
 
+        $this->expectException(RuntimeException::class);
         $class->getMethods();
     }
 

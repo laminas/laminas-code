@@ -9,11 +9,13 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class AbstractGeneratorTest extends \PHPUnit_Framework_TestCase
+class AbstractGeneratorTest extends TestCase
 {
     public function testConstructor()
     {

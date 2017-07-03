@@ -9,10 +9,11 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\DirectoryScanner;
 use Zend\Code\Scanner\AggregateDirectoryScanner;
 
-class DerivedClassScannerTest extends \PHPUnit_Framework_TestCase
+class DerivedClassScannerTest extends TestCase
 {
     public function testCreatesClass()
     {

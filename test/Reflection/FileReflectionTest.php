@@ -10,24 +10,27 @@
 namespace ZendTest\Code\Reflection;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\FileReflection;
+use Zend\Code\Reflection\Exception\InvalidArgumentException;
+use Zend\Code\Reflection\Exception\RuntimeException;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_File
  */
-class FileReflectionTest extends \PHPUnit_Framework_TestCase
+class FileReflectionTest extends TestCase
 {
     public function testFileConstructorThrowsExceptionOnNonExistentFile()
     {
         $nonExistentFile = 'Non/Existent/File.php';
-        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException', 'found');
+        $this->expectException(InvalidArgumentException::class, 'found');
         $reflectionFile = new FileReflection($nonExistentFile);
     }
 
     public function testFileConstructorFromAReflectedFilenameInIncludePathWithoutIncludeFlagEnabled()
     {
-        $this->setExpectedException('Zend\Code\Reflection\Exception\RuntimeException', 'must be required');
+        $this->expectException(RuntimeException::class, 'must be required');
         $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
 
         try {
@@ -95,10 +98,8 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionFile = new FileReflection($fileToReflect);
         $nonExistentClass = 'Some_Non_Existent_Class';
 
-        $this->setExpectedException(
-            'Zend\Code\Reflection\Exception\InvalidArgumentException',
-            'Class by name Some_Non_Existent_Class not found'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class by name Some_Non_Existent_Class not found');
         $reflectionFile->getClass($nonExistentClass);
     }
 

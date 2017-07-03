@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 use Zend\Code\Reflection\ClassReflection;
@@ -19,7 +20,7 @@ use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Property
  */
-class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
+class PropertyReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
     {

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\ClassReflection;
 use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
 
@@ -17,7 +18,7 @@ use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Class
  */
-class ClassReflectionTest extends \PHPUnit_Framework_TestCase
+class ClassReflectionTest extends TestCase
 {
     public function testMethodReturns()
     {

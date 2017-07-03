@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\MethodReflection;
 use ZendTest\Code\Reflection\TestAsset\InjectableMethodReflection;
 
@@ -16,7 +17,7 @@ use ZendTest\Code\Reflection\TestAsset\InjectableMethodReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Method
  */
-class MethodReflectionTest extends \PHPUnit_Framework_TestCase
+class MethodReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
     {
@@ -386,7 +387,7 @@ CONTENTS;
      */
     public function testCodeGetBodyReturnsEmptyWithCommentedFunction()
     {
-        $this->setExpectedException('ReflectionException');
+        $this->expectException('ReflectionException');
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass11', '__prototype');
         $reflectionMethod->getBody();
     }

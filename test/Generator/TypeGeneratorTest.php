@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\TypeGenerator;
@@ -20,7 +21,7 @@ use Zend\Code\Generator\TypeGenerator;
  *
  * @covers \Zend\Code\Generator\TypeGenerator
  */
-class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
+class TypeGeneratorTest extends TestCase
 {
     public function testIsAGenerator()
     {
@@ -74,7 +75,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRejectsInvalidTypeString(string $typeString)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         TypeGenerator::fromTypeString($typeString);
     }

@@ -9,7 +9,7 @@
 
 namespace ZendTest\Code\Annotation;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
 use Zend\Code\Annotation\Parser\DoctrineAnnotationParser;
 use Zend\EventManager\Event;

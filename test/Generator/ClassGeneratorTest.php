@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
@@ -16,12 +17,13 @@ use Zend\Code\Generator\Exception\InvalidArgumentException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Generator\Exception\ExceptionInterface;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
+class ClassGeneratorTest extends TestCase
 {
     public function testConstruction()
     {
@@ -130,10 +132,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addProperty('prop3');
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'A property by name prop3 already exists in this class'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('A property by name prop3 already exists in this class');
         $classGenerator->addProperty('prop3');
     }
 
@@ -141,10 +141,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Zend\Code\Generator\ClassGenerator::addProperty expects string for name'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Zend\Code\Generator\ClassGenerator::addProperty expects string for name');
         $classGenerator->addProperty(true);
     }
 
@@ -173,10 +171,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\ExceptionInterface',
-            'Zend\Code\Generator\ClassGenerator::addMethod expects string for name'
-        );
+        $this->expectException(ExceptionInterface::class);
+        $this->expectExceptionMessage('Zend\Code\Generator\ClassGenerator::addMethod expects string for name');
 
         $classGenerator->addMethod(true);
     }
@@ -191,10 +187,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethodFromGenerator($methodA);
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'A method by name foo already exists in this class.'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('A method by name foo already exists in this class.');
 
         $classGenerator->addMethodFromGenerator($methodB);
     }
@@ -647,10 +641,9 @@ CODE;
      */
     public function testAddConstantThrowsExceptionWithInvalidName()
     {
-        $this->setExpectedException('InvalidArgumentException');
-
         $classGenerator = new ClassGenerator();
 
+        $this->expectException(InvalidArgumentException::class);
         $classGenerator->addConstant([], 'value1');
     }
 
@@ -658,8 +651,7 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(InvalidArgumentException::class);
-
+        $this->expectException(InvalidArgumentException::class);
         $classGenerator->addConstant('', 'value');
     }
 
@@ -688,8 +680,7 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(InvalidArgumentException::class);
-
+        $this->expectException(InvalidArgumentException::class);
         $classGenerator->addConstant('a', new \stdClass());
     }
 
@@ -714,8 +705,7 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(InvalidArgumentException::class);
-
+        $this->expectException(InvalidArgumentException::class);
         $classGenerator->addConstant('a', [new \stdClass()]);
     }
 
@@ -724,11 +714,10 @@ CODE;
      */
     public function testAddConstantThrowsExceptionOnDuplicate()
     {
-        $this->setExpectedException('InvalidArgumentException');
-
         $classGenerator = new ClassGenerator();
-
         $classGenerator->addConstant('x', 'value1');
+
+        $this->expectException('InvalidArgumentException');
         $classGenerator->addConstant('x', 'value1');
     }
 
@@ -929,10 +918,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid Format: $method must be in the format of trait::method'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Format: $method must be in the format of trait::method');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitAlias('method', 'useMe');
@@ -942,10 +929,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid trait: Trait does not exists on this class'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid trait: Trait does not exists on this class');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitAlias('unknown::method', 'useMe');
@@ -955,10 +940,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid Alias: Method name already exists on this class.'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Alias: Method name already exists on this class.');
 
         $classGenerator->addMethod('methodOne');
         $classGenerator->addTrait('myTrait');
@@ -969,8 +952,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
             'Invalid Type: $visibility must of ReflectionMethod::IS_PUBLIC,'
             . ' ReflectionMethod::IS_PRIVATE or ReflectionMethod::IS_PROTECTED'
         );
@@ -983,10 +966,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid Alias: $alias must be a string or array.'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Alias: $alias must be a string or array.');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitAlias('myTrait::method', new ClassGenerator, 'public');
@@ -1019,10 +1000,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid Format: $method must be in the format of trait::method'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Format: $method must be in the format of trait::method');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitOverride('method', 'useMe');
@@ -1032,10 +1011,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid trait: Trait does not exists on this class'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid trait: Trait does not exists on this class');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitOverride('unknown::method', 'useMe');
@@ -1045,10 +1022,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Missing required argument "traitName" for $method'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required argument "traitName" for $method');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitOverride(['method' => 'foo'], 'test');
@@ -1058,10 +1033,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Invalid Argument: $traitToReplace must be a string or array of strings'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Argument: $traitToReplace must be a string or array of strings');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitOverride('myTrait::method', ['methodOne', 4]);
@@ -1071,10 +1044,8 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Missing required argument "method" for $method'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required argument "method" for $method');
 
         $classGenerator->addTrait('myTrait');
         $classGenerator->addTraitOverride(['traitName' => 'myTrait'], 'test');

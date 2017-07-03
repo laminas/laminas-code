@@ -9,12 +9,13 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\NameInformation;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 
-class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
+class AnnotationScannerTest extends TestCase
 {
     /**
      * @dataProvider scannerWorksDataProvider

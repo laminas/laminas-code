@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\ThrowsTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class ThrowsTagTest extends \PHPUnit_Framework_TestCase
+class ThrowsTagTest extends TestCase
 {
     public function testAllCharactersFromTypenameAreSupported()
     {

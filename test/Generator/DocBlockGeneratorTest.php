@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\DocBlock\Tag;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group      Zend_Code_Generator
  * @group      Zend_Code_Generator_Php
  */
-class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
+class DocBlockGeneratorTest extends TestCase
 {
     /**
      * @var DocBlockGenerator

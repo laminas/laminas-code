@@ -9,10 +9,11 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\CachingFileScanner;
 use Zend\Code\Annotation\AnnotationManager;
 
-class CachingFileScannerTest extends \PHPUnit_Framework_TestCase
+class CachingFileScannerTest extends TestCase
 {
     protected function setUp()
     {

@@ -9,8 +9,8 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\DocBlockScanner;
-use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @group      Zend_Code_Scanner

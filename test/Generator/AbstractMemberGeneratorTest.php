@@ -9,10 +9,11 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\AbstractMemberGenerator;
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 
-class AbstractMemberGeneratorTest extends \PHPUnit_Framework_TestCase
+class AbstractMemberGeneratorTest extends TestCase
 {
     /**
      * @var AbstractMemberGenerator

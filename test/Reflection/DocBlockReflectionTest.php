@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\DocBlockReflection;
 
@@ -18,7 +19,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
+class DocBlockReflectionTest extends TestCase
 {
     public function testDocBlockShortDescription()
     {

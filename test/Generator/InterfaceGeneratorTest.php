@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\InterfaceGenerator;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\PropertyGenerator;
@@ -19,7 +20,7 @@ use Zend\Code\Reflection\ClassReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
+class InterfaceGeneratorTest extends TestCase
 {
     public function testAbstractAccessorsReturnsFalse()
     {

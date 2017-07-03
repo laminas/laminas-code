@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Code\Reflection;
  * @group      Zend_Reflection_DocBlock
  * @group      Zend_Reflection_DocBlock_Tag
  */
-class ReflectionDocBlockTagTest extends \PHPUnit_Framework_TestCase
+class ReflectionDocBlockTagTest extends TestCase
 {
     public function testTagDescriptionIsReturned()
     {

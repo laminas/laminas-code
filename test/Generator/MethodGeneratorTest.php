@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\ValueGenerator;
@@ -19,12 +20,13 @@ use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\IterableHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
+class MethodGeneratorTest extends TestCase
 {
     public function testMethodConstructor()
     {
@@ -64,7 +66,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
         $baz = array_shift($params);
         $this->assertEquals('baz', $baz->getName());
 
-        $this->setExpectedException('Zend\Code\Generator\Exception\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $methodGenerator->setParameter(new \stdClass());
     }
 

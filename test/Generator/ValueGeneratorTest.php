@@ -11,6 +11,7 @@ namespace ZendTest\Code\Generator;
 
 use ArrayAccess;
 use ArrayObject as SplArrayObject;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
@@ -23,7 +24,7 @@ use Zend\Code\Generator\ValueGenerator;
  *
  * @covers \Zend\Code\Generator\ValueGenerator
  */
-class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
+class ValueGeneratorTest extends TestCase
 {
     public function testDefaultInstance()
     {
@@ -34,12 +35,10 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidConstantsType()
     {
-        $this->setExpectedException(
-            InvalidArgumentException::class,
-            '$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject'
-        );
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject');
 
-        $constants = $this->getMock(ArrayAccess::class);
+        $constants = $this->createMock(ArrayAccess::class);
         new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
     }
 

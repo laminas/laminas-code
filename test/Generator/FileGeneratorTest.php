@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\FileGenerator;
 use Zend\Code\Reflection\FileReflection;
@@ -18,7 +19,7 @@ use Zend\Code\Reflection\FileReflection;
  * @group Zend_Code_Generator_Php
  * @group Zend_Code_Generator_Php_File
  */
-class FileGeneratorTest extends \PHPUnit_Framework_TestCase
+class FileGeneratorTest extends TestCase
 {
     public function testConstruction()
     {

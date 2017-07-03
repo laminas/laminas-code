@@ -9,15 +9,17 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Generator\Exception\RuntimeException;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
+class PropertyGeneratorTest extends TestCase
 {
     public function testPropertyConstructor()
     {
@@ -206,10 +208,8 @@ EOS;
     {
         $codeGenProperty = new PropertyGenerator('someVal', new \stdClass());
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\RuntimeException',
-            'Type "stdClass" is unknown or cannot be used as property default value'
-        );
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Type "stdClass" is unknown or cannot be used as property default value');
 
         $codeGenProperty->generate();
     }

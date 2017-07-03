@@ -10,7 +10,7 @@
 namespace ZendTest\Code\Scanner;
 
 use Zend\Code\Scanner\FileScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ConstantScannerTest extends TestCase
 {

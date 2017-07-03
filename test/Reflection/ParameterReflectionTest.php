@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection;
 use ZendTest\Code\TestAsset\ClassTypeHintedClass;
 use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
@@ -18,7 +19,7 @@ use ZendTest\Code\TestAsset\InternalHintsClass;
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Parameter
  */
-class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
+class ParameterReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
     {

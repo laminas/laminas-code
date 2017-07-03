@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\AuthorTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class AuthorTagTest extends \PHPUnit_Framework_TestCase
+class AuthorTagTest extends TestCase
 {
     /**
      * @var AuthorTag
