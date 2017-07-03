@@ -21,6 +21,7 @@ use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\IterableHintsClass;
+use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
@@ -345,9 +346,6 @@ class ParameterGeneratorTest extends TestCase
             ['mixed'],
             ['Mixed'],
             ['MIXED'],
-            ['object'],
-            ['Object'],
-            ['OBJECT'],
             ['resource'],
             ['Resource'],
             ['RESOURCE'],
@@ -464,7 +462,20 @@ class ParameterGeneratorTest extends TestCase
             [IterableHintsClass::class, 'iterableParameter', 'foo', 'iterable'],
             [IterableHintsClass::class, 'nullableIterableParameter', 'foo', '?iterable'],
             [IterableHintsClass::class, 'nullDefaultIterableParameter', 'foo', '?iterable'],
+            [ObjectHintsClass::class, 'objectParameter', 'foo', 'object'],
+            [ObjectHintsClass::class, 'nullableObjectParameter', 'foo', '?object'],
+            [ObjectHintsClass::class, 'nullDefaultObjectParameter', 'foo', '?object'],
         ];
+
+        $compatibleParameters = array_filter(
+            $parameters,
+            function (array $parameter) {
+                return PHP_VERSION_ID >= 70200
+                    || (
+                        false === strpos($parameter[3], 'object')
+                    );
+            }
+        );
 
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
@@ -472,9 +483,9 @@ class ParameterGeneratorTest extends TestCase
                 function (array $definition) {
                     return $definition[0] . '#' . $definition[1];
                 },
-                $parameters
+                $compatibleParameters
             ),
-            $parameters
+            $compatibleParameters
         );
     }
 
