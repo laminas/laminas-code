@@ -63,7 +63,7 @@ class FileReflectionTest extends TestCase
 
     public function testFileConstructorFromAReflectedFilenameInIncludePath()
     {
-        $this->assertNotContains(realpath(__DIR__ . '/TestAsset/a_second_empty_file.php'), get_included_files());
+        self::assertNotContains(realpath(__DIR__ . '/TestAsset/a_second_empty_file.php'), get_included_files());
         $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
 
         try {
@@ -80,8 +80,8 @@ class FileReflectionTest extends TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        $this->assertEquals(get_class($reflectionFile), FileReflection::class);
-        $this->assertCount(1, $reflectionFile->getClasses());
+        self::assertEquals(get_class($reflectionFile), FileReflection::class);
+        self::assertCount(1, $reflectionFile->getClasses());
     }
 
     public function testFileGetClassReturnsFirstClassWithNoOptions()
@@ -89,7 +89,7 @@ class FileReflectionTest extends TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        $this->assertEquals(TestAsset\TestSampleClass::class, $reflectionFile->getClass()->getName());
+        self::assertEquals(TestAsset\TestSampleClass::class, $reflectionFile->getClass()->getName());
     }
 
     public function testFileGetClassThrowsExceptionOnNonExistentClassName()
@@ -106,17 +106,17 @@ class FileReflectionTest extends TestCase
 
     public function testFileReflectorRequiredFunctionsDoNothing()
     {
-        $this->assertNull(FileReflection::export());
+        self::assertNull(FileReflection::export());
 
         $reflectionFile = new FileReflection(__FILE__);
-        $this->assertEquals('', $reflectionFile->__toString());
+        self::assertEquals('', $reflectionFile->__toString());
     }
 
     public function testFileGetFilenameReturnsCorrectFilename()
     {
         $reflectionFile = new FileReflection(__FILE__);
 
-        $this->assertEquals('FileReflectionTest.php', $reflectionFile->getFileName());
+        self::assertEquals('FileReflectionTest.php', $reflectionFile->getFileName());
     }
 
     public function testFileGetLineNumbersWorks()
@@ -126,8 +126,8 @@ class FileReflectionTest extends TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        $this->assertEquals(9, $reflectionFile->getStartLine());
-        $this->assertEquals(24, $reflectionFile->getEndLine());
+        self::assertEquals(9, $reflectionFile->getStartLine());
+        self::assertEquals(24, $reflectionFile->getEndLine());
     }
 
     public function testFileGetDocBlockReturnsFileDocBlock()
@@ -137,11 +137,11 @@ class FileReflectionTest extends TestCase
         $reflectionFile = new FileReflection($fileToReflect);
 
         $reflectionDocBlock = $reflectionFile->getDocBlock();
-        $this->assertInstanceOf(DocBlockReflection::class, $reflectionDocBlock);
+        self::assertInstanceOf(DocBlockReflection::class, $reflectionDocBlock);
 
         $authorTag = $reflectionDocBlock->getTag('author');
-        $this->assertEquals('Jeremiah Small', $authorTag->getAuthorName());
-        $this->assertEquals('jsmall@soliantconsulting.com', $authorTag->getAuthorEmail());
+        self::assertEquals('Jeremiah Small', $authorTag->getAuthorName());
+        self::assertEquals('jsmall@soliantconsulting.com', $authorTag->getAuthorEmail());
     }
 
     public function testFileGetFunctionsReturnsFunctions()
@@ -152,7 +152,7 @@ class FileReflectionTest extends TestCase
         include_once $fileToRequire;
         $reflectionFile = new FileReflection($fileToRequire);
         $funcs = $reflectionFile->getFunctions();
-        $this->assertInstanceOf(FunctionReflection::class, current($funcs));
+        self::assertInstanceOf(FunctionReflection::class, current($funcs));
     }
 
     public function testFileCanReflectFileWithInterface()
@@ -161,8 +161,8 @@ class FileReflectionTest extends TestCase
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
         $class = $reflectionFile->getClass();
-        $this->assertEquals(TestAsset\TestSampleInterface::class, $class->getName());
-        $this->assertTrue($class->isInterface());
+        self::assertEquals(TestAsset\TestSampleInterface::class, $class->getName());
+        self::assertTrue($class->isInterface());
     }
 
     public function testFileCanReflectFileWithUses()
@@ -175,7 +175,7 @@ class FileReflectionTest extends TestCase
             ['use' => 'FooBar\Foo\Bar', 'as' => null],
             ['use' => 'One\Two\Three\Four\Five', 'as' => 'ottff'],
         ];
-        $this->assertSame($expected, $reflectionFile->getUses());
+        self::assertSame($expected, $reflectionFile->getUses());
     }
 
     /**
@@ -186,7 +186,7 @@ class FileReflectionTest extends TestCase
     {
         require_once __DIR__ . '/TestAsset/issue-70.php';
         $r = new FileReflection(__DIR__ . '/TestAsset/issue-70.php');
-        $this->assertContains('spl_autoload_register', $r->getContents());
-        $this->assertContains('function ()', $r->getContents());
+        self::assertContains('spl_autoload_register', $r->getContents());
+        self::assertContains('function ()', $r->getContents());
     }
 }

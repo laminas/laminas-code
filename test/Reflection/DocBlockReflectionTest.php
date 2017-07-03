@@ -30,7 +30,7 @@ class DocBlockReflectionTest extends TestCase
     public function testDocBlockShortDescription()
     {
         $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
-        $this->assertEquals(
+        self::assertEquals(
             'TestSampleClass5 DocBlock Short Desc',
             $classReflection->getDocBlock()->getShortDescription()
         );
@@ -43,72 +43,72 @@ class DocBlockReflectionTest extends TestCase
             . 'than 3 lines. It indeed is longer than 3 lines now.';
 
 
-        $this->assertEquals($expectedOutput, $classReflection->getDocBlock()->getLongDescription());
+        self::assertEquals($expectedOutput, $classReflection->getDocBlock()->getLongDescription());
     }
 
     public function testDocBlockTags()
     {
         $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
 
-        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
+        self::assertCount(3, $classReflection->getDocBlock()->getTags());
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
-        $this->assertInstanceOf(MethodTag::class, $methodTag);
+        self::assertInstanceOf(MethodTag::class, $methodTag);
 
         $propertyTag = $classReflection->getDocBlock()->getTag('property');
-        $this->assertInstanceOf(PropertyTag::class, $propertyTag);
+        self::assertInstanceOf(PropertyTag::class, $propertyTag);
 
-        $this->assertFalse($classReflection->getDocBlock()->getTag('version'));
+        self::assertFalse($classReflection->getDocBlock()->getTag('version'));
 
-        $this->assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
+        self::assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf(TagInterface::class, $returnTag);
-        $this->assertEquals('mixed', $returnTag->getType());
+        self::assertInstanceOf(TagInterface::class, $returnTag);
+        self::assertEquals('mixed', $returnTag->getType());
     }
 
     public function testShortDocBlocks()
     {
         $classReflection = new ClassReflection(TestAsset\TestSampleClass13::class);
-        $this->assertCount(0, $classReflection->getDocBlock()->getTags());
+        self::assertCount(0, $classReflection->getDocBlock()->getTags());
 
-        $this->assertSame(
+        self::assertSame(
             'Short Method Description',
             $classReflection->getMethod('doSomething')->getDocBlock()->getShortDescription()
         );
-        $this->assertSame('Short Class Description', $classReflection->getDocBlock()->getShortDescription());
+        self::assertSame('Short Class Description', $classReflection->getDocBlock()->getShortDescription());
 
         $returnTag = $classReflection->getMethod('returnSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf(TagInterface::class, $returnTag);
-        $this->assertEquals('Something', $returnTag->getType());
-        $this->assertEquals('This describes something', $returnTag->getDescription());
+        self::assertInstanceOf(TagInterface::class, $returnTag);
+        self::assertEquals('Something', $returnTag->getType());
+        self::assertEquals('This describes something', $returnTag->getDescription());
     }
 
     public function testTabbedDocBlockTags()
     {
         $classReflection = new ClassReflection(TestAsset\TestSampleClass10::class);
 
-        $this->assertCount(3, $classReflection->getDocBlock()->getTags());
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('author'));
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('property'));
-        $this->assertCount(1, $classReflection->getDocBlock()->getTags('method'));
+        self::assertCount(3, $classReflection->getDocBlock()->getTags());
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('author'));
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('property'));
+        self::assertCount(1, $classReflection->getDocBlock()->getTags('method'));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
-        $this->assertInstanceOf(MethodTag::class, $methodTag);
+        self::assertInstanceOf(MethodTag::class, $methodTag);
 
         $propertyTag = $classReflection->getDocBlock()->getTag('property');
-        $this->assertInstanceOf(PropertyTag::class, $propertyTag);
+        self::assertInstanceOf(PropertyTag::class, $propertyTag);
 
-        $this->assertFalse($classReflection->getDocBlock()->getTag('version'));
+        self::assertFalse($classReflection->getDocBlock()->getTag('version'));
 
-        $this->assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
+        self::assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf(TagInterface::class, $returnTag);
-        $this->assertEquals('mixed', $returnTag->getType());
+        self::assertInstanceOf(TagInterface::class, $returnTag);
+        self::assertEquals('mixed', $returnTag->getType());
     }
 
     public function testDocBlockLines()
@@ -117,8 +117,8 @@ class DocBlockReflectionTest extends TestCase
 
         $classDocBlock = $classReflection->getDocBlock();
 
-        $this->assertEquals(5, $classDocBlock->getStartLine());
-        $this->assertEquals(17, $classDocBlock->getEndLine());
+        self::assertEquals(5, $classDocBlock->getStartLine());
+        self::assertEquals(17, $classDocBlock->getEndLine());
     }
 
     public function testDocBlockContents()
@@ -142,7 +142,7 @@ now.
 
 EOS;
 
-        $this->assertEquals($expectedContents, $classDocBlock->getContents());
+        self::assertEquals($expectedContents, $classDocBlock->getContents());
     }
 
     public function testToString()
@@ -160,7 +160,7 @@ EOS;
                         . '  }' . "\n"
                         . '}' . "\n";
 
-        $this->assertEquals($expectedString, (string) $classDocBlock);
+        self::assertEquals($expectedString, (string) $classDocBlock);
     }
 
     public function testFunctionDocBlockTags()
@@ -182,32 +182,32 @@ EOS;
 
         $paramTags = $docblockReflection->getTags('param');
 
-        $this->assertCount(5, $docblockReflection->getTags());
-        $this->assertCount(3, $paramTags);
-        $this->assertCount(1, $docblockReflection->getTags('return'));
-        $this->assertCount(1, $docblockReflection->getTags('throws'));
+        self::assertCount(5, $docblockReflection->getTags());
+        self::assertCount(3, $paramTags);
+        self::assertCount(1, $docblockReflection->getTags('return'));
+        self::assertCount(1, $docblockReflection->getTags('throws'));
 
         $returnTag = $docblockReflection->getTag('return');
-        $this->assertInstanceOf(ReturnTag::class, $returnTag);
-        $this->assertEquals('int[]', $returnTag->getType());
-        $this->assertEquals(['int[]', 'null'], $returnTag->getTypes());
-        $this->assertEquals('Description', $returnTag->getDescription());
+        self::assertInstanceOf(ReturnTag::class, $returnTag);
+        self::assertEquals('int[]', $returnTag->getType());
+        self::assertEquals(['int[]', 'null'], $returnTag->getTypes());
+        self::assertEquals('Description', $returnTag->getDescription());
 
         $throwsTag = $docblockReflection->getTag('throws');
-        $this->assertInstanceOf(ThrowsTag::class, $throwsTag);
-        $this->assertEquals('Exception', $throwsTag->getType());
+        self::assertInstanceOf(ThrowsTag::class, $throwsTag);
+        self::assertEquals('Exception', $throwsTag->getType());
 
         $paramTag = $paramTags[0];
-        $this->assertInstanceOf(ParamTag::class, $paramTag);
-        $this->assertEquals('int', $paramTag->getType());
+        self::assertInstanceOf(ParamTag::class, $paramTag);
+        self::assertEquals('int', $paramTag->getType());
 
         $paramTag = $paramTags[1];
-        $this->assertInstanceOf(ParamTag::class, $paramTag);
-        $this->assertEquals('int[]', $paramTag->getType());
+        self::assertInstanceOf(ParamTag::class, $paramTag);
+        self::assertEquals('int[]', $paramTag->getType());
 
         $paramTag = $paramTags[2];
-        $this->assertInstanceOf(ParamTag::class, $paramTag);
-        $this->assertEquals('string', $paramTag->getType());
-        $this->assertEquals(['string', 'null'], $paramTag->getTypes());
+        self::assertInstanceOf(ParamTag::class, $paramTag);
+        self::assertEquals('string', $paramTag->getType());
+        self::assertEquals(['string', 'null'], $paramTag->getTypes());
     }
 }

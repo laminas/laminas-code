@@ -31,14 +31,14 @@ class ClassGeneratorTest extends TestCase
     public function testConstruction()
     {
         $class = new ClassGenerator();
-        $this->assertInstanceOf(ClassGenerator::class, $class);
+        self::assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testNameAccessors()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('TestClass');
-        $this->assertEquals($classGenerator->getName(), 'TestClass');
+        self::assertEquals($classGenerator->getName(), 'TestClass');
     }
 
     public function testClassDocBlockAccessors()
@@ -46,22 +46,22 @@ class ClassGeneratorTest extends TestCase
         $docBlockGenerator = new DocBlockGenerator();
         $classGenerator = new ClassGenerator();
         $classGenerator->setDocBlock($docBlockGenerator);
-        $this->assertSame($docBlockGenerator, $classGenerator->getDocBlock());
+        self::assertSame($docBlockGenerator, $classGenerator->getDocBlock());
     }
 
     public function testAbstractAccessors()
     {
         $classGenerator = new ClassGenerator();
-        $this->assertFalse($classGenerator->isAbstract());
+        self::assertFalse($classGenerator->isAbstract());
         $classGenerator->setAbstract(true);
-        $this->assertTrue($classGenerator->isAbstract());
+        self::assertTrue($classGenerator->isAbstract());
     }
 
     public function testExtendedClassAccessors()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
-        $this->assertEquals($classGenerator->getExtendedClass(), 'ExtendedClass');
+        self::assertEquals($classGenerator->getExtendedClass(), 'ExtendedClass');
     }
 
     public function testHasExtendedClass()
@@ -69,24 +69,24 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
 
-        $this->assertTrue($classGenerator->hasExtentedClass());
+        self::assertTrue($classGenerator->hasExtentedClass());
     }
 
     public function testRemoveExtendedClass()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
-        $this->assertTrue($classGenerator->hasExtentedClass());
+        self::assertTrue($classGenerator->hasExtentedClass());
 
         $classGenerator->removeExtentedClass();
-        $this->assertFalse($classGenerator->hasExtentedClass());
+        self::assertFalse($classGenerator->hasExtentedClass());
     }
 
     public function testImplementedInterfacesAccessors()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
-        $this->assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
+        self::assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
     }
 
     public function testHasImplementedInterface()
@@ -94,7 +94,7 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
 
-        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+        self::assertTrue($classGenerator->hasImplementedInterface('Class1'));
     }
 
     public function testRemoveImplementedInterface()
@@ -102,11 +102,11 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
 
-        $this->assertTrue($classGenerator->hasImplementedInterface('Class1'));
+        self::assertTrue($classGenerator->hasImplementedInterface('Class1'));
 
         $classGenerator->removeImplementedInterface('Class1');
-        $this->assertFalse($classGenerator->hasImplementedInterface('Class1'));
-        $this->assertTrue($classGenerator->hasImplementedInterface('Class2'));
+        self::assertFalse($classGenerator->hasImplementedInterface('Class1'));
+        self::assertTrue($classGenerator->hasImplementedInterface('Class2'));
     }
 
     public function testPropertyAccessors()
@@ -118,16 +118,16 @@ class ClassGeneratorTest extends TestCase
         ]);
 
         $properties = $classGenerator->getProperties();
-        $this->assertCount(2, $properties);
-        $this->assertInstanceOf(PropertyGenerator::class, current($properties));
+        self::assertCount(2, $properties);
+        self::assertInstanceOf(PropertyGenerator::class, current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
-        $this->assertInstanceOf(PropertyGenerator::class, $property);
-        $this->assertEquals($property->getName(), 'propTwo');
+        self::assertInstanceOf(PropertyGenerator::class, $property);
+        self::assertEquals($property->getName(), 'propTwo');
 
         // add a new property
         $classGenerator->addProperty('prop3');
-        $this->assertCount(3, $classGenerator->getProperties());
+        self::assertCount(3, $classGenerator->getProperties());
     }
 
     public function testSetPropertyAlreadyExistsThrowsException()
@@ -158,16 +158,16 @@ class ClassGeneratorTest extends TestCase
         ]);
 
         $methods = $classGenerator->getMethods();
-        $this->assertCount(2, $methods);
-        $this->assertInstanceOf(MethodGenerator::class, current($methods));
+        self::assertCount(2, $methods);
+        self::assertInstanceOf(MethodGenerator::class, current($methods));
 
         $method = $classGenerator->getMethod('methodOne');
-        $this->assertInstanceOf(MethodGenerator::class, $method);
-        $this->assertEquals('methodOne', $method->getName());
+        self::assertInstanceOf(MethodGenerator::class, $method);
+        self::assertEquals('methodOne', $method->getName());
 
         // add a new property
         $classGenerator->addMethod('methodThree');
-        $this->assertCount(3, $classGenerator->getMethods());
+        self::assertCount(3, $classGenerator->getMethods());
     }
 
     public function testSetMethodNoMethodOrArrayThrowsException()
@@ -204,17 +204,17 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethod('methodOne');
 
-        $this->assertTrue($classGenerator->hasMethod('methodOne'));
+        self::assertTrue($classGenerator->hasMethod('methodOne'));
     }
 
     public function testRemoveMethod()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethod('methodOne');
-        $this->assertTrue($classGenerator->hasMethod('methodOne'));
+        self::assertTrue($classGenerator->hasMethod('methodOne'));
 
         $classGenerator->removeMethod('methodOne');
-        $this->assertFalse($classGenerator->hasMethod('methodOne'));
+        self::assertFalse($classGenerator->hasMethod('methodOne'));
     }
 
     /**
@@ -225,17 +225,17 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addProperty('propertyOne');
 
-        $this->assertTrue($classGenerator->hasProperty('propertyOne'));
+        self::assertTrue($classGenerator->hasProperty('propertyOne'));
     }
 
     public function testRemoveProperty()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addProperty('propertyOne');
-        $this->assertTrue($classGenerator->hasProperty('propertyOne'));
+        self::assertTrue($classGenerator->hasProperty('propertyOne'));
 
         $classGenerator->removeProperty('propertyOne');
-        $this->assertFalse($classGenerator->hasProperty('propertyOne'));
+        self::assertFalse($classGenerator->hasProperty('propertyOne'));
     }
 
     public function testToString()
@@ -271,7 +271,7 @@ abstract class SampleClass extends ExtendedClassName implements Iterator, Traver
 EOS;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expectedOutput, $output, $output);
+        self::assertEquals($expectedOutput, $output, $output);
     }
 
     /**
@@ -289,7 +289,7 @@ EOS;
         $expectedClassDef = 'class ClassWithInterface'
             . ' implements OneInterface'
             . ', TwoInterface';
-        $this->assertContains($expectedClassDef, $code);
+        self::assertContains($expectedClassDef, $code);
     }
 
     /**
@@ -307,7 +307,7 @@ EOS;
         $expectedClassDef = 'class NewClassWithInterface'
             . ' extends ClassWithInterface'
             . ' implements ThreeInterface';
-        $this->assertContains($expectedClassDef, $code);
+        self::assertContains($expectedClassDef, $code);
     }
 
     /**
@@ -319,7 +319,7 @@ EOS;
 
         $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
         $classGenerator = ClassGenerator::fromReflection($reflClass);
-        $this->assertCount(1, $classGenerator->getMethods());
+        self::assertCount(1, $classGenerator->getMethods());
     }
 
     /**
@@ -340,7 +340,7 @@ class MyClass
 }
 
 CODE;
-        $this->assertEquals($expected, $classGeneratorClass->generate());
+        self::assertEquals($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -361,7 +361,7 @@ class MyClass extends ParentClass
 }
 
 CODE;
-        $this->assertEquals($expected, $classGeneratorClass->generate());
+        self::assertEquals($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -371,8 +371,8 @@ CODE;
     {
         $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
-        $this->assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
-        $this->assertEquals('ClassWithNamespace', $classGenerator->getName());
+        self::assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
+        self::assertEquals('ClassWithNamespace', $classGenerator->getName());
         $expected = <<<CODE
 namespace ZendTest\Code\Generator\\TestAsset;
 
@@ -384,7 +384,7 @@ class ClassWithNamespace
 
 CODE;
         $received = $classGenerator->generate();
-        $this->assertEquals($expected, $received, $received);
+        self::assertEquals($expected, $received, $received);
     }
 
     /**
@@ -394,7 +394,7 @@ CODE;
     {
         $classGeneratorClass = new ClassGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
-        $this->assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
+        self::assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
     /**
@@ -405,7 +405,7 @@ CODE;
         $classGeneratorClass = new ClassGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        $this->assertContains('namespace My\Namespaced;', $received, $received);
+        self::assertContains('namespace My\Namespaced;', $received, $received);
     }
 
     /**
@@ -416,7 +416,7 @@ CODE;
         $classGeneratorClass = new ClassGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        $this->assertContains('class FunClass', $received, $received);
+        self::assertContains('class FunClass', $received, $received);
     }
 
     public function testHasUse()
@@ -425,8 +425,8 @@ CODE;
         $classGenerator->addUse('My\First\Use\Class');
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
 
-        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
-        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+        self::assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        self::assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
     }
 
     public function testRemoveUse()
@@ -435,12 +435,12 @@ CODE;
         $classGenerator->addUse('My\First\Use\Class');
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
 
-        $this->assertTrue($classGenerator->hasUse('My\First\Use\Class'));
-        $this->assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
+        self::assertTrue($classGenerator->hasUse('My\First\Use\Class'));
+        self::assertTrue($classGenerator->hasUse('My\Second\Use\Class'));
         $classGenerator->removeUse('My\First\Use\Class');
         $classGenerator->removeUse('My\Second\Use\Class');
-        $this->assertFalse($classGenerator->hasUse('My\First\Use\Class'));
-        $this->assertFalse($classGenerator->hasUse('My\Second\Use\Class'));
+        self::assertFalse($classGenerator->hasUse('My\First\Use\Class'));
+        self::assertFalse($classGenerator->hasUse('My\Second\Use\Class'));
     }
 
     public function testHasUseAlias()
@@ -448,17 +448,17 @@ CODE;
         $classGenerator = new ClassGenerator();
         $classGenerator->addUse('My\First\Use\Class');
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
-        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
-        $this->assertTrue($classGenerator->hasUseAlias('My\Second\Use\Class'));
+        self::assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
+        self::assertTrue($classGenerator->hasUseAlias('My\Second\Use\Class'));
     }
 
     public function testRemoveUseAlias()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
-        $this->assertTrue($classGenerator->hasUseAlias('My\First\Use\Class'));
+        self::assertTrue($classGenerator->hasUseAlias('My\First\Use\Class'));
         $classGenerator->removeUseAlias('My\First\Use\Class');
-        $this->assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
+        self::assertFalse($classGenerator->hasUseAlias('My\First\Use\Class'));
     }
 
     /**
@@ -472,8 +472,8 @@ CODE;
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
         $generated = $classGenerator->generate();
 
-        $this->assertContains('use My\First\Use\Class;', $generated);
-        $this->assertContains('use My\Second\Use\Class as MyAlias;', $generated);
+        self::assertContains('use My\First\Use\Class;', $generated);
+        self::assertContains('use My\Second\Use\Class as MyAlias;', $generated);
     }
 
     /**
@@ -487,9 +487,9 @@ CODE;
         $classGenerator->addUse('My\First\Use\Class');
         $generated = $classGenerator->generate();
 
-        $this->assertCount(1, $classGenerator->getUses());
+        self::assertCount(1, $classGenerator->getUses());
 
-        $this->assertContains('use My\First\Use\Class;', $generated);
+        self::assertContains('use My\First\Use\Class;', $generated);
     }
 
     /**
@@ -503,9 +503,9 @@ CODE;
         $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
         $generated = $classGenerator->generate();
 
-        $this->assertCount(1, $classGenerator->getUses());
+        self::assertCount(1, $classGenerator->getUses());
 
-        $this->assertContains('use My\First\Use\Class as MyAlias;', $generated);
+        self::assertContains('use My\First\Use\Class as MyAlias;', $generated);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
@@ -518,7 +518,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
+        self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -529,7 +529,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf(DocBlockGenerator::class, $docBlock);
+        self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testExtendedClassProperies()
@@ -537,12 +537,12 @@ CODE;
         $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
-        $this->assertContains('publicExtendedClassProperty', $code);
-        $this->assertContains('protectedExtendedClassProperty', $code);
-        $this->assertContains('privateExtendedClassProperty', $code);
-        $this->assertNotContains('publicClassProperty', $code);
-        $this->assertNotContains('protectedClassProperty', $code);
-        $this->assertNotContains('privateClassProperty', $code);
+        self::assertContains('publicExtendedClassProperty', $code);
+        self::assertContains('protectedExtendedClassProperty', $code);
+        self::assertContains('privateExtendedClassProperty', $code);
+        self::assertNotContains('publicClassProperty', $code);
+        self::assertNotContains('protectedClassProperty', $code);
+        self::assertNotContains('privateClassProperty', $code);
     }
 
     public function testHasMethodInsensitive()
@@ -550,8 +550,8 @@ CODE;
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethod('methodOne');
 
-        $this->assertTrue($classGenerator->hasMethod('methodOne'));
-        $this->assertTrue($classGenerator->hasMethod('MethoDonE'));
+        self::assertTrue($classGenerator->hasMethod('methodOne'));
+        self::assertTrue($classGenerator->hasMethod('MethoDonE'));
     }
 
     public function testRemoveMethodInsensitive()
@@ -560,7 +560,7 @@ CODE;
         $classGenerator->addMethod('methodOne');
 
         $classGenerator->removeMethod('METHODONe');
-        $this->assertFalse($classGenerator->hasMethod('methodOne'));
+        self::assertFalse($classGenerator->hasMethod('methodOne'));
     }
 
     public function testGenerateClassAndAddMethod()
@@ -583,7 +583,7 @@ class MyClass
 CODE;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expected, $output);
+        self::assertEquals($expected, $output);
     }
 
     /**
@@ -596,13 +596,13 @@ CODE;
         $classGenerator->setName('My\Class');
         $classGenerator->addConstant('x', 'value');
 
-        $this->assertTrue($classGenerator->hasConstant('x'));
+        self::assertTrue($classGenerator->hasConstant('x'));
 
         $constant = $classGenerator->getConstant('x');
 
-        $this->assertInstanceOf(PropertyGenerator::class, $constant);
-        $this->assertTrue($constant->isConst());
-        $this->assertEquals($constant->getDefaultValue()->getValue(), 'value');
+        self::assertInstanceOf(PropertyGenerator::class, $constant);
+        self::assertTrue($constant->isConst());
+        self::assertEquals($constant->getDefaultValue()->getValue(), 'value');
     }
 
     /**
@@ -617,9 +617,9 @@ CODE;
             new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT)
         ]);
 
-        $this->assertCount(2, $classGenerator->getConstants());
-        $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        $this->assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertCount(2, $classGenerator->getConstants());
+        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
+        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
     }
 
     /**
@@ -634,9 +634,9 @@ CODE;
             ['name' => 'y', 'value' => 'value2']
         ]);
 
-        $this->assertCount(2, $classGenerator->getConstants());
-        $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        $this->assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertCount(2, $classGenerator->getConstants());
+        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
+        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
     }
 
     /**
@@ -670,13 +670,13 @@ CODE;
         $classGenerator->addConstant('f', ['v1' => ['v2' => 'v3']]);
         $classGenerator->addConstant('g', null);
 
-        $this->assertEquals('v', $classGenerator->getConstant('a')->getDefaultValue()->getValue());
-        $this->assertEquals(123, $classGenerator->getConstant('b')->getDefaultValue()->getValue());
-        $this->assertEquals(123.456, $classGenerator->getConstant('c')->getDefaultValue()->getValue());
-        $this->assertEquals([], $classGenerator->getConstant('d')->getDefaultValue()->getValue());
-        $this->assertEquals(['v1' => 'v2'], $classGenerator->getConstant('e')->getDefaultValue()->getValue());
-        $this->assertEquals(['v1' => ['v2' => 'v3']], $classGenerator->getConstant('f')->getDefaultValue()->getValue());
-        $this->assertEquals(null, $classGenerator->getConstant('g')->getDefaultValue()->getValue());
+        self::assertEquals('v', $classGenerator->getConstant('a')->getDefaultValue()->getValue());
+        self::assertEquals(123, $classGenerator->getConstant('b')->getDefaultValue()->getValue());
+        self::assertEquals(123.456, $classGenerator->getConstant('c')->getDefaultValue()->getValue());
+        self::assertEquals([], $classGenerator->getConstant('d')->getDefaultValue()->getValue());
+        self::assertEquals(['v1' => 'v2'], $classGenerator->getConstant('e')->getDefaultValue()->getValue());
+        self::assertEquals(['v1' => ['v2' => 'v3']], $classGenerator->getConstant('f')->getDefaultValue()->getValue());
+        self::assertEquals(null, $classGenerator->getConstant('g')->getDefaultValue()->getValue());
     }
 
     public function testAddConstantRejectsObjectConstantValue()
@@ -698,7 +698,7 @@ CODE;
 
             $this->fail('Not supposed to be reached');
         } catch (InvalidArgumentException $e) {
-            $this->assertEmpty($classGenerator->getConstants());
+            self::assertEmpty($classGenerator->getConstants());
         } finally {
             fclose($resource);
         }
@@ -728,10 +728,10 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addConstant('constantOne', 'foo');
-        $this->assertTrue($classGenerator->hasConstant('constantOne'));
+        self::assertTrue($classGenerator->hasConstant('constantOne'));
 
         $classGenerator->removeConstant('constantOne');
-        $this->assertFalse($classGenerator->hasConstant('constantOne'));
+        self::assertFalse($classGenerator->hasConstant('constantOne'));
     }
 
     /**
@@ -743,7 +743,7 @@ CODE;
 
         $classGenerator->addProperty('x', 'value1', PropertyGenerator::FLAG_CONSTANT);
 
-        $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
+        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
     }
 
     /**
@@ -759,9 +759,9 @@ CODE;
 
         $classGenerator->addProperties($constants);
 
-        $this->assertCount(2, $classGenerator->getConstants());
-        $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        $this->assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertCount(2, $classGenerator->getConstants());
+        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
+        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
     }
 
     /**
@@ -773,7 +773,7 @@ CODE;
         $classGenerator = ClassGenerator::fromReflection($reflector);
         $constant       = $classGenerator->getConstant('FOO');
 
-        $this->assertEquals($constant->getDefaultValue()->getValue(), 'foo');
+        self::assertEquals($constant->getDefaultValue()->getValue(), 'foo');
     }
 
     /**
@@ -815,7 +815,7 @@ class TestSampleSingleClass
 
 CODE;
 
-        $this->assertEquals($classGenerator->generate(), $contents);
+        self::assertEquals($classGenerator->generate(), $contents);
     }
     /**
      * @group 6253
@@ -852,30 +852,30 @@ END;
 
 CODE;
 
-        $this->assertEquals($contents, $classGenerator->generate());
+        self::assertEquals($contents, $classGenerator->generate());
     }
 
     public function testCanAddTraitWithString()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait('myTrait');
-        $this->assertTrue($classGenerator->hasTrait('myTrait'));
+        self::assertTrue($classGenerator->hasTrait('myTrait'));
     }
 
     public function testCanAddTraitWithArray()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait(['traitName' => 'myTrait']);
-        $this->assertTrue($classGenerator->hasTrait('myTrait'));
+        self::assertTrue($classGenerator->hasTrait('myTrait'));
     }
 
     public function testCanRemoveTrait()
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->addTrait(['traitName' => 'myTrait']);
-        $this->assertTrue($classGenerator->hasTrait('myTrait'));
+        self::assertTrue($classGenerator->hasTrait('myTrait'));
         $classGenerator->removeTrait('myTrait');
-        $this->assertFalse($classGenerator->hasTrait('myTrait'));
+        self::assertFalse($classGenerator->hasTrait('myTrait'));
     }
 
     public function testCanGetTraitsMethod()
@@ -884,8 +884,8 @@ CODE;
         $classGenerator->addTraits(['myTrait', 'hisTrait']);
 
         $traits = $classGenerator->getTraits();
-        $this->assertContains('myTrait', $traits);
-        $this->assertContains('hisTrait', $traits);
+        self::assertContains('myTrait', $traits);
+        self::assertContains('hisTrait', $traits);
     }
 
     public function testCanAddTraitAliasWithString()
@@ -896,9 +896,9 @@ CODE;
         $classGenerator->addTraitAlias('myTrait::method', 'useMe', ReflectionMethod::IS_PRIVATE);
 
         $aliases = $classGenerator->getTraitAliases();
-        $this->assertArrayHasKey('myTrait::method', $aliases);
-        $this->assertEquals($aliases['myTrait::method']['alias'], 'useMe');
-        $this->assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
+        self::assertArrayHasKey('myTrait::method', $aliases);
+        self::assertEquals($aliases['myTrait::method']['alias'], 'useMe');
+        self::assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
     }
 
     public function testCanAddTraitAliasWithArray()
@@ -912,9 +912,9 @@ CODE;
         ], 'useMe', ReflectionMethod::IS_PRIVATE);
 
         $aliases = $classGenerator->getTraitAliases();
-        $this->assertArrayHasKey('myTrait::method', $aliases);
-        $this->assertEquals($aliases['myTrait::method']['alias'], 'useMe');
-        $this->assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
+        self::assertArrayHasKey('myTrait::method', $aliases);
+        self::assertEquals($aliases['myTrait::method']['alias'], 'useMe');
+        self::assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
     }
 
     public function testAddTraitAliasExceptionInvalidMethodFormat()
@@ -983,9 +983,9 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', 'hisTrait');
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertCount(1, $overrides);
-        $this->assertEquals(key($overrides), 'myTrait::foo');
-        $this->assertEquals($overrides['myTrait::foo'][0], 'hisTrait');
+        self::assertCount(1, $overrides);
+        self::assertEquals(key($overrides), 'myTrait::foo');
+        self::assertEquals($overrides['myTrait::foo'][0], 'hisTrait');
     }
 
     public function testCanAddMultipleTraitOverrides()
@@ -995,8 +995,8 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertCount(2, $overrides['myTrait::foo']);
-        $this->assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
+        self::assertCount(2, $overrides['myTrait::foo']);
+        self::assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
     }
 
     public function testAddTraitOverrideExceptionInvalidMethodFormat()
@@ -1061,13 +1061,13 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertCount(2, $overrides['myTrait::foo']);
+        self::assertCount(2, $overrides['myTrait::foo']);
 
         $classGenerator->removeTraitOverride('myTrait::foo', 'hisTrait');
         $overrides = $classGenerator->getTraitOverrides();
 
-        $this->assertCount(1, $overrides['myTrait::foo']);
-        $this->assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
+        self::assertCount(1, $overrides['myTrait::foo']);
+        self::assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
     }
 
     public function testCanRemoveAllTraitOverrides()
@@ -1077,12 +1077,12 @@ CODE;
         $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
-        $this->assertCount(2, $overrides['myTrait::foo']);
+        self::assertCount(2, $overrides['myTrait::foo']);
 
         $classGenerator->removeTraitOverride('myTrait::foo');
         $overrides = $classGenerator->getTraitOverrides();
 
-        $this->assertCount(0, $overrides);
+        self::assertCount(0, $overrides);
     }
 
     /**
@@ -1106,7 +1106,7 @@ class myClass
 }
 
 CODE;
-        $this->assertEquals($classGenerator->generate(), $output);
+        self::assertEquals($classGenerator->generate(), $output);
     }
 
     /**
@@ -1137,7 +1137,7 @@ class myClass
 }
 
 CODE;
-        $this->assertEquals($classGenerator->generate(), $output);
+        self::assertEquals($classGenerator->generate(), $output);
     }
 
     public function testGenerateWithFinalFlag()
@@ -1157,7 +1157,7 @@ final class SomeClass
 EOS;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expectedOutput, $output, $output);
+        self::assertEquals($expectedOutput, $output, $output);
     }
 
     public function testCorrectExtendNames()
@@ -1167,7 +1167,7 @@ EOS;
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->addUse(NameInformation::class);
         $classGenerator->setExtendedClass(NameInformation::class);
-        $this->assertContains('class ClassName extends NameInformation', $classGenerator->generate());
+        self::assertContains('class ClassName extends NameInformation', $classGenerator->generate());
     }
 
     /**
@@ -1179,7 +1179,7 @@ EOS;
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->setExtendedClass('DateTime');
-        $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+        self::assertContains('class ClassName extends \DateTime', $classGenerator->generate());
     }
 
     /**
@@ -1190,7 +1190,7 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setExtendedClass('DateTime');
-        $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
+        self::assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
     /**
@@ -1202,12 +1202,12 @@ EOS;
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->setExtendedClass(DateTime::class);
-        $this->assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+        self::assertContains('class ClassName extends \DateTime', $classGenerator->generate());
 
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setExtendedClass(DateTime::class);
-        $this->assertContains('class ClassName extends DateTime', $classGenerator->generate());
+        self::assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
     public function testCorrectImplementNames()
@@ -1223,6 +1223,6 @@ EOS;
         ]);
 
         $expected = 'class ClassName implements ClassInterface, GeneratorInterface, \Iteratable';
-        $this->assertContains($expected, $classGenerator->generate());
+        self::assertContains($expected, $classGenerator->generate());
     }
 }

@@ -34,8 +34,8 @@ class AbstractMemberGeneratorTest extends TestCase
             ]
         );
 
-        $this->assertEquals(AbstractMemberGenerator::VISIBILITY_PUBLIC, $this->fixture->getVisibility());
-        $this->assertEquals(true, $this->fixture->isFinal());
+        self::assertEquals(AbstractMemberGenerator::VISIBILITY_PUBLIC, $this->fixture->getVisibility());
+        self::assertEquals(true, $this->fixture->isFinal());
     }
 
     public function testSetDocBlockThrowsExceptionWithInvalidType()

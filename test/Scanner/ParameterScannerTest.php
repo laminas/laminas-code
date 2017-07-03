@@ -21,14 +21,14 @@ class ParameterScannerTest extends TestCase
         $class     = $file->getClass(BarClass::class);
         $method    = $class->getMethod('three');
         $parameter = $method->getParameter('t');
-        $this->assertEquals(BarClass::class, $parameter->getDeclaringClass());
-        $this->assertEquals('three', $parameter->getDeclaringFunction());
-        $this->assertEquals('t', $parameter->getName());
-        $this->assertEquals(2, $parameter->getPosition());
-        $this->assertEquals('2', $parameter->getDefaultValue());
-        $this->assertFalse($parameter->isArray());
-        $this->assertTrue($parameter->isDefaultValueAvailable());
-        $this->assertTrue($parameter->isOptional());
-        $this->assertTrue($parameter->isPassedByReference());
+        self::assertEquals(BarClass::class, $parameter->getDeclaringClass());
+        self::assertEquals('three', $parameter->getDeclaringFunction());
+        self::assertEquals('t', $parameter->getName());
+        self::assertEquals(2, $parameter->getPosition());
+        self::assertEquals('2', $parameter->getDefaultValue());
+        self::assertFalse($parameter->isArray());
+        self::assertTrue($parameter->isDefaultValueAvailable());
+        self::assertTrue($parameter->isOptional());
+        self::assertTrue($parameter->isPassedByReference());
     }
 }

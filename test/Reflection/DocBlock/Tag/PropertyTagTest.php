@@ -22,37 +22,37 @@ class PropertyTagTest extends TestCase
     {
         $tag = new PropertyTag();
         $tag->initialize('$test');
-        $this->assertEquals('property', $tag->getName());
-        $this->assertEquals('$test', $tag->getPropertyName());
-        $this->assertNull($tag->getType());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals('property', $tag->getName());
+        self::assertEquals('$test', $tag->getPropertyName());
+        self::assertNull($tag->getType());
+        self::assertNull($tag->getDescription());
     }
 
     public function testParseTypeAndName()
     {
         $tag = new PropertyTag();
         $tag->initialize('string|null $test');
-        $this->assertEquals('$test', $tag->getPropertyName());
-        $this->assertNull($tag->getDescription());
-        $this->assertEquals('string', $tag->getType());
-        $this->assertEquals(['string', 'null'], $tag->getTypes());
+        self::assertEquals('$test', $tag->getPropertyName());
+        self::assertNull($tag->getDescription());
+        self::assertEquals('string', $tag->getType());
+        self::assertEquals(['string', 'null'], $tag->getTypes());
     }
 
     public function testParseNameAndDescription()
     {
         $tag = new PropertyTag();
         $tag->initialize('$test I\'m test property');
-        $this->assertEquals('$test', $tag->getPropertyName());
-        $this->assertNull($tag->getType());
-        $this->assertEquals('I\'m test property', $tag->getDescription());
+        self::assertEquals('$test', $tag->getPropertyName());
+        self::assertNull($tag->getType());
+        self::assertEquals('I\'m test property', $tag->getDescription());
     }
 
     public function testParseTypeAndNameAndDescription()
     {
         $tag = new PropertyTag();
         $tag->initialize('string $test I\'m test property');
-        $this->assertEquals('$test', $tag->getPropertyName());
-        $this->assertEquals('string', $tag->getType());
-        $this->assertEquals('I\'m test property', $tag->getDescription());
+        self::assertEquals('$test', $tag->getPropertyName());
+        self::assertEquals('string', $tag->getType());
+        self::assertEquals('I\'m test property', $tag->getDescription());
     }
 }

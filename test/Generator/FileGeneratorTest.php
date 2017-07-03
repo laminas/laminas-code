@@ -24,21 +24,21 @@ class FileGeneratorTest extends TestCase
     public function testConstruction()
     {
         $file = new FileGenerator();
-        $this->assertEquals(FileGenerator::class, get_class($file));
+        self::assertEquals(FileGenerator::class, get_class($file));
     }
 
     public function testSourceContentGetterAndSetter()
     {
         $file = new FileGenerator();
         $file->setSourceContent('Foo');
-        $this->assertEquals('Foo', $file->getSourceContent());
+        self::assertEquals('Foo', $file->getSourceContent());
     }
 
     public function testIndentationGetterAndSetter()
     {
         $file = new FileGenerator();
         $file->setIndentation('        ');
-        $this->assertEquals('        ', $file->getIndentation());
+        self::assertEquals('        ', $file->getIndentation());
     }
 
     public function testToString()
@@ -69,7 +69,7 @@ abstract class SampleClass extends ExtendedClassName implements Iterator, Traver
 EOS;
 
         $output = $codeGenFile->generate();
-        $this->assertEquals($expectedOutput, $output, $output);
+        self::assertEquals($expectedOutput, $output, $output);
     }
 
     public function testFromReflection()
@@ -90,8 +90,8 @@ EOS;
 
         unlink($tempFile);
 
-        $this->assertEquals(FileGenerator::class, get_class($fileGenerator));
-        $this->assertCount(1, $fileGenerator->getClasses());
+        self::assertEquals(FileGenerator::class, get_class($fileGenerator));
+        self::assertCount(1, $fileGenerator->getClasses());
     }
 
     public function testFromFileReflection()
@@ -140,7 +140,7 @@ class TestSampleSingleClass
 
 EOS;
 
-        $this->assertEquals($expectedOutput, $codeGenFileFromDisk->generate());
+        self::assertEquals($expectedOutput, $codeGenFileFromDisk->generate());
     }
 
     /**
@@ -162,8 +162,8 @@ EOS;
         $lines = explode("\n", $codeGenFile->generate());
 
         $targetLength = strlen('require_once \'SampleClass.php\';');
-        $this->assertEquals($targetLength, strlen($lines[2]));
-        $this->assertEquals(';', $lines[2]{$targetLength-1});
+        self::assertEquals($targetLength, strlen($lines[2]));
+        self::assertEquals(';', $lines[2]{$targetLength-1});
     }
 
     /**
@@ -177,8 +177,8 @@ EOS;
                  ['use' => 'Your\Bar', 'as' => 'bar'],
              ]);
         $generated = $file->generate();
-        $this->assertContains('use My\\Baz;', $generated);
-        $this->assertContains('use Your\\Bar as bar;', $generated);
+        self::assertContains('use My\\Baz;', $generated);
+        self::assertContains('use Your\\Bar as bar;', $generated);
     }
 
     public function testGeneratesNamespaceStatements()
@@ -186,7 +186,7 @@ EOS;
         $file = new FileGenerator();
         $file->setNamespace('Foo\Bar');
         $generated = $file->generate();
-        $this->assertContains('namespace Foo\\Bar', $generated, $generated);
+        self::assertContains('namespace Foo\\Bar', $generated, $generated);
     }
 
     public function testSetUseDoesntGenerateMultipleIdenticalUseStatements()
@@ -195,7 +195,7 @@ EOS;
         $file->setUse('My\Baz')
              ->setUse('My\Baz');
         $generated = $file->generate();
-        $this->assertSame(strpos($generated, 'use My\\Baz'), strrpos($generated, 'use My\\Baz'));
+        self::assertSame(strpos($generated, 'use My\\Baz'), strrpos($generated, 'use My\\Baz'));
     }
 
     public function testSetUsesDoesntGenerateMultipleIdenticalUseStatements()
@@ -206,7 +206,7 @@ EOS;
                  ['use' => 'Your\Bar', 'as' => 'bar'],
         ]);
         $generated = $file->generate();
-        $this->assertSame(strpos($generated, 'use Your\\Bar as bar;'), strrpos($generated, 'use Your\\Bar as bar;'));
+        self::assertSame(strpos($generated, 'use Your\\Bar as bar;'), strrpos($generated, 'use Your\\Bar as bar;'));
     }
 
     public function testSetUseAllowsMultipleAliasedUseStatements()
@@ -217,8 +217,8 @@ EOS;
                  ['use' => 'Your\Bar', 'as' => 'bar2'],
         ]);
         $generated = $file->generate();
-        $this->assertContains('use Your\\Bar as bar;', $generated);
-        $this->assertContains('use Your\\Bar as bar2;', $generated);
+        self::assertContains('use Your\\Bar as bar;', $generated);
+        self::assertContains('use Your\\Bar as bar2;', $generated);
     }
 
     public function testSetUsesWithArrays()
@@ -229,8 +229,8 @@ EOS;
                  ['use' => 'My\\Baz', 'as' => 'FooBaz']
              ]);
         $generated = $file->generate();
-        $this->assertContains('use My\\Baz as FooBaz;', $generated);
-        $this->assertContains('use Your\\Bar as bar;', $generated);
+        self::assertContains('use My\\Baz as FooBaz;', $generated);
+        self::assertContains('use Your\\Bar as bar;', $generated);
     }
 
     public function testSetUsesWithString()
@@ -242,9 +242,9 @@ EOS;
             ['use' => 'Another\\Baz', 'as' => 'Baz2']
         ]);
         $generated = $file->generate();
-        $this->assertContains('use My\\Baz;', $generated);
-        $this->assertContains('use Your\\Bar;', $generated);
-        $this->assertContains('use Another\\Baz as Baz2;', $generated);
+        self::assertContains('use My\\Baz;', $generated);
+        self::assertContains('use Your\\Bar;', $generated);
+        self::assertContains('use Another\\Baz as Baz2;', $generated);
     }
 
     public function testSetUsesWithGetUses()
@@ -258,9 +258,9 @@ EOS;
         $file->setUses($uses);
         $file->setUses($file->getUses());
         $generated = $file->generate();
-        $this->assertContains('use My\\Baz;', $generated);
-        $this->assertContains('use Your\\Bar;', $generated);
-        $this->assertContains('use Another\\Baz as Baz2;', $generated);
+        self::assertContains('use My\\Baz;', $generated);
+        self::assertContains('use Your\\Bar;', $generated);
+        self::assertContains('use Another\\Baz as Baz2;', $generated);
     }
 
     public function testCreateFromArrayWithClassInstance()
@@ -270,7 +270,7 @@ EOS;
             'class'     => new ClassGenerator('bar'),
         ]);
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf(ClassGenerator::class, $class);
+        self::assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testCreateFromArrayWithClassFromArray()
@@ -282,13 +282,13 @@ EOS;
             ],
         ]);
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf(ClassGenerator::class, $class);
+        self::assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testGeneratingFromAReflectedFileName()
     {
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/OneInterface.php');
-        $this->assertInstanceOf(FileGenerator::class, $generator);
+        self::assertInstanceOf(FileGenerator::class, $generator);
     }
 
     public function testGeneratedClassesHaveUses()
@@ -298,7 +298,7 @@ EOS;
 
         $expectedUses = [TestAsset\ClassWithNamespace::class];
 
-        $this->assertEquals($expectedUses, $class->getUses());
+        self::assertEquals($expectedUses, $class->getUses());
     }
 
     /**
@@ -343,7 +343,7 @@ class ClassWithUses
 
 CODE;
         $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -390,6 +390,6 @@ class ClassWithUses
 $foo->bar();
 CODE;
         $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 }

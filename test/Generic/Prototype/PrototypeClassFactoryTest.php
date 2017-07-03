@@ -39,16 +39,16 @@ class PrototypeClassFactoryTest extends TestCase
     {
         $proto = new PrototypeClass();
         $this->prototypeFactory->addPrototype($proto);
-        $this->assertNotSame($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
-        $this->assertEquals($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
+        self::assertNotSame($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
+        self::assertEquals($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
     }
 
     public function testFallBackToGeneric()
     {
         $proto = new PrototypeGenericClass();
         $this->prototypeFactory->setGenericPrototype($proto);
-        $this->assertNotSame($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
-        $this->assertEquals($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
+        self::assertNotSame($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
+        self::assertEquals($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
     }
 
     public function testSetNameOnGenericIsCalledOnce()

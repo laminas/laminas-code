@@ -24,8 +24,8 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
 
         $authorTag = $classReflection->getDocBlock()->getTag('author');
-        $this->assertEquals('Ralph Schindler', $authorTag->getAuthorName());
-        $this->assertEquals('ralph.schindler@zend.com', $authorTag->getAuthorEmail());
+        self::assertEquals('Ralph Schindler', $authorTag->getAuthorName());
+        self::assertEquals('ralph.schindler@zend.com', $authorTag->getAuthorEmail());
     }
 
     public function testTagShouldAllowJustTagNameInDocBlockTagLine()
@@ -33,7 +33,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass6::class);
 
         $tag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('emptyTag');
-        $this->assertEquals($tag->getName(), 'emptyTag', 'Factory First Match Failed');
+        self::assertEquals($tag->getName(), 'emptyTag', 'Factory First Match Failed');
     }
 
     public function testTagShouldAllowMultipleWhitespacesBeforeDescription()
@@ -41,8 +41,8 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass6::class);
 
         $tag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('descriptionTag');
-        $this->assertNotEquals('          A tag with just a description', $tag->getContent(), 'Final Match Failed');
-        $this->assertEquals('A tag with just a description', $tag->getContent(), 'Final Match Failed');
+        self::assertNotEquals('          A tag with just a description', $tag->getContent(), 'Final Match Failed');
+        self::assertEquals('A tag with just a description', $tag->getContent(), 'Final Match Failed');
     }
 
     public function testToString()
@@ -53,7 +53,7 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $expectedString = 'DocBlock Tag [ * @descriptionTag ]' . "\n";
 
-        $this->assertEquals($expectedString, (string) $tag);
+        self::assertEquals($expectedString, (string) $tag);
     }
 
 
@@ -63,7 +63,7 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
-        $this->assertEquals($paramTag->getType(), 'int');
+        self::assertEquals($paramTag->getType(), 'int');
     }
 
     public function testVariableName()
@@ -71,7 +71,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
-        $this->assertEquals($paramTag->getVariableName(), '$one');
+        self::assertEquals($paramTag->getVariableName(), '$one');
     }
 
     public function testAllowsMultipleSpacesInDocBlockTagLine()
@@ -81,9 +81,9 @@ class ReflectionDocBlockTagTest extends TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
 
-        $this->assertEquals($paramTag->getType(), 'int', 'Second Match Failed');
-        $this->assertEquals($paramTag->getVariableName(), '$var', 'Third Match Failed');
-        $this->assertEquals($paramTag->getDescription(), 'Description of $var', 'Final Match Failed');
+        self::assertEquals($paramTag->getType(), 'int', 'Second Match Failed');
+        self::assertEquals($paramTag->getVariableName(), '$var', 'Third Match Failed');
+        self::assertEquals($paramTag->getDescription(), 'Description of $var', 'Final Match Failed');
     }
 
 
@@ -96,9 +96,9 @@ class ReflectionDocBlockTagTest extends TestCase
         $paramTag        = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
 
-        $this->assertEquals('Zend\Foo\Bar', $paramTag->getType());
-        $this->assertEquals('$var', $paramTag->getVariableName());
-        $this->assertEquals('desc', $paramTag->getDescription());
+        self::assertEquals('Zend\Foo\Bar', $paramTag->getType());
+        self::assertEquals('$var', $paramTag->getVariableName());
+        self::assertEquals('desc', $paramTag->getDescription());
     }
 
     public function testType()
@@ -106,7 +106,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertEquals($paramTag->getType(), 'mixed');
+        self::assertEquals($paramTag->getType(), 'mixed');
     }
 
     public function testAllowsMultipleSpacesInDocBlockTagLine2()
@@ -115,8 +115,8 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
-        $this->assertEquals($paramTag->getType(), 'string', 'Second Match Failed');
-        $this->assertEquals($paramTag->getDescription(), 'Description of return value', 'Final Match Failed');
+        self::assertEquals($paramTag->getType(), 'string', 'Second Match Failed');
+        self::assertEquals($paramTag->getDescription(), 'Description of return value', 'Final Match Failed');
     }
 
 
@@ -129,6 +129,6 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
-        $this->assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType());
+        self::assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType());
     }
 }

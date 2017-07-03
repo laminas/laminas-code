@@ -37,32 +37,32 @@ class TypableTagTest extends TestCase
     {
         $this->tag->setTypes(['string', 'null']);
         $this->tag->setDescription('Description');
-        $this->assertEquals(['string', 'null'], $this->tag->getTypes());
-        $this->assertEquals('Description', $this->tag->getDescription());
+        self::assertEquals(['string', 'null'], $this->tag->getTypes());
+        self::assertEquals('Description', $this->tag->getDescription());
     }
 
     public function testGetterForTypesAsStringWithSingleType()
     {
         $this->tag->setTypes(['string']);
-        $this->assertEquals('string', $this->tag->getTypesAsString());
+        self::assertEquals('string', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithSingleTypeAndDelimiter()
     {
         $this->tag->setTypes(['string']);
-        $this->assertEquals('string', $this->tag->getTypesAsString('/'));
+        self::assertEquals('string', $this->tag->getTypesAsString('/'));
     }
 
     public function testGetterForTypesAsStringWithMultipleTypes()
     {
         $this->tag->setTypes(['string', 'null']);
-        $this->assertEquals('string|null', $this->tag->getTypesAsString());
+        self::assertEquals('string|null', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithMultipleTypesAndDelimiter()
     {
         $this->tag->setTypes(['string', 'null']);
-        $this->assertEquals('string/null', $this->tag->getTypesAsString('/'));
+        self::assertEquals('string/null', $this->tag->getTypesAsString('/'));
     }
 
     public function testConstructorWithOptions()
@@ -72,6 +72,6 @@ class TypableTagTest extends TestCase
             'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new TypeableTag(['string', 'null'], 'description');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 }

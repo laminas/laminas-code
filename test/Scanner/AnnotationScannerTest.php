@@ -39,9 +39,9 @@ class AnnotationScannerTest extends TestCase
         $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');
 
         $annotationScanner = new AnnotationScanner($annotationManager, $docComment, $nameInfo);
-        $this->assertEquals(get_class($foo), get_class($annotationScanner[0]));
-        $this->assertEquals("'anything I want()\n to be'", $annotationScanner[0]->getContent());
-        $this->assertEquals(get_class($bar), get_class($annotationScanner[1]));
+        self::assertEquals(get_class($foo), get_class($annotationScanner[0]));
+        self::assertEquals("'anything I want()\n to be'", $annotationScanner[0]->getContent());
+        self::assertEquals(get_class($bar), get_class($annotationScanner[1]));
     }
 
     public function scannerWorksDataProvider()

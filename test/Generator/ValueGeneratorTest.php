@@ -30,7 +30,7 @@ class ValueGeneratorTest extends TestCase
     {
         $valueGenerator = new ValueGenerator();
 
-        $this->assertInstanceOf(SplArrayObject::class, $valueGenerator->getConstants());
+        self::assertInstanceOf(SplArrayObject::class, $valueGenerator->getConstants());
     }
 
     public function testInvalidConstantsType()
@@ -54,7 +54,7 @@ class ValueGeneratorTest extends TestCase
             $constants
         );
 
-        $this->assertSame($constants, $valueGenerator->getConstants());
+        self::assertSame($constants, $valueGenerator->getConstants());
     }
 
     public function constantsTypeProvider()
@@ -73,7 +73,7 @@ class ValueGeneratorTest extends TestCase
     {
         $propertyGenerator = new PropertyGenerator('FOO', $generator);
         $propertyGenerator->setConst(true);
-        $this->assertSame($expectedOutput, $propertyGenerator->generate());
+        self::assertSame($expectedOutput, $propertyGenerator->generate());
     }
 
     /**
@@ -243,27 +243,27 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        $this->assertEquals($expected, $valueGenerator->generate());
+        self::assertEquals($expected, $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueConstructor()
     {
         $valueGenerator = new ValueGenerator();
-        $this->assertInstanceOf(ValueGenerator::class, $valueGenerator);
+        self::assertInstanceOf(ValueGenerator::class, $valueGenerator);
     }
 
     public function testPropertyDefaultValueIsSettable()
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('foo');
-        $this->assertEquals('foo', $valueGenerator->getValue());
+        self::assertEquals('foo', $valueGenerator->getValue());
     }
 
     public function testPropertyDefaultValueCanHandleStrings()
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('foo');
-        $this->assertEquals("'foo'", $valueGenerator->generate());
+        self::assertEquals("'foo'", $valueGenerator->generate());
     }
 
     /**
@@ -275,7 +275,7 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        $this->assertEquals($expected, $valueGenerator->generate());
+        self::assertEquals($expected, $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueCanHandleUnquotedString()
@@ -283,15 +283,15 @@ EOS;
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('PHP_EOL');
         $valueGenerator->setType('constant');
-        $this->assertEquals('PHP_EOL', $valueGenerator->generate());
+        self::assertEquals('PHP_EOL', $valueGenerator->generate());
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue(5);
-        $this->assertEquals('5', $valueGenerator->generate());
+        self::assertEquals('5', $valueGenerator->generate());
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue(5.25);
-        $this->assertEquals('5.25', $valueGenerator->generate());
+        self::assertEquals('5.25', $valueGenerator->generate());
     }
 
     /**
@@ -304,7 +304,7 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        $this->assertEquals($expected, $valueGenerator->generate());
+        self::assertEquals($expected, $valueGenerator->generate());
     }
 
     /**
@@ -314,7 +314,7 @@ EOS;
      */
     public function testEscaping($input, $expectedEscapedValue)
     {
-        $this->assertSame($expectedEscapedValue, ValueGenerator::escape($input, false));
+        self::assertSame($expectedEscapedValue, ValueGenerator::escape($input, false));
     }
 
     /**

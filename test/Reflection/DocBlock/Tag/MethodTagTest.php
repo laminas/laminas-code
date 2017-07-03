@@ -22,55 +22,55 @@ class MethodTagTest extends TestCase
     {
         $tag = new MethodTag();
         $tag->initialize('test()');
-        $this->assertEquals('method', $tag->getName());
-        $this->assertEquals('test()', $tag->getMethodName());
-        $this->assertFalse($tag->isStatic());
-        $this->assertNull($tag->getReturnType());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals('method', $tag->getName());
+        self::assertEquals('test()', $tag->getMethodName());
+        self::assertFalse($tag->isStatic());
+        self::assertNull($tag->getReturnType());
+        self::assertNull($tag->getDescription());
     }
 
     public function testParseNameAndType()
     {
         $tag = new MethodTag();
         $tag->initialize('string|null test()');
-        $this->assertEquals('method', $tag->getName());
-        $this->assertEquals('test()', $tag->getMethodName());
-        $this->assertFalse($tag->isStatic());
-        $this->assertEquals('string', $tag->getReturnType());
-        $this->assertEquals(['string', 'null'], $tag->getTypes());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals('method', $tag->getName());
+        self::assertEquals('test()', $tag->getMethodName());
+        self::assertFalse($tag->isStatic());
+        self::assertEquals('string', $tag->getReturnType());
+        self::assertEquals(['string', 'null'], $tag->getTypes());
+        self::assertNull($tag->getDescription());
     }
 
     public function testParseNameAndStatic()
     {
         $tag = new MethodTag();
         $tag->initialize('static test()');
-        $this->assertEquals('method', $tag->getName());
-        $this->assertEquals('test()', $tag->getMethodName());
-        $this->assertTrue($tag->isStatic());
-        $this->assertNull($tag->getReturnType());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals('method', $tag->getName());
+        self::assertEquals('test()', $tag->getMethodName());
+        self::assertTrue($tag->isStatic());
+        self::assertNull($tag->getReturnType());
+        self::assertNull($tag->getDescription());
     }
 
     public function testParseNameAndStaticAndDescription()
     {
         $tag = new MethodTag();
         $tag->initialize('static test() I\'m test method');
-        $this->assertEquals('method', $tag->getName());
-        $this->assertEquals('test()', $tag->getMethodName());
-        $this->assertTrue($tag->isStatic());
-        $this->assertNull($tag->getReturnType());
-        $this->assertEquals('I\'m test method', $tag->getDescription());
+        self::assertEquals('method', $tag->getName());
+        self::assertEquals('test()', $tag->getMethodName());
+        self::assertTrue($tag->isStatic());
+        self::assertNull($tag->getReturnType());
+        self::assertEquals('I\'m test method', $tag->getDescription());
     }
 
     public function testParseNameAndTypeAndStaticAndDescription()
     {
         $tag = new MethodTag();
         $tag->initialize('static string test() I\'m test method');
-        $this->assertEquals('method', $tag->getName());
-        $this->assertEquals('test()', $tag->getMethodName());
-        $this->assertTrue($tag->isStatic());
-        $this->assertEquals('string', $tag->getReturnType());
-        $this->assertEquals('I\'m test method', $tag->getDescription());
+        self::assertEquals('method', $tag->getName());
+        self::assertEquals('test()', $tag->getMethodName());
+        self::assertTrue($tag->isStatic());
+        self::assertEquals('string', $tag->getReturnType());
+        self::assertEquals('I\'m test method', $tag->getDescription());
     }
 }

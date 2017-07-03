@@ -28,8 +28,8 @@ class AbstractGeneratorTest extends TestCase
             ],
         ]);
 
-        $this->assertInstanceOf(GeneratorInterface::class, $generator);
-        $this->assertEquals('foo', $generator->getIndentation());
+        self::assertInstanceOf(GeneratorInterface::class, $generator);
+        self::assertEquals('foo', $generator->getIndentation());
     }
 
     public function testSetOptionsThrowsExceptionOnInvalidArgument()

@@ -27,31 +27,31 @@ class CachingFileScannerTest extends TestCase
 
         // single entry, based on file
         $cfs1 = new CachingFileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $this->assertContains(BarClass::class, $cfs1->getClassNames());
-        $this->assertEquals(1, $this->getCacheCount($cfs1));
+        self::assertContains(BarClass::class, $cfs1->getClassNames());
+        self::assertEquals(1, $this->getCacheCount($cfs1));
 
         // ensure same class is used internally
         $cfs2 = new CachingFileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $this->assertEquals(1, $this->getCacheCount($cfs2));
-        $this->assertSameInternalFileScanner($cfs1, $cfs2);
+        self::assertEquals(1, $this->getCacheCount($cfs2));
+        self::assertSameInternalFileScanner($cfs1, $cfs2);
 
         // ensure
         $cfs3 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $this->assertEquals(2, $this->getCacheCount($cfs3));
-        $this->assertDifferentInternalFileScanner($cfs2, $cfs3);
+        self::assertEquals(2, $this->getCacheCount($cfs3));
+        self::assertDifferentInternalFileScanner($cfs2, $cfs3);
 
         $annoManager = new AnnotationManager();
         $cfs4 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php', $annoManager);
-        $this->assertEquals(3, $this->getCacheCount($cfs4));
-        $this->assertDifferentInternalFileScanner($cfs3, $cfs4);
+        self::assertEquals(3, $this->getCacheCount($cfs4));
+        self::assertDifferentInternalFileScanner($cfs3, $cfs4);
 
         $cfs5 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php', $annoManager);
-        $this->assertEquals(3, $this->getCacheCount($cfs5));
-        $this->assertSameInternalFileScanner($cfs4, $cfs5);
+        self::assertEquals(3, $this->getCacheCount($cfs5));
+        self::assertSameInternalFileScanner($cfs4, $cfs5);
 
         $cfs6 = new CachingFileScanner(__DIR__ . '/../TestAsset/BarClass.php', $annoManager);
-        $this->assertEquals(4, $this->getCacheCount($cfs6));
-        $this->assertDifferentInternalFileScanner($cfs5, $cfs6);
+        self::assertEquals(4, $this->getCacheCount($cfs6));
+        self::assertDifferentInternalFileScanner($cfs5, $cfs6);
     }
 
     protected function getCacheCount(CachingFileScanner $cfs)
@@ -70,7 +70,7 @@ class CachingFileScannerTest extends TestCase
         $rTwo = new \ReflectionObject($two);
         $fileScannerPropTwo = $rTwo->getProperty('fileScanner');
         $fileScannerPropTwo->setAccessible(true);
-        $this->assertSame($fileScannerPropOne->getValue($one), $fileScannerPropTwo->getValue($two));
+        self::assertSame($fileScannerPropOne->getValue($one), $fileScannerPropTwo->getValue($two));
     }
 
     protected function assertDifferentInternalFileScanner(CachingFileScanner $one, CachingFileScanner $two)
@@ -81,6 +81,6 @@ class CachingFileScannerTest extends TestCase
         $rTwo = new \ReflectionObject($two);
         $fileScannerPropTwo = $rTwo->getProperty('fileScanner');
         $fileScannerPropTwo->setAccessible(true);
-        $this->assertNotSame($fileScannerPropOne->getValue($one), $fileScannerPropTwo->getValue($two));
+        self::assertNotSame($fileScannerPropOne->getValue($one), $fileScannerPropTwo->getValue($two));
     }
 }
