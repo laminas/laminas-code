@@ -297,7 +297,7 @@ CODE;
     }
 
 PHP;
-        self::assertSame($expected, $methodGenerator->generate());
+        $this->assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -316,7 +316,7 @@ PHP;
     }
 
 PHP;
-        self::assertSame($expected, $methodGenerator->generate());
+        $this->assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -332,7 +332,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
     }
 
     public function returnTypeHintClassesProvider()
@@ -375,11 +375,11 @@ PHP;
 
         $methodGenerator->setReturnsReference(true);
 
-        self::assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function & foo()%A', $methodGenerator->generate());
 
         $methodGenerator->setReturnsReference(false);
 
-        self::assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function foo()%A', $methodGenerator->generate());
     }
 
     /**
@@ -391,6 +391,6 @@ PHP;
             new MethodReflection(ClassWithByRefReturnMethod::class, 'byRefReturn')
         );
 
-        self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
+        $this->assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
     }
 }

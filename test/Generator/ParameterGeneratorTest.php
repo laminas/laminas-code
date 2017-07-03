@@ -281,7 +281,7 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setName('foo');
         $parameter->setType($type);
 
-        self::assertSame($expectedType . ' $foo', $parameter->generate());
+        $this->assertSame($expectedType . ' $foo', $parameter->generate());
     }
 
     /**
@@ -325,7 +325,7 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setName('foo');
         $parameter->setType($className);
 
-        self::assertSame('\\' . $className . ' $foo', $parameter->generate());
+        $this->assertSame('\\' . $className . ' $foo', $parameter->generate());
     }
 
     /**
@@ -373,12 +373,12 @@ class ParameterGeneratorTest extends TestCase
         ));
 
         if (null === $expectedType) {
-            self::assertNull($parameter->getType());
+            $this->assertNull($parameter->getType());
 
             return;
         }
 
-        self::assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
+        $this->assertSame(ltrim($expectedType, '?\\'), $parameter->getType());
     }
 
     /**
@@ -399,12 +399,12 @@ class ParameterGeneratorTest extends TestCase
         ));
 
         if (null === $expectedType) {
-            self::assertStringStartsWith('$' . $parameterName, $parameter->generate());
+            $this->assertStringStartsWith('$' . $parameterName, $parameter->generate());
 
             return;
         }
 
-        self::assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
+        $this->assertStringStartsWith($expectedType . ' $' . $parameterName, $parameter->generate());
     }
 
     /**
@@ -500,8 +500,8 @@ class ParameterGeneratorTest extends TestCase
             $parameterName
         ));
 
-        self::assertTrue($parameter->getVariadic());
-        self::assertSame($expectedGeneratedSignature, $parameter->generate());
+        $this->assertTrue($parameter->getVariadic());
+        $this->assertSame($expectedGeneratedSignature, $parameter->generate());
     }
 
     /**
@@ -545,18 +545,18 @@ class ParameterGeneratorTest extends TestCase
     {
         $parameter = new ParameterGenerator('foo');
 
-        self::assertFalse($parameter->getVariadic(), 'Is not variadic by default');
-        self::assertSame('$foo', $parameter->generate());
+        $this->assertFalse($parameter->getVariadic(), 'Is not variadic by default');
+        $this->assertSame('$foo', $parameter->generate());
 
         $parameter->setVariadic(true);
 
-        self::assertTrue($parameter->getVariadic());
-        self::assertSame('... $foo', $parameter->generate());
+        $this->assertTrue($parameter->getVariadic());
+        $this->assertSame('... $foo', $parameter->generate());
 
         $parameter->setVariadic(false);
 
-        self::assertFalse($parameter->getVariadic());
-        self::assertSame('$foo', $parameter->generate());
+        $this->assertFalse($parameter->getVariadic());
+        $this->assertSame('$foo', $parameter->generate());
     }
 
     /**

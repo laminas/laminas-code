@@ -23,7 +23,7 @@ class TypeGeneratorTest extends TestCase
 {
     public function testIsAGenerator()
     {
-        self::assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
+        $this->assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
     }
 
     /**
@@ -36,7 +36,7 @@ class TypeGeneratorTest extends TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame($expectedReturnType, $generator->generate());
+        $this->assertSame($expectedReturnType, $generator->generate());
     }
 
     /**
@@ -49,7 +49,7 @@ class TypeGeneratorTest extends TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
+        $this->assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
     }
 
     /**
@@ -62,8 +62,8 @@ class TypeGeneratorTest extends TestCase
     {
         $generator = TypeGenerator::fromTypeString('\\' . $typeString);
 
-        self::assertSame($expectedReturnType, $generator->generate());
-        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
+        $this->assertSame($expectedReturnType, $generator->generate());
+        $this->assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
     }
 
     /**
