@@ -38,7 +38,7 @@ class TraitGeneratorTest extends TestCase
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('TestClass');
-        self::assertEquals($classGenerator->getName(), 'TestClass');
+        self::assertEquals('TestClass', $classGenerator->getName());
     }
 
     public function testClassDocBlockAccessors()
@@ -58,7 +58,7 @@ class TraitGeneratorTest extends TestCase
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
-        self::assertEquals($classGenerator->getExtendedClass(), null);
+        self::assertNull($classGenerator->getExtendedClass());
     }
 
     public function testImplementedInterfacesAccessors()
@@ -82,7 +82,7 @@ class TraitGeneratorTest extends TestCase
 
         $property = $classGenerator->getProperty('propTwo');
         self::assertInstanceOf(PropertyGenerator::class, $property);
-        self::assertEquals($property->getName(), 'propTwo');
+        self::assertEquals('propTwo', $property->getName());
 
         // add a new property
         $classGenerator->addProperty('prop3');
@@ -122,7 +122,7 @@ class TraitGeneratorTest extends TestCase
 
         $method = $classGenerator->getMethod('methodOne');
         self::assertInstanceOf(MethodGenerator::class, $method);
-        self::assertEquals($method->getName(), 'methodOne');
+        self::assertEquals('methodOne', $method->getName());
 
         // add a new property
         $classGenerator->addMethod('methodThree');

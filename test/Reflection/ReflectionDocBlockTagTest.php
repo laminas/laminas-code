@@ -33,7 +33,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass6::class);
 
         $tag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('emptyTag');
-        self::assertEquals($tag->getName(), 'emptyTag', 'Factory First Match Failed');
+        self::assertEquals('emptyTag', $tag->getName(), 'Factory First Match Failed');
     }
 
     public function testTagShouldAllowMultipleWhitespacesBeforeDescription()
@@ -63,7 +63,7 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
-        self::assertEquals($paramTag->getType(), 'int');
+        self::assertEquals('int', $paramTag->getType());
     }
 
     public function testVariableName()
@@ -71,7 +71,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
-        self::assertEquals($paramTag->getVariableName(), '$one');
+        self::assertEquals('$one', $paramTag->getVariableName());
     }
 
     public function testAllowsMultipleSpacesInDocBlockTagLine()
@@ -80,10 +80,9 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
-
-        self::assertEquals($paramTag->getType(), 'int', 'Second Match Failed');
-        self::assertEquals($paramTag->getVariableName(), '$var', 'Third Match Failed');
-        self::assertEquals($paramTag->getDescription(), 'Description of $var', 'Final Match Failed');
+        self::assertEquals('int', $paramTag->getType(), 'Second Match Failed');
+        self::assertEquals('$var', $paramTag->getVariableName(), 'Third Match Failed');
+        self::assertEquals('Description of $var', $paramTag->getDescription(), 'Final Match Failed');
     }
 
 
@@ -106,7 +105,7 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        self::assertEquals($paramTag->getType(), 'mixed');
+        self::assertEquals('mixed', $paramTag->getType());
     }
 
     public function testAllowsMultipleSpacesInDocBlockTagLine2()
@@ -115,8 +114,8 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
-        self::assertEquals($paramTag->getType(), 'string', 'Second Match Failed');
-        self::assertEquals($paramTag->getDescription(), 'Description of return value', 'Final Match Failed');
+        self::assertEquals('string', $paramTag->getType(), 'Second Match Failed');
+        self::assertEquals('Description of return value', $paramTag->getDescription(), 'Final Match Failed');
     }
 
 
