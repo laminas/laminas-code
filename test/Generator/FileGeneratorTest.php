@@ -163,7 +163,7 @@ EOS;
 
         $targetLength = strlen('require_once \'SampleClass.php\';');
         self::assertEquals($targetLength, strlen($lines[2]));
-        self::assertEquals(';', $lines[2]{$targetLength-1});
+        self::assertEquals(';', $lines[2]{$targetLength - 1});
     }
 
     /**

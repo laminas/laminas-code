@@ -64,7 +64,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $cachingFileScanner = $this->createFileScanner($this->getFileName());
         $nameInformation    = $cachingFileScanner->getClassNameInformation($this->getDeclaringClass()->getName());
 
-        if (!$nameInformation) {
+        if (! $nameInformation) {
             return false;
         }
 
@@ -133,7 +133,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         foreach ($parameters as $parameter) {
             $prototype['arguments'][$parameter->getName()] = [
                 'type'     => $parameter->detectType(),
-                'required' => !$parameter->isOptional(),
+                'required' => ! $parameter->isOptional(),
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
             ];
@@ -146,7 +146,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                 $argsLine = ($argument['type'] ?
                     $argument['type'] . ' '
                     : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
-                if (!$argument['required']) {
+                if (! $argument['required']) {
                     $argsLine .= ' = ' . var_export($argument['default'], true);
                 }
                 $args[] = $argsLine;
@@ -191,7 +191,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getContents($includeDocBlock = true)
     {
         $docComment = $this->getDocComment();
-        $content  = ($includeDocBlock && !empty($docComment)) ? $docComment . "\n" : '';
+        $content  = ($includeDocBlock && ! empty($docComment)) ? $docComment . "\n" : '';
         $content .= $this->extractMethodContents();
 
         return $content;
@@ -234,7 +234,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         //remove first entry which is php open tag
         array_shift($tokens);
 
-        if (!count($tokens)) {
+        if (! count($tokens)) {
             return '';
         }
 
@@ -341,11 +341,11 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     {
         $content = '';
         $count = count($haystack);
-        if ($position+1 == $count) {
+        if ($position + 1 == $count) {
             return $content;
         }
 
-        for ($i = $position-1; $i >= 0; $i--) {
+        for ($i = $position - 1; $i >= 0; $i--) {
             $tokenType = (is_array($haystack[$i])) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = (is_array($haystack[$i])) ? $haystack[$i][1] : $haystack[$i];
 
@@ -372,7 +372,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $count = count($haystack);
 
         //advance one position
-        $position = $position+1;
+        $position = $position + 1;
 
         if ($position == $count) {
             return true;
@@ -440,7 +440,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     {
         $isValid = false;
         $count = count($haystack);
-        for ($i = $position+1; $i < $count; $i++) {
+        for ($i = $position + 1; $i < $count; $i++) {
             $tokenType = (is_array($haystack[$i])) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = (is_array($haystack[$i])) ? $haystack[$i][1] : $haystack[$i];
 

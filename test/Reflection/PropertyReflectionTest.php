@@ -44,7 +44,7 @@ class PropertyReflectionTest extends TestCase
         self::assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
         $found = false;
         foreach ($annotations as $key => $annotation) {
-            if (!$annotation instanceof TestAsset\SampleAnnotation) {
+            if (! $annotation instanceof TestAsset\SampleAnnotation) {
                 continue;
             }
             self::assertEquals(get_class($annotation) . ': {"foo":"bar"}', $annotation->content);

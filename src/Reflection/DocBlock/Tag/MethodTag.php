@@ -52,7 +52,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
     {
         $match = [];
 
-        if (!preg_match('#^(static[\s]+)?(.+[\s]+)?(.+\(\))[\s]*(.*)$#m', $tagDocblockLine, $match)) {
+        if (! preg_match('#^(static[\s]+)?(.+[\s]+)?(.+\(\))[\s]*(.*)$#m', $tagDocblockLine, $match)) {
             return;
         }
 

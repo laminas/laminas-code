@@ -232,7 +232,7 @@ class PropertyScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -247,7 +247,7 @@ class PropertyScanner implements ScannerInterface
 
         foreach ($tokens as $token) {
             $tempValue = $token;
-            if (!is_string($token)) {
+            if (! is_string($token)) {
                 list($tokenType, $tokenContent, $tokenLine) = $token;
 
                 switch ($tokenType) {
@@ -285,7 +285,7 @@ class PropertyScanner implements ScannerInterface
             }
 
             //end value concatenation
-            if (!is_array($token) && trim($token) == ";") {
+            if (! is_array($token) && trim($token) == ";") {
                 $concatenateValue = false;
             }
 
@@ -294,7 +294,7 @@ class PropertyScanner implements ScannerInterface
             }
 
             //start value concatenation
-            if (!is_array($token) && trim($token) == "=") {
+            if (! is_array($token) && trim($token) == "=") {
                 $concatenateValue = true;
             }
         }

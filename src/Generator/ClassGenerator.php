@@ -171,7 +171,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Class generator requires that a name is provided for this object'
             );
@@ -434,7 +434,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function hasExtentedClass()
     {
-        return !empty($this->extendedClass);
+        return ! empty($this->extendedClass);
     }
 
     /**
@@ -572,7 +572,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addConstant($name, $value)
     {
-        if (empty($name) || !is_string($name)) {
+        if (empty($name) || ! is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects string for name',
                 __METHOD__
@@ -638,7 +638,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addProperty($name, $defaultValue = null, $flags = PropertyGenerator::FLAG_PUBLIC)
     {
-        if (!is_string($name)) {
+        if (! is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s::%s expects string for name',
                 get_class($this),
@@ -827,7 +827,7 @@ class ClassGenerator extends AbstractGenerator
         $body = null,
         $docBlock = null
     ) {
-        if (!is_string($name)) {
+        if (! is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s::%s expects string for name',
                 get_class($this),
@@ -1012,9 +1012,9 @@ class ClassGenerator extends AbstractGenerator
      */
     public function generate()
     {
-        if (!$this->isSourceDirty()) {
+        if (! $this->isSourceDirty()) {
             $output = $this->getSourceContent();
-            if (!empty($output)) {
+            if (! empty($output)) {
                 return $output;
             }
         }
@@ -1028,7 +1028,7 @@ class ClassGenerator extends AbstractGenerator
 
         $uses = $this->getUses();
 
-        if (!empty($uses)) {
+        if (! empty($uses)) {
             foreach ($uses as $use) {
                 $output .= 'use ' . $use . ';' . self::LINE_FEED;
             }
@@ -1049,13 +1049,13 @@ class ClassGenerator extends AbstractGenerator
 
         $output .= static::OBJECT_TYPE . ' ' . $this->getName();
 
-        if (!empty($this->extendedClass)) {
+        if (! empty($this->extendedClass)) {
             $output .= ' extends ' .  $this->generateShortOrCompleteClassname($this->extendedClass);
         }
 
         $implemented = $this->getImplementedInterfaces();
 
-        if (!empty($implemented)) {
+        if (! empty($implemented)) {
             $implemented = array_map([$this, 'generateShortOrCompleteClassname'], $implemented);
             $output .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }

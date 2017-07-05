@@ -219,7 +219,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     {
         if (is_string($docBlock)) {
             $docBlock = new DocBlockGenerator($docBlock);
-        } elseif (!$docBlock instanceof DocBlockGenerator) {
+        } elseif (! $docBlock instanceof DocBlockGenerator) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s is expecting either a string, array or an instance of %s\DocBlockGenerator',
                 __METHOD__,

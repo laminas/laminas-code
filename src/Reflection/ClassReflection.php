@@ -79,7 +79,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         $fileScanner       = $this->createFileScanner($this->getFileName());
         $nameInformation   = $fileScanner->getClassNameInformation($this->getName());
 
-        if (!$nameInformation) {
+        if (! $nameInformation) {
             return false;
         }
 
@@ -123,7 +123,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
 
         // Ensure we get between the open and close braces
         $lines = array_slice($filelines, $startnum, $endnum);
-        array_unshift($lines, $filelines[$startnum-1]);
+        array_unshift($lines, $filelines[$startnum - 1]);
 
         return strstr(implode('', $lines), '{');
     }

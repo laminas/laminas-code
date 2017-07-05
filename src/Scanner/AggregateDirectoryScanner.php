@@ -85,7 +85,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
             }
         }
 
-        if (!isset($scanner)) {
+        if (! isset($scanner)) {
             throw new Exception\RuntimeException('Class by that name was not found.');
         }
 
@@ -101,7 +101,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
     {
         $this->scan();
 
-        if (!$returnScannerClass) {
+        if (! $returnScannerClass) {
             $functions = [];
             foreach ($this->infos as $info) {
                 if ($info['type'] == 'function') {

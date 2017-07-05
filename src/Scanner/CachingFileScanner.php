@@ -32,7 +32,7 @@ class CachingFileScanner extends FileScanner
      */
     public function __construct($file, AnnotationManager $annotationManager = null)
     {
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'File "%s" not found',
                 $file

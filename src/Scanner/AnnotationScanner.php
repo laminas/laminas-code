@@ -97,7 +97,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             case 'ANNOTATION_CONTENT':
             case 'ANNOTATION_WHITESPACE':
             case 'ANNOTATION_NEWLINE':
-                if (!$contentEnd
+                if (! $contentEnd
                     && isset($annotations[$annotationIndex])
                     && is_string($annotations[$annotationIndex][1])
                 ) {
@@ -159,7 +159,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
         ) {
             $positionsForward = ($positionsForward > 0) ? $positionsForward : 1;
             $streamIndex      = ($streamIndex === null) ? 0 : $streamIndex + $positionsForward;
-            if (!isset($stream[$streamIndex])) {
+            if (! isset($stream[$streamIndex])) {
                 $currentChar = false;
 
                 return false;

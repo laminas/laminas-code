@@ -43,7 +43,7 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
     {
         $matches = [];
 
-        if (!preg_match('#((?:[\w|\\\]+(?:\[\])*\|?)+)(?:\s+(\$\S+))?(?:\s+(.*))?#s', $tagDocBlockLine, $matches)) {
+        if (! preg_match('#((?:[\w|\\\]+(?:\[\])*\|?)+)(?:\s+(\$\S+))?(?:\s+(.*))?#s', $tagDocBlockLine, $matches)) {
             return;
         }
 

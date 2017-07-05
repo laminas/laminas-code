@@ -11,6 +11,5 @@ tmp/
 zf-mkdoc-theme/
 clover.xml
 coveralls-upload.json
-phpcs.xml
 phpunit.xml
 vendor

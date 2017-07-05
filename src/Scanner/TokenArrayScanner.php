@@ -189,7 +189,7 @@ class TokenArrayScanner implements ScannerInterface
                 }
             }
 
-            if (!$classFound) {
+            if (! $classFound) {
                 return false;
             }
         }
@@ -220,11 +220,11 @@ class TokenArrayScanner implements ScannerInterface
             }
         }
 
-        if (!$classFound) {
+        if (! $classFound) {
             return false;
         }
 
-        if (!isset($info)) {
+        if (! isset($info)) {
             return;
         }
 
@@ -294,7 +294,7 @@ class TokenArrayScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -325,7 +325,7 @@ class TokenArrayScanner implements ScannerInterface
             &$tokenLine
         ) {
             $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
-            if (!isset($tokens[$tokenIndex])) {
+            if (! isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;
                 $tokenType    = false;
@@ -336,7 +336,7 @@ class TokenArrayScanner implements ScannerInterface
             if (is_string($tokens[$tokenIndex]) && $tokens[$tokenIndex] === '"') {
                 do {
                     $tokenIndex++;
-                } while (!(is_string($tokens[$tokenIndex]) && $tokens[$tokenIndex] === '"'));
+                } while (! (is_string($tokens[$tokenIndex]) && $tokens[$tokenIndex] === '"'));
             }
             $token = $tokens[$tokenIndex];
             if (is_array($token)) {
@@ -361,7 +361,7 @@ class TokenArrayScanner implements ScannerInterface
             if ($validTrailingTokens === null) {
                 $validTrailingTokens = [T_WHITESPACE, T_FINAL, T_ABSTRACT, T_INTERFACE, T_CLASS, T_FUNCTION];
             }
-            if ($docCommentIndex !== false && !in_array($tokenType, $validTrailingTokens)) {
+            if ($docCommentIndex !== false && ! in_array($tokenType, $validTrailingTokens)) {
                 $docCommentIndex = false;
             }
 
@@ -667,9 +667,9 @@ class TokenArrayScanner implements ScannerInterface
 
         if ($namespace === null) {
             $namespace = array_shift($namespaces);
-        } elseif (!is_string($namespace)) {
+        } elseif (! is_string($namespace)) {
             throw new Exception\InvalidArgumentException('Invalid namespace provided');
-        } elseif (!in_array($namespace, $namespaces)) {
+        } elseif (! in_array($namespace, $namespaces)) {
             return;
         }
 

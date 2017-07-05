@@ -156,7 +156,7 @@ class ClassScanner implements ScannerInterface
      */
     public function getDocBlock()
     {
-        if (!$docComment = $this->getDocComment()) {
+        if (! $docComment = $this->getDocComment()) {
             return false;
         }
 
@@ -236,7 +236,7 @@ class ClassScanner implements ScannerInterface
     public function isInstantiable()
     {
         $this->scan();
-        return (!$this->isAbstract && !$this->isInterface && !$this->isTrait);
+        return (! $this->isAbstract && ! $this->isInterface && ! $this->isTrait);
     }
 
     /**
@@ -366,7 +366,7 @@ class ClassScanner implements ScannerInterface
                     break;
                 }
             }
-            if (!$constantFound) {
+            if (! $constantFound) {
                 return false;
             }
         } else {
@@ -374,7 +374,7 @@ class ClassScanner implements ScannerInterface
                 'Invalid constant name of info index type.  Must be of type int or string'
             );
         }
-        if (!isset($info)) {
+        if (! isset($info)) {
             return false;
         }
         $p = new ConstantScanner(
@@ -471,7 +471,7 @@ class ClassScanner implements ScannerInterface
                     break;
                 }
             }
-            if (!$propertyFound) {
+            if (! $propertyFound) {
                 return false;
             }
         } else {
@@ -479,7 +479,7 @@ class ClassScanner implements ScannerInterface
                 'Invalid property name of info index type.  Must be of type int or string'
             );
         }
-        if (!isset($info)) {
+        if (! isset($info)) {
             return false;
         }
         $p = new PropertyScanner(
@@ -849,7 +849,7 @@ class ClassScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -881,7 +881,7 @@ class ClassScanner implements ScannerInterface
         ) {
             static $lastTokenArray = null;
             $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
-            if (!isset($tokens[$tokenIndex])) {
+            if (! isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;
                 $tokenType    = false;
@@ -1003,7 +1003,7 @@ class ClassScanner implements ScannerInterface
                         $classContext = $tokenType;
                         if (($this->isInterface && $classContext === T_EXTENDS) || $classContext === T_IMPLEMENTS) {
                             $this->shortInterfaces[$classInterfaceIndex] = '';
-                        } elseif (!$this->isInterface && $classContext === T_EXTENDS) {
+                        } elseif (! $this->isInterface && $classContext === T_EXTENDS) {
                             $this->shortParentClass = '';
                         }
                         goto SCANNER_CLASS_INFO_CONTINUE;

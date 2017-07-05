@@ -200,7 +200,7 @@ class DocBlockScanner implements ScannerInterface
         ) {
             $positionsForward = ($positionsForward > 0) ? $positionsForward : 1;
             $streamIndex      = ($streamIndex === null) ? 0 : $streamIndex + $positionsForward;
-            if (!isset($stream[$streamIndex])) {
+            if (! isset($stream[$streamIndex])) {
                 $currentChar = false;
 
                 return false;

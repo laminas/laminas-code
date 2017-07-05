@@ -29,7 +29,7 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
      */
     public function __construct($methodName = null, $types = [], $description = null, $isStatic = false)
     {
-        if (!empty($methodName)) {
+        if (! empty($methodName)) {
             $this->setMethodName($methodName);
         }
 
@@ -89,9 +89,9 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
     {
         $output = '@method'
             . (($this->isStatic) ? ' static' : '')
-            . ((!empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
-            . ((!empty($this->methodName)) ? ' ' . $this->methodName . '()' : '')
-            . ((!empty($this->description)) ? ' ' . $this->description : '');
+            . ((! empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
+            . ((! empty($this->methodName)) ? ' ' . $this->methodName . '()' : '')
+            . ((! empty($this->description)) ? ' ' . $this->description : '');
 
         return $output;
     }

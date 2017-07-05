@@ -30,11 +30,11 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
      */
     public function __construct($name = null, $content = null)
     {
-        if (!empty($name)) {
+        if (! empty($name)) {
             $this->setName($name);
         }
 
-        if (!empty($content)) {
+        if (! empty($content)) {
             $this->setContent($content);
         }
     }
@@ -81,7 +81,7 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
     public function generate()
     {
         $output = '@' . $this->name
-            . ((!empty($this->content)) ? ' ' . $this->content : '');
+            . ((! empty($this->content)) ? ' ' . $this->content : '');
 
         return $output;
     }

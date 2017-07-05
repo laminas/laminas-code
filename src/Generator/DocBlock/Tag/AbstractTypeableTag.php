@@ -34,11 +34,11 @@ abstract class AbstractTypeableTag extends AbstractGenerator
      */
     public function __construct($types = [], $description = null)
     {
-        if (!empty($types)) {
+        if (! empty($types)) {
             $this->setTypes($types);
         }
 
-        if (!empty($description)) {
+        if (! empty($description)) {
             $this->setDescription($description);
         }
     }

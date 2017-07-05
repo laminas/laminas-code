@@ -128,7 +128,7 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Method generator requires that a name is provided for this object'
             );
@@ -234,7 +234,7 @@ class MethodGenerator extends AbstractMemberGenerator
             $parameter = ParameterGenerator::fromArray($parameter);
         }
 
-        if (!$parameter instanceof ParameterGenerator) {
+        if (! $parameter instanceof ParameterGenerator) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s is expecting either a string, array or an instance of %s\ParameterGenerator',
                 __METHOD__,
@@ -336,7 +336,7 @@ class MethodGenerator extends AbstractMemberGenerator
             . $this->getName() . '(';
 
         $parameters = $this->getParameters();
-        if (!empty($parameters)) {
+        if (! empty($parameters)) {
             foreach ($parameters as $parameter) {
                 $parameterOutput[] = $parameter->generate();
             }
