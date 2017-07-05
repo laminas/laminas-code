@@ -38,7 +38,7 @@ class ClassGeneratorTest extends TestCase
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('TestClass');
-        self::assertEquals($classGenerator->getName(), 'TestClass');
+        self::assertEquals('TestClass', $classGenerator->getName());
     }
 
     public function testClassDocBlockAccessors()
@@ -61,7 +61,7 @@ class ClassGeneratorTest extends TestCase
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
-        self::assertEquals($classGenerator->getExtendedClass(), 'ExtendedClass');
+        self::assertEquals('ExtendedClass', $classGenerator->getExtendedClass());
     }
 
     public function testHasExtendedClass()
@@ -86,7 +86,7 @@ class ClassGeneratorTest extends TestCase
     {
         $classGenerator = new ClassGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
-        self::assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
+        self::assertEquals(['Class1', 'Class2'], $classGenerator->getImplementedInterfaces());
     }
 
     public function testHasImplementedInterface()
@@ -123,7 +123,7 @@ class ClassGeneratorTest extends TestCase
 
         $property = $classGenerator->getProperty('propTwo');
         self::assertInstanceOf(PropertyGenerator::class, $property);
-        self::assertEquals($property->getName(), 'propTwo');
+        self::assertEquals('propTwo', $property->getName());
 
         // add a new property
         $classGenerator->addProperty('prop3');
@@ -602,7 +602,7 @@ CODE;
 
         self::assertInstanceOf(PropertyGenerator::class, $constant);
         self::assertTrue($constant->isConst());
-        self::assertEquals($constant->getDefaultValue()->getValue(), 'value');
+        self::assertEquals('value', $constant->getDefaultValue()->getValue());
     }
 
     /**
@@ -618,8 +618,8 @@ CODE;
         ]);
 
         self::assertCount(2, $classGenerator->getConstants());
-        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertEquals('value1', $classGenerator->getConstant('x')->getDefaultValue()->getValue());
+        self::assertEquals('value2', $classGenerator->getConstant('y')->getDefaultValue()->getValue());
     }
 
     /**
@@ -635,8 +635,8 @@ CODE;
         ]);
 
         self::assertCount(2, $classGenerator->getConstants());
-        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertEquals('value1', $classGenerator->getConstant('x')->getDefaultValue()->getValue());
+        self::assertEquals('value2', $classGenerator->getConstant('y')->getDefaultValue()->getValue());
     }
 
     /**
@@ -743,7 +743,7 @@ CODE;
 
         $classGenerator->addProperty('x', 'value1', PropertyGenerator::FLAG_CONSTANT);
 
-        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
+        self::assertEquals('value1', $classGenerator->getConstant('x')->getDefaultValue()->getValue());
     }
 
     /**
@@ -760,8 +760,8 @@ CODE;
         $classGenerator->addProperties($constants);
 
         self::assertCount(2, $classGenerator->getConstants());
-        self::assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
-        self::assertEquals($classGenerator->getConstant('y')->getDefaultValue()->getValue(), 'value2');
+        self::assertEquals('value1', $classGenerator->getConstant('x')->getDefaultValue()->getValue());
+        self::assertEquals('value2', $classGenerator->getConstant('y')->getDefaultValue()->getValue());
     }
 
     /**
@@ -773,7 +773,7 @@ CODE;
         $classGenerator = ClassGenerator::fromReflection($reflector);
         $constant       = $classGenerator->getConstant('FOO');
 
-        self::assertEquals($constant->getDefaultValue()->getValue(), 'foo');
+        self::assertEquals('foo', $constant->getDefaultValue()->getValue());
     }
 
     /**
@@ -897,8 +897,8 @@ CODE;
 
         $aliases = $classGenerator->getTraitAliases();
         self::assertArrayHasKey('myTrait::method', $aliases);
-        self::assertEquals($aliases['myTrait::method']['alias'], 'useMe');
-        self::assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
+        self::assertEquals('useMe', $aliases['myTrait::method']['alias']);
+        self::assertEquals(ReflectionMethod::IS_PRIVATE, $aliases['myTrait::method']['visibility']);
     }
 
     public function testCanAddTraitAliasWithArray()
@@ -913,8 +913,8 @@ CODE;
 
         $aliases = $classGenerator->getTraitAliases();
         self::assertArrayHasKey('myTrait::method', $aliases);
-        self::assertEquals($aliases['myTrait::method']['alias'], 'useMe');
-        self::assertEquals($aliases['myTrait::method']['visibility'], ReflectionMethod::IS_PRIVATE);
+        self::assertEquals('useMe', $aliases['myTrait::method']['alias']);
+        self::assertEquals(ReflectionMethod::IS_PRIVATE, $aliases['myTrait::method']['visibility']);
     }
 
     public function testAddTraitAliasExceptionInvalidMethodFormat()
@@ -984,8 +984,8 @@ CODE;
 
         $overrides = $classGenerator->getTraitOverrides();
         self::assertCount(1, $overrides);
-        self::assertEquals(key($overrides), 'myTrait::foo');
-        self::assertEquals($overrides['myTrait::foo'][0], 'hisTrait');
+        self::assertEquals('myTrait::foo', key($overrides));
+        self::assertEquals('hisTrait', $overrides['myTrait::foo'][0]);
     }
 
     public function testCanAddMultipleTraitOverrides()
@@ -996,7 +996,7 @@ CODE;
 
         $overrides = $classGenerator->getTraitOverrides();
         self::assertCount(2, $overrides['myTrait::foo']);
-        self::assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
+        self::assertEquals('thatTrait', $overrides['myTrait::foo'][1]);
     }
 
     public function testAddTraitOverrideExceptionInvalidMethodFormat()
@@ -1067,7 +1067,7 @@ CODE;
         $overrides = $classGenerator->getTraitOverrides();
 
         self::assertCount(1, $overrides['myTrait::foo']);
-        self::assertEquals($overrides['myTrait::foo'][1], 'thatTrait');
+        self::assertEquals('thatTrait', $overrides['myTrait::foo'][1]);
     }
 
     public function testCanRemoveAllTraitOverrides()
