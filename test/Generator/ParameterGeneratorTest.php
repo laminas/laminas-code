@@ -21,9 +21,9 @@ use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\IterableHintsClass;
-use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
+use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
 
 use function array_combine;
