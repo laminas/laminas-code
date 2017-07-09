@@ -26,6 +26,10 @@ use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
 
+use function array_filter;
+use function array_shift;
+use function strpos;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

@@ -14,6 +14,17 @@ use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\FileGenerator;
 use Zend\Code\Reflection\FileReflection;
 
+use function explode;
+use function file_get_contents;
+use function file_put_contents;
+use function get_class;
+use function strlen;
+use function strpos;
+use function strrpos;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

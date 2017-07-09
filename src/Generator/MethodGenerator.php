@@ -12,6 +12,19 @@ namespace Zend\Code\Generator;
 use ReflectionMethod;
 use Zend\Code\Reflection\MethodReflection;
 
+use function explode;
+use function implode;
+use function is_array;
+use function is_string;
+use function method_exists;
+use function preg_replace;
+use function sprintf;
+use function str_replace;
+use function strlen;
+use function strtolower;
+use function substr;
+use function trim;
+
 class MethodGenerator extends AbstractMemberGenerator
 {
     /**

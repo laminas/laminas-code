@@ -13,6 +13,13 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function array_shift;
+use function array_slice;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_string;
+
 class TokenArrayScanner implements ScannerInterface
 {
     /**

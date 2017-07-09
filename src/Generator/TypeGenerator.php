@@ -11,6 +11,14 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 
+use function in_array;
+use function ltrim;
+use function preg_match;
+use function sprintf;
+use function strpos;
+use function strtolower;
+use function substr;
+
 final class TypeGenerator implements GeneratorInterface
 {
     /**

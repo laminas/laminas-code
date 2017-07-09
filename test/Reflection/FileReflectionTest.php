@@ -17,6 +17,13 @@ use Zend\Code\Reflection\Exception\RuntimeException;
 use Zend\Code\Reflection\FileReflection;
 use Zend\Code\Reflection\FunctionReflection;
 
+use function current;
+use function get_class;
+use function get_include_path;
+use function get_included_files;
+use function realpath;
+use function set_include_path;
+
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_File

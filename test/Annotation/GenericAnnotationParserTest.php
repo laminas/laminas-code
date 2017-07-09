@@ -14,6 +14,8 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
 
+use function get_class;
+
 class GenericAnnotationParserTest extends TestCase
 {
     /**

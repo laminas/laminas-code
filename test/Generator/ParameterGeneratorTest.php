@@ -26,6 +26,14 @@ use ZendTest\Code\TestAsset\NullableHintsClass;
 use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
 use ZendTest\Code\TestAsset\VariadicParametersClass;
 
+use function array_combine;
+use function array_filter;
+use function array_map;
+use function array_shift;
+use function ltrim;
+use function strpos;
+use function strtolower;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

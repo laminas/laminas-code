@@ -12,6 +12,8 @@ namespace Zend\Code\Generator\DocBlock\Tag;
 use Zend\Code\Generator\AbstractGenerator;
 use Zend\Code\Generic\Prototype\PrototypeGenericInterface;
 
+use function ltrim;
+
 class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGenericInterface
 {
     /**

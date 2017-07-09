@@ -9,6 +9,11 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+use function explode;
+use function preg_match;
+use function preg_replace;
+use function trim;
+
 class ReturnTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**

@@ -13,6 +13,9 @@ use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
 use Zend\Code\Reflection;
 
+use function get_class;
+use function getenv;
+
 class AnnotationManagerTest extends TestCase
 {
     public function setUp()

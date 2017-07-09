@@ -11,6 +11,20 @@ namespace Zend\Code\Reflection;
 
 use ReflectionFunction;
 
+use function array_shift;
+use function array_slice;
+use function count;
+use function file;
+use function implode;
+use function preg_match;
+use function preg_quote;
+use function preg_replace;
+use function sprintf;
+use function strlen;
+use function strrpos;
+use function substr;
+use function var_export;
+
 class FunctionReflection extends ReflectionFunction implements ReflectionInterface
 {
     /**

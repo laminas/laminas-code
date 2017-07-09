@@ -14,6 +14,14 @@ use Zend\Code\Generator\DocBlock\Tag\TagInterface;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
 
+use function explode;
+use function is_array;
+use function sprintf;
+use function str_replace;
+use function strtolower;
+use function trim;
+use function wordwrap;
+
 class DocBlockGenerator extends AbstractGenerator
 {
     /**

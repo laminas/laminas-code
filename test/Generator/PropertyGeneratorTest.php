@@ -18,6 +18,9 @@ use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
+use function array_shift;
+use function str_replace;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

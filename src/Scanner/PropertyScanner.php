@@ -13,6 +13,16 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function is_array;
+use function is_numeric;
+use function is_string;
+use function ltrim;
+use function reset;
+use function strpos;
+use function substr;
+use function trim;
+use function var_export;
+
 class PropertyScanner implements ScannerInterface
 {
     const T_BOOLEAN = 'boolean';

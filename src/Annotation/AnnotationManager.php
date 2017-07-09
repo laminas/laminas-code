@@ -15,6 +15,9 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 
+use function get_class;
+use function is_object;
+
 /**
  * Pluggable annotation manager
  *

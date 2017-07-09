@@ -11,6 +11,10 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Reflection\PropertyReflection;
 
+use function sprintf;
+use function str_replace;
+use function strtolower;
+
 class PropertyGenerator extends AbstractMemberGenerator
 {
     const FLAG_CONSTANT = 0x08;

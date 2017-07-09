@@ -9,6 +9,10 @@
 
 namespace Zend\Code\Generator;
 
+use function is_array;
+use function is_string;
+use function sprintf;
+
 abstract class AbstractMemberGenerator extends AbstractGenerator
 {
     /**#@+

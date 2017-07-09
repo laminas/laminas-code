@@ -16,6 +16,9 @@ use ZendTest\Code\TestAsset\Baz;
 use ZendTest\Code\TestAsset\FooClass;
 use ZendTest\Code\TestAsset\FooTrait;
 
+use function file_get_contents;
+use function token_get_all;
+
 class TokenArrayScannerTest extends TestCase
 {
     public function testScannerReturnsNamespaces()

@@ -12,6 +12,19 @@ namespace Zend\Code\Scanner;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\NameInformation;
 
+use function array_pop;
+use function array_push;
+use function current;
+use function end;
+use function key;
+use function next;
+use function preg_match;
+use function reset;
+use function strlen;
+use function strpos;
+use function substr;
+use function trim;
+
 class DocBlockScanner implements ScannerInterface
 {
     /**

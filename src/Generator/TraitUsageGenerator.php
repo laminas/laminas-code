@@ -12,6 +12,19 @@ namespace Zend\Code\Generator;
 use Reflection;
 use ReflectionMethod;
 
+use function array_key_exists;
+use function array_search;
+use function array_values;
+use function count;
+use function current;
+use function explode;
+use function implode;
+use function in_array;
+use function is_array;
+use function is_string;
+use function sprintf;
+use function strpos;
+
 class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterface
 {
     /**

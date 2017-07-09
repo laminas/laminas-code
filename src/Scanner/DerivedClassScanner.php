@@ -11,6 +11,11 @@ namespace Zend\Code\Scanner;
 
 use Zend\Code\Exception;
 
+use function array_keys;
+use function array_merge;
+use function sprintf;
+use function trigger_error;
+
 class DerivedClassScanner extends ClassScanner
 {
     /**

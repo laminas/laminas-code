@@ -13,6 +13,18 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\NameInformation;
 
+use function array_pop;
+use function current;
+use function in_array;
+use function is_string;
+use function next;
+use function preg_match;
+use function reset;
+use function strlen;
+use function strpos;
+use function substr;
+use function substr_count;
+
 class AnnotationScanner extends AnnotationCollection implements ScannerInterface
 {
     /**

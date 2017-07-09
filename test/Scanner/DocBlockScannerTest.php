@@ -12,6 +12,8 @@ namespace ZendTest\Code\Scanner;
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\DocBlockScanner;
 
+use function str_replace;
+
 /**
  * @group      Zend_Code_Scanner
  */

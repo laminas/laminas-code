@@ -12,6 +12,11 @@ namespace Zend\Code\Generator;
 use ReflectionParameter;
 use Zend\Code\Reflection\ParameterReflection;
 
+use function is_string;
+use function method_exists;
+use function str_replace;
+use function strtolower;
+
 class ParameterGenerator extends AbstractGenerator
 {
     /**

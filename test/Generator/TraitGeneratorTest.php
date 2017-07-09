@@ -18,6 +18,8 @@ use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\TraitGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
+use function current;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

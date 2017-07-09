@@ -14,6 +14,24 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function array_key_exists;
+use function array_merge;
+use function array_search;
+use function array_slice;
+use function array_values;
+use function define;
+use function defined;
+use function explode;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_object;
+use function is_string;
+use function ltrim;
+use function sprintf;
+use function substr_count;
+use function trigger_error;
+
 class ClassScanner implements ScannerInterface
 {
     /**

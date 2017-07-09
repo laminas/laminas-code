@@ -14,6 +14,19 @@ use Zend\Code\Annotation\AnnotationInterface;
 use Zend\Code\Exception;
 use Zend\EventManager\EventInterface;
 
+use function array_search;
+use function class_exists;
+use function get_class;
+use function gettype;
+use function in_array;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function str_replace;
+use function strtolower;
+use function trim;
+
 /**
  * Generic annotation parser
  *
