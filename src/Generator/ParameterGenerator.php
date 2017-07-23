@@ -212,7 +212,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setDefaultValue($defaultValue)
     {
-        if (!$defaultValue instanceof ValueGenerator) {
+        if (! $defaultValue instanceof ValueGenerator) {
             $defaultValue = new ValueGenerator($defaultValue);
         }
         $this->defaultValue = $defaultValue;

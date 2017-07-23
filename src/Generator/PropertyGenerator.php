@@ -173,7 +173,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         $defaultValueType = PropertyValueGenerator::TYPE_AUTO,
         $defaultValueOutputMode = PropertyValueGenerator::OUTPUT_MULTIPLE_LINE
     ) {
-        if (!$defaultValue instanceof PropertyValueGenerator) {
+        if (! $defaultValue instanceof PropertyValueGenerator) {
             $defaultValue = new PropertyValueGenerator($defaultValue, $defaultValueType, $defaultValueOutputMode);
         }
 

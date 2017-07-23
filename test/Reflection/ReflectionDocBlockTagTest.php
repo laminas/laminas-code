@@ -80,9 +80,9 @@ class ReflectionDocBlockTagTest extends TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
 
-        self::assertEquals('int',$paramTag->getType(), 'Second Match Failed');
-        self::assertEquals('$var',$paramTag->getVariableName(), 'Third Match Failed');
-        self::assertEquals( 'Description of $var', $paramTag->getDescription(),'Final Match Failed');
+        self::assertEquals('int', $paramTag->getType(), 'Second Match Failed');
+        self::assertEquals('$var', $paramTag->getVariableName(), 'Third Match Failed');
+        self::assertEquals('Description of $var', $paramTag->getDescription(), 'Final Match Failed');
     }
 
     /**

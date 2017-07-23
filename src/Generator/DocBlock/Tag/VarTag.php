@@ -61,8 +61,8 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     public function generate() : string
     {
         return '@var'
-            . ((!empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
+            . ((! empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
             . (null !== $this->variableName ? ' $' . $this->variableName : '')
-            . ((!empty($this->description)) ? ' ' . $this->description : '');
+            . ((! empty($this->description)) ? ' ' . $this->description : '');
     }
 }
