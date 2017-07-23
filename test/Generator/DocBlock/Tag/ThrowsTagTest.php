@@ -24,6 +24,7 @@ class ThrowsTagTest extends TestCase
      * @var ThrowsTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */

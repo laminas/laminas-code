@@ -262,7 +262,7 @@ class ClassScannerTest extends TestCase
         self::assertEquals($class->getMethodNames(), array_keys($testMethods));
 
         foreach ($testMethods as $methodName => $testMethod) {
-            self::assertTrue($class->hasMethod($methodName), "Cannot find method $methodName");
+            self::assertTrue($class->hasMethod($methodName), sprintf('Cannot find method %s', $methodName));
 
             $method = $class->getMethod($methodName);
             self::assertInstanceOf(MethodScanner::class, $method, $methodName . ' not found.');

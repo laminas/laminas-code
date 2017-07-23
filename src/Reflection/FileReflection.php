@@ -16,12 +16,12 @@ class FileReflection implements ReflectionInterface
     /**
      * @var string
      */
-    protected $filePath = null;
+    protected $filePath;
 
     /**
      * @var string
      */
-    protected $docComment = null;
+    protected $docComment;
 
     /**
      * @var int
@@ -31,7 +31,7 @@ class FileReflection implements ReflectionInterface
     /**
      * @var int
      */
-    protected $endLine = null;
+    protected $endLine;
 
     /**
      * @var string[]
@@ -61,7 +61,7 @@ class FileReflection implements ReflectionInterface
     /**
      * @var string
      */
-    protected $contents = null;
+    protected $contents;
 
     /**
      * @param  string $filename
@@ -101,11 +101,10 @@ class FileReflection implements ReflectionInterface
      * Required by the Reflector interface.
      *
      * @todo   What should this do?
-     * @return null
+     * @return void
      */
     public static function export()
     {
-        return;
     }
 
     /**
@@ -169,7 +168,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * @return void|string
      */
     public function getNamespace()
     {

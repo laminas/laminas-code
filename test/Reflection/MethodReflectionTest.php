@@ -328,7 +328,7 @@ CONTENTS;
     {
         $className = uniqid('MethodReflectionTestGenerated');
 
-        eval('name' . 'space ' . __NAMESPACE__ . '; cla' . 'ss ' . $className . '{fun' . 'ction foo(){}}');
+        eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{function foo(){}}');
 
         $reflectionMethod = new MethodReflection(__NAMESPACE__ . '\\' . $className, 'foo');
 
@@ -347,7 +347,6 @@ CONTENTS;
      */
     public function testCodeGetContentsDoesNotThrowExceptionOnDocBlock()
     {
-
         $contents = <<<'CONTENTS'
     function getCacheKey() {
         $args = func_get_args();
@@ -389,8 +388,8 @@ CONTENTS;
      */
     public function testCanParseClassBodyWhenUsingTrait()
     {
-        require_once __DIR__ .'/TestAsset/TestTraitClass1.php';
-        require_once __DIR__. '/TestAsset/TestTraitClass2.php';
+        require_once __DIR__ . '/TestAsset/TestTraitClass1.php';
+        require_once __DIR__ . '/TestAsset/TestTraitClass2.php';
         // $method = new \Zend\Code\Reflection\ClassReflection('\FooClass');
         // $traits = current($method->getTraits());
         $method = new MethodReflection('FooClass', 'getDummy');

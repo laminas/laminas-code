@@ -49,10 +49,9 @@ class FileGeneratorTest extends TestCase
                 'flags' => ClassGenerator::FLAG_ABSTRACT,
                 'name' => 'SampleClass',
                 'extendedClass' => 'ExtendedClassName',
-                'implementedInterfaces' => ['Iterator', 'Traversable']
-            ]
+                'implementedInterfaces' => ['Iterator', 'Traversable'],
+            ],
         ]);
-
 
         $expectedOutput = <<<EOS
 <?php
@@ -202,8 +201,8 @@ EOS;
     {
         $file = new FileGenerator();
         $file->setUses([
-                 ['use' => 'Your\Bar', 'as' => 'bar'],
-                 ['use' => 'Your\Bar', 'as' => 'bar'],
+            ['use' => 'Your\Bar', 'as' => 'bar'],
+            ['use' => 'Your\Bar', 'as' => 'bar'],
         ]);
         $generated = $file->generate();
         self::assertSame(strpos($generated, 'use Your\\Bar as bar;'), strrpos($generated, 'use Your\\Bar as bar;'));
@@ -213,8 +212,8 @@ EOS;
     {
         $file = new FileGenerator();
         $file->setUses([
-                 ['use' => 'Your\Bar', 'as' => 'bar'],
-                 ['use' => 'Your\Bar', 'as' => 'bar2'],
+            ['use' => 'Your\Bar', 'as' => 'bar'],
+            ['use' => 'Your\Bar', 'as' => 'bar2'],
         ]);
         $generated = $file->generate();
         self::assertContains('use Your\\Bar as bar;', $generated);
@@ -225,9 +224,9 @@ EOS;
     {
         $file = new FileGenerator();
         $file->setUses([
-                 ['use' => 'Your\\Bar', 'as' => 'bar'],
-                 ['use' => 'My\\Baz', 'as' => 'FooBaz']
-             ]);
+            ['use' => 'Your\\Bar', 'as' => 'bar'],
+            ['use' => 'My\\Baz', 'as' => 'FooBaz'],
+        ]);
         $generated = $file->generate();
         self::assertContains('use My\\Baz as FooBaz;', $generated);
         self::assertContains('use Your\\Bar as bar;', $generated);
@@ -239,7 +238,7 @@ EOS;
         $file->setUses([
             'Your\\Bar',
             'My\\Baz',
-            ['use' => 'Another\\Baz', 'as' => 'Baz2']
+            ['use' => 'Another\\Baz', 'as' => 'Baz2'],
         ]);
         $generated = $file->generate();
         self::assertContains('use My\\Baz;', $generated);
@@ -253,7 +252,7 @@ EOS;
         $uses = [
             'Your\\Bar',
             'My\\Baz',
-            ['use' => 'Another\\Baz', 'as' => 'Baz2']
+            ['use' => 'Another\\Baz', 'as' => 'Baz2'],
         ];
         $file->setUses($uses);
         $file->setUses($file->getUses());

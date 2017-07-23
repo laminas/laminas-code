@@ -17,7 +17,7 @@ class FileScanner extends TokenArrayScanner implements ScannerInterface
     /**
      * @var string
      */
-    protected $file = null;
+    protected $file;
 
     /**
      * @param  string $file

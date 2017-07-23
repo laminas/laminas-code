@@ -19,7 +19,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var string
      */
-    protected $description = null;
+    protected $description;
 
     /**
      * @return string

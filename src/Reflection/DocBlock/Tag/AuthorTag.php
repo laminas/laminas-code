@@ -14,12 +14,12 @@ class AuthorTag implements TagInterface
     /**
      * @var string
      */
-    protected $authorName = null;
+    protected $authorName;
 
     /**
      * @var string
      */
-    protected $authorEmail = null;
+    protected $authorEmail;
 
     /**
      * @return string

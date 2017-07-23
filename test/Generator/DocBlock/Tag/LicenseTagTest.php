@@ -24,6 +24,7 @@ class LicenseTagTest extends TestCase
      * @var LicenseTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */

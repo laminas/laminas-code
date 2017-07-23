@@ -18,9 +18,8 @@ use Zend\Code\Scanner\FileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
 
 /**
- *
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Class
+ * @group Zend_Reflection
+ * @group Zend_Reflection_Class
  */
 class ClassReflectionTest extends TestCase
 {
@@ -179,7 +178,7 @@ EOS;
     {
         $className = uniqid('ClassReflectionTestGenerated');
 
-        eval('name' . 'space ' . __NAMESPACE__ . '; cla' . 'ss ' . $className . '{}');
+        eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{}');
 
         $reflectionClass = new ClassReflection(__NAMESPACE__ . '\\' . $className);
 

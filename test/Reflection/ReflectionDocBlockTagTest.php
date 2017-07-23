@@ -56,7 +56,6 @@ class ReflectionDocBlockTagTest extends TestCase
         self::assertEquals($expectedString, (string) $tag);
     }
 
-
     public function testTypeParam()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass5::class);
@@ -80,11 +79,11 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
+
         self::assertEquals('int', $paramTag->getType(), 'Second Match Failed');
         self::assertEquals('$var', $paramTag->getVariableName(), 'Third Match Failed');
         self::assertEquals('Description of $var', $paramTag->getDescription(), 'Final Match Failed');
     }
-
 
     /**
      * @group ZF-8307
@@ -117,7 +116,6 @@ class ReflectionDocBlockTagTest extends TestCase
         self::assertEquals('string', $paramTag->getType(), 'Second Match Failed');
         self::assertEquals('Description of return value', $paramTag->getDescription(), 'Final Match Failed');
     }
-
 
     /**
      * @group ZF-8307

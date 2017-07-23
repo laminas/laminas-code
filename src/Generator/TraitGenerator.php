@@ -48,7 +48,7 @@ class TraitGenerator extends ClassGenerator
 
         $methods = [];
         foreach ($classReflection->getMethods() as $reflectionMethod) {
-            $className = ($cg->getNamespaceName())
+            $className = $cg->getNamespaceName()
                 ? $cg->getNamespaceName() . '\\' . $cg->getName()
                 : $cg->getName();
             if ($reflectionMethod->getDeclaringClass()->getName() == $className) {
@@ -93,7 +93,7 @@ class TraitGenerator extends ClassGenerator
                     $cg->setNamespaceName($value);
                     break;
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $cg->setDocBlock($docBlock);
                     break;
                 case 'properties':

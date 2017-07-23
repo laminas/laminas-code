@@ -52,6 +52,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
@@ -68,6 +69,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
@@ -75,7 +77,7 @@ class PropertyGeneratorTest extends TestCase
     public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code) : void
     {
         if ('constant' === $type) {
-            return; // constant can only be detected explicitly
+            self::markTestSkipped('constant can only be detected explicitly');
         }
 
         $defaultValue = new PropertyValueGenerator();
@@ -262,9 +264,9 @@ EOS;
         self::assertEquals('var', $tag->getName());
     }
 
-
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      */

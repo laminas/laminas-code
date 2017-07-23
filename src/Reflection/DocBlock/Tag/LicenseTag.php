@@ -14,12 +14,12 @@ class LicenseTag implements TagInterface
     /**
      * @var string
      */
-    protected $url = null;
+    protected $url;
 
     /**
      * @var string
      */
-    protected $licenseName = null;
+    protected $licenseName;
 
     /**
      * @return string

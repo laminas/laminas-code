@@ -17,7 +17,7 @@ class ParamTag extends AbstractTypeableTag implements TagInterface
     /**
      * @var string
      */
-    protected $variableName = null;
+    protected $variableName;
 
     /**
      * @param string $variableName
@@ -115,9 +115,9 @@ class ParamTag extends AbstractTypeableTag implements TagInterface
     public function generate()
     {
         $output = '@param'
-            . ((! empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
-            . ((! empty($this->variableName)) ? ' $' . $this->variableName : '')
-            . ((! empty($this->description)) ? ' ' . $this->description : '');
+            . (! empty($this->types) ? ' ' . $this->getTypesAsString() : '')
+            . (! empty($this->variableName) ? ' $' . $this->variableName : '')
+            . (! empty($this->description) ? ' ' . $this->description : '');
 
         return $output;
     }

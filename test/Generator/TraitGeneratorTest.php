@@ -73,7 +73,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator = new TraitGenerator();
         $classGenerator->addProperties([
             'propOne',
-            new PropertyGenerator('propTwo')
+            new PropertyGenerator('propTwo'),
         ]);
 
         $properties = $classGenerator->getProperties();
@@ -113,7 +113,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethods([
             'methodOne',
-            new MethodGenerator('methodTwo')
+            new MethodGenerator('methodTwo'),
         ]);
 
         $methods = $classGenerator->getMethods();
@@ -191,7 +191,8 @@ class TraitGeneratorTest extends TestCase
     {
         $classGenerator = TraitGenerator::fromArray([
             'name' => 'SampleClass',
-            'properties' => ['foo',
+            'properties' => [
+                'foo',
                 ['name' => 'bar'],
             ],
             'methods' => [

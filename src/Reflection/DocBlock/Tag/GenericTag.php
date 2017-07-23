@@ -16,17 +16,17 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
     /**
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var string
      */
-    protected $content = null;
+    protected $content;
 
     /**
      * @var null|string
      */
-    protected $contentSplitCharacter = null;
+    protected $contentSplitCharacter;
 
     /**
      * @var array

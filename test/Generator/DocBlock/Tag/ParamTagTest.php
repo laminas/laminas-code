@@ -24,6 +24,7 @@ class ParamTagTest extends TestCase
      * @var ParamTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -72,7 +73,7 @@ class ParamTagTest extends TestCase
         $this->tag->setOptions([
             'variableName' => 'foo',
             'types' => ['string'],
-            'description' => 'description'
+            'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new ParamTag('foo', ['string'], 'description');
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

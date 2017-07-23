@@ -18,7 +18,9 @@ use Zend\Code\Scanner\AnnotationScanner;
 class AnnotationScannerTest extends TestCase
 {
     /**
-     * @dataProvider scannerWorksDataProvider
+     * @dataProvider newLine
+     *
+     * @param string $newLine
      */
     public function testScannerWorks($newLine)
     {
@@ -26,7 +28,7 @@ class AnnotationScannerTest extends TestCase
         $parser = new GenericAnnotationParser();
         $parser->registerAnnotations([
             $foo = new TestAsset\Annotation\Foo(),
-            $bar = new TestAsset\Annotation\Bar()
+            $bar = new TestAsset\Annotation\Bar(),
         ]);
         $annotationManager->attach($parser);
 
@@ -44,7 +46,7 @@ class AnnotationScannerTest extends TestCase
         self::assertEquals(get_class($bar), get_class($annotationScanner[1]));
     }
 
-    public function scannerWorksDataProvider()
+    public function newLine()
     {
         return [
             ["\n"],

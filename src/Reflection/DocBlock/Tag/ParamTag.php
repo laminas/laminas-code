@@ -19,12 +19,12 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var string
      */
-    protected $variableName = null;
+    protected $variableName;
 
     /**
      * @var string
      */
-    protected $description = null;
+    protected $description;
 
     /**
      * @return string

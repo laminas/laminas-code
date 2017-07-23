@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+
 namespace Zend\Code\Generator;
 
 interface TraitUsageInterface
@@ -50,7 +51,7 @@ interface TraitUsageInterface
      * Add multiple traits.  Trait can be an array of trait names or array of trait
      * configurations
      *
-     * @param array $traitName Array of string names or configurations (@see addTrait)
+     * @param array $traits Array of string names or configurations (@see addTrait)
      * @return self
      */
     public function addTraits(array $traits);
@@ -58,7 +59,7 @@ interface TraitUsageInterface
     /**
      * Check to see if the class has a trait defined
      *
-     * @param strint $traitName
+     * @param string $traitName
      * @return bool
      */
     public function hasTrait($traitName);
@@ -73,7 +74,7 @@ interface TraitUsageInterface
     /**
      * Remove a trait by its name
      *
-     * @param $traitName
+     * @param string $traitName
      */
     public function removeTrait($traitName);
 
@@ -91,11 +92,11 @@ interface TraitUsageInterface
      * Alias is a string representing the new method name.
      *
      * $visibilty:
-     * ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PRIVATE| ReflectionMethod::IS_PROTECTED
+     * ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PRIVATE | ReflectionMethod::IS_PROTECTED
      *
      * @param mixed $method String or Array
      * @param string $alias
-     * @param int $visiblity
+     * @param null|int $visibility
      */
     public function addTraitAlias($method, $alias, $visibility = null);
 
@@ -123,7 +124,7 @@ interface TraitUsageInterface
      * Option 2: Array of strings of traits to replace
 
      * @param mixed $method
-     * @param mixed $traitToReplace
+     * @param mixed $traitsToReplace
      */
     public function addTraitOverride($method, $traitsToReplace);
 
@@ -144,9 +145,9 @@ interface TraitUsageInterface
      * Option 1: String of trait to replace
      * Option 2: Array of strings of traits to replace
      *
-     * @param $traitAndMethod
-     * @param null $overridesToRemove
-     * @return $this
+     * @param mixed $method
+     * @param mixed $overridesToRemove
+     * @return self
      */
     public function removeTraitOverride($method, $overridesToRemove = null);
 

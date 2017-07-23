@@ -14,7 +14,7 @@ class NameInformation
     /**
      * @var string
      */
-    protected $namespace = null;
+    protected $namespace;
 
     /**
      * @var array
@@ -58,7 +58,7 @@ class NameInformation
      */
     public function hasNamespace()
     {
-        return ($this->namespace !== null);
+        return $this->namespace !== null;
     }
 
     /**

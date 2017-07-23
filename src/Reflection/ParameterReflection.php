@@ -35,7 +35,7 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /**
      * Get class reflection object
      *
-     * @return ClassReflection
+     * @return void|ClassReflection
      */
     public function getClass()
     {

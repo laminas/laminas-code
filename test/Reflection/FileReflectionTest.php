@@ -50,14 +50,15 @@ class FileReflectionTest extends TestCase
     public function testFileConstructorFromAReflectedFilenameIncluded()
     {
         include_once __DIR__ . '/TestAsset/an_empty_file.php';
+
         $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
 
         try {
-            new FileReflection('an_empty_file.php', false);
+            $file = new FileReflection('an_empty_file.php', false);
+
+            self::assertSame('an_empty_file.php', $file->getFileName());
+        } finally {
             set_include_path($oldIncludePath);
-        } catch (Exception $e) {
-            set_include_path($oldIncludePath);
-            throw $e;
         }
     }
 

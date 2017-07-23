@@ -24,6 +24,7 @@ class ReturnTagTest extends TestCase
      * @var ReturnTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */

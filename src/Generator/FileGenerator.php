@@ -17,12 +17,12 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $filename = null;
+    protected $filename;
 
     /**
      * @var DocBlockGenerator
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * @var array
@@ -32,7 +32,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $namespace = null;
+    protected $namespace;
 
     /**
      * @var array
@@ -47,7 +47,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @var string
      */
-    protected $body = null;
+    protected $body;
 
     /**
      * Passes $options to {@link setOptions()}.
@@ -113,7 +113,7 @@ class FileGenerator extends AbstractGenerator
             $file->setUses($uses);
         }
 
-        if (($fileReflection->getDocComment() != '')) {
+        if ($fileReflection->getDocComment() != '') {
             $docBlock = $fileReflection->getDocBlock();
             $file->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
         }
@@ -127,7 +127,7 @@ class FileGenerator extends AbstractGenerator
      */
     public static function fromArray(array $values)
     {
-        $fileGenerator = new static;
+        $fileGenerator = new static();
         foreach ($values as $name => $value) {
             switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'filename':
@@ -135,7 +135,7 @@ class FileGenerator extends AbstractGenerator
                     continue;
                 case 'class':
                     $fileGenerator->setClass(
-                        ($value instanceof ClassGenerator)
+                        $value instanceof ClassGenerator
                         ? $value
                         : ClassGenerator::fromArray($value)
                     );
@@ -429,8 +429,7 @@ class FileGenerator extends AbstractGenerator
         if (preg_match('#/\* Zend_Code_Generator_Php_File-(.*?)Marker:#m', $body)) {
             $tokens = token_get_all($body);
             foreach ($tokens as $token) {
-                if (is_array($token) && in_array($token[0], [T_OPEN_TAG, T_COMMENT, T_DOC_COMMENT, T_WHITESPACE])
-                ) {
+                if (is_array($token) && in_array($token[0], [T_OPEN_TAG, T_COMMENT, T_DOC_COMMENT, T_WHITESPACE])) {
                     $output .= $token[1];
                 }
             }
@@ -506,7 +505,7 @@ class FileGenerator extends AbstractGenerator
 
                 //don't duplicate use statements
                 if (! in_array($tempOutput, $classUses)) {
-                    $useOutput .= "use ". $tempOutput .";";
+                    $useOutput .= 'use ' . $tempOutput . ';';
                     $useOutput .= self::LINE_FEED;
                 }
             }

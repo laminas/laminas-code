@@ -21,7 +21,7 @@
         "doctrine/annotations": "~1.0",
         "zendframework/zend-stdlib": "^2.7 || ^3.0",
         "phpunit/phpunit": "^6.2.3",
-        "zendframework/zend-coding-standard": "~1.0.0"
+        "zendframework/zend-coding-standard": "^1.0.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
