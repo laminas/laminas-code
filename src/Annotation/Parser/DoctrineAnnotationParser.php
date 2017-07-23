@@ -15,6 +15,15 @@ use Traversable;
 use Zend\Code\Exception;
 use Zend\EventManager\EventInterface;
 
+use function array_shift;
+use function class_exists;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function preg_replace;
+use function sprintf;
+
 /**
  * A parser for docblock annotations that utilizes the annotation parser from
  * Doctrine\Common.

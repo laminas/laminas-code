@@ -9,6 +9,10 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+use function explode;
+use function preg_match;
+use function rtrim;
+
 class PropertyTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**

@@ -9,6 +9,8 @@
 
 namespace Zend\Code\Generator\DocBlock\Tag;
 
+use function ltrim;
+
 class PropertyTag extends AbstractTypeableTag implements TagInterface
 {
     /**

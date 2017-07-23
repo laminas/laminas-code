@@ -9,6 +9,9 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+use function preg_match;
+use function rtrim;
+
 class AuthorTag implements TagInterface
 {
     /**

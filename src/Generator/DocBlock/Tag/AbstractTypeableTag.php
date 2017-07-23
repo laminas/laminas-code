@@ -11,6 +11,10 @@ namespace Zend\Code\Generator\DocBlock\Tag;
 
 use Zend\Code\Generator\AbstractGenerator;
 
+use function explode;
+use function implode;
+use function is_string;
+
 /**
  * This abstract class can be used as parent for all tags
  * that use a type part in their content.

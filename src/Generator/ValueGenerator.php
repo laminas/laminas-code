@@ -13,6 +13,23 @@ use ArrayObject as SplArrayObject;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 
+use function addcslashes;
+use function array_keys;
+use function array_merge;
+use function array_search;
+use function count;
+use function get_class;
+use function get_defined_constants;
+use function gettype;
+use function implode;
+use function in_array;
+use function is_array;
+use function is_int;
+use function max;
+use function sprintf;
+use function str_repeat;
+use function strpos;
+
 class ValueGenerator extends AbstractGenerator
 {
     /**#@+

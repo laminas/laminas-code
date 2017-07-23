@@ -11,6 +11,8 @@ namespace Zend\Code\Generic\Prototype;
 
 use Zend\Code\Reflection\Exception;
 
+use function str_replace;
+
 /**
  * This is a factory for classes which are identified by name.
  *

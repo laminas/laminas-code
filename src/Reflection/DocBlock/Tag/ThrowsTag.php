@@ -9,6 +9,10 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+use function explode;
+use function implode;
+use function preg_match;
+
 class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**

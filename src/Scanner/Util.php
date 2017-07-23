@@ -12,6 +12,16 @@ namespace Zend\Code\Scanner;
 use stdClass;
 use Zend\Code\Exception;
 
+use function array_key_exists;
+use function is_object;
+use function ltrim;
+use function property_exists;
+use function sprintf;
+use function strlen;
+use function strpos;
+use function substr;
+use function substr_replace;
+
 /**
  * Shared utility methods used by scanners
  */

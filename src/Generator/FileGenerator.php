@@ -12,6 +12,29 @@ namespace Zend\Code\Generator;
 use Zend\Code\Reflection\Exception as ReflectionException;
 use Zend\Code\Reflection\FileReflection;
 
+use function array_key_exists;
+use function array_merge;
+use function count;
+use function current;
+use function dirname;
+use function file_put_contents;
+use function in_array;
+use function is_array;
+use function is_string;
+use function is_writable;
+use function method_exists;
+use function preg_match;
+use function preg_replace;
+use function property_exists;
+use function reset;
+use function sprintf;
+use function str_repeat;
+use function str_replace;
+use function strrpos;
+use function strtolower;
+use function substr;
+use function token_get_all;
+
 class FileGenerator extends AbstractGenerator
 {
     /**

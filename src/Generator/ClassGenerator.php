@@ -11,6 +11,28 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Reflection\ClassReflection;
 
+use function array_diff;
+use function array_map;
+use function array_pop;
+use function array_search;
+use function array_walk;
+use function call_user_func_array;
+use function explode;
+use function get_class;
+use function gettype;
+use function implode;
+use function in_array;
+use function is_array;
+use function is_scalar;
+use function is_string;
+use function ltrim;
+use function sprintf;
+use function str_replace;
+use function strrpos;
+use function strstr;
+use function strtolower;
+use function substr;
+
 class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 {
     const OBJECT_TYPE = 'class';

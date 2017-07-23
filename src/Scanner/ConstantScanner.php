@@ -13,6 +13,14 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function current;
+use function is_string;
+use function next;
+use function reset;
+use function strtolower;
+use function substr;
+use function var_export;
+
 class ConstantScanner implements ScannerInterface
 {
     /**

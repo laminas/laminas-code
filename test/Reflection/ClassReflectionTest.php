@@ -17,6 +17,11 @@ use Zend\Code\Reflection\PropertyReflection;
 use Zend\Code\Scanner\FileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
 
+use function array_shift;
+use function get_class;
+use function trim;
+use function uniqid;
+
 /**
  * @group Zend_Reflection
  * @group Zend_Reflection_Class

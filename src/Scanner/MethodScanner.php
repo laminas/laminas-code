@@ -13,6 +13,15 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function array_slice;
+use function count;
+use function is_int;
+use function is_string;
+use function ltrim;
+use function strtolower;
+use function substr_count;
+use function var_export;
+
 class MethodScanner implements ScannerInterface
 {
     /**

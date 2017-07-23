@@ -14,6 +14,15 @@ use Zend\Code\Reflection\DocBlock\Tag\TagInterface as DocBlockTagInterface;
 use Zend\Code\Reflection\DocBlock\TagManager as DocBlockTagManager;
 use Zend\Code\Scanner\DocBlockScanner;
 
+use function count;
+use function get_class;
+use function is_string;
+use function ltrim;
+use function method_exists;
+use function preg_replace;
+use function sprintf;
+use function substr_count;
+
 class DocBlockReflection implements ReflectionInterface
 {
     /**

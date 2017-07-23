@@ -14,6 +14,8 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\TestAsset\BarClass;
 
+use function count;
+
 class CachingFileScannerTest extends TestCase
 {
     protected function setUp()

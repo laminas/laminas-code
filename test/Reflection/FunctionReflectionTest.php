@@ -15,6 +15,10 @@ use Zend\Code\Reflection\Exception\InvalidArgumentException;
 use Zend\Code\Reflection\FunctionReflection;
 use Zend\Code\Reflection\ParameterReflection;
 
+use function array_shift;
+use function trim;
+use function uniqid;
+
 /**
  * @group Zend_Reflection
  * @group Zend_Reflection_Function

@@ -11,6 +11,10 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Reflection\ClassReflection;
 
+use function sprintf;
+use function str_replace;
+use function strtolower;
+
 class InterfaceGenerator extends ClassGenerator
 {
     const OBJECT_TYPE = 'interface';

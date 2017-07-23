@@ -11,6 +11,9 @@ namespace Zend\Code\Reflection\DocBlock\Tag;
 
 use Zend\Code\Generic\Prototype\PrototypeGenericInterface;
 
+use function explode;
+use function trim;
+
 class GenericTag implements TagInterface, PrototypeGenericInterface
 {
     /**

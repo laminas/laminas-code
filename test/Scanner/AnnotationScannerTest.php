@@ -15,6 +15,8 @@ use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 use Zend\Code\NameInformation;
 use Zend\Code\Scanner\AnnotationScanner;
 
+use function get_class;
+
 class AnnotationScannerTest extends TestCase
 {
     /**

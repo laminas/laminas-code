@@ -14,6 +14,13 @@ use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\TypeGenerator;
 
+use function array_combine;
+use function array_filter;
+use function array_map;
+use function class_implements;
+use function ltrim;
+use function strpos;
+
 /**
  * @group zendframework/zend-code#29
  *

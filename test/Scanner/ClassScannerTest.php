@@ -29,6 +29,11 @@ use ZendTest\Code\TestAsset\FooTrait;
 use ZendTest\Code\TestAsset\TestClassUsesTraitSimple;
 use ZendTest\Code\TestAsset\TestClassWithTraitAliases;
 
+use function array_keys;
+use function current;
+use function key;
+use function trim;
+
 class ClassScannerTest extends TestCase
 {
     protected $manager;

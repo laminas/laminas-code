@@ -14,6 +14,8 @@ use Zend\Code\Scanner\FileScanner;
 use Zend\Code\Scanner\TokenArrayScanner;
 use ZendTest\Code\TestAsset\FooClass;
 
+use function token_get_all;
+
 class PropertyScannerTest extends TestCase
 {
     public function testPropertyScannerHasPropertyInformation()

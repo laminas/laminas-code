@@ -22,9 +22,13 @@ use ZendTest\Code\TestAsset\ClassWithByRefReturnMethod;
 use ZendTest\Code\TestAsset\EmptyClass;
 use ZendTest\Code\TestAsset\InternalHintsClass;
 use ZendTest\Code\TestAsset\IterableHintsClass;
-use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\NullableReturnTypeHintedClass;
+use ZendTest\Code\TestAsset\ObjectHintsClass;
 use ZendTest\Code\TestAsset\ReturnTypeHintedClass;
+
+use function array_filter;
+use function array_shift;
+use function strpos;
 
 /**
  * @group Zend_Code_Generator

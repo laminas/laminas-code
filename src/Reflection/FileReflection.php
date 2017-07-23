@@ -11,6 +11,18 @@ namespace Zend\Code\Reflection;
 
 use Zend\Code\Scanner\CachingFileScanner;
 
+use function basename;
+use function count;
+use function current;
+use function file_get_contents;
+use function get_included_files;
+use function in_array;
+use function realpath;
+use function reset;
+use function sprintf;
+use function stream_resolve_include_path;
+use function substr_count;
+
 class FileReflection implements ReflectionInterface
 {
     /**

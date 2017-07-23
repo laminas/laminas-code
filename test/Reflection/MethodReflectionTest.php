@@ -17,6 +17,10 @@ use Zend\Code\Reflection\ParameterReflection;
 use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectableMethodReflection;
 
+use function array_shift;
+use function trim;
+use function uniqid;
+
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Method

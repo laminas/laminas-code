@@ -11,6 +11,9 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Reflection\ClassReflection;
 
+use function str_replace;
+use function strtolower;
+
 class TraitGenerator extends ClassGenerator
 {
     const OBJECT_TYPE = 'trait';

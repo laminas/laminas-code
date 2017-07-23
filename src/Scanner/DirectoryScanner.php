@@ -13,6 +13,15 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Zend\Code\Exception;
 
+use function array_keys;
+use function array_merge;
+use function is_array;
+use function is_dir;
+use function is_string;
+use function pathinfo;
+use function realpath;
+use function sprintf;
+
 class DirectoryScanner implements ScannerInterface
 {
     /**

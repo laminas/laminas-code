@@ -14,6 +14,21 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
 
+use function array_shift;
+use function array_slice;
+use function class_exists;
+use function count;
+use function file;
+use function file_exists;
+use function implode;
+use function is_array;
+use function rtrim;
+use function strlen;
+use function substr;
+use function token_get_all;
+use function token_name;
+use function var_export;
+
 class MethodReflection extends PhpReflectionMethod implements ReflectionInterface
 {
     /**

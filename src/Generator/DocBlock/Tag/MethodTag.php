@@ -9,6 +9,8 @@
 
 namespace Zend\Code\Generator\DocBlock\Tag;
 
+use function rtrim;
+
 class MethodTag extends AbstractTypeableTag implements TagInterface
 {
     /**

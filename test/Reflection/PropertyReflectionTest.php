@@ -18,6 +18,8 @@ use Zend\Code\Reflection\PropertyReflection;
 use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
 
+use function get_class;
+
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Property

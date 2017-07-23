@@ -11,6 +11,13 @@ namespace Zend\Code\Scanner;
 
 use Zend\Code\NameInformation;
 
+use function current;
+use function is_string;
+use function ltrim;
+use function next;
+use function reset;
+use function trim;
+
 class ParameterScanner
 {
     /**

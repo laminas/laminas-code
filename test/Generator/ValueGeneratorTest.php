@@ -18,6 +18,8 @@ use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 
+use function str_replace;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

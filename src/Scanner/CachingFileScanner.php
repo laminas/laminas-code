@@ -13,6 +13,12 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function file_exists;
+use function md5;
+use function realpath;
+use function spl_object_hash;
+use function sprintf;
+
 class CachingFileScanner extends FileScanner
 {
     /**

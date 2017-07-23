@@ -9,6 +9,19 @@
 
 namespace Zend\Code;
 
+use function array_key_exists;
+use function array_search;
+use function is_array;
+use function is_int;
+use function is_string;
+use function ltrim;
+use function strlen;
+use function strpos;
+use function strrpos;
+use function substr;
+use function substr_replace;
+use function trim;
+
 class NameInformation
 {
     /**

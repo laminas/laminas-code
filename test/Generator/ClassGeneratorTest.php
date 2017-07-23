@@ -22,6 +22,11 @@ use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\NameInformation;
 use Zend\Code\Reflection\ClassReflection;
 
+use function current;
+use function fclose;
+use function fopen;
+use function key;
+
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php

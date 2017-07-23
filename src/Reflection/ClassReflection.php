@@ -15,6 +15,14 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\FileScanner;
 
+use function array_shift;
+use function array_slice;
+use function array_unshift;
+use function file;
+use function file_exists;
+use function implode;
+use function strstr;
+
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
     /**

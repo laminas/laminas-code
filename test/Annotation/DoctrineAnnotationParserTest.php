@@ -14,6 +14,8 @@ use Zend\Code\Annotation\Parser\DoctrineAnnotationParser;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
 
+use function getenv;
+
 class DoctrineAnnotationParserTest extends TestCase
 {
     /**
