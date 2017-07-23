@@ -35,6 +35,7 @@ class TagManager extends PrototypeClassFactory
         $this->addPrototype(new Tag\AuthorTag());
         $this->addPrototype(new Tag\LicenseTag());
         $this->addPrototype(new Tag\ThrowsTag());
+        $this->addPrototype(new Tag\VarTag());
         $this->setGenericPrototype(new Tag\GenericTag());
     }
 

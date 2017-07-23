@@ -69,13 +69,13 @@ class GenericTagTest extends TestCase
 
     public function testCreatingTagFromReflection()
     {
-        $docreflection = new DocBlockReflection('/** @var string');
-        $reflectionTag = $docreflection->getTag('var');
+        $docreflection = new DocBlockReflection('/** @global string');
+        $reflectionTag = $docreflection->getTag('global');
 
         /** @var GenericTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(GenericTag::class, $tag);
-        self::assertEquals('var', $tag->getName());
+        self::assertEquals('global', $tag->getName());
         self::assertEquals('string', $tag->getContent());
     }
 }

@@ -29,8 +29,8 @@ abstract class AbstractTypeableTag extends AbstractGenerator
     protected $types = [];
 
     /**
-     * @param array $types
-     * @param string $description
+     * @param string|string[] $types
+     * @param string          $description
      */
     public function __construct($types = [], $description = null)
     {
