@@ -9,57 +9,56 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\VarTag;
 use Zend\Code\Generator\DocBlock\TagManager;
+use Zend\Code\Reflection\DocBlock\Tag\VarTag as ReflectionVarTag;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @covers \Zend\Code\Generator\DocBlock\Tag\VarTag
  */
-class VarTagTest extends \PHPUnit_Framework_TestCase
+class VarTagTest extends TestCase
 {
     /**
      * @var VarTag
      */
-    protected $tag;
+    private $tag;
+
     /**
      * @var TagManager
      */
-    protected $tagmanager;
+    private $tagManager;
 
-    public function setUp()
+    protected function setUp() : void
     {
-        $this->tag = new VarTag();
-        $this->tagmanager = new TagManager();
-        $this->tagmanager->initializeDefaultTags();
+        parent::setUp();
+
+        $this->tag        = new VarTag();
+        $this->tagManager = new TagManager();
+
+        $this->tagManager->initializeDefaultTags();
     }
 
-    public function tearDown()
+    public function testGetterAndSetterPersistValue() : void
     {
-        $this->tag = null;
-        $this->tagmanager = null;
+        $tag = new VarTag('variable');
+
+        self::assertSame('variable', $tag->getVariableName());
     }
 
-    public function testGetterAndSetterPersistValue()
-    {
-        $this->tag->setVariableName('variable');
-        $this->assertEquals('variable', $this->tag->getVariableName());
-    }
-
-
-    public function testGetterForVariableNameTrimsCorrectly()
+    public function testGetterForVariableNameTrimsCorrectly() : void
     {
         $this->tag->setVariableName('$variable$');
         $this->assertEquals('variable$', $this->tag->getVariableName());
     }
 
-    public function testNameIsCorrect()
+    public function testNameIsCorrect() : void
     {
         $this->assertEquals('var', $this->tag->getName());
     }
 
-    public function testParamProducesCorrectDocBlockLine()
+    public function testParamProducesCorrectDocBlockLine() : void
     {
         $this->tag->setVariableName('variable');
         $this->tag->setTypes('string[]');
@@ -67,25 +66,28 @@ class VarTagTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('@var string[] $variable description', $this->tag->generate());
     }
 
-    public function testConstructorWithOptions()
+    public function testConstructorWithOptions() : void
     {
         $this->tag->setOptions([
             'variableName' => 'foo',
-            'types' => ['string'],
-            'description' => 'description'
+            'types'        => ['string'],
+            'description'  => 'description',
         ]);
         $tagWithOptionsFromConstructor = new VarTag('foo', ['string'], 'description');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
-    public function testCreatingTagFromReflection()
+    public function testCreatingTagFromReflection() : void
     {
-        $docreflection = new DocBlockReflection('/** @var int $foo description');
-        $reflectionTag = $docreflection->getTag('var');
+        $reflectionTag = (new DocBlockReflection('/** @var int $foo description'))
+            ->getTag('var');
+
+        self::assertInstanceOf(ReflectionVarTag::class, $reflectionTag);
 
         /** @var VarTag $tag */
-        $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\VarTag', $tag);
+        $tag = $this->tagManager->createTagFromReflection($reflectionTag);
+
+        $this->assertInstanceOf(VarTag::class, $tag);
         $this->assertEquals('foo', $tag->getVariableName());
         $this->assertEquals('description', $tag->getDescription());
         $this->assertEquals('int', $tag->getTypesAsString());

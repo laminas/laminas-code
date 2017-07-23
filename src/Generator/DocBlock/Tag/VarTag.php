@@ -14,17 +14,17 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     /**
      * @var string|null
      */
-    protected $variableName;
+    private $variableName;
 
     /**
-     * @param string $variableName
+     * @param string|null     $variableName
      * @param string|string[] $types
-     * @param string $description
+     * @param string|null     $description
      */
-    public function __construct($variableName = null, $types = [], $description = null)
+    public function __construct(?string $variableName = null, $types = [], ?string $description = null)
     {
-        if (!empty($variableName)) {
-            $this->setVariableName($variableName);
+        if (null !== $variableName) {
+            $this->variableName = ltrim($variableName, '$');
         }
 
         parent::__construct($types, $description);
@@ -39,13 +39,15 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     }
 
     /**
-     * @param string $variableName
-     * @return self
+     * @internal this code is only public for compatibility with the
+     *           @see \Zend\Code\Generator\DocBlock\TagManager, which
+     *           uses setters
      */
-    public function setVariableName($variableName)
+    public function setVariableName(?string $variableName) : void
     {
-        $this->variableName = ltrim($variableName, '$');
-        return $this;
+        if (null !== $variableName) {
+            $this->variableName = ltrim($variableName, '$');
+        }
     }
 
     /**
@@ -59,11 +61,11 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     /**
      * {@inheritDoc}
      */
-    public function generate()
+    public function generate() : string
     {
         return '@var'
             . ((!empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
-            . ((!empty($this->variableName)) ? ' $' . $this->variableName : '')
+            . (null !== $this->variableName ? ' $' . $this->variableName : '')
             . ((!empty($this->description)) ? ' ' . $this->description : '');
     }
 }

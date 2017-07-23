@@ -10,14 +10,13 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\DocBlock\Tag\GenericTag;
+use Zend\Code\Generator\DocBlock\Tag\VarTag;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\Exception\RuntimeException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\DocBlock\Tag\VarTag;
 
 /**
  * @group Zend_Code_Generator
