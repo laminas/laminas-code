@@ -60,7 +60,7 @@ class ReturnTag extends AbstractTypeableTag implements TagInterface
     {
         $output = '@return '
         . $this->getTypesAsString()
-        . ((!empty($this->description)) ? ' ' . $this->description : '');
+        . (! empty($this->description) ? ' ' . $this->description : '');
 
         return $output;
     }

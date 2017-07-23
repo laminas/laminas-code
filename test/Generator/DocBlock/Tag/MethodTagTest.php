@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\MethodTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class MethodTagTest extends \PHPUnit_Framework_TestCase
+class MethodTagTest extends TestCase
 {
     /**
      * @var MethodTag
@@ -46,19 +47,19 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->tag->setIsStatic(true);
         $this->tag->setMethodName('method');
-        $this->assertEquals(true, $this->tag->isStatic());
-        $this->assertEquals('method', $this->tag->getMethodName());
+        self::assertEquals(true, $this->tag->isStatic());
+        self::assertEquals('method', $this->tag->getMethodName());
     }
 
     public function testGetterForMethodNameTrimsCorrectly()
     {
         $this->tag->setMethodName('()method()');
-        $this->assertEquals('()method', $this->tag->getMethodName());
+        self::assertEquals('()method', $this->tag->getMethodName());
     }
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('method', $this->tag->getName());
+        self::assertEquals('method', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine()
@@ -67,7 +68,7 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
         $this->tag->setMethodName('method');
         $this->tag->setTypes('int');
         $this->tag->setDescription('method(string $a)');
-        $this->assertEquals('@method static int method() method(string $a)', $this->tag->generate());
+        self::assertEquals('@method static int method() method(string $a)', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -76,10 +77,10 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
             'isStatic' => true,
             'methodName' => 'method',
             'types' => ['string'],
-            'description' => 'description'
+            'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new MethodTag('method', ['string'], 'description', true);
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -89,10 +90,10 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var MethodTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\MethodTag', $tag);
-        $this->assertEquals(true, $tag->isStatic());
-        $this->assertEquals('int', $tag->getTypesAsString());
-        $this->assertEquals('method', $tag->getMethodName());
-        $this->assertEquals('method(int $a)', $tag->getDescription());
+        self::assertInstanceOf(MethodTag::class, $tag);
+        self::assertEquals(true, $tag->isStatic());
+        self::assertEquals('int', $tag->getTypesAsString());
+        self::assertEquals('method', $tag->getMethodName());
+        self::assertEquals('method(int $a)', $tag->getDescription());
     }
 }

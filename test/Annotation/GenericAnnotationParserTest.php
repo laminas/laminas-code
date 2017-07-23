@@ -9,9 +9,12 @@
 
 namespace ZendTest\Code\Annotation;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation;
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
+
+use function get_class;
 
 class GenericAnnotationParserTest extends TestCase
 {
@@ -41,9 +44,9 @@ class GenericAnnotationParserTest extends TestCase
         $this->parser->registerAnnotation(new TestAsset\Foo());
         $this->parser->registerAnnotation(new TestAsset\Bar());
 
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
-        $this->assertFalse($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bogus'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        self::assertFalse($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bogus'));
     }
 
     public function testParserCreatesNewAnnotationInstances()
@@ -53,15 +56,15 @@ class GenericAnnotationParserTest extends TestCase
 
         $event = $this->getFooEvent();
         $test = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
-        $this->assertNotSame($foo, $test);
-        $this->assertEquals('test content', $test->content);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
+        self::assertNotSame($foo, $test);
+        self::assertEquals('test content', $test->content);
     }
 
     public function testReturnsFalseDuringCreationIfAnnotationIsNotRegistered()
     {
         $event = $this->getFooEvent();
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testParserAllowsPassingArrayOfAnnotationInstances()
@@ -70,8 +73,8 @@ class GenericAnnotationParserTest extends TestCase
             new TestAsset\Foo(),
             new TestAsset\Bar(),
         ]);
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
-        $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
+        self::assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
     }
 
     public function testAllowsSpecifyingAliases()
@@ -82,50 +85,43 @@ class GenericAnnotationParserTest extends TestCase
 
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Bar', $test);
-        $this->assertNotSame($bar, $test);
-        $this->assertEquals('test content', $test->content);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Bar', $test);
+        self::assertNotSame($bar, $test);
+        self::assertEquals('test content', $test->content);
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationAllowsAnnotationInterfaceOnly()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotation(new \stdClass());
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testAllowRegistrationOnceOnly()
     {
         $bar = new TestAsset\Bar();
         $this->parser->registerAnnotation($bar);
+
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotation($bar);
     }
 
     public function testRegisterAnnotations()
     {
-        $this->parser->registerAnnotations([new TestAsset\Foo]);
+        $this->parser->registerAnnotations([new TestAsset\Foo()]);
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationsThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotations('some string');
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testSetAliasNotRegisteredClassThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->setAlias('bar', 'foo');
     }
 }

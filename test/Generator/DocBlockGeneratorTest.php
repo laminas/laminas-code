@@ -9,15 +9,20 @@
 
 namespace ZendTest\Code\Generator;
 
-use Zend\Code\Generator\DocBlockGenerator;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag;
+use Zend\Code\Generator\DocBlock\Tag\AuthorTag;
+use Zend\Code\Generator\DocBlock\Tag\LicenseTag;
+use Zend\Code\Generator\DocBlock\Tag\ParamTag;
+use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**
  * @group      Zend_Code_Generator
  * @group      Zend_Code_Generator_Php
  */
-class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
+class DocBlockGeneratorTest extends TestCase
 {
     /**
      * @var DocBlockGenerator
@@ -49,25 +54,25 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCanPassTagsToConstructor()
     {
         $docBlockGenerator = new DocBlockGenerator(null, null, [
-            ['name' => 'foo']
+            ['name' => 'foo'],
         ]);
 
         $tags = $docBlockGenerator->getTags();
-        $this->assertCount(1, $tags);
+        self::assertCount(1, $tags);
 
-        $this->assertEquals('foo', $tags[0]->getName());
+        self::assertEquals('foo', $tags[0]->getName());
     }
 
     public function testShortDescriptionGetterAndSetter()
     {
         $this->docBlockGenerator->setShortDescription('Short Description');
-        $this->assertEquals('Short Description', $this->docBlockGenerator->getShortDescription());
+        self::assertEquals('Short Description', $this->docBlockGenerator->getShortDescription());
     }
 
     public function testLongDescriptionGetterAndSetter()
     {
         $this->docBlockGenerator->setLongDescription('Long Description');
-        $this->assertEquals('Long Description', $this->docBlockGenerator->getLongDescription());
+        self::assertEquals('Long Description', $this->docBlockGenerator->getLongDescription());
     }
 
     public function testTagGettersAndSetters()
@@ -81,7 +86,7 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->docBlockGenerator->setTag(['name' => 'blah']);
         $this->docBlockGenerator->setTag($paramTag);
         $this->docBlockGenerator->setTag($returnTag);
-        $this->assertEquals(3, count($this->docBlockGenerator->getTags()));
+        self::assertCount(3, $this->docBlockGenerator->getTags());
 
         $target = <<<EOS
 /**
@@ -92,7 +97,7 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
 
 EOS;
 
-        $this->assertEquals($target, $this->docBlockGenerator->generate());
+        self::assertEquals($target, $this->docBlockGenerator->generate());
     }
 
     public function testGenerationOfDocBlock()
@@ -101,7 +106,7 @@ EOS;
 
         $expected = '/**' . DocBlockGenerator::LINE_FEED . ' * @var Foo this is foo bar'
             . DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
-        $this->assertEquals($expected, $this->docBlockGenerator->generate());
+        self::assertEquals($expected, $this->docBlockGenerator->generate());
     }
 
     public function testCreateFromArray()
@@ -113,13 +118,13 @@ EOS;
                 [
                     'name'        => 'foo',
                     'description' => 'bar',
-                ]
+                ],
             ],
         ]);
 
-        $this->assertEquals('foo', $docBlock->getShortDescription());
-        $this->assertEquals('bar', $docBlock->getLongDescription());
-        $this->assertCount(1, $docBlock->getTags());
+        self::assertEquals('foo', $docBlock->getShortDescription());
+        self::assertEquals('bar', $docBlock->getLongDescription());
+        self::assertCount(1, $docBlock->getTags());
     }
 
     /**
@@ -132,9 +137,9 @@ EOS;
 
         $expected = '/**' . DocBlockGenerator::LINE_FEED
             . ' * @var This is a very large string that will be wrapped if it contains more than'
-            . DocBlockGenerator::LINE_FEED.' * 80 characters'. DocBlockGenerator::LINE_FEED
+            . DocBlockGenerator::LINE_FEED . ' * 80 characters' . DocBlockGenerator::LINE_FEED
             . ' */' . DocBlockGenerator::LINE_FEED;
-        $this->assertEquals($expected, $this->docBlockGenerator->generate());
+        self::assertEquals($expected, $this->docBlockGenerator->generate());
     }
 
     /**
@@ -148,58 +153,58 @@ EOS;
 
         $expected = '/**' . DocBlockGenerator::LINE_FEED
             . ' * @var This is a very large string that will not be wrapped if it contains more than'
-            . ' 80 characters'. DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
-        $this->assertEquals($expected, $this->docBlockGenerator->generate());
+            . ' 80 characters' . DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
+        self::assertEquals($expected, $this->docBlockGenerator->generate());
     }
 
-    public function testDocBlockFromRefelectionLongDescription()
+    public function testDocBlockFromReflectionLongDescription()
     {
-        $this->assertEquals('Long Description', $this->reflectionDocBlockGenerator->getLongDescription());
+        self::assertEquals('Long Description', $this->reflectionDocBlockGenerator->getLongDescription());
     }
 
-    public function testDocBlockFromRefelectionShortDescription()
+    public function testDocBlockFromReflectionShortDescription()
     {
-        $this->assertEquals('Short Description', $this->reflectionDocBlockGenerator->getShortDescription());
+        self::assertEquals('Short Description', $this->reflectionDocBlockGenerator->getShortDescription());
     }
 
-    public function testDocBlockFromRefelectionTagsCount()
+    public function testDocBlockFromReflectionTagsCount()
     {
-        $this->assertCount(4, $this->reflectionDocBlockGenerator->getTags());
-    }
-
-    /**
-     * @depends testDocBlockFromRefelectionTagsCount
-     */
-    public function testDocBlockFromRefelectionParamTag()
-    {
-        $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ParamTag', $tags[0]);
+        self::assertCount(4, $this->reflectionDocBlockGenerator->getTags());
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionAuthorTag()
+    public function testDocBlockFromReflectionParamTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tags[1]);
+        self::assertInstanceOf(ParamTag::class, $tags[0]);
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionLicenseTag()
+    public function testDocBlockFromReflectionAuthorTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tags[2]);
+        self::assertInstanceOf(AuthorTag::class, $tags[1]);
     }
 
     /**
-     * @depends testDocBlockFromRefelectionTagsCount
+     * @depends testDocBlockFromReflectionTagsCount
      */
-    public function testDocBlockFromRefelectionReturnTag()
+    public function testDocBlockFromReflectionLicenseTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ReturnTag', $tags[3]);
+        self::assertInstanceOf(LicenseTag::class, $tags[2]);
+    }
+
+    /**
+     * @depends testDocBlockFromReflectionTagsCount
+     */
+    public function testDocBlockFromReflectionReturnTag()
+    {
+        $tags = $this->reflectionDocBlockGenerator->getTags();
+        self::assertInstanceOf(ReturnTag::class, $tags[3]);
     }
 }

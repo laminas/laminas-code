@@ -9,8 +9,10 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\DocBlockScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+
+use function str_replace;
 
 /**
  * @group      Zend_Code_Scanner
@@ -29,11 +31,11 @@ class DocBlockScannerTest extends TestCase
 EOB;
         $tokenScanner = new DocBlockScanner($docComment);
         $tags = $tokenScanner->getTags();
-        $this->assertCount(1, $tags);
-        $this->assertArrayHasKey('name', $tags[0]);
-        $this->assertEquals('@mytag', $tags[0]['name']);
-        $this->assertArrayHasKey('value', $tags[0]);
-        $this->assertEquals('', $tags[0]['value']);
+        self::assertCount(1, $tags);
+        self::assertArrayHasKey('name', $tags[0]);
+        self::assertEquals('@mytag', $tags[0]['name']);
+        self::assertArrayHasKey('value', $tags[0]);
+        self::assertEquals('', $tags[0]['value']);
     }
 
     public function testDocBlockScannerDescriptions()
@@ -47,13 +49,13 @@ EOB;
  */
 EOB;
         $tokenScanner = new DocBlockScanner($docComment);
-        $this->assertEquals('Short Description', $tokenScanner->getShortDescription());
-        $this->assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
+        self::assertEquals('Short Description', $tokenScanner->getShortDescription());
+        self::assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
 
         // windows-style line separators
         $docComment = str_replace("\n", "\r\n", $docComment);
         $tokenScanner = new DocBlockScanner($docComment);
-        $this->assertEquals('Short Description', $tokenScanner->getShortDescription());
-        $this->assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
+        self::assertEquals('Short Description', $tokenScanner->getShortDescription());
+        self::assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
     }
 }

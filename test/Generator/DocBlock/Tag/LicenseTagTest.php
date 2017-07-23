@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\LicenseTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,12 +18,13 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class LicenseTagTest extends \PHPUnit_Framework_TestCase
+class LicenseTagTest extends TestCase
 {
     /**
      * @var LicenseTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -46,20 +48,20 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
         $this->tag->setUrl('foo');
         $this->tag->setLicenseName('bar');
 
-        $this->assertEquals('foo', $this->tag->getUrl());
-        $this->assertEquals('bar', $this->tag->getLicenseName());
+        self::assertEquals('foo', $this->tag->getUrl());
+        self::assertEquals('bar', $this->tag->getLicenseName());
     }
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('license', $this->tag->getName());
+        self::assertEquals('license', $this->tag->getName());
     }
 
     public function testLicenseProducesCorrectDocBlockLine()
     {
         $this->tag->setUrl('foo');
         $this->tag->setLicenseName('bar bar bar');
-        $this->assertEquals('@license foo bar bar bar', $this->tag->generate());
+        self::assertEquals('@license foo bar bar bar', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -69,7 +71,7 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
             'licenseName' => 'bar',
         ]);
         $tagWithOptionsFromConstructor = new LicenseTag('foo', 'bar');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -79,8 +81,8 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var LicenseTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tag);
-        $this->assertEquals('http://zend.com', $tag->getUrl());
-        $this->assertEquals('License', $tag->getLicenseName());
+        self::assertInstanceOf(LicenseTag::class, $tag);
+        self::assertEquals('http://zend.com', $tag->getUrl());
+        self::assertEquals('License', $tag->getLicenseName());
     }
 }

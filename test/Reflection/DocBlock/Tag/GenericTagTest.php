@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\GenericTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class GenericTagTest extends \PHPUnit_Framework_TestCase
+class GenericTagTest extends TestCase
 {
     /**
      * @group ZF2-146
@@ -24,7 +25,7 @@ class GenericTagTest extends \PHPUnit_Framework_TestCase
     {
         $tag = new GenericTag();
         $tag->initialize('baz zab');
-        $this->assertEquals('baz', $tag->returnValue(0));
-        $this->assertEquals('zab', $tag->returnValue(1));
+        self::assertEquals('baz', $tag->returnValue(0));
+        self::assertEquals('zab', $tag->returnValue(1));
     }
 }

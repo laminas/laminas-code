@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\LicenseTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class LicenseTagTest extends \PHPUnit_Framework_TestCase
+class LicenseTagTest extends TestCase
 {
     /**
      * @var LicenseTag
@@ -30,15 +31,15 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
     public function testParseUrl()
     {
         $this->tag->initialize('http://www.example.com');
-        $this->assertEquals('license', $this->tag->getName());
-        $this->assertEquals('http://www.example.com', $this->tag->getUrl());
+        self::assertEquals('license', $this->tag->getName());
+        self::assertEquals('http://www.example.com', $this->tag->getUrl());
     }
 
     public function testParseUrlAndLicenseName()
     {
         $this->tag->initialize('http://www.example.com Foo');
-        $this->assertEquals('license', $this->tag->getName());
-        $this->assertEquals('http://www.example.com', $this->tag->getUrl());
-        $this->assertEquals('Foo', $this->tag->getLicenseName());
+        self::assertEquals('license', $this->tag->getName());
+        self::assertEquals('http://www.example.com', $this->tag->getUrl());
+        self::assertEquals('Foo', $this->tag->getLicenseName());
     }
 }

@@ -9,8 +9,15 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Scanner\ClassScanner;
 use Zend\Code\Scanner\TokenArrayScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use ZendTest\Code\TestAsset\Baz;
+use ZendTest\Code\TestAsset\FooClass;
+use ZendTest\Code\TestAsset\FooTrait;
+
+use function file_get_contents;
+use function token_get_all;
 
 class TokenArrayScannerTest extends TestCase
 {
@@ -19,10 +26,10 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
-        $this->assertTrue($tokenScanner->hasNamespace('ZendTest\Code\TestAsset'));
+        self::assertTrue($tokenScanner->hasNamespace('ZendTest\Code\TestAsset'));
         $namespaces = $tokenScanner->getNamespaces();
-        $this->assertInternalType('array', $namespaces);
-        $this->assertContains('ZendTest\Code\TestAsset', $namespaces);
+        self::assertInternalType('array', $namespaces);
+        self::assertContains('ZendTest\Code\TestAsset', $namespaces);
     }
 
     public function testScannerReturnsNamespacesInNotNamespacedClasses()
@@ -31,12 +38,12 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooBarClass.php')
         ));
         $uses = $tokenScanner->getUses();
-        $this->assertInternalType('array', $uses);
+        self::assertInternalType('array', $uses);
         $foundUses = [];
         foreach ($uses as $use) {
             $foundUses[] = $use['use'];
         }
-        $this->assertContains('ArrayObject', $foundUses);
+        self::assertContains('ArrayObject', $foundUses);
     }
 
     public function testScannerReturnsClassNames()
@@ -45,8 +52,8 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
         $classes = $tokenScanner->getClassNames();
-        $this->assertInternalType('array', $classes);
-        $this->assertContains('ZendTest\Code\TestAsset\FooClass', $classes);
+        self::assertInternalType('array', $classes);
+        self::assertContains(FooClass::class, $classes);
     }
 
     /**
@@ -58,8 +65,8 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooTrait.php')
         ));
         $classes = $tokenScanner->getClassNames();
-        $this->assertInternalType('array', $classes);
-        $this->assertContains('ZendTest\Code\TestAsset\FooTrait', $classes);
+        self::assertInternalType('array', $classes);
+        self::assertContains(FooTrait::class, $classes);
     }
 
     public function testScannerReturnsFunctions()
@@ -68,8 +75,8 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/functions.php')
         ));
         $functions = $tokenScanner->getFunctionNames();
-        $this->assertInternalType('array', $functions);
-        $this->assertContains('ZendTest\Code\TestAsset\foo_bar', $functions);
+        self::assertInternalType('array', $functions);
+        self::assertContains('ZendTest\Code\TestAsset\foo_bar', $functions);
     }
 
     public function testScannerReturnsClassScanner()
@@ -77,10 +84,10 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
-        $classes = $tokenScanner->getClasses(true);
-        $this->assertInternalType('array', $classes);
+        $classes = $tokenScanner->getClasses();
+        self::assertInternalType('array', $classes);
         foreach ($classes as $class) {
-            $this->assertInstanceOf('Zend\Code\Scanner\ClassScanner', $class);
+            self::assertInstanceOf(ClassScanner::class, $class);
         }
     }
 
@@ -89,10 +96,7 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/MultipleNamespaces.php')
         ));
-        $this->assertEquals(
-            'ZendTest\Code\TestAsset\Baz',
-            $tokenScanner->getClass('ZendTest\Code\TestAsset\Baz')->getName()
-        );
-        $this->assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
+        self::assertEquals(Baz::class, $tokenScanner->getClass(Baz::class)->getName());
+        self::assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
     }
 }

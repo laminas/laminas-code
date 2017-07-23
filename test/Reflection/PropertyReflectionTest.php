@@ -9,23 +9,28 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\PropertyReflection;
+use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
+
+use function get_class;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Property
  */
-class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
+class PropertyReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
     {
         $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop1');
-        $this->assertInstanceOf(ClassReflection::class, $property->getDeclaringClass());
-        $this->assertEquals(TestAsset\TestSampleClass2::class, $property->getDeclaringClass()->getName());
+        self::assertInstanceOf(ClassReflection::class, $property->getDeclaringClass());
+        self::assertEquals(TestAsset\TestSampleClass2::class, $property->getDeclaringClass()->getName());
     }
 
     public function testAnnotationScanningIsPossible()
@@ -37,18 +42,18 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 
         $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop2');
         $annotations = $property->getAnnotations($manager);
-        $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
-        $this->assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
+        self::assertInstanceOf(AnnotationCollection::class, $annotations);
+        self::assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
         $found = false;
         foreach ($annotations as $key => $annotation) {
-            if (!$annotation instanceof TestAsset\SampleAnnotation) {
+            if (! $annotation instanceof TestAsset\SampleAnnotation) {
                 continue;
             }
-            $this->assertEquals(get_class($annotation) . ': {"foo":"bar"}', $annotation->content);
+            self::assertEquals(get_class($annotation) . ': {"foo":"bar"}', $annotation->content);
             $found = true;
             break;
         }
-        $this->assertTrue($found);
+        self::assertTrue($found);
     }
 
     public function testGetAnnotationsWithNoNameInformations()
@@ -56,13 +61,13 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty = new InjectablePropertyReflection(
             // TestSampleClass5 has the annotations required to get to the
             // right point in the getAnnotations method.
-            'ZendTest\Code\Reflection\TestAsset\TestSampleClass2',
+            TestAsset\TestSampleClass2::class,
             '_prop2'
         );
 
-        $annotationManager = new \Zend\Code\Annotation\AnnotationManager();
+        $annotationManager = new AnnotationManager();
 
-        $fileScanner = $this->getMockBuilder('Zend\Code\Scanner\CachingFileScanner')
+        $fileScanner = $this->getMockBuilder(CachingFileScanner::class)
                             ->disableOriginalConstructor()
                             ->getMock();
 
@@ -72,6 +77,6 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
                     ->method('getClassNameInformation')
                     ->will($this->returnValue(false));
 
-        $this->assertFalse($reflectionProperty->getAnnotations($annotationManager));
+        self::assertFalse($reflectionProperty->getAnnotations($annotationManager));
     }
 }

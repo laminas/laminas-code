@@ -12,27 +12,32 @@ namespace Zend\Code\Generator;
 use ReflectionParameter;
 use Zend\Code\Reflection\ParameterReflection;
 
+use function is_string;
+use function method_exists;
+use function str_replace;
+use function strtolower;
+
 class ParameterGenerator extends AbstractGenerator
 {
     /**
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var TypeGenerator|null
      */
-    protected $type = null;
+    protected $type;
 
     /**
      * @var string|ValueGenerator
      */
-    protected $defaultValue = null;
+    protected $defaultValue;
 
     /**
      * @var int
      */
-    protected $position = null;
+    protected $position;
 
     /**
      * @var bool
@@ -95,9 +100,9 @@ class ParameterGenerator extends AbstractGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
-                'Paramerer generator requires that a name is provided for this object'
+                'Parameter generator requires that a name is provided for this object'
             );
         }
 
@@ -212,7 +217,7 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setDefaultValue($defaultValue)
     {
-        if (!($defaultValue instanceof ValueGenerator)) {
+        if (! $defaultValue instanceof ValueGenerator) {
             $defaultValue = new ValueGenerator($defaultValue);
         }
         $this->defaultValue = $defaultValue;
@@ -387,8 +392,6 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
-     * @param string|null $type
-     *
      * @return string
      */
     private function generateTypeHint()

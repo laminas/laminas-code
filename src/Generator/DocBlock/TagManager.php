@@ -13,6 +13,10 @@ use Zend\Code\Generator\DocBlock\Tag\TagInterface;
 use Zend\Code\Generic\Prototype\PrototypeClassFactory;
 use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionTagInterface;
 
+use function method_exists;
+use function substr;
+use function ucfirst;
+
 /**
  * This class is used in DocBlockGenerator and creates the needed
  * Tag classes depending on the tag. So for example an @author tag
@@ -35,6 +39,7 @@ class TagManager extends PrototypeClassFactory
         $this->addPrototype(new Tag\AuthorTag());
         $this->addPrototype(new Tag\LicenseTag());
         $this->addPrototype(new Tag\ThrowsTag());
+        $this->addPrototype(new Tag\VarTag());
         $this->setGenericPrototype(new Tag\GenericTag());
     }
 

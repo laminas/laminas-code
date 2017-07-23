@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.2.0 - TBD
+## 3.3.0 - TBD
 
 ### Added
 
@@ -20,11 +20,25 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 3.1.1 - TBD
+## 3.2.0 - 2017-07-23
 
 ### Added
 
-- Nothing.
+- [#112](https://github.com/zendframework/zend-code/pull/112)
+  [#110](https://github.com/zendframework/zend-code/pull/110) Introduced
+  support for the PHP `7.2` `object` type-hint
+- [#41](https://github.com/zendframework/zend-code/pull/41) Added `VarTag`
+  support to the docblock generators and reflectors: allows generating
+  and parsing `@var` tags.
+- [#113](https://github.com/zendframework/zend-code/pull/113) Added
+  PHP `7.2` to the build matrix
+- [#114](https://github.com/zendframework/zend-code/pull/114) Increased
+  minimum supported PHP version to `^7.1.0`
+- [#114](https://github.com/zendframework/zend-code/pull/114) Upgraded
+  PHPUnit dependency to `^6.2.2`
+- [#121](https://github.com/zendframework/zend-code/pull/121) Imported
+  global functions via `use` statements (experimenting with OpCache
+  OPCODE inlining optimisations)
 
 ### Deprecated
 
@@ -32,11 +46,28 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#113](https://github.com/zendframework/zend-code/pull/113)
+  [#118](https://github.com/zendframework/zend-code/pull/118) Removed
+  HHVM support
+- [#122](https://github.com/zendframework/zend-code/pull/122) Removed
+  IRC notifications for pushes/build statuses
 
 ### Fixed
 
-- Nothing.
+- [#101](https://github.com/zendframework/zend-code/pull/101) avoid
+  calling `isInternalPhpType` twice in the `TypeGenerator`
+- [#115](https://github.com/zendframework/zend-code/pull/115) Replaced
+  assertions in the test suite with their static counterparts where
+  applicable
+- [#120](https://github.com/zendframework/zend-code/pull/120)
+  [#109](https://github.com/zendframework/zend-code/pull/109)
+  [#100](https://github.com/zendframework/zend-code/pull/100) Applied
+  ZendFramework coding standard to the library code
+- [#119](https://github.com/zendframework/zend-code/pull/119) Corrected
+  test suite errors caused by mismatching parameter order
+- [#106](https://github.com/zendframework/zend-code/pull/106)
+- [#107](https://github.com/zendframework/zend-code/pull/107) Minor
+  typing error corrections in documentation and error messages
 
 ## 3.1.0 - 2016-10-24
 

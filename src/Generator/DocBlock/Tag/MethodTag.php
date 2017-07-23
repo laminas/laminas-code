@@ -9,12 +9,14 @@
 
 namespace Zend\Code\Generator\DocBlock\Tag;
 
+use function rtrim;
+
 class MethodTag extends AbstractTypeableTag implements TagInterface
 {
     /**
      * @var string
      */
-    protected $methodName = null;
+    protected $methodName;
 
     /**
      * @var bool
@@ -29,7 +31,7 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
      */
     public function __construct($methodName = null, $types = [], $description = null, $isStatic = false)
     {
-        if (!empty($methodName)) {
+        if (! empty($methodName)) {
             $this->setMethodName($methodName);
         }
 
@@ -47,7 +49,7 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
     }
 
     /**
-     * @param boolean $isStatic
+     * @param bool $isStatic
      * @return MethodTag
      */
     public function setIsStatic($isStatic)
@@ -57,7 +59,7 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isStatic()
     {
@@ -88,10 +90,10 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
     public function generate()
     {
         $output = '@method'
-            . (($this->isStatic) ? ' static' : '')
-            . ((!empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
-            . ((!empty($this->methodName)) ? ' ' . $this->methodName . '()' : '')
-            . ((!empty($this->description)) ? ' ' . $this->description : '');
+            . ($this->isStatic ? ' static' : '')
+            . (! empty($this->types) ? ' ' . $this->getTypesAsString() : '')
+            . (! empty($this->methodName) ? ' ' . $this->methodName . '()' : '')
+            . (! empty($this->description) ? ' ' . $this->description : '');
 
         return $output;
     }

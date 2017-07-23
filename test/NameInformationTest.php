@@ -9,42 +9,43 @@
 
 namespace ZendTest\Code;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\NameInformation;
 
-class NameInformationTest extends \PHPUnit_Framework_TestCase
+class NameInformationTest extends TestCase
 {
     public function testNamespaceResolverPersistsNamespace()
     {
         $nr = new NameInformation('Foo\Bar');
-        $this->assertEquals('Foo\Bar', $nr->getNamespace());
+        self::assertEquals('Foo\Bar', $nr->getNamespace());
 
         $nr = new NameInformation();
         $nr->setNamespace('Bar\Baz');
-        $this->assertEquals('Bar\Baz', $nr->getNamespace());
+        self::assertEquals('Bar\Baz', $nr->getNamespace());
     }
 
     public function testNamespaceResolverPersistsUseRules()
     {
         $nr = new NameInformation('Foo\Bar', ['Aaa\Bbb\Ccc' => 'C']);
-        $this->assertEquals(['Aaa\Bbb\Ccc' => 'C'], $nr->getUses());
+        self::assertEquals(['Aaa\Bbb\Ccc' => 'C'], $nr->getUses());
 
         $nr = new NameInformation();
         $nr->setUses(['Aaa\Bbb\Ccc']);
-        $this->assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
+        self::assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
 
         $nr->setUses(['ArrayObject']);
-        $this->assertEquals(['ArrayObject' => 'ArrayObject'], $nr->getUses());
+        self::assertEquals(['ArrayObject' => 'ArrayObject'], $nr->getUses());
 
         $nr->setUses(['ArrayObject' => 'AO']);
-        $this->assertEquals(['ArrayObject' => 'AO'], $nr->getUses());
+        self::assertEquals(['ArrayObject' => 'AO'], $nr->getUses());
 
         $nr->setUses(['\Aaa\Bbb\Ccc' => 'Ccc']);
-        $this->assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
+        self::assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
     }
 
     public function testNamespaceResolverCorrectlyResolvesNames()
     {
-        $nr = new NameInformation;
+        $nr = new NameInformation();
         $nr->setNamespace('Zend\MagicComponent');
         $nr->setUses([
             'ArrayObject',
@@ -53,13 +54,13 @@ class NameInformationTest extends \PHPUnit_Framework_TestCase
         ]);
 
         // test against namespace
-        $this->assertEquals('Zend\MagicComponent\Bar', $nr->resolveName('Bar'));
+        self::assertEquals('Zend\MagicComponent\Bar', $nr->resolveName('Bar'));
 
         // test against uses
-        $this->assertEquals('ArrayObject', $nr->resolveName('ArrayObject'));
-        $this->assertEquals('ArrayObject', $nr->resolveName('\ArrayObject'));
-        $this->assertEquals('Zend\OtherMagicComponent\Foo', $nr->resolveName('Foo'));
-        $this->assertEquals('Zend\SuperMagic', $nr->resolveName('SM'));
-        $this->assertEquals('Zend\SuperMagic\Bar', $nr->resolveName('SM\Bar'));
+        self::assertEquals('ArrayObject', $nr->resolveName('ArrayObject'));
+        self::assertEquals('ArrayObject', $nr->resolveName('\ArrayObject'));
+        self::assertEquals('Zend\OtherMagicComponent\Foo', $nr->resolveName('Foo'));
+        self::assertEquals('Zend\SuperMagic', $nr->resolveName('SM'));
+        self::assertEquals('Zend\SuperMagic\Bar', $nr->resolveName('SM\Bar'));
     }
 }

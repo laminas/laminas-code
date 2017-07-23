@@ -9,27 +9,28 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\FileScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use ZendTest\Code\TestAsset\FooClass;
 
 class ConstantScannerTest extends TestCase
 {
     public function testConstantScannerHasConstantInformation()
     {
         $file = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass(FooClass::class);
 
         $constant = $class->getConstant('BAR');
-        $this->assertEquals('BAR', $constant->getName());
-        $this->assertEquals(5, $constant->getValue());
+        self::assertEquals('BAR', $constant->getName());
+        self::assertEquals(5, $constant->getValue());
 
         $constant = $class->getConstant('FOO');
-        $this->assertEquals('FOO', $constant->getName());
-        $this->assertEquals(5, $constant->getValue());
+        self::assertEquals('FOO', $constant->getName());
+        self::assertEquals(5, $constant->getValue());
 
         $constant = $class->getConstant('BAZ');
-        $this->assertEquals('BAZ', $constant->getName());
-        $this->assertEquals('baz', $constant->getValue());
-        $this->assertNotNull('Some comment', $constant->getDocComment());
+        self::assertEquals('BAZ', $constant->getName());
+        self::assertEquals('baz', $constant->getValue());
+        self::assertNotNull('Some comment', $constant->getDocComment());
     }
 }

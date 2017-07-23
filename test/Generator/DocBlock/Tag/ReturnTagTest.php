@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,12 +18,13 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class ReturnTagTest extends \PHPUnit_Framework_TestCase
+class ReturnTagTest extends TestCase
 {
     /**
      * @var ReturnTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -43,14 +45,14 @@ class ReturnTagTest extends \PHPUnit_Framework_TestCase
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('return', $this->tag->getName());
+        self::assertEquals('return', $this->tag->getName());
     }
 
     public function testReturnProducesCorrectDocBlockLine()
     {
         $this->tag->setTypes('string|int');
         $this->tag->setDescription('bar bar bar');
-        $this->assertEquals('@return string|int bar bar bar', $this->tag->generate());
+        self::assertEquals('@return string|int bar bar bar', $this->tag->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -60,8 +62,8 @@ class ReturnTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var ReturnTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ReturnTag', $tag);
-        $this->assertEquals('The return', $tag->getDescription());
-        $this->assertEquals('int', $tag->getTypesAsString());
+        self::assertInstanceOf(ReturnTag::class, $tag);
+        self::assertEquals('The return', $tag->getDescription());
+        self::assertEquals('int', $tag->getTypesAsString());
     }
 }

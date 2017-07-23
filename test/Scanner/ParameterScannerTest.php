@@ -9,25 +9,26 @@
 
 namespace ZendTest\Code\Scanner;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\FileScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use ZendTest\Code\TestAsset\BarClass;
 
 class ParameterScannerTest extends TestCase
 {
     public function testParameterScannerHasParameterInformation()
     {
         $file      = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class     = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class     = $file->getClass(BarClass::class);
         $method    = $class->getMethod('three');
         $parameter = $method->getParameter('t');
-        $this->assertEquals('ZendTest\Code\TestAsset\BarClass', $parameter->getDeclaringClass());
-        $this->assertEquals('three', $parameter->getDeclaringFunction());
-        $this->assertEquals('t', $parameter->getName());
-        $this->assertEquals(2, $parameter->getPosition());
-        $this->assertEquals('2', $parameter->getDefaultValue());
-        $this->assertFalse($parameter->isArray());
-        $this->assertTrue($parameter->isDefaultValueAvailable());
-        $this->assertTrue($parameter->isOptional());
-        $this->assertTrue($parameter->isPassedByReference());
+        self::assertEquals(BarClass::class, $parameter->getDeclaringClass());
+        self::assertEquals('three', $parameter->getDeclaringFunction());
+        self::assertEquals('t', $parameter->getName());
+        self::assertEquals(2, $parameter->getPosition());
+        self::assertEquals('2', $parameter->getDefaultValue());
+        self::assertFalse($parameter->isArray());
+        self::assertTrue($parameter->isDefaultValueAvailable());
+        self::assertTrue($parameter->isOptional());
+        self::assertTrue($parameter->isPassedByReference());
     }
 }

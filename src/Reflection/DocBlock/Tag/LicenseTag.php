@@ -9,17 +9,20 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+use function preg_match;
+use function trim;
+
 class LicenseTag implements TagInterface
 {
     /**
      * @var string
      */
-    protected $url = null;
+    protected $url;
 
     /**
      * @var string
      */
-    protected $licenseName = null;
+    protected $licenseName;
 
     /**
      * @return string
@@ -38,7 +41,7 @@ class LicenseTag implements TagInterface
     {
         $match = [];
 
-        if (!preg_match('#^([\S]*)(?:\s+(.*))?$#m', $tagDocblockLine, $match)) {
+        if (! preg_match('#^([\S]*)(?:\s+(.*))?$#m', $tagDocblockLine, $match)) {
             return;
         }
 

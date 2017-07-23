@@ -12,12 +12,25 @@ namespace Zend\Code\Generator;
 use ReflectionMethod;
 use Zend\Code\Reflection\MethodReflection;
 
+use function explode;
+use function implode;
+use function is_array;
+use function is_string;
+use function method_exists;
+use function preg_replace;
+use function sprintf;
+use function str_replace;
+use function strlen;
+use function strtolower;
+use function substr;
+use function trim;
+
 class MethodGenerator extends AbstractMemberGenerator
 {
     /**
      * @var DocBlockGenerator
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * @var ParameterGenerator[]
@@ -27,7 +40,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * @var string
      */
-    protected $body = null;
+    protected $body;
 
     /**
      * @var null|TypeGenerator
@@ -128,7 +141,7 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     public static function fromArray(array $array)
     {
-        if (!isset($array['name'])) {
+        if (! isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Method generator requires that a name is provided for this object'
             );
@@ -139,7 +152,7 @@ class MethodGenerator extends AbstractMemberGenerator
             // normalize key
             switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'docblock':
-                    $docBlock = ($value instanceof DocBlockGenerator) ? $value : DocBlockGenerator::fromArray($value);
+                    $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $method->setDocBlock($docBlock);
                     break;
                 case 'flags':
@@ -234,7 +247,7 @@ class MethodGenerator extends AbstractMemberGenerator
             $parameter = ParameterGenerator::fromArray($parameter);
         }
 
-        if (!$parameter instanceof ParameterGenerator) {
+        if (! $parameter instanceof ParameterGenerator) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s is expecting either a string, array or an instance of %s\ParameterGenerator',
                 __METHOD__,
@@ -274,7 +287,7 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param string|null
+     * @param string|null $returnType
      *
      * @return MethodGenerator
      */
@@ -326,17 +339,17 @@ class MethodGenerator extends AbstractMemberGenerator
         if ($this->isAbstract()) {
             $output .= 'abstract ';
         } else {
-            $output .= (($this->isFinal()) ? 'final ' : '');
+            $output .= $this->isFinal() ? 'final ' : '';
         }
 
         $output .= $this->getVisibility()
-            . (($this->isStatic()) ? ' static' : '')
+            . ($this->isStatic() ? ' static' : '')
             . ' function '
             . ($this->returnsReference ? '& ' : '')
             . $this->getName() . '(';
 
         $parameters = $this->getParameters();
-        if (!empty($parameters)) {
+        if (! empty($parameters)) {
             foreach ($parameters as $parameter) {
                 $parameterOutput[] = $parameter->generate();
             }

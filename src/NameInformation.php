@@ -9,12 +9,25 @@
 
 namespace Zend\Code;
 
+use function array_key_exists;
+use function array_search;
+use function is_array;
+use function is_int;
+use function is_string;
+use function ltrim;
+use function strlen;
+use function strpos;
+use function strrpos;
+use function substr;
+use function substr_replace;
+use function trim;
+
 class NameInformation
 {
     /**
      * @var string
      */
-    protected $namespace = null;
+    protected $namespace;
 
     /**
      * @var array
@@ -58,7 +71,7 @@ class NameInformation
      */
     public function hasNamespace()
     {
-        return ($this->namespace !== null);
+        return $this->namespace !== null;
     }
 
     /**
@@ -128,11 +141,11 @@ class NameInformation
      */
     public function resolveName($name)
     {
-        if ($this->namespace && !$this->uses && strlen($name) > 0 && $name{0} != '\\') {
+        if ($this->namespace && ! $this->uses && strlen($name) > 0 && $name{0} != '\\') {
             return $this->namespace . '\\' . $name;
         }
 
-        if (!$this->uses || strlen($name) <= 0 || $name{0} == '\\') {
+        if (! $this->uses || strlen($name) <= 0 || $name{0} == '\\') {
             return ltrim($name, '\\');
         }
 

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\GenericTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,12 +18,13 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class GenericTagTest extends \PHPUnit_Framework_TestCase
+class GenericTagTest extends TestCase
 {
     /**
      * @var GenericTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -45,15 +47,15 @@ class GenericTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->tag->setName('var');
         $this->tag->setContent('string');
-        $this->assertEquals('var', $this->tag->getName());
-        $this->assertEquals('string', $this->tag->getContent());
+        self::assertEquals('var', $this->tag->getName());
+        self::assertEquals('string', $this->tag->getContent());
     }
 
     public function testParamProducesCorrectDocBlockLine()
     {
         $this->tag->setName('var');
         $this->tag->setContent('string');
-        $this->assertEquals('@var string', $this->tag->generate());
+        self::assertEquals('@var string', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -63,18 +65,18 @@ class GenericTagTest extends \PHPUnit_Framework_TestCase
             'content' => 'string',
         ]);
         $tagWithOptionsFromConstructor = new GenericTag('var', 'string');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
     {
-        $docreflection = new DocBlockReflection('/** @var string');
-        $reflectionTag = $docreflection->getTag('var');
+        $docreflection = new DocBlockReflection('/** @global string');
+        $reflectionTag = $docreflection->getTag('global');
 
         /** @var GenericTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
-        $this->assertEquals('var', $tag->getName());
-        $this->assertEquals('string', $tag->getContent());
+        self::assertInstanceOf(GenericTag::class, $tag);
+        self::assertEquals('global', $tag->getName());
+        self::assertEquals('string', $tag->getContent());
     }
 }

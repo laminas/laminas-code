@@ -9,13 +9,14 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\AuthorTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class AuthorTagTest extends \PHPUnit_Framework_TestCase
+class AuthorTagTest extends TestCase
 {
     /**
      * @var AuthorTag
@@ -30,15 +31,15 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
     public function testParseName()
     {
         $this->tag->initialize('Firstname Lastname');
-        $this->assertEquals('author', $this->tag->getName());
-        $this->assertEquals('Firstname Lastname', $this->tag->getAuthorName());
+        self::assertEquals('author', $this->tag->getName());
+        self::assertEquals('Firstname Lastname', $this->tag->getAuthorName());
     }
 
     public function testParseNameAndEmail()
     {
         $this->tag->initialize('Firstname Lastname <test@domain.fr>');
-        $this->assertEquals('author', $this->tag->getName());
-        $this->assertEquals('Firstname Lastname', $this->tag->getAuthorName());
-        $this->assertEquals('test@domain.fr', $this->tag->getAuthorEmail());
+        self::assertEquals('author', $this->tag->getName());
+        self::assertEquals('Firstname Lastname', $this->tag->getAuthorName());
+        self::assertEquals('test@domain.fr', $this->tag->getAuthorEmail());
     }
 }

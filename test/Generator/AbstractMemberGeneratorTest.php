@@ -9,10 +9,11 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\AbstractMemberGenerator;
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 
-class AbstractMemberGeneratorTest extends \PHPUnit_Framework_TestCase
+class AbstractMemberGeneratorTest extends TestCase
 {
     /**
      * @var AbstractMemberGenerator
@@ -21,7 +22,7 @@ class AbstractMemberGeneratorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->fixture = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractMemberGenerator');
+        $this->fixture = $this->getMockForAbstractClass(AbstractMemberGenerator::class);
     }
 
     public function testSetFlagsWithArray()
@@ -33,15 +34,13 @@ class AbstractMemberGeneratorTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->assertEquals(AbstractMemberGenerator::VISIBILITY_PUBLIC, $this->fixture->getVisibility());
-        $this->assertEquals(true, $this->fixture->isFinal());
+        self::assertEquals(AbstractMemberGenerator::VISIBILITY_PUBLIC, $this->fixture->getVisibility());
+        self::assertEquals(true, $this->fixture->isFinal());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testSetDocBlockThrowsExceptionWithInvalidType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->fixture->setDocBlock(new \stdClass());
     }
 }

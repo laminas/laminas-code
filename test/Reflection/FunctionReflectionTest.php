@@ -9,27 +9,35 @@
 
 namespace ZendTest\Code\Reflection;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Reflection\DocBlockReflection;
+use Zend\Code\Reflection\Exception\InvalidArgumentException;
 use Zend\Code\Reflection\FunctionReflection;
+use Zend\Code\Reflection\ParameterReflection;
+
+use function array_shift;
+use function trim;
+use function uniqid;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Function
+ * @group Zend_Reflection
+ * @group Zend_Reflection_Function
  */
-class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
+class FunctionReflectionTest extends TestCase
 {
     public function testParemeterReturn()
     {
         $function = new FunctionReflection('array_splice');
         $parameters = $function->getParameters();
-        $this->assertEquals(count($parameters), 4);
-        $this->assertInstanceOf('Zend\Code\Reflection\ParameterReflection', array_shift($parameters));
+        self::assertCount(4, $parameters);
+        self::assertInstanceOf(ParameterReflection::class, array_shift($parameters));
     }
 
     public function testFunctionDocBlockReturn()
     {
         require_once __DIR__ . '/TestAsset/functions.php';
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function3');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlockReflection', $function->getDocBlock());
+        self::assertInstanceOf(DocBlockReflection::class, $function->getDocBlock());
     }
 
     public function testGetPrototypeMethod()
@@ -56,8 +64,8 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-        $this->assertEquals($prototype, $function->getPrototype());
-        $this->assertEquals(
+        self::assertEquals($prototype, $function->getPrototype());
+        self::assertEquals(
             'string function2(string $one, string $two = \'two\')',
             $function->getPrototype(FunctionReflection::PROTOTYPE_AS_STRING)
         );
@@ -66,8 +74,8 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
     public function testInternalFunctionBodyReturn()
     {
         $function = new FunctionReflection('array_splice');
-        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException');
-        $body = $function->getBody();
+        $this->expectException(InvalidArgumentException::class);
+        $function->getBody();
     }
 
     public function testFunctionBodyReturn()
@@ -76,43 +84,43 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function1');
         $body = $function->getBody();
-        $this->assertEquals("return 'function1';", trim($body));
+        self::assertEquals("return 'function1';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function4');
         $body = $function->getBody();
-        $this->assertEquals("return 'function4';", trim($body));
+        self::assertEquals("return 'function4';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function5');
         $body = $function->getBody();
-        $this->assertEquals("return 'function5';", trim($body));
+        self::assertEquals("return 'function5';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function6');
         $body = $function->getBody();
-        $this->assertEquals("\$closure = function() { return 'bar'; };\n    return 'function6';", trim($body));
+        self::assertEquals("\$closure = function() { return 'bar'; };\n    return 'function6';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function7');
         $body = $function->getBody();
-        $this->assertEquals("return 'function7';", trim($body));
+        self::assertEquals("return 'function7';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function8');
         $body = $function->getBody();
-        $this->assertEquals("return 'function8';", trim($body));
+        self::assertEquals("return 'function8';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function9');
         $body = $function->getBody();
-        $this->assertEquals("return 'function9';", trim($body));
+        self::assertEquals("return 'function9';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function10');
         $body = $function->getBody();
-        $this->assertEquals("\$closure = function() { return 'function10'; }; return \$closure();", trim($body));
+        self::assertEquals("\$closure = function() { return 'function10'; }; return \$closure();", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function11');
         $body = $function->getBody();
-        $this->assertEquals("return 'function11';", trim($body));
+        self::assertEquals("return 'function11';", trim($body));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function12');
         $body = $function->getBody() ?: '';
-        $this->assertEquals('', trim($body));
+        self::assertEquals('', trim($body));
     }
 
     public function testFunctionClosureBodyReturn()
@@ -121,53 +129,53 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection($function1);
         $body = $function->getBody();
-        $this->assertEquals("return 'function1';", trim($body));
+        self::assertEquals("return 'function1';", trim($body));
 
         $function = new FunctionReflection($function2);
         $body = $function->getBody();
-        $this->assertEquals("return 'function2';", trim($body));
+        self::assertEquals("return 'function2';", trim($body));
 
         $function = new FunctionReflection($function3);
         $body = $function->getBody();
-        $this->assertEquals("return 'function3';", trim($body));
+        self::assertEquals("return 'function3';", trim($body));
 
         $function = new FunctionReflection($function4);
         $body = $function->getBody();
-        $this->assertEquals("\$closure = function() { return 'bar'; };\n    return 'function4';", trim($body));
+        self::assertEquals("\$closure = function() { return 'bar'; };\n    return 'function4';", trim($body));
 
         $function5 = $list1['closure'];
         $function = new FunctionReflection($function5);
         $body = $function->getBody();
-        $this->assertEquals("return 'function5';", trim($body));
+        self::assertEquals("return 'function5';", trim($body));
 
         $function6 = $list2[0];
         $function = new FunctionReflection($function6);
         $body = $function->getBody();
-        $this->assertEquals("return 'function6';", trim($body));
+        self::assertEquals("return 'function6';", trim($body));
 
         $function7 = $list3[0];
         $function = new FunctionReflection($function7);
         $body = $function->getBody();
-        $this->assertEquals("return \$c = function() { return 'function7'; }; return \$c();", trim($body));
+        self::assertEquals("return \$c = function() { return 'function7'; }; return \$c();", trim($body));
 
         $function = new FunctionReflection($function8);
         $body = $function->getBody();
-        $this->assertEquals("return 'function 8';", trim($body));
+        self::assertEquals("return 'function 8';", trim($body));
 
         $function = new FunctionReflection($function9);
         $body = $function->getBody() ?: '';
-        $this->assertEquals('', trim($body));
+        self::assertEquals('', trim($body));
 
         $function = new FunctionReflection($function10);
         $body = $function->getBody();
-        $this->assertEquals("return 'function10';", trim($body));
+        self::assertEquals("return 'function10';", trim($body));
     }
 
     public function testInternalFunctionContentsReturn()
     {
         $function = new FunctionReflection('array_splice');
 
-        $this->assertEmpty($function->getContents());
+        self::assertEmpty($function->getContents());
     }
 
     public function testFunctionContentsReturnWithoutDocBlock()
@@ -176,49 +184,49 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function1');
         $content = $function->getContents(false);
-        $this->assertEquals("function function1()\n{\n    return 'function1';\n}", trim($content));
+        self::assertEquals("function function1()\n{\n    return 'function1';\n}", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function4');
         $content = $function->getContents(false);
-        $this->assertEquals("function function4(\$arg) {\n    return 'function4';\n}", trim($content));
+        self::assertEquals("function function4(\$arg) {\n    return 'function4';\n}", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function5');
         $content = $function->getContents(false);
-        $this->assertEquals("function function5() { return 'function5'; }", trim($content));
+        self::assertEquals("function function5() { return 'function5'; }", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function6');
         $content = $function->getContents(false);
-        $this->assertEquals(
+        self::assertEquals(
             "function function6()\n{\n    \$closure = function() { return 'bar'; };\n    return 'function6';\n}",
             trim($content)
         );
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function7');
         $content = $function->getContents(false);
-        $this->assertEquals("function function7() { return 'function7'; }", trim($content));
+        self::assertEquals("function function7() { return 'function7'; }", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function8');
         $content = $function->getContents(false);
-        $this->assertEquals("function function8() { return 'function8'; }", trim($content));
+        self::assertEquals("function function8() { return 'function8'; }", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function9');
         $content = $function->getContents(false);
-        $this->assertEquals("function function9() { return 'function9'; }", trim($content));
+        self::assertEquals("function function9() { return 'function9'; }", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function10');
         $content = $function->getContents(false);
-        $this->assertEquals(
+        self::assertEquals(
             "function function10() { \$closure = function() { return 'function10'; }; return \$closure(); }",
             trim($content)
         );
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function11');
         $content = $function->getContents(false);
-        $this->assertEquals("function function11() { return 'function11'; }", trim($content));
+        self::assertEquals("function function11() { return 'function11'; }", trim($content));
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function12');
         $content = $function->getContents(false);
-        $this->assertEquals("function function12() {}", trim($content));
+        self::assertEquals('function function12() {}', trim($content));
     }
 
     /**
@@ -230,15 +238,15 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection($function2);
         $content = $function->getContents(false);
-        $this->assertEquals("function() { return 'function2'; }", trim($content));
+        self::assertEquals("function() { return 'function2'; }", trim($content));
 
         $function = new FunctionReflection($function9);
         $content = $function->getContents(false);
-        $this->assertEquals("function() {}", trim($content));
+        self::assertEquals('function() {}', trim($content));
 
         $function = new FunctionReflection($function10);
         $content = $function->getContents(false);
-        $this->assertEquals("function() { return 'function10'; }", trim($content));
+        self::assertEquals("function() { return 'function10'; }", trim($content));
     }
 
     public function testFunctionContentsReturnWithDocBlock()
@@ -247,7 +255,7 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function3');
         $content = $function->getContents();
-        $this->assertEquals(
+        self::assertEquals(
             "/**\n * Enter description here...\n *\n * @param string \$one\n * @param int \$two"
             . "\n * @return true\n */\nfunction function3(\$one, \$two = 2)\n{\n    return true;\n}",
             trim($content)
@@ -260,24 +268,24 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 
         $function = new FunctionReflection($function9);
         $content = $function->getContents();
-        $this->assertEquals("/**\n * closure doc block\n */\nfunction() {}", trim($content));
+        self::assertEquals("/**\n * closure doc block\n */\nfunction() {}", trim($content));
     }
 
     public function testGetContentsReturnsEmptyContentsOnEvaldCode()
     {
         $functionName = uniqid('generatedFunction');
 
-        eval('name' . 'space ' . __NAMESPACE__ . '; ' . 'fun' . 'ction ' . $functionName . '()' . '{}');
+        eval('namespace ' . __NAMESPACE__ . '; function ' . $functionName . '(){}');
 
         $reflectionFunction = new FunctionReflection(__NAMESPACE__ . '\\' . $functionName);
 
-        $this->assertSame('', $reflectionFunction->getContents());
+        self::assertSame('', $reflectionFunction->getContents());
     }
 
     public function testGetContentsReturnsEmptyContentsOnInternalCode()
     {
         $reflectionFunction = new FunctionReflection('max');
 
-        $this->assertSame('', $reflectionFunction->getContents());
+        self::assertSame('', $reflectionFunction->getContents());
     }
 }

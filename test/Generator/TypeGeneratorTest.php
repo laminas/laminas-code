@@ -9,18 +9,24 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\GeneratorInterface;
 use Zend\Code\Generator\TypeGenerator;
 
+use function array_combine;
+use function array_filter;
+use function array_map;
+use function class_implements;
+use function ltrim;
+use function strpos;
+
 /**
  * @group zendframework/zend-code#29
  *
- * @requires PHP 7.0
- *
  * @covers \Zend\Code\Generator\TypeGenerator
  */
-class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
+class TypeGeneratorTest extends TestCase
 {
     public function testIsAGenerator()
     {
@@ -28,12 +34,12 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validTypeProvider
+     * @dataProvider validType
      *
      * @param string $typeString
      * @param string $expectedReturnType
      */
-    public function testFromValidTypeString(string $typeString, string $expectedReturnType)
+    public function testFromValidTypeString($typeString, $expectedReturnType)
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
@@ -41,12 +47,12 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validTypeProvider
+     * @dataProvider validType
      *
      * @param string $typeString
      * @param string $expectedReturnType
      */
-    public function testStringCastFromValidTypeString(string $typeString, string $expectedReturnType)
+    public function testStringCastFromValidTypeString($typeString, $expectedReturnType)
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
@@ -54,12 +60,12 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validClassNameProvider
+     * @dataProvider validClassName
      *
      * @param string $typeString
      * @param string $expectedReturnType
      */
-    public function testStripsPrefixingBackslashFromClassNames(string $typeString, string $expectedReturnType)
+    public function testStripsPrefixingBackslashFromClassNames($typeString, $expectedReturnType)
     {
         $generator = TypeGenerator::fromTypeString('\\' . $typeString);
 
@@ -68,13 +74,13 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider invalidTypeProvider
+     * @dataProvider invalidType
      *
      * @param string $typeString
      */
-    public function testRejectsInvalidTypeString(string $typeString)
+    public function testRejectsInvalidTypeString($typeString)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         TypeGenerator::fromTypeString($typeString);
     }
@@ -82,7 +88,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @return string[][]
      */
-    public function validTypeProvider()
+    public function validType()
     {
         $valid = [
             ['foo', '\\foo'],
@@ -118,9 +124,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['iterable', 'iterable'],
             ['Iterable', 'iterable'],
             ['ITERABLE', 'iterable'],
-            ['object', '\\object'],
-            ['Object', '\\Object'],
-            ['OBJECT', '\\OBJECT'],
+            ['object', 'object'],
+            ['Object', 'object'],
+            ['OBJECT', 'object'],
             ['mixed', '\\mixed'],
             ['Mixed', '\\Mixed'],
             ['MIXED', '\\MIXED'],
@@ -158,9 +164,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['?iterable', '?iterable'],
             ['?Iterable', '?iterable'],
             ['?ITERABLE', '?iterable'],
-            ['?object', '?\\object'],
-            ['?Object', '?\\Object'],
-            ['?OBJECT', '?\\OBJECT'],
+            ['?object', '?object'],
+            ['?Object', '?object'],
+            ['?OBJECT', '?object'],
             ['?mixed', '?\\mixed'],
             ['?Mixed', '?\\Mixed'],
             ['?MIXED', '?\\MIXED'],
@@ -179,14 +185,14 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Valid class names - just the same as validTypeProvider, but with only those elements prefixed by '\\'
+     * Valid class names - just the same as validType, but with only those elements prefixed by '\\'
      *
      * @return string[][]
      */
-    public function validClassNameProvider()
+    public function validClassName()
     {
         return array_filter(
-            $this->validTypeProvider(),
+            $this->validType(),
             function (array $pair) {
                 return 0 === strpos($pair[1], '\\');
             }
@@ -196,7 +202,7 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @return string[][]
      */
-    public function invalidTypeProvider()
+    public function invalidType()
     {
         $invalid = [
             [''],
@@ -242,6 +248,9 @@ class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
             ['\\iterable'],
             ['\\Iterable'],
             ['\\ITERABLE'],
+            ['\\object'],
+            ['\\Object'],
+            ['\\OBJECT'],
         ];
 
         return array_combine(

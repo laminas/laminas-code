@@ -15,6 +15,15 @@ use Traversable;
 use Zend\Code\Exception;
 use Zend\EventManager\EventInterface;
 
+use function array_shift;
+use function class_exists;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function preg_replace;
+use function sprintf;
+
 /**
  * A parser for docblock annotations that utilizes the annotation parser from
  * Doctrine\Common.
@@ -65,7 +74,7 @@ class DoctrineAnnotationParser implements ParserInterface
      */
     public function getDocParser()
     {
-        if (!$this->docParser instanceof DocParser) {
+        if (! $this->docParser instanceof DocParser) {
             $this->setDocParser(new DocParser());
         }
 
@@ -81,16 +90,16 @@ class DoctrineAnnotationParser implements ParserInterface
     public function onCreateAnnotation(EventInterface $e)
     {
         $annotationClass = $e->getParam('class', false);
-        if (!$annotationClass) {
+        if (! $annotationClass) {
             return false;
         }
 
-        if (!isset($this->allowedAnnotations[$annotationClass])) {
+        if (! isset($this->allowedAnnotations[$annotationClass])) {
             return false;
         }
 
         $annotationString = $e->getParam('raw', false);
-        if (!$annotationString) {
+        if (! $annotationString) {
             return false;
         }
 
@@ -107,7 +116,7 @@ class DoctrineAnnotationParser implements ParserInterface
         }
 
         $annotation = array_shift($annotations);
-        if (!is_object($annotation)) {
+        if (! is_object($annotation)) {
             return false;
         }
 
@@ -136,11 +145,11 @@ class DoctrineAnnotationParser implements ParserInterface
      */
     public function registerAnnotations($annotations)
     {
-        if (!is_array($annotations) && !$annotations instanceof Traversable) {
+        if (! is_array($annotations) && ! $annotations instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable; received "%s"',
                 __METHOD__,
-                (is_object($annotations) ? get_class($annotations) : gettype($annotations))
+                is_object($annotations) ? get_class($annotations) : gettype($annotations)
             ));
         }
 

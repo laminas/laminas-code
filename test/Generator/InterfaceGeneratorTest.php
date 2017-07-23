@@ -9,24 +9,27 @@
 
 namespace ZendTest\Code\Generator;
 
-use Zend\Code\Generator\InterfaceGenerator;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\Exception\InvalidArgumentException;
+use Zend\Code\Generator\InterfaceGenerator;
 use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Reflection\ClassReflection;
+use ZendTest\Code\TestAsset\FooInterface;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
+class InterfaceGeneratorTest extends TestCase
 {
     public function testAbstractAccessorsReturnsFalse()
     {
         $classGenerator = new InterfaceGenerator();
-        $this->assertFalse($classGenerator->isAbstract());
+        self::assertFalse($classGenerator->isAbstract());
         $classGenerator->setAbstract(true);
-        $this->assertFalse($classGenerator->isAbstract());
+        self::assertFalse($classGenerator->isAbstract());
     }
 
     public function testExtendedClassAccessors()
@@ -34,7 +37,7 @@ class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new InterfaceGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
 
-        $this->assertNull($classGenerator->getExtendedClass());
+        self::assertNull($classGenerator->getExtendedClass());
     }
 
     public function testImplementedInterfacesAccessors()
@@ -42,7 +45,7 @@ class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new InterfaceGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
 
-        $this->assertCount(2, $classGenerator->getImplementedInterfaces());
+        self::assertCount(2, $classGenerator->getImplementedInterfaces());
     }
 
     public function testPropertyAccessors()
@@ -53,12 +56,11 @@ class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator1->addProperty('prop3');
         $classGenerator2->addProperties([
             'propOne',
-            new PropertyGenerator('propTwo')
+            new PropertyGenerator('propTwo'),
         ]);
 
-
-        $this->assertCount(0, $classGenerator1->getProperties());
-        $this->assertCount(0, $classGenerator2->getProperties());
+        self::assertCount(0, $classGenerator1->getProperties());
+        self::assertCount(0, $classGenerator2->getProperties());
     }
 
     public function testMethodAccessors()
@@ -66,13 +68,13 @@ class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new InterfaceGenerator();
         $classGenerator->addMethods([
             'methodOne',
-            new MethodGenerator('methodTwo')
+            new MethodGenerator('methodTwo'),
         ]);
 
-        $this->assertCount(2, $classGenerator->getMethods());
+        self::assertCount(2, $classGenerator->getMethods());
 
-        $this->assertTrue($classGenerator->getMethod('methodOne')->isInterface());
-        $this->assertTrue($classGenerator->getMethod('methodTwo')->isInterface());
+        self::assertTrue($classGenerator->getMethod('methodOne')->isInterface());
+        self::assertTrue($classGenerator->getMethod('methodTwo')->isInterface());
     }
 
     public function testToString()
@@ -80,7 +82,7 @@ class InterfaceGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = InterfaceGenerator::fromArray([
             'name' => 'SampleInterface',
             'methods' => [
-                ['name' => 'baz']
+                ['name' => 'baz'],
             ],
         ]);
 
@@ -95,7 +97,7 @@ interface SampleInterface
 EOS;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expectedOutput, $output, $output);
+        self::assertEquals($expectedOutput, $output, $output);
     }
 
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
@@ -113,9 +115,8 @@ interface MyInterface
 }
 
 CODE;
-        $this->assertEquals($expected, $classGeneratorClass->generate());
+        self::assertEquals($expected, $classGeneratorClass->generate());
     }
-
 
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
     {
@@ -132,7 +133,7 @@ interface MyInterface
 }
 
 CODE;
-        $this->assertEquals($expected, $classGeneratorClass->generate());
+        self::assertEquals($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -140,11 +141,11 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass      = new ClassReflection('ZendTest\Code\TestAsset\FooInterface');
+        $reflClass      = new ClassReflection(FooInterface::class);
         $classGenerator = InterfaceGenerator::fromReflection($reflClass);
 
-        $this->assertEquals('ZendTest\Code\TestAsset', $classGenerator->getNamespaceName());
-        $this->assertEquals('FooInterface', $classGenerator->getName());
+        self::assertEquals('ZendTest\Code\TestAsset', $classGenerator->getNamespaceName());
+        self::assertEquals('FooInterface', $classGenerator->getName());
         $expected = <<<CODE
 namespace ZendTest\Code\TestAsset;
 
@@ -161,7 +162,7 @@ interface FooInterface
 
 CODE;
         $received = $classGenerator->generate();
-        $this->assertEquals($expected, $received, $received);
+        self::assertEquals($expected, $received, $received);
     }
 
     /**
@@ -171,7 +172,7 @@ CODE;
     {
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
-        $this->assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
+        self::assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
     /**
@@ -182,7 +183,7 @@ CODE;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        $this->assertContains('namespace My\Namespaced;', $received, $received);
+        self::assertContains('namespace My\Namespaced;', $received, $received);
     }
 
     /**
@@ -193,7 +194,7 @@ CODE;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        $this->assertContains('interface FunClass', $received, $received);
+        self::assertContains('interface FunClass', $received, $received);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
@@ -206,7 +207,7 @@ CODE;
         ]);
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -231,8 +232,8 @@ interface MyInterface
 
 CODE;
 
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
-        $this->assertEquals($expected, $output);
+        self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
+        self::assertEquals($expected, $output);
     }
 
     public function testGenerateClassAndAddMethod()
@@ -252,7 +253,7 @@ interface MyInterface
 CODE;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expected, $output);
+        self::assertEquals($expected, $output);
     }
 
     public function testGenerateImplementsInterface()
@@ -274,15 +275,13 @@ interface MyCollection extends Countable, IteratorAggregate
 CODE;
 
         $output = $classGenerator->generate();
-        $this->assertEquals($expected, $output);
+        self::assertEquals($expected, $output);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface
-     */
     public function testClassNotAnInterfaceException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface');
         InterfaceGenerator::fromReflection(new ClassReflection(__CLASS__));
     }
 }

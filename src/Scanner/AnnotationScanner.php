@@ -13,6 +13,18 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\NameInformation;
 
+use function array_pop;
+use function current;
+use function in_array;
+use function is_string;
+use function next;
+use function preg_match;
+use function reset;
+use function strlen;
+use function strpos;
+use function substr;
+use function substr_count;
+
 class AnnotationScanner extends AnnotationCollection implements ScannerInterface
 {
     /**
@@ -23,17 +35,17 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
     /**
      * @var string
      */
-    protected $docComment = null;
+    protected $docComment;
 
     /**
      * @var NameInformation
      */
-    protected $nameInformation = null;
+    protected $nameInformation;
 
     /**
      * @var AnnotationManager
      */
-    protected $annotationManager = null;
+    protected $annotationManager;
 
     /**
      * @var array
@@ -97,7 +109,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             case 'ANNOTATION_CONTENT':
             case 'ANNOTATION_WHITESPACE':
             case 'ANNOTATION_NEWLINE':
-                if (!$contentEnd
+                if (! $contentEnd
                     && isset($annotations[$annotationIndex])
                     && is_string($annotations[$annotationIndex][1])
                 ) {
@@ -157,22 +169,22 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             &$currentWord,
             &$currentLine
         ) {
-            $positionsForward = ($positionsForward > 0) ? $positionsForward : 1;
-            $streamIndex      = ($streamIndex === null) ? 0 : $streamIndex + $positionsForward;
-            if (!isset($stream[$streamIndex])) {
+            $positionsForward = $positionsForward > 0 ? $positionsForward : 1;
+            $streamIndex      = $streamIndex === null ? 0 : $streamIndex + $positionsForward;
+            if (! isset($stream[$streamIndex])) {
                 $currentChar = false;
 
                 return false;
             }
             $currentChar = $stream[$streamIndex];
             $matches     = [];
-            $currentLine = (preg_match('#(.*?)(?:\n|\r\n?)#', $stream, $matches, null, $streamIndex) === 1)
+            $currentLine = preg_match('#(.*?)(?:\n|\r\n?)#', $stream, $matches, null, $streamIndex) === 1
                 ? $matches[1]
                 : substr($stream, $streamIndex);
             if ($currentChar === ' ') {
-                $currentWord = (preg_match('#( +)#', $currentLine, $matches) === 1) ? $matches[1] : $currentLine;
+                $currentWord = preg_match('#( +)#', $currentLine, $matches) === 1 ? $matches[1] : $currentLine;
             } else {
-                $currentWord = (($matches = strpos($currentLine, ' ')) !== false)
+                $currentWord = ($matches = strpos($currentLine, ' ')) !== false
                     ? substr($currentLine, 0, $matches)
                     : $currentLine;
             }
@@ -186,7 +198,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             return $MACRO_STREAM_ADVANCE_CHAR(strlen($currentLine));
         };
         $MACRO_TOKEN_ADVANCE       = function () use (&$tokenIndex, &$tokens) {
-            $tokenIndex          = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
+            $tokenIndex          = $tokenIndex === null ? 0 : $tokenIndex + 1;
             $tokens[$tokenIndex] = ['ANNOTATION_UNKNOWN', ''];
         };
         $MACRO_TOKEN_SET_TYPE      = function ($type) use (&$tokenIndex, &$tokens) {
@@ -202,7 +214,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             $tokens[$tokenIndex][1] .= $currentLine;
         };
         $MACRO_HAS_CONTEXT         = function ($which) use (&$context) {
-            return (($context & $which) === $which);
+            return ($context & $which) === $which;
         };
 
         $MACRO_STREAM_ADVANCE_CHAR();
@@ -236,8 +248,8 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
         }
 
         // Since we don't know what line endings are used in the file, we check for all scenarios. If we find a
-        // cariage return (\r), we check the next character for a line feed (\n). If so we consume it and act as
-        // if the cariage return was a line feed.
+        // carriage return (\r), we check the next character for a line feed (\n). If so we consume it and act as
+        // if the carriage return was a line feed.
         $lineEnded = $currentChar === "\n";
         if ($currentChar === "\r") {
             $lineEnded = true;
@@ -264,7 +276,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
 
         if ($currentChar === ' ') {
             $MACRO_TOKEN_SET_TYPE(
-                ($MACRO_HAS_CONTEXT($CONTEXT_ASTERISK))
+                $MACRO_HAS_CONTEXT($CONTEXT_ASTERISK)
                 ? 'ANNOTATION_WHITESPACE'
                 : 'ANNOTATION_WHITESPACE_INDENT'
             );

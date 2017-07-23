@@ -13,13 +13,23 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+use function is_array;
+use function is_numeric;
+use function is_string;
+use function ltrim;
+use function reset;
+use function strpos;
+use function substr;
+use function trim;
+use function var_export;
+
 class PropertyScanner implements ScannerInterface
 {
-    const T_BOOLEAN = "boolean";
-    const T_INTEGER = "int";
-    const T_STRING  = "string";
-    const T_ARRAY   = "array";
-    const T_UNKNOWN = "unknown";
+    const T_BOOLEAN = 'boolean';
+    const T_INTEGER = 'int';
+    const T_STRING  = 'string';
+    const T_ARRAY   = 'array';
+    const T_UNKNOWN = 'unknown';
 
     /**
      * @var bool
@@ -232,7 +242,7 @@ class PropertyScanner implements ScannerInterface
             return;
         }
 
-        if (!$this->tokens) {
+        if (! $this->tokens) {
             throw new Exception\RuntimeException('No tokens were provided');
         }
 
@@ -247,7 +257,7 @@ class PropertyScanner implements ScannerInterface
 
         foreach ($tokens as $token) {
             $tempValue = $token;
-            if (!is_string($token)) {
+            if (! is_string($token)) {
                 list($tokenType, $tokenContent, $tokenLine) = $token;
 
                 switch ($tokenType) {
@@ -285,7 +295,7 @@ class PropertyScanner implements ScannerInterface
             }
 
             //end value concatenation
-            if (!is_array($token) && trim($token) == ";") {
+            if (! is_array($token) && trim($token) == ';') {
                 $concatenateValue = false;
             }
 
@@ -294,17 +304,17 @@ class PropertyScanner implements ScannerInterface
             }
 
             //start value concatenation
-            if (!is_array($token) && trim($token) == "=") {
+            if (! is_array($token) && trim($token) == '=') {
                 $concatenateValue = true;
             }
         }
 
         $this->valueType = self::T_UNKNOWN;
-        if ($value == "false" || $value == "true") {
+        if ($value == 'false' || $value == 'true') {
             $this->valueType = self::T_BOOLEAN;
         } elseif (is_numeric($value)) {
             $this->valueType = self::T_INTEGER;
-        } elseif (0 === strpos($value, 'array') || 0 === strpos($value, "[")) {
+        } elseif (0 === strpos($value, 'array') || 0 === strpos($value, '[')) {
             $this->valueType = self::T_ARRAY;
         } elseif (substr($value, 0, 1) === '"' || substr($value, 0, 1) === "'") {
             $value = substr($value, 1, -1); // Remove quotes

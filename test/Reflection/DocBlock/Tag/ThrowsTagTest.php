@@ -9,50 +9,51 @@
 
 namespace ZendTest\Code\Reflection\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Reflection\DocBlock\Tag\ThrowsTag;
 
 /**
  * @group      Zend_Reflection
  * @group      Zend_Reflection_DocBlock
  */
-class ThrowsTagTest extends \PHPUnit_Framework_TestCase
+class ThrowsTagTest extends TestCase
 {
     public function testAllCharactersFromTypenameAreSupported()
     {
         $tag = new ThrowsTag();
         $tag->initialize('\\Logic_2_Exception');
-        $this->assertEquals(['\\Logic_2_Exception'], $tag->getTypes());
+        self::assertEquals(['\\Logic_2_Exception'], $tag->getTypes());
     }
 
     public function testSingleTypeWithDescription()
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException The Exception');
-        $this->assertEquals(['LogicException'], $tag->getTypes());
-        $this->assertEquals('The Exception', $tag->getDescription());
+        self::assertEquals(['LogicException'], $tag->getTypes());
+        self::assertEquals('The Exception', $tag->getDescription());
     }
 
     public function testSingleTypeWithoutDescription()
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException');
-        $this->assertEquals(['LogicException'], $tag->getTypes());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals(['LogicException'], $tag->getTypes());
+        self::assertNull($tag->getDescription());
     }
 
     public function testMultipleTypesWithoutDescription()
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException|RuntimeException');
-        $this->assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
-        $this->assertNull($tag->getDescription());
+        self::assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
+        self::assertNull($tag->getDescription());
     }
 
     public function testMultipleTypesWithDescription()
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException|RuntimeException The Exception');
-        $this->assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
-        $this->assertEquals('The Exception', $tag->getDescription());
+        self::assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
+        self::assertEquals('The Exception', $tag->getDescription());
     }
 }

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\AuthorTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,7 +18,7 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class AuthorTagTest extends \PHPUnit_Framework_TestCase
+class AuthorTagTest extends TestCase
 {
     /**
      * @var AuthorTag
@@ -46,20 +47,20 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->tag->setAuthorName('Foo');
         $this->tag->setAuthorEmail('Bar');
-        $this->assertEquals('Foo', $this->tag->getAuthorName());
-        $this->assertEquals('Bar', $this->tag->getAuthorEmail());
+        self::assertEquals('Foo', $this->tag->getAuthorName());
+        self::assertEquals('Bar', $this->tag->getAuthorEmail());
     }
 
     public function testParamProducesCorrectDocBlockLine()
     {
         $this->tag->setAuthorName('foo');
         $this->tag->setAuthorEmail('string');
-        $this->assertEquals('@author foo <string>', $this->tag->generate());
+        self::assertEquals('@author foo <string>', $this->tag->generate());
     }
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('author', $this->tag->getName());
+        self::assertEquals('author', $this->tag->getName());
     }
 
     public function testConstructorWithOptions()
@@ -69,7 +70,7 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
             'authorName' => 'foo',
         ]);
         $tagWithOptionsFromConstructor = new AuthorTag('foo', 'string');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -79,8 +80,8 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var AuthorTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tag);
-        $this->assertEquals('Mister Miller', $tag->getAuthorName());
-        $this->assertEquals('mister.miller@zend.com', $tag->getAuthorEmail());
+        self::assertInstanceOf(AuthorTag::class, $tag);
+        self::assertEquals('Mister Miller', $tag->getAuthorName());
+        self::assertEquals('mister.miller@zend.com', $tag->getAuthorEmail());
     }
 }

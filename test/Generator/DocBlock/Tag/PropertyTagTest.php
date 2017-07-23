@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator\DocBlock\Tag;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\PropertyTag;
 use Zend\Code\Generator\DocBlock\TagManager;
 use Zend\Code\Reflection\DocBlockReflection;
@@ -17,12 +18,13 @@ use Zend\Code\Reflection\DocBlockReflection;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PropertyTagTest extends \PHPUnit_Framework_TestCase
+class PropertyTagTest extends TestCase
 {
     /**
      * @var PropertyTag
      */
     protected $tag;
+
     /**
      * @var TagManager
      */
@@ -44,19 +46,18 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
     public function testGetterAndSetterPersistValue()
     {
         $this->tag->setPropertyName('property');
-        $this->assertEquals('property', $this->tag->getPropertyName());
+        self::assertEquals('property', $this->tag->getPropertyName());
     }
-
 
     public function testGetterForVariableNameTrimsCorrectly()
     {
         $this->tag->setPropertyName('$property$');
-        $this->assertEquals('property$', $this->tag->getPropertyName());
+        self::assertEquals('property$', $this->tag->getPropertyName());
     }
 
     public function testNameIsCorrect()
     {
-        $this->assertEquals('property', $this->tag->getName());
+        self::assertEquals('property', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine()
@@ -64,7 +65,7 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
         $this->tag->setPropertyName('property');
         $this->tag->setTypes('string[]');
         $this->tag->setDescription('description');
-        $this->assertEquals('@property string[] $property description', $this->tag->generate());
+        self::assertEquals('@property string[] $property description', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -72,10 +73,10 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
         $this->tag->setOptions([
             'propertyName' => 'property',
             'types' => ['string'],
-            'description' => 'description'
+            'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new PropertyTag('property', ['string'], 'description');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -85,9 +86,9 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
 
         /** @var PropertyTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\PropertyTag', $tag);
-        $this->assertEquals('foo', $tag->getPropertyName());
-        $this->assertEquals('description', $tag->getDescription());
-        $this->assertEquals('int', $tag->getTypesAsString());
+        self::assertInstanceOf(PropertyTag::class, $tag);
+        self::assertEquals('foo', $tag->getPropertyName());
+        self::assertEquals('description', $tag->getDescription());
+        self::assertEquals('int', $tag->getTypesAsString());
     }
 }

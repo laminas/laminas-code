@@ -26,7 +26,7 @@ class ParameterClass
 
     }
 
-    public function defaultValue($value = "foo")
+    public function defaultValue($value = 'foo')
     {
     }
 
@@ -75,7 +75,7 @@ class ParameterClass
 
     }
 
-    const FOO = "foo";
+    const FOO = 'foo';
 
     public function defaultConstant($con = self::FOO)
     {

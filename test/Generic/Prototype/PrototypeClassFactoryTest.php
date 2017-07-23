@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generic\Prototype;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generic\Prototype\PrototypeClassFactory;
 use ZendTest\Code\Generator\TestAsset\PrototypeClass;
 use ZendTest\Code\Generator\TestAsset\PrototypeGenericClass;
@@ -17,7 +18,7 @@ use ZendTest\Code\Generator\TestAsset\PrototypeGenericClass;
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
+class PrototypeClassFactoryTest extends TestCase
 {
     /**
      * @var PrototypeClassFactory
@@ -38,21 +39,23 @@ class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $proto = new PrototypeClass();
         $this->prototypeFactory->addPrototype($proto);
-        $this->assertNotSame($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
-        $this->assertEquals($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
+        self::assertNotSame($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
+        self::assertEquals($proto, $this->prototypeFactory->getClonedPrototype($proto->getName()));
     }
 
     public function testFallBackToGeneric()
     {
         $proto = new PrototypeGenericClass();
         $this->prototypeFactory->setGenericPrototype($proto);
-        $this->assertNotSame($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
-        $this->assertEquals($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
+        self::assertNotSame($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
+        self::assertEquals($proto, $this->prototypeFactory->getClonedPrototype('notexist'));
     }
 
     public function testSetNameOnGenericIsCalledOnce()
     {
-        $mockProto = $this->getMock('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass', ['setName']);
+        $mockProto = $this->getMockBuilder(PrototypeGenericClass::class)
+            ->setMethods(['setName'])
+            ->getMock();
         $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));
         $this->prototypeFactory->setGenericPrototype($mockProto);
         $this->prototypeFactory->getClonedPrototype('notexist');

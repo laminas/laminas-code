@@ -15,17 +15,25 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\FileScanner;
 
+use function array_shift;
+use function array_slice;
+use function array_unshift;
+use function file;
+use function file_exists;
+use function implode;
+use function strstr;
+
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
     /**
      * @var AnnotationScanner
      */
-    protected $annotations = null;
+    protected $annotations;
 
     /**
      * @var DocBlockReflection
      */
-    protected $docBlock = null;
+    protected $docBlock;
 
     /**
      * Return the reflection file of the declaring file.
@@ -79,7 +87,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         $fileScanner       = $this->createFileScanner($this->getFileName());
         $nameInformation   = $fileScanner->getClassNameInformation($this->getName());
 
-        if (!$nameInformation) {
+        if (! $nameInformation) {
             return false;
         }
 
@@ -123,7 +131,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
 
         // Ensure we get between the open and close braces
         $lines = array_slice($filelines, $startnum, $endnum);
-        array_unshift($lines, $filelines[$startnum-1]);
+        array_unshift($lines, $filelines[$startnum - 1]);
 
         return strstr(implode('', $lines), '{');
     }
@@ -180,7 +188,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Returns an array of reflection classes of traits used by this class.
      *
-     * @return array|null
+     * @return void|array
      */
     public function getTraits()
     {
@@ -269,7 +277,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Creates a new FileScanner instance.
      *
-     * By having this as a seperate method it allows the method to be overridden
+     * By having this as a separate method it allows the method to be overridden
      * if a different FileScanner is needed.
      *
      * @param  string $filename

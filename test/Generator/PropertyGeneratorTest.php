@@ -9,34 +9,42 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\DocBlock\Tag\VarTag;
+use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\Exception\RuntimeException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
+use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\ClassReflection;
+
+use function array_shift;
+use function str_replace;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
+class PropertyGeneratorTest extends TestCase
 {
-    public function testPropertyConstructor()
+    public function testPropertyConstructor() : void
     {
         $codeGenProperty = new PropertyGenerator();
-        $this->isInstanceOf($codeGenProperty, 'Zend\Code\Generator\PropertyGenerator');
+        self::assertInstanceOf(PropertyGenerator::class, $codeGenProperty);
     }
 
     /**
-     * @return array
+     * @return bool[][]|string[][]|int[][]|null[][]
      */
-    public function dataSetTypeSetValueGenerate()
+    public function dataSetTypeSetValueGenerate() : array
     {
         return [
             ['string', 'foo', "'foo';"],
-            ['int', 1, "1;"],
-            ['integer', 1, "1;"],
-            ['bool', true, "true;"],
-            ['bool', false, "false;"],
-            ['boolean', true, "true;"],
+            ['int', 1, '1;'],
+            ['integer', 1, '1;'],
+            ['bool', true, 'true;'],
+            ['bool', false, 'false;'],
+            ['boolean', true, 'true;'],
             ['number', 1, '1;'],
             ['float', 1.23, '1.23;'],
             ['double', 1.23, '1.23;'],
@@ -47,46 +55,48 @@ class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
      */
-    public function testSetTypeSetValueGenerate($type, $value, $code)
+    public function testSetTypeSetValueGenerate(string $type, $value, string $code) : void
     {
         $defaultValue = new PropertyValueGenerator();
         $defaultValue->setType($type);
         $defaultValue->setValue($value);
 
-        $this->assertEquals($type, $defaultValue->getType());
-        $this->assertEquals($code, $defaultValue->generate());
+        self::assertEquals($type, $defaultValue->getType());
+        self::assertEquals($code, $defaultValue->generate());
     }
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
      * @param string $code
      */
-    public function testSetBogusTypeSetValueGenerateUseAutoDetection($type, $value, $code)
+    public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code) : void
     {
-        if ($type == 'constant') {
-            return; // constant can only be detected explicitly
+        if ('constant' === $type) {
+            self::markTestSkipped('constant can only be detected explicitly');
         }
 
         $defaultValue = new PropertyValueGenerator();
-        $defaultValue->setType("bogus");
+        $defaultValue->setType('bogus');
         $defaultValue->setValue($value);
 
-        $this->assertEquals($code, $defaultValue->generate());
+        self::assertEquals($code, $defaultValue->generate());
     }
 
-    public function testPropertyReturnsSimpleValue()
+    public function testPropertyReturnsSimpleValue() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
-        $this->assertEquals('    public $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    public $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    public function testPropertyMultilineValue()
+    public function testPropertyMultilineValue() : void
     {
         $targetValue = [
             5,
@@ -113,77 +123,75 @@ EOS;
         $targetSource = $property->generate();
         $targetSource = str_replace("\r", '', $targetSource);
 
-        $this->assertEquals($expectedSource, $targetSource);
+        self::assertEquals($expectedSource, $targetSource);
     }
 
-    public function testPropertyCanProduceContstantModifier()
+    public function testPropertyCanProduceContstantModifier() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_CONSTANT);
-        $this->assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
      * @group PR-704
      */
-    public function testPropertyCanProduceContstantModifierWithSetter()
+    public function testPropertyCanProduceContstantModifierWithSetter() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         $codeGenProperty->setConst(true);
-        $this->assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    public function testPropertyCanProduceStaticModifier()
+    public function testPropertyCanProduceStaticModifier() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_STATIC);
-        $this->assertEquals('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
      * @group ZF-6444
      */
-    public function testPropertyWillLoadFromReflection()
+    public function testPropertyWillLoadFromReflection() : void
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            '\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties'
-        );
+        $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
         // test property 1
         $reflProp = $reflectionClass->getProperty('_bazProperty');
 
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
-        $this->assertEquals('_bazProperty', $cgProp->getName());
-        $this->assertEquals([true, false, true], $cgProp->getDefaultValue()->getValue());
-        $this->assertEquals('private', $cgProp->getVisibility());
+        self::assertEquals('_bazProperty', $cgProp->getName());
+        self::assertEquals([true, false, true], $cgProp->getDefaultValue()->getValue());
+        self::assertEquals('private', $cgProp->getVisibility());
 
         $reflProp = $reflectionClass->getProperty('_bazStaticProperty');
 
         // test property 2
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
-        $this->assertEquals('_bazStaticProperty', $cgProp->getName());
-        $this->assertEquals(TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
-        $this->assertTrue($cgProp->isStatic());
-        $this->assertEquals('private', $cgProp->getVisibility());
+        self::assertEquals('_bazStaticProperty', $cgProp->getName());
+        self::assertEquals(TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
+        self::assertTrue($cgProp->isStatic());
+        self::assertEquals('private', $cgProp->getVisibility());
     }
 
     /**
      * @group ZF-6444
      */
-    public function testPropertyWillEmitStaticModifier()
+    public function testPropertyWillEmitStaticModifier() : void
     {
         $codeGenProperty = new PropertyGenerator(
             'someVal',
             'some string value',
             PropertyGenerator::FLAG_STATIC | PropertyGenerator::FLAG_PROTECTED
         );
-        $this->assertEquals('    protected static $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    protected static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
      * @group ZF-7205
      */
-    public function testPropertyCanHaveDocBlock()
+    public function testPropertyCanHaveDocBlock() : void
     {
         $codeGenProperty = new PropertyGenerator(
             'someVal',
@@ -199,22 +207,20 @@ EOS;
      */
     protected static \$someVal = 'some string value';
 EOS;
-        $this->assertEquals($expected, $codeGenProperty->generate());
+        self::assertEquals($expected, $codeGenProperty->generate());
     }
 
-    public function testOtherTypesThrowExceptionOnGenerate()
+    public function testOtherTypesThrowExceptionOnGenerate() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', new \stdClass());
 
-        $this->setExpectedException(
-            'Zend\Code\Generator\Exception\RuntimeException',
-            'Type "stdClass" is unknown or cannot be used as property default value'
-        );
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Type "stdClass" is unknown or cannot be used as property default value');
 
         $codeGenProperty->generate();
     }
 
-    public function testCreateFromArray()
+    public function testCreateFromArray() : void
     {
         $propertyGenerator = PropertyGenerator::fromArray([
             'name'         => 'SampleProperty',
@@ -229,51 +235,50 @@ EOS;
             'visibility'   => PropertyGenerator::VISIBILITY_PROTECTED,
         ]);
 
-        $this->assertEquals('SampleProperty', $propertyGenerator->getName());
-        $this->assertTrue($propertyGenerator->isConst());
-        $this->assertInstanceOf('Zend\Code\Generator\ValueGenerator', $propertyGenerator->getDefaultValue());
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $propertyGenerator->getDocBlock());
-        $this->assertTrue($propertyGenerator->isAbstract());
-        $this->assertTrue($propertyGenerator->isFinal());
-        $this->assertTrue($propertyGenerator->isStatic());
-        $this->assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
+        self::assertEquals('SampleProperty', $propertyGenerator->getName());
+        self::assertTrue($propertyGenerator->isConst());
+        self::assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
+        self::assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
+        self::assertTrue($propertyGenerator->isAbstract());
+        self::assertTrue($propertyGenerator->isFinal());
+        self::assertTrue($propertyGenerator->isStatic());
+        self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
     }
 
     /**
-     * @3491
+     * @group 3491
      */
-    public function testPropertyDocBlockWillLoadFromReflection()
+    public function testPropertyDocBlockWillLoadFromReflection() : void
     {
         $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
         $reflProp = $reflectionClass->getProperty('fooProperty');
         $cgProp   = PropertyGenerator::fromReflection($reflProp);
 
-        $this->assertEquals('fooProperty', $cgProp->getName());
+        self::assertEquals('fooProperty', $cgProp->getName());
 
         $docBlock = $cgProp->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
         $tags     = $docBlock->getTags();
-        $this->assertInternalType('array', $tags);
-        $this->assertEquals(1, count($tags));
+        self::assertInternalType('array', $tags);
+        self::assertCount(1, $tags);
         $tag = array_shift($tags);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\GenericTag', $tag);
-        $this->assertEquals('var', $tag->getName());
+        self::assertInstanceOf(VarTag::class, $tag);
+        self::assertEquals('var', $tag->getName());
     }
-
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
+     *
      * @param string $type
      * @param mixed $value
-     * @param string $code
      */
-    public function testSetDefaultValue($type, $value, $code)
+    public function testSetDefaultValue(string $type, $value) : void
     {
         $property = new PropertyGenerator();
         $property->setDefaultValue($value, $type);
 
-        $this->assertEquals($type, $property->getDefaultValue()->getType());
-        $this->assertEquals($value, $property->getDefaultValue()->getValue());
+        self::assertEquals($type, $property->getDefaultValue()->getType());
+        self::assertEquals($value, $property->getDefaultValue()->getValue());
     }
 }

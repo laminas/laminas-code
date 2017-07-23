@@ -9,17 +9,18 @@
 
 namespace ZendTest\Code\Generator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\PropertyValueGenerator;
 
 /**
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PropertyValueGeneratorTest extends \PHPUnit_Framework_TestCase
+class PropertyValueGeneratorTest extends TestCase
 {
     public function testPropertyValueAddsSemicolonToValueGenerator()
     {
         $value = new PropertyValueGenerator('foo');
-        $this->assertEquals('\'foo\';', $value->generate());
+        self::assertEquals('\'foo\';', $value->generate());
     }
 }

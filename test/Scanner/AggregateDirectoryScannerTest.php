@@ -9,9 +9,9 @@
 
 namespace ZendTest\Code\Scanner;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AggregateDirectoryScannerTest extends PHPUnit_Framework_TestCase
+class AggregateDirectoryScannerTest extends TestCase
 {
     public function testAggregationOfDirectories()
     {

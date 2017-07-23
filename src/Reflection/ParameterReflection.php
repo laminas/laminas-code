@@ -11,6 +11,8 @@ namespace Zend\Code\Reflection;
 
 use ReflectionParameter;
 
+use function method_exists;
+
 class ParameterReflection extends ReflectionParameter implements ReflectionInterface
 {
     /**
@@ -35,7 +37,7 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /**
      * Get class reflection object
      *
-     * @return ClassReflection
+     * @return void|ClassReflection
      */
     public function getClass()
     {

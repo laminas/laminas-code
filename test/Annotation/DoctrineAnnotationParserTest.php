@@ -9,10 +9,12 @@
 
 namespace ZendTest\Code\Annotation;
 
-use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Code\Annotation;
+use PHPUnit\Framework\TestCase;
 use Zend\Code\Annotation\Parser\DoctrineAnnotationParser;
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\EventManager\Event;
+
+use function getenv;
 
 class DoctrineAnnotationParserTest extends TestCase
 {
@@ -23,7 +25,7 @@ class DoctrineAnnotationParserTest extends TestCase
 
     public function setUp()
     {
-        if (!getenv('TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT')) {
+        if (! getenv('TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT')) {
             $this->markTestSkipped(
                 'Enable TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT to test doctrine annotation parsing'
             );
@@ -49,19 +51,19 @@ class DoctrineAnnotationParserTest extends TestCase
 
         $event = $this->getEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
-        $this->assertEquals(['foo' => 'bar'], $test->value);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
+        self::assertEquals(['foo' => 'bar'], $test->value);
     }
 
     public function testReturnsFalseDuringCreationIfAnnotationIsNotRegistered()
     {
         $event = $this->getEvent();
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testReturnsFalseClassNotSet()
     {
-        $this->assertFalse($this->parser->onCreateAnnotation(new Event()));
+        self::assertFalse($this->parser->onCreateAnnotation(new Event()));
     }
 
     public function testReturnsFalseRawNotSet()
@@ -70,7 +72,7 @@ class DoctrineAnnotationParserTest extends TestCase
         $event = $this->getEvent();
         $event->setParam('raw', false);
 
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
     public function testReturnsFalseEmptyAnnotations()
@@ -78,14 +80,12 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->parser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation');
         $event = $this->getEvent();
         $event->setParam('raw', 'foo');
-        $this->assertFalse($this->parser->onCreateAnnotation($event));
+        self::assertFalse($this->parser->onCreateAnnotation($event));
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     */
     public function testRegisterAnnotationsThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->parser->registerAnnotations('some string');
     }
 
@@ -94,7 +94,7 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->parser->registerAnnotations([__NAMESPACE__ . '\TestAsset\DoctrineAnnotation']);
         $event = $this->getEvent();
         $test  = $this->parser->onCreateAnnotation($event);
-        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
-        $this->assertEquals(['foo' => 'bar'], $test->value);
+        self::assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation', $test);
+        self::assertEquals(['foo' => 'bar'], $test->value);
     }
 }
