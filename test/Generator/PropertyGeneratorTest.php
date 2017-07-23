@@ -24,16 +24,16 @@ use Zend\Code\Reflection\ClassReflection;
  */
 class PropertyGeneratorTest extends TestCase
 {
-    public function testPropertyConstructor()
+    public function testPropertyConstructor() : void
     {
         $codeGenProperty = new PropertyGenerator();
         self::assertInstanceOf(PropertyGenerator::class, $codeGenProperty);
     }
 
     /**
-     * @return array
+     * @return bool[][]|string[][]|int[][]|null[][]
      */
-    public function dataSetTypeSetValueGenerate()
+    public function dataSetTypeSetValueGenerate() : array
     {
         return [
             ['string', 'foo', "'foo';"],
@@ -56,7 +56,7 @@ class PropertyGeneratorTest extends TestCase
      * @param mixed $value
      * @param string $code
      */
-    public function testSetTypeSetValueGenerate($type, $value, $code)
+    public function testSetTypeSetValueGenerate(string $type, $value, string $code) : void
     {
         $defaultValue = new PropertyValueGenerator();
         $defaultValue->setType($type);
@@ -72,9 +72,9 @@ class PropertyGeneratorTest extends TestCase
      * @param mixed $value
      * @param string $code
      */
-    public function testSetBogusTypeSetValueGenerateUseAutoDetection($type, $value, $code)
+    public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code) : void
     {
-        if ($type == 'constant') {
+        if ('constant' === $type) {
             return; // constant can only be detected explicitly
         }
 
@@ -85,13 +85,13 @@ class PropertyGeneratorTest extends TestCase
         self::assertEquals($code, $defaultValue->generate());
     }
 
-    public function testPropertyReturnsSimpleValue()
+    public function testPropertyReturnsSimpleValue() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         self::assertEquals('    public $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    public function testPropertyMultilineValue()
+    public function testPropertyMultilineValue() : void
     {
         $targetValue = [
             5,
@@ -121,7 +121,7 @@ EOS;
         self::assertEquals($expectedSource, $targetSource);
     }
 
-    public function testPropertyCanProduceContstantModifier()
+    public function testPropertyCanProduceContstantModifier() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_CONSTANT);
         self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
@@ -130,14 +130,14 @@ EOS;
     /**
      * @group PR-704
      */
-    public function testPropertyCanProduceContstantModifierWithSetter()
+    public function testPropertyCanProduceContstantModifierWithSetter() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         $codeGenProperty->setConst(true);
         self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    public function testPropertyCanProduceStaticModifier()
+    public function testPropertyCanProduceStaticModifier() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_STATIC);
         self::assertEquals('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
@@ -146,7 +146,7 @@ EOS;
     /**
      * @group ZF-6444
      */
-    public function testPropertyWillLoadFromReflection()
+    public function testPropertyWillLoadFromReflection() : void
     {
         $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
@@ -173,7 +173,7 @@ EOS;
     /**
      * @group ZF-6444
      */
-    public function testPropertyWillEmitStaticModifier()
+    public function testPropertyWillEmitStaticModifier() : void
     {
         $codeGenProperty = new PropertyGenerator(
             'someVal',
@@ -186,7 +186,7 @@ EOS;
     /**
      * @group ZF-7205
      */
-    public function testPropertyCanHaveDocBlock()
+    public function testPropertyCanHaveDocBlock() : void
     {
         $codeGenProperty = new PropertyGenerator(
             'someVal',
@@ -205,7 +205,7 @@ EOS;
         self::assertEquals($expected, $codeGenProperty->generate());
     }
 
-    public function testOtherTypesThrowExceptionOnGenerate()
+    public function testOtherTypesThrowExceptionOnGenerate() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', new \stdClass());
 
@@ -215,7 +215,7 @@ EOS;
         $codeGenProperty->generate();
     }
 
-    public function testCreateFromArray()
+    public function testCreateFromArray() : void
     {
         $propertyGenerator = PropertyGenerator::fromArray([
             'name'         => 'SampleProperty',
@@ -241,9 +241,9 @@ EOS;
     }
 
     /**
-     * @3491
+     * @group 3491
      */
-    public function testPropertyDocBlockWillLoadFromReflection()
+    public function testPropertyDocBlockWillLoadFromReflection() : void
     {
         $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
 
@@ -268,7 +268,7 @@ EOS;
      * @param string $type
      * @param mixed $value
      */
-    public function testSetDefaultValue($type, $value)
+    public function testSetDefaultValue(string $type, $value) : void
     {
         $property = new PropertyGenerator();
         $property->setDefaultValue($value, $type);
