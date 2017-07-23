@@ -77,7 +77,7 @@ class PropertyGeneratorTest extends TestCase
     public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code) : void
     {
         if ('constant' === $type) {
-            return; // constant can only be detected explicitly
+            self::markTestSkipped('constant can only be detected explicitly');
         }
 
         $defaultValue = new PropertyValueGenerator();
