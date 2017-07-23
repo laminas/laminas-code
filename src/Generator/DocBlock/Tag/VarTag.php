@@ -33,7 +33,7 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName() : string
     {
         return 'var';
     }
@@ -50,10 +50,7 @@ class VarTag extends AbstractTypeableTag implements TagInterface
         }
     }
 
-    /**
-     * @return string|null
-     */
-    public function getVariableName()
+    public function getVariableName() : ?string
     {
         return $this->variableName;
     }
