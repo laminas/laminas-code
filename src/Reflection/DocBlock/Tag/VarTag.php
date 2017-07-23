@@ -12,36 +12,35 @@ namespace Zend\Code\Reflection\DocBlock\Tag;
 class VarTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**
-     * @var array
+     * @var string[]
      */
-    protected $types = [];
+    private $types = [];
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $variableName = null;
+    private $variableName;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $description = null;
+    private $description;
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
-    public function getName()
+    public function getName() : string
     {
         return 'var';
     }
 
     /**
-     * Initializer
-     *
-     * @param  string $tagDocblockLine
+     * {@inheritDoc}
      */
-    public function initialize($tagDocblockLine)
+    public function initialize($tagDocblockLine) : void
     {
         $match = [];
+
         if (!preg_match('#^(.+)?(\$[\S]+)\s*(.*)$#m', $tagDocblockLine, $match)) {
             return;
         }
@@ -59,28 +58,25 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
         }
     }
 
-    public function getTypes()
+    /**
+     * {@inheritDoc}
+     */
+    public function getTypes() : array
     {
         return $this->types;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getVariableName()
+    public function getVariableName() : ?string
     {
         return $this->variableName;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . PHP_EOL;
     }
