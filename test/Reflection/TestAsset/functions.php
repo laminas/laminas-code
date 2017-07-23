@@ -23,7 +23,7 @@ function function1()
 /**
  * Zend Function Two
  *
- * This is the long description for funciton two
+ * This is the long description for function two
  *
  * @param string $one
  * @param string $two

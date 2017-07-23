@@ -236,8 +236,8 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
         }
 
         // Since we don't know what line endings are used in the file, we check for all scenarios. If we find a
-        // cariage return (\r), we check the next character for a line feed (\n). If so we consume it and act as
-        // if the cariage return was a line feed.
+        // carriage return (\r), we check the next character for a line feed (\n). If so we consume it and act as
+        // if the carriage return was a line feed.
         $lineEnded = $currentChar === "\n";
         if ($currentChar === "\r") {
             $lineEnded = true;

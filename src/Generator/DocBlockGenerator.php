@@ -183,7 +183,7 @@ class DocBlockGenerator extends AbstractGenerator
     public function setTag($tag)
     {
         if (is_array($tag)) {
-            // use deprecated Tag class for backward compatiblity to old array-keys
+            // use deprecated Tag class for backward compatibility to old array-keys
             $genericTag = new Tag();
             $genericTag->setOptions($tag);
             $tag = $genericTag;
