@@ -50,6 +50,7 @@ class ValueGenerator extends AbstractGenerator
     const TYPE_CONSTANT    = 'constant';
     const TYPE_NULL        = 'null';
     const TYPE_OBJECT      = 'object';
+    const TYPE_OMIT        = 'omit';
     const TYPE_OTHER       = 'other';
     /**#@-*/
 
