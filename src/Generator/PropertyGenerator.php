@@ -224,10 +224,7 @@ class PropertyGenerator extends AbstractMemberGenerator
             return $output;
         }
 
-        $output .= $this->indentation
-            . $this->getVisibility()
-            . ($this->isStatic() ? ' static' : '')
-            . ' $' . $name;
+        $output .= $this->indentation . $this->getVisibility() . ($this->isStatic() ? ' static' : '') . ' $' . $name;
 
         if ($this->defaultValue instanceof PropertyValueGenerator &&
             $this->defaultValue->getType() === ValueGenerator::TYPE_OMIT) {
