@@ -35,7 +35,6 @@ class ValueGenerator extends AbstractGenerator
     /**#@+
      * Constant values
      */
-    const OMIT             = 'omit';
     const TYPE_AUTO        = 'auto';
     const TYPE_BOOLEAN     = 'boolean';
     const TYPE_BOOL        = 'bool';
@@ -485,13 +484,5 @@ class ValueGenerator extends AbstractGenerator
     public function __toString()
     {
         return $this->generate();
-    }
-
-    /**
-     * @return bool
-     */
-    public function omitValue()
-    {
-        return $this->type === self::OMIT;
     }
 }

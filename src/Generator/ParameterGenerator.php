@@ -50,6 +50,11 @@ class ParameterGenerator extends AbstractGenerator
     private $variadic = false;
 
     /**
+     * @var bool
+     */
+    private $omitDefaultValue = false;
+
+    /**
      * @param  ParameterReflection $reflectionParameter
      * @return ParameterGenerator
      */
@@ -306,6 +311,10 @@ class ParameterGenerator extends AbstractGenerator
 
         $output .= '$' . $this->name;
 
+        if ($this->omitDefaultValue) {
+            return $output;
+        }
+
         if ($this->defaultValue !== null) {
             $output .= ' = ';
             if (is_string($this->defaultValue)) {
@@ -401,5 +410,15 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $this->type->generate() . ' ';
+    }
+
+    /**
+     * @return ParameterGenerator
+     */
+    public function omitDefaultValue()
+    {
+        $this->omitDefaultValue = true;
+
+        return $this;
     }
 }

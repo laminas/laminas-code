@@ -582,4 +582,12 @@ class ParameterGeneratorTest extends TestCase
 
         self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
     }
+
+    public function testOmitType()
+    {
+        $parameter = new ParameterGenerator('foo', 'string', 'bar');
+        $parameter->omitDefaultValue();
+
+        self::assertEquals('string $foo', $parameter->generate());
+    }
 }
