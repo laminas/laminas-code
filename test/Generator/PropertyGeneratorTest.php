@@ -281,4 +281,12 @@ EOS;
         self::assertEquals($type, $property->getDefaultValue()->getType());
         self::assertEquals($value, $property->getDefaultValue()->getValue());
     }
+
+    public function testOmitType()
+    {
+        $property = new PropertyGenerator('foo', null);
+        $property->omitDefaultValue();
+
+        self::assertEquals('    public $foo;', $property->generate());
+    }
 }

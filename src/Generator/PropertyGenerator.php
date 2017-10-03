@@ -30,6 +30,11 @@ class PropertyGenerator extends AbstractMemberGenerator
     protected $defaultValue;
 
     /**
+     * @var bool
+     */
+    private $omitDefaultValue = false;
+
+    /**
      * @param  PropertyReflection $reflectionProperty
      * @return PropertyGenerator
      */
@@ -220,14 +225,26 @@ class PropertyGenerator extends AbstractMemberGenerator
             }
             $output .= $this->indentation . 'const ' . $name . ' = '
                 . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
-        } else {
-            $output .= $this->indentation
-                . $this->getVisibility()
-                . ($this->isStatic() ? ' static' : '')
-                . ' $' . $name . ' = '
-                . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
+
+            return $output;
         }
 
-        return $output;
+        $output .= $this->indentation . $this->getVisibility() . ($this->isStatic() ? ' static' : '') . ' $' . $name;
+
+        if ($this->omitDefaultValue) {
+            return $output . ';';
+        }
+
+        return $output . ' = ' . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
+    }
+
+    /**
+     * @return PropertyGenerator
+     */
+    public function omitDefaultValue()
+    {
+        $this->omitDefaultValue = true;
+
+        return $this;
     }
 }
