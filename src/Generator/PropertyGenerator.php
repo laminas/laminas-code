@@ -238,8 +238,6 @@ class PropertyGenerator extends AbstractMemberGenerator
      */
     public function omitDefaultValue()
     {
-        $this->defaultValue = new PropertyValueGenerator(null, PropertyValueGenerator::OMIT);
-
-        return $this;
+        return $this->setDefaultValue(null, PropertyValueGenerator::OMIT);
     }
 }
