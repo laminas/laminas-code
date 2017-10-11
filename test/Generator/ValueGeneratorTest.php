@@ -92,7 +92,7 @@ class ValueGeneratorTest extends TestCase
         return [
             [
                 new PropertyValueGenerator([], PropertyValueGenerator::TYPE_ARRAY, ValueGenerator::OUTPUT_SINGLE_LINE),
-                '    const FOO = array();',
+                '    const FOO = [];',
             ],
             [
                 new PropertyValueGenerator(
@@ -139,12 +139,12 @@ class ValueGeneratorTest extends TestCase
             'auto'        => [
                 ValueGenerator::TYPE_AUTO,
                 $value,
-                $longOutput,
+                $shortOutput,
             ],
             'array'       => [
                 ValueGenerator::TYPE_ARRAY,
                 $value,
-                $longOutput,
+                $shortOutput,
             ],
             'array long'  => [
                 ValueGenerator::TYPE_ARRAY_LONG,

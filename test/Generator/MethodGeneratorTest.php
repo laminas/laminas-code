@@ -233,7 +233,7 @@ EOS;
 
         $method->setParameter($param);
         $generated = $method->generate();
-        self::assertRegExp('/array \$options = array\(\)\)/', $generated, $generated);
+        self::assertContains('array $options = [])', $generated);
     }
 
     public function testCreateFromArray()
