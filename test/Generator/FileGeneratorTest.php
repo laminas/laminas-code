@@ -113,7 +113,7 @@ EOS;
 
         $codeGenFileFromDisk->getClass()->addMethod('foobar');
 
-        $expectedOutput = <<<EOS
+        $expectedOutput = <<<'EOS'
 <?php
 /**
  * File header here
@@ -138,6 +138,17 @@ class TestSampleSingleClass
     public function someMethod()
     {
         /* test test */
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @return bool
+     */
+    protected function withParamsAndReturnType($mixed, array $array, callable $callable, ?string $string = null, iterable $iterable = array(), ?int $int = 0) : bool
+    {
+        /* test test */
+        return true;
     }
 
     public function foobar()

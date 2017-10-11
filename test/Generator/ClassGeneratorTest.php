@@ -816,6 +816,17 @@ class TestSampleSingleClass
         /* test test */
     }
 
+    /**
+     * Enter description here...
+     *
+     * @return bool
+     */
+    protected function withParamsAndReturnType($mixed, array $array, callable $callable, ?string $string = null, iterable $iterable = array(), ?int $int = 0) : bool
+    {
+        /* test test */
+        return true;
+    }
+
 
 }
 
