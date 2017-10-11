@@ -31,9 +31,7 @@ class TestSampleSingleClass
     protected function withParamsAndReturnType(
         $mixed,
         array $array,
-        callable $callable,
-        string $string = null,
-        iterable $iterable = [],
+        callable $callable = null,
         ?int $int = 0
     ): bool {
         /* test test */
