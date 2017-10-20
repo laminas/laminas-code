@@ -100,7 +100,7 @@ class ClassReflectionTest extends TestCase
 
     public function getIterator()
     {
-        return array();
+        return [];
     }
 
 }
@@ -133,7 +133,7 @@ EOS;
 
     public function getIterator()
     {
-        return array();
+        return [];
     }
 
 }

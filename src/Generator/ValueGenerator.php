@@ -185,7 +185,7 @@ class ValueGenerator extends AbstractGenerator
      */
     public function isValidConstantType()
     {
-        if ($this->type == self::TYPE_AUTO) {
+        if ($this->type === self::TYPE_AUTO) {
             $type = $this->getAutoDeterminedType($this->value);
         } else {
             $type = $this->type;
@@ -336,13 +336,13 @@ class ValueGenerator extends AbstractGenerator
     {
         $type = $this->type;
 
-        if ($type != self::TYPE_AUTO) {
+        if ($type !== self::TYPE_AUTO) {
             $type = $this->getValidatedType($type);
         }
 
         $value = $this->value;
 
-        if ($type == self::TYPE_AUTO) {
+        if ($type === self::TYPE_AUTO) {
             $type = $this->getAutoDeterminedType($value);
         }
 
@@ -388,12 +388,12 @@ class ValueGenerator extends AbstractGenerator
             case self::TYPE_ARRAY:
             case self::TYPE_ARRAY_LONG:
             case self::TYPE_ARRAY_SHORT:
-                if ($type == self::TYPE_ARRAY_SHORT) {
-                    $startArray = '[';
-                    $endArray   = ']';
-                } else {
+                if ($type === self::TYPE_ARRAY_LONG) {
                     $startArray = 'array(';
-                    $endArray = ')';
+                    $endArray   = ')';
+                } else {
+                    $startArray = '[';
+                    $endArray = ']';
                 }
 
                 $output .= $startArray;

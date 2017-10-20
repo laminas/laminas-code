@@ -108,14 +108,14 @@ class PropertyGeneratorTest extends TestCase
         ];
 
         $expectedSource = <<<EOS
-    public \$myFoo = array(
+    public \$myFoo = [
         5,
         'one' => 1,
         'two' => '2',
         'null' => null,
         'true' => true,
         'bar\'s' => 'bar\'s',
-    );
+    ];
 EOS;
 
         $property = new PropertyGenerator('myFoo', $targetValue);

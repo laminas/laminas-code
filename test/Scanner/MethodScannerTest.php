@@ -95,7 +95,7 @@ class MethodScannerTest extends TestCase
         $method = $class->getMethod('four');
         $paramTwo = $method->getParameter(1);
         $optionalValue = $paramTwo->getDefaultValue();
-        self::assertEquals('array(array(array(\'default\')))', $optionalValue);
+        self::assertEquals('array([array(\'default\')])', $optionalValue);
     }
 
     /**
