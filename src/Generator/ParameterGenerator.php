@@ -30,7 +30,7 @@ class ParameterGenerator extends AbstractGenerator
     protected $type;
 
     /**
-     * @var string|ValueGenerator
+     * @var ValueGenerator
      */
     protected $defaultValue;
 
@@ -226,7 +226,7 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
-     * @return string
+     * @return ValueGenerator
      */
     public function getDefaultValue()
     {
@@ -306,16 +306,10 @@ class ParameterGenerator extends AbstractGenerator
 
         $output .= '$' . $this->name;
 
-        if ($this->defaultValue !== null) {
+        if ($this->defaultValue instanceof ValueGenerator) {
             $output .= ' = ';
-            if (is_string($this->defaultValue)) {
-                $output .= ValueGenerator::escape($this->defaultValue);
-            } elseif ($this->defaultValue instanceof ValueGenerator) {
-                $this->defaultValue->setOutputMode(ValueGenerator::OUTPUT_SINGLE_LINE);
-                $output .= $this->defaultValue;
-            } else {
-                $output .= $this->defaultValue;
-            }
+            $this->defaultValue->setOutputMode(ValueGenerator::OUTPUT_SINGLE_LINE);
+            $output .= $this->defaultValue;
         }
 
         return $output;
