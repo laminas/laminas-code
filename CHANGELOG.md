@@ -50,7 +50,6 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#133](https://github.com/zendframework/zend-code/pull/133) The default
   value of a `ParameterGenerator` is always a `ValueGenerator`
 
-
 ## 3.2.0 - 2017-07-23
 
 ### Added
