@@ -20,11 +20,20 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 3.3.0 - TBD
+## 3.3.0 - 2017-10-20
 
 ### Added
 
-- Nothing.
+- [#131](https://github.com/zendframework/zend-code/pull/131) added the
+  ability to omit a parameter type declaration
+- [#132](https://github.com/zendframework/zend-code/pull/132) added a
+  lightweight `MethodGenerator::copyMethodSignature()` constructor that
+  only copies the method declaration with no body nor docblock.
+- [#134](https://github.com/zendframework/zend-code/pull/134) short array
+  notation is now used by default for generated array values
+- [#136](https://github.com/zendframework/zend-code/pull/136) added the
+  ability to specify an `omitdefaultvalue` key when using
+  `ParameterGenerator::fromArray()`
 
 ### Deprecated
 
@@ -36,7 +45,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#130](https://github.com/zendframework/zend-code/pull/130) Updated 
+  links to the documentation
+- [#133](https://github.com/zendframework/zend-code/pull/133) The default
+  value of a `ParameterGenerator` is always a `ValueGenerator`
+
 
 ## 3.2.0 - 2017-07-23
 
