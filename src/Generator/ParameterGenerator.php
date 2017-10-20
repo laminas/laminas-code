@@ -50,6 +50,11 @@ class ParameterGenerator extends AbstractGenerator
     private $variadic = false;
 
     /**
+     * @var bool
+     */
+    private $omitDefaultValue = false;
+
+    /**
      * @param  ParameterReflection $reflectionParameter
      * @return ParameterGenerator
      */
@@ -85,14 +90,15 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * Generate from array
      *
-     * @configkey name              string                                          [required] Class Name
-     * @configkey type              string
-     * @configkey defaultvalue      null|bool|string|int|float|array|ValueGenerator
-     * @configkey passedbyreference bool
-     * @configkey position          int
-     * @configkey sourcedirty       bool
-     * @configkey indentation       string
-     * @configkey sourcecontent     string
+     * @configkey name                  string                                          [required] Class Name
+     * @configkey type                  string
+     * @configkey defaultvalue          null|bool|string|int|float|array|ValueGenerator
+     * @configkey passedbyreference     bool
+     * @configkey position              int
+     * @configkey sourcedirty           bool
+     * @configkey indentation           string
+     * @configkey sourcecontent         string
+     * @configkey omitdefaultvalue      bool
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
@@ -130,6 +136,9 @@ class ParameterGenerator extends AbstractGenerator
                     break;
                 case 'sourcecontent':
                     $param->setSourceContent($value);
+                    break;
+                case 'omitdefaultvalue':
+                    $param->omitDefaultValue($value);
                     break;
             }
         }
@@ -306,6 +315,10 @@ class ParameterGenerator extends AbstractGenerator
 
         $output .= '$' . $this->name;
 
+        if ($this->omitDefaultValue) {
+            return $output;
+        }
+
         if ($this->defaultValue instanceof ValueGenerator) {
             $output .= ' = ';
             $this->defaultValue->setOutputMode(ValueGenerator::OUTPUT_SINGLE_LINE);
@@ -395,5 +408,16 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $this->type->generate() . ' ';
+    }
+
+    /**
+     * @param bool $omit
+     * @return ParameterGenerator
+     */
+    public function omitDefaultValue(bool $omit = true)
+    {
+        $this->omitDefaultValue = $omit;
+
+        return $this;
     }
 }

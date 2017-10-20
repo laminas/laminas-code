@@ -30,6 +30,11 @@ class PropertyGenerator extends AbstractMemberGenerator
     protected $defaultValue;
 
     /**
+     * @var bool
+     */
+    private $omitDefaultValue = false;
+
+    /**
      * @param  PropertyReflection $reflectionProperty
      * @return PropertyGenerator
      */
@@ -67,14 +72,15 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
-     * @configkey name         string                                          [required] Class Name
-     * @configkey const        bool
-     * @configkey defaultvalue null|bool|string|int|float|array|ValueGenerator
-     * @configkey flags        int
-     * @configkey abstract     bool
-     * @configkey final        bool
-     * @configkey static       bool
-     * @configkey visibility   string
+     * @configkey name               string                                          [required] Class Name
+     * @configkey const              bool
+     * @configkey defaultvalue       null|bool|string|int|float|array|ValueGenerator
+     * @configkey flags              int
+     * @configkey abstract           bool
+     * @configkey final              bool
+     * @configkey static             bool
+     * @configkey visibility         string
+     * @configkey omitdefaultvalue   bool
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
@@ -116,6 +122,9 @@ class PropertyGenerator extends AbstractMemberGenerator
                     break;
                 case 'visibility':
                     $property->setVisibility($value);
+                    break;
+                case 'omitdefaultvalue':
+                    $property->omitDefaultValue($value);
                     break;
             }
         }
@@ -220,14 +229,27 @@ class PropertyGenerator extends AbstractMemberGenerator
             }
             $output .= $this->indentation . 'const ' . $name . ' = '
                 . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
-        } else {
-            $output .= $this->indentation
-                . $this->getVisibility()
-                . ($this->isStatic() ? ' static' : '')
-                . ' $' . $name . ' = '
-                . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
+
+            return $output;
         }
 
-        return $output;
+        $output .= $this->indentation . $this->getVisibility() . ($this->isStatic() ? ' static' : '') . ' $' . $name;
+
+        if ($this->omitDefaultValue) {
+            return $output . ';';
+        }
+
+        return $output . ' = ' . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
+    }
+
+    /**
+     * @param bool $omit
+     * @return PropertyGenerator
+     */
+    public function omitDefaultValue(bool $omit = true)
+    {
+        $this->omitDefaultValue = $omit;
+
+        return $this;
     }
 }

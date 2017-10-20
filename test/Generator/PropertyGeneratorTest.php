@@ -223,16 +223,17 @@ EOS;
     public function testCreateFromArray() : void
     {
         $propertyGenerator = PropertyGenerator::fromArray([
-            'name'         => 'SampleProperty',
-            'const'        => true,
-            'defaultvalue' => 'foo',
-            'docblock'     => [
+            'name'             => 'SampleProperty',
+            'const'            => true,
+            'defaultvalue'     => 'foo',
+            'docblock'         => [
                 'shortdescription' => 'foo',
             ],
-            'abstract'     => true,
-            'final'        => true,
-            'static'       => true,
-            'visibility'   => PropertyGenerator::VISIBILITY_PROTECTED,
+            'abstract'         => true,
+            'final'            => true,
+            'static'           => true,
+            'visibility'       => PropertyGenerator::VISIBILITY_PROTECTED,
+            'omitdefaultvalue' => true,
         ]);
 
         self::assertEquals('SampleProperty', $propertyGenerator->getName());
@@ -243,6 +244,7 @@ EOS;
         self::assertTrue($propertyGenerator->isFinal());
         self::assertTrue($propertyGenerator->isStatic());
         self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
+        self::assertAttributeEquals(true, 'omitDefaultValue', $propertyGenerator);
     }
 
     /**
@@ -280,5 +282,13 @@ EOS;
 
         self::assertEquals($type, $property->getDefaultValue()->getType());
         self::assertEquals($value, $property->getDefaultValue()->getValue());
+    }
+
+    public function testOmitType()
+    {
+        $property = new PropertyGenerator('foo', null);
+        $property->omitDefaultValue();
+
+        self::assertEquals('    public $foo;', $property->generate());
     }
 }
