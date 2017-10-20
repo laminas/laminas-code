@@ -217,6 +217,7 @@ class ParameterGeneratorTest extends TestCase
             'sourcedirty'       => false,
             'sourcecontent'     => 'foo',
             'indentation'       => '-',
+            'omitdefaultvalue'  => true,
         ]);
 
         self::assertEquals('SampleParameter', $parameterGenerator->getName());
@@ -227,6 +228,7 @@ class ParameterGeneratorTest extends TestCase
         self::assertFalse($parameterGenerator->isSourceDirty());
         self::assertEquals('foo', $parameterGenerator->getSourceContent());
         self::assertEquals('-', $parameterGenerator->getIndentation());
+        self::assertAttributeEquals(true, 'omitDefaultValue', $parameterGenerator);
     }
 
     /**

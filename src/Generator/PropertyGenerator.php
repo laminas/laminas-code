@@ -72,14 +72,15 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
-     * @configkey name         string                                          [required] Class Name
-     * @configkey const        bool
-     * @configkey defaultvalue null|bool|string|int|float|array|ValueGenerator
-     * @configkey flags        int
-     * @configkey abstract     bool
-     * @configkey final        bool
-     * @configkey static       bool
-     * @configkey visibility   string
+     * @configkey name               string                                          [required] Class Name
+     * @configkey const              bool
+     * @configkey defaultvalue       null|bool|string|int|float|array|ValueGenerator
+     * @configkey flags              int
+     * @configkey abstract           bool
+     * @configkey final              bool
+     * @configkey static             bool
+     * @configkey visibility         string
+     * @configkey omitdefaultvalue   bool
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
@@ -121,6 +122,9 @@ class PropertyGenerator extends AbstractMemberGenerator
                     break;
                 case 'visibility':
                     $property->setVisibility($value);
+                    break;
+                case 'omitdefaultvalue':
+                    $property->omitDefaultValue($value);
                     break;
             }
         }
@@ -239,11 +243,12 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
+     * @param bool $omit
      * @return PropertyGenerator
      */
-    public function omitDefaultValue()
+    public function omitDefaultValue(bool $omit = true)
     {
-        $this->omitDefaultValue = true;
+        $this->omitDefaultValue = $omit;
 
         return $this;
     }

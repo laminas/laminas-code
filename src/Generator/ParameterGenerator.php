@@ -90,14 +90,15 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * Generate from array
      *
-     * @configkey name              string                                          [required] Class Name
-     * @configkey type              string
-     * @configkey defaultvalue      null|bool|string|int|float|array|ValueGenerator
-     * @configkey passedbyreference bool
-     * @configkey position          int
-     * @configkey sourcedirty       bool
-     * @configkey indentation       string
-     * @configkey sourcecontent     string
+     * @configkey name                  string                                          [required] Class Name
+     * @configkey type                  string
+     * @configkey defaultvalue          null|bool|string|int|float|array|ValueGenerator
+     * @configkey passedbyreference     bool
+     * @configkey position              int
+     * @configkey sourcedirty           bool
+     * @configkey indentation           string
+     * @configkey sourcecontent         string
+     * @configkey omitdefaultvalue      bool
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
@@ -135,6 +136,9 @@ class ParameterGenerator extends AbstractGenerator
                     break;
                 case 'sourcecontent':
                     $param->setSourceContent($value);
+                    break;
+                case 'omitdefaultvalue':
+                    $param->omitDefaultValue($value);
                     break;
             }
         }
@@ -413,11 +417,12 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
+     * @param bool $omit
      * @return ParameterGenerator
      */
-    public function omitDefaultValue()
+    public function omitDefaultValue(bool $omit = true)
     {
-        $this->omitDefaultValue = true;
+        $this->omitDefaultValue = $omit;
 
         return $this;
     }
