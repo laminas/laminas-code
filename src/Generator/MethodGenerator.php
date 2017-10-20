@@ -58,17 +58,32 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     public static function fromReflection(MethodReflection $reflectionMethod)
     {
-        $method         = new static();
-        $declaringClass = $reflectionMethod->getDeclaringClass();
+        $method = static::copyMethodSignature($reflectionMethod);
 
         $method->setSourceContent($reflectionMethod->getContents(false));
         $method->setSourceDirty(false);
-        $method->setReturnType(self::extractReturnTypeFromMethodReflection($reflectionMethod));
 
         if ($reflectionMethod->getDocComment() != '') {
             $method->setDocBlock(DocBlockGenerator::fromReflection($reflectionMethod->getDocBlock()));
         }
 
+        $method->setBody(static::clearBodyIndention($reflectionMethod->getBody()));
+
+        return $method;
+    }
+
+    /**
+     * Returns a MethodGenerator based on a MethodReflection with only the signature copied.
+     *
+     * This is similar to fromReflection() but without the method body and phpdoc as this is quite heavy to copy.
+     * It's for example useful when creating proxies where you normally change the method body anyway.
+     */
+    public static function copyMethodSignature(MethodReflection $reflectionMethod): MethodGenerator
+    {
+        $method         = new static();
+        $declaringClass = $reflectionMethod->getDeclaringClass();
+
+        $method->setReturnType(self::extractReturnTypeFromMethodReflection($reflectionMethod));
         $method->setFinal($reflectionMethod->isFinal());
 
         if ($reflectionMethod->isPrivate()) {
@@ -87,8 +102,6 @@ class MethodGenerator extends AbstractMemberGenerator
         foreach ($reflectionMethod->getParameters() as $reflectionParameter) {
             $method->setParameter(ParameterGenerator::fromReflection($reflectionParameter));
         }
-
-        $method->setBody(static::clearBodyIndention($reflectionMethod->getBody()));
 
         return $method;
     }

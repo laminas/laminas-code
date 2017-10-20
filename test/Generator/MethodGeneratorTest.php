@@ -94,6 +94,20 @@ class MethodGeneratorTest extends TestCase
         self::assertSame($docblockGenerator, $method->getDocBlock());
     }
 
+    public function testCopyMethodSignature()
+    {
+        $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'withParamsAndReturnType');
+
+        $methodGenerator = MethodGenerator::copyMethodSignature($ref);
+        $target = <<<'EOS'
+    protected function withParamsAndReturnType($mixed, array $array, ?callable $callable = null, ?int $int = 0) : bool
+    {
+    }
+
+EOS;
+        self::assertEquals($target, (string) $methodGenerator);
+    }
+
     public function testMethodFromReflection()
     {
         $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'someMethod');
