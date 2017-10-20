@@ -98,7 +98,7 @@ class ParameterGenerator extends AbstractGenerator
      * @configkey sourcedirty           bool
      * @configkey indentation           string
      * @configkey sourcecontent         string
-     * @configkey omditdefaultvalue     bool
+     * @configkey omitdefaultvalue      bool
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
