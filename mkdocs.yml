@@ -1,5 +1,5 @@
-docs_dir: doc/book
-site_dir: doc/html
+docs_dir: docs/book
+site_dir: docs/html
 pages:
     - index.md
     - "Code Generation": 
