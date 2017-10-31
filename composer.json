@@ -3,35 +3,35 @@
     "description": "provides facilities to generate arbitrary code using an object oriented interface",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf",
+        "zendframework",
         "code"
     ],
-    "homepage": "https://github.com/zendframework/zend-code",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Code\\": "src/"
-        }
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-code/",
+        "issues": "https://github.com/zendframework/zend-code/issues",
+        "source": "https://github.com/zendframework/zend-code",
+        "rss": "https://github.com/zendframework/zend-code/releases.atom",
+        "slack": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
         "php": "^7.1"
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "~1.0",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0",
-        "phpunit/phpunit": "^6.2.3",
-        "zendframework/zend-coding-standard": "^1.0.0"
+        "doctrine/annotations": "^1.5",
+        "phpunit/phpunit": "^6.4.3",
+        "zendframework/zend-coding-standard": "~1.0.0",
+        "zendframework/zend-stdlib": "^2.7.7 || ^3.1"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
         "zendframework/zend-stdlib": "Zend\\Stdlib component"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.2-dev",
-            "dev-develop": "3.3-dev"
+    "autoload": {
+        "psr-4": {
+            "Zend\\Code\\": "src/"
         }
     },
     "autoload-dev": {
@@ -39,15 +39,24 @@
             "ZendTest\\Code\\": "test/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2-dev",
+            "dev-develop": "3.3-dev"
+        }
+    },
     "scripts": {
         "check": [
             "@cs-check",
             "@test"
         ],
-        "upload-coverage": "coveralls -v",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "upload-coverage": "coveralls -v"
     }
 }
