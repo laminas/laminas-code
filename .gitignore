@@ -6,7 +6,7 @@
 .*.sw*
 .*.un~
 nbproject
-doc/html/
+docs/html/
 tmp/
 zf-mkdoc-theme/
 clover.xml
