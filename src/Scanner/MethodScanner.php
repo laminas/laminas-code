@@ -303,7 +303,7 @@ class MethodScanner implements ScannerInterface
                 break;
 
             default:
-                throw new Exception('Invalid visibility argument passed to setVisibility.');
+                throw new Exception\InvalidArgumentException('Invalid visibility argument passed to setVisibility.');
         }
 
         return $this;
