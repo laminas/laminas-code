@@ -12,6 +12,7 @@ namespace ZendTest\Code\Scanner;
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Scanner\FileScanner;
 use Zend\Code\Scanner\ParameterScanner;
+use Zend\Code\Scanner\MethodScanner;
 use ZendTest\Code\TestAsset\AbstractClass;
 use ZendTest\Code\TestAsset\BarClass;
 use ZendTest\Code\TestAsset\FooClass;
@@ -109,5 +110,28 @@ class MethodScannerTest extends TestCase
         $method = $class->getMethod('helloWorld');
 
         self::assertTrue($method->isAbstract());
+    }
+
+    /**
+     * @expectedException \Zend\Code\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Invalid visibility argument passed to setVisibility.
+     */
+
+    public function testMethodScannerSetVisibilityThrowsInvalidArgumentException()
+    {
+        $methodScanner = new MethodScanner([]);
+
+        $invalidArgument = 42;
+        self::assertTrue(!in_array($invalidArgument, [T_PUBLIC, T_PROTECTED, T_PRIVATE]));
+        $methodScanner->setVisibility(42);
+    }
+
+    public function testMethodScannerSetVisibilityAcceptsIntegerTokens()
+    {
+        $methodScanner = new MethodScanner([]);
+
+        self::assertTrue($methodScanner->setVisibility(T_PUBLIC) === $methodScanner);
+        self::assertTrue($methodScanner->setVisibility(T_PROTECTED) === $methodScanner);
+        self::assertTrue($methodScanner->setVisibility(T_PRIVATE) === $methodScanner);
     }
 }
