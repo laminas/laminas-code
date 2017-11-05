@@ -122,7 +122,7 @@ class MethodScannerTest extends TestCase
         $methodScanner = new MethodScanner([]);
 
         $invalidArgument = 42;
-        self::assertTrue(!in_array($invalidArgument, [T_PUBLIC, T_PROTECTED, T_PRIVATE]));
+        self::assertTrue(! in_array($invalidArgument, [T_PUBLIC, T_PROTECTED, T_PRIVATE]));
         $methodScanner->setVisibility(42);
     }
 
