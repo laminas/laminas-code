@@ -117,8 +117,7 @@ class MethodScannerTest extends TestCase
         $methodScanner = new MethodScanner([]);
 
         // make sure test argument is invalid
-        $min = min(T_PUBLIC, T_PROTECTED, T_PRIVATE);
-        $invalidArgument = $min > 42 ? 42 : 43;
+        $invalidArgument = max(T_PUBLIC, T_PROTECTED, T_PRIVATE) + 1;
 
         $this->expectException('\Zend\Code\Exception\InvalidArgumentException');
         $methodScanner->setVisibility($invalidArgument);
