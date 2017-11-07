@@ -112,26 +112,24 @@ class MethodScannerTest extends TestCase
         self::assertTrue($method->isAbstract());
     }
 
-    /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid visibility argument passed to setVisibility.
-     */
-
     public function testMethodScannerSetVisibilityThrowsInvalidArgumentException()
     {
         $methodScanner = new MethodScanner([]);
 
-        $invalidArgument = 42;
-        self::assertTrue(! in_array($invalidArgument, [T_PUBLIC, T_PROTECTED, T_PRIVATE]));
-        $methodScanner->setVisibility(42);
+        // make sure test argument is invalid
+        $min = min(T_PUBLIC, T_PROTECTED, T_PRIVATE);
+        $invalidArgument = $min > 42 ? 42 : 43;
+
+        $this->expectException('\Zend\Code\Exception\InvalidArgumentException');
+        $methodScanner->setVisibility($invalidArgument);
     }
 
     public function testMethodScannerSetVisibilityAcceptsIntegerTokens()
     {
         $methodScanner = new MethodScanner([]);
 
-        self::assertTrue($methodScanner->setVisibility(T_PUBLIC) === $methodScanner);
-        self::assertTrue($methodScanner->setVisibility(T_PROTECTED) === $methodScanner);
-        self::assertTrue($methodScanner->setVisibility(T_PRIVATE) === $methodScanner);
+        $this->assertSame($methodScanner->setVisibility(T_PUBLIC), $methodScanner);
+        $this->assertSame($methodScanner->setVisibility(T_PROTECTED), $methodScanner);
+        $this->assertSame($methodScanner->setVisibility(T_PRIVATE), $methodScanner);
     }
 }
