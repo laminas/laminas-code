@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9adb99a36380302c2a3436e1d28315cb",
+    "content-hash": "9ee05e51bd6b0f8d1d75da29bef50387",
     "packages": [
         {
             "name": "zendframework/zend-eventmanager",
@@ -1095,16 +1095,16 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "dev-master",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "ed724f5d860f9a4cf8eb8ba27ea45cac9541bb5b"
+                "reference": "abcc70409ddfb310a8cb41ef0c2e857425438cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/ed724f5d860f9a4cf8eb8ba27ea45cac9541bb5b",
-                "reference": "ed724f5d860f9a4cf8eb8ba27ea45cac9541bb5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/abcc70409ddfb310a8cb41ef0c2e857425438cf4",
+                "reference": "abcc70409ddfb310a8cb41ef0c2e857425438cf4",
                 "shasum": ""
             },
             "require": {
@@ -1143,7 +1143,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-07-13 02:44:20"
+            "time": "2017-12-14T11:32:19+00:00"
         },
         {
             "name": "sebastian/environment",
