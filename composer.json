@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-code",
-    "description": "provides facilities to generate arbitrary code using an object oriented interface",
+    "description": "Extensions to the PHP Reflection API, static code scanning, and code generation.",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf",
