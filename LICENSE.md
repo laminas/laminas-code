@@ -1,5 +1,4 @@
 Copyright (c) 2005-2017, Zend Technologies USA, Inc.
-
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
