@@ -1145,6 +1145,20 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         $classNamespace = implode('\\', $parts);
         $currentNamespace = (string) $this->getNamespaceName();
 
+        if ($this->hasUseAlias($fqnClassName)) {
+            return $this->traitUsageGenerator->getUseAlias($fqnClassName);
+        }
+        if ($this->hasUseAlias($classNamespace)) {
+            $namespaceAlias = $this->traitUsageGenerator->getUseAlias($classNamespace);
+
+            return $namespaceAlias . '\\' . $className;
+        }
+        if ($this->traitUsageGenerator->isUseAlias($fqnClassName)) {
+            return $fqnClassName;
+        }
+        if ($this->traitUsageGenerator->isUseAlias($classNamespace)) {
+            return $fqnClassName;
+        }
         if ($classNamespace === $currentNamespace || in_array($fqnClassName, $this->getUses())) {
             return $className;
         }

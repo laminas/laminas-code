@@ -1228,6 +1228,50 @@ EOS;
         self::assertContains('class ClassName extends DateTime', $classGenerator->generate());
     }
 
+    public function testCorrectlyExtendsProvidedAliasIfUseAliasExists()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Foo\\Bar', 'BarAlias');
+        $classGenerator->setExtendedClass('BarAlias');
+        $generated = $classGenerator->generate();
+        self::assertContains('class ClassName extends BarAlias', $generated);
+    }
+
+    public function testCorrectlyExtendsProvidedNamespaceAliasIfUseAliasExistsForNamespace()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Foo\\Bar', 'BarAlias');
+        $classGenerator->setExtendedClass('BarAlias\\FooBar');
+        $generated = $classGenerator->generate();
+        self::assertContains('class ClassName extends BarAlias\\FooBar', $generated);
+    }
+
+    public function testCorrectlyExtendsAliasOfProvidedFQCNIfUseAliasExists()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Foo\\Bar', 'BarAlias');
+        $classGenerator->setExtendedClass('Foo\\Bar');
+        $generated = $classGenerator->generate();
+        self::assertContains('class ClassName extends BarAlias', $generated);
+    }
+
+    public function testCorrectlyExtendsWithNamespaceAliasOfProvidedFQCNIfUseAliasExistsForNamespace()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassName');
+        $classGenerator->setNamespaceName('SomeNamespace');
+        $classGenerator->addUse('Foo\\Bar', 'BarAlias');
+        $classGenerator->setExtendedClass('Foo\\Bar\\FooBar');
+        $generated = $classGenerator->generate();
+        self::assertContains('class ClassName extends BarAlias\\FooBar', $generated);
+    }
+
     public function testCorrectImplementNames()
     {
         $classGenerator = new ClassGenerator();
