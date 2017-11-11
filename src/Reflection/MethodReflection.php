@@ -64,7 +64,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
 
     /**
      * @param  AnnotationManager $annotationManager
-     * @return AnnotationScanner
+     * @return AnnotationScanner|false
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {
@@ -123,7 +123,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      * Get method prototype
      *
      * @param string $format
-     * @return array
+     * @return array|string
      */
     public function getPrototype($format = MethodReflection::PROTOTYPE_AS_ARRAY)
     {

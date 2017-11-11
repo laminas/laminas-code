@@ -78,7 +78,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * Get return value type
      *
-     * @return void|string
+     * @return null|string
      * @deprecated 2.0.4 use getTypes instead
      */
     public function getReturnType()

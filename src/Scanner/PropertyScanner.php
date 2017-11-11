@@ -211,7 +211,7 @@ class PropertyScanner implements ScannerInterface
 
     /**
      * @param Annotation\AnnotationManager $annotationManager
-     * @return AnnotationScanner
+     * @return AnnotationScanner|false
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
     {
