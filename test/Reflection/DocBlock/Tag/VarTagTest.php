@@ -18,37 +18,86 @@ use Zend\Code\Reflection\DocBlock\Tag\VarTag;
  */
 class VarTagTest extends TestCase
 {
-    public function testParseName()
-    {
+    /**
+     * @dataProvider varTagProvider
+     */
+    public function testParse(
+        string $line,
+        array $expectedTypes,
+        ?string $expectedVariableName,
+        ?string $expectedDescription
+    ) {
         $tag = new VarTag();
-        $tag->initialize('$test');
-        $this->assertEquals('var', $tag->getName());
-        $this->assertEquals('$test', $tag->getVariableName());
-        $this->assertNull($tag->getDescription());
+        $tag->initialize($line);
+        $this->assertSame($expectedTypes, $tag->getTypes());
+        $this->assertSame($expectedVariableName, $tag->getVariableName());
+        $this->assertSame($expectedDescription, $tag->getDescription());
     }
 
-    public function testParseTypeAndName()
+    public function varTagProvider(): array
     {
-        $tag = new VarTag();
-        $tag->initialize('string|null $test');
-        $this->assertEquals('$test', $tag->getVariableName());
-        $this->assertNull($tag->getDescription());
-        $this->assertEquals(['string', 'null'], $tag->getTypes());
-    }
+        return [
+            'only type' => [
+                'string',
+                ['string'],
+                null,
+                null
+            ],
+            'only multiple types' => [
+                'string|int',
+                ['string', 'int'],
+                null,
+                null
+            ],
+            'type and name' => [
+                'string $test',
+                ['string'],
+                '$test',
+                null
+            ],
+            'multiple types and name' => [
+                'string|int $test',
+                ['string', 'int'],
+                '$test',
+                null
+            ],
+            'only name' => [
+                '$test',
+                [],
+                '$test',
+                null
+            ],
+            'name and description' => [
+                '$test Foo Bar',
+                [],
+                '$test',
+                'Foo Bar'
+            ],
+            'type and description' => [
+                'string Foo bar',
+                ['string'],
+                null,
+                'Foo bar'
+            ],
+            'multiple types and description' => [
+                'string|int Foo bar',
+                ['string', 'int'],
+                null,
+                'Foo bar'
+            ],
+            'type, name and description' => [
+                'string $test Foo bar',
+                ['string'],
+                '$test',
+                'Foo bar'
+            ],
+            'multiple types, name and description' => [
+                'string|int $test Foo bar',
+                ['string', 'int'],
+                '$test',
+                'Foo bar'
+            ],
 
-    public function testParseNameAndDescription()
-    {
-        $tag = new VarTag();
-        $tag->initialize('$test I\'m test property');
-        $this->assertEquals('$test', $tag->getVariableName());
-        $this->assertEquals('I\'m test property', $tag->getDescription());
-    }
-
-    public function testParseTypeAndNameAndDescription()
-    {
-        $tag = new VarTag();
-        $tag->initialize('string $test I\'m test variable');
-        $this->assertEquals('$test', $tag->getVariableName());
-        $this->assertEquals('I\'m test variable', $tag->getDescription());
+        ];
     }
 }
