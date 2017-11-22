@@ -328,7 +328,7 @@ You can add *PHP* code to an existing *PHP* file using the code generator. To do
 first do reflection on it. The static method `fromReflectedFileName()` allows you to do this.
 
 ```php
-$generator = Zend\Code\Generator\FileGenerator::fromReflectedFileName($path);   
+$generator = Zend\Code\Generator\FileGenerator::fromReflectedFileName($path);
 $generator->setBody("\$foo->bar();");
 file_put_contents($path, $generator->generate());
 ```
