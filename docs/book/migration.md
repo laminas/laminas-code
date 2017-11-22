@@ -2,7 +2,7 @@
 
 ## `string`, `int`, `float`, `bool` are no longer ignored
 
-In 2.x, a `Zend\Code\Generator\ParameterGenerator` with name `foo` and type 
+In 2.x, a `Zend\Code\Generator\ParameterGenerator` with name `foo` and type
 `string`, `int`, `float` or `bool` simply generated code `"$foo"`:
 
 ```php
@@ -16,7 +16,7 @@ echo $generator->generate(); // "$foo"
 In 3.x, this code will instead produce `"string $foo"`.
 If you generate code that should run in PHP 5.x, it is advisable to strip
 `string`, `int`, `float` and `bool` from type definitions passed to
-`Zend\Code\ParameterGenerator` instances. The quickest way is to set the 
+`Zend\Code\ParameterGenerator` instances. The quickest way is to set the
 type to `null`, if it matches any of these scalar types:
 
 ```php
@@ -36,10 +36,10 @@ was renamed to `Zend\Code\Reflection\ParameterReflection#detectType()`.
 
 If you relied on `Zend\Code\Reflection\ParameterReflection#getType()`, you can
 simply replace the method calls in your code.
- 
+
 ## DocBlock types ignored by `ParameterGenerator::fromReflection()`
 
-As a direct consequence of the previous change, calls to 
+As a direct consequence of the previous change, calls to
 `Zend\Code\Generator\ParameterGenerator::fromReflection()` will not mirror the
 type hints read from a method's DocBlock.
 
@@ -63,7 +63,7 @@ $methodGenerator = \Zend\Code\Generator\MethodGenerator::fromReflection(
 var_dump($methodGenerator->getParameters()[0]->getType());
 ```
 
-In version 2.x, this code produces `"string"`, in version 3.x it returns `null`. If you 
+In version 2.x, this code produces `"string"`, in version 3.x it returns `null`. If you
 need to rely on the types in the annotations, please use
 `Zend\Code\Reflection\ParameterReflection#detectType()` instead, and build a
 `MethodGenerator` instance manually.
