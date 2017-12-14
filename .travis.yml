@@ -9,7 +9,7 @@ cache:
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
-    - COVERAGE_DEPS="satooshi/php-coveralls"
+    - COVERAGE_DEPS="php-coveralls/php-coveralls"
     - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
 
 matrix:
@@ -50,7 +50,7 @@ script:
   - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
 
 after_script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then vendor/bin/php-coveralls -v ; fi
 
 notifications:
   email: false
