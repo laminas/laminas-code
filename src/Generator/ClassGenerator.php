@@ -16,6 +16,7 @@ use function array_map;
 use function array_pop;
 use function array_search;
 use function array_walk;
+use function array_values;
 use function explode;
 use function get_class;
 use function gettype;
