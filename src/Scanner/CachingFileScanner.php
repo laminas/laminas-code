@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
@@ -33,10 +32,9 @@ class CachingFileScanner extends FileScanner
 
     /**
      * @param  string $file
-     * @param  AnnotationManager $annotationManager
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($file, AnnotationManager $annotationManager = null)
+    public function __construct($file)
     {
         if (! file_exists($file)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -47,14 +45,12 @@ class CachingFileScanner extends FileScanner
 
         $file = realpath($file);
 
-        $cacheId = md5($file) . '/' . (isset($annotationManager)
-            ? spl_object_hash($annotationManager)
-            : 'no-annotation');
+        $cacheId = md5($file);
 
         if (isset(static::$cache[$cacheId])) {
             $this->fileScanner = static::$cache[$cacheId];
         } else {
-            $this->fileScanner       = new FileScanner($file, $annotationManager);
+            $this->fileScanner       = new FileScanner($file);
             static::$cache[$cacheId] = $this->fileScanner;
         }
     }
@@ -65,14 +61,6 @@ class CachingFileScanner extends FileScanner
     public static function clearCache()
     {
         static::$cache = [];
-    }
-
-    /**
-     * @return AnnotationManager
-     */
-    public function getAnnotationManager()
-    {
-        return $this->fileScanner->getAnnotationManager();
     }
 
     /**

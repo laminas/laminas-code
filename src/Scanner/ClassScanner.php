@@ -10,7 +10,6 @@
 namespace Zend\Code\Scanner;
 
 use ReflectionClass;
-use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
@@ -138,21 +137,6 @@ class ClassScanner implements ScannerInterface
     {
         $this->tokens          = $classTokens;
         $this->nameInformation = $nameInformation;
-    }
-
-    /**
-     * Get annotations
-     *
-     * @param  Annotation\AnnotationManager $annotationManager
-     * @return Annotation\AnnotationCollection
-     */
-    public function getAnnotations(Annotation\AnnotationManager $annotationManager)
-    {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
-        }
-
-        return new AnnotationScanner($annotationManager, $docComment, $this->nameInformation);
     }
 
     /**

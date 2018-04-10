@@ -10,7 +10,6 @@
 namespace ZendTest\Code\Reflection;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\MethodReflection;
 use Zend\Code\Reflection\ParameterReflection;
@@ -293,30 +292,6 @@ CONTENTS;
             'protected string doSomething(int &$one, int $two)',
             $reflectionMethod->getPrototype(MethodReflection::PROTOTYPE_AS_STRING)
         );
-    }
-
-    public function testGetAnnotationsWithNoNameInformations()
-    {
-        $reflectionMethod = new InjectableMethodReflection(
-            // TestSampleClass5 has the annotations required to get to the
-            // right point in the getAnnotations method.
-            TestAsset\TestSampleClass5::class,
-            'doSomething'
-        );
-
-        $annotationManager = new AnnotationManager();
-
-        $fileScanner = $this->getMockBuilder(CachingFileScanner::class)
-                            ->disableOriginalConstructor()
-                            ->getMock();
-
-        $reflectionMethod->setFileScanner($fileScanner);
-
-        $fileScanner->expects($this->any())
-                    ->method('getClassNameInformation')
-                    ->will($this->returnValue(false));
-
-        self::assertFalse($reflectionMethod->getAnnotations($annotationManager));
     }
 
     /**

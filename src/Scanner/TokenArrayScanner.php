@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
@@ -48,26 +47,11 @@ class TokenArrayScanner implements ScannerInterface
     protected $infos = [];
 
     /**
-     * @var AnnotationManager
-     */
-    protected $annotationManager;
-
-    /**
      * @param null|array $tokens
-     * @param null|AnnotationManager $annotationManager
      */
-    public function __construct($tokens, AnnotationManager $annotationManager = null)
+    public function __construct($tokens)
     {
-        $this->tokens            = $tokens;
-        $this->annotationManager = $annotationManager;
-    }
-
-    /**
-     * @return AnnotationManager
-     */
-    public function getAnnotationManager()
-    {
-        return $this->annotationManager;
+        $this->tokens = $tokens;
     }
 
     /**

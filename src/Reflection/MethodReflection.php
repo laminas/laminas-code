@@ -10,8 +10,6 @@
 namespace Zend\Code\Reflection;
 
 use ReflectionMethod as PhpReflectionMethod;
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
 
 use function array_shift;
@@ -42,11 +40,6 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     const PROTOTYPE_AS_STRING = 'prototype_as_string';
 
     /**
-     * @var AnnotationScanner
-     */
-    protected $annotations;
-
-    /**
      * Retrieve method DocBlock reflection
      *
      * @return DocBlockReflection|false
@@ -60,32 +53,6 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $instance = new DocBlockReflection($this);
 
         return $instance;
-    }
-
-    /**
-     * @param  AnnotationManager $annotationManager
-     * @return AnnotationScanner
-     */
-    public function getAnnotations(AnnotationManager $annotationManager)
-    {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
-        }
-
-        if ($this->annotations) {
-            return $this->annotations;
-        }
-
-        $cachingFileScanner = $this->createFileScanner($this->getFileName());
-        $nameInformation    = $cachingFileScanner->getClassNameInformation($this->getDeclaringClass()->getName());
-
-        if (! $nameInformation) {
-            return false;
-        }
-
-        $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
-
-        return $this->annotations;
     }
 
     /**

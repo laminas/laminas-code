@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 
 use function file_exists;
@@ -26,10 +25,9 @@ class FileScanner extends TokenArrayScanner implements ScannerInterface
 
     /**
      * @param  string $file
-     * @param  null|AnnotationManager $annotationManager
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($file, AnnotationManager $annotationManager = null)
+    public function __construct($file)
     {
         $this->file = $file;
         if (! file_exists($file)) {
@@ -38,7 +36,7 @@ class FileScanner extends TokenArrayScanner implements ScannerInterface
                 $file
             ));
         }
-        parent::__construct(token_get_all(file_get_contents($file)), $annotationManager);
+        parent::__construct(token_get_all(file_get_contents($file)));
     }
 
     /**
