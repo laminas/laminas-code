@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-code",
-    "description": "Extensions to the PHP Reflection API, static code scanning, and code generation.",
+    "description": "Extensions to the PHP Reflection API, static code scanning, and code generation",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf",
@@ -21,7 +21,7 @@
     "require-dev": {
         "ext-phar": "*",
         "doctrine/annotations": "^1.5",
-        "phpunit/phpunit": "^6.4.3",
+        "phpunit/phpunit": "^7.1.2",
         "zendframework/zend-coding-standard": "~1.0.0",
         "zendframework/zend-stdlib": "^2.7.7 || ^3.1"
     },
