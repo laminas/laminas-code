@@ -10,16 +10,12 @@
 namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Annotation;
 use Zend\Code\Exception\RuntimeException;
 use Zend\Code\Scanner\ConstantScanner;
 use Zend\Code\Scanner\FileScanner;
 use Zend\Code\Scanner\MethodScanner;
 use Zend\Code\Scanner\PropertyScanner;
 use Zend\Stdlib\ErrorHandler;
-use ZendTest\Code\Annotation\TestAsset\Bar;
-use ZendTest\Code\Annotation\TestAsset\EntityWithAnnotations;
-use ZendTest\Code\Annotation\TestAsset\Foo;
 use ZendTest\Code\TestAsset\BarClass;
 use ZendTest\Code\TestAsset\BarTrait;
 use ZendTest\Code\TestAsset\BazTrait;
@@ -36,19 +32,6 @@ use function trim;
 
 class ClassScannerTest extends TestCase
 {
-    protected $manager;
-
-    public function setUp()
-    {
-        $this->manager = new Annotation\AnnotationManager();
-
-        $genericParser = new Annotation\Parser\GenericAnnotationParser();
-        $genericParser->registerAnnotation(Foo::class);
-        $genericParser->registerAnnotation(Bar::class);
-
-        $this->manager->attach($genericParser);
-    }
-
     public function testClassScannerHasClassInformation()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
@@ -179,20 +162,6 @@ class ClassScannerTest extends TestCase
         $class   = $file->getClass(BarClass::class);
         self::assertEquals(10, $class->getLineStart());
         self::assertEquals(42, $class->getLineEnd());
-    }
-
-    public function testClassScannerCanScanAnnotations()
-    {
-        $file    = new FileScanner(__DIR__ . '/../Annotation/TestAsset/EntityWithAnnotations.php');
-        $class   = $file->getClass(EntityWithAnnotations::class);
-        $annotations = $class->getAnnotations($this->manager);
-
-        self::assertTrue($annotations->hasAnnotation(Foo::class));
-        self::assertTrue($annotations->hasAnnotation(Bar::class));
-
-        self::assertEquals('first', $annotations[0]->content);
-        self::assertEquals('second', $annotations[1]->content);
-        self::assertEquals('third', $annotations[2]->content);
     }
 
     /**

@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
@@ -129,19 +128,6 @@ class ConstantScanner implements ScannerInterface
     {
         $this->scan();
         return $this->docComment;
-    }
-
-    /**
-     * @param Annotation\AnnotationManager $annotationManager
-     * @return AnnotationScanner
-     */
-    public function getAnnotations(Annotation\AnnotationManager $annotationManager)
-    {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
-        }
-
-        return new AnnotationScanner($annotationManager, $docComment, $this->nameInformation);
     }
 
     /**

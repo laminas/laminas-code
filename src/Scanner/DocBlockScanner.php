@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\NameInformation;
 
 use function array_pop;
@@ -43,11 +42,6 @@ class DocBlockScanner implements ScannerInterface
     protected $nameInformation;
 
     /**
-     * @var AnnotationManager
-     */
-    protected $annotationManager;
-
-    /**
      * @var string
      */
     protected $shortDescription;
@@ -61,11 +55,6 @@ class DocBlockScanner implements ScannerInterface
      * @var array
      */
     protected $tags = [];
-
-    /**
-     * @var array
-     */
-    protected $annotations = [];
 
     /**
      * @param  string $docComment
@@ -105,16 +94,6 @@ class DocBlockScanner implements ScannerInterface
         $this->scan();
 
         return $this->tags;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAnnotations()
-    {
-        $this->scan();
-
-        return $this->annotations;
     }
 
     /**

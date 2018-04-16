@@ -10,8 +10,6 @@
 namespace Zend\Code\Reflection;
 
 use ReflectionProperty as PhpReflectionProperty;
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
 
 /**
@@ -19,11 +17,6 @@ use Zend\Code\Scanner\CachingFileScanner;
  */
 class PropertyReflection extends PhpReflectionProperty implements ReflectionInterface
 {
-    /**
-     * @var AnnotationScanner
-     */
-    protected $annotations;
-
     /**
      * Get declaring class reflection object
      *
@@ -60,33 +53,6 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         $docBlockReflection = new DocBlockReflection($docComment);
 
         return $docBlockReflection;
-    }
-
-    /**
-     * @param  AnnotationManager $annotationManager
-     * @return AnnotationScanner
-     */
-    public function getAnnotations(AnnotationManager $annotationManager)
-    {
-        if (null !== $this->annotations) {
-            return $this->annotations;
-        }
-
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
-        }
-
-        $class              = $this->getDeclaringClass();
-        $cachingFileScanner = $this->createFileScanner($class->getFileName());
-        $nameInformation    = $cachingFileScanner->getClassNameInformation($class->getName());
-
-        if (! $nameInformation) {
-            return false;
-        }
-
-        $this->annotations  = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
-
-        return $this->annotations;
     }
 
     /**

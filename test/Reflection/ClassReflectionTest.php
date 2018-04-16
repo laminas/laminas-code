@@ -10,7 +10,6 @@
 namespace ZendTest\Code\Reflection;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\MethodReflection;
 use Zend\Code\Reflection\PropertyReflection;
@@ -154,29 +153,6 @@ EOS;
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
         self::assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
-    }
-
-    public function testGetAnnotationsWithNoNameInformations()
-    {
-        $reflectionClass = new InjectableClassReflection(
-            // TestSampleClass5 has the annotations required to get to the
-            // right point in the getAnnotations method.
-            TestAsset\TestSampleClass5::class
-        );
-
-        $annotationManager = new AnnotationManager();
-
-        $fileScanner = $this->getMockBuilder(FileScanner::class)
-                            ->disableOriginalConstructor()
-                            ->getMock();
-
-        $reflectionClass->setFileScanner($fileScanner);
-
-        $fileScanner->expects($this->any())
-                    ->method('getClassNameInformation')
-                    ->will($this->returnValue(false));
-
-        self::assertFalse($reflectionClass->getAnnotations($annotationManager));
     }
 
     public function testGetContentsReturnsEmptyContentsOnEvaldCode()

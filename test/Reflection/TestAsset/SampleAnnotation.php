@@ -9,9 +9,7 @@
 
 namespace ZendTest\Code\Reflection\TestAsset;
 
-use Zend\Code\Annotation\AnnotationInterface;
-
-class SampleAnnotation implements AnnotationInterface
+class SampleAnnotation
 {
     public $content;
 

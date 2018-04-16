@@ -10,7 +10,6 @@
 namespace ZendTest\Code\Scanner;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\CachingFileScanner;
 use ZendTest\Code\TestAsset\BarClass;
 
@@ -23,7 +22,7 @@ class CachingFileScannerTest extends TestCase
         CachingFileScanner::clearCache();
     }
 
-    public function testCachingFileScannerWillUseSameInternalFileScannerWithMatchingFileNameAnAnnotationManagerObject()
+    public function testCachingFileScannerWillUseSameInternalFileScannerWithMatchingFileName()
     {
         CachingFileScanner::clearCache();
 
@@ -41,19 +40,6 @@ class CachingFileScannerTest extends TestCase
         $cfs3 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         self::assertEquals(2, $this->getCacheCount($cfs3));
         self::assertDifferentInternalFileScanner($cfs2, $cfs3);
-
-        $annoManager = new AnnotationManager();
-        $cfs4 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php', $annoManager);
-        self::assertEquals(3, $this->getCacheCount($cfs4));
-        self::assertDifferentInternalFileScanner($cfs3, $cfs4);
-
-        $cfs5 = new CachingFileScanner(__DIR__ . '/../TestAsset/FooClass.php', $annoManager);
-        self::assertEquals(3, $this->getCacheCount($cfs5));
-        self::assertSameInternalFileScanner($cfs4, $cfs5);
-
-        $cfs6 = new CachingFileScanner(__DIR__ . '/../TestAsset/BarClass.php', $annoManager);
-        self::assertEquals(4, $this->getCacheCount($cfs6));
-        self::assertDifferentInternalFileScanner($cfs5, $cfs6);
     }
 
     protected function getCacheCount(CachingFileScanner $cfs)

@@ -10,9 +10,6 @@
 namespace Zend\Code\Reflection;
 
 use ReflectionClass;
-use Zend\Code\Annotation\AnnotationCollection;
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\FileScanner;
 
 use function array_shift;
@@ -25,10 +22,6 @@ use function strstr;
 
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
-    /**
-     * @var AnnotationScanner
-     */
-    protected $annotations;
 
     /**
      * @var DocBlockReflection
@@ -66,34 +59,6 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         $this->docBlock = new DocBlockReflection($this);
 
         return $this->docBlock;
-    }
-
-    /**
-     * @param  AnnotationManager $annotationManager
-     * @return AnnotationCollection
-     */
-    public function getAnnotations(AnnotationManager $annotationManager)
-    {
-        $docComment = $this->getDocComment();
-
-        if ($docComment == '') {
-            return false;
-        }
-
-        if ($this->annotations) {
-            return $this->annotations;
-        }
-
-        $fileScanner       = $this->createFileScanner($this->getFileName());
-        $nameInformation   = $fileScanner->getClassNameInformation($this->getName());
-
-        if (! $nameInformation) {
-            return false;
-        }
-
-        $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
-
-        return $this->annotations;
     }
 
     /**

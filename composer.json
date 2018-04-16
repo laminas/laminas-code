@@ -13,8 +13,7 @@
         }
     },
     "require": {
-        "php": "^7.1",
-        "zendframework/zend-eventmanager": "^2.6 || ^3.0"
+        "php": "^7.1"
     },
     "require-dev": {
         "ext-phar": "*",
