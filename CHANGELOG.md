@@ -104,11 +104,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+- [#87](https://github.com/zendframework/zend-code/pull/87) support for
   PHP 7.1's `void` return type declaration.
-- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+- [#87](https://github.com/zendframework/zend-code/pull/87) support for
   PHP 7.1's nullable type declarations.
-- [#87](https://github.com/zendframework/zend-code/pull/95) support for
+- [#87](https://github.com/zendframework/zend-code/pull/87) support for
   PHP 7.1's `iterable` type declaration.
 - [#62](https://github.com/zendframework/zend-code/pull/62) added
   `Zend\Code\Generator\MethodGenerator#getReturnType()` accessor.
