@@ -126,7 +126,7 @@ class MethodGenerator extends AbstractMemberGenerator
         $indention = str_replace(trim($lines[1]), '', $lines[1]);
 
         foreach ($lines as $key => $line) {
-            if (0 === strpos($line, $indention)) {
+            if (substr($line, 0, strlen($indention)) == $indention) {
                 $lines[$key] = substr($line, strlen($indention));
             }
         }
