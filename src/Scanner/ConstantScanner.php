@@ -19,6 +19,7 @@ use function next;
 use function reset;
 use function strtolower;
 use function substr;
+use function strpos;
 use function var_export;
 
 class ConstantScanner implements ScannerInterface
@@ -217,7 +218,7 @@ class ConstantScanner implements ScannerInterface
                 case T_LNUMBER:
                     $string = is_string($token) ? $token : $tokenContent;
 
-                    if (substr($string, 0, 1) === '"' || substr($string, 0, 1) === "'") {
+                    if (0 === strpos($string, '"') || 0 === strpos($string, "'")) {
                         $this->value = substr($string, 1, -1); // Remove quotes
                     } else {
                         $this->value = $string;

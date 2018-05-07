@@ -21,6 +21,7 @@ use function preg_replace;
 use function sprintf;
 use function str_replace;
 use function strlen;
+use function strpos;
 use function strtolower;
 use function substr;
 use function trim;
@@ -125,7 +126,7 @@ class MethodGenerator extends AbstractMemberGenerator
         $indention = str_replace(trim($lines[1]), '', $lines[1]);
 
         foreach ($lines as $key => $line) {
-            if (substr($line, 0, strlen($indention)) == $indention) {
+            if (0 === strpos($line, $indention)) {
                 $lines[$key] = substr($line, strlen($indention));
             }
         }
