@@ -64,7 +64,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
 
     /**
      * @param  AnnotationManager $annotationManager
-     * @return AnnotationScanner
+     * @return AnnotationScanner|false
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {

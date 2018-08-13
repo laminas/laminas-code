@@ -50,7 +50,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Return the classes DocBlock reflection object
      *
-     * @return DocBlockReflection
+     * @return DocBlockReflection|false
      * @throws Exception\ExceptionInterface for missing DocBock or invalid reflection class
      */
     public function getDocBlock()
@@ -70,7 +70,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
 
     /**
      * @param  AnnotationManager $annotationManager
-     * @return AnnotationCollection
+     * @return AnnotationCollection|false
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {
@@ -188,7 +188,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Returns an array of reflection classes of traits used by this class.
      *
-     * @return void|array
+     * @return null|array
      */
     public function getTraits()
     {
