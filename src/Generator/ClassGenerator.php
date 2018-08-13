@@ -28,6 +28,7 @@ use function is_string;
 use function ltrim;
 use function sprintf;
 use function str_replace;
+use function strpos;
 use function strrpos;
 use function strstr;
 use function strtolower;
@@ -288,7 +289,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function setName($name)
     {
-        if (strstr($name, '\\')) {
+        if (false !== strpos($name, '\\')) {
             $namespace = substr($name, 0, strrpos($name, '\\'));
             $name      = substr($name, strrpos($name, '\\') + 1);
             $this->setNamespaceName($namespace);
