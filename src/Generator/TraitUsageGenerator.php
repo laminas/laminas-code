@@ -113,6 +113,40 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
     }
 
     /**
+     * Returns the alias of the provided FQCN
+     *
+     * @param string $use
+     * @return string|null
+     */
+    public function getUseAlias(string $use): ?string
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' as ', $key);
+            if ($parts[0] === $use && count($parts) == 2) {
+                return $parts[1];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns true if the alias is defined in the use list
+     *
+     * @param string $alias
+     * @return bool
+     */
+    public function isUseAlias(string $alias): bool
+    {
+        foreach ($this->uses as $key => $value) {
+            $parts = explode(' as ', $key);
+            if (count($parts) === 2 && $parts[1] === $alias) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param string $use
      * @return TraitUsageGenerator
      */
