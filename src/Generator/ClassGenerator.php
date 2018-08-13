@@ -15,8 +15,8 @@ use function array_diff;
 use function array_map;
 use function array_pop;
 use function array_search;
+use function array_values;
 use function array_walk;
-use function call_user_func_array;
 use function explode;
 use function get_class;
 use function gettype;
@@ -620,7 +620,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                 $this->addPropertyFromGenerator($constant);
             } else {
                 if (is_array($constant)) {
-                    call_user_func_array([$this, 'addConstant'], $constant);
+                    $this->addConstant(...array_values($constant));
                 }
             }
         }
@@ -641,7 +641,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                 if (is_string($property)) {
                     $this->addProperty($property);
                 } elseif (is_array($property)) {
-                    call_user_func_array([$this, 'addProperty'], $property);
+                    $this->addProperty(...array_values($property));
                 }
             }
         }
@@ -822,7 +822,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                 if (is_string($method)) {
                     $this->addMethod($method);
                 } elseif (is_array($method)) {
-                    call_user_func_array([$this, 'addMethod'], $method);
+                    $this->addMethod(...array_values($method));
                 }
             }
         }
