@@ -132,7 +132,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      * Get method prototype
      *
      * @param string $format
-     * @return array
+     * @return array|string
      */
     public function getPrototype($format = FunctionReflection::PROTOTYPE_AS_ARRAY)
     {

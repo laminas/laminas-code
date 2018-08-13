@@ -158,7 +158,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return DocBlockReflection
+     * @return DocBlockReflection|false
      */
     public function getDocBlock()
     {
@@ -180,7 +180,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return void|string
+     * @return null|string
      */
     public function getNamespace()
     {

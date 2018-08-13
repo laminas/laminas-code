@@ -743,7 +743,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
     /**
      * @param string $use
-     * @return self
+     * @return bool
      */
     public function hasUse($use)
     {

@@ -49,6 +49,9 @@ class DocBlockGenerator extends AbstractGenerator
      */
     protected $wordwrap = true;
 
+    /**
+     * @var TagManager
+     */
     protected static $tagManager;
 
     /**
@@ -107,6 +110,9 @@ class DocBlockGenerator extends AbstractGenerator
         return $docBlock;
     }
 
+    /**
+     * @return TagManager
+     */
     protected static function getTagManager()
     {
         if (! isset(static::$tagManager)) {
