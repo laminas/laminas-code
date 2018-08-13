@@ -41,61 +41,61 @@ class VarTagTest extends TestCase
                 'string',
                 ['string'],
                 null,
-                null
+                null,
             ],
             'only multiple types' => [
                 'string|int',
                 ['string', 'int'],
                 null,
-                null
+                null,
             ],
             'type and name' => [
                 'string $test',
                 ['string'],
                 '$test',
-                null
+                null,
             ],
             'multiple types and name' => [
                 'string|int $test',
                 ['string', 'int'],
                 '$test',
-                null
+                null,
             ],
             'only name' => [
                 '$test',
                 [],
                 '$test',
-                null
+                null,
             ],
             'name and description' => [
                 '$test Foo Bar',
                 [],
                 '$test',
-                'Foo Bar'
+                'Foo Bar',
             ],
             'type and description' => [
                 'string Foo bar',
                 ['string'],
                 null,
-                'Foo bar'
+                'Foo bar',
             ],
             'multiple types and description' => [
                 'string|int Foo bar',
                 ['string', 'int'],
                 null,
-                'Foo bar'
+                'Foo bar',
             ],
             'type, name and description' => [
                 'string $test Foo bar',
                 ['string'],
                 '$test',
-                'Foo bar'
+                'Foo bar',
             ],
             'multiple types, name and description' => [
                 'string|int $test Foo bar',
                 ['string', 'int'],
                 '$test',
-                'Foo bar'
+                'Foo bar',
             ],
 
         ];

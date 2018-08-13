@@ -176,14 +176,14 @@ class ReflectionDocBlockTagTest extends TestCase
                 'typeDescription',
                 ['string'],
                 null,
-                'Foo bar'
+                'Foo bar',
             ],
             'type and name' => ['typeName', ['string'], '$typeName', null],
             'type, name and description' => [
                 'typeNameDescription',
                 ['string'],
                 '$typeNameDescription',
-                'Foo bar'
+                'Foo bar',
             ],
         ];
     }
