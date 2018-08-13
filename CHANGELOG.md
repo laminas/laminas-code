@@ -23,6 +23,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#144](https://github.com/zendframework/zend-code/pull/144) fixes the class generator such that it now resolves
+  `setExtendedClass()` arguments to aliases provided to the generator.
+
 - [#140](https://github.com/zendframework/zend-code/pull/140) fixes `MethodScanner::setVisibility()` such that it no longer
   casts the provided visibility token to lower case; this fix is necessary, as
   the method is supposed to expect only the appropriate
