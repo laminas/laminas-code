@@ -279,11 +279,11 @@ class MethodScanner implements ScannerInterface
      *
      * @param int $visibility   T_PUBLIC | T_PRIVATE | T_PROTECTED
      * @return self
-     * @throws \Zend\Code\Exception
+     * @throws \Zend\Code\Exception\InvalidArgumentException
      */
     public function setVisibility($visibility)
     {
-        switch (strtolower($visibility)) {
+        switch ($visibility) {
             case T_PUBLIC:
                 $this->isPublic = true;
                 $this->isPrivate = false;
@@ -303,7 +303,7 @@ class MethodScanner implements ScannerInterface
                 break;
 
             default:
-                throw new Exception('Invalid visibility argument passed to setVisibility.');
+                throw new Exception\InvalidArgumentException('Invalid visibility argument passed to setVisibility.');
         }
 
         return $this;
