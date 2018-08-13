@@ -23,6 +23,30 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- Nothing.
+
+## 3.3.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#146](https://github.com/zendframework/zend-code/pull/146) updates all `@return` annotations to reflect the correct types returned by each method.
+
 - [#144](https://github.com/zendframework/zend-code/pull/144) fixes the class generator such that it now resolves
   `setExtendedClass()` arguments to aliases provided to the generator.
 
