@@ -10,6 +10,7 @@
 namespace ZendTest\Code\Reflection;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Code\Generator\DocBlock\Tag\VarTag;
 use Zend\Code\Reflection;
 
 /**
@@ -41,8 +42,16 @@ class ReflectionDocBlockTagTest extends TestCase
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass6::class);
 
         $tag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('descriptionTag');
-        self::assertNotEquals('          A tag with just a description', $tag->getContent(), 'Final Match Failed');
-        self::assertEquals('A tag with just a description', $tag->getContent(), 'Final Match Failed');
+        self::assertNotEquals(
+            '          A tag with just a description',
+            $tag->getContent(),
+            'Final Match Failed'
+        );
+        self::assertEquals(
+            'A tag with just a description',
+            $tag->getContent(),
+            'Final Match Failed'
+        );
     }
 
     public function testToString()
@@ -79,10 +88,13 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
-
         self::assertEquals('int', $paramTag->getType(), 'Second Match Failed');
         self::assertEquals('$var', $paramTag->getVariableName(), 'Third Match Failed');
-        self::assertEquals('Description of $var', $paramTag->getDescription(), 'Final Match Failed');
+        self::assertEquals(
+            'Description of $var',
+            $paramTag->getDescription(),
+            'Final Match Failed'
+        );
     }
 
     /**
@@ -91,8 +103,7 @@ class ReflectionDocBlockTagTest extends TestCase
     public function testNamespaceInParam()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass7::class);
-        $paramTag        = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
-
+        $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
         self::assertEquals('Zend\Foo\Bar', $paramTag->getType());
         self::assertEquals('$var', $paramTag->getVariableName());
@@ -114,7 +125,11 @@ class ReflectionDocBlockTagTest extends TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
         self::assertEquals('string', $paramTag->getType(), 'Second Match Failed');
-        self::assertEquals('Description of return value', $paramTag->getDescription(), 'Final Match Failed');
+        self::assertEquals(
+            'Description of return value',
+            $paramTag->getDescription(),
+            'Final Match Failed'
+        );
     }
 
     /**
@@ -127,5 +142,49 @@ class ReflectionDocBlockTagTest extends TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
         self::assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType());
+    }
+
+    /**
+     * @dataProvider propertyVarDocProvider
+     */
+    public function testPropertyVarDoc(
+        string $property,
+        array $expectedTypes,
+        ?string $expectedName,
+        ?string $expectedDescription
+    ) {
+        $classReflection = new Reflection\ClassReflection(
+            TestAsset\TestSampleClass14::class
+        );
+
+        /** @var VarTag $varTag */
+        $varTag = $classReflection
+            ->getProperty($property)
+            ->getDocBlock()
+            ->getTag('var');
+
+        self::assertSame($expectedTypes, $varTag->getTypes());
+        self::assertSame($expectedName, $varTag->getVariableName());
+        self::assertSame($expectedDescription, $varTag->getDescription());
+    }
+
+    public function propertyVarDocProvider(): array
+    {
+        return [
+            'only type' => ['onlyType', ['string'], null, null],
+            'type and description' => [
+                'typeDescription',
+                ['string'],
+                null,
+                'Foo bar',
+            ],
+            'type and name' => ['typeName', ['string'], '$typeName', null],
+            'type, name and description' => [
+                'typeNameDescription',
+                ['string'],
+                '$typeNameDescription',
+                'Foo bar',
+            ],
+        ];
     }
 }

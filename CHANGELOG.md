@@ -22,6 +22,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#147](https://github.com/zendframework/zend-code/pull/147) fixes the regular expression used for `@var` annotations to
+  allow omission of the variable name.
+
 - [#146](https://github.com/zendframework/zend-code/pull/146) updates all `@return` annotations to reflect the correct types returned by each method.
 
 - [#144](https://github.com/zendframework/zend-code/pull/144) fixes the class generator such that it now resolves
