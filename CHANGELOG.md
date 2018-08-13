@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+### Changed
+
+- Nothing.
+
 ### Deprecated
 
 - Nothing.
@@ -18,7 +22,14 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#140](https://github.com/zendframework/zend-code/pull/140) fixes `MethodScanner::setVisibility()` such that it no longer
+  casts the provided visibility token to lower case; this fix is necessary, as
+  the method is supposed to expect only the appropriate
+  `T_(PUBLIC|PROTECTED|PRIVATE)` token values, which are integers.
+
+- [#140](https://github.com/zendframework/zend-code/pull/140) updates the `MethodScanner::setVisibility()` method to raise
+  a package-specific `InvalidArgumentException` instead of the non-existent
+  package `Exception` class when an invalid visibility is provided.
 
 ## 3.3.0 - 2017-10-20
 
@@ -256,6 +267,9 @@ All notable changes to this project will be documented in this file, in reverse 
 ## 3.0.0 - 2016-01-13
 
 ### Changed
+
+- [#140](https://github.com/zendframework/zend-code/pull/140) updates the `MethodScanner::setVisibility()` method to raise a package-specific `InvalidArgumentException` instead of
+  the non-existent package `Exception` class when an invalid visibility is provided.
 
 This section refers to breaking changes: please refer to
 [doc/book/migration.md](doc/book/migration.md) for migration instructions.
