@@ -22,6 +22,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#158](https://github.com/zendframework/zend-code/pull/158) updates several `switch` cases to use `break` instead of `continue`
+  in order to prevent issues under the upcoming PHP 7.3 release.
+
 - [#147](https://github.com/zendframework/zend-code/pull/147) fixes the regular expression used for `@var` annotations to
   allow omission of the variable name.
 
