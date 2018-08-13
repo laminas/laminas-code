@@ -155,17 +155,17 @@ class FileGenerator extends AbstractGenerator
             switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'filename':
                     $fileGenerator->setFilename($value);
-                    continue;
+                    break;
                 case 'class':
                     $fileGenerator->setClass(
                         $value instanceof ClassGenerator
                         ? $value
                         : ClassGenerator::fromArray($value)
                     );
-                    continue;
+                    break;
                 case 'requiredfiles':
                     $fileGenerator->setRequiredFiles($value);
-                    continue;
+                    break;
                 default:
                     if (property_exists($fileGenerator, $name)) {
                         $fileGenerator->{$name} = $value;
