@@ -62,7 +62,7 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $expectedString = 'DocBlock Tag [ * @descriptionTag ]' . "\n";
 
-        self::assertEquals($expectedString, (string)$tag);
+        self::assertEquals($expectedString, (string) $tag);
     }
 
     public function testTypeParam()
