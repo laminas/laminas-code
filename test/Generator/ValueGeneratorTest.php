@@ -424,8 +424,7 @@ EOS;
         string $type,
         array $value,
         string $expected
-    ): void
-    {
+    ): void {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
