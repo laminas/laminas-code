@@ -420,7 +420,11 @@ EOS;
     /**
      * @dataProvider complexArrayWCustomIndent
      */
-    public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes(string $type, array $value, string $expected): void
+    public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes(
+        string $type,
+        array $value,
+        string $expected
+    ): void
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
