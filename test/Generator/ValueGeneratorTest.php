@@ -226,6 +226,87 @@ EOS;
     }
 
     /**
+     * Data provider for testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes test
+     *
+     * @return array
+     */
+    public function complexArrayWCustomIndent()
+    {
+    	$value = [
+    		'5bcf08a0a5d20' => [
+    			'5bcf08a0a5d65' => [
+    				'5bcf08a0a5d9f' => [
+    					'5bcf08a0a5dd8' => [
+    						'5bcf08a0a5e11' => [
+    							'5bcf08a0a5e4f' => '5bcf08a0a5e8c',
+    							'5bcf08a0a5eca' => '5bcf08a0a5f05',
+    							'5bcf08a0a5f43' => '5bcf08a0a5f7f',
+    							'5bcf08a0a5fbd' => '5bcf08a0a5ff8',
+    						],
+    					],
+    					'5bcf08a0a603a' => [],
+    					'5bcf08a0a6062' => '5bcf08a0a609f',
+    					'5bcf08a0a60dc' => [
+    						'5bcf08a0a611b' => '5bcf08a0a6158',
+    						'5bcf08a0a6197' => [
+    							'5bcf08a0a61d7' => '5bcf08a0a6212',
+    							'5bcf08a0a6250' => '5bcf08a0a628c',
+    							'5bcf08a0a62cb' => '5bcf08a0a6306',
+    						],
+    						'5bcf08a0a6345' => [
+    							'5bcf08a0a637e' => '5bcf08a0a63b4',
+    							'5bcf08a0a63ee' => '5bcf08a0a642a',
+    						],
+    						'5bcf08a0a6449' => '5bcf08a0a6485',
+    					],
+    				],
+    			], '5bcf08a0a64c8' => '5bcf08a0a6540',
+    			'5bcf08a0a657f' => '5bcf08a0a65bf',
+    		],
+    	];
+
+        $longOutput = <<<EOS
+array(
+	'5bcf08a0a5d20' => array(
+		'5bcf08a0a5d65' => array(
+			'5bcf08a0a5d9f' => array(
+				'5bcf08a0a5dd8' => array(
+					'5bcf08a0a5e11' => array(
+						'5bcf08a0a5e4f' => '5bcf08a0a5e8c',
+						'5bcf08a0a5eca' => '5bcf08a0a5f05',
+						'5bcf08a0a5f43' => '5bcf08a0a5f7f',
+						'5bcf08a0a5fbd' => '5bcf08a0a5ff8',
+					),
+				),
+				'5bcf08a0a603a' => array(
+
+				),
+				'5bcf08a0a6062' => '5bcf08a0a609f',
+				'5bcf08a0a60dc' => array(
+					'5bcf08a0a611b' => '5bcf08a0a6158',
+					'5bcf08a0a6197' => array(
+						'5bcf08a0a61d7' => '5bcf08a0a6212',
+						'5bcf08a0a6250' => '5bcf08a0a628c',
+						'5bcf08a0a62cb' => '5bcf08a0a6306',
+					),
+					'5bcf08a0a6345' => array(
+						'5bcf08a0a637e' => '5bcf08a0a63b4',
+						'5bcf08a0a63ee' => '5bcf08a0a642a',
+					),
+					'5bcf08a0a6449' => '5bcf08a0a6485',
+				),
+			),
+		),
+		'5bcf08a0a64c8' => '5bcf08a0a6540',
+		'5bcf08a0a657f' => '5bcf08a0a65bf',
+	),
+)
+EOS;
+
+        return $this->generateArrayData($longOutput, $value);
+    }
+
+    /**
      * Data provider for testPropertyDefaultValueCanHandleArrayWithUnsortedKeys test
      *
      * @return array
@@ -334,6 +415,23 @@ EOS;
         $valueGenerator->initEnvironmentConstants();
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
+
+        self::assertEquals($expected, $valueGenerator->generate());
+    }
+
+    /**
+     * @dataProvider complexArrayWCustomIndent
+     *
+     * @param string $type
+     * @param array $value
+     * @param string $expected
+     */
+    public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes($type, array $value, $expected)
+    {
+        $valueGenerator = new ValueGenerator();
+        $valueGenerator->setType($type);
+        $valueGenerator->setValue($value);
+        $valueGenerator->setIndentation("\t");
 
         self::assertEquals($expected, $valueGenerator->generate());
     }
