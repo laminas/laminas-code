@@ -227,10 +227,8 @@ EOS;
 
     /**
      * Data provider for testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes test
-     *
-     * @return array
      */
-    public function complexArrayWCustomIndent()
+    public function complexArrayWCustomIndent(): array
     {
     	$value = [
     		'5bcf08a0a5d20' => [
@@ -421,12 +419,8 @@ EOS;
 
     /**
      * @dataProvider complexArrayWCustomIndent
-     *
-     * @param string $type
-     * @param array $value
-     * @param string $expected
      */
-    public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes($type, array $value, $expected)
+    public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes(string $type, array $value, string $expected)
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
