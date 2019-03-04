@@ -11,6 +11,7 @@ namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\AbstractMemberGenerator;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\Exception\InvalidArgumentException;
 
 class AbstractMemberGeneratorTest extends TestCase
@@ -42,5 +43,22 @@ class AbstractMemberGeneratorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->fixture->setDocBlock(new \stdClass());
+    }
+
+    public function testRemoveDocBlock(): void
+    {
+        $this->fixture->setDocBlock(new DocBlockGenerator());
+
+        $this->fixture->removeDocBlock();
+
+        $this->assertNull($this->fixture->getDocBlock());
+    }
+
+    public function testRemoveDocBlockIsIdempotent(): void
+    {
+        $this->fixture->removeDocBlock();
+        $this->fixture->removeDocBlock();
+
+        $this->assertNull($this->fixture->getDocBlock());
     }
 }
