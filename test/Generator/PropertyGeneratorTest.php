@@ -291,4 +291,15 @@ EOS;
 
         self::assertEquals('    public $foo;', $property->generate());
     }
+
+    public function testFromReflectionOmitsDefaultValueIfItIsNull() : void
+    {
+        $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
+        $propertyReflection = $reflectionClass->getProperty('fooStaticProperty');
+
+        $generator = PropertyGenerator::fromReflection($propertyReflection);
+        $code = $generator->generate();
+
+        $this->assertEquals('    public static $fooStaticProperty;', $code);
+    }
 }
