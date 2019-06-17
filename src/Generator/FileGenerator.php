@@ -174,7 +174,7 @@ class FileGenerator extends AbstractGenerator
                     $fileGenerator->setRequiredFiles($value);
                     break;
                 case 'declares':
-                    $fileGenerator->setDeclares(array_map(function ($directive, $value) {
+                    $fileGenerator->setDeclares(array_map(static function ($directive, $value) {
                         return DeclareStatement::fromArray([$directive => $value]);
                     }, array_keys($value), $value));
                     break;
@@ -425,9 +425,9 @@ class FileGenerator extends AbstractGenerator
         foreach ($declares as $declare) {
             if (! $declare instanceof DeclareStatement) {
                 throw new InvalidArgumentException(sprintf(
-                    '%s is expecting an array of %s\Declare objects',
+                    '%s is expecting an array of %s objects',
                     __METHOD__,
-                    __NAMESPACE__
+                    DeclareStatement::class
                 ));
             }
 

@@ -13,7 +13,7 @@ class DeclareStatement
     private const ALLOWED = [
         self::TICKS        => 'integer',
         self::STRICT_TYPES => 'integer',
-        self::ENCODING     => 'string'
+        self::ENCODING     => 'string',
     ];
 
     /**
@@ -50,37 +50,37 @@ class DeclareStatement
 
     /**
      * @param int $value
-     * @return DeclareStatement
+     * @return self
      */
-    public static function ticks(int $value): DeclareStatement
+    public static function ticks(int $value): self
     {
         return new self(self::TICKS, $value);
     }
 
     /**
      * @param int $value
-     * @return DeclareStatement
+     * @return self
      */
-    public static function strictTypes(int $value): DeclareStatement
+    public static function strictTypes(int $value): self
     {
         return new self(self::STRICT_TYPES, $value);
     }
 
     /**
      * @param string $value
-     * @return DeclareStatement
+     * @return self
      */
-    public static function encoding(string $value): DeclareStatement
+    public static function encoding(string $value): self
     {
         return new self(self::ENCODING, $value);
     }
 
-    public static function fromArray(array $config): DeclareStatement
+    public static function fromArray(array $config): self
     {
         $directive = key($config);
         $value = $config[$directive];
 
-        if (! array_key_exists($directive, self::ALLOWED)) {
+        if (! isset(self::ALLOWED[$directive])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Declare directive must be on of: %s.',
@@ -100,6 +100,7 @@ class DeclareStatement
         }
 
         $method = str_replace('_', '', lcfirst(ucwords($directive, '_')));
+
         return self::{$method}($value);
     }
 

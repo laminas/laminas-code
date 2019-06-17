@@ -420,10 +420,10 @@ CODE;
     {
         $generator = FileGenerator::fromArray([
             'declares' => [
-                'strict_types' => 1
+                'strict_types' => 1,
             ],
             'class' => [
-                'name' => 'SampleClass'
+                'name' => 'SampleClass',
             ],
         ]);
         $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
@@ -452,10 +452,10 @@ EOS;
         $generator = FileGenerator::fromArray([
             'declares' => [
                 'strict_types' => 1,
-                'ticks' => 2
+                'ticks' => 2,
             ],
             'class' => [
-                'name' => 'SampleClass'
+                'name' => 'SampleClass',
             ],
         ]);
         $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
@@ -487,10 +487,10 @@ EOS;
 
         FileGenerator::fromArray([
             'declares' => [
-                'fubar' => 1
+                'fubar' => 1,
             ],
             'class' => [
-                'name' => 'SampleClass'
+                'name' => 'SampleClass',
             ],
         ]);
     }
@@ -502,10 +502,10 @@ EOS;
 
         FileGenerator::fromArray([
             'declares' => [
-                'strict_types' => 'wrong type'
+                'strict_types' => 'wrong type',
             ],
             'class' => [
-                'name' => 'SampleClass'
+                'name' => 'SampleClass',
             ],
         ]);
     }
@@ -514,7 +514,7 @@ EOS;
     {
         $generator = FileGenerator::fromArray([
             'class' => [
-                'name' => 'SampleClass'
+                'name' => 'SampleClass',
             ],
         ]);
         $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
