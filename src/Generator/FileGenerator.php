@@ -9,7 +9,7 @@
 
 namespace Zend\Code\Generator;
 
-use Zend\Code\Declare_;
+use Zend\Code\DeclareStatement;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Reflection\Exception as ReflectionException;
 use Zend\Code\Reflection\FileReflection;
@@ -75,7 +75,7 @@ class FileGenerator extends AbstractGenerator
     protected $body;
 
     /**
-     * @var Declare_[]
+     * @var DeclareStatement[]
      */
     protected $declares = [];
 
@@ -175,7 +175,7 @@ class FileGenerator extends AbstractGenerator
                     break;
                 case 'declares':
                     $fileGenerator->setDeclares(array_map(function ($directive, $value) {
-                        return Declare_::fromArray([$directive => $value]);
+                        return DeclareStatement::fromArray([$directive => $value]);
                     }, array_keys($value), $value));
                     break;
                 default:
@@ -423,7 +423,7 @@ class FileGenerator extends AbstractGenerator
     public function setDeclares(array $declares)
     {
         foreach ($declares as $declare) {
-            if (! $declare instanceof Declare_) {
+            if (! $declare instanceof DeclareStatement) {
                 throw new InvalidArgumentException(sprintf(
                     '%s is expecting an array of %s\Declare objects',
                     __METHOD__,

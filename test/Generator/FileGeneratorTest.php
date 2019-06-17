@@ -10,7 +10,7 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Declare_;
+use Zend\Code\DeclareStatement;
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\FileGenerator;
@@ -519,8 +519,8 @@ EOS;
         ]);
         $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
         $generator->setDeclares([
-            Declare_::strictTypes(1),
-            Declare_::strictTypes(2)
+            DeclareStatement::strictTypes(1),
+            DeclareStatement::strictTypes(2)
         ]);
         $generator->write();
 

@@ -4,7 +4,7 @@ namespace Zend\Code;
 
 use Zend\Code\Exception\InvalidArgumentException;
 
-class Declare_
+class DeclareStatement
 {
     public const TICKS = 'ticks';
     public const STRICT_TYPES = 'strict_types';
@@ -50,32 +50,32 @@ class Declare_
 
     /**
      * @param int $value
-     * @return Declare_
+     * @return DeclareStatement
      */
-    public static function ticks(int $value): Declare_
+    public static function ticks(int $value): DeclareStatement
     {
         return new self(self::TICKS, $value);
     }
 
     /**
      * @param int $value
-     * @return Declare_
+     * @return DeclareStatement
      */
-    public static function strictTypes(int $value): Declare_
+    public static function strictTypes(int $value): DeclareStatement
     {
         return new self(self::STRICT_TYPES, $value);
     }
 
     /**
      * @param string $value
-     * @return Declare_
+     * @return DeclareStatement
      */
-    public static function encoding(string $value): Declare_
+    public static function encoding(string $value): DeclareStatement
     {
         return new self(self::ENCODING, $value);
     }
 
-    public static function fromArray(array $config): Declare_
+    public static function fromArray(array $config): DeclareStatement
     {
         $directive = key($config);
         $value = $config[$directive];
