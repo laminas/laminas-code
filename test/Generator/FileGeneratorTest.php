@@ -483,7 +483,7 @@ EOS;
     public function testDeclareUnknownDirectiveShouldRaiseException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Declare directive must be on of: ticks, strict_types, encoding.');
+        $this->expectExceptionMessage('Declare directive must be one of: ticks, strict_types, encoding.');
 
         FileGenerator::fromArray([
             'declares' => [
@@ -498,7 +498,7 @@ EOS;
     public function testDeclareWrongTypeShouldRaiseException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Declare value invalid. Expected integer got string.');
+        $this->expectExceptionMessage('Declare value invalid. Expected integer, got string.');
 
         FileGenerator::fromArray([
             'declares' => [
