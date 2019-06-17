@@ -77,7 +77,7 @@ class Declare_
 
     public static function fromArray(array $config): Declare_
     {
-        $directive = array_key_first($config);
+        $directive = key($config);
         $value = $config[$directive];
 
         if (! array_key_exists($directive, self::ALLOWED)) {
