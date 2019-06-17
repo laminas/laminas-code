@@ -541,4 +541,13 @@ EOS;
         $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
         $this->assertEquals($expected, $actual);
     }
+
+    public function testWrongDeclareTypeShouldRaiseException(): void
+    {
+        $generator = new FileGenerator();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('setDeclares is expecting an array of Zend\\Code\\DeclareStatement objects');
+        $generator->setDeclares([new \stdClass()]);
+    }
 }
