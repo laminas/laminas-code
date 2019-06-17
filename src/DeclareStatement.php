@@ -83,7 +83,7 @@ class DeclareStatement
         if (! isset(self::ALLOWED[$directive])) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Declare directive must be on of: %s.',
+                    'Declare directive must be one of: %s.',
                     implode(', ', array_keys(self::ALLOWED))
                 )
             );
@@ -92,7 +92,7 @@ class DeclareStatement
         if (gettype($value) !== self::ALLOWED[$directive]) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Declare value invalid. Expected %s got %s.',
+                    'Declare value invalid. Expected %s, got %s.',
                     self::ALLOWED[$directive],
                     gettype($value)
                 )
