@@ -11,8 +11,8 @@ namespace ZendTest\Code\TestAsset;
 
 interface FooInterface extends \ArrayAccess
 {
-    const BAR = 5;
-    const FOO = self::BAR;
+    public const BAR = 5;
+    public const FOO = self::BAR;
 
     public function fooBarBaz();
 
