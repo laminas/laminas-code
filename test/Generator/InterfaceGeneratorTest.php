@@ -152,9 +152,9 @@ namespace ZendTest\Code\TestAsset;
 interface FooInterface
 {
 
-    const BAR = 5;
+    public const BAR = 5;
 
-    const FOO = 5;
+    public const FOO = 5;
 
     public function fooBarBaz();
 

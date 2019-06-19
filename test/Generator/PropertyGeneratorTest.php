@@ -9,6 +9,7 @@
 
 namespace ZendTest\Code\Generator;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Generator\DocBlock\Tag\VarTag;
 use Zend\Code\Generator\DocBlockGenerator;
@@ -126,10 +127,26 @@ EOS;
         self::assertEquals($expectedSource, $targetSource);
     }
 
+    public function visibility() : Generator
+    {
+        yield 'public' => [PropertyGenerator::FLAG_PUBLIC, 'public'];
+        yield 'protected' => [PropertyGenerator::FLAG_PROTECTED, 'protected'];
+        yield 'private' => [PropertyGenerator::FLAG_PRIVATE, 'private'];
+    }
+
+    /**
+     * @dataProvider visibility
+     */
+    public function testPropertyCanProduceConstatWithVisibility(int $flag, string $visibility) : void
+    {
+        $codeGenProperty = new PropertyGenerator('FOO', 'bar', [PropertyGenerator::FLAG_CONSTANT, $flag]);
+        self::assertSame('    ' . $visibility . ' const FOO = \'bar\';', $codeGenProperty->generate());
+    }
+
     public function testPropertyCanProduceContstantModifier() : void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_CONSTANT);
-        self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
@@ -139,7 +156,7 @@ EOS;
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         $codeGenProperty->setConst(true);
-        self::assertEquals('    const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertEquals('    public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     public function testPropertyCanProduceStaticModifier() : void
