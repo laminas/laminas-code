@@ -20,10 +20,10 @@
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "^1.5",
-        "phpunit/phpunit": "^7.1.2",
-        "zendframework/zend-coding-standard": "~1.0.0",
-        "zendframework/zend-stdlib": "^2.7.7 || ^3.1"
+        "doctrine/annotations": "^1.0",
+        "phpunit/phpunit": "^7.5.15",
+        "zendframework/zend-coding-standard": "^1.0",
+        "zendframework/zend-stdlib": "^2.7 || ^3.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -44,8 +44,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.2-dev",
-            "dev-develop": "3.3-dev"
+            "dev-master": "3.3.x-dev",
+            "dev-develop": "3.4.x-dev"
         }
     },
     "scripts": {
