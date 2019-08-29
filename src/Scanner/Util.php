@@ -48,13 +48,13 @@ class Util
             ));
         }
 
-        if ($data->namespace && ! $data->uses && strlen($value) > 0 && $value{0} != '\\') {
+        if ($data->namespace && ! $data->uses && strlen($value) > 0 && $value[0] != '\\') {
             $value = $data->namespace . '\\' . $value;
 
             return;
         }
 
-        if (! $data->uses || strlen($value) <= 0 || $value{0} == '\\') {
+        if (! $data->uses || strlen($value) <= 0 || $value[0] == '\\') {
             $value = ltrim($value, '\\');
 
             return;
