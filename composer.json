@@ -1,16 +1,19 @@
 {
     "name": "zendframework/zend-code",
-    "description": "provides facilities to generate arbitrary code using an object oriented interface",
+    "description": "Extensions to the PHP Reflection API, static code scanning, and code generation",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf",
+        "zendframework",
         "code"
     ],
-    "homepage": "https://github.com/zendframework/zend-code",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Code\\": "src/"
-        }
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-code/",
+        "issues": "https://github.com/zendframework/zend-code/issues",
+        "source": "https://github.com/zendframework/zend-code",
+        "rss": "https://github.com/zendframework/zend-code/releases.atom",
+        "chat": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
         "php": "^7.1",
@@ -18,21 +21,18 @@
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "~1.0",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0",
-        "phpunit/phpunit": "^6.2.3",
-        "zendframework/zend-coding-standard": "^1.0.0"
+        "doctrine/annotations": "^1.0",
+        "phpunit/phpunit": "^7.5.15",
+        "zendframework/zend-coding-standard": "^1.0",
+        "zendframework/zend-stdlib": "^2.7 || ^3.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
         "zendframework/zend-stdlib": "Zend\\Stdlib component"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.3.x-dev",
-            "dev-develop": "3.4.x-dev"
+    "autoload": {
+        "psr-4": {
+            "Zend\\Code\\": "src/"
         }
     },
     "autoload-dev": {
@@ -40,12 +40,20 @@
             "ZendTest\\Code\\": "test/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.3.x-dev",
+            "dev-develop": "3.4.x-dev"
+        }
+    },
     "scripts": {
         "check": [
             "@cs-check",
             "@test"
         ],
-        "upload-coverage": "coveralls -v",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",

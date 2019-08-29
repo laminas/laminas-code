@@ -1,7 +1,7 @@
 # zend-code
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-code.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-code)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zend-code/badge.svg?branch=master)](https://coveralls.io/r/zendframework/zend-code?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-code/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-code?branch=master)
 
 `Zend\Code\Generator` provides facilities to generate arbitrary code using an
 object-oriented interface, both to create new code as well as to update existing
