@@ -361,6 +361,7 @@ class ValueGenerator extends AbstractGenerator
                 }
 
                 $curValue = new self($curValue, $newType, self::OUTPUT_MULTIPLE_LINE, $this->getConstants());
+                $curValue->setIndentation($this->indentation);
             }
         }
 
