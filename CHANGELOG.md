@@ -25,11 +25,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 3.3.2 - TBD
+## 3.3.2 - 2019-08-31
 
 ### Added
 
-- Nothing.
+- [#162](https://github.com/zendframework/zend-code/pull/162) adds support for PHP 7.3.
 
 ### Changed
 
