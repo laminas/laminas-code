@@ -23,7 +23,7 @@ class LicenseTagTest extends TestCase
      */
     protected $tag;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->tag = new LicenseTag();
     }

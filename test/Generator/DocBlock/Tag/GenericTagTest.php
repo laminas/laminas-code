@@ -30,14 +30,14 @@ class GenericTagTest extends TestCase
      */
     protected $tagmanager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->tag = new GenericTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->tag = null;
         $this->tagmanager = null;
