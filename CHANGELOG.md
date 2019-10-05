@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.4.0 - TBD
+
+### Added
+
+- [#170](https://github.com/zendframework/zend-code/pull/170) adds class constant visibility modifiers support.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 3.3.2 - 2019-08-31
 
 ### Added
