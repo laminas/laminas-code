@@ -26,7 +26,7 @@ use function current;
  */
 class TraitGeneratorTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp() : void
     {
     }
 

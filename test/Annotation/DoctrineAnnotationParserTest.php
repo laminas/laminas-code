@@ -23,7 +23,7 @@ class DoctrineAnnotationParserTest extends TestCase
      */
     private $parser;
 
-    public function setUp(): void
+    protected function setUp() : void
     {
         if (! getenv('TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT')) {
             $this->markTestSkipped(

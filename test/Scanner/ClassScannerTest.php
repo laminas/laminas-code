@@ -38,7 +38,7 @@ class ClassScannerTest extends TestCase
 {
     protected $manager;
 
-    public function setUp(): void
+    protected function setUp() : void
     {
         $this->manager = new Annotation\AnnotationManager();
 

@@ -34,7 +34,7 @@ class DocBlockGeneratorTest extends TestCase
      */
     protected $reflectionDocBlockGenerator;
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         $this->docBlockGenerator = $this->docBlockGenerator = new DocBlockGenerator();
         $reflectionDocBlock = new DocBlockReflection(

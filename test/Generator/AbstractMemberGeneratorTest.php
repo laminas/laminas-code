@@ -20,7 +20,7 @@ class AbstractMemberGeneratorTest extends TestCase
      */
     private $fixture;
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         $this->fixture = $this->getMockForAbstractClass(AbstractMemberGenerator::class);
     }

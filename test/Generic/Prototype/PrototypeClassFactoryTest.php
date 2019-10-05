@@ -25,12 +25,12 @@ class PrototypeClassFactoryTest extends TestCase
      */
     protected $prototypeFactory;
 
-    public function setUp(): void
+    protected function setUp() : void
     {
         $this->prototypeFactory = new PrototypeClassFactory();
     }
 
-    public function tearDown(): void
+    protected function tearDown() : void
     {
         $this->prototypeFactory = null;
     }
