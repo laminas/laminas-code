@@ -10,8 +10,8 @@ use Foo\Bar\Baz as FooBarBaz;
 
 abstract class FooClass implements \ArrayAccess, E\Blarg, Local\SubClass
 {
-    const BAR = 5;
-    const FOO = self::BAR;
+    public const BAR = 5;
+    public const FOO = self::BAR;
 
     /**
      * Constant comment
