@@ -194,7 +194,7 @@ class FileReflectionTest extends TestCase
     {
         require_once __DIR__ . '/TestAsset/issue-70.php';
         $r = new FileReflection(__DIR__ . '/TestAsset/issue-70.php');
-        self::assertContains('spl_autoload_register', $r->getContents());
-        self::assertContains('function ()', $r->getContents());
+        self::assertStringContainsString('spl_autoload_register', $r->getContents());
+        self::assertStringContainsString('function ()', $r->getContents());
     }
 }

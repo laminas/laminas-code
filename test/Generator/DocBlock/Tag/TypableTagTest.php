@@ -23,12 +23,12 @@ class TypableTagTest extends TestCase
      */
     protected $tag;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->tag = new TypeableTag();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         $this->tag = null;
     }

@@ -153,7 +153,7 @@ EOS;
     public function testGetDeclaringFileReturnsFilename()
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
-        self::assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
+        self::assertStringContainsString('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 
     public function testGetAnnotationsWithNoNameInformations()
@@ -172,9 +172,8 @@ EOS;
 
         $reflectionClass->setFileScanner($fileScanner);
 
-        $fileScanner->expects($this->any())
-                    ->method('getClassNameInformation')
-                    ->will($this->returnValue(false));
+        $fileScanner->method('getClassNameInformation')
+                    ->willReturn(false);
 
         self::assertFalse($reflectionClass->getAnnotations($annotationManager));
     }
@@ -203,13 +202,13 @@ EOS;
 
         $reflectionClass = new ClassReflection(TestAsset\TestTraitClass4::class);
         $traitsArray = $reflectionClass->getTraits();
-        self::assertInternalType('array', $traitsArray);
+        self::assertIsArray($traitsArray);
         self::assertCount(1, $traitsArray);
         self::assertInstanceOf(ClassReflection::class, $traitsArray[0]);
 
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
         $traitsArray = $reflectionClass->getTraits();
-        self::assertInternalType('array', $traitsArray);
+        self::assertIsArray($traitsArray);
         self::assertCount(0, $traitsArray);
     }
 }

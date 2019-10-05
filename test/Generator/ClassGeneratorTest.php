@@ -295,7 +295,7 @@ EOS;
         $expectedClassDef = 'class ClassWithInterface'
             . ' implements OneInterface'
             . ', TwoInterface';
-        self::assertContains($expectedClassDef, $code);
+        self::assertStringContainsString($expectedClassDef, $code);
     }
 
     /**
@@ -313,7 +313,7 @@ EOS;
         $expectedClassDef = 'class NewClassWithInterface'
             . ' extends ClassWithInterface'
             . ' implements ThreeInterface';
-        self::assertContains($expectedClassDef, $code);
+        self::assertStringContainsString($expectedClassDef, $code);
     }
 
     /**
@@ -411,7 +411,7 @@ CODE;
         $classGeneratorClass = new ClassGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('namespace My\Namespaced;', $received, $received);
+        self::assertStringContainsString('namespace My\Namespaced;', $received, $received);
     }
 
     /**
@@ -422,7 +422,7 @@ CODE;
         $classGeneratorClass = new ClassGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('class FunClass', $received, $received);
+        self::assertStringContainsString('class FunClass', $received, $received);
     }
 
     public function testHasUse()
@@ -478,8 +478,8 @@ CODE;
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
         $generated = $classGenerator->generate();
 
-        self::assertContains('use My\First\Use\Class;', $generated);
-        self::assertContains('use My\Second\Use\Class as MyAlias;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class;', $generated);
+        self::assertStringContainsString('use My\Second\Use\Class as MyAlias;', $generated);
     }
 
     /**
@@ -495,7 +495,7 @@ CODE;
 
         self::assertCount(1, $classGenerator->getUses());
 
-        self::assertContains('use My\First\Use\Class;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class;', $generated);
     }
 
     /**
@@ -511,7 +511,7 @@ CODE;
 
         self::assertCount(1, $classGenerator->getUses());
 
-        self::assertContains('use My\First\Use\Class as MyAlias;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class as MyAlias;', $generated);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
@@ -543,12 +543,12 @@ CODE;
         $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
-        self::assertContains('publicExtendedClassProperty', $code);
-        self::assertContains('protectedExtendedClassProperty', $code);
-        self::assertContains('privateExtendedClassProperty', $code);
-        self::assertNotContains('publicClassProperty', $code);
-        self::assertNotContains('protectedClassProperty', $code);
-        self::assertNotContains('privateClassProperty', $code);
+        self::assertStringContainsString('publicExtendedClassProperty', $code);
+        self::assertStringContainsString('protectedExtendedClassProperty', $code);
+        self::assertStringContainsString('privateExtendedClassProperty', $code);
+        self::assertStringNotContainsString('publicClassProperty', $code);
+        self::assertStringNotContainsString('protectedClassProperty', $code);
+        self::assertStringNotContainsString('privateClassProperty', $code);
     }
 
     public function testHasMethodInsensitive()
@@ -1185,7 +1185,7 @@ EOS;
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->addUse(NameInformation::class);
         $classGenerator->setExtendedClass(NameInformation::class);
-        self::assertContains('class ClassName extends NameInformation', $classGenerator->generate());
+        self::assertStringContainsString('class ClassName extends NameInformation', $classGenerator->generate());
     }
 
     /**
@@ -1197,7 +1197,7 @@ EOS;
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->setExtendedClass('DateTime');
-        self::assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+        self::assertStringContainsString('class ClassName extends \DateTime', $classGenerator->generate());
     }
 
     /**
@@ -1208,7 +1208,7 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setExtendedClass('DateTime');
-        self::assertContains('class ClassName extends DateTime', $classGenerator->generate());
+        self::assertStringContainsString('class ClassName extends DateTime', $classGenerator->generate());
     }
 
     /**
@@ -1220,12 +1220,12 @@ EOS;
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->setExtendedClass(DateTime::class);
-        self::assertContains('class ClassName extends \DateTime', $classGenerator->generate());
+        self::assertStringContainsString('class ClassName extends \DateTime', $classGenerator->generate());
 
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setExtendedClass(DateTime::class);
-        self::assertContains('class ClassName extends DateTime', $classGenerator->generate());
+        self::assertStringContainsString('class ClassName extends DateTime', $classGenerator->generate());
     }
 
     public function testCorrectlyExtendsProvidedAliasIfUseAliasExists()
@@ -1236,7 +1236,7 @@ EOS;
         $classGenerator->addUse('Foo\\Bar', 'BarAlias');
         $classGenerator->setExtendedClass('BarAlias');
         $generated = $classGenerator->generate();
-        self::assertContains('class ClassName extends BarAlias', $generated);
+        self::assertStringContainsString('class ClassName extends BarAlias', $generated);
     }
 
     public function testCorrectlyExtendsProvidedNamespaceAliasIfUseAliasExistsForNamespace()
@@ -1247,7 +1247,7 @@ EOS;
         $classGenerator->addUse('Foo\\Bar', 'BarAlias');
         $classGenerator->setExtendedClass('BarAlias\\FooBar');
         $generated = $classGenerator->generate();
-        self::assertContains('class ClassName extends BarAlias\\FooBar', $generated);
+        self::assertStringContainsString('class ClassName extends BarAlias\\FooBar', $generated);
     }
 
     public function testCorrectlyExtendsAliasOfProvidedFQCNIfUseAliasExists()
@@ -1258,7 +1258,7 @@ EOS;
         $classGenerator->addUse('Foo\\Bar', 'BarAlias');
         $classGenerator->setExtendedClass('Foo\\Bar');
         $generated = $classGenerator->generate();
-        self::assertContains('class ClassName extends BarAlias', $generated);
+        self::assertStringContainsString('class ClassName extends BarAlias', $generated);
     }
 
     public function testCorrectlyExtendsWithNamespaceAliasOfProvidedFQCNIfUseAliasExistsForNamespace()
@@ -1269,7 +1269,7 @@ EOS;
         $classGenerator->addUse('Foo\\Bar', 'BarAlias');
         $classGenerator->setExtendedClass('Foo\\Bar\\FooBar');
         $generated = $classGenerator->generate();
-        self::assertContains('class ClassName extends BarAlias\\FooBar', $generated);
+        self::assertStringContainsString('class ClassName extends BarAlias\\FooBar', $generated);
     }
 
     public function testCorrectImplementNames()
@@ -1285,6 +1285,6 @@ EOS;
         ]);
 
         $expected = 'class ClassName implements ClassInterface, GeneratorInterface, \Iteratable';
-        self::assertContains($expected, $classGenerator->generate());
+        self::assertStringContainsString($expected, $classGenerator->generate());
     }
 }

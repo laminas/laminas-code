@@ -26,7 +26,7 @@ use function current;
  */
 class TraitGeneratorTest extends TestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
     }
 
@@ -236,7 +236,7 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'trait ClassWithInterface';
-        self::assertContains($expectedClassDef, $code);
+        self::assertStringContainsString($expectedClassDef, $code);
     }
 
     /**
@@ -252,7 +252,7 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'trait NewClassWithInterface';
-        self::assertContains($expectedClassDef, $code);
+        self::assertStringContainsString($expectedClassDef, $code);
     }
 
     /**
@@ -350,7 +350,7 @@ CODE;
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('namespace My\Namespaced;', $received, $received);
+        self::assertStringContainsString('namespace My\Namespaced;', $received, $received);
     }
 
     /**
@@ -361,7 +361,7 @@ CODE;
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('trait FunClass', $received, $received);
+        self::assertStringContainsString('trait FunClass', $received, $received);
     }
 
     /**
@@ -375,8 +375,8 @@ CODE;
         $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
         $generated = $classGenerator->generate();
 
-        self::assertContains('use My\First\Use\Class;', $generated);
-        self::assertContains('use My\Second\Use\Class as MyAlias;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class;', $generated);
+        self::assertStringContainsString('use My\Second\Use\Class as MyAlias;', $generated);
     }
 
     /**
@@ -392,7 +392,7 @@ CODE;
 
         self::assertCount(1, $classGenerator->getUses());
 
-        self::assertContains('use My\First\Use\Class;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class;', $generated);
     }
 
     /**
@@ -408,7 +408,7 @@ CODE;
 
         self::assertCount(1, $classGenerator->getUses());
 
-        self::assertContains('use My\First\Use\Class as MyAlias;', $generated);
+        self::assertStringContainsString('use My\First\Use\Class as MyAlias;', $generated);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
@@ -440,12 +440,12 @@ CODE;
         $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
-        self::assertContains('publicExtendedClassProperty', $code);
-        self::assertContains('protectedExtendedClassProperty', $code);
-        self::assertContains('privateExtendedClassProperty', $code);
-        self::assertNotContains('publicClassProperty', $code);
-        self::assertNotContains('protectedClassProperty', $code);
-        self::assertNotContains('privateClassProperty', $code);
+        self::assertStringContainsString('publicExtendedClassProperty', $code);
+        self::assertStringContainsString('protectedExtendedClassProperty', $code);
+        self::assertStringContainsString('privateExtendedClassProperty', $code);
+        self::assertStringNotContainsString('publicClassProperty', $code);
+        self::assertStringNotContainsString('protectedClassProperty', $code);
+        self::assertStringNotContainsString('privateClassProperty', $code);
     }
 
     public function testHasMethodInsensitive()
