@@ -10,6 +10,8 @@
 namespace ZendTest\Code\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Code\DeclareStatement;
+use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\FileGenerator;
 use Zend\Code\Reflection\FileReflection;
@@ -412,5 +414,140 @@ $foo->bar();
 CODE;
         $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
         self::assertEquals($expected, $actual);
+    }
+
+    public function testSingleDeclareStatement(): void
+    {
+        $generator = FileGenerator::fromArray([
+            'declares' => [
+                'strict_types' => 1,
+            ],
+            'class' => [
+                'name' => 'SampleClass',
+            ],
+        ]);
+        $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
+        $generator->write();
+
+        $expected = <<<EOS
+<?php
+
+declare(strict_types=1);
+
+class SampleClass
+{
+
+
+}
+
+
+EOS;
+
+        $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testMultiDeclareStatements(): void
+    {
+        $generator = FileGenerator::fromArray([
+            'declares' => [
+                'strict_types' => 1,
+                'ticks' => 2,
+            ],
+            'class' => [
+                'name' => 'SampleClass',
+            ],
+        ]);
+        $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
+        $generator->write();
+
+        $expected = <<<EOS
+<?php
+
+declare(strict_types=1);
+declare(ticks=2);
+
+class SampleClass
+{
+
+
+}
+
+
+EOS;
+
+        $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDeclareUnknownDirectiveShouldRaiseException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Declare directive must be one of: ticks, strict_types, encoding.');
+
+        FileGenerator::fromArray([
+            'declares' => [
+                'fubar' => 1,
+            ],
+            'class' => [
+                'name' => 'SampleClass',
+            ],
+        ]);
+    }
+
+    public function testDeclareWrongTypeShouldRaiseException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Declare value invalid. Expected integer, got string.');
+
+        FileGenerator::fromArray([
+            'declares' => [
+                'strict_types' => 'wrong type',
+            ],
+            'class' => [
+                'name' => 'SampleClass',
+            ],
+        ]);
+    }
+
+    public function testDeclareDuplicatesShouldOnlyGenerateOne(): void
+    {
+        $generator = FileGenerator::fromArray([
+            'class' => [
+                'name' => 'SampleClass',
+            ],
+        ]);
+        $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
+        $generator->setDeclares([
+            DeclareStatement::strictTypes(1),
+            DeclareStatement::strictTypes(2)
+        ]);
+        $generator->write();
+
+        $expected = <<<EOS
+<?php
+
+declare(strict_types=1);
+
+class SampleClass
+{
+
+
+}
+
+
+EOS;
+
+        $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testWrongDeclareTypeShouldRaiseException(): void
+    {
+        $generator = new FileGenerator();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('setDeclares is expecting an array of Zend\\Code\\DeclareStatement objects');
+        $generator->setDeclares([new \stdClass()]);
     }
 }

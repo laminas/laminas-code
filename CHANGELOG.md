@@ -25,6 +25,32 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+## 3.4.0 - TBD
+
+### Added
+
+- [#170](https://github.com/zendframework/zend-code/pull/170) adds class constant visibility modifiers support.
+
+- [#169](https://github.com/zendframework/zend-code/pull/169) adds the ability to define declare statements.
+
+- [#167](https://github.com/zendframework/zend-code/pull/167) adds the ability to remove doc block of a member.
+
+### Changed
+
+- [#166](https://github.com/zendframework/zend-code/pull/166) changes omitting default property value if it is null.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#172](https://github.com/zendframework/zend-code/pull/172) fixes PHP 7.4 compatibility.
+
 ## 3.3.2 - 2019-08-31
 
 ### Added

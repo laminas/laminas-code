@@ -46,7 +46,11 @@ class PropertyGenerator extends AbstractMemberGenerator
 
         $allDefaultProperties = $reflectionProperty->getDeclaringClass()->getDefaultProperties();
 
-        $property->setDefaultValue($allDefaultProperties[$reflectionProperty->getName()]);
+        $defaultValue = $allDefaultProperties[$reflectionProperty->getName()];
+        $property->setDefaultValue($defaultValue);
+        if ($defaultValue === null) {
+            $property->omitDefaultValue = true;
+        }
 
         if ($reflectionProperty->getDocComment() != '') {
             $property->setDocBlock(DocBlockGenerator::fromReflection($reflectionProperty->getDocBlock()));
