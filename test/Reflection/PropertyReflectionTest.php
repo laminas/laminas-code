@@ -73,9 +73,8 @@ class PropertyReflectionTest extends TestCase
 
         $reflectionProperty->setFileScanner($fileScanner);
 
-        $fileScanner->expects($this->any())
-                    ->method('getClassNameInformation')
-                    ->will($this->returnValue(false));
+        $fileScanner->method('getClassNameInformation')
+                    ->willReturn(false);
 
         self::assertFalse($reflectionProperty->getAnnotations($annotationManager));
     }

@@ -18,7 +18,7 @@ use function getenv;
 
 class AnnotationManagerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         if (! getenv('TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT')) {
             $this->markTestSkipped(

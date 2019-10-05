@@ -23,7 +23,7 @@ class GenericAnnotationParserTest extends TestCase
      */
     private $parser;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->parser = new Annotation\Parser\GenericAnnotationParser();
     }

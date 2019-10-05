@@ -30,14 +30,14 @@ class LicenseTagTest extends TestCase
      */
     protected $tagmanager;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->tag = new LicenseTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         $this->tag = null;
         $this->tagmanager = null;

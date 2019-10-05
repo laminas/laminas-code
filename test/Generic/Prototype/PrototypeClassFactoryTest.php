@@ -25,12 +25,12 @@ class PrototypeClassFactoryTest extends TestCase
      */
     protected $prototypeFactory;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->prototypeFactory = new PrototypeClassFactory();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         $this->prototypeFactory = null;
     }
@@ -56,7 +56,7 @@ class PrototypeClassFactoryTest extends TestCase
         $mockProto = $this->getMockBuilder(PrototypeGenericClass::class)
             ->setMethods(['setName'])
             ->getMock();
-        $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));
+        $mockProto->expects($this->once())->method('setName')->willReturn('notexist');
         $this->prototypeFactory->setGenericPrototype($mockProto);
         $this->prototypeFactory->getClonedPrototype('notexist');
     }

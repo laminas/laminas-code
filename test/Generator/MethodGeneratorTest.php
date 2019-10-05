@@ -247,7 +247,7 @@ EOS;
 
         $method->setParameter($param);
         $generated = $method->generate();
-        self::assertContains('array $options = [])', $generated);
+        self::assertStringContainsString('array $options = [])', $generated);
     }
 
     public function testCreateFromArray()

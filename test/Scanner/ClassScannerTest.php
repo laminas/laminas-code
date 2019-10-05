@@ -38,7 +38,7 @@ class ClassScannerTest extends TestCase
 {
     protected $manager;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->manager = new Annotation\AnnotationManager();
 
@@ -63,7 +63,7 @@ class ClassScannerTest extends TestCase
         self::assertContains('A\B\C\D\Blarg', $interfaces);
         self::assertContains('ZendTest\Code\TestAsset\Local\SubClass', $interfaces);
         $methods = $class->getMethodNames();
-        self::assertInternalType('array', $methods);
+        self::assertIsArray($methods);
         self::assertContains('fooBarBaz', $methods);
     }
 
@@ -71,7 +71,7 @@ class ClassScannerTest extends TestCase
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
         $class = $file->getClass(FooClass::class);
-        self::assertInternalType('array', $class->getConstantNames());
+        self::assertIsArray($class->getConstantNames());
         self::assertContains('FOO', $class->getConstantNames());
     }
 
