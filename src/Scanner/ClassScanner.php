@@ -912,13 +912,13 @@ class ClassScanner implements ScannerInterface
             if (is_string($token)) {
                 $tokenType    = null;
                 $tokenContent = $token;
-                $tokenLine    = $tokenLine + substr_count(
-                    $lastTokenArray[1],
+                $tokenLine   += substr_count(
+                    $lastTokenArray[1] ?? '',
                     "\n"
                 ); // adjust token line by last known newline count
             } else {
                 $lastTokenArray = $token;
-                list($tokenType, $tokenContent, $tokenLine) = $token;
+                [$tokenType, $tokenContent, $tokenLine] = $token;
             }
 
             return $tokenIndex;

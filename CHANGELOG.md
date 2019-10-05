@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#172](https://github.com/zendframework/zend-code/pull/172) fixes PHP 7.4 compatibility.
 
 ## 3.3.2 - 2019-08-31
 
