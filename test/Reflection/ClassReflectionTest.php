@@ -172,9 +172,8 @@ EOS;
 
         $reflectionClass->setFileScanner($fileScanner);
 
-        $fileScanner->expects($this->any())
-                    ->method('getClassNameInformation')
-                    ->will($this->returnValue(false));
+        $fileScanner->method('getClassNameInformation')
+                    ->willReturn(false);
 
         self::assertFalse($reflectionClass->getAnnotations($annotationManager));
     }
