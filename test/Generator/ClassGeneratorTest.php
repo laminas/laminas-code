@@ -802,7 +802,7 @@ namespace ZendTest\Code\Generator\TestAsset;
 class TestSampleSingleClass
 {
 
-    const fooProperty = 'duplicate';
+    public const fooProperty = 'duplicate';
 
     public $fooProperty = true;
 

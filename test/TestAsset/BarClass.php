@@ -9,8 +9,8 @@ use Foo\Bar\Baz as FooBarBaz;
 
 abstract class BarClass
 {
-    const BAR = 5;
-    const FOO = self::BAR;
+    public const BAR = 5;
+    public const FOO = self::BAR;
 
     protected static $bar = 'value';
 
