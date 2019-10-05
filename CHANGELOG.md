@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#166](https://github.com/zendframework/zend-code/pull/166) changes omitting default property value if it is null.
 
 ### Deprecated
 
