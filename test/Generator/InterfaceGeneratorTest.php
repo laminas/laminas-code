@@ -183,7 +183,7 @@ CODE;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('namespace My\Namespaced;', $received, $received);
+        self::assertStringContainsString('namespace My\Namespaced;', $received, $received);
     }
 
     /**
@@ -194,7 +194,7 @@ CODE;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
         $received = $classGeneratorClass->generate();
-        self::assertContains('interface FunClass', $received, $received);
+        self::assertStringContainsString('interface FunClass', $received, $received);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()

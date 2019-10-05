@@ -198,8 +198,8 @@ EOS;
                  ['use' => 'Your\Bar', 'as' => 'bar'],
              ]);
         $generated = $file->generate();
-        self::assertContains('use My\\Baz;', $generated);
-        self::assertContains('use Your\\Bar as bar;', $generated);
+        self::assertStringContainsString('use My\\Baz;', $generated);
+        self::assertStringContainsString('use Your\\Bar as bar;', $generated);
     }
 
     public function testGeneratesNamespaceStatements()
@@ -207,7 +207,7 @@ EOS;
         $file = new FileGenerator();
         $file->setNamespace('Foo\Bar');
         $generated = $file->generate();
-        self::assertContains('namespace Foo\\Bar', $generated, $generated);
+        self::assertStringContainsString('namespace Foo\\Bar', $generated, $generated);
     }
 
     public function testSetUseDoesntGenerateMultipleIdenticalUseStatements()
@@ -238,8 +238,8 @@ EOS;
             ['use' => 'Your\Bar', 'as' => 'bar2'],
         ]);
         $generated = $file->generate();
-        self::assertContains('use Your\\Bar as bar;', $generated);
-        self::assertContains('use Your\\Bar as bar2;', $generated);
+        self::assertStringContainsString('use Your\\Bar as bar;', $generated);
+        self::assertStringContainsString('use Your\\Bar as bar2;', $generated);
     }
 
     public function testSetUsesWithArrays()
@@ -250,8 +250,8 @@ EOS;
             ['use' => 'My\\Baz', 'as' => 'FooBaz'],
         ]);
         $generated = $file->generate();
-        self::assertContains('use My\\Baz as FooBaz;', $generated);
-        self::assertContains('use Your\\Bar as bar;', $generated);
+        self::assertStringContainsString('use My\\Baz as FooBaz;', $generated);
+        self::assertStringContainsString('use Your\\Bar as bar;', $generated);
     }
 
     public function testSetUsesWithString()
@@ -263,9 +263,9 @@ EOS;
             ['use' => 'Another\\Baz', 'as' => 'Baz2'],
         ]);
         $generated = $file->generate();
-        self::assertContains('use My\\Baz;', $generated);
-        self::assertContains('use Your\\Bar;', $generated);
-        self::assertContains('use Another\\Baz as Baz2;', $generated);
+        self::assertStringContainsString('use My\\Baz;', $generated);
+        self::assertStringContainsString('use Your\\Bar;', $generated);
+        self::assertStringContainsString('use Another\\Baz as Baz2;', $generated);
     }
 
     public function testSetUsesWithGetUses()
@@ -279,9 +279,9 @@ EOS;
         $file->setUses($uses);
         $file->setUses($file->getUses());
         $generated = $file->generate();
-        self::assertContains('use My\\Baz;', $generated);
-        self::assertContains('use Your\\Bar;', $generated);
-        self::assertContains('use Another\\Baz as Baz2;', $generated);
+        self::assertStringContainsString('use My\\Baz;', $generated);
+        self::assertStringContainsString('use Your\\Bar;', $generated);
+        self::assertStringContainsString('use Another\\Baz as Baz2;', $generated);
     }
 
     public function testCreateFromArrayWithClassInstance()

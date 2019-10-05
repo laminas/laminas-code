@@ -153,7 +153,7 @@ EOS;
     public function testGetDeclaringFileReturnsFilename()
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
-        self::assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
+        self::assertStringContainsString('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 
     public function testGetAnnotationsWithNoNameInformations()
