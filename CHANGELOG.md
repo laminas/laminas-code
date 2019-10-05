@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#170](https://github.com/zendframework/zend-code/pull/170) adds class constant visibility modifiers support.
 
+- [#167](https://github.com/zendframework/zend-code/pull/167) adds the ability to remove doc block of a member.
+
 ### Changed
 
 - [#166](https://github.com/zendframework/zend-code/pull/166) changes omitting default property value if it is null.
