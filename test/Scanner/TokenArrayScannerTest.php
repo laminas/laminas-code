@@ -28,7 +28,7 @@ class TokenArrayScannerTest extends TestCase
         ));
         self::assertTrue($tokenScanner->hasNamespace('ZendTest\Code\TestAsset'));
         $namespaces = $tokenScanner->getNamespaces();
-        self::assertInternalType('array', $namespaces);
+        self::assertIsArray($namespaces);
         self::assertContains('ZendTest\Code\TestAsset', $namespaces);
     }
 
@@ -38,7 +38,7 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooBarClass.php')
         ));
         $uses = $tokenScanner->getUses();
-        self::assertInternalType('array', $uses);
+        self::assertIsArray($uses);
         $foundUses = [];
         foreach ($uses as $use) {
             $foundUses[] = $use['use'];
@@ -52,7 +52,7 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
         $classes = $tokenScanner->getClassNames();
-        self::assertInternalType('array', $classes);
+        self::assertIsArray($classes);
         self::assertContains(FooClass::class, $classes);
     }
 
@@ -65,7 +65,7 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooTrait.php')
         ));
         $classes = $tokenScanner->getClassNames();
-        self::assertInternalType('array', $classes);
+        self::assertIsArray($classes);
         self::assertContains(FooTrait::class, $classes);
     }
 
@@ -75,7 +75,7 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/functions.php')
         ));
         $functions = $tokenScanner->getFunctionNames();
-        self::assertInternalType('array', $functions);
+        self::assertIsArray($functions);
         self::assertContains('ZendTest\Code\TestAsset\foo_bar', $functions);
     }
 
@@ -85,7 +85,7 @@ class TokenArrayScannerTest extends TestCase
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
         $classes = $tokenScanner->getClasses();
-        self::assertInternalType('array', $classes);
+        self::assertIsArray($classes);
         foreach ($classes as $class) {
             self::assertInstanceOf(ClassScanner::class, $class);
         }

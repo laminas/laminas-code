@@ -152,7 +152,7 @@ EOS;
     public function testGetDeclaringFileReturnsFilename()
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
-        self::assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
+        self::assertStringContainsString('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 
     public function testGetContentsReturnsEmptyContentsOnEvaldCode()
@@ -179,13 +179,13 @@ EOS;
 
         $reflectionClass = new ClassReflection(TestAsset\TestTraitClass4::class);
         $traitsArray = $reflectionClass->getTraits();
-        self::assertInternalType('array', $traitsArray);
+        self::assertIsArray($traitsArray);
         self::assertCount(1, $traitsArray);
         self::assertInstanceOf(ClassReflection::class, $traitsArray[0]);
 
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
         $traitsArray = $reflectionClass->getTraits();
-        self::assertInternalType('array', $traitsArray);
+        self::assertIsArray($traitsArray);
         self::assertCount(0, $traitsArray);
     }
 }

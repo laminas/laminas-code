@@ -39,7 +39,7 @@ class MethodScannerTest extends TestCase
         $class      = $file->getClass(BarClass::class);
         $method     = $class->getMethod('three');
         $parameters = $method->getParameters();
-        self::assertInternalType('array', $parameters);
+        self::assertIsArray($parameters);
     }
 
     public function testMethodScannerReturnsParameterScanner()

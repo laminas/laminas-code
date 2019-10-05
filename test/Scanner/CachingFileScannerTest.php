@@ -17,7 +17,7 @@ use function count;
 
 class CachingFileScannerTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp() : void
     {
         CachingFileScanner::clearCache();
     }
