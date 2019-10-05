@@ -262,7 +262,7 @@ EOS;
         $docBlock = $cgProp->getDocBlock();
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
         $tags     = $docBlock->getTags();
-        self::assertInternalType('array', $tags);
+        self::assertIsArray($tags);
         self::assertCount(1, $tags);
         $tag = array_shift($tags);
         self::assertInstanceOf(VarTag::class, $tag);
