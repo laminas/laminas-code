@@ -19,7 +19,7 @@ matrix:
     - php: 7.1
       env:
         - DEPS=locked
-        - LEGACY_DEPS="phpunit/phpunit"
+        - LEGACY_DEPS="doctrine/annotations phpunit/phpunit"
         - CS_CHECK=true
         - TEST_COVERAGE=true
     - php: 7.1
