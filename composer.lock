@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f80f736d22dca29742b946771a130310",
+    "content-hash": "91e711e5e9df76a672333ceba0aa2fa0",
     "packages": [
         {
             "name": "zendframework/zend-eventmanager",
