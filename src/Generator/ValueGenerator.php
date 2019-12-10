@@ -437,9 +437,10 @@ class ValueGenerator extends AbstractGenerator
                 break;
             case self::TYPE_OTHER:
             default:
-                throw new Exception\RuntimeException(
-                    sprintf('Type "%s" is unknown or cannot be used as property default value.', get_class($value))
-                );
+                throw new Exception\RuntimeException(sprintf(
+                    'Type "%s" is unknown or cannot be used as property default value.',
+                    is_object($value) ? get_class($value) : gettype($value)
+                ));
         }
 
         return $output;

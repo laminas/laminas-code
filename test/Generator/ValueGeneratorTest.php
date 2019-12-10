@@ -11,8 +11,11 @@ namespace ZendTest\Code\Generator;
 
 use ArrayAccess;
 use ArrayObject as SplArrayObject;
+use DateTime;
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Zend\Code\Exception\InvalidArgumentException;
+use Zend\Code\Exception\RuntimeException;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\PropertyValueGenerator;
 use Zend\Code\Generator\ValueGenerator;
@@ -461,5 +464,25 @@ EOS;
             ["'", "\\'"],
             ["\\'", "\\\\\\'"],
         ];
+    }
+
+    public function invalidValue() : Generator
+    {
+        yield 'object' => [new DateTime(), DateTime::class];
+        yield 'resource' => [fopen('php://input', 'r'), 'resource'];
+    }
+
+    /**
+     * @dataProvider invalidValue
+     *
+     * @param mixed $value
+     */
+    public function testExceptionInvalidValue($value, string $type) : void
+    {
+        $valueGenerator = new ValueGenerator($value);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Type "'.$type.'" is unknown or cannot be used');
+        $valueGenerator->generate();
     }
 }
