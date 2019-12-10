@@ -26,6 +26,9 @@
         "zendframework/zend-coding-standard": "^1.0",
         "zendframework/zend-stdlib": "^2.7 || ^3.0"
     },
+    "conflict": {
+        "phpspec/prophecy": "<1.9.0"
+    },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
         "zendframework/zend-stdlib": "Zend\\Stdlib component"
