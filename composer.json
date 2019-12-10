@@ -21,10 +21,13 @@
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "^1.0",
+        "doctrine/annotations": "^1.7",
         "phpunit/phpunit": "^7.5.16 || ^8.4",
         "zendframework/zend-coding-standard": "^1.0",
         "zendframework/zend-stdlib": "^2.7 || ^3.0"
+    },
+    "conflict": {
+        "phpspec/prophecy": "<1.9.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
