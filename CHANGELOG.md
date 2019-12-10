@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#179](https://github.com/zendframework/zend-code/pull/179) fixes exception message when invalid value provided in `Zend\Code\Generator\ValueGenerator`.
 
 ## 3.4.0 - 2019-10-06
 
