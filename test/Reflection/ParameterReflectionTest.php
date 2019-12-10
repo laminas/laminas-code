@@ -104,7 +104,7 @@ class ParameterReflectionTest extends TestCase
         $type = $reflection->getType();
 
         self::assertInstanceOf(\ReflectionType::class, $type);
-        self::assertSame($expectedType, (string) $type);
+        self::assertSame($expectedType, $type->getName());
     }
 
     /**

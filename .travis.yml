@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 cache:
@@ -13,6 +11,7 @@ env:
     - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
 
 matrix:
+  fast_finish: true
   include:
     - php: 7.1
       env:
@@ -20,7 +19,7 @@ matrix:
     - php: 7.1
       env:
         - DEPS=locked
-        - LEGACY_DEPS="phpunit/phpunit"
+        - LEGACY_DEPS="doctrine/annotations phpunit/phpunit"
         - CS_CHECK=true
         - TEST_COVERAGE=true
     - php: 7.1
@@ -42,6 +41,15 @@ matrix:
       env:
         - DEPS=locked
     - php: 7.3
+      env:
+        - DEPS=latest
+    - php: 7.4
+      env:
+        - DEPS=lowest
+    - php: 7.4
+      env:
+        - DEPS=locked
+    - php: 7.4
       env:
         - DEPS=latest
 
