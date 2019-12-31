@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\Code\Scanner\TestAsset\Proxy;
+namespace LaminasTest\Code\Scanner\TestAsset\Proxy;
 
-use Zend\Code\Scanner\CachingFileScanner;
+use Laminas\Code\Scanner\CachingFileScanner;
 
 class CachingFileScannerProxy extends CachingFileScanner
 {

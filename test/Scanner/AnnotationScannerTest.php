@@ -1,19 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
-use Zend\Code\Scanner\AnnotationScanner;
-use Zend\Code\NameInformation;
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Annotation\Parser\GenericAnnotationParser;
+use Laminas\Code\Annotation\AnnotationManager;
+use Laminas\Code\Annotation\Parser\GenericAnnotationParser;
+use Laminas\Code\NameInformation;
+use Laminas\Code\Scanner\AnnotationScanner;
 
 class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +31,7 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
             . ' * @Test\Bar' . "\n */";
 
         $nameInfo = new NameInformation();
-        $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');
+        $nameInfo->addUse('LaminasTest\Code\Scanner\TestAsset\Annotation', 'Test');
 
         $annotationScanner = new AnnotationScanner($annotationManager, $docComment, $nameInfo);
         $this->assertEquals(get_class($foo), get_class($annotationScanner[0]));
