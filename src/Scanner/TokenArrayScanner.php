@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Scanner;
+namespace Laminas\Code\Scanner;
 
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Exception;
-use Zend\Code\NameInformation;
+use Laminas\Code\Annotation\AnnotationManager;
+use Laminas\Code\Exception;
+use Laminas\Code\NameInformation;
 
 class TokenArrayScanner implements ScannerInterface
 {
