@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Annotation\Parser\GenericAnnotationParser;
+use Laminas\Code\Annotation\AnnotationManager;
+use Laminas\Code\Annotation\Parser\GenericAnnotationParser;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @category   Laminas
+ * @package    Laminas_Reflection
  * @subpackage UnitTests
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Property
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_Property
  */
 class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
-        $property = new \Zend\Code\Reflection\PropertyReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop1');
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $property->getDeclaringClass());
-        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', $property->getDeclaringClass()->getName());
+        $property = new \Laminas\Code\Reflection\PropertyReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop1');
+        $this->assertInstanceOf('Laminas\Code\Reflection\ClassReflection', $property->getDeclaringClass());
+        $this->assertEquals('LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', $property->getDeclaringClass()->getName());
     }
 
     public function testAnnotationScanningIsPossible()
@@ -36,10 +34,10 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $parser->registerAnnotation(new TestAsset\SampleAnnotation());
         $manager->attach($parser);
 
-        $property = new \Zend\Code\Reflection\PropertyReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop2');
+        $property = new \Laminas\Code\Reflection\PropertyReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop2');
         $annotations = $property->getAnnotations($manager);
-        $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
-        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Reflection\TestAsset\SampleAnnotation'));
+        $this->assertInstanceOf('Laminas\Code\Annotation\AnnotationCollection', $annotations);
+        $this->assertTrue($annotations->hasAnnotation('LaminasTest\Code\Reflection\TestAsset\SampleAnnotation'));
         $found = false;
         foreach ($annotations as $key => $annotation) {
             if (!$annotation instanceof TestAsset\SampleAnnotation) {
