@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Annotation;
+namespace LaminasTest\Code\Annotation;
 
+use Laminas\Code\Annotation;
+use Laminas\EventManager\Event;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Code\Annotation;
-use Zend\EventManager\Event;
 
 class GenericAnnotationParserTest extends TestCase
 {
@@ -88,7 +87,7 @@ class GenericAnnotationParserTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Code\Exception\InvalidArgumentException
      */
     public function testRegisterAnnotationAllowsAnnotationInterfaceOnly()
     {
@@ -96,7 +95,7 @@ class GenericAnnotationParserTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Code\Exception\InvalidArgumentException
      */
     public function testAllowRegistrationOnceOnly()
     {
@@ -114,7 +113,7 @@ class GenericAnnotationParserTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Code\Exception\InvalidArgumentException
      */
     public function testRegisterAnnotationsThrowsException()
     {
@@ -122,7 +121,7 @@ class GenericAnnotationParserTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Code\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Code\Exception\InvalidArgumentException
      */
     public function testSetAliasNotRegisteredClassThrowsException()
     {
