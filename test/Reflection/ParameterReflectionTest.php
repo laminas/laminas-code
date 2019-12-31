@@ -1,38 +1,37 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
-use Zend\Code\Reflection;
-use ZendTest\Code\TestAsset\ClassTypeHintedClass;
-use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
-use ZendTest\Code\TestAsset\InternalHintsClass;
+use Laminas\Code\Reflection;
+use LaminasTest\Code\TestAsset\ClassTypeHintedClass;
+use LaminasTest\Code\TestAsset\DocBlockOnlyHintsClass;
+use LaminasTest\Code\TestAsset\InternalHintsClass;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Parameter
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_Parameter
  */
 class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            ['LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
             0
         );
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getDeclaringClass());
+        $this->assertInstanceOf('Laminas\Code\Reflection\ClassReflection', $parameter->getDeclaringClass());
     }
 
     public function testClassReturnNoClassGivenReturnsNull()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            ['LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
             'param1'
         );
         $this->assertNull($parameter->getClass());
@@ -41,10 +40,10 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     public function testClassReturn()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
+            ['LaminasTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'],
             'param2'
         );
-        $this->assertInstanceOf('Zend\Code\Reflection\ClassReflection', $parameter->getClass());
+        $this->assertInstanceOf('Laminas\Code\Reflection\ClassReflection', $parameter->getClass());
     }
 
     /**
@@ -53,7 +52,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     public function testTypeReturn($param, $type)
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'],
+            ['LaminasTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'],
             $param
         );
         $this->assertEquals($type, $parameter->detectType());
@@ -62,7 +61,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
     public function testCallableTypeHint()
     {
         $parameter = new Reflection\ParameterReflection(
-            ['ZendTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'],
+            ['LaminasTest\Code\Reflection\TestAsset\CallableTypeHintClass', 'foo'],
             'bar'
         );
         $this->assertEquals('callable', $parameter->detectType());
@@ -75,7 +74,7 @@ class ParameterReflectionTest extends \PHPUnit_Framework_TestCase
             ['two','int'],
             ['three','string'],
             ['array','array'],
-            ['class','ZendTest\Code\Reflection\TestAsset\TestSampleClass']
+            ['class','LaminasTest\Code\Reflection\TestAsset\TestSampleClass']
         ];
     }
 

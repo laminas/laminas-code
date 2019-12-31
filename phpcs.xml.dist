@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Zend Framework coding standard">
-    <description>Zend Framework coding standard</description>
+<ruleset name="Laminas coding standard">
+    <description>Laminas coding standard</description>
 
     <!-- display progress -->
     <arg value="p"/>
