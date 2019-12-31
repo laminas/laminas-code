@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\ValueGenerator;
+use Laminas\Code\Generator\ValueGenerator;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +20,7 @@ class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testPropertyDefaultValueConstructor()
     {
         $valueGenerator = new ValueGenerator();
-        $this->isInstanceOf($valueGenerator, 'Zend\Code\Generator\ValueGenerator');
+        $this->isInstanceOf($valueGenerator, 'Laminas\Code\Generator\ValueGenerator');
     }
 
     public function testPropertyDefaultValueIsSettable()

@@ -1,18 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Generator\DocBlock;
+namespace Laminas\Code\Generator\DocBlock;
 
-use Zend\Code\Generator\DocBlock\Tag\TagInterface;
-use Zend\Code\Generic\Prototype\PrototypeClassFactory;
-
-use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionTagInterface;
+use Laminas\Code\Generator\DocBlock\Tag\TagInterface;
+use Laminas\Code\Generic\Prototype\PrototypeClassFactory;
+use Laminas\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionTagInterface;
 
 /**
  * This class is used in DocBlockGenerator and creates the needed

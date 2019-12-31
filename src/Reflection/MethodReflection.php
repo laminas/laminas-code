@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Reflection;
+namespace Laminas\Code\Reflection;
 
+use Laminas\Code\Annotation\AnnotationManager;
+use Laminas\Code\Scanner\AnnotationScanner;
+use Laminas\Code\Scanner\CachingFileScanner;
 use ReflectionMethod as PhpReflectionMethod;
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Scanner\AnnotationScanner;
-use Zend\Code\Scanner\CachingFileScanner;
 
 class MethodReflection extends PhpReflectionMethod implements ReflectionInterface
 {
@@ -98,10 +97,10 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getDeclaringClass()
     {
         $phpReflection  = parent::getDeclaringClass();
-        $zendReflection = new ClassReflection($phpReflection->getName());
+        $laminasReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
 
-        return $zendReflection;
+        return $laminasReflection;
     }
 
     /**
@@ -166,19 +165,19 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getParameters()
     {
         $phpReflections  = parent::getParameters();
-        $zendReflections = array();
+        $laminasReflections = array();
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new ParameterReflection(array(
                 $this->getDeclaringClass()->getName(),
                 $this->getName()),
                 $phpReflection->getName()
             );
-            $zendReflections[] = $instance;
+            $laminasReflections[] = $instance;
             unset($phpReflection);
         }
         unset($phpReflections);
 
-        return $zendReflections;
+        return $laminasReflections;
     }
 
     /**
