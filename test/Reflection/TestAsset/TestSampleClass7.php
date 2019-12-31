@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @author Jeremiah Small <jsmall@soliantconsulting.com>
  */
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
 /**
  * This is a sample class docblock
@@ -13,8 +14,8 @@ namespace ZendTest\Code\Reflection\TestAsset;
 class TestSampleClass7
 {
     /**
-     * @param Zend\Foo\Bar $var desc
-     * @return Zend\Code\Reflection\DocBlock
+     * @param Laminas\Foo\Bar $var desc
+     * @return Laminas\Code\Reflection\DocBlock
      */
     public function doSomething()
     {
