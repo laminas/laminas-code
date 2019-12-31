@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Generator;
+namespace Laminas\Code\Generator;
 
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\ClassReflection;
 
 class ClassGenerator extends AbstractGenerator
 {
@@ -97,7 +96,7 @@ class ClassGenerator extends AbstractGenerator
             $cg->setNamespaceName($classReflection->getNamespaceName());
         }
 
-        /* @var \Zend\Code\Reflection\ClassReflection $parentClass */
+        /* @var \Laminas\Code\Reflection\ClassReflection $parentClass */
         $parentClass = $classReflection->getParentClass();
         $interfaces  = $classReflection->getInterfaces();
 
@@ -109,7 +108,7 @@ class ClassGenerator extends AbstractGenerator
 
         $interfaceNames = array();
         foreach ($interfaces as $interface) {
-            /* @var \Zend\Code\Reflection\ClassReflection $interface */
+            /* @var \Laminas\Code\Reflection\ClassReflection $interface */
             $interfaceNames[] = $interface->getName();
         }
 
@@ -798,7 +797,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function addTrait($trait)
     {
@@ -807,7 +806,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function addTraits(array $traits)
     {
@@ -816,7 +815,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function hasTrait($traitName)
     {
@@ -824,7 +823,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function getTraits()
     {
@@ -832,7 +831,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function removeTrait($traitName)
     {
@@ -840,7 +839,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function addTraitAlias($method, $alias, $visibility = null)
     {
@@ -849,7 +848,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function getTraitAliases()
     {
@@ -857,7 +856,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function addTraitOverride($method, $traitsToReplace)
     {
@@ -866,7 +865,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function removeTraitOverride($method, $overridesToRemove = null)
     {
@@ -876,7 +875,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\TraitUsageInterface
+     * @inherit Laminas\Code\Generator\TraitUsageInterface
      */
     public function getTraitOverrides()
     {
@@ -908,7 +907,7 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @inherit Zend\Code\Generator\GeneratorInterface
+     * @inherit Laminas\Code\Generator\GeneratorInterface
      */
     public function generate()
     {

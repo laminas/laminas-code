@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\TraitGenerator;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\TraitGenerator;
+use Laminas\Code\Reflection\ClassReflection;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +31,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $class = new TraitGenerator();
-        $this->isInstanceOf($class, 'Zend\Code\Generator\TraitGenerator');
+        $this->isInstanceOf($class, 'Laminas\Code\Generator\TraitGenerator');
     }
 
     public function testNameAccessors()
@@ -79,10 +78,10 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $properties = $classGenerator->getProperties();
         $this->assertEquals(count($properties), 2);
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', current($properties));
+        $this->assertInstanceOf('Laminas\Code\Generator\PropertyGenerator', current($properties));
 
         $property = $classGenerator->getProperty('propTwo');
-        $this->assertInstanceOf('Zend\Code\Generator\PropertyGenerator', $property);
+        $this->assertInstanceOf('Laminas\Code\Generator\PropertyGenerator', $property);
         $this->assertEquals($property->getName(), 'propTwo');
 
         // add a new property
@@ -96,7 +95,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator->addProperty('prop3');
 
         $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
+            'Laminas\Code\Generator\Exception\InvalidArgumentException',
             'A property by name prop3 already exists in this class'
         );
         $classGenerator->addProperty('prop3');
@@ -107,8 +106,8 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new TraitGenerator();
 
         $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'Zend\Code\Generator\TraitGenerator::addProperty expects string for name'
+            'Laminas\Code\Generator\Exception\InvalidArgumentException',
+            'Laminas\Code\Generator\TraitGenerator::addProperty expects string for name'
         );
         $classGenerator->addProperty(true);
     }
@@ -123,10 +122,10 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $methods = $classGenerator->getMethods();
         $this->assertEquals(count($methods), 2);
-        $this->isInstanceOf(current($methods), '\Zend\Code\Generator\PhpMethod');
+        $this->isInstanceOf(current($methods), '\Laminas\Code\Generator\PhpMethod');
 
         $method = $classGenerator->getMethod('methodOne');
-        $this->isInstanceOf($method, '\Zend\Code\Generator\PhpMethod');
+        $this->isInstanceOf($method, '\Laminas\Code\Generator\PhpMethod');
         $this->assertEquals($method->getName(), 'methodOne');
 
         // add a new property
@@ -139,8 +138,8 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new TraitGenerator();
 
         $this->setExpectedException(
-            'Zend\Code\Generator\Exception\ExceptionInterface',
-            'Zend\Code\Generator\TraitGenerator::addMethod expects string for name'
+            'Laminas\Code\Generator\Exception\ExceptionInterface',
+            'Laminas\Code\Generator\TraitGenerator::addMethod expects string for name'
         );
 
         $classGenerator->addMethod(true);
@@ -157,7 +156,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator->addMethodFromGenerator($methodA);
 
         $this->setExpectedException(
-            'Zend\Code\Generator\Exception\InvalidArgumentException',
+            'Laminas\Code\Generator\Exception\InvalidArgumentException',
             'A method by name foo already exists in this class.'
         );
 
@@ -165,7 +164,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-7361
+     * @group Laminas-7361
      */
     public function testHasMethod()
     {
@@ -186,7 +185,7 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-7361
+     * @group Laminas-7361
      */
     public function testHasProperty()
     {
@@ -230,11 +229,11 @@ EOS;
     }
 
     /**
-     * @group ZF-7909
+     * @group Laminas-7909
      */
     public function testClassFromReflectionThatImplementsInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithInterface');
+        $reflClass = new ClassReflection('LaminasTest\Code\Generator\TestAsset\ClassWithInterface');
 
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -246,11 +245,11 @@ EOS;
     }
 
     /**
-     * @group ZF-7909
+     * @group Laminas-7909
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
+        $reflClass = new ClassReflection('LaminasTest\Code\Generator\TestAsset\NewClassWithInterface');
 
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -268,13 +267,13 @@ EOS;
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $this->assertCount(1, $classGenerator->getMethods());
     }
 
     /**
-     * @group ZF-9602
+     * @group Laminas-9602
      */
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
     {
@@ -295,7 +294,7 @@ CODE;
     }
 
     /**
-     * @group ZF-9602
+     * @group Laminas-9602
      */
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
     {
@@ -320,12 +319,12 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
+        $reflClass = new ClassReflection('LaminasTest\Code\Generator\TestAsset\ClassWithNamespace');
         $classGenerator = TraitGenerator::fromReflection($reflClass);
-        $this->assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
+        $this->assertEquals('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         $this->assertEquals('ClassWithNamespace', $classGenerator->getName());
         $expected = <<<CODE
-namespace ZendTest\Code\Generator\\TestAsset;
+namespace LaminasTest\Code\Generator\\TestAsset;
 
 trait ClassWithNamespace
 {
@@ -371,7 +370,7 @@ CODE;
     }
 
     /**
-     * @group ZF2-151
+     * @group Laminas-151
      */
     public function testAddUses()
     {
@@ -427,7 +426,7 @@ CODE;
         ));
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlockGenerator', $docBlock);
     }
 
     public function testCreateFromArrayWithDocBlockInstance()
@@ -438,12 +437,12 @@ CODE;
         ));
 
         $docBlock = $classGenerator->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlockGenerator', $docBlock);
     }
 
     public function testExtendedClassProperies()
     {
-        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ExtendedClassWithProperties');
+        $reflClass = new ClassReflection('LaminasTest\Code\Generator\TestAsset\ExtendedClassWithProperties');
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         $code = $classGenerator->generate();
         $this->assertContains('publicExtendedClassProperty', $code);
