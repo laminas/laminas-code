@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
-use Zend\Code\Reflection\FunctionReflection;
+use Laminas\Code\Reflection\FunctionReflection;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Function
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_Function
  */
 class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,13 +21,13 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
         $function = new FunctionReflection('array_splice');
         $parameters = $function->getParameters();
         $this->assertEquals(count($parameters), 4);
-        $this->assertInstanceOf('Zend\Code\Reflection\ParameterReflection', array_shift($parameters));
+        $this->assertInstanceOf('Laminas\Code\Reflection\ParameterReflection', array_shift($parameters));
     }
 
     public function testFunctionDocBlockReturn()
     {
         require_once __DIR__ . '/TestAsset/functions.php';
-        $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function6');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlockReflection', $function->getDocBlock());
+        $function = new FunctionReflection('LaminasTest\Code\Reflection\TestAsset\function6');
+        $this->assertInstanceOf('Laminas\Code\Reflection\DocBlockReflection', $function->getDocBlock());
     }
 }

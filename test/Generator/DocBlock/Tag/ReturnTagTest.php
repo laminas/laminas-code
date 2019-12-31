@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator\DocBlock\Tag;
+namespace LaminasTest\Code\Generator\DocBlock\Tag;
 
-use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
+use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
 
 /**
  *
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ReturnTagTest extends \PHPUnit_Framework_TestCase
 {

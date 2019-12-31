@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner\TestAsset\Proxy;
+namespace LaminasTest\Code\Scanner\TestAsset\Proxy;
 
-use Zend\Code\Scanner\CachingFileScanner;
+use Laminas\Code\Scanner\CachingFileScanner;
 
 class CachingFileScannerProxy extends CachingFileScanner
 {

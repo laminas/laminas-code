@@ -1,26 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
 use Exception;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\FileGenerator;
-use Zend\Code\Reflection\FileReflection;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Reflection\FileReflection;
 
 /**
- * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @copyright  Copyright (c) 2005-2013 Laminas (https://www.zend.com)
+ * @license    https://getlaminas.org/license/new-bsd     New BSD License
  *
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
- * @group Zend_Code_Generator_Php_File
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
+ * @group Laminas_Code_Generator_Php_File
  */
 class FileGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +27,7 @@ class FileGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $file = new FileGenerator();
-        $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($file));
+        $this->assertEquals('Laminas\Code\Generator\FileGenerator', get_class($file));
     }
 
     public function testSourceContentGetterAndSetter()
@@ -94,7 +93,7 @@ EOS;
 
         unlink($tempFile);
 
-        $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($fileGenerator));
+        $this->assertEquals('Laminas\Code\Generator\FileGenerator', get_class($fileGenerator));
         $this->assertEquals(1, count($fileGenerator->getClasses()));
 
     }
@@ -120,10 +119,10 @@ EOS;
 
 
 
-/* Zend_Code_Generator_FileGenerator-ClassMarker: {ZendTest\Code\Generator\TestAsset\TestSampleSingleClass} */
+/* Laminas_Code_Generator_FileGenerator-ClassMarker: {LaminasTest\Code\Generator\TestAsset\TestSampleSingleClass} */
 
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 /**
  * class docblock
@@ -176,7 +175,7 @@ EOS;
     }
 
     /**
-     * @group ZF-11218
+     * @group Laminas-11218
      */
     public function testGeneratesUseStatements()
     {
@@ -279,7 +278,7 @@ EOS;
             'class'     => new ClassGenerator('bar'),
         ));
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
+        $this->assertInstanceOf('Laminas\Code\Generator\ClassGenerator', $class);
     }
 
     public function testCreateFromArrayWithClassFromArray()
@@ -291,13 +290,13 @@ EOS;
             ),
         ));
         $class = $fileGenerator->getClass('bar');
-        $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
+        $this->assertInstanceOf('Laminas\Code\Generator\ClassGenerator', $class);
     }
 
     public function testGeneratingFromAReflectedFileName()
     {
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/OneInterface.php');
-        $this->assertInstanceOf('Zend\Code\Generator\FileGenerator', $generator);
+        $this->assertInstanceOf('Laminas\Code\Generator\FileGenerator', $generator);
     }
 
     public function testGeneratedClassesHaveUses()
@@ -305,7 +304,7 @@ EOS;
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
         $class = $generator->getClass();
 
-        $expectedUses = array('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
+        $expectedUses = array('LaminasTest\Code\Generator\TestAsset\ClassWithNamespace');
 
         $this->assertEquals($expectedUses, $class->getUses());
     }
