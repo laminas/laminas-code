@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
+use Laminas\Code\Annotation;
+use Laminas\Code\Scanner\FileScanner;
+use Laminas\Code\Scanner\MethodScanner;
+use Laminas\Stdlib\ErrorHandler;
+use LaminasTest\Code\TestAsset\TestClassWithTraitAliases;
+use LaminasTest\Code\TestAsset\TraitWithSameMethods;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Code\Annotation;
-use Zend\Code\Scanner\FileScanner;
-use Zend\Code\Scanner\MethodScanner;
-use Zend\Stdlib\ErrorHandler;
-use ZendTest\Code\TestAsset\TraitWithSameMethods;
-use ZendTest\Code\TestAsset\TestClassWithTraitAliases;
 
 class ClassScannerTest extends TestCase
 {
@@ -26,8 +25,8 @@ class ClassScannerTest extends TestCase
         $this->manager = new Annotation\AnnotationManager();
 
         $genericParser = new Annotation\Parser\GenericAnnotationParser();
-        $genericParser->registerAnnotation('ZendTest\Code\Annotation\TestAsset\Foo');
-        $genericParser->registerAnnotation('ZendTest\Code\Annotation\TestAsset\Bar');
+        $genericParser->registerAnnotation('LaminasTest\Code\Annotation\TestAsset\Foo');
+        $genericParser->registerAnnotation('LaminasTest\Code\Annotation\TestAsset\Bar');
 
         $this->manager->attach($genericParser);
     }
@@ -35,8 +34,8 @@ class ClassScannerTest extends TestCase
     public function testClassScannerHasClassInformation()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
-        $this->assertEquals('ZendTest\Code\TestAsset\FooClass', $class->getName());
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
+        $this->assertEquals('LaminasTest\Code\TestAsset\FooClass', $class->getName());
         $this->assertEquals('FooClass', $class->getShortName());
         $this->assertFalse($class->isFinal());
         $this->assertTrue($class->isAbstract());
@@ -44,7 +43,7 @@ class ClassScannerTest extends TestCase
         $interfaces = $class->getInterfaces();
         $this->assertContains('ArrayAccess', $interfaces);
         $this->assertContains('A\B\C\D\Blarg', $interfaces);
-        $this->assertContains('ZendTest\Code\TestAsset\Local\SubClass', $interfaces);
+        $this->assertContains('LaminasTest\Code\TestAsset\Local\SubClass', $interfaces);
         $methods = $class->getMethodNames();
         $this->assertInternalType('array', $methods);
         $this->assertContains('fooBarBaz', $methods);
@@ -53,7 +52,7 @@ class ClassScannerTest extends TestCase
     public function testClassScannerHasConstant()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertInternalType('array', $class->getConstantNames());
         $this->assertContains('FOO', $class->getConstantNames());
     }
@@ -61,14 +60,14 @@ class ClassScannerTest extends TestCase
     public function testClassScannerHasProperties()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertContains('bar', $class->getPropertyNames());
     }
 
     public function testClassScannerHasMethods()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertContains('fooBarBaz', $class->getMethodNames());
     }
 
@@ -78,7 +77,7 @@ class ClassScannerTest extends TestCase
     public function testGetConstantsReturnsConstantNames()
     {
         $file      = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class     = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class     = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
 
         ErrorHandler::start(E_USER_DEPRECATED);
         $constants = $class->getConstants();
@@ -91,17 +90,17 @@ class ClassScannerTest extends TestCase
     public function testGetConstantsReturnsInstancesOfConstantScanner()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $constants = $class->getConstants(false);
         foreach ($constants as $constant) {
-            $this->assertInstanceOf('Zend\Code\Scanner\ConstantScanner', $constant);
+            $this->assertInstanceOf('Laminas\Code\Scanner\ConstantScanner', $constant);
         }
     }
 
     public function testHasConstant()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertTrue($class->hasConstant('FOO'));
         $this->assertFalse($class->hasConstant('foo'));
     }
@@ -109,7 +108,7 @@ class ClassScannerTest extends TestCase
     public function testHasProperty()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertTrue($class->hasProperty('foo'));
         $this->assertFalse($class->hasProperty('FOO'));
         $this->assertTrue($class->hasProperty('bar'));
@@ -118,7 +117,7 @@ class ClassScannerTest extends TestCase
     public function testHasMethod()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertTrue($class->hasMethod('fooBarBaz'));
         $this->assertFalse($class->hasMethod('FooBarBaz'));
         $this->assertFalse($class->hasMethod('bar'));
@@ -127,39 +126,39 @@ class ClassScannerTest extends TestCase
     public function testClassScannerReturnsMethodsWithMethodScanners()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $methods = $class->getMethods();
         foreach ($methods as $method) {
-            $this->assertInstanceOf('Zend\Code\Scanner\MethodScanner', $method);
+            $this->assertInstanceOf('Laminas\Code\Scanner\MethodScanner', $method);
         }
     }
 
     public function testClassScannerReturnsPropertiesWithPropertyScanners()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $properties = $class->getProperties();
         foreach ($properties as $property) {
-            $this->assertInstanceOf('Zend\Code\Scanner\PropertyScanner', $property);
+            $this->assertInstanceOf('Laminas\Code\Scanner\PropertyScanner', $property);
         }
     }
 
     public function testClassScannerCanScanInterface()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooInterface.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooInterface');
-        $this->assertEquals('ZendTest\Code\TestAsset\FooInterface', $class->getName());
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooInterface');
+        $this->assertEquals('LaminasTest\Code\TestAsset\FooInterface', $class->getName());
     }
 
     public function testClassScannerCanReturnLineNumbers()
     {
         $file    = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $this->assertEquals(11, $class->getLineStart());
         $this->assertEquals(36, $class->getLineEnd());
 
         $file    = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class   = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class   = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $this->assertEquals(10, $class->getLineStart());
         $this->assertEquals(37, $class->getLineEnd());
     }
@@ -167,11 +166,11 @@ class ClassScannerTest extends TestCase
     public function testClassScannerCanScanAnnotations()
     {
         $file    = new FileScanner(__DIR__ . '/../Annotation/TestAsset/EntityWithAnnotations.php');
-        $class   = $file->getClass('ZendTest\Code\Annotation\TestAsset\EntityWithAnnotations');
+        $class   = $file->getClass('LaminasTest\Code\Annotation\TestAsset\EntityWithAnnotations');
         $annotations = $class->getAnnotations($this->manager);
 
-        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Foo'));
-        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Bar'));
+        $this->assertTrue($annotations->hasAnnotation('LaminasTest\Code\Annotation\TestAsset\Foo'));
+        $this->assertTrue($annotations->hasAnnotation('LaminasTest\Code\Annotation\TestAsset\Bar'));
 
         $this->assertEquals('first',  $annotations[0]->content);
         $this->assertEquals('second', $annotations[1]->content);
@@ -188,7 +187,7 @@ class ClassScannerTest extends TestCase
         }
 
         $file  = new FileScanner(__DIR__ . '/../TestAsset/BarTrait.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\BarTrait');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\BarTrait');
 
         $this->assertTrue($class->isTrait());
         $this->assertTrue($class->hasMethod('bar'));
@@ -204,13 +203,13 @@ class ClassScannerTest extends TestCase
         }
 
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassUsesTraitSimple.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\TestClassUsesTraitSimple');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\TestClassUsesTraitSimple');
 
         $this->assertFalse($class->isTrait());
         $traitNames = $class->getTraitNames();
         $class->getTraitAliases();
-        $this->assertTrue(in_array('ZendTest\Code\TestAsset\BarTrait', $traitNames));
-        $this->assertTrue(in_array('ZendTest\Code\TestAsset\FooTrait', $traitNames));
+        $this->assertTrue(in_array('LaminasTest\Code\TestAsset\BarTrait', $traitNames));
+        $this->assertTrue(in_array('LaminasTest\Code\TestAsset\FooTrait', $traitNames));
     }
 
     /**
@@ -223,7 +222,7 @@ class ClassScannerTest extends TestCase
         }
 
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassWithTraitAliases.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\TestClassWithTraitAliases');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\TestClassWithTraitAliases');
 
         $this->assertFalse($class->isTrait());
 
@@ -232,7 +231,7 @@ class ClassScannerTest extends TestCase
         $this->assertEquals(count($aliases), 1);
 
         $this->assertEquals(key($aliases), 'test');
-        $this->assertEquals(current($aliases), 'ZendTest\Code\TestAsset\TraitWithSameMethods::foo');
+        $this->assertEquals(current($aliases), 'LaminasTest\Code\TestAsset\TraitWithSameMethods::foo');
     }
 
     /**
@@ -250,7 +249,7 @@ class ClassScannerTest extends TestCase
 
         $file  = new FileScanner(__DIR__ . '/../TestAsset/TestClassWithTraitAliases.php');
 
-        $class = $file->getClass('ZendTest\Code\TestAsset\TestClassWithTraitAliases');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\TestClassWithTraitAliases');
 
         $this->assertFalse($class->isTrait());
 
@@ -288,10 +287,10 @@ class ClassScannerTest extends TestCase
             $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
         }
 
-        $this->setExpectedException('Zend\Code\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Code\Exception\RuntimeException');
 
         $file  = new FileScanner(__DIR__ . '/TestAsset/TestClassWithAliasException.php');
-        $class = $file->getClass('ZendTest\Code\Scanner\TestAsset\TestClassWithAliasException');
+        $class = $file->getClass('LaminasTest\Code\Scanner\TestAsset\TestClassWithAliasException');
 
         $class->getMethods();
     }
