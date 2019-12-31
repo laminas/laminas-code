@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
-use Zend\Config as ZendConfig;
+use Laminas\Config as LaminasConfig;
 use FooBar\Foo\Bar;
 use One\Two\Three\Four\Five as ottff;
 
@@ -17,8 +16,8 @@ use One\Two\Three\Four\Five as ottff;
 class TestSampleClass8
 {
     /**
-     * @param Zend\Foo\Bar $var desc
-     * @return Zend\Code\Reflection\DocBlock
+     * @param Laminas\Foo\Bar $var desc
+     * @return Laminas\Code\Reflection\DocBlock
      */
     public function doSomething()
     {
