@@ -1,22 +1,13 @@
 <?php
 
-namespace ZendTest\Code\TestAsset {
+namespace LaminasTest\Code\TestAsset {
 
-    use Foo\Bar,
-        A\B\C as X;
+    use A\B\C as X;
+use Foo\Bar;
+use OtherThing\SomethingElse;
+use Something\More as SM;
 
-    class Baz
-    {
-        public function __construct(Bar\Boo $boo, Bam $bam)
-        {
-
-        }
-    }
-
-    use Something\More as SM;
-    use OtherThing\SomethingElse;
-
-    class ExtendingSomethingMore extends SM\Blah
+    class Baz    {        public function __construct(Bar\Boo $boo, Bam $bam)        {        }    }    class ExtendingSomethingMore extends SM\Blah
     {
 
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace ZendTest\Code\TestAsset;
+namespace LaminasTest\Code\TestAsset;
 
 include __DIR__ . '/foo/bar/baz.php';
 
-use A\B\C,
-    A\B\C\D as E;
+use A\B\C;
+use A\B\C\D as E;
 use Foo\Bar\Baz as FooBarBaz;
 
 abstract class BarClass

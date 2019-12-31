@@ -1,27 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\ValueGenerator;
-use Zend\Code\Reflection\MethodReflection;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\ValueGenerator;
+use Laminas\Code\Reflection\MethodReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @category   Laminas
+ * @package    Laminas_Code_Generator
  * @subpackage UnitTests
  *
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class PhpMethodTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,7 +29,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
     public function testMethodConstructor()
     {
         $methodGenerator = new MethodGenerator();
-        $this->isInstanceOf($methodGenerator, '\Zend\Code\Generator\PhpMethod');
+        $this->isInstanceOf($methodGenerator, '\Laminas\Code\Generator\PhpMethod');
     }
 
     public function testMethodParameterAccessors()
@@ -40,8 +38,8 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
         $methodGenerator->setParameters(array('one'));
         $params = $methodGenerator->getParameters();
         $param = array_shift($params);
-        $this->assertTrue($param instanceof \Zend\Code\Generator\ParameterGenerator,
-                          'Failed because $param was not instance of Zend\Code\Generator\ParameterGenerator');
+        $this->assertTrue($param instanceof \Laminas\Code\Generator\ParameterGenerator,
+                          'Failed because $param was not instance of Laminas\Code\Generator\ParameterGenerator');
     }
 
     public function testMethodBodyGetterAndSetter()
@@ -53,7 +51,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockGetterAndSetter()
     {
-        $docblockGenerator = new \Zend\Code\Generator\DocBlockGenerator();
+        $docblockGenerator = new \Laminas\Code\Generator\DocBlockGenerator();
 
         $method = new MethodGenerator();
         $method->setDocBlock($docblockGenerator);
@@ -63,7 +61,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
 
     public function testMethodFromReflection()
     {
-        $ref = new MethodReflection('ZendTest\Code\Generator\TestAsset\TestSampleSingleClass', 'someMethod');
+        $ref = new MethodReflection('LaminasTest\Code\Generator\TestAsset\TestSampleSingleClass', 'someMethod');
 
         $methodGenerator = MethodGenerator::fromReflection($ref);
         $target = <<<EOS
@@ -83,7 +81,7 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testMethodWithStaticModifierIsEmitted()
     {
@@ -103,7 +101,7 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testMethodWithFinalModifierIsEmitted()
     {
@@ -122,7 +120,7 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testMethodWithFinalModifierIsNotEmittedWhenMethodIsAbstract()
     {
@@ -142,7 +140,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7205
+     * @group Laminas-7205
      */
     public function testMethodCanHaveDocBlock()
     {
@@ -167,7 +165,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7268
+     * @group Laminas-7268
      */
     public function testDefaultValueGenerationDoesNotIncludeTrailingSemicolon()
     {

@@ -1,19 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Annotation\Parser;
+namespace Laminas\Code\Annotation\Parser;
 
+use Laminas\Code\Annotation\AnnotationInterface;
+use Laminas\Code\Exception;
+use Laminas\EventManager\EventInterface;
 use Traversable;
-use Zend\Code\Annotation\AnnotationInterface;
-use Zend\Code\Exception;
-use Zend\EventManager\EventInterface;
 
 /**
  * Generic annotation parser
@@ -22,7 +20,7 @@ use Zend\EventManager\EventInterface;
  * will be passed annotation content to their initialize() method, which
  * they are then responsible for parsing.
  *
- * @package    Zend_Code
+ * @package    Laminas_Code
  * @subpackage Annotation
  */
 class GenericAnnotationParser implements ParserInterface

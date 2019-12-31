@@ -1,20 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Generator;
+namespace Laminas\Code\Generator;
 
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\ClassReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @category   Laminas
+ * @package    Laminas_Code_Generator
  */
 class ClassGenerator extends AbstractGenerator
 {
@@ -92,7 +90,7 @@ class ClassGenerator extends AbstractGenerator
             $cg->setNamespaceName($classReflection->getNamespaceName());
         }
 
-        /* @var \Zend\Code\Reflection\ClassReflection $parentClass */
+        /* @var \Laminas\Code\Reflection\ClassReflection $parentClass */
         if ($parentClass = $classReflection->getParentClass()) {
             $cg->setExtendedClass($parentClass->getName());
             $interfaces = array_diff($classReflection->getInterfaces(), $parentClass->getInterfaces());
@@ -102,7 +100,7 @@ class ClassGenerator extends AbstractGenerator
 
         $interfaceNames = array();
         foreach ($interfaces AS $interface) {
-            /* @var \Zend\Code\Reflection\ClassReflection $interface */
+            /* @var \Laminas\Code\Reflection\ClassReflection $interface */
             $interfaceNames[] = $interface->getName();
         }
 
