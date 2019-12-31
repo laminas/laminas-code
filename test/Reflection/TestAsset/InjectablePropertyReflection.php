@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
-use Zend\Code\Reflection\PropertyReflection;
+use Laminas\Code\Reflection\PropertyReflection;
 
 class InjectablePropertyReflection extends PropertyReflection
 {
