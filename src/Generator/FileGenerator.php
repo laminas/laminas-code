@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Generator;
+namespace Laminas\Code\Generator;
 
-use Zend\Code\Reflection\Exception as ReflectionException;
-use Zend\Code\Reflection\FileReflection;
+use Laminas\Code\Reflection\Exception as ReflectionException;
+use Laminas\Code\Reflection\FileReflection;
 
 class FileGenerator extends AbstractGenerator
 {
@@ -114,7 +113,7 @@ class FileGenerator extends AbstractGenerator
                     $bodyReturn[] = str_replace(
                         '?',
                         $class->getName(),
-                        '/* Zend_Code_Generator_Php_File-ClassMarker: {?} */'
+                        '/* Laminas_Code_Generator_Php_File-ClassMarker: {?} */'
                     );
 
                     $lineNum = $classEndLine;
@@ -147,7 +146,7 @@ class FileGenerator extends AbstractGenerator
                     $bodyReturn[] = str_replace(
                         '?',
                         $class->getName(),
-                        '/* Zend_Code_Generator_FileGenerator-DocBlockMarker */'
+                        '/* Laminas_Code_Generator_FileGenerator-DocBlockMarker */'
                     );
                     $lineNum = $docBlock->getEndLine();
                 } else {
@@ -460,7 +459,7 @@ class FileGenerator extends AbstractGenerator
         }
 
         // if there are markers, put the body into the output
-        if (preg_match('#/\* Zend_Code_Generator_FileGenerator-(.*?)Marker:#', $body)) {
+        if (preg_match('#/\* Laminas_Code_Generator_FileGenerator-(.*?)Marker:#', $body)) {
             $tokens = token_get_all($body);
             foreach ($tokens as $token) {
                 if (is_array($token) && in_array($token[0], array(T_OPEN_TAG, T_COMMENT, T_DOC_COMMENT, T_WHITESPACE))
@@ -475,8 +474,8 @@ class FileGenerator extends AbstractGenerator
         if (null !== ($docBlock = $this->getDocBlock())) {
             $docBlock->setIndentation('');
 
-            if (preg_match('#/* Zend_Code_Generator_FileGenerator-DocBlockMarker */#', $output)) {
-                $output = preg_replace('#/* Zend_CodeGenerator_Php_File-DocBlockMarker */#', $docBlock->generate(),
+            if (preg_match('#/* Laminas_Code_Generator_FileGenerator-DocBlockMarker */#', $output)) {
+                $output = preg_replace('#/* Laminas_CodeGenerator_Php_File-DocBlockMarker */#', $docBlock->generate(),
                                        $output, 1);
             } else {
                 $output .= $docBlock->generate() . self::LINE_FEED;
@@ -522,7 +521,7 @@ class FileGenerator extends AbstractGenerator
         if (!empty($classes)) {
             foreach ($classes as $class) {
                 $regex = str_replace('?', $class->getName(),
-                                     '/* Zend_Code_Generator_FileGenerator-ClassMarker: {?} */');
+                                     '/* Laminas_Code_Generator_FileGenerator-ClassMarker: {?} */');
                 $regex = preg_quote($regex, '#');
                 if (preg_match('#' . $regex . '#', $output)) {
                     $output = preg_replace('#' . $regex . '#', $class->generate(), $output, 1);

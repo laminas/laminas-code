@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Reflection\DocBlockReflection;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Reflection\DocBlockReflection;
 
 /**
- * @group      Zend_Code_Generator
- * @group      Zend_Code_Generator_Php
+ * @group      Laminas_Code_Generator
+ * @group      Laminas_Code_Generator_Php
  */
 class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +36,7 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
  * Short Description
  * Long Description
  * @param string $foo comment
- * @author Zend <zend@zend.com>
+ * @author Laminas <laminas@zend.com>
  * @license http://license The License
  * @return int
  */'
@@ -173,7 +172,7 @@ EOS;
     public function testDocBlockFromRefelectionParamTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ParamTag', $tags[0]);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlock\Tag\ParamTag', $tags[0]);
     }
 
     /**
@@ -182,7 +181,7 @@ EOS;
     public function testDocBlockFromRefelectionAuthorTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\AuthorTag', $tags[1]);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlock\Tag\AuthorTag', $tags[1]);
     }
 
     /**
@@ -191,7 +190,7 @@ EOS;
     public function testDocBlockFromRefelectionLicenseTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\LicenseTag', $tags[2]);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlock\Tag\LicenseTag', $tags[2]);
     }
 
     /**
@@ -200,6 +199,6 @@ EOS;
     public function testDocBlockFromRefelectionReturnTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag\ReturnTag', $tags[3]);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlock\Tag\ReturnTag', $tags[3]);
     }
 }
