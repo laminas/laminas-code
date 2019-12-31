@@ -1,12 +1,12 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
 
 /**
  * TestSampleClass6 DocBlock Short Desc
  *
- * Testing for formatted dockblock tags. See ZF-6726.
+ * Testing for formatted dockblock tags. See Laminas-6726.
  * (This long description should be longer than 3 lines.
  * It indeed is longer than 3 lines
  * now.)

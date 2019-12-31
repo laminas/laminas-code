@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Reflection;
+namespace Laminas\Code\Reflection;
 
-use Zend\Code\Scanner\CachingFileScanner;
+use Laminas\Code\Scanner\CachingFileScanner;
 
 class FileReflection implements ReflectionInterface
 {
@@ -276,7 +275,7 @@ class FileReflection implements ReflectionInterface
     /**
      * This method does the work of "reflecting" the file
      *
-     * Uses Zend\Code\Scanner\FileScanner to gather file information
+     * Uses Laminas\Code\Scanner\FileScanner to gather file information
      *
      * @return void
      */
