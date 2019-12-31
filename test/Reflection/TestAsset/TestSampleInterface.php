@@ -1,4 +1,5 @@
 <?php
+
 /**
  * License Info
  *
@@ -7,7 +8,7 @@
  * @author Ralph Schindler
  */
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
 interface TestSampleInterface
 {

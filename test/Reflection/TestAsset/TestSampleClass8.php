@@ -1,16 +1,16 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
-use Zend\Config as ZendConfig;
+use Laminas\Config as LaminasConfig;
 use FooBar\Foo\Bar;
 use One\Two\Three\Four\Five as ottff;
 
 class TestSampleClass8
 {
     /**
-     * @param Zend\Foo\Bar $var desc
-     * @return Zend\Code\Reflection\DocBlock
+     * @param Laminas\Foo\Bar $var desc
+     * @return Laminas\Code\Reflection\DocBlock
      */
     public function doSomething()
     {

@@ -1,9 +1,11 @@
 <?php
 
-namespace ZendTest\Code\TestAsset {
+namespace LaminasTest\Code\TestAsset {
 
-    use Foo\Bar;
     use A\B\C as X;
+use Foo\Bar;
+use OtherThing\SomethingElse;
+use Something\More as SM;
 
     class Baz
     {
@@ -12,9 +14,6 @@ namespace ZendTest\Code\TestAsset {
 
         }
     }
-
-    use Something\More as SM;
-    use OtherThing\SomethingElse;
 
     class ExtendingSomethingMore extends SM\Blah
     {
