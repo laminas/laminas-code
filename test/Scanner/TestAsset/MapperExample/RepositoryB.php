@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Code\Scanner\TestAsset\MapperExample;
+namespace LaminasTest\Code\Scanner\TestAsset\MapperExample;
 
 class RepositoryB extends RepositoryA
 {

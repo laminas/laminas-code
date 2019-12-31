@@ -1,37 +1,35 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\ClassReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @category   Laminas
+ * @package    Laminas_Reflection
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Reflection
- * @group      Zend_Reflection_DocBlock
+ * @copyright  Copyright (c) 2005-2012 Laminas (https://www.zend.com)
+ * @license    https://getlaminas.org/license/new-bsd     New BSD License
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_DocBlock
  */
 class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testDocBlockShortDescription()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
         $this->assertEquals('TestSampleClass5 DocBlock Short Desc', $classReflection->getDocBlock()->getShortDescription());
     }
 
     public function testDocBlockLongDescription()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
         $expectedOutput = 'This is a long description for the docblock of this class, it should be longer than 3 lines. It indeed is longer than 3 lines now.';
 
 
@@ -41,7 +39,7 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockTags()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $this->assertEquals(3, count($classReflection->getDocBlock()->getTags()));
         $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('author')));
@@ -49,17 +47,17 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($classReflection->getDocBlock()->getTags('method')));
 
         $methodTag = $classReflection->getDocBlock()->getTag('method');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
+        $this->assertInstanceOf('Laminas\Code\Reflection\DocBlock\Tag\MethodTag', $methodTag);
 
         $propertyTag = $classReflection->getDocBlock()->getTag('property');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\PropertyTag', $propertyTag);
+        $this->assertInstanceOf('Laminas\Code\Reflection\DocBlock\Tag\PropertyTag', $propertyTag);
 
         $this->assertFalse($classReflection->getDocBlock()->getTag('version'));
 
         $this->assertTrue($classReflection->getMethod('doSomething')->getDocBlock()->hasTag('return'));
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
-        $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\TagInterface', $returnTag);
+        $this->assertInstanceOf('Laminas\Code\Reflection\DocBlock\Tag\TagInterface', $returnTag);
         $this->assertEquals('mixed', $returnTag->getType());
 
 
@@ -69,7 +67,7 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
     {
         //$this->markTestIncomplete('Line numbers incomplete');
 
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocBlock = $classReflection->getDocBlock();
 
@@ -80,7 +78,7 @@ class DocBlockReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testDocBlockContents()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocBlock = $classReflection->getDocBlock();
 
@@ -105,7 +103,7 @@ EOS;
 
     public function testToString()
     {
-        $classReflection = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new ClassReflection('LaminasTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocBlock = $classReflection->getDocBlock();
 
