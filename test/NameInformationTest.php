@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code;
+namespace LaminasTest\Code;
 
-use Zend\Code\NameInformation;
+use Laminas\Code\NameInformation;
 
 class NameInformationTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,21 +44,21 @@ class NameInformationTest extends \PHPUnit_Framework_TestCase
     public function testNamespaceResolverCorrectlyResolvesNames()
     {
         $nr = new NameInformation;
-        $nr->setNamespace('Zend\MagicComponent');
+        $nr->setNamespace('Laminas\MagicComponent');
         $nr->setUses(array(
             'ArrayObject',
-            'Zend\OtherMagicComponent\Foo',
-            'Zend\SuperMagic' => 'SM',
+            'Laminas\OtherMagicComponent\Foo',
+            'Laminas\SuperMagic' => 'SM',
         ));
 
         // test against namespace
-        $this->assertEquals('Zend\MagicComponent\Bar', $nr->resolveName('Bar'));
+        $this->assertEquals('Laminas\MagicComponent\Bar', $nr->resolveName('Bar'));
 
         // test against uses
         $this->assertEquals('ArrayObject', $nr->resolveName('ArrayObject'));
         $this->assertEquals('ArrayObject', $nr->resolveName('\ArrayObject'));
-        $this->assertEquals('Zend\OtherMagicComponent\Foo', $nr->resolveName('Foo'));
-        $this->assertEquals('Zend\SuperMagic', $nr->resolveName('SM'));
-        $this->assertEquals('Zend\SuperMagic\Bar', $nr->resolveName('SM\Bar'));
+        $this->assertEquals('Laminas\OtherMagicComponent\Foo', $nr->resolveName('Foo'));
+        $this->assertEquals('Laminas\SuperMagic', $nr->resolveName('SM'));
+        $this->assertEquals('Laminas\SuperMagic\Bar', $nr->resolveName('SM\Bar'));
     }
 }
