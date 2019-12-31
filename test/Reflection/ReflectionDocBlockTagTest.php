@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
+use Laminas\Code\Generator\DocBlock\Tag\VarTag;
+use Laminas\Code\Reflection;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\DocBlock\Tag\VarTag;
-use Zend\Code\Reflection;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_DocBlock
- * @group      Zend_Reflection_DocBlock_Tag
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_DocBlock
+ * @group      Laminas_Reflection_DocBlock_Tag
  */
 class ReflectionDocBlockTagTest extends TestCase
 {
@@ -98,14 +97,14 @@ class ReflectionDocBlockTagTest extends TestCase
     }
 
     /**
-     * @group ZF-8307
+     * @group Laminas-8307
      */
     public function testNamespaceInParam()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass7::class);
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
-        self::assertEquals('Zend\Foo\Bar', $paramTag->getType());
+        self::assertEquals('Laminas\Foo\Bar', $paramTag->getType());
         self::assertEquals('$var', $paramTag->getVariableName());
         self::assertEquals('desc', $paramTag->getDescription());
     }
@@ -133,7 +132,7 @@ class ReflectionDocBlockTagTest extends TestCase
     }
 
     /**
-     * @group ZF-8307
+     * @group Laminas-8307
      */
     public function testReturnClassWithNamespace()
     {
@@ -141,7 +140,7 @@ class ReflectionDocBlockTagTest extends TestCase
 
         $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('return');
 
-        self::assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType());
+        self::assertEquals('Laminas\Code\Reflection\DocBlock', $paramTag->getType());
     }
 
     /**

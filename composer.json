@@ -1,44 +1,19 @@
 {
-    "name": "zendframework/zend-code",
+    "name": "laminas/laminas-code",
     "description": "Extensions to the PHP Reflection API, static code scanning, and code generation",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf",
-        "zendframework",
+        "laminas",
         "code"
     ],
+    "homepage": "https://laminas.dev",
     "support": {
-        "docs": "https://docs.zendframework.com/zend-code/",
-        "issues": "https://github.com/zendframework/zend-code/issues",
-        "source": "https://github.com/zendframework/zend-code",
-        "rss": "https://github.com/zendframework/zend-code/releases.atom",
-        "chat": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions/components"
-    },
-    "require": {
-        "php": "^7.1",
-        "zendframework/zend-eventmanager": "^2.6 || ^3.0"
-    },
-    "require-dev": {
-        "ext-phar": "*",
-        "doctrine/annotations": "^1.0",
-        "phpunit/phpunit": "^7.5.16 || ^8.4",
-        "zendframework/zend-coding-standard": "^1.0",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0"
-    },
-    "suggest": {
-        "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
-        "zendframework/zend-stdlib": "Zend\\Stdlib component"
-    },
-    "autoload": {
-        "psr-4": {
-            "Zend\\Code\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ZendTest\\Code\\": "test/"
-        }
+        "docs": "https://docs.laminas.dev/laminas-code/",
+        "issues": "https://github.com/laminas/laminas-code/issues",
+        "source": "https://github.com/laminas/laminas-code",
+        "rss": "https://github.com/laminas/laminas-code/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
     "config": {
         "sort-packages": true
@@ -47,6 +22,32 @@
         "branch-alias": {
             "dev-master": "3.4.x-dev",
             "dev-develop": "3.5.x-dev"
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "laminas/laminas-eventmanager": "^2.6 || ^3.0",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "ext-phar": "*",
+        "doctrine/annotations": "^1.0",
+        "laminas/laminas-coding-standard": "^1.0",
+        "laminas/laminas-stdlib": "^2.7 || ^3.0",
+        "phpunit/phpunit": "^7.5.16 || ^8.4"
+    },
+    "suggest": {
+        "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
+        "laminas/laminas-stdlib": "Laminas\\Stdlib component"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Code\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\Code\\": "test/"
         }
     },
     "scripts": {
@@ -58,5 +59,8 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-code": "self.version"
     }
 }

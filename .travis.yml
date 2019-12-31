@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 cache:
@@ -10,37 +8,28 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="php-coveralls/php-coveralls"
-    - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
+    - TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
 
 matrix:
+  fast_finish: true
   include:
     - php: 7.1
       env:
         - DEPS=lowest
     - php: 7.1
       env:
-        - DEPS=locked
-        - LEGACY_DEPS="phpunit/phpunit"
+        - DEPS=latest
         - CS_CHECK=true
         - TEST_COVERAGE=true
-    - php: 7.1
-      env:
-        - DEPS=latest
     - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7.2
-      env:
-        - DEPS=locked
     - php: 7.2
       env:
         - DEPS=latest
     - php: 7.3
       env:
         - DEPS=lowest
-    - php: 7.3
-      env:
-        - DEPS=locked
     - php: 7.3
       env:
         - DEPS=latest

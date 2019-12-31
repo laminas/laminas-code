@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
-use ZendTest\Code\Reflection\TestAsset\SampleAnnotation as Sample;
+use LaminasTest\Code\Reflection\TestAsset\SampleAnnotation as Sample;
 
 class TestSampleClass2 implements \IteratorAggregate
 {

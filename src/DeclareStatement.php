@@ -1,8 +1,8 @@
 <?php
 
-namespace Zend\Code;
+namespace Laminas\Code;
 
-use Zend\Code\Exception\InvalidArgumentException;
+use Laminas\Code\Exception\InvalidArgumentException;
 
 class DeclareStatement
 {
