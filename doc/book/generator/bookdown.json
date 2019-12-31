@@ -1,5 +1,5 @@
 {
-  "title": "zend-code Generator Component",
+  "title": "laminas-code Generator Component",
   "content": [
     {"Intro": "intro.md"},
     {"Examples": "examples.md"},

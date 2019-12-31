@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Exception\InvalidArgumentException;
-use Zend\Code\Generator\GeneratorInterface;
-use Zend\Code\Generator\TypeGenerator;
+use Laminas\Code\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\GeneratorInterface;
+use Laminas\Code\Generator\TypeGenerator;
 
 /**
  * @group zendframework/zend-code#29
  *
  * @requires PHP 7.0
  *
- * @covers \Zend\Code\Generator\TypeGenerator
+ * @covers \Laminas\Code\Generator\TypeGenerator
  */
 class TypeGeneratorTest extends \PHPUnit_Framework_TestCase
 {
