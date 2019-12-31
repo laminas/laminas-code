@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 branches:
@@ -13,7 +11,7 @@ cache:
 
 env:
   global:
-    - TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
+    - TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT=true
 
 matrix:
   fast_finish: true
@@ -31,7 +29,6 @@ matrix:
     - php: hhvm
 
 notifications:
-  irc: "irc.freenode.org#zftalk.dev"
   email: false
 
 before_install:

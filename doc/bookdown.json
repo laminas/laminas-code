@@ -1,5 +1,5 @@
 {
-  "title": "zend-code: Tools for reflecting, scanning, and generating PHP code",
+  "title": "laminas-code: Tools for reflecting, scanning, and generating PHP code",
   "content": [
     {"Intro": "../README.md"},
     "book/generator/bookdown.json",
