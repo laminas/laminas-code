@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extensions to the PHP Reflection API, static code scanning, and code generation">  
+    <link rel="canonical" href="https://docs.laminas.dev/generator/reference/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Reference - laminas-code - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-code</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Code Generation</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../examples/" class="subnavigation__link">Examples</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Reference</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../migration/" class="subnavigation__link">Migration</a>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-code</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-code/" class="header__link header__link--github" title="Go to repository of laminas-code">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#abstract-classes-and-interfaces" class="toc__link">Abstract Classes and Interfaces</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#concrete-codegenerator-classes" class="toc__link">Concrete CodeGenerator Classes</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">laminas-code</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Code Generation</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Reference</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Code Generation</h2>
+    
+
+    <h1 id="laminas92code92generator-reference">Laminas\Code\Generator Reference</h1>
+<h2 id="abstract-classes-and-interfaces">Abstract Classes and Interfaces</h2>
+<h3>Laminas\Code\Generator\GeneratorInterface</h3>
+<p>The base interface from which all CodeGenerator classes implement provides the minimal functionality
+necessary. It's <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>interface Laminas\Code\Generator\GeneratorInterface</span>
+<span class=x>{</span>
+<span class=x>    public function generate();</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\AbstractGenerator</h3>
+<p><code>Laminas\Code\Generator\AbstractGenerator</code> implements <code>Laminas\Code\Generator\GeneratorInterface</code>, and
+adds some properties for tracking whether content has changed as well as the amount of indentation
+that should appear before generated content. Its <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>abstract class Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>    implements Laminas\Code\Generator\GeneratorInterface</span>
+<span class=x>{</span>
+<span class=x>    public function __construct(Array|Traversable $options = [])</span>
+<span class=x>    public function setOptions(Array $options)</span>
+<span class=x>    public function setSourceContent($sourceContent)</span>
+<span class=x>    public function getSourceContent()</span>
+<span class=x>    public function setSourceDirty($isSourceDirty = true)</span>
+<span class=x>    public function isSourceDirty()</span>
+<span class=x>    public function setIndentation($indentation)</span>
+<span class=x>    public function getIndentation()</span>
+<span class=x>}</span>
+</pre></div></p>
+<p>The constructor passes the <code>$options</code> parameter to <code>setOptions()</code>.</p>
+<p>Like most classes in Laminas, <code>setOptions()</code> compares an option key to existing setters in
+the class, and passes the value on to that method if found.</p>
+<p><code>setSourceContent()</code> and <code>getSourceContent()</code> are intended to either set the default content for the
+code being generated, or to replace said content once all generation tasks are complete.</p>
+<h3>Laminas\Code\Generator\AbstractMemberGenerator</h3>
+<p><code>Laminas\Code\Generator\AbstractMemberGenerator</code> is a base class for generating class members --
+properties and methods -- and provides accessors and mutators for establishing visibility; whether
+or not the member is abstract, static, or final; and the name of the member. Its <em>API</em> is as
+follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>abstract class Laminas\Code\Generator\AbstractMemberGenerator</span>
+<span class=x>    extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public function setAbstract($isAbstract)</span>
+<span class=x>    public function isAbstract()</span>
+<span class=x>    public function setStatic($isStatic)</span>
+<span class=x>    public function isStatic()</span>
+<span class=x>    public function setVisibility($visibility)</span>
+<span class=x>    public function getVisibility()</span>
+<span class=x>    public function setName($name)</span>
+<span class=x>    public function getName()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h2 id="concrete-codegenerator-classes">Concrete CodeGenerator Classes</h2>
+<h3>Laminas\Code\Generator\BodyGenerator</h3>
+<p><code>Laminas\Code\Generator\BodyGenerator</code> is intended for generating arbitrary procedural code to include
+within a file. As such, you simply set content for the object, and it will return that content when
+you invoke <code>generate()</code>.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\BodyGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public function setContent($content)</span>
+<span class=x>    public function getContent()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\ClassGenerator</h3>
+<p><code>Laminas\Code\Generator\ClassGenerator</code> is intended for generating <em>PHP</em> classes. The basic
+functionality just generates the <em>PHP</em> class itself, as well as optionally the related <em>PHP</em>
+DocBlock. Classes may implement or inherit from other classes, and may be marked as abstract.
+Utilizing other code generator classes, you can also attach class constants, properties, and
+methods.</p>
+<p>The <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\ClassGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\ClassReflection $reflectionClass</span>
+<span class=x>    )</span>
+<span class=x>    public function addConstants(Array $properties)</span>
+<span class=x>    public function addConstant($property)</span>
+<span class=x>    public function getConstants()</span>
+<span class=x>    public function getConstant($propertyName)</span>
+<span class=x>    public function removeConstant($constantName)</span>
+<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
+<span class=x>    public function getDocblock()</span>
+<span class=x>    public function setName($name)</span>
+<span class=x>    public function getName()</span>
+<span class=x>    public function setAbstract($isAbstract)</span>
+<span class=x>    public function isAbstract()</span>
+<span class=x>    public function setExtendedClass($extendedClass)</span>
+<span class=x>    public function getExtendedClass()</span>
+<span class=x>    public function hasExtentedClass()</span>
+<span class=x>    public function removeExtentedClass()</span>
+<span class=x>    public function setImplementedInterfaces(Array $implementedInterfaces)</span>
+<span class=x>    public function getImplementedInterfaces()</span>
+<span class=x>    public function addProperties(Array $properties)</span>
+<span class=x>    public function addProperty($property)</span>
+<span class=x>    public function getProperties()</span>
+<span class=x>    public function getProperty($propertyName)</span>
+<span class=x>    public function removeProperty($propertyName)</span>
+<span class=x>    public function addMethods(Array $methods)</span>
+<span class=x>    public function addMethod(</span>
+<span class=x>        $name,</span>
+<span class=x>        Array $parameters = [],</span>
+<span class=x>        $flags = Laminas\Code\Generator\MethodGenerator::FLAG_PUBLIC,</span>
+<span class=x>        $body = null,</span>
+<span class=x>        $docBlock = null</span>
+<span class=x>    )</span>
+<span class=x>    public function getMethods()</span>
+<span class=x>    public function getMethod($methodName)</span>
+<span class=x>    public function hasMethod($methodName)</span>
+<span class=x>    public function hasUse($use)</span>
+<span class=x>    public function removeUse($use)</span>
+<span class=x>    public function hasUseAlias($use)</span>
+<span class=x>    public function removeUseAlias($use)</span>
+<span class=x>    public function hasImplementedInterface($implementedInterface)</span>
+<span class=x>    public function removeImplementedInterface($implementedInterface)</span>
+<span class=x>    public function isSourceDirty()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<p>The <code>addProperty()</code> method accepts an array of information that may be used to generate a
+<code>Laminas\Code\Generator\PropertyGenerator</code> instance -- or simply an instance of
+<code>Laminas\Code\Generator\PropertyGenerator</code>. Likewise, <code>addMethod()</code> accepts either an array of
+information for generating a <code>Laminas\Code\Generator\MethodGenerator</code> instance or a concrete instance
+of that class.</p>
+<p>Note that <code>setDocBlock()</code> expects an instance of <code>Laminas\Code\Generator\DocBlockGenerator</code>.</p>
+<h3>Laminas\Code\Generator\DocBlockGenerator</h3>
+<p><code>Laminas\Code\Generator\DocBlockGenerator</code> can be used to generate arbitrary <em>PHP</em> docblocks, including
+all the standard docblock features: short and long descriptions and annotation tags.</p>
+<p>Annotation tags may be set using the <code>setTag()</code> and <code>setTags()</code> methods; these each take either an
+array describing the tag that may be passed to the <code>Laminas\Code\Generator\DocBlock\Tag</code> constructor,
+or an instance of that class.</p>
+<p>The <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlockGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\DocblockReflection $reflectionDocblock</span>
+<span class=x>    )</span>
+<span class=x>    public function setShortDescription($shortDescription)</span>
+<span class=x>    public function getShortDescription()</span>
+<span class=x>    public function setLongDescription($longDescription)</span>
+<span class=x>    public function getLongDescription()</span>
+<span class=x>    public function setTags(Array $tags)</span>
+<span class=x>    public function setTag($tag)</span>
+<span class=x>    public function getTags()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\DocBlock\Tag</h3>
+<p><code>Laminas\Code\Generator\DocBlock\Tag</code> is intended for creating arbitrary annotation tags for inclusion
+in <em>PHP</em> docblocks. Tags are expected to contain a name (the portion immediately following the '@'
+symbol) and a description (everything following the tag name).</p>
+<p>The class <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag</span>
+<span class=x>    extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTag</span>
+<span class=x>    )</span>
+<span class=x>    public function setName($name)</span>
+<span class=x>    public function getName()</span>
+<span class=x>    public function setDescription($description)</span>
+<span class=x>    public function getDescription()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\DocBlock\Tag\ParamTag</h3>
+<p><code>Laminas\Code\Generator\DocBlock\Tag\ParamTag</code> is a specialized version of
+<code>Laminas\Code\Generator\DocBlock\Tag</code>, and represents a method parameter. The tag name is therefor
+known ("param"), but due to the format of this annotation tag, additional information is required in
+order to generate it: the parameter name and data type it represents.</p>
+<p>The class <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag\ParamTag</span>
+<span class=x>    extends Laminas\Code\Generator\DocBlock\Tag</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagParam</span>
+<span class=x>    )</span>
+<span class=x>    public function setDatatype($datatype)</span>
+<span class=x>    public function getDatatype()</span>
+<span class=x>    public function setParamName($paramName)</span>
+<span class=x>    public function getParamName()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</h3>
+<p>Like the param docblock tag variant, <code>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</code> is an annotation
+tag variant for representing a method return value. In this case, the annotation tag name is known
+("return"), but requires a return type.</p>
+<p>The class <em>API</em> is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag\ParamTag</span>
+<span class=x>    extends Laminas\Code\Generator\DocBlock\Tag</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagReturn</span>
+<span class=x>    )</span>
+<span class=x>    public function setDatatype($datatype)</span>
+<span class=x>    public function getDatatype()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\FileGenerator</h3>
+<p><code>Laminas\Code\Generator\FileGenerator</code> is used to generate the full contents of a file that will
+contain <em>PHP</em> code. The file may contain classes or arbitrary <em>PHP</em> code, as well as a file-level
+docblock if desired.</p>
+<p>When adding classes to the file, you will need to pass either an array of information to pass to the
+<code>Laminas\Code\Generator\ClassGenerator</code> constructor, or an instance of that class. Similarly, with
+docblocks, you will need to pass information for the <code>Laminas\Code\Generator\DocBlockGenerator</code>
+constructor to consume or an instance of the class.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\FileGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflectedFilePath(</span>
+<span class=x>        $filePath,</span>
+<span class=x>        $usePreviousCodeGeneratorIfItExists = true,</span>
+<span class=x>        $includeIfNotAlreadyIncluded = true)</span>
+<span class=x>    public static function fromReflection(Laminas\Code\Reflection\FileReflection $reflectionFile)</span>
+<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
+<span class=x>    public function getDocblock()</span>
+<span class=x>    public function setRequiredFiles($requiredFiles)</span>
+<span class=x>    public function getRequiredFiles()</span>
+<span class=x>    public function setClasses(Array $classes)</span>
+<span class=x>    public function getClass($name = null)</span>
+<span class=x>    public function setClass($class)</span>
+<span class=x>    public function setFilename($filename)</span>
+<span class=x>    public function getFilename()</span>
+<span class=x>    public function getClasses()</span>
+<span class=x>    public function setBody($body)</span>
+<span class=x>    public function getBody()</span>
+<span class=x>    public function isSourceDirty()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\Member\ContainerGenerator</h3>
+<p><code>Laminas\Code\Generator\Member\ContainerGenerator</code> is used internally by
+<code>Laminas\Code\Generator\ClassGenerator</code> to keep track of class members -- properties and methods alike.
+These are indexed by name, using the concrete instances of the members as values.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\Member\ContainerGenerator extends ArrayObject</span>
+<span class=x>{</span>
+<span class=x>    public function __construct($type = self::TYPE_PROPERTY)</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\MethodGenerator</h3>
+<p><code>Laminas\Code\Generator\MethodGenerator</code> describes a class method, and can generate both the code and
+the docblock for the method. The visibility and status as static, abstract, or final may be
+indicated, per its parent class, <code>Laminas\Code\Generator\AbstractMemberGenerator</code>. Finally, the
+parameters and return value for the method may be specified.</p>
+<p>Parameters may be set using <code>setParameter()</code> or <code>setParameters()</code>. In each case, a parameter should
+either be an array of information to pass to the <code>Laminas\Code\Generator\ParameterGenerator</code>
+constructor or an instance of that class.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\MethodGenerator</span>
+<span class=x>    extends Laminas\Code\Generator\AbstractMemberGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\MethodReflection $reflectionMethod</span>
+<span class=x>    )</span>
+<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
+<span class=x>    public function getDocblock()</span>
+<span class=x>    public function setFinal($isFinal)</span>
+<span class=x>    public function setParameters(Array $parameters)</span>
+<span class=x>    public function setParameter($parameter)</span>
+<span class=x>    public function getParameters()</span>
+<span class=x>    public function setBody($body)</span>
+<span class=x>    public function getBody()</span>
+<span class=x>    public function generate()</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Laminas\Code\Generator\ParameterGenerator</h3>
+<p><code>Laminas\Code\Generator\ParameterGenerator</code> may be used to specify method parameters. Each parameter
+may have a position (if unspecified, the order in which they are registered with the method will be
+used), a default value, and a data type; a parameter name is required.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\ParameterGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\ParameterReflection $reflectionParameter</span>
+<span class=x>    )</span>
+<span class=x>    public function setType($type)</span>
+<span class=x>    public function getType()</span>
+<span class=x>    public function setName($name)</span>
+<span class=x>    public function getName()</span>
+<span class=x>    public function setDefaultValue($defaultValue)</span>
+<span class=x>    public function getDefaultValue()</span>
+<span class=x>    public function setPosition($position)</span>
+<span class=x>    public function getPosition()</span>
+<span class=x>    public function getPassedByReference()</span>
+<span class=x>    public function setPassedByReference($passedByReference)</span>
+<span class=x>    public function generate()</span>
+<span class=x>    public function omitDefaultValue()</span>
+<span class=x>}</span>
+</pre></div></p>
+<p>There are several problems that might occur when trying to set <code>NULL</code>, booleans or arrays as default
+values. For this the value holder object <code>Laminas\Code\Generator\ParameterDefaultValueGenerator</code> can be
+used, for example:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>$parameter = new Laminas\Code\Generator\ParameterGenerator();</span>
+<span class=x>$parameter-&gt;setDefaultValue(</span>
+<span class=x>    new Laminas\Code\Generator\ValueGenerator(&quot;null&quot;)</span>
+<span class=x>);</span>
+<span class=x>$parameter-&gt;setDefaultValue(</span>
+<span class=x>    new Laminas\Code\Generator\ValueGenerator(&quot;[&#39;foo&#39;, &#39;bar&#39;]&quot;)</span>
+<span class=x>);</span>
+</pre></div></p>
+<p>Internally <code>setDefaultValue()</code> also converts the values which can't be expressed in <em>PHP</em> into the
+value holder.</p>
+<h3>Laminas\Code\Generator\PropertyGenerator</h3>
+<p><code>Laminas\Code\Generator\PropertyGenerator</code> describes a class property, which may be either a constant
+or a variable. In each case, the property may have an optional default value associated with it.
+Additionally, the visibility of variable properties may be set, per the parent class,
+<code>Laminas\Code\Generator\AbstractMemberGenerator</code>.</p>
+<p>The <em>API</em> of the class is as follows:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\PropertyGenerator</span>
+<span class=x>    extends Laminas\Code\Generator\AbstractMemberGenerator</span>
+<span class=x>{</span>
+<span class=x>    public static function fromReflection(</span>
+<span class=x>        Laminas\Code\Reflection\PropertyReflection $reflectionProperty</span>
+<span class=x>    )</span>
+<span class=x>    public function setConst($const)</span>
+<span class=x>    public function isConst()</span>
+<span class=x>    public function setDefaultValue($defaultValue)</span>
+<span class=x>    public function getDefaultValue()</span>
+<span class=x>    public function generate()</span>
+<span class=x>    public function omitDefaultValue()</span>
+<span class=x>}</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../examples/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../migration/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-code/edit/master/docs/book/generator/reference.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-code</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Code Generation</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../examples/" class="subnavigation__link">Examples</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Reference</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../migration/" class="subnavigation__link">Migration</a>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'laminas-code';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-code" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

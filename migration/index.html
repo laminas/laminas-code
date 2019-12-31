@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extensions to the PHP Reflection API, static code scanning, and code generation">  
+    <link rel="canonical" href="https://docs.laminas.dev/migration/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Migration - laminas-code - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-code</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Code Generation</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/examples/" class="subnavigation__link">Examples</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/reference/" class="subnavigation__link">Reference</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item subnavigation__list-item--active">
+                                <a href="./" class="subnavigation__link">Migration</a>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-code</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-code/" class="header__link header__link--github" title="Go to repository of laminas-code">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#string-int-float-bool-are-no-longer-ignored" class="toc__link">string, int, float, bool are no longer ignored</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#parameterreflectiongettype-changes" class="toc__link">ParameterReflection::getType() changes</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#docblock-types-ignored-by-parametergeneratorfromreflection" class="toc__link">DocBlock types ignored by ParameterGenerator::fromReflection()</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#type-strings-are-validated" class="toc__link">Type strings are validated</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#generated-type-hints-are-now-prefixed-by" class="toc__link">Generated type-hints are now prefixed by "\"</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#parametergeneratorsimple-was-removed" class="toc__link">ParameterGenerator::$simple was removed</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#parametergeneratortype-has-changed" class="toc__link">ParameterGenerator::$type has changed</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-code</a></li>
+
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Migration</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+
+    <h1 id="migrating-from-laminas-code-v2-to-v3">Migrating from laminas-code v2 to v3</h1>
+<h2 id="string-int-float-bool-are-no-longer-ignored"><code>string</code>, <code>int</code>, <code>float</code>, <code>bool</code> are no longer ignored</h2>
+<p>In 2.x, a <code>Laminas\Code\Generator\ParameterGenerator</code> with name <code>foo</code> and type
+<code>string</code>, <code>int</code>, <code>float</code> or <code>bool</code> simply generated code <code>"$foo"</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>$generator = new \Laminas\Code\ParameterGenerator(&#39;foo&#39;);</span>
+
+<span class=x>$generator-&gt;setType(&#39;string&#39;);</span>
+
+<span class=x>echo $generator-&gt;generate(); // &quot;$foo&quot;</span>
+</pre></div></p>
+<p>In 3.x, this code will instead produce <code>"string $foo"</code>.
+If you generate code that should run in PHP 5.x, it is advisable to strip
+<code>string</code>, <code>int</code>, <code>float</code> and <code>bool</code> from type definitions passed to
+<code>Laminas\Code\ParameterGenerator</code> instances. The quickest way is to set the
+type to <code>null</code>, if it matches any of these scalar types:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>if (in_array($type, [&#39;string&#39;, &#39;int&#39;, &#39;float&#39;, &#39;bool&#39;])) {</span>
+<span class=x>    $type = null;</span>
+<span class=x>}</span>
+
+<span class=x>$generator-&gt;setType($type);</span>
+</pre></div></p>
+<h2 id="parameterreflectiongettype-changes"><code>ParameterReflection::getType()</code> changes</h2>
+<p>PHP 7 introduced <a href="http://php.net/manual/en/reflectionparameter.gettype.php"><code>ReflectionParameter#getType()</code></a>.</p>
+<p>In order to not override this method, <code>Laminas\Code\Reflection\ParameterReflection#getType()</code>
+was renamed to <code>Laminas\Code\Reflection\ParameterReflection#detectType()</code>.</p>
+<p>If you relied on <code>Laminas\Code\Reflection\ParameterReflection#getType()</code>, you can
+simply replace the method calls in your code.</p>
+<h2 id="docblock-types-ignored-by-parametergeneratorfromreflection">DocBlock types ignored by <code>ParameterGenerator::fromReflection()</code></h2>
+<p>As a direct consequence of the previous change, calls to
+<code>Laminas\Code\Generator\ParameterGenerator::fromReflection()</code> will not mirror the
+type hints read from a method's DocBlock.</p>
+<p>As an example, take following code:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>class Foo</span>
+<span class=x>{</span>
+<span class=x>    /**</span>
+<span class=x>     * @param string $baz</span>
+<span class=x>     */</span>
+<span class=x>    public function bar($baz)</span>
+<span class=x>    {</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+
+<span class=x>$methodGenerator = \Laminas\Code\Generator\MethodGenerator::fromReflection(</span>
+<span class=x>    new \Laminas\Code\Reflection\MethodReflection(&#39;Foo&#39;, &#39;bar&#39;)</span>
+<span class=x>);</span>
+
+<span class=x>var_dump($methodGenerator-&gt;getParameters()[0]-&gt;getType());</span>
+</pre></div></p>
+<p>In version 2.x, this code produces <code>"string"</code>, in version 3.x it returns <code>null</code>. If you
+need to rely on the types in the annotations, please use
+<code>Laminas\Code\Reflection\ParameterReflection#detectType()</code> instead, and build a
+<code>MethodGenerator</code> instance manually.</p>
+<p>This change is required: since signatures in PHP 7 include scalar type hints.
+That also means that reflecting scalar type hints from DocBlocks into the
+signature of a generated method may lead to fatal errors (due to signature
+mismatch) at runtime.</p>
+<h2 id="type-strings-are-validated">Type strings are validated</h2>
+<p>If you attempt to generate type-hints for parameters or return types, those types are
+now validated before the code is generated.</p>
+<p>Be sure to check which values you pass to <code>Laminas\Code\Generator\MethodGenerator#setReturnType()</code>
+or <code>Laminas\Code\Generator\ParameterGenerator#setType()</code>, as you may incur in a
+<code>Laminas\Code\Generator\Exception\InvalidArgumentException</code> being thrown if any
+of those types are invalid strings:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>$parameterGenerator-&gt;setType(&#39;foo&#39;); // valid</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;array&#39;); // valid</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;bool&#39;); // valid</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;123&#39;); // invalid (throws exception)</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;&#39;); // invalid (throws exception)</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;*&#39;); // invalid (throws exception)</span>
+<span class=x>$parameterGenerator-&gt;setType(&#39;\\&#39;); // invalid (throws exception)</span>
+</pre></div></p>
+<h2 id="generated-type-hints-are-now-prefixed-by">Generated type-hints are now prefixed by <code>"\"</code></h2>
+<p>Generated type-hints are now prefixed with the <code>NAMESPACE_SEPARATOR</code>,
+<code>"\"</code>.</p>
+<p>Take following example code:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>$parameter = new \Laminas\Code\Generator\ParameterGenerator(&#39;bar&#39;, &#39;baz&#39;);</span>
+<span class=x>$method    = new \Laminas\Code\Generator\MethodGenerator(&#39;foo&#39;, [$parameter]);</span>
+
+<span class=x>$method-&gt;setReturnType(&#39;tab&#39;);</span>
+
+<span class=x>echo $method-&gt;generate();</span>
+</pre></div></p>
+<p>This code produces <code>public function foo(baz $bar) {}</code> in 2.x.
+In version 3.x, it produces <code>public function foo(\baz $bar) : \tab {}</code>.</p>
+<p>In order to avoid migration problems, be sure to always pass fully qualified class
+names to <code>Laminas\Code\Generator\MethodGenerator</code> and <code>Laminas\Code\Generator\ParameterGenerator</code>.</p>
+<h2 id="parametergeneratorsimple-was-removed"><code>ParameterGenerator::$simple</code> was removed</h2>
+<p>If you extended <code>Laminas\Code\Generator\ParameterGenerator</code>, be sure to check if you
+are accessing the protected static variable <code>$simple</code>: it was removed, and you should
+adapt your code by either copying it into your class or avoiding its usage.</p>
+<h2 id="parametergeneratortype-has-changed"><code>ParameterGenerator::$type</code> has changed</h2>
+<p>If you extended <code>Laminas\Code\Generator\ParameterGenerator</code>, be sure to check if you
+are accessing the protected variable <code>$type</code>: its type has changed.
+While it can still be used as a string via an explicit <code>(string)</code> cast, the type of
+this protected member is now <code>null|Laminas\Code\Generator\TypeGenerator</code>.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../generator/reference/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-code/edit/master/docs/book/migration.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-code</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Code Generation</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/examples/" class="subnavigation__link">Examples</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../generator/reference/" class="subnavigation__link">Reference</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item subnavigation__list-item--active">
+                                <a href="./" class="subnavigation__link">Migration</a>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-code';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-code" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
