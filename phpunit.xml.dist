@@ -4,7 +4,7 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <testsuites>
-        <testsuite name="zend-code Test Suite">
+        <testsuite name="laminas-code Test Suite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
@@ -18,6 +18,6 @@
     <php>
         <!-- Enable this if you have installed Doctrine\Common on the
              include_path or via Composer. -->
-        <env name="TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
+        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
     </php>
 </phpunit>
