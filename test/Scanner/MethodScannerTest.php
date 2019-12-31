@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
-use Zend\Code\Scanner\FileScanner;
+use Laminas\Code\Scanner\FileScanner;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MethodScannerTest extends TestCase
@@ -17,7 +16,7 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerHasMethodInformation()
     {
         $file   = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class  = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class  = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
         $method = $class->getMethod('fooBarBaz');
         $this->assertEquals('fooBarBaz', $method->getName());
         $this->assertFalse($method->isAbstract());
@@ -31,7 +30,7 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerReturnsParameters()
     {
         $file       = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class      = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class      = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $method     = $class->getMethod('three');
         $parameters = $method->getParameters();
         $this->assertInternalType('array', $parameters);
@@ -40,11 +39,11 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerReturnsParameterScanner()
     {
         $file   = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class  = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class  = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $method = $class->getMethod('three');
         $this->assertEquals(array('o', 't', 'bbf'), $method->getParameters());
         $parameter = $method->getParameter('t');
-        $this->assertInstanceOf('Zend\Code\Scanner\ParameterScanner', $parameter);
+        $this->assertInstanceOf('Laminas\Code\Scanner\ParameterScanner', $parameter);
         $this->assertEquals('t', $parameter->getName());
     }
 
@@ -59,7 +58,7 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerReturnsLineNumbersForMethods()
     {
         $file       = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class      = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class      = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $method     = $class->getMethod('three');
         $this->assertEquals(27, $method->getLineStart());
         $this->assertEquals(31, $method->getLineEnd());
@@ -68,7 +67,7 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerReturnsBodyMethods()
     {
         $file     = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class    = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class    = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $method   = $class->getMethod('three');
         $expected = "\n" . '        $x = 5 + 5;' . "\n" . '        $y = \'this string\';' . "\n    ";
         $this->assertEquals($expected, $method->getBody());
@@ -77,7 +76,7 @@ class MethodScannerTest extends TestCase
     public function testMethodScannerMethodSignatureLatestOptionalParamHasParentheses()
     {
         $file       = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
-        $class      = $file->getClass('ZendTest\Code\TestAsset\BarClass');
+        $class      = $file->getClass('LaminasTest\Code\TestAsset\BarClass');
         $method = $class->getMethod('four');
         $paramTwo = $method->getParameter(1);
         $optionalValue = $paramTwo->getDefaultValue();

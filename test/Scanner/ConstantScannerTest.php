@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
-use Zend\Code\Scanner\FileScanner;
+use Laminas\Code\Scanner\FileScanner;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class ConstantScannerTest extends TestCase
@@ -17,7 +16,7 @@ class ConstantScannerTest extends TestCase
     public function testConstantScannerHasConstantInformation()
     {
         $file = new FileScanner(__DIR__ . '/../TestAsset/FooClass.php');
-        $class = $file->getClass('ZendTest\Code\TestAsset\FooClass');
+        $class = $file->getClass('LaminasTest\Code\TestAsset\FooClass');
 
         $constant = $class->getConstant('BAR');
         $this->assertEquals('BAR', $constant->getName());
