@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
-use Zend\Code\Scanner\DocBlockScanner;
+use Laminas\Code\Scanner\DocBlockScanner;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @group      Zend_Code_Scanner
+ * @group      Laminas_Code_Scanner
  */
 class DocBlockScannerTest extends TestCase
 {
     /**
-     * @group ZF2-110
+     * @group Laminas-110
      */
     public function testDocBlockScannerParsesTagsWithNoValuesProperly()
     {

@@ -1,17 +1,17 @@
-# Zend\\Code\\Generator Examples
+# Laminas\\Code\\Generator Examples
 
 ## Generating PHP classes
 
 The following example generates an empty class with a class-level DocBlock.
 
 ```php
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
 
 $foo      = new ClassGenerator();
 $docblock = DocBlockGenerator::fromArray(array(
     'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
+    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
     'tags'             => array(
         array(
             'name'        => 'version',
@@ -34,7 +34,7 @@ The above code will result in the following:
 /**
  * Sample generated class
  *
- * This is a class generated with Zend\Code\Generator.
+ * This is a class generated with Laminas\Code\Generator.
  *
  * @version $Rev:$
  * @license New BSD
@@ -51,14 +51,14 @@ class Foo
 Building on the previous example, we now add properties to our generated class.
 
 ```php
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
 
 $foo      = new ClassGenerator();
 $docblock = DocBlockGenerator::fromArray(array(
     'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
+    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
     'tags'             => array(
         array(
             'name'        => 'version',
@@ -88,7 +88,7 @@ The above results in the following class definition:
 /**
  * Sample generated class
  *
- * This is a class generated with Zend\Code\Generator.
+ * This is a class generated with Laminas\Code\Generator.
  *
  * @version $Rev:$
  * @license New BSD
@@ -108,21 +108,21 @@ class Foo
 
 ### Generating PHP classes with class methods
 
-`Zend\Code\Generator\ClassGenerator` allows you to attach methods with optional content to your
-classes. Methods may be attached as either arrays or concrete `Zend\Code\Generator\MethodGenerator`
+`Laminas\Code\Generator\ClassGenerator` allows you to attach methods with optional content to your
+classes. Methods may be attached as either arrays or concrete `Laminas\Code\Generator\MethodGenerator`
 instances.
 
 ```php
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
 
 $foo      = new ClassGenerator();
 $docblock = DocBlockGenerator::fromArray(array(
     'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Zend\Code\Generator.',
+    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
     'tags'             => array(
         array(
             'name'        => 'version',
@@ -190,7 +190,7 @@ The above generates the following output:
 /**
  * Sample generated class
  *
- * This is a class generated with Zend\Code\Generator.
+ * This is a class generated with Laminas\Code\Generator.
  *
  * @version $Rev:$
  * @license New BSD
@@ -231,16 +231,16 @@ class Foo
 
 ## Generating PHP files
 
-`Zend\Code\Generator\FileGenerator` can be used to generate the contents of a *PHP* file. You can
+`Laminas\Code\Generator\FileGenerator` can be used to generate the contents of a *PHP* file. You can
 include classes as well as arbitrary content body. When attaching classes, you should attach either
-concrete `Zend\Code\Generator\ClassGenerator` instances or an array defining the class.
+concrete `Laminas\Code\Generator\ClassGenerator` instances or an array defining the class.
 
 In the example below, we will assume you've defined `$foo` per one of the class definitions in a
 previous example.
 
 ```php
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
 
 $file = FileGenerator::fromArray(array(
     'classes'  => array($foo),
@@ -279,7 +279,7 @@ The above will generate the following file:
 /**
  * Sample generated class
  *
- * This is a class generated with Zend\Code\Generator.
+ * This is a class generated with Laminas\Code\Generator.
  *
  * @version $Rev:$
  * @license New BSD
@@ -328,7 +328,7 @@ You can add *PHP* code to an existing *PHP* file using the code generator. To do
 first do reflection on it. The static method `fromReflectedFileName()` allows you to do this.
 
 ```php
-$generator = Zend\Code\Generator\FileGenerator::fromReflectedFileName($path);   
+$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);   
 $generator->setBody("\$foo->bar();");
 file_put_contents($path, $generator->generate());
 ```
@@ -340,11 +340,11 @@ map the class into a generator object. From there, you may add additional proper
 then regenerate the class.
 
 ```php
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\DocBlock\Tag;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Reflection\ClassReflection;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Reflection\ClassReflection;
 
 $generator = ClassGenerator::fromReflection(
     new ClassReflection($class)

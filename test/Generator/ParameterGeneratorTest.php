@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\ValueGenerator;
-use Zend\Code\Reflection\ParameterReflection;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\ValueGenerator;
+use Laminas\Code\Reflection\ParameterReflection;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -114,7 +113,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testCallableTypeHint()
     {
         $parameter = ParameterGenerator::fromReflection(
-            new ParameterReflection(['ZendTest\Code\Generator\TestAsset\CallableTypeHintClass', 'foo'], 'bar')
+            new ParameterReflection(['LaminasTest\Code\Generator\TestAsset\CallableTypeHintClass', 'foo'], 'bar')
         );
 
         $this->assertEquals('callable', $parameter->getType());
@@ -156,12 +155,12 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param  string                               $method
-     * @return \Zend\Code\Reflection\ParameterReflection
+     * @return \Laminas\Code\Reflection\ParameterReflection
      */
     protected function getFirstReflectionParameter($method)
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            'ZendTest\Code\Generator\TestAsset\ParameterClass'
+        $reflectionClass = new \Laminas\Code\Reflection\ClassReflection(
+            'LaminasTest\Code\Generator\TestAsset\ParameterClass'
         );
         $method = $reflectionClass->getMethod($method);
 
@@ -185,7 +184,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('SampleParameter', $parameterGenerator->getName());
         $this->assertEquals('int', $parameterGenerator->getType());
-        $this->assertInstanceOf('Zend\Code\Generator\ValueGenerator', $parameterGenerator->getDefaultValue());
+        $this->assertInstanceOf('Laminas\Code\Generator\ValueGenerator', $parameterGenerator->getDefaultValue());
         $this->assertFalse($parameterGenerator->getPassedByReference());
         $this->assertEquals(1, $parameterGenerator->getPosition());
         $this->assertFalse($parameterGenerator->isSourceDirty());
@@ -200,12 +199,12 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new \Zend\Code\Reflection\ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $reflClass = new \Laminas\Code\Reflection\ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $params = $reflClass->getMethod('fooMethod')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        $this->assertEquals('\ZendTest_Code_NsTest_BarClass', $param->getType());
+        $this->assertEquals('\LaminasTest_Code_NsTest_BarClass', $param->getType());
     }
 
     /**
@@ -215,7 +214,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         require_once __DIR__ . '/TestAsset/NamespaceTypeHintClass.php';
 
-        $reflClass = new \Zend\Code\Reflection\ClassReflection('Namespaced\TypeHint\Bar');
+        $reflClass = new \Laminas\Code\Reflection\ClassReflection('Namespaced\TypeHint\Bar');
         $params = $reflClass->getMethod('method')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
