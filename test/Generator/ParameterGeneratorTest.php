@@ -1,30 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\ValueGenerator;
+use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\MethodReflection;
+use Laminas\Code\Reflection\ParameterReflection;
+use LaminasTest\Code\Generator\TestAsset\ParameterClass;
+use LaminasTest\Code\TestAsset\ClassTypeHintedClass;
+use LaminasTest\Code\TestAsset\DocBlockOnlyHintsClass;
+use LaminasTest\Code\TestAsset\EmptyClass;
+use LaminasTest\Code\TestAsset\InternalHintsClass;
+use LaminasTest\Code\TestAsset\IterableHintsClass;
+use LaminasTest\Code\TestAsset\NullableHintsClass;
+use LaminasTest\Code\TestAsset\NullNullableDefaultHintsClass;
+use LaminasTest\Code\TestAsset\ObjectHintsClass;
+use LaminasTest\Code\TestAsset\VariadicParametersClass;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\ValueGenerator;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\MethodReflection;
-use Zend\Code\Reflection\ParameterReflection;
-use ZendTest\Code\Generator\TestAsset\ParameterClass;
-use ZendTest\Code\TestAsset\ClassTypeHintedClass;
-use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
-use ZendTest\Code\TestAsset\EmptyClass;
-use ZendTest\Code\TestAsset\InternalHintsClass;
-use ZendTest\Code\TestAsset\IterableHintsClass;
-use ZendTest\Code\TestAsset\NullableHintsClass;
-use ZendTest\Code\TestAsset\NullNullableDefaultHintsClass;
-use ZendTest\Code\TestAsset\ObjectHintsClass;
-use ZendTest\Code\TestAsset\VariadicParametersClass;
 
 use function array_combine;
 use function array_filter;
@@ -35,8 +34,8 @@ use function strpos;
 use function strtolower;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ParameterGeneratorTest extends TestCase
 {
@@ -236,12 +235,12 @@ class ParameterGeneratorTest extends TestCase
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $params = $reflClass->getMethod('fooMethod')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
-        self::assertEquals('ZendTest_Code_NsTest_BarClass', $param->getType());
+        self::assertEquals('LaminasTest_Code_NsTest_BarClass', $param->getType());
     }
 
     /**

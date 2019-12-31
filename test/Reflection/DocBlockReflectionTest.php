@@ -1,29 +1,28 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
+use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\DocBlock\Tag\MethodTag;
+use Laminas\Code\Reflection\DocBlock\Tag\ParamTag;
+use Laminas\Code\Reflection\DocBlock\Tag\PropertyTag;
+use Laminas\Code\Reflection\DocBlock\Tag\ReturnTag;
+use Laminas\Code\Reflection\DocBlock\Tag\TagInterface;
+use Laminas\Code\Reflection\DocBlock\Tag\ThrowsTag;
+use Laminas\Code\Reflection\DocBlockReflection;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\DocBlock\Tag\MethodTag;
-use Zend\Code\Reflection\DocBlock\Tag\ParamTag;
-use Zend\Code\Reflection\DocBlock\Tag\PropertyTag;
-use Zend\Code\Reflection\DocBlock\Tag\ReturnTag;
-use Zend\Code\Reflection\DocBlock\Tag\TagInterface;
-use Zend\Code\Reflection\DocBlock\Tag\ThrowsTag;
-use Zend\Code\Reflection\DocBlockReflection;
 
 /**
- * @copyright  Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Reflection
- * @group      Zend_Reflection_DocBlock
+ * @copyright  Copyright (c) 2005-2016 Laminas (https://www.zend.com)
+ * @license    https://getlaminas.org/license/new-bsd     New BSD License
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_DocBlock
  */
 class DocBlockReflectionTest extends TestCase
 {

@@ -1,29 +1,28 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\Generator\DocBlock\Tag\VarTag;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\Exception\RuntimeException;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\PropertyValueGenerator;
+use Laminas\Code\Generator\ValueGenerator;
+use Laminas\Code\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\DocBlock\Tag\VarTag;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\Exception\RuntimeException;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Generator\PropertyValueGenerator;
-use Zend\Code\Generator\ValueGenerator;
-use Zend\Code\Reflection\ClassReflection;
 
 use function array_shift;
 use function str_replace;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class PropertyGeneratorTest extends TestCase
 {
@@ -149,7 +148,7 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testPropertyWillLoadFromReflection() : void
     {
@@ -176,7 +175,7 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testPropertyWillEmitStaticModifier() : void
     {
@@ -189,7 +188,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7205
+     * @group Laminas-7205
      */
     public function testPropertyCanHaveDocBlock() : void
     {

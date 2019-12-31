@@ -1,26 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\InterfaceGenerator;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\TestAsset\FooInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\Exception\InvalidArgumentException;
-use Zend\Code\Generator\InterfaceGenerator;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Reflection\ClassReflection;
-use ZendTest\Code\TestAsset\FooInterface;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class InterfaceGeneratorTest extends TestCase
 {
@@ -144,10 +143,10 @@ CODE;
         $reflClass      = new ClassReflection(FooInterface::class);
         $classGenerator = InterfaceGenerator::fromReflection($reflClass);
 
-        self::assertEquals('ZendTest\Code\TestAsset', $classGenerator->getNamespaceName());
+        self::assertEquals('LaminasTest\Code\TestAsset', $classGenerator->getNamespaceName());
         self::assertEquals('FooInterface', $classGenerator->getName());
         $expected = <<<CODE
-namespace ZendTest\Code\TestAsset;
+namespace LaminasTest\Code\TestAsset;
 
 interface FooInterface
 {
@@ -281,7 +280,7 @@ CODE;
     public function testClassNotAnInterfaceException()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Class ZendTest\Code\Generator\InterfaceGeneratorTest is not a interface');
+        $this->expectExceptionMessage('Class LaminasTest\Code\Generator\InterfaceGeneratorTest is not a interface');
         InterfaceGenerator::fromReflection(new ClassReflection(__CLASS__));
     }
 }
