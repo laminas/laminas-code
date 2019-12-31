@@ -1,12 +1,12 @@
 docs_dir: docs/book
 site_dir: docs/html
-pages:
+nav:
     - Home: index.md
     - "Code Generation": 
         - Introduction: generator/intro.md
         - Examples: generator/examples.md
         - Reference: generator/reference.md
     - Migration: migration.md
-site_name: zend-code
+site_name: laminas-code
 site_description: 'Extensions to the PHP Reflection API, static code scanning, and code generation'
-repo_url: 'https://github.com/zendframework/zend-code'
+repo_url: 'https://github.com/laminas/laminas-code'

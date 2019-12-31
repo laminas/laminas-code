@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @author     Pieter Wiersema <p.wiersema@allcode.nl>
  * @copyright  Copyright (c) 2011-now AllCode, https://allcode.nl
  */
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
 class TestSampleClass14
 {
