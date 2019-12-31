@@ -1,33 +1,32 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
 use ArrayAccess;
 use ArrayObject as SplArrayObject;
 use DateTime;
 use Generator;
+use Laminas\Code\Exception\InvalidArgumentException;
+use Laminas\Code\Exception\RuntimeException;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\PropertyValueGenerator;
+use Laminas\Code\Generator\ValueGenerator;
+use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Exception\InvalidArgumentException;
-use Zend\Code\Exception\RuntimeException;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Generator\PropertyValueGenerator;
-use Zend\Code\Generator\ValueGenerator;
-use Zend\Stdlib\ArrayObject as StdlibArrayObject;
 
 use function str_replace;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  *
- * @covers \Zend\Code\Generator\ValueGenerator
+ * @covers \Laminas\Code\Generator\ValueGenerator
  */
 class ValueGeneratorTest extends TestCase
 {
@@ -41,7 +40,7 @@ class ValueGeneratorTest extends TestCase
     public function testInvalidConstantsType()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject');
+        $this->expectExceptionMessage('$constants must be an instance of ArrayObject or Laminas\Stdlib\ArrayObject');
 
         $constants = $this->createMock(ArrayAccess::class);
         new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
