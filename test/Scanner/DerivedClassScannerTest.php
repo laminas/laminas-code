@@ -1,17 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
-use Zend\Code\Scanner\DirectoryScanner;
-use Zend\Code\Scanner\AggregateDirectoryScanner;
+use Laminas\Code\Scanner\AggregateDirectoryScanner;
+use Laminas\Code\Scanner\DirectoryScanner;
 
 class DerivedClassScannerTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,8 +20,8 @@ class DerivedClassScannerTest extends \PHPUnit_Framework_TestCase
         $ds->addDirectory(__DIR__ . '/TestAsset');
         $ads = new AggregateDirectoryScanner();
         $ads->addDirectoryScanner($ds);
-        $c = $ads->getClass('ZendTest\Code\Scanner\TestAsset\MapperExample\RepositoryB');
-        $this->assertEquals('ZendTest\Code\Scanner\TestAsset\MapperExample\RepositoryB', $c->getName());
+        $c = $ads->getClass('LaminasTest\Code\Scanner\TestAsset\MapperExample\RepositoryB');
+        $this->assertEquals('LaminasTest\Code\Scanner\TestAsset\MapperExample\RepositoryB', $c->getName());
     }
 
 
