@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
 /**
  * TestSampleClass10 DocBlock Short Desc

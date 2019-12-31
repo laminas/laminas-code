@@ -1,19 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Annotation;
+namespace Laminas\Code\Annotation;
 
-use Zend\EventManager\Event;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 /**
  * Pluggable annotation manager
@@ -24,8 +22,8 @@ use Zend\EventManager\EventManagerInterface;
  * return an object will halt execution of the event, and that object will be
  * returned as the annotation.
  *
- * @category   Zend
- * @package    Zend_Code
+ * @category   Laminas
+ * @package    Laminas_Code
  * @subpackage Annotation
  */
 class AnnotationManager implements EventManagerAwareInterface

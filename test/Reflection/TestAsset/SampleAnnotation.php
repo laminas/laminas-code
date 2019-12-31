@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\Code\Reflection\TestAsset;
+namespace LaminasTest\Code\Reflection\TestAsset;
 
-use Zend\Code\Annotation\AnnotationInterface;
+use Laminas\Code\Annotation\AnnotationInterface;
 
 class SampleAnnotation implements AnnotationInterface
 {
