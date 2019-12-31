@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Code\TestAsset;
+namespace LaminasTest\Code\TestAsset;
 
 include __DIR__ . '/foo/bar/baz.php';
 
@@ -35,7 +35,7 @@ abstract class BarClass
         // four
     }
 
-    private function five(\ZendTest\Code\TestAsset\AbstractClass $a)
+    private function five(\LaminasTest\Code\TestAsset\AbstractClass $a)
     {
         // five
     }

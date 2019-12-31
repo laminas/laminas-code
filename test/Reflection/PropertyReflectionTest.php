@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
-use Zend\Code\Annotation\AnnotationManager;
-use Zend\Code\Annotation\Parser\GenericAnnotationParser;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\PropertyReflection;
-use ZendTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
+use Laminas\Code\Annotation\AnnotationManager;
+use Laminas\Code\Annotation\Parser\GenericAnnotationParser;
+use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\PropertyReflection;
+use LaminasTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_Property
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_Property
  */
 class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +36,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 
         $property = new PropertyReflection(TestAsset\TestSampleClass2::class, '_prop2');
         $annotations = $property->getAnnotations($manager);
-        $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
+        $this->assertInstanceOf('Laminas\Code\Annotation\AnnotationCollection', $annotations);
         $this->assertTrue($annotations->hasAnnotation(TestAsset\SampleAnnotation::class));
         $found = false;
         foreach ($annotations as $key => $annotation) {
@@ -56,13 +55,13 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty = new InjectablePropertyReflection(
             // TestSampleClass5 has the annotations required to get to the
             // right point in the getAnnotations method.
-            'ZendTest\Code\Reflection\TestAsset\TestSampleClass2',
+            'LaminasTest\Code\Reflection\TestAsset\TestSampleClass2',
             '_prop2'
         );
 
-        $annotationManager = new \Zend\Code\Annotation\AnnotationManager();
+        $annotationManager = new \Laminas\Code\Annotation\AnnotationManager();
 
-        $fileScanner = $this->getMockBuilder('Zend\Code\Scanner\CachingFileScanner')
+        $fileScanner = $this->getMockBuilder('Laminas\Code\Scanner\CachingFileScanner')
                             ->disableOriginalConstructor()
                             ->getMock();
 
