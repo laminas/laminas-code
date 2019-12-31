@@ -1,16 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\TestAsset {
+namespace LaminasTest\Code\TestAsset {
 
-    use Foo\Bar;
     use A\B\C as X;
+use Foo\Bar;
+use OtherThing\SomethingElse;
+use Something\More as SM;
 
     class Baz
     {
@@ -19,9 +20,6 @@ namespace ZendTest\Code\TestAsset {
 
         }
     }
-
-    use Something\More as SM;
-    use OtherThing\SomethingElse;
 
     class ExtendingSomethingMore extends SM\Blah
     {
