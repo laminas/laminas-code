@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 class CallableTypeHintClass
 {
