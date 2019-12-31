@@ -1,13 +1,12 @@
 docs_dir: doc/book
 site_dir: doc/html
-pages:
+nav:
     - index.md
     - "Code Generation": 
         - Intro: generator/intro.md
         - Examples: generator/examples.md
         - Reference: generator/reference.md
     - Migration: migration.md
-site_name: zend-code
-site_description: 'zend-code: Tools for reflecting, scanning, and generating PHP code'
-repo_url: 'https://github.com/zendframework/zend-code'
-copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+site_name: laminas-code
+site_description: 'laminas-code: Tools for reflecting, scanning, and generating PHP code'
+repo_url: 'https://github.com/laminas/laminas-code'
