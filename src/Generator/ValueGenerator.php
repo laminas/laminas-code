@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Generator;
+namespace Laminas\Code\Generator;
 
 use ArrayObject as SplArrayObject;
-use Zend\Code\Exception\InvalidArgumentException;
-use Zend\Stdlib\ArrayObject as StdlibArrayObject;
+use Laminas\Code\Exception\InvalidArgumentException;
+use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
 
 class ValueGenerator extends AbstractGenerator
 {
@@ -89,7 +88,7 @@ class ValueGenerator extends AbstractGenerator
             $constants = new SplArrayObject();
         } elseif (!(($constants instanceof SplArrayObject) || ($constants instanceof StdlibArrayObject))) {
             throw new InvalidArgumentException(
-                '$constants must be an instance of ArrayObject or Zend\Stdlib\ArrayObject'
+                '$constants must be an instance of ArrayObject or Laminas\Stdlib\ArrayObject'
             );
         }
         $this->constants = $constants;

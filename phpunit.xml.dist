@@ -4,7 +4,7 @@
          bootstrap="./test/bootstrap.php"
          colors="true">
     <testsuites>
-        <testsuite name="zend-code Test Suite">
+        <testsuite name="laminas-code Test Suite">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
@@ -26,16 +26,16 @@
 
         <!-- OB_ENABLED should be enabled for some tests to check if all
              functionality works as expected. Such tests include those for
-             Zend\Soap and Zend\Session, which require that headers not be sent
+             Laminas\Soap and Laminas\Session, which require that headers not be sent
              in order to work. -->
-        <env name="TESTS_ZEND_OB_ENABLED" value="false" />
+        <env name="TESTS_LAMINAS_OB_ENABLED" value="false" />
 
         <!-- Note: the following is a FULL list of ALL POSSIBLE constants
-             currently in use in ZF2 for ALL COMPONENTS; you should choose the
+             currently in use in Laminas for ALL COMPONENTS; you should choose the
              constants appropriate to the component you are migrating. -->
 
         <!-- Enable this if you have installed Doctrine\Common on the
              include_path or via Composer. -->
-        <env name="TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
+        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
     </php>
 </phpunit>
