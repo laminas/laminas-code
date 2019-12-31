@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\Generator\PropertyValueGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\Generator\PropertyValueGenerator;
 
 /**
  *
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +22,7 @@ class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testPropertyConstructor()
     {
         $codeGenProperty = new PropertyGenerator();
-        $this->isInstanceOf($codeGenProperty, 'Zend\Code\Generator\PropertyGenerator');
+        $this->isInstanceOf($codeGenProperty, 'Laminas\Code\Generator\PropertyGenerator');
     }
 
     /**
@@ -140,12 +139,12 @@ EOS;
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testPropertyWillLoadFromReflection()
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection(
-            '\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties'
+        $reflectionClass = new \Laminas\Code\Reflection\ClassReflection(
+            '\LaminasTest\Code\Generator\TestAsset\TestClassWithManyProperties'
         );
 
         // test property 1
@@ -163,13 +162,13 @@ EOS;
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
         $this->assertEquals('_bazStaticProperty', $cgProp->getName());
-        $this->assertEquals(\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
+        $this->assertEquals(\LaminasTest\Code\Generator\TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
         $this->assertTrue($cgProp->isStatic());
         $this->assertEquals('private', $cgProp->getVisibility());
     }
 
     /**
-     * @group ZF-6444
+     * @group Laminas-6444
      */
     public function testPropertyWillEmitStaticModifier()
     {
@@ -182,7 +181,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7205
+     * @group Laminas-7205
      */
     public function testPropertyCanHaveDocBlock()
     {
@@ -208,7 +207,7 @@ EOS;
         $codeGenProperty = new PropertyGenerator('someVal', new \stdClass());
 
         $this->setExpectedException(
-            'Zend\Code\Generator\Exception\RuntimeException',
+            'Laminas\Code\Generator\Exception\RuntimeException',
             'Type "stdClass" is unknown or cannot be used as property default value'
         );
 
@@ -232,8 +231,8 @@ EOS;
 
         $this->assertEquals('SampleProperty', $propertyGenerator->getName());
         $this->assertTrue($propertyGenerator->isConst());
-        $this->assertInstanceOf('Zend\Code\Generator\ValueGenerator', $propertyGenerator->getDefaultValue());
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $propertyGenerator->getDocBlock());
+        $this->assertInstanceOf('Laminas\Code\Generator\ValueGenerator', $propertyGenerator->getDefaultValue());
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlockGenerator', $propertyGenerator->getDocBlock());
         $this->assertTrue($propertyGenerator->isAbstract());
         $this->assertTrue($propertyGenerator->isFinal());
         $this->assertTrue($propertyGenerator->isStatic());
@@ -245,7 +244,7 @@ EOS;
      */
     public function testPropertyDocBlockWillLoadFromReflection()
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection('\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties');
+        $reflectionClass = new \Laminas\Code\Reflection\ClassReflection('\LaminasTest\Code\Generator\TestAsset\TestClassWithManyProperties');
 
         $reflProp = $reflectionClass->getProperty('fooProperty');
         $cgProp   = PropertyGenerator::fromReflection($reflProp);
@@ -253,12 +252,12 @@ EOS;
         $this->assertEquals('fooProperty', $cgProp->getName());
 
         $docBlock = $cgProp->getDocBlock();
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlockGenerator', $docBlock);
         $tags     = $docBlock->getTags();
         $this->assertInternalType('array', $tags);
         $this->assertEquals(1, count($tags));
         $tag = array_shift($tags);
-        $this->assertInstanceOf('Zend\Code\Generator\DocBlock\Tag', $tag);
+        $this->assertInstanceOf('Laminas\Code\Generator\DocBlock\Tag', $tag);
         $this->assertEquals('var', $tag->getName());
     }
 
