@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\Code\Scanner\TestAsset\Annotation;
+namespace LaminasTest\Code\Scanner\TestAsset\Annotation;
 
-use Zend\Code\Annotation\AnnotationInterface;
+use Laminas\Code\Annotation\AnnotationInterface;
 
 class Bar implements AnnotationInterface
 {
