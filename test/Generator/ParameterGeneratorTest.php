@@ -1,25 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
-use Zend\Code\Generator\ParameterGenerator;
-use Zend\Code\Generator\ValueGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
+use Laminas\Code\Generator\ValueGenerator;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @category   Laminas
+ * @package    Laminas_Code_Generator
  * @subpackage UnitTests
  *
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -155,11 +153,11 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param  string $method
-     * @return \Zend\Reflection\ReflectionParameter
+     * @return \Laminas\Reflection\ReflectionParameter
      */
     protected function getFirstReflectionParameter($method)
     {
-        $reflectionClass = new \Zend\Code\Reflection\ClassReflection('ZendTest\Code\Generator\TestAsset\ParameterClass');
+        $reflectionClass = new \Laminas\Code\Reflection\ClassReflection('LaminasTest\Code\Generator\TestAsset\ParameterClass');
         $method = $reflectionClass->getMethod($method);
 
         $params = $method->getParameters();
