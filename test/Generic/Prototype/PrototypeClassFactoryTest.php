@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generic\Prototype;
+namespace LaminasTest\Code\Generic\Prototype;
 
-use Zend\Code\Generic\Prototype\PrototypeClassFactory;
-use ZendTest\Code\Generator\TestAsset\PrototypeClass;
-use ZendTest\Code\Generator\TestAsset\PrototypeGenericClass;
+use Laminas\Code\Generic\Prototype\PrototypeClassFactory;
+use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
+use LaminasTest\Code\Generator\TestAsset\PrototypeGenericClass;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,7 +51,7 @@ class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNameOnGenericIsCalledOnce()
     {
-        $mockProto = $this->getMock('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass', array('setName'));
+        $mockProto = $this->getMock('LaminasTest\Code\Generator\TestAsset\PrototypeGenericClass', array('setName'));
         $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));
         $this->prototypeFactory->setGenericPrototype($mockProto);
         $this->prototypeFactory->getClonedPrototype('notexist');

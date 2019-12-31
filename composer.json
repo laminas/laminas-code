@@ -1,31 +1,22 @@
 {
-    "name": "zendframework/zend-code",
+    "name": "laminas/laminas-code",
     "description": "provides facilities to generate arbitrary code using an object oriented interface",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "laminas",
         "code"
     ],
-    "homepage": "https://github.com/zendframework/zend-code",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Code\\": "src/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-code/",
+        "issues": "https://github.com/laminas/laminas-code/issues",
+        "source": "https://github.com/laminas/laminas-code",
+        "rss": "https://github.com/laminas/laminas-code/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
-    "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-eventmanager": "self.version"
-    },
-    "require-dev": {
-        "doctrine/common": ">=2.1",
-        "zendframework/zend-stdlib": "self.version",
-        "fabpot/php-cs-fixer": "1.7.*",
-        "satooshi/php-coveralls": "dev-master",
-        "phpunit/PHPUnit": "~4.0"
-    },
-    "suggest": {
-        "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
-        "zendframework/zend-stdlib": "Zend\\Stdlib component"
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -33,9 +24,33 @@
             "dev-develop": "2.5-dev"
         }
     },
+    "require": {
+        "php": ">=5.3.23",
+        "laminas/laminas-eventmanager": "self.version",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "doctrine/common": ">=2.1",
+        "fabpot/php-cs-fixer": "1.7.*",
+        "laminas/laminas-stdlib": "self.version",
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
+        "laminas/laminas-stdlib": "Laminas\\Stdlib component"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Code\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\Code\\": "test/"
+            "LaminasTest\\Code\\": "test/"
         }
+    },
+    "replace": {
+        "zendframework/zend-code": "self.version"
     }
 }
