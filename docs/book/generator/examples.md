@@ -77,7 +77,8 @@ $foo->setName('Foo')
          ['baz',  'bat', PropertyGenerator::FLAG_PUBLIC]
    ])
    ->addConstants([
-         ['bat',  'foobarbazbat']
+         ['bat',  'foobarbazbat'],
+         ['qux', 'bar', PropertyGenerator::FLAG_PROTECTED],
     ]);
 echo $foo->generate();
 ```
@@ -92,16 +93,17 @@ The above results in the following class definition:
  *
  * @version $Rev:$
  * @license New BSD
- *
  */
 class Foo
 {
 
+    public const bat = 'foobarbazbat';
+
+    protected const qux = 'bar';
+
     protected $_bar = 'baz';
 
     public $baz = 'bat';
-
-    const bat = 'foobarbazbat';
 
 }
 ```
@@ -141,7 +143,7 @@ $foo->setName('Foo')
         ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
     ])
     ->addConstants([
-        ['bat',  'foobarbazbat', PropertyGenerator::FLAG_CONSTANT]
+        ['bat',  'foobarbazbat']
     ])
     ->addMethods([
         // Method passed as array
@@ -202,7 +204,7 @@ class Foo
 
     public $baz = 'bat';
 
-    const bat = 'foobarbazbat';
+    public const bat = 'foobarbazbat';
 
     /**
      * Set the bar property
@@ -291,7 +293,7 @@ class Foo
 
     public $baz = 'bat';
 
-    const bat = 'foobarbazbat';
+    public const bat = 'foobarbazbat';
 
     /**
      * Set the bar property
