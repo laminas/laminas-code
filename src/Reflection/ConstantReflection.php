@@ -8,12 +8,14 @@
 
 namespace Laminas\Code\Reflection;
 
-use ReflectionProperty as PhpReflectionProperty;
+use ReflectionClassConstant as PhpReflectionConstant;
 
-/**
- * @todo       implement line numbers
- */
-class PropertyReflection extends PhpReflectionProperty implements ReflectionInterface, FieldsReflectionInterface
+class ConstantReflection extends PhpReflectionConstant implements ReflectionInterface, FieldsReflectionInterface
 {
     use FieldsReflectionTrait;
+
+    public function isStatic()
+    {
+        return false;
+    }
 }
