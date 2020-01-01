@@ -73,8 +73,8 @@ $docblock = DocBlockGenerator::fromArray([
 $foo->setName('Foo')
     ->setDocblock($docblock)
     ->addProperties([
-         ['_bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
-         ['baz',  'bat', PropertyGenerator::FLAG_PUBLIC]
+         ['bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
+         ['baz', 'bat', PropertyGenerator::FLAG_PUBLIC]
    ])
    ->addConstants([
          ['bat',  'foobarbazbat']
@@ -97,7 +97,7 @@ The above results in the following class definition:
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
@@ -137,7 +137,7 @@ $docblock = DocBlockGenerator::fromArray([
 $foo->setName('Foo')
     ->setDocblock($docblock)
     ->addProperties([
-        ['_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED],
+        ['bar',  'baz',          PropertyGenerator::FLAG_PROTECTED],
         ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
     ])
     ->addConstants([
@@ -148,7 +148,7 @@ $foo->setName('Foo')
         MethodGenerator::fromArray([
             'name'       => 'setBar',
             'parameters' => ['bar'],
-            'body'       => '$this->_bar = $bar;' . "\n" . 'return $this;',
+            'body'       => '$this->bar = $bar;' . "\n" . 'return $this;',
             'docblock'   => DocBlockGenerator::fromArray([
                 'shortDescription' => 'Set the bar property',
                 'longDescription'  => null,
@@ -168,7 +168,7 @@ $foo->setName('Foo')
             'getBar',
             [],
             MethodGenerator::FLAG_PUBLIC,
-            'return $this->_bar;',
+            'return $this->bar;',
             DocBlockGenerator::fromArray([
                 'shortDescription' => 'Retrieve the bar property',
                 'longDescription'  => null,
@@ -198,7 +198,7 @@ The above generates the following output:
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
@@ -212,7 +212,7 @@ class Foo
      */
     public function setBar($bar)
     {
-        $this->_bar = $bar;
+        $this->bar = $bar;
         return $this;
     }
 
@@ -223,7 +223,7 @@ class Foo
      */
     public function getBar()
     {
-        return $this->_bar;
+        return $this->bar;
     }
 
 }
@@ -287,7 +287,7 @@ The above will generate the following file:
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
@@ -301,7 +301,7 @@ class Foo
      */
     public function setBar($bar)
     {
-        $this->_bar = $bar;
+        $this->bar = $bar;
         return $this;
     }
 
@@ -312,7 +312,7 @@ class Foo
      */
     public function getBar()
     {
-        return $this->_bar;
+        return $this->bar;
     }
 
 }
@@ -353,7 +353,7 @@ $generator->addMethod(
     'setBaz',
     ['baz'],
     MethodGenerator::FLAG_PUBLIC,
-    '$this->_baz = $baz;' . "\n" . 'return $this;',
+    '$this->baz = $baz;' . "\n" . 'return $this;',
     DocBlockGenerator::fromArray([
         'shortDescription' => 'Set the baz property',
         'longDescription'  => null,
