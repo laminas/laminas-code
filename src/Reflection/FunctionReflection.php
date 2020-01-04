@@ -19,9 +19,6 @@ use function preg_match;
 use function preg_quote;
 use function preg_replace;
 use function sprintf;
-use function strlen;
-use function strrpos;
-use function substr;
 use function var_export;
 
 class FunctionReflection extends ReflectionFunction implements ReflectionInterface
@@ -111,7 +108,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
                 $content = $matches[0];
             }
         } else {
-            $name = substr($this->getName(), strrpos($this->getName(), '\\') + 1);
+            $name = $this->getShortName();
             preg_match(
                 '#function\s+' . preg_quote($name) . '\s*\([^\)]*\)\s*{([^{}]+({[^}]+})*[^}]+)?}#',
                 $functionLine,
@@ -145,7 +142,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
 
         $prototype = [
             'namespace' => $this->getNamespaceName(),
-            'name'      => substr($this->getName(), strlen($this->getNamespaceName()) + 1),
+            'name'      => $this->getShortName(),
             'return'    => $returnType,
             'arguments' => [],
         ];
@@ -229,9 +226,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     {
         $fileName = $this->getFileName();
         if (false === $fileName) {
-            throw new Exception\InvalidArgumentException(
-                'Cannot determine internals functions body'
-            );
+            return '';
         }
 
         $startLine = $this->getStartLine();
@@ -259,7 +254,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
                 $body = $matches[2];
             }
         } else {
-            $name = substr($this->getName(), strrpos($this->getName(), '\\') + 1);
+            $name = $this->getShortName();
             preg_match('#function\s+' . $name . '\s*\([^\)]*\)\s*{([^{}]+({[^}]+})*[^}]+)}#', $functionLine, $matches);
             if (isset($matches[1])) {
                 $body = $matches[1];

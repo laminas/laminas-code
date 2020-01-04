@@ -90,9 +90,11 @@ class TokenArrayScanner implements ScannerInterface
                 return $this->docComment;
             } else {
                 // Only whitespace is allowed before file docblocks
-                return;
+                return null;
             }
         }
+
+        return null;
     }
 
     /**
@@ -254,20 +256,60 @@ class TokenArrayScanner implements ScannerInterface
     }
 
     /**
-     * @return array
+     * @return FunctionScanner[]
      */
     public function getFunctions()
     {
         $this->scan();
 
         $functions = [];
-//        foreach ($this->infos as $info) {
-//            if ($info['type'] == 'function') {
-//                // @todo $functions[] = new FunctionScanner($info['name']);
-//            }
-//        }
+        foreach ($this->infos as $info) {
+            if ($info['type'] == 'function') {
+                $functions[] = $this->getFunction($info['name']);
+            }
+        }
 
         return $functions;
+    }
+
+    /**
+     * Return the function object from this scanner
+     *
+     * @param  string|int $name
+     * @throws Exception\InvalidArgumentException
+     * @return FunctionScanner|false
+     */
+    public function getFunction($name)
+    {
+        $this->scan();
+
+        if (is_int($name)) {
+            $info = $this->infos[$name];
+            if ($info['type'] != 'function') {
+                throw new Exception\InvalidArgumentException('Index of info offset is not about a function');
+            }
+        } elseif (is_string($name)) {
+            $functionFound = false;
+            foreach ($this->infos as $info) {
+                if ($info['type'] === 'function' && $info['name'] === $name) {
+                    $functionFound = true;
+                    break;
+                }
+            }
+
+            if (! $functionFound) {
+                return false;
+            }
+        }
+
+        return new FunctionScanner(
+            array_slice(
+                $this->tokens,
+                $info['tokenStart'],
+                $info['tokenEnd'] - $info['tokenStart'] + 1
+            ), // zero indexed array
+            new NameInformation($info['namespace'], $info['uses'])
+        );
     }
 
     /**
@@ -353,8 +395,12 @@ class TokenArrayScanner implements ScannerInterface
 
             return $tokenIndex;
         };
-        $MACRO_TOKEN_LOGICAL_START_INDEX = function () use (&$tokenIndex, &$docCommentIndex) {
-            return $docCommentIndex === false ? $tokenIndex : $docCommentIndex;
+        $MACRO_TOKEN_LOGICAL_START_INDEX = function () use (&$tokenIndex, &$docCommentIndex, &$tokenType) {
+            $index = $docCommentIndex === false ? $tokenIndex : $docCommentIndex;
+            if (T_NAMESPACE !== $tokenType) {
+                $docCommentIndex = false;
+            }
+            return $index;
         };
         $MACRO_DOC_COMMENT_START = function () use (&$tokenIndex, &$docCommentIndex) {
             $docCommentIndex = $tokenIndex;

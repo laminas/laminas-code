@@ -124,3 +124,91 @@ class World
 
 }
 ```
+
+For example, generate helper functions and save them to `helper.php`
+
+```php
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\FunctionGenerator;
+use Laminas\Code\Reflection\FunctionReflection;
+
+
+$fileGenerator = new FileGenerator();
+$docblock = DocBlockGenerator::fromArray([
+    'shortDescription' => 'Sample generated function: default'
+]);
+$fileGenerator->setDocBlock($docblock);
+
+// Batch add function.
+$extension = new \ReflectionExtension('tokenizer');
+foreach ($extension->getFunctions() as $name => $function) {
+    $foo      = FunctionGenerator::fromReflection(new FunctionReflection($function->getName()));
+    $docblock = DocBlockGenerator::fromArray([
+        'shortDescription' => 'Sample generated function: ' . $name,
+    ]);
+    $foo->setName($name)
+        ->setDocblock($docblock);
+    $fileGenerator->setFunction($foo);
+}
+// Add custom function.
+$fileGenerator->setFunction('bar');
+$fileGenerator->setFunction([
+    'name'=> 'foo',
+    'docblock' => [
+        'shortDescription' => 'Sample generated function: foo',
+    ],
+    'parameters' => [
+        'first',
+        [
+            'name' => 'second',
+            'type' => 'int',
+            'defaultvalue' => 123
+        ]
+    ],
+    'returnType' => 'int'
+]);
+
+// Render the generated file
+echo $fileGenerator->generate();
+
+// Or, better yet, write it back to the original file:
+file_put_contents('helper.php', $fileGenerator->generate());
+```
+
+
+The resulting helper.php file will now look like this:
+
+
+```php
+<?php
+/**
+ * Sample generated function: default
+ */
+
+
+/**
+ * Sample generated function: token_get_all
+ */
+function token_get_all($source, $flags = null)
+{
+}
+
+/**
+ * Sample generated function: token_name
+ */
+function token_name($token)
+{
+}
+
+function bar()
+{
+}
+
+/**
+ * Sample generated function: foo
+ */
+function foo($first, int $second = 123) : int
+{
+}
+```

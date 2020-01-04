@@ -370,3 +370,31 @@ $generator->addMethod(
 );
 $code = $generator->generate();
 ```
+
+## Generating PHP Function
+
+The following example generates an empty function with a DocBlock.
+
+```php
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FunctionGenerator;
+
+$foo      = new FunctionGenerator();
+$docblock = DocBlockGenerator::fromArray([
+    'shortDescription' => 'Sample generated function',
+    'longDescription'  => 'This is a function generated with Laminas\Code\Generator.',
+    'tags'             => [
+        [
+            'name'        => 'version',
+            'description' => '$Rev:$',
+        ],
+        [
+            'name'        => 'license',
+            'description' => 'New BSD',
+        ],
+    ],
+]);
+$foo->setName('Foo')
+    ->setDocblock($docblock);
+echo $foo->generate();
+```

@@ -69,6 +69,11 @@ class FileGenerator extends AbstractGenerator
     protected $classes = [];
 
     /**
+     * @var array
+     */
+    protected $functions = [];
+
+    /**
      * @var string
      */
     protected $body;
@@ -376,6 +381,62 @@ class FileGenerator extends AbstractGenerator
     }
 
     /**
+     * @return FunctionGenerator[]
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
+    }
+
+    /**
+     * @param  array $functions
+     * @return FileGenerator
+     */
+    public function setFunctions($functions)
+    {
+        foreach ($functions as $function) {
+            $this->setFunction($function);
+        }
+
+        return $this;
+    }
+
+    public function getFunction($name = null)
+    {
+        if ($name === null) {
+            reset($this->functions);
+
+            return current($this->functions);
+        }
+
+        return $this->functions[(string) $name];
+    }
+
+    /**
+     * @param  array|string|FunctionGenerator  $function
+     * @return FileGenerator
+     */
+    public function setFunction($function)
+    {
+        if (is_array($function)) {
+            $function = FunctionGenerator::fromArray($function);
+        } elseif (is_string($function)) {
+            $function = new FunctionGenerator($function);
+        } elseif (! $function instanceof FunctionGenerator) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s is expecting either a string, array or an instance of %s\FunctionGenerator',
+                __METHOD__,
+                __NAMESPACE__
+            ));
+        }
+
+        $functionName = $function->getName();
+        $this->functions[$functionName] = $function;
+
+        return $this;
+    }
+
+    /**
      * @param  string $filename
      * @return FileGenerator
      */
@@ -611,6 +672,23 @@ class FileGenerator extends AbstractGenerator
                         $class->setNamespaceName(null);
                     }
                     $output .= $class->generate() . self::LINE_FEED;
+                }
+            }
+        }
+
+        // process functions
+        if (! empty($this->getFunctions())) {
+            foreach ($this->getFunctions() as $function) {
+                // @codingStandardsIgnoreStart
+                $regex = str_replace('&', $function->getName(), '/\* Laminas_Code_Generator_Php_File-ClassMarker: \{[A-Za-z0-9\\\]+?&\} \*/');
+                // @codingStandardsIgnoreEnd
+                if (preg_match('#' . $regex . '#m', $output)) {
+                    $output = preg_replace('#' . $regex . '#', $function->generate(), $output, 1);
+                } else {
+                    if ($namespace) {
+                        $function->setNamespaceName(null);
+                    }
+                    $output .= $function->generate() . self::LINE_FEED;
                 }
             }
         }

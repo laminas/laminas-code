@@ -140,10 +140,10 @@ class ParameterScanner
     /**
      * Set declaring scanner function
      *
-     * @param  MethodScanner $scannerFunction
+     * @param  FunctionScanner|MethodScanner $scannerFunction
      * @return void
      */
-    public function setDeclaringScannerFunction(MethodScanner $scannerFunction)
+    public function setDeclaringScannerFunction($scannerFunction)
     {
         $this->declaringScannerFunction = $scannerFunction;
     }
