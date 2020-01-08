@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
+use Laminas\Code\Scanner\ClassScanner;
+use Laminas\Code\Scanner\TokenArrayScanner;
+use LaminasTest\Code\TestAsset\Baz;
+use LaminasTest\Code\TestAsset\FooClass;
+use LaminasTest\Code\TestAsset\FooTrait;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Scanner\ClassScanner;
-use Zend\Code\Scanner\TokenArrayScanner;
-use ZendTest\Code\TestAsset\Baz;
-use ZendTest\Code\TestAsset\FooClass;
-use ZendTest\Code\TestAsset\FooTrait;
 
 use function file_get_contents;
 use function token_get_all;
@@ -26,10 +25,10 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(
             file_get_contents(__DIR__ . '/../TestAsset/FooClass.php')
         ));
-        self::assertTrue($tokenScanner->hasNamespace('ZendTest\Code\TestAsset'));
+        self::assertTrue($tokenScanner->hasNamespace('LaminasTest\Code\TestAsset'));
         $namespaces = $tokenScanner->getNamespaces();
         self::assertIsArray($namespaces);
-        self::assertContains('ZendTest\Code\TestAsset', $namespaces);
+        self::assertContains('LaminasTest\Code\TestAsset', $namespaces);
     }
 
     public function testScannerReturnsNamespacesInNotNamespacedClasses()
@@ -76,7 +75,7 @@ class TokenArrayScannerTest extends TestCase
         ));
         $functions = $tokenScanner->getFunctionNames();
         self::assertIsArray($functions);
-        self::assertContains('ZendTest\Code\TestAsset\foo_bar', $functions);
+        self::assertContains('LaminasTest\Code\TestAsset\foo_bar', $functions);
     }
 
     public function testScannerReturnsClassScanner()

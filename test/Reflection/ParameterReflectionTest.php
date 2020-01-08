@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
+use Laminas\Code\Reflection;
+use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\TestAsset\ClassTypeHintedClass;
+use LaminasTest\Code\TestAsset\DocBlockOnlyHintsClass;
+use LaminasTest\Code\TestAsset\InternalHintsClass;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Reflection;
-use Zend\Code\Reflection\ClassReflection;
-use ZendTest\Code\TestAsset\ClassTypeHintedClass;
-use ZendTest\Code\TestAsset\DocBlockOnlyHintsClass;
-use ZendTest\Code\TestAsset\InternalHintsClass;
 
 /**
- * @group Zend_Reflection
- * @group Zend_Reflection_Parameter
+ * @group Laminas_Reflection
+ * @group Laminas_Reflection_Parameter
  */
 class ParameterReflectionTest extends TestCase
 {

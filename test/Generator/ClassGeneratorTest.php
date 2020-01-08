@@ -1,26 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
 use DateTime;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\Exception\ExceptionInterface;
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\GeneratorInterface;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
+use Laminas\Code\NameInformation;
+use Laminas\Code\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Code\Generator\Exception\ExceptionInterface;
-use Zend\Code\Generator\Exception\InvalidArgumentException;
-use Zend\Code\Generator\GeneratorInterface;
-use Zend\Code\Generator\MethodGenerator;
-use Zend\Code\Generator\PropertyGenerator;
-use Zend\Code\NameInformation;
-use Zend\Code\Reflection\ClassReflection;
 
 use function current;
 use function fclose;
@@ -28,8 +27,8 @@ use function fopen;
 use function key;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
  */
 class ClassGeneratorTest extends TestCase
 {
@@ -150,7 +149,7 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Zend\Code\Generator\ClassGenerator::addProperty expects string for name');
+        $this->expectExceptionMessage('Laminas\Code\Generator\ClassGenerator::addProperty expects string for name');
         $classGenerator->addProperty(true);
     }
 
@@ -180,7 +179,7 @@ class ClassGeneratorTest extends TestCase
         $classGenerator = new ClassGenerator();
 
         $this->expectException(ExceptionInterface::class);
-        $this->expectExceptionMessage('Zend\Code\Generator\ClassGenerator::addMethod expects string for name');
+        $this->expectExceptionMessage('Laminas\Code\Generator\ClassGenerator::addMethod expects string for name');
 
         $classGenerator->addMethod(true);
     }
@@ -202,7 +201,7 @@ class ClassGeneratorTest extends TestCase
     }
 
     /**
-     * @group ZF-7361
+     * @group Laminas-7361
      */
     public function testHasMethod()
     {
@@ -223,7 +222,7 @@ class ClassGeneratorTest extends TestCase
     }
 
     /**
-     * @group ZF-7361
+     * @group Laminas-7361
      */
     public function testHasProperty()
     {
@@ -281,7 +280,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7909
+     * @group Laminas-7909
      */
     public function testClassFromReflectionThatImplementsInterfaces()
     {
@@ -299,7 +298,7 @@ EOS;
     }
 
     /**
-     * @group ZF-7909
+     * @group Laminas-7909
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
@@ -323,13 +322,13 @@ EOS;
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         self::assertCount(1, $classGenerator->getMethods());
     }
 
     /**
-     * @group ZF-9602
+     * @group Laminas-9602
      */
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
     {
@@ -350,7 +349,7 @@ CODE;
     }
 
     /**
-     * @group ZF-9602
+     * @group Laminas-9602
      */
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
     {
@@ -377,10 +376,10 @@ CODE;
     {
         $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
-        self::assertEquals('ZendTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
+        self::assertEquals('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         self::assertEquals('ClassWithNamespace', $classGenerator->getName());
         $expected = <<<CODE
-namespace ZendTest\Code\Generator\\TestAsset;
+namespace LaminasTest\Code\Generator\\TestAsset;
 
 class ClassWithNamespace
 {
@@ -468,7 +467,7 @@ CODE;
     }
 
     /**
-     * @group ZF2-151
+     * @group Laminas-151
      */
     public function testAddUses()
     {
@@ -794,7 +793,7 @@ CODE;
         $classGenerator->addConstant('fooProperty', 'duplicate');
 
         $contents = <<<'CODE'
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 /**
  * class docblock

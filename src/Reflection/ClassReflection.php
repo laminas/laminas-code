@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Code\Reflection;
+namespace Laminas\Code\Reflection;
 
+use Laminas\Code\Scanner\FileScanner;
 use ReflectionClass;
-use Zend\Code\Scanner\FileScanner;
 
 use function array_shift;
 use function array_slice;
@@ -109,15 +108,15 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getInterfaces()
     {
         $phpReflections  = parent::getInterfaces();
-        $zendReflections = [];
+        $laminasReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance          = new ClassReflection($phpReflection->getName());
-            $zendReflections[] = $instance;
+            $laminasReflections[] = $instance;
             unset($phpReflection);
         }
         unset($phpReflections);
 
-        return $zendReflections;
+        return $laminasReflections;
     }
 
     /**
@@ -179,10 +178,10 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     {
         $phpReflection = parent::getParentClass();
         if ($phpReflection) {
-            $zendReflection = new ClassReflection($phpReflection->getName());
+            $laminasReflection = new ClassReflection($phpReflection->getName());
             unset($phpReflection);
 
-            return $zendReflection;
+            return $laminasReflection;
         }
 
         return false;
@@ -197,10 +196,10 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getProperty($name)
     {
         $phpReflection  = parent::getProperty($name);
-        $zendReflection = new PropertyReflection($this->getName(), $phpReflection->getName());
+        $laminasReflection = new PropertyReflection($this->getName(), $phpReflection->getName());
         unset($phpReflection);
 
-        return $zendReflection;
+        return $laminasReflection;
     }
 
     /**
@@ -212,15 +211,15 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getProperties($filter = -1)
     {
         $phpReflections  = parent::getProperties($filter);
-        $zendReflections = [];
+        $laminasReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance          = new PropertyReflection($this->getName(), $phpReflection->getName());
-            $zendReflections[] = $instance;
+            $laminasReflections[] = $instance;
             unset($phpReflection);
         }
         unset($phpReflections);
 
-        return $zendReflections;
+        return $laminasReflections;
     }
 
     /**

@@ -1,29 +1,28 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
+use Laminas\Code\Exception\RuntimeException;
+use Laminas\Code\Scanner\ConstantScanner;
+use Laminas\Code\Scanner\FileScanner;
+use Laminas\Code\Scanner\MethodScanner;
+use Laminas\Code\Scanner\PropertyScanner;
+use Laminas\Stdlib\ErrorHandler;
+use LaminasTest\Code\TestAsset\BarClass;
+use LaminasTest\Code\TestAsset\BarTrait;
+use LaminasTest\Code\TestAsset\BazTrait;
+use LaminasTest\Code\TestAsset\FooClass;
+use LaminasTest\Code\TestAsset\FooInterface;
+use LaminasTest\Code\TestAsset\FooTrait;
+use LaminasTest\Code\TestAsset\TestClassUsesTraitSimple;
+use LaminasTest\Code\TestAsset\TestClassWithTraitAliases;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Exception\RuntimeException;
-use Zend\Code\Scanner\ConstantScanner;
-use Zend\Code\Scanner\FileScanner;
-use Zend\Code\Scanner\MethodScanner;
-use Zend\Code\Scanner\PropertyScanner;
-use Zend\Stdlib\ErrorHandler;
-use ZendTest\Code\TestAsset\BarClass;
-use ZendTest\Code\TestAsset\BarTrait;
-use ZendTest\Code\TestAsset\BazTrait;
-use ZendTest\Code\TestAsset\FooClass;
-use ZendTest\Code\TestAsset\FooInterface;
-use ZendTest\Code\TestAsset\FooTrait;
-use ZendTest\Code\TestAsset\TestClassUsesTraitSimple;
-use ZendTest\Code\TestAsset\TestClassWithTraitAliases;
 
 use function array_keys;
 use function current;
@@ -44,7 +43,7 @@ class ClassScannerTest extends TestCase
         $interfaces = $class->getInterfaces();
         self::assertContains('ArrayAccess', $interfaces);
         self::assertContains('A\B\C\D\Blarg', $interfaces);
-        self::assertContains('ZendTest\Code\TestAsset\Local\SubClass', $interfaces);
+        self::assertContains('LaminasTest\Code\TestAsset\Local\SubClass', $interfaces);
         $methods = $class->getMethodNames();
         self::assertIsArray($methods);
         self::assertContains('fooBarBaz', $methods);
@@ -207,7 +206,7 @@ class ClassScannerTest extends TestCase
         self::assertCount(1, $aliases);
 
         self::assertEquals(key($aliases), 'test');
-        self::assertEquals(current($aliases), 'ZendTest\Code\TestAsset\TraitWithSameMethods::foo');
+        self::assertEquals(current($aliases), 'LaminasTest\Code\TestAsset\TraitWithSameMethods::foo');
     }
 
     /**
@@ -265,7 +264,7 @@ class ClassScannerTest extends TestCase
     public function testClassIsInstantiable()
     {
         $file  = new FileScanner(__DIR__ . '/../TestAsset/FooBarClass.php');
-        $class = $file->getClass('ZendTest_Code_TestAsset_FooBar');
+        $class = $file->getClass('LaminasTest_Code_TestAsset_FooBar');
         self::assertFalse($class->isAbstract());
         self::assertTrue($class->isInstantiable());
     }

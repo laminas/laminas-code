@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Scanner;
+namespace LaminasTest\Code\Scanner;
 
+use Laminas\Code\Scanner\FileScanner;
+use Laminas\Code\Scanner\MethodScanner;
+use Laminas\Code\Scanner\ParameterScanner;
+use LaminasTest\Code\TestAsset\AbstractClass;
+use LaminasTest\Code\TestAsset\BarClass;
+use LaminasTest\Code\TestAsset\FooClass;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Scanner\FileScanner;
-use Zend\Code\Scanner\ParameterScanner;
-use Zend\Code\Scanner\MethodScanner;
-use ZendTest\Code\TestAsset\AbstractClass;
-use ZendTest\Code\TestAsset\BarClass;
-use ZendTest\Code\TestAsset\FooClass;
 
 class MethodScannerTest extends TestCase
 {
@@ -119,7 +118,7 @@ class MethodScannerTest extends TestCase
         // make sure test argument is invalid
         $invalidArgument = max(T_PUBLIC, T_PROTECTED, T_PRIVATE) + 1;
 
-        $this->expectException('\Zend\Code\Exception\InvalidArgumentException');
+        $this->expectException('\Laminas\Code\Exception\InvalidArgumentException');
         $methodScanner->setVisibility($invalidArgument);
     }
 

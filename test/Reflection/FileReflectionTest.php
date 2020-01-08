@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Reflection;
+namespace LaminasTest\Code\Reflection;
 
 use Exception;
+use Laminas\Code\Reflection\DocBlockReflection;
+use Laminas\Code\Reflection\Exception\InvalidArgumentException;
+use Laminas\Code\Reflection\Exception\RuntimeException;
+use Laminas\Code\Reflection\FileReflection;
+use Laminas\Code\Reflection\FunctionReflection;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\Reflection\DocBlockReflection;
-use Zend\Code\Reflection\Exception\InvalidArgumentException;
-use Zend\Code\Reflection\Exception\RuntimeException;
-use Zend\Code\Reflection\FileReflection;
-use Zend\Code\Reflection\FunctionReflection;
 
 use function current;
 use function get_class;
@@ -25,8 +24,8 @@ use function realpath;
 use function set_include_path;
 
 /**
- * @group      Zend_Reflection
- * @group      Zend_Reflection_File
+ * @group      Laminas_Reflection
+ * @group      Laminas_Reflection_File
  */
 class FileReflectionTest extends TestCase
 {
@@ -179,7 +178,7 @@ class FileReflectionTest extends TestCase
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
         $expected = [
-            ['use' => 'Zend\Config', 'as' => 'ZendConfig'],
+            ['use' => 'Laminas\Config', 'as' => 'LaminasConfig'],
             ['use' => 'FooBar\Foo\Bar', 'as' => null],
             ['use' => 'One\Two\Three\Four\Five', 'as' => 'ottff'],
         ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Code\TestAsset;
+namespace LaminasTest\Code\TestAsset;
 
 class NullDefaultHintsClass
 {

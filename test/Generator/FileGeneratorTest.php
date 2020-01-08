@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Code\Generator;
+namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\DeclareStatement;
+use Laminas\Code\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Reflection\FileReflection;
 use PHPUnit\Framework\TestCase;
-use Zend\Code\DeclareStatement;
-use Zend\Code\Exception\InvalidArgumentException;
-use Zend\Code\Generator\ClassGenerator;
-use Zend\Code\Generator\FileGenerator;
-use Zend\Code\Reflection\FileReflection;
 
 use function explode;
 use function file_get_contents;
@@ -28,9 +27,9 @@ use function tempnam;
 use function unlink;
 
 /**
- * @group Zend_Code_Generator
- * @group Zend_Code_Generator_Php
- * @group Zend_Code_Generator_Php_File
+ * @group Laminas_Code_Generator
+ * @group Laminas_Code_Generator_Php
+ * @group Laminas_Code_Generator_Php_File
  */
 class FileGeneratorTest extends TestCase
 {
@@ -124,7 +123,7 @@ EOS;
  */
 
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 /**
  * class docblock
@@ -190,7 +189,7 @@ EOS;
     }
 
     /**
-     * @group ZF-11218
+     * @group Laminas-11218
      */
     public function testGeneratesUseStatements()
     {
@@ -338,20 +337,18 @@ EOS;
         $expected = <<<'CODE'
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source
+ * @see       https://github.com/laminas/laminas-code for the canonical source
  * repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc.
- * (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New
+ * BSD License
  */
 
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 
-use ZendTest\Code\Generator\TestAsset\ClassWithNamespace;
+use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
 
 class ClassWithUses
 {
@@ -384,20 +381,18 @@ CODE;
         $expected = <<<'CODE'
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source
+ * @see       https://github.com/laminas/laminas-code for the canonical source
  * repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc.
- * (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New
+ * BSD License
  */
 
 
-namespace ZendTest\Code\Generator\TestAsset;
+namespace LaminasTest\Code\Generator\TestAsset;
 
 
-use ZendTest\Code\Generator\TestAsset\ClassWithNamespace;
+use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
 
 class ClassWithUses
 {
@@ -547,7 +542,7 @@ EOS;
         $generator = new FileGenerator();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('setDeclares is expecting an array of Zend\\Code\\DeclareStatement objects');
+        $this->expectExceptionMessage('setDeclares is expecting an array of Laminas\\Code\\DeclareStatement objects');
         $generator->setDeclares([new \stdClass()]);
     }
 }
