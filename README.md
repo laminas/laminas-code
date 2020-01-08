@@ -1,6 +1,6 @@
 # laminas-code
 
-[![Build Status](https://travis-ci.org/laminas/laminas-code.svg?branch=master)](https://travis-ci.org/laminas/laminas-code)
+[![Build Status](https://travis-ci.com/laminas/laminas-code.svg?branch=master)](https://travis-ci.com/laminas/laminas-code)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-code/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-code?branch=master)
 
 `Laminas\Code\Generator` provides facilities to generate arbitrary code using an
