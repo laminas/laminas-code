@@ -12,4 +12,3 @@ site_description: 'Extensions to the PHP Reflection API, static code scanning, a
 repo_url: 'https://github.com/laminas/laminas-code'
 extra:
     project: Components
-    project_url: 'https://docs.laminas.dev'
