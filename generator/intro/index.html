@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -231,108 +235,104 @@ provide code generation for other tasks: JavaScript, configuration files, apache
 <p>In the most typical use case, you will simply instantiate a code generator class and either pass it
 the appropriate configuration or configure it after instantiation. To generate the code, you will
 simply echo the object or call its <code>generate()</code> method.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Passing configuration to the constructor:</span>
-<span class=x>$file = new Laminas\Code\Generator\FileGenerator(array(</span>
-<span class=x>    &#39;classes&#39; =&gt; array(</span>
-<span class=x>        new Laminas\Code\Generator\ClassGenerator(</span>
-<span class=x>            &#39;World&#39;,  // name</span>
-<span class=x>            null,     // namespace</span>
-<span class=x>            null,     // flags</span>
-<span class=x>            null,     // extends</span>
-<span class=x>            array(),  // interfaces</span>
-<span class=x>            array(),  // properties</span>
-<span class=x>            array(</span>
-<span class=x>                new Laminas\Code\Generator\MethodGenerator(</span>
-<span class=x>                    &#39;hello&#39;,                  // name</span>
-<span class=x>                    array(),                  // parameters</span>
-<span class=x>                    &#39;public&#39;,                 // visibility</span>
-<span class=x>                    &#39;echo \&#39;Hello world!\&#39;;&#39;  // body</span>
-<span class=x>                ),</span>
-<span class=x>            )</span>
-<span class=x>        ),</span>
-<span class=x>    ),</span>
-<span class=x>));</span>
+<pre class=codehilite><code class=language-php>// Passing configuration to the constructor:
+$file = new Laminas\Code\Generator\FileGenerator(array(
+    'classes' =&gt; array(
+        new Laminas\Code\Generator\ClassGenerator(
+            'World',  // name
+            null,     // namespace
+            null,     // flags
+            null,     // extends
+            array(),  // interfaces
+            array(),  // properties
+            array(
+                new Laminas\Code\Generator\MethodGenerator(
+                    'hello',                  // name
+                    array(),                  // parameters
+                    'public',                 // visibility
+                    'echo \'Hello world!\';'  // body
+                ),
+            )
+        ),
+    ),
+));
 
-<span class=x>// Render the generated file</span>
-<span class=x>echo $file-&gt;generate();</span>
+// Render the generated file
+echo $file-&gt;generate();
 
-<span class=x>// or write it to a file:</span>
-<span class=x>file_put_contents(&#39;World.php&#39;, $file-&gt;generate());</span>
+// or write it to a file:
+file_put_contents('World.php', $file-&gt;generate());
 
-<span class=x>// OR</span>
+// OR
 
-<span class=x>// Configuring after instantiation</span>
-<span class=x>$method = new Laminas\Code\Generator\MethodGenerator();</span>
-<span class=x>$method-&gt;setName(&#39;hello&#39;)</span>
-<span class=x>       -&gt;setBody(&#39;echo \&#39;Hello world!\&#39;;&#39;);</span>
+// Configuring after instantiation
+$method = new Laminas\Code\Generator\MethodGenerator();
+$method-&gt;setName('hello')
+       -&gt;setBody('echo \'Hello world!\';');
 
-<span class=x>$class = new Laminas\Code\Generator\ClassGenerator();</span>
-<span class=x>$class-&gt;setName(&#39;World&#39;)</span>
-<span class=x>      -&gt;addMethodFromGenerator($method);</span>
+$class = new Laminas\Code\Generator\ClassGenerator();
+$class-&gt;setName('World')
+      -&gt;addMethodFromGenerator($method);
 
-<span class=x>$file = new Laminas\Code\Generator\FileGenerator();</span>
-<span class=x>$file-&gt;setClass($class);</span>
+$file = new Laminas\Code\Generator\FileGenerator();
+$file-&gt;setClass($class);
 
-<span class=x>// Render the generated file</span>
-<span class=x>echo $file-&gt;generate();</span>
+// Render the generated file
+echo $file-&gt;generate();
 
-<span class=x>// or write it to a file:</span>
-<span class=x>file_put_contents(&#39;World.php&#39;, $file-&gt;generate());</span>
-</pre></div></p>
+// or write it to a file:
+file_put_contents('World.php', $file-&gt;generate());</code></pre>
 <p>Both of the above samples will render the same result:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
+<pre class=codehilite><code class=language-php>&lt;?php
 
-<span class=k>class</span> <span class=nc>World</span>
-<span class=p>{</span>
+class World
+{
 
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>hello</span><span class=p>()</span>
-    <span class=p>{</span>
-        <span class=k>echo</span> <span class=s1>&#39;Hello world!&#39;</span><span class=p>;</span>
-    <span class=p>}</span>
+    public function hello()
+    {
+        echo 'Hello world!';
+    }
 
-<span class=p>}</span>
-</pre></div></p>
+}</code></pre>
 <p>Another common use case is to update existing code -- for instance, to add a method to a class. In
 such a case, you must first inspect the existing code using reflection, and then add your new
 method. <code>Laminas\Code\Generator</code> makes this trivially simple, by leveraging <code>Laminas\Code\Reflection</code>.</p>
 <p>As an example, let's say we've saved the above to the file <code>World.php</code>, and have already included
 it. We could then do the following:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$class = Laminas\Code\Generator\ClassGenerator::fromReflection(</span>
-<span class=x>    new Laminas\Code\Reflection\ClassReflection(&#39;World&#39;)</span>
-<span class=x>);</span>
+<pre class=codehilite><code class=language-php>$class = Laminas\Code\Generator\ClassGenerator::fromReflection(
+    new Laminas\Code\Reflection\ClassReflection('World')
+);
 
-<span class=x>$method = new Laminas\Code\Generator\MethodGenerator();</span>
-<span class=x>$method-&gt;setName(&#39;mrMcFeeley&#39;)</span>
-<span class=x>       -&gt;setBody(&#39;echo \&#39;Hello, Mr. McFeeley!\&#39;;&#39;);</span>
-<span class=x>$class-&gt;addMethodFromGenerator($method);</span>
+$method = new Laminas\Code\Generator\MethodGenerator();
+$method-&gt;setName('mrMcFeeley')
+       -&gt;setBody('echo \'Hello, Mr. McFeeley!\';');
+$class-&gt;addMethodFromGenerator($method);
 
-<span class=x>$file = new Laminas\Code\Generator\FileGenerator();</span>
-<span class=x>$file-&gt;setClass($class);</span>
+$file = new Laminas\Code\Generator\FileGenerator();
+$file-&gt;setClass($class);
 
-<span class=x>// Render the generated file</span>
-<span class=x>echo $file-&gt;generate();</span>
+// Render the generated file
+echo $file-&gt;generate();
 
-<span class=x>// Or, better yet, write it back to the original file:</span>
-<span class=x>file_put_contents(&#39;World.php&#39;, $file-&gt;generate());</span>
-</pre></div></p>
+// Or, better yet, write it back to the original file:
+file_put_contents('World.php', $file-&gt;generate());</code></pre>
 <p>The resulting class file will now look like this:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
+<pre class=codehilite><code class=language-php>&lt;?php
 
-<span class=k>class</span> <span class=nc>World</span>
-<span class=p>{</span>
+class World
+{
 
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>hello</span><span class=p>()</span>
-    <span class=p>{</span>
-        <span class=k>echo</span> <span class=s1>&#39;Hello world!&#39;</span><span class=p>;</span>
-    <span class=p>}</span>
+    public function hello()
+    {
+        echo 'Hello world!';
+    }
 
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>mrMcFeeley</span><span class=p>()</span>
-    <span class=p>{</span>
-        <span class=k>echo</span> <span class=s1>&#39;Hellow Mr. McFeeley!&#39;</span><span class=p>;</span>
-    <span class=p>}</span>
+    public function mrMcFeeley()
+    {
+        echo 'Hellow Mr. McFeeley!';
+    }
 
-<span class=p>}</span>
-</pre></div></p>
+}</code></pre>
 
 
 
@@ -466,9 +466,10 @@ it. We could then do the following:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -505,7 +506,7 @@ it. We could then do the following:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-code/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -514,8 +515,8 @@ it. We could then do the following:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

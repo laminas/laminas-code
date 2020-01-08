@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -231,28 +235,26 @@
 <h3>Laminas\Code\Generator\GeneratorInterface</h3>
 <p>The base interface from which all CodeGenerator classes implement provides the minimal functionality
 necessary. It's <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>interface Laminas\Code\Generator\GeneratorInterface</span>
-<span class=x>{</span>
-<span class=x>    public function generate();</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>interface Laminas\Code\Generator\GeneratorInterface
+{
+    public function generate();
+}</code></pre>
 <h3>Laminas\Code\Generator\AbstractGenerator</h3>
 <p><code>Laminas\Code\Generator\AbstractGenerator</code> implements <code>Laminas\Code\Generator\GeneratorInterface</code>, and
 adds some properties for tracking whether content has changed as well as the amount of indentation
 that should appear before generated content. Its <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>abstract class Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>    implements Laminas\Code\Generator\GeneratorInterface</span>
-<span class=x>{</span>
-<span class=x>    public function __construct(Array|Traversable $options = [])</span>
-<span class=x>    public function setOptions(Array $options)</span>
-<span class=x>    public function setSourceContent($sourceContent)</span>
-<span class=x>    public function getSourceContent()</span>
-<span class=x>    public function setSourceDirty($isSourceDirty = true)</span>
-<span class=x>    public function isSourceDirty()</span>
-<span class=x>    public function setIndentation($indentation)</span>
-<span class=x>    public function getIndentation()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>abstract class Laminas\Code\Generator\AbstractGenerator
+    implements Laminas\Code\Generator\GeneratorInterface
+{
+    public function __construct(Array|Traversable $options = [])
+    public function setOptions(Array $options)
+    public function setSourceContent($sourceContent)
+    public function getSourceContent()
+    public function setSourceDirty($isSourceDirty = true)
+    public function isSourceDirty()
+    public function setIndentation($indentation)
+    public function getIndentation()
+}</code></pre>
 <p>The constructor passes the <code>$options</code> parameter to <code>setOptions()</code>.</p>
 <p>Like most classes in Laminas, <code>setOptions()</code> compares an option key to existing setters in
 the class, and passes the value on to that method if found.</p>
@@ -263,32 +265,30 @@ code being generated, or to replace said content once all generation tasks are c
 properties and methods -- and provides accessors and mutators for establishing visibility; whether
 or not the member is abstract, static, or final; and the name of the member. Its <em>API</em> is as
 follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>abstract class Laminas\Code\Generator\AbstractMemberGenerator</span>
-<span class=x>    extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public function setAbstract($isAbstract)</span>
-<span class=x>    public function isAbstract()</span>
-<span class=x>    public function setStatic($isStatic)</span>
-<span class=x>    public function isStatic()</span>
-<span class=x>    public function setVisibility($visibility)</span>
-<span class=x>    public function getVisibility()</span>
-<span class=x>    public function setName($name)</span>
-<span class=x>    public function getName()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>abstract class Laminas\Code\Generator\AbstractMemberGenerator
+    extends Laminas\Code\Generator\AbstractGenerator
+{
+    public function setAbstract($isAbstract)
+    public function isAbstract()
+    public function setStatic($isStatic)
+    public function isStatic()
+    public function setVisibility($visibility)
+    public function getVisibility()
+    public function setName($name)
+    public function getName()
+}</code></pre>
 <h2 id="concrete-codegenerator-classes">Concrete CodeGenerator Classes</h2>
 <h3>Laminas\Code\Generator\BodyGenerator</h3>
 <p><code>Laminas\Code\Generator\BodyGenerator</code> is intended for generating arbitrary procedural code to include
 within a file. As such, you simply set content for the object, and it will return that content when
 you invoke <code>generate()</code>.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\BodyGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public function setContent($content)</span>
-<span class=x>    public function getContent()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\BodyGenerator extends Laminas\Code\Generator\AbstractGenerator
+{
+    public function setContent($content)
+    public function getContent()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\ClassGenerator</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> is intended for generating <em>PHP</em> classes. The basic
 functionality just generates the <em>PHP</em> class itself, as well as optionally the related <em>PHP</em>
@@ -296,54 +296,53 @@ DocBlock. Classes may implement or inherit from other classes, and may be marked
 Utilizing other code generator classes, you can also attach class constants, properties, and
 methods.</p>
 <p>The <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\ClassGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\ClassReflection $reflectionClass</span>
-<span class=x>    )</span>
-<span class=x>    public function addConstants(Array $properties)</span>
-<span class=x>    public function addConstant($property)</span>
-<span class=x>    public function getConstants()</span>
-<span class=x>    public function getConstant($propertyName)</span>
-<span class=x>    public function removeConstant($constantName)</span>
-<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
-<span class=x>    public function getDocblock()</span>
-<span class=x>    public function setName($name)</span>
-<span class=x>    public function getName()</span>
-<span class=x>    public function setAbstract($isAbstract)</span>
-<span class=x>    public function isAbstract()</span>
-<span class=x>    public function setExtendedClass($extendedClass)</span>
-<span class=x>    public function getExtendedClass()</span>
-<span class=x>    public function hasExtentedClass()</span>
-<span class=x>    public function removeExtentedClass()</span>
-<span class=x>    public function setImplementedInterfaces(Array $implementedInterfaces)</span>
-<span class=x>    public function getImplementedInterfaces()</span>
-<span class=x>    public function addProperties(Array $properties)</span>
-<span class=x>    public function addProperty($property)</span>
-<span class=x>    public function getProperties()</span>
-<span class=x>    public function getProperty($propertyName)</span>
-<span class=x>    public function removeProperty($propertyName)</span>
-<span class=x>    public function addMethods(Array $methods)</span>
-<span class=x>    public function addMethod(</span>
-<span class=x>        $name,</span>
-<span class=x>        Array $parameters = [],</span>
-<span class=x>        $flags = Laminas\Code\Generator\MethodGenerator::FLAG_PUBLIC,</span>
-<span class=x>        $body = null,</span>
-<span class=x>        $docBlock = null</span>
-<span class=x>    )</span>
-<span class=x>    public function getMethods()</span>
-<span class=x>    public function getMethod($methodName)</span>
-<span class=x>    public function hasMethod($methodName)</span>
-<span class=x>    public function hasUse($use)</span>
-<span class=x>    public function removeUse($use)</span>
-<span class=x>    public function hasUseAlias($use)</span>
-<span class=x>    public function removeUseAlias($use)</span>
-<span class=x>    public function hasImplementedInterface($implementedInterface)</span>
-<span class=x>    public function removeImplementedInterface($implementedInterface)</span>
-<span class=x>    public function isSourceDirty()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\ClassGenerator extends Laminas\Code\Generator\AbstractGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\ClassReflection $reflectionClass
+    )
+    public function addConstants(Array $properties)
+    public function addConstant($property)
+    public function getConstants()
+    public function getConstant($propertyName)
+    public function removeConstant($constantName)
+    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)
+    public function getDocblock()
+    public function setName($name)
+    public function getName()
+    public function setAbstract($isAbstract)
+    public function isAbstract()
+    public function setExtendedClass($extendedClass)
+    public function getExtendedClass()
+    public function hasExtentedClass()
+    public function removeExtentedClass()
+    public function setImplementedInterfaces(Array $implementedInterfaces)
+    public function getImplementedInterfaces()
+    public function addProperties(Array $properties)
+    public function addProperty($property)
+    public function getProperties()
+    public function getProperty($propertyName)
+    public function removeProperty($propertyName)
+    public function addMethods(Array $methods)
+    public function addMethod(
+        $name,
+        Array $parameters = [],
+        $flags = Laminas\Code\Generator\MethodGenerator::FLAG_PUBLIC,
+        $body = null,
+        $docBlock = null
+    )
+    public function getMethods()
+    public function getMethod($methodName)
+    public function hasMethod($methodName)
+    public function hasUse($use)
+    public function removeUse($use)
+    public function hasUseAlias($use)
+    public function removeUseAlias($use)
+    public function hasImplementedInterface($implementedInterface)
+    public function removeImplementedInterface($implementedInterface)
+    public function isSourceDirty()
+    public function generate()
+}</code></pre>
 <p>The <code>addProperty()</code> method accepts an array of information that may be used to generate a
 <code>Laminas\Code\Generator\PropertyGenerator</code> instance -- or simply an instance of
 <code>Laminas\Code\Generator\PropertyGenerator</code>. Likewise, <code>addMethod()</code> accepts either an array of
@@ -357,74 +356,70 @@ all the standard docblock features: short and long descriptions and annotation t
 array describing the tag that may be passed to the <code>Laminas\Code\Generator\DocBlock\Tag</code> constructor,
 or an instance of that class.</p>
 <p>The <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlockGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\DocblockReflection $reflectionDocblock</span>
-<span class=x>    )</span>
-<span class=x>    public function setShortDescription($shortDescription)</span>
-<span class=x>    public function getShortDescription()</span>
-<span class=x>    public function setLongDescription($longDescription)</span>
-<span class=x>    public function getLongDescription()</span>
-<span class=x>    public function setTags(Array $tags)</span>
-<span class=x>    public function setTag($tag)</span>
-<span class=x>    public function getTags()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\DocBlockGenerator extends Laminas\Code\Generator\AbstractGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\DocblockReflection $reflectionDocblock
+    )
+    public function setShortDescription($shortDescription)
+    public function getShortDescription()
+    public function setLongDescription($longDescription)
+    public function getLongDescription()
+    public function setTags(Array $tags)
+    public function setTag($tag)
+    public function getTags()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\DocBlock\Tag</h3>
 <p><code>Laminas\Code\Generator\DocBlock\Tag</code> is intended for creating arbitrary annotation tags for inclusion
 in <em>PHP</em> docblocks. Tags are expected to contain a name (the portion immediately following the '@'
 symbol) and a description (everything following the tag name).</p>
 <p>The class <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag</span>
-<span class=x>    extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTag</span>
-<span class=x>    )</span>
-<span class=x>    public function setName($name)</span>
-<span class=x>    public function getName()</span>
-<span class=x>    public function setDescription($description)</span>
-<span class=x>    public function getDescription()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\DocBlock\Tag
+    extends Laminas\Code\Generator\AbstractGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTag
+    )
+    public function setName($name)
+    public function getName()
+    public function setDescription($description)
+    public function getDescription()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\DocBlock\Tag\ParamTag</h3>
 <p><code>Laminas\Code\Generator\DocBlock\Tag\ParamTag</code> is a specialized version of
 <code>Laminas\Code\Generator\DocBlock\Tag</code>, and represents a method parameter. The tag name is therefor
 known ("param"), but due to the format of this annotation tag, additional information is required in
 order to generate it: the parameter name and data type it represents.</p>
 <p>The class <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag\ParamTag</span>
-<span class=x>    extends Laminas\Code\Generator\DocBlock\Tag</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagParam</span>
-<span class=x>    )</span>
-<span class=x>    public function setDatatype($datatype)</span>
-<span class=x>    public function getDatatype()</span>
-<span class=x>    public function setParamName($paramName)</span>
-<span class=x>    public function getParamName()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\DocBlock\Tag\ParamTag
+    extends Laminas\Code\Generator\DocBlock\Tag
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagParam
+    )
+    public function setDatatype($datatype)
+    public function getDatatype()
+    public function setParamName($paramName)
+    public function getParamName()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</h3>
 <p>Like the param docblock tag variant, <code>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</code> is an annotation
 tag variant for representing a method return value. In this case, the annotation tag name is known
 ("return"), but requires a return type.</p>
 <p>The class <em>API</em> is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\DocBlock\Tag\ParamTag</span>
-<span class=x>    extends Laminas\Code\Generator\DocBlock\Tag</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagReturn</span>
-<span class=x>    )</span>
-<span class=x>    public function setDatatype($datatype)</span>
-<span class=x>    public function getDatatype()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\DocBlock\Tag\ParamTag
+    extends Laminas\Code\Generator\DocBlock\Tag
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\DocBlock\Tag\TagInterface $reflectionTagReturn
+    )
+    public function setDatatype($datatype)
+    public function getDatatype()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\FileGenerator</h3>
 <p><code>Laminas\Code\Generator\FileGenerator</code> is used to generate the full contents of a file that will
 contain <em>PHP</em> code. The file may contain classes or arbitrary <em>PHP</em> code, as well as a file-level
@@ -434,39 +429,37 @@ docblock if desired.</p>
 docblocks, you will need to pass information for the <code>Laminas\Code\Generator\DocBlockGenerator</code>
 constructor to consume or an instance of the class.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\FileGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflectedFilePath(</span>
-<span class=x>        $filePath,</span>
-<span class=x>        $usePreviousCodeGeneratorIfItExists = true,</span>
-<span class=x>        $includeIfNotAlreadyIncluded = true)</span>
-<span class=x>    public static function fromReflection(Laminas\Code\Reflection\FileReflection $reflectionFile)</span>
-<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
-<span class=x>    public function getDocblock()</span>
-<span class=x>    public function setRequiredFiles($requiredFiles)</span>
-<span class=x>    public function getRequiredFiles()</span>
-<span class=x>    public function setClasses(Array $classes)</span>
-<span class=x>    public function getClass($name = null)</span>
-<span class=x>    public function setClass($class)</span>
-<span class=x>    public function setFilename($filename)</span>
-<span class=x>    public function getFilename()</span>
-<span class=x>    public function getClasses()</span>
-<span class=x>    public function setBody($body)</span>
-<span class=x>    public function getBody()</span>
-<span class=x>    public function isSourceDirty()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\FileGenerator extends Laminas\Code\Generator\AbstractGenerator
+{
+    public static function fromReflectedFilePath(
+        $filePath,
+        $usePreviousCodeGeneratorIfItExists = true,
+        $includeIfNotAlreadyIncluded = true)
+    public static function fromReflection(Laminas\Code\Reflection\FileReflection $reflectionFile)
+    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)
+    public function getDocblock()
+    public function setRequiredFiles($requiredFiles)
+    public function getRequiredFiles()
+    public function setClasses(Array $classes)
+    public function getClass($name = null)
+    public function setClass($class)
+    public function setFilename($filename)
+    public function getFilename()
+    public function getClasses()
+    public function setBody($body)
+    public function getBody()
+    public function isSourceDirty()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\Member\ContainerGenerator</h3>
 <p><code>Laminas\Code\Generator\Member\ContainerGenerator</code> is used internally by
 <code>Laminas\Code\Generator\ClassGenerator</code> to keep track of class members -- properties and methods alike.
 These are indexed by name, using the concrete instances of the members as values.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\Member\ContainerGenerator extends ArrayObject</span>
-<span class=x>{</span>
-<span class=x>    public function __construct($type = self::TYPE_PROPERTY)</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\Member\ContainerGenerator extends ArrayObject
+{
+    public function __construct($type = self::TYPE_PROPERTY)
+}</code></pre>
 <h3>Laminas\Code\Generator\MethodGenerator</h3>
 <p><code>Laminas\Code\Generator\MethodGenerator</code> describes a class method, and can generate both the code and
 the docblock for the method. The visibility and status as static, abstract, or final may be
@@ -476,58 +469,55 @@ parameters and return value for the method may be specified.</p>
 either be an array of information to pass to the <code>Laminas\Code\Generator\ParameterGenerator</code>
 constructor or an instance of that class.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\MethodGenerator</span>
-<span class=x>    extends Laminas\Code\Generator\AbstractMemberGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\MethodReflection $reflectionMethod</span>
-<span class=x>    )</span>
-<span class=x>    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)</span>
-<span class=x>    public function getDocblock()</span>
-<span class=x>    public function setFinal($isFinal)</span>
-<span class=x>    public function setParameters(Array $parameters)</span>
-<span class=x>    public function setParameter($parameter)</span>
-<span class=x>    public function getParameters()</span>
-<span class=x>    public function setBody($body)</span>
-<span class=x>    public function getBody()</span>
-<span class=x>    public function generate()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\MethodGenerator
+    extends Laminas\Code\Generator\AbstractMemberGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\MethodReflection $reflectionMethod
+    )
+    public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)
+    public function getDocblock()
+    public function setFinal($isFinal)
+    public function setParameters(Array $parameters)
+    public function setParameter($parameter)
+    public function getParameters()
+    public function setBody($body)
+    public function getBody()
+    public function generate()
+}</code></pre>
 <h3>Laminas\Code\Generator\ParameterGenerator</h3>
 <p><code>Laminas\Code\Generator\ParameterGenerator</code> may be used to specify method parameters. Each parameter
 may have a position (if unspecified, the order in which they are registered with the method will be
 used), a default value, and a data type; a parameter name is required.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\ParameterGenerator extends Laminas\Code\Generator\AbstractGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\ParameterReflection $reflectionParameter</span>
-<span class=x>    )</span>
-<span class=x>    public function setType($type)</span>
-<span class=x>    public function getType()</span>
-<span class=x>    public function setName($name)</span>
-<span class=x>    public function getName()</span>
-<span class=x>    public function setDefaultValue($defaultValue)</span>
-<span class=x>    public function getDefaultValue()</span>
-<span class=x>    public function setPosition($position)</span>
-<span class=x>    public function getPosition()</span>
-<span class=x>    public function getPassedByReference()</span>
-<span class=x>    public function setPassedByReference($passedByReference)</span>
-<span class=x>    public function generate()</span>
-<span class=x>    public function omitDefaultValue()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\ParameterGenerator extends Laminas\Code\Generator\AbstractGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\ParameterReflection $reflectionParameter
+    )
+    public function setType($type)
+    public function getType()
+    public function setName($name)
+    public function getName()
+    public function setDefaultValue($defaultValue)
+    public function getDefaultValue()
+    public function setPosition($position)
+    public function getPosition()
+    public function getPassedByReference()
+    public function setPassedByReference($passedByReference)
+    public function generate()
+    public function omitDefaultValue()
+}</code></pre>
 <p>There are several problems that might occur when trying to set <code>NULL</code>, booleans or arrays as default
 values. For this the value holder object <code>Laminas\Code\Generator\ParameterDefaultValueGenerator</code> can be
 used, for example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$parameter = new Laminas\Code\Generator\ParameterGenerator();</span>
-<span class=x>$parameter-&gt;setDefaultValue(</span>
-<span class=x>    new Laminas\Code\Generator\ValueGenerator(&quot;null&quot;)</span>
-<span class=x>);</span>
-<span class=x>$parameter-&gt;setDefaultValue(</span>
-<span class=x>    new Laminas\Code\Generator\ValueGenerator(&quot;[&#39;foo&#39;, &#39;bar&#39;]&quot;)</span>
-<span class=x>);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$parameter = new Laminas\Code\Generator\ParameterGenerator();
+$parameter-&gt;setDefaultValue(
+    new Laminas\Code\Generator\ValueGenerator(&quot;null&quot;)
+);
+$parameter-&gt;setDefaultValue(
+    new Laminas\Code\Generator\ValueGenerator(&quot;['foo', 'bar']&quot;)
+);</code></pre>
 <p>Internally <code>setDefaultValue()</code> also converts the values which can't be expressed in <em>PHP</em> into the
 value holder.</p>
 <h3>Laminas\Code\Generator\PropertyGenerator</h3>
@@ -536,20 +526,19 @@ or a variable. In each case, the property may have an optional default value ass
 Additionally, the visibility of variable properties may be set, per the parent class,
 <code>Laminas\Code\Generator\AbstractMemberGenerator</code>.</p>
 <p>The <em>API</em> of the class is as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Laminas\Code\Generator\PropertyGenerator</span>
-<span class=x>    extends Laminas\Code\Generator\AbstractMemberGenerator</span>
-<span class=x>{</span>
-<span class=x>    public static function fromReflection(</span>
-<span class=x>        Laminas\Code\Reflection\PropertyReflection $reflectionProperty</span>
-<span class=x>    )</span>
-<span class=x>    public function setConst($const)</span>
-<span class=x>    public function isConst()</span>
-<span class=x>    public function setDefaultValue($defaultValue)</span>
-<span class=x>    public function getDefaultValue()</span>
-<span class=x>    public function generate()</span>
-<span class=x>    public function omitDefaultValue()</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>class Laminas\Code\Generator\PropertyGenerator
+    extends Laminas\Code\Generator\AbstractMemberGenerator
+{
+    public static function fromReflection(
+        Laminas\Code\Reflection\PropertyReflection $reflectionProperty
+    )
+    public function setConst($const)
+    public function isConst()
+    public function setDefaultValue($defaultValue)
+    public function getDefaultValue()
+    public function generate()
+    public function omitDefaultValue()
+}</code></pre>
 
 
 
@@ -683,9 +672,10 @@ Additionally, the visibility of variable properties may be set, per the parent c
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -722,7 +712,7 @@ Additionally, the visibility of variable properties may be set, per the parent c
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-code/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -731,8 +721,8 @@ Additionally, the visibility of variable properties may be set, per the parent c
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

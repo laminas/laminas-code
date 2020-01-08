@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -233,334 +237,323 @@
     <h1 id="laminas92code92generator-examples">Laminas\Code\Generator Examples</h1>
 <h2 id="generating-php-classes">Generating PHP classes</h2>
 <p>The following example generates an empty class with a class-level DocBlock.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Code\Generator\ClassGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlockGenerator;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
 
-<span class=x>$foo      = new ClassGenerator();</span>
-<span class=x>$docblock = DocBlockGenerator::fromArray([</span>
-<span class=x>    &#39;shortDescription&#39; =&gt; &#39;Sample generated class&#39;,</span>
-<span class=x>    &#39;longDescription&#39;  =&gt; &#39;This is a class generated with Laminas\Code\Generator.&#39;,</span>
-<span class=x>    &#39;tags&#39;             =&gt; [</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;version&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;$Rev:$&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;license&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;New BSD&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
-<span class=x>$foo-&gt;setName(&#39;Foo&#39;)</span>
-<span class=x>    -&gt;setDocblock($docblock);</span>
-<span class=x>echo $foo-&gt;generate();</span>
-</pre></div></p>
+$foo      = new ClassGenerator();
+$docblock = DocBlockGenerator::fromArray([
+    'shortDescription' =&gt; 'Sample generated class',
+    'longDescription'  =&gt; 'This is a class generated with Laminas\Code\Generator.',
+    'tags'             =&gt; [
+        [
+            'name'        =&gt; 'version',
+            'description' =&gt; '$Rev:$',
+        ],
+        [
+            'name'        =&gt; 'license',
+            'description' =&gt; 'New BSD',
+        ],
+    ],
+]);
+$foo-&gt;setName('Foo')
+    -&gt;setDocblock($docblock);
+echo $foo-&gt;generate();</code></pre>
 <p>The above code will result in the following:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>/**</span>
-<span class=x> * Sample generated class</span>
-<span class=x> *</span>
-<span class=x> * This is a class generated with Laminas\Code\Generator.</span>
-<span class=x> *</span>
-<span class=x> * @version $Rev:$</span>
-<span class=x> * @license New BSD</span>
-<span class=x> *</span>
-<span class=x> */</span>
-<span class=x>class Foo</span>
-<span class=x>{</span>
+<pre class=codehilite><code class=language-php>/**
+ * Sample generated class
+ *
+ * This is a class generated with Laminas\Code\Generator.
+ *
+ * @version $Rev:$
+ * @license New BSD
+ *
+ */
+class Foo
+{
 
-<span class=x>}</span>
-</pre></div></p>
+}</code></pre>
 <h3>Generating PHP classes with class properties</h3>
 <p>Building on the previous example, we now add properties to our generated class.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Code\Generator\ClassGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlockGenerator;</span>
-<span class=x>use Laminas\Code\Generator\PropertyGenerator;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
 
-<span class=x>$foo      = new ClassGenerator();</span>
-<span class=x>$docblock = DocBlockGenerator::fromArray([</span>
-<span class=x>    &#39;shortDescription&#39; =&gt; &#39;Sample generated class&#39;,</span>
-<span class=x>    &#39;longDescription&#39;  =&gt; &#39;This is a class generated with Laminas\Code\Generator.&#39;,</span>
-<span class=x>    &#39;tags&#39;             =&gt; [</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;version&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;$Rev:$&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;license&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;New BSD&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
-<span class=x>$foo-&gt;setName(&#39;Foo&#39;)</span>
-<span class=x>    -&gt;setDocblock($docblock)</span>
-<span class=x>    -&gt;addProperties([</span>
-<span class=x>         [&#39;_bar&#39;, &#39;baz&#39;, PropertyGenerator::FLAG_PROTECTED],</span>
-<span class=x>         [&#39;baz&#39;,  &#39;bat&#39;, PropertyGenerator::FLAG_PUBLIC]</span>
-<span class=x>   ])</span>
-<span class=x>   -&gt;addConstants([</span>
-<span class=x>         [&#39;bat&#39;,  &#39;foobarbazbat&#39;]</span>
-<span class=x>    ]);</span>
-<span class=x>echo $foo-&gt;generate();</span>
-</pre></div></p>
+$foo      = new ClassGenerator();
+$docblock = DocBlockGenerator::fromArray([
+    'shortDescription' =&gt; 'Sample generated class',
+    'longDescription'  =&gt; 'This is a class generated with Laminas\Code\Generator.',
+    'tags'             =&gt; [
+        [
+            'name'        =&gt; 'version',
+            'description' =&gt; '$Rev:$',
+        ],
+        [
+            'name'        =&gt; 'license',
+            'description' =&gt; 'New BSD',
+        ],
+    ],
+]);
+$foo-&gt;setName('Foo')
+    -&gt;setDocblock($docblock)
+    -&gt;addProperties([
+         ['_bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
+         ['baz',  'bat', PropertyGenerator::FLAG_PUBLIC]
+   ])
+   -&gt;addConstants([
+         ['bat',  'foobarbazbat']
+    ]);
+echo $foo-&gt;generate();</code></pre>
 <p>The above results in the following class definition:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>/**</span>
-<span class=x> * Sample generated class</span>
-<span class=x> *</span>
-<span class=x> * This is a class generated with Laminas\Code\Generator.</span>
-<span class=x> *</span>
-<span class=x> * @version $Rev:$</span>
-<span class=x> * @license New BSD</span>
-<span class=x> *</span>
-<span class=x> */</span>
-<span class=x>class Foo</span>
-<span class=x>{</span>
+<pre class=codehilite><code class=language-php>/**
+ * Sample generated class
+ *
+ * This is a class generated with Laminas\Code\Generator.
+ *
+ * @version $Rev:$
+ * @license New BSD
+ *
+ */
+class Foo
+{
 
-<span class=x>    protected $_bar = &#39;baz&#39;;</span>
+    protected $_bar = 'baz';
 
-<span class=x>    public $baz = &#39;bat&#39;;</span>
+    public $baz = 'bat';
 
-<span class=x>    const bat = &#39;foobarbazbat&#39;;</span>
+    const bat = 'foobarbazbat';
 
-<span class=x>}</span>
-</pre></div></p>
+}</code></pre>
 <h3>Generating PHP classes with class methods</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> allows you to attach methods with optional content to your
 classes. Methods may be attached as either arrays or concrete <code>Laminas\Code\Generator\MethodGenerator</code>
 instances.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Code\Generator\ClassGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlockGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlock\Tag;</span>
-<span class=x>use Laminas\Code\Generator\MethodGenerator;</span>
-<span class=x>use Laminas\Code\Generator\PropertyGenerator;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PropertyGenerator;
 
-<span class=x>$foo      = new ClassGenerator();</span>
-<span class=x>$docblock = DocBlockGenerator::fromArray([</span>
-<span class=x>    &#39;shortDescription&#39; =&gt; &#39;Sample generated class&#39;,</span>
-<span class=x>    &#39;longDescription&#39;  =&gt; &#39;This is a class generated with Laminas\Code\Generator.&#39;,</span>
-<span class=x>    &#39;tags&#39;             =&gt; [</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;version&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;$Rev:$&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>        [</span>
-<span class=x>            &#39;name&#39;        =&gt; &#39;license&#39;,</span>
-<span class=x>            &#39;description&#39; =&gt; &#39;New BSD&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
-<span class=x>$foo-&gt;setName(&#39;Foo&#39;)</span>
-<span class=x>    -&gt;setDocblock($docblock)</span>
-<span class=x>    -&gt;addProperties([</span>
-<span class=x>        [&#39;_bar&#39;, &#39;baz&#39;,          PropertyGenerator::FLAG_PROTECTED],</span>
-<span class=x>        [&#39;baz&#39;,  &#39;bat&#39;,          PropertyGenerator::FLAG_PUBLIC]</span>
-<span class=x>    ])</span>
-<span class=x>    -&gt;addConstants([</span>
-<span class=x>        [&#39;bat&#39;,  &#39;foobarbazbat&#39;, PropertyGenerator::FLAG_CONSTANT]</span>
-<span class=x>    ])</span>
-<span class=x>    -&gt;addMethods([</span>
-<span class=x>        // Method passed as array</span>
-<span class=x>        MethodGenerator::fromArray([</span>
-<span class=x>            &#39;name&#39;       =&gt; &#39;setBar&#39;,</span>
-<span class=x>            &#39;parameters&#39; =&gt; [&#39;bar&#39;],</span>
-<span class=x>            &#39;body&#39;       =&gt; &#39;$this-&gt;_bar = $bar;&#39; . &quot;\n&quot; . &#39;return $this;&#39;,</span>
-<span class=x>            &#39;docblock&#39;   =&gt; DocBlockGenerator::fromArray([</span>
-<span class=x>                &#39;shortDescription&#39; =&gt; &#39;Set the bar property&#39;,</span>
-<span class=x>                &#39;longDescription&#39;  =&gt; null,</span>
-<span class=x>                &#39;tags&#39;             =&gt; [</span>
-<span class=x>                    new Tag\ParamTag([</span>
-<span class=x>                        &#39;paramName&#39; =&gt; &#39;bar&#39;,</span>
-<span class=x>                        &#39;datatype&#39;  =&gt; &#39;string&#39;</span>
-<span class=x>                    ]),</span>
-<span class=x>                    new Tag\ReturnTag([</span>
-<span class=x>                        &#39;datatype&#39;  =&gt; &#39;string&#39;,</span>
-<span class=x>                    ]),</span>
-<span class=x>                ],</span>
-<span class=x>            ]),</span>
-<span class=x>        ]),</span>
-<span class=x>        // Method passed as concrete instance</span>
-<span class=x>        new MethodGenerator(</span>
-<span class=x>            &#39;getBar&#39;,</span>
-<span class=x>            [],</span>
-<span class=x>            MethodGenerator::FLAG_PUBLIC,</span>
-<span class=x>            &#39;return $this-&gt;_bar;&#39;,</span>
-<span class=x>            DocBlockGenerator::fromArray([</span>
-<span class=x>                &#39;shortDescription&#39; =&gt; &#39;Retrieve the bar property&#39;,</span>
-<span class=x>                &#39;longDescription&#39;  =&gt; null,</span>
-<span class=x>                &#39;tags&#39;             =&gt; [</span>
-<span class=x>                    new Tag\ReturnTag([</span>
-<span class=x>                        &#39;datatype&#39;  =&gt; &#39;string|null&#39;,</span>
-<span class=x>                    ]),</span>
-<span class=x>                ],</span>
-<span class=x>            ])</span>
-<span class=x>        ),</span>
-<span class=x>    ]);</span>
+$foo      = new ClassGenerator();
+$docblock = DocBlockGenerator::fromArray([
+    'shortDescription' =&gt; 'Sample generated class',
+    'longDescription'  =&gt; 'This is a class generated with Laminas\Code\Generator.',
+    'tags'             =&gt; [
+        [
+            'name'        =&gt; 'version',
+            'description' =&gt; '$Rev:$',
+        ],
+        [
+            'name'        =&gt; 'license',
+            'description' =&gt; 'New BSD',
+        ],
+    ],
+]);
+$foo-&gt;setName('Foo')
+    -&gt;setDocblock($docblock)
+    -&gt;addProperties([
+        ['_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED],
+        ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
+    ])
+    -&gt;addConstants([
+        ['bat',  'foobarbazbat', PropertyGenerator::FLAG_CONSTANT]
+    ])
+    -&gt;addMethods([
+        // Method passed as array
+        MethodGenerator::fromArray([
+            'name'       =&gt; 'setBar',
+            'parameters' =&gt; ['bar'],
+            'body'       =&gt; '$this-&gt;_bar = $bar;' . &quot;\n&quot; . 'return $this;',
+            'docblock'   =&gt; DocBlockGenerator::fromArray([
+                'shortDescription' =&gt; 'Set the bar property',
+                'longDescription'  =&gt; null,
+                'tags'             =&gt; [
+                    new Tag\ParamTag([
+                        'paramName' =&gt; 'bar',
+                        'datatype'  =&gt; 'string'
+                    ]),
+                    new Tag\ReturnTag([
+                        'datatype'  =&gt; 'string',
+                    ]),
+                ],
+            ]),
+        ]),
+        // Method passed as concrete instance
+        new MethodGenerator(
+            'getBar',
+            [],
+            MethodGenerator::FLAG_PUBLIC,
+            'return $this-&gt;_bar;',
+            DocBlockGenerator::fromArray([
+                'shortDescription' =&gt; 'Retrieve the bar property',
+                'longDescription'  =&gt; null,
+                'tags'             =&gt; [
+                    new Tag\ReturnTag([
+                        'datatype'  =&gt; 'string|null',
+                    ]),
+                ],
+            ])
+        ),
+    ]);
 
-<span class=x>echo $foo-&gt;generate();</span>
-</pre></div></p>
+echo $foo-&gt;generate();</code></pre>
 <p>The above generates the following output:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>/**</span>
-<span class=x> * Sample generated class</span>
-<span class=x> *</span>
-<span class=x> * This is a class generated with Laminas\Code\Generator.</span>
-<span class=x> *</span>
-<span class=x> * @version $Rev:$</span>
-<span class=x> * @license New BSD</span>
-<span class=x> */</span>
-<span class=x>class Foo</span>
-<span class=x>{</span>
+<pre class=codehilite><code class=language-php>/**
+ * Sample generated class
+ *
+ * This is a class generated with Laminas\Code\Generator.
+ *
+ * @version $Rev:$
+ * @license New BSD
+ */
+class Foo
+{
 
-<span class=x>    protected $_bar = &#39;baz&#39;;</span>
+    protected $_bar = 'baz';
 
-<span class=x>    public $baz = &#39;bat&#39;;</span>
+    public $baz = 'bat';
 
-<span class=x>    const bat = &#39;foobarbazbat&#39;;</span>
+    const bat = 'foobarbazbat';
 
-<span class=x>    /**</span>
-<span class=x>     * Set the bar property</span>
-<span class=x>     *</span>
-<span class=x>     * @param string bar</span>
-<span class=x>     * @return string</span>
-<span class=x>     */</span>
-<span class=x>    public function setBar($bar)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;_bar = $bar;</span>
-<span class=x>        return $this;</span>
-<span class=x>    }</span>
+    /**
+     * Set the bar property
+     *
+     * @param string bar
+     * @return string
+     */
+    public function setBar($bar)
+    {
+        $this-&gt;_bar = $bar;
+        return $this;
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * Retrieve the bar property</span>
-<span class=x>     *</span>
-<span class=x>     * @return string|null</span>
-<span class=x>     */</span>
-<span class=x>    public function getBar()</span>
-<span class=x>    {</span>
-<span class=x>        return $this-&gt;_bar;</span>
-<span class=x>    }</span>
+    /**
+     * Retrieve the bar property
+     *
+     * @return string|null
+     */
+    public function getBar()
+    {
+        return $this-&gt;_bar;
+    }
 
-<span class=x>}</span>
-</pre></div></p>
+}</code></pre>
 <h2 id="generating-php-files">Generating PHP files</h2>
 <p><code>Laminas\Code\Generator\FileGenerator</code> can be used to generate the contents of a <em>PHP</em> file. You can
 include classes as well as arbitrary content body. When attaching classes, you should attach either
 concrete <code>Laminas\Code\Generator\ClassGenerator</code> instances or an array defining the class.</p>
 <p>In the example below, we will assume you've defined <code>$foo</code> per one of the class definitions in a
 previous example.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Code\Generator\DocBlockGenerator;</span>
-<span class=x>use Laminas\Code\Generator\FileGenerator;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\FileGenerator;
 
-<span class=x>$file = FileGenerator::fromArray([</span>
-<span class=x>    &#39;classes&#39;  =&gt; [$foo],</span>
-<span class=x>    &#39;docblock&#39; =&gt; DocBlockGenerator::fromArray([</span>
-<span class=x>        &#39;shortDescription&#39; =&gt; &#39;Foo class file&#39;,</span>
-<span class=x>        &#39;longDescription&#39;   =&gt; null,</span>
-<span class=x>        &#39;tags&#39;             =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;name&#39;        =&gt; &#39;license&#39;,</span>
-<span class=x>                &#39;description&#39; =&gt; &#39;New BSD&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ]),</span>
-<span class=x>    &#39;body&#39;     =&gt; &#39;define(\&#39;APPLICATION_ENV\&#39;, \&#39;testing\&#39;);&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+$file = FileGenerator::fromArray([
+    'classes'  =&gt; [$foo],
+    'docblock' =&gt; DocBlockGenerator::fromArray([
+        'shortDescription' =&gt; 'Foo class file',
+        'longDescription'   =&gt; null,
+        'tags'             =&gt; [
+            [
+                'name'        =&gt; 'license',
+                'description' =&gt; 'New BSD',
+            ],
+        ],
+    ]),
+    'body'     =&gt; 'define(\'APPLICATION_ENV\', \'testing\');',
+]);</code></pre>
 <p>Calling <code>generate()</code> will generate the code -- but not write it to a file. You will need to capture
 the contents and write them to a file yourself. As an example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$code = $file-&gt;generate();</span>
-<span class=x>file_put_contents(&#39;Foo.php&#39;, $code);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$code = $file-&gt;generate();
+file_put_contents('Foo.php', $code);</code></pre>
 <p>The above will generate the following file:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=sd>/**</span>
-<span class=sd> * Foo class file</span>
-<span class=sd> *</span>
-<span class=sd> * @license New BSD</span>
-<span class=sd> */</span>
+<pre class=codehilite><code class=language-php>&lt;?php
+/**
+ * Foo class file
+ *
+ * @license New BSD
+ */
 
-<span class=sd>/**</span>
-<span class=sd> * Sample generated class</span>
-<span class=sd> *</span>
-<span class=sd> * This is a class generated with Laminas\Code\Generator.</span>
-<span class=sd> *</span>
-<span class=sd> * @version $Rev:$</span>
-<span class=sd> * @license New BSD</span>
-<span class=sd> */</span>
-<span class=k>class</span> <span class=nc>Foo</span>
-<span class=p>{</span>
+/**
+ * Sample generated class
+ *
+ * This is a class generated with Laminas\Code\Generator.
+ *
+ * @version $Rev:$
+ * @license New BSD
+ */
+class Foo
+{
 
-    <span class=k>protected</span> <span class=nv>$_bar</span> <span class=o>=</span> <span class=s1>&#39;baz&#39;</span><span class=p>;</span>
+    protected $_bar = 'baz';
 
-    <span class=k>public</span> <span class=nv>$baz</span> <span class=o>=</span> <span class=s1>&#39;bat&#39;</span><span class=p>;</span>
+    public $baz = 'bat';
 
-    <span class=k>const</span> <span class=no>bat</span> <span class=o>=</span> <span class=s1>&#39;foobarbazbat&#39;</span><span class=p>;</span>
+    const bat = 'foobarbazbat';
 
-    <span class=sd>/**</span>
-<span class=sd>     * Set the bar property</span>
-<span class=sd>     *</span>
-<span class=sd>     * @param string bar</span>
-<span class=sd>     * @return string</span>
-<span class=sd>     */</span>
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>setBar</span><span class=p>(</span><span class=nv>$bar</span><span class=p>)</span>
-    <span class=p>{</span>
-        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>_bar</span> <span class=o>=</span> <span class=nv>$bar</span><span class=p>;</span>
-        <span class=k>return</span> <span class=nv>$this</span><span class=p>;</span>
-    <span class=p>}</span>
+    /**
+     * Set the bar property
+     *
+     * @param string bar
+     * @return string
+     */
+    public function setBar($bar)
+    {
+        $this-&gt;_bar = $bar;
+        return $this;
+    }
 
-    <span class=sd>/**</span>
-<span class=sd>     * Retrieve the bar property</span>
-<span class=sd>     *</span>
-<span class=sd>     * @return string|null</span>
-<span class=sd>     */</span>
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>getBar</span><span class=p>()</span>
-    <span class=p>{</span>
-        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>_bar</span><span class=p>;</span>
-    <span class=p>}</span>
+    /**
+     * Retrieve the bar property
+     *
+     * @return string|null
+     */
+    public function getBar()
+    {
+        return $this-&gt;_bar;
+    }
 
-<span class=p>}</span>
+}
 
-<span class=nb>define</span><span class=p>(</span><span class=s1>&#39;APPLICATION_ENV&#39;</span><span class=p>,</span> <span class=s1>&#39;testing&#39;</span><span class=p>);</span>
-</pre></div></p>
+define('APPLICATION_ENV', 'testing');</code></pre>
 <h2 id="add-code-to-existing-php-files-and-classes">Add code to existing PHP files and classes</h2>
 <h3>Seeding PHP file code generation via reflection</h3>
 <p>You can add <em>PHP</em> code to an existing <em>PHP</em> file using the code generator. To do so, you need to
 first do reflection on it. The static method <code>fromReflectedFileName()</code> allows you to do this.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);</span>
-<span class=x>$generator-&gt;setBody(&quot;\$foo-&gt;bar();&quot;);</span>
-<span class=x>file_put_contents($path, $generator-&gt;generate());</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);
+$generator-&gt;setBody(&quot;\$foo-&gt;bar();&quot;);
+file_put_contents($path, $generator-&gt;generate());</code></pre>
 <h3>Seeding PHP class generation via reflection</h3>
 <p>You may add code to an existing class. To do so, first use the static <code>fromReflection()</code> method to
 map the class into a generator object. From there, you may add additional properties or methods, and
 then regenerate the class.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Code\Generator\ClassGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlockGenerator;</span>
-<span class=x>use Laminas\Code\Generator\DocBlock\Tag;</span>
-<span class=x>use Laminas\Code\Generator\MethodGenerator;</span>
-<span class=x>use Laminas\Code\Reflection\ClassReflection;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag;
+use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Reflection\ClassReflection;
 
-<span class=x>$generator = ClassGenerator::fromReflection(</span>
-<span class=x>    new ClassReflection($class)</span>
-<span class=x>);</span>
-<span class=x>$generator-&gt;addMethod(</span>
-<span class=x>    &#39;setBaz&#39;,</span>
-<span class=x>    [&#39;baz&#39;],</span>
-<span class=x>    MethodGenerator::FLAG_PUBLIC,</span>
-<span class=x>    &#39;$this-&gt;_baz = $baz;&#39; . &quot;\n&quot; . &#39;return $this;&#39;,</span>
-<span class=x>    DocBlockGenerator::fromArray([</span>
-<span class=x>        &#39;shortDescription&#39; =&gt; &#39;Set the baz property&#39;,</span>
-<span class=x>        &#39;longDescription&#39;  =&gt; null,</span>
-<span class=x>        &#39;tags&#39;             =&gt; [</span>
-<span class=x>            new Tag\ParamTag([</span>
-<span class=x>                &#39;paramName&#39; =&gt; &#39;baz&#39;,</span>
-<span class=x>                &#39;datatype&#39;  =&gt; &#39;string&#39;</span>
-<span class=x>            ]),</span>
-<span class=x>            new Tag\ReturnTag([</span>
-<span class=x>                &#39;datatype&#39;  =&gt; &#39;string&#39;,</span>
-<span class=x>            ]),</span>
-<span class=x>        ],</span>
-<span class=x>    ])</span>
-<span class=x>);</span>
-<span class=x>$code = $generator-&gt;generate();</span>
-</pre></div></p>
+$generator = ClassGenerator::fromReflection(
+    new ClassReflection($class)
+);
+$generator-&gt;addMethod(
+    'setBaz',
+    ['baz'],
+    MethodGenerator::FLAG_PUBLIC,
+    '$this-&gt;_baz = $baz;' . &quot;\n&quot; . 'return $this;',
+    DocBlockGenerator::fromArray([
+        'shortDescription' =&gt; 'Set the baz property',
+        'longDescription'  =&gt; null,
+        'tags'             =&gt; [
+            new Tag\ParamTag([
+                'paramName' =&gt; 'baz',
+                'datatype'  =&gt; 'string'
+            ]),
+            new Tag\ReturnTag([
+                'datatype'  =&gt; 'string',
+            ]),
+        ],
+    ])
+);
+$code = $generator-&gt;generate();</code></pre>
 
 
 
@@ -694,9 +687,10 @@ then regenerate the class.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -733,7 +727,7 @@ then regenerate the class.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-code/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -742,8 +736,8 @@ then regenerate the class.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

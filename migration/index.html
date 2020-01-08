@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -241,23 +245,21 @@
 <h2 id="string-int-float-bool-are-no-longer-ignored"><code>string</code>, <code>int</code>, <code>float</code>, <code>bool</code> are no longer ignored</h2>
 <p>In 2.x, a <code>Laminas\Code\Generator\ParameterGenerator</code> with name <code>foo</code> and type
 <code>string</code>, <code>int</code>, <code>float</code> or <code>bool</code> simply generated code <code>"$foo"</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$generator = new \Laminas\Code\ParameterGenerator(&#39;foo&#39;);</span>
+<pre class=codehilite><code class=language-php>$generator = new \Laminas\Code\ParameterGenerator('foo');
 
-<span class=x>$generator-&gt;setType(&#39;string&#39;);</span>
+$generator-&gt;setType('string');
 
-<span class=x>echo $generator-&gt;generate(); // &quot;$foo&quot;</span>
-</pre></div></p>
+echo $generator-&gt;generate(); // &quot;$foo&quot;</code></pre>
 <p>In 3.x, this code will instead produce <code>"string $foo"</code>.
 If you generate code that should run in PHP 5.x, it is advisable to strip
 <code>string</code>, <code>int</code>, <code>float</code> and <code>bool</code> from type definitions passed to
 <code>Laminas\Code\ParameterGenerator</code> instances. The quickest way is to set the
 type to <code>null</code>, if it matches any of these scalar types:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>if (in_array($type, [&#39;string&#39;, &#39;int&#39;, &#39;float&#39;, &#39;bool&#39;])) {</span>
-<span class=x>    $type = null;</span>
-<span class=x>}</span>
+<pre class=codehilite><code class=language-php>if (in_array($type, ['string', 'int', 'float', 'bool'])) {
+    $type = null;
+}
 
-<span class=x>$generator-&gt;setType($type);</span>
-</pre></div></p>
+$generator-&gt;setType($type);</code></pre>
 <h2 id="parameterreflectiongettype-changes"><code>ParameterReflection::getType()</code> changes</h2>
 <p>PHP 7 introduced <a href="http://php.net/manual/en/reflectionparameter.gettype.php"><code>ReflectionParameter#getType()</code></a>.</p>
 <p>In order to not override this method, <code>Laminas\Code\Reflection\ParameterReflection#getType()</code>
@@ -269,22 +271,21 @@ simply replace the method calls in your code.</p>
 <code>Laminas\Code\Generator\ParameterGenerator::fromReflection()</code> will not mirror the
 type hints read from a method's DocBlock.</p>
 <p>As an example, take following code:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>class Foo</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * @param string $baz</span>
-<span class=x>     */</span>
-<span class=x>    public function bar($baz)</span>
-<span class=x>    {</span>
-<span class=x>    }</span>
-<span class=x>}</span>
+<pre class=codehilite><code class=language-php>class Foo
+{
+    /**
+     * @param string $baz
+     */
+    public function bar($baz)
+    {
+    }
+}
 
-<span class=x>$methodGenerator = \Laminas\Code\Generator\MethodGenerator::fromReflection(</span>
-<span class=x>    new \Laminas\Code\Reflection\MethodReflection(&#39;Foo&#39;, &#39;bar&#39;)</span>
-<span class=x>);</span>
+$methodGenerator = \Laminas\Code\Generator\MethodGenerator::fromReflection(
+    new \Laminas\Code\Reflection\MethodReflection('Foo', 'bar')
+);
 
-<span class=x>var_dump($methodGenerator-&gt;getParameters()[0]-&gt;getType());</span>
-</pre></div></p>
+var_dump($methodGenerator-&gt;getParameters()[0]-&gt;getType());</code></pre>
 <p>In version 2.x, this code produces <code>"string"</code>, in version 3.x it returns <code>null</code>. If you
 need to rely on the types in the annotations, please use
 <code>Laminas\Code\Reflection\ParameterReflection#detectType()</code> instead, and build a
@@ -300,25 +301,23 @@ now validated before the code is generated.</p>
 or <code>Laminas\Code\Generator\ParameterGenerator#setType()</code>, as you may incur in a
 <code>Laminas\Code\Generator\Exception\InvalidArgumentException</code> being thrown if any
 of those types are invalid strings:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$parameterGenerator-&gt;setType(&#39;foo&#39;); // valid</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;array&#39;); // valid</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;bool&#39;); // valid</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;123&#39;); // invalid (throws exception)</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;&#39;); // invalid (throws exception)</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;*&#39;); // invalid (throws exception)</span>
-<span class=x>$parameterGenerator-&gt;setType(&#39;\\&#39;); // invalid (throws exception)</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$parameterGenerator-&gt;setType('foo'); // valid
+$parameterGenerator-&gt;setType('array'); // valid
+$parameterGenerator-&gt;setType('bool'); // valid
+$parameterGenerator-&gt;setType('123'); // invalid (throws exception)
+$parameterGenerator-&gt;setType(''); // invalid (throws exception)
+$parameterGenerator-&gt;setType('*'); // invalid (throws exception)
+$parameterGenerator-&gt;setType('\\'); // invalid (throws exception)</code></pre>
 <h2 id="generated-type-hints-are-now-prefixed-by">Generated type-hints are now prefixed by <code>"\"</code></h2>
 <p>Generated type-hints are now prefixed with the <code>NAMESPACE_SEPARATOR</code>,
 <code>"\"</code>.</p>
 <p>Take following example code:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$parameter = new \Laminas\Code\Generator\ParameterGenerator(&#39;bar&#39;, &#39;baz&#39;);</span>
-<span class=x>$method    = new \Laminas\Code\Generator\MethodGenerator(&#39;foo&#39;, [$parameter]);</span>
+<pre class=codehilite><code class=language-php>$parameter = new \Laminas\Code\Generator\ParameterGenerator('bar', 'baz');
+$method    = new \Laminas\Code\Generator\MethodGenerator('foo', [$parameter]);
 
-<span class=x>$method-&gt;setReturnType(&#39;tab&#39;);</span>
+$method-&gt;setReturnType('tab');
 
-<span class=x>echo $method-&gt;generate();</span>
-</pre></div></p>
+echo $method-&gt;generate();</code></pre>
 <p>This code produces <code>public function foo(baz $bar) {}</code> in 2.x.
 In version 3.x, it produces <code>public function foo(\baz $bar) : \tab {}</code>.</p>
 <p>In order to avoid migration problems, be sure to always pass fully qualified class
@@ -461,9 +460,10 @@ this protected member is now <code>null|Laminas\Code\Generator\TypeGenerator</co
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -500,7 +500,7 @@ this protected member is now <code>null|Laminas\Code\Generator\TypeGenerator</co
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-code//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-code/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -509,8 +509,8 @@ this protected member is now <code>null|Laminas\Code\Generator\TypeGenerator</co
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-code//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
