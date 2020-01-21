@@ -29,7 +29,6 @@ use function sprintf;
 use function str_replace;
 use function strpos;
 use function strrpos;
-use function strstr;
 use function strtolower;
 use function substr;
 
