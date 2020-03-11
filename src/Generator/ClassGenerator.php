@@ -1080,28 +1080,28 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
             $output .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }
 
-        $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
+        $output .= self::LINE_FEED . '{';
         $output .= $this->traitUsageGenerator->generate();
 
         $constants = $this->getConstants();
 
         foreach ($constants as $constant) {
-            $output .= $constant->generate() . self::LINE_FEED . self::LINE_FEED;
+            $output .= self::LINE_FEED . $constant->generate() . self::LINE_FEED;
         }
 
         $properties = $this->getProperties();
 
         foreach ($properties as $property) {
-            $output .= $property->generate() . self::LINE_FEED . self::LINE_FEED;
+            $output .= self::LINE_FEED . $property->generate() . self::LINE_FEED;
         }
 
         $methods = $this->getMethods();
 
         foreach ($methods as $method) {
-            $output .= $method->generate() . self::LINE_FEED;
+            $output .= self::LINE_FEED . $method->generate();
         }
 
-        $output .= self::LINE_FEED . '}' . self::LINE_FEED;
+        $output .= '}' . self::LINE_FEED;
 
         return $output;
     }
