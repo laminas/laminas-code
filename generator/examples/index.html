@@ -296,7 +296,7 @@
     <h1 id="laminascodegenerator-examples">Laminas\Code\Generator Examples</h1>
 <h2 id="generating-php-classes">Generating PHP classes</h2>
 <p>The following example generates an empty class with a class-level DocBlock.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+<pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 
 $foo      = new ClassGenerator();
@@ -317,8 +317,9 @@ $docblock = DocBlockGenerator::fromArray([
 $foo-&gt;setName('Foo')
     -&gt;setDocblock($docblock);
 echo $foo-&gt;generate();</code></pre>
+
 <p>The above code will result in the following:</p>
-<pre class=codehilite><code class=language-php>/**
+<pre class="highlight"><code class="language-php">/**
  * Sample generated class
  *
  * This is a class generated with Laminas\Code\Generator.
@@ -331,9 +332,10 @@ class Foo
 {
 
 }</code></pre>
+
 <h3>Generating PHP classes with class properties</h3>
 <p>Building on the previous example, we now add properties to our generated class.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+<pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 
@@ -362,8 +364,9 @@ $foo-&gt;setName('Foo')
          ['bat',  'foobarbazbat']
     ]);
 echo $foo-&gt;generate();</code></pre>
+
 <p>The above results in the following class definition:</p>
-<pre class=codehilite><code class=language-php>/**
+<pre class="highlight"><code class="language-php">/**
  * Sample generated class
  *
  * This is a class generated with Laminas\Code\Generator.
@@ -382,11 +385,12 @@ class Foo
     const bat = 'foobarbazbat';
 
 }</code></pre>
+
 <h3>Generating PHP classes with class methods</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> allows you to attach methods with optional content to your
 classes. Methods may be attached as either arrays or concrete <code>Laminas\Code\Generator\MethodGenerator</code>
 instances.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+<pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\DocBlock\Tag;
 use Laminas\Code\Generator\MethodGenerator;
@@ -421,7 +425,7 @@ $foo-&gt;setName('Foo')
         MethodGenerator::fromArray([
             'name'       =&gt; 'setBar',
             'parameters' =&gt; ['bar'],
-            'body'       =&gt; '$this-&gt;_bar = $bar;' . &quot;\n&quot; . 'return $this;',
+            'body'       =&gt; '$this-&gt;_bar = $bar;' . "\n" . 'return $this;',
             'docblock'   =&gt; DocBlockGenerator::fromArray([
                 'shortDescription' =&gt; 'Set the bar property',
                 'longDescription'  =&gt; null,
@@ -455,8 +459,9 @@ $foo-&gt;setName('Foo')
     ]);
 
 echo $foo-&gt;generate();</code></pre>
+
 <p>The above generates the following output:</p>
-<pre class=codehilite><code class=language-php>/**
+<pre class="highlight"><code class="language-php">/**
  * Sample generated class
  *
  * This is a class generated with Laminas\Code\Generator.
@@ -496,13 +501,14 @@ class Foo
     }
 
 }</code></pre>
+
 <h2 id="generating-php-files">Generating PHP files</h2>
 <p><code>Laminas\Code\Generator\FileGenerator</code> can be used to generate the contents of a <em>PHP</em> file. You can
 include classes as well as arbitrary content body. When attaching classes, you should attach either
 concrete <code>Laminas\Code\Generator\ClassGenerator</code> instances or an array defining the class.</p>
 <p>In the example below, we will assume you've defined <code>$foo</code> per one of the class definitions in a
 previous example.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\DocBlockGenerator;
+<pre class="highlight"><code class="language-php">use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\FileGenerator;
 
 $file = FileGenerator::fromArray([
@@ -519,12 +525,14 @@ $file = FileGenerator::fromArray([
     ]),
     'body'     =&gt; 'define(\'APPLICATION_ENV\', \'testing\');',
 ]);</code></pre>
+
 <p>Calling <code>generate()</code> will generate the code -- but not write it to a file. You will need to capture
 the contents and write them to a file yourself. As an example:</p>
-<pre class=codehilite><code class=language-php>$code = $file-&gt;generate();
+<pre class="highlight"><code class="language-php">$code = $file-&gt;generate();
 file_put_contents('Foo.php', $code);</code></pre>
+
 <p>The above will generate the following file:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 /**
  * Foo class file
  *
@@ -573,18 +581,20 @@ class Foo
 }
 
 define('APPLICATION_ENV', 'testing');</code></pre>
+
 <h2 id="add-code-to-existing-php-files-and-classes">Add code to existing PHP files and classes</h2>
 <h3>Seeding PHP file code generation via reflection</h3>
 <p>You can add <em>PHP</em> code to an existing <em>PHP</em> file using the code generator. To do so, you need to
 first do reflection on it. The static method <code>fromReflectedFileName()</code> allows you to do this.</p>
-<pre class=codehilite><code class=language-php>$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);
-$generator-&gt;setBody(&quot;\$foo-&gt;bar();&quot;);
+<pre class="highlight"><code class="language-php">$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);
+$generator-&gt;setBody("\$foo-&gt;bar();");
 file_put_contents($path, $generator-&gt;generate());</code></pre>
+
 <h3>Seeding PHP class generation via reflection</h3>
 <p>You may add code to an existing class. To do so, first use the static <code>fromReflection()</code> method to
 map the class into a generator object. From there, you may add additional properties or methods, and
 then regenerate the class.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Code\Generator\ClassGenerator;
+<pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\DocBlock\Tag;
 use Laminas\Code\Generator\MethodGenerator;
@@ -597,7 +607,7 @@ $generator-&gt;addMethod(
     'setBaz',
     ['baz'],
     MethodGenerator::FLAG_PUBLIC,
-    '$this-&gt;_baz = $baz;' . &quot;\n&quot; . 'return $this;',
+    '$this-&gt;_baz = $baz;' . "\n" . 'return $this;',
     DocBlockGenerator::fromArray([
         'shortDescription' =&gt; 'Set the baz property',
         'longDescription'  =&gt; null,
