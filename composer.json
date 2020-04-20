@@ -27,8 +27,7 @@
     },
     "require": {
         "php": "^7.1",
-        "laminas/laminas-eventmanager": "^2.6 || ^3.0",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "laminas/laminas-eventmanager": "^2.6 || ^3.0"
     },
     "require-dev": {
         "ext-phar": "*",
@@ -42,7 +41,8 @@
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
-        "laminas/laminas-stdlib": "Laminas\\Stdlib component"
+        "laminas/laminas-stdlib": "Laminas\\Stdlib component",
+        "laminas/laminas-zendframework-bridge": "A bridge with Zend Framework"
     },
     "autoload": {
         "psr-4": {
