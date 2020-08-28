@@ -10,6 +10,7 @@ namespace Laminas\Code\Generator;
 
 use Laminas\Code\DeclareStatement;
 use Laminas\Code\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\Exception\ClassNotFoundException;
 use Laminas\Code\Reflection\Exception as ReflectionException;
 use Laminas\Code\Reflection\FileReflection;
 
@@ -335,18 +336,28 @@ class FileGenerator extends AbstractGenerator
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return ClassGenerator
+     * @throws ClassNotFoundException
      */
     public function getClass($name = null)
     {
         if ($name === null) {
             reset($this->classes);
+            $class = current($this->classes);
+            if (false === $class) {
+                throw new ClassNotFoundException('No class is set');
+            }
 
-            return current($this->classes);
+            return $class;
         }
 
-        return $this->classes[(string) $name];
+        if (false === array_key_exists($name, $this->classes)) {
+            throw new ClassNotFoundException(sprintf('Class %s is not set', $name));
+        }
+
+        return $this->classes[(string)$name];
     }
 
     /**
