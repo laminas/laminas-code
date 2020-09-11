@@ -613,6 +613,24 @@ CODE;
     /**
      * @group 6274
      */
+    public function testAddConstantVisibility()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('My\Class');
+        $classGenerator->addConstant('x', 'value', PropertyGenerator::FLAG_PRIVATE);
+
+        self::assertTrue($classGenerator->hasConstant('x'));
+
+        $constant = $classGenerator->getConstant('x');
+
+        self::assertInstanceOf(PropertyGenerator::class, $constant);
+        self::assertTrue($constant->isConst());
+        self::assertEquals(PropertyGenerator::VISIBILITY_PRIVATE, $constant->getVisibility());
+    }
+
+    /**
+     * @group 6274
+     */
     public function testCanAddConstantsWithArrayOfGenerators()
     {
         $classGenerator = new ClassGenerator();

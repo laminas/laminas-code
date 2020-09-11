@@ -149,11 +149,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
         $constants = [];
 
-        foreach ($classReflection->getConstants() as $name => $value) {
-            $constants[] = [
-                'name' => $name,
-                'value' => $value,
-            ];
+        foreach ($classReflection->getReflectionConstants() as $reflectionConstant) {
+            if ($reflectionConstant->getDeclaringClass()->getName() == $classReflection->getName()) {
+                $constants[] = PropertyGenerator::fromReflection($reflectionConstant);
+            }
         }
 
         $cg->addConstants($constants);
@@ -586,12 +585,13 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      *
      * @param  string                      $name Non-empty string
      * @param  string|int|null|float|array $value Scalar
+     * @param  int $flags
      *
      * @throws Exception\InvalidArgumentException
      *
      * @return self
      */
-    public function addConstant($name, $value)
+    public function addConstant($name, $value, $flags = PropertyGenerator::FLAG_PUBLIC)
     {
         if (empty($name) || ! is_string($name)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -603,7 +603,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         $this->validateConstantValue($value);
 
         return $this->addConstantFromGenerator(
-            new PropertyGenerator($name, new PropertyValueGenerator($value), PropertyGenerator::FLAG_CONSTANT)
+            new PropertyGenerator($name, new PropertyValueGenerator($value), [PropertyGenerator::FLAG_CONSTANT, $flags])
         );
     }
 

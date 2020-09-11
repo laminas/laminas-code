@@ -258,6 +258,40 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     }
 
     /**
+     * Return reflection constants of this class
+     *
+     * @return ConstantReflection[]
+     */
+    public function getReflectionConstants()
+    {
+        $phpReflections  = parent::getReflectionConstants();
+        $laminasReflections = [];
+        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
+            $instance          = new ConstantReflection($this->getName(), $phpReflection->getName());
+            $laminasReflections[] = $instance;
+            unset($phpReflection);
+        }
+        unset($phpReflections);
+
+        return $laminasReflections;
+    }
+
+    /**
+     * Return reflection constant of this class by name
+     *
+     * @param  string $name
+     * @return ConstantReflection
+     */
+    public function getReflectionConstant($name)
+    {
+        $phpReflection  = parent::getReflectionConstant($name);
+        $laminasReflection = new ConstantReflection($this->getName(), $phpReflection->getName());
+        unset($phpReflection);
+
+        return $laminasReflection;
+    }
+
+    /**
      * @return string
      */
     public function toString()

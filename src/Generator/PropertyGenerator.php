@@ -8,7 +8,8 @@
 
 namespace Laminas\Code\Generator;
 
-use Laminas\Code\Reflection\PropertyReflection;
+use Laminas\Code\Reflection\FieldsReflectionInterface;
+use Laminas\Code\Reflection\ConstantReflection;
 
 use function sprintf;
 use function str_replace;
@@ -34,10 +35,10 @@ class PropertyGenerator extends AbstractMemberGenerator
     private $omitDefaultValue = false;
 
     /**
-     * @param  PropertyReflection $reflectionProperty
+     * @param  FieldsReflectionInterface $reflectionProperty
      * @return PropertyGenerator
      */
-    public static function fromReflection(PropertyReflection $reflectionProperty)
+    public static function fromReflection(FieldsReflectionInterface $reflectionProperty)
     {
         $property = new static();
 
@@ -45,18 +46,23 @@ class PropertyGenerator extends AbstractMemberGenerator
 
         $allDefaultProperties = $reflectionProperty->getDeclaringClass()->getDefaultProperties();
 
-        $defaultValue = $allDefaultProperties[$reflectionProperty->getName()];
-        $property->setDefaultValue($defaultValue);
-        if ($defaultValue === null) {
-            $property->omitDefaultValue = true;
+        if (isset($allDefaultProperties[$reflectionProperty->getName()])) {
+            $defaultValue = $allDefaultProperties[$reflectionProperty->getName()];
+            $property->setDefaultValue($defaultValue);
+            if ($defaultValue === null) {
+                $property->omitDefaultValue = true;
+            }
         }
 
         if ($reflectionProperty->getDocComment() != '') {
             $property->setDocBlock(DocBlockGenerator::fromReflection($reflectionProperty->getDocBlock()));
         }
 
-        if ($reflectionProperty->isStatic()) {
-            $property->setStatic(true);
+        $property->setStatic($reflectionProperty->isStatic());
+
+        if ($reflectionProperty instanceof ConstantReflection) {
+            $property->setDefaultValue($reflectionProperty->getValue());
+            $property->setConst(true);
         }
 
         if ($reflectionProperty->isPrivate()) {
