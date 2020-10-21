@@ -240,8 +240,8 @@ EOS;
     {
         $propertyGenerator = PropertyGenerator::fromArray([
             'name'             => 'SampleProperty',
-            'const'            => true,
-            'defaultvalue'     => 'foo',
+            'const'            => false,
+            'defaultvalue'     => 'default-foo',
             'docblock'         => [
                 'shortdescription' => 'foo',
             ],
@@ -253,14 +253,14 @@ EOS;
         ]);
 
         self::assertEquals('SampleProperty', $propertyGenerator->getName());
-        self::assertTrue($propertyGenerator->isConst());
+        self::assertFalse($propertyGenerator->isConst());
         self::assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
         self::assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
         self::assertTrue($propertyGenerator->isAbstract());
         self::assertTrue($propertyGenerator->isFinal());
         self::assertTrue($propertyGenerator->isStatic());
         self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
-        self::assertAttributeEquals(true, 'omitDefaultValue', $propertyGenerator);
+        self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
     }
 
     /**

@@ -18,6 +18,6 @@
     <php>
         <!-- Enable this if you have installed Doctrine\Common on the
              include_path or via Composer. -->
-        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
+        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="true" />
     </php>
 </phpunit>

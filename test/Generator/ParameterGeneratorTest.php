@@ -210,7 +210,7 @@ class ParameterGeneratorTest extends TestCase
         $parameterGenerator = ParameterGenerator::fromArray([
             'name'              => 'SampleParameter',
             'type'              => 'int',
-            'defaultvalue'      => 'foo',
+            'defaultvalue'      => 'default-foo',
             'passedbyreference' => false,
             'position'          => 1,
             'sourcedirty'       => false,
@@ -227,7 +227,7 @@ class ParameterGeneratorTest extends TestCase
         self::assertFalse($parameterGenerator->isSourceDirty());
         self::assertEquals('foo', $parameterGenerator->getSourceContent());
         self::assertEquals('-', $parameterGenerator->getIndentation());
-        self::assertAttributeEquals(true, 'omitDefaultValue', $parameterGenerator);
+        self::assertStringNotContainsString('default-foo', $parameterGenerator->generate());
     }
 
     /**

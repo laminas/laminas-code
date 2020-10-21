@@ -21,16 +21,16 @@
     "extra": {
     },
     "require": {
-        "php": "^7.1",
-        "laminas/laminas-eventmanager": "^2.6 || ^3.0",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "php": "^7.3 || ~8.0.0",
+        "laminas/laminas-eventmanager": "^2.6 || ^3.3",
+        "laminas/laminas-zendframework-bridge": "^1.1"
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "^1.7",
-        "laminas/laminas-coding-standard": "^1.0",
-        "laminas/laminas-stdlib": "^2.7 || ^3.0",
-        "phpunit/phpunit": "^7.5.16 || ^8.4"
+        "doctrine/annotations": "^1.10.4",
+        "laminas/laminas-coding-standard": "^1.0.0",
+        "laminas/laminas-stdlib": "^2.7.7 || ^3.3.0",
+        "phpunit/phpunit": "^9.4.2"
     },
     "conflict": {
         "phpspec/prophecy": "<1.9.0"
