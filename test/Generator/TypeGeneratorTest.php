@@ -178,7 +178,7 @@ class TypeGeneratorTest extends TestCase
         ];
 
         return array_combine(
-            array_map('reset', $valid),
+            array_map('current', $valid),
             $valid
         );
     }
@@ -253,7 +253,7 @@ class TypeGeneratorTest extends TestCase
         ];
 
         return array_combine(
-            array_map('reset', $invalid),
+            array_map('current', $invalid),
             $invalid
         );
     }

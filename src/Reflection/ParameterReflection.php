@@ -40,13 +40,13 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
      */
     public function getClass()
     {
-        $phpReflection = parent::getClass();
-        if ($phpReflection === null) {
+        $phpReflectionType = parent::getType();
+        if ($phpReflectionType === null) {
             return null;
         }
 
-        $laminasReflection = new ClassReflection($phpReflection->getName());
-        unset($phpReflection);
+        $laminasReflection = new ClassReflection($phpReflectionType->getName());
+        unset($phpReflectionType);
 
         return $laminasReflection;
     }
@@ -77,20 +77,14 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     public function detectType()
     {
         if (method_exists($this, 'getType')
-            && ($type = $this->getType())
+            && null !== ($type = $this->getType())
             && $type->isBuiltin()
         ) {
             return $type->getName();
         }
 
-        // can be dropped when dropping PHP7 support:
-        if ($this->isArray()) {
-            return 'array';
-        }
-
-        // can be dropped when dropping PHP7 support:
-        if ($this->isCallable()) {
-            return 'callable';
+        if (null !== $type && $type->getName() === 'self') {
+            return $this->getDeclaringClass()->getName();
         }
 
         if (($class = $this->getClass()) instanceof \ReflectionClass) {

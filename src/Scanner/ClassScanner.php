@@ -999,6 +999,8 @@ class ClassScanner implements ScannerInterface
 
                     case T_NS_SEPARATOR:
                     case T_STRING:
+                    case T_NAME_FULLY_QUALIFIED:
+                    case T_NAME_QUALIFIED:
                         switch ($classContext) {
                             case T_EXTENDS:
                                 if ($this->isInterface) {
@@ -1160,7 +1162,7 @@ class ClassScanner implements ScannerInterface
                     if ($tokenType !== null) {
                         // use context
                         if (false === $useAliasContext) {
-                            if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING) {
+                            if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING || $tokenType == T_NAME_FULLY_QUALIFIED) {
                                 $infos[$infoIndex]['use_statements'][$useStatementIndex] .= $tokenContent;
                             }
                         } else {

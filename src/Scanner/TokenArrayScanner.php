@@ -426,7 +426,12 @@ class TokenArrayScanner implements ScannerInterface
                     goto SCANNER_NAMESPACE_CONTINUE;
                 }
 
-                if ($tokenType === T_NS_SEPARATOR || $tokenType === T_STRING) {
+                if (
+                    $tokenType === T_NS_SEPARATOR
+                    || $tokenType === T_STRING
+                    || $tokenType === T_NAME_QUALIFIED
+                    || $tokenType === T_NAME_FULLY_QUALIFIED
+                ) {
                     $infos[$infoIndex]['namespace'] .= $tokenContent;
                 }
 
@@ -491,7 +496,12 @@ class TokenArrayScanner implements ScannerInterface
                         goto SCANNER_USE_CONTINUE;
                     }
 
-                    if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING) {
+                    if (
+                        $tokenType == T_NS_SEPARATOR
+                        || $tokenType == T_STRING
+                        || $tokenType == T_NAME_QUALIFIED
+                        || $tokenType == T_NAME_FULLY_QUALIFIED
+                    ) {
                         if ($useAsContext == false) {
                             $infos[$infoIndex]['statements'][$useStatementIndex]['use'] .= $tokenContent;
                         } else {
