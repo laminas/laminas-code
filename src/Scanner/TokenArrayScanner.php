@@ -380,6 +380,14 @@ class TokenArrayScanner implements ScannerInterface
             return $infoIndex;
         };
 
+        // ensure php backwards compatibility
+        if (! defined('T_NAME_QUALIFIED')) {
+            define('T_NAME_QUALIFIED', 24000);
+        }
+        if (! defined('T_NAME_FULLY_QUALIFIED')) {
+            define('T_NAME_FULLY_QUALIFIED', 24000);
+        }
+
         /**
          * START FINITE STATE MACHINE FOR SCANNING TOKENS
          */
@@ -426,8 +434,7 @@ class TokenArrayScanner implements ScannerInterface
                     goto SCANNER_NAMESPACE_CONTINUE;
                 }
 
-                if (
-                    $tokenType === T_NS_SEPARATOR
+                if ($tokenType === T_NS_SEPARATOR
                     || $tokenType === T_STRING
                     || $tokenType === T_NAME_QUALIFIED
                     || $tokenType === T_NAME_FULLY_QUALIFIED
@@ -496,8 +503,7 @@ class TokenArrayScanner implements ScannerInterface
                         goto SCANNER_USE_CONTINUE;
                     }
 
-                    if (
-                        $tokenType == T_NS_SEPARATOR
+                    if ($tokenType == T_NS_SEPARATOR
                         || $tokenType == T_STRING
                         || $tokenType == T_NAME_QUALIFIED
                         || $tokenType == T_NAME_FULLY_QUALIFIED

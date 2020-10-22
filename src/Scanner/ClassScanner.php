@@ -1162,7 +1162,11 @@ class ClassScanner implements ScannerInterface
                     if ($tokenType !== null) {
                         // use context
                         if (false === $useAliasContext) {
-                            if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING || $tokenType == T_NAME_FULLY_QUALIFIED) {
+                            if ($tokenType == T_NS_SEPARATOR
+                                || $tokenType == T_STRING
+                                || $tokenType == T_NAME_QUALIFIED
+                                || $tokenType == T_NAME_FULLY_QUALIFIED
+                            ) {
                                 $infos[$infoIndex]['use_statements'][$useStatementIndex] .= $tokenContent;
                             }
                         } else {
