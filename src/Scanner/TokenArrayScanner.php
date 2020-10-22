@@ -382,10 +382,10 @@ class TokenArrayScanner implements ScannerInterface
 
         // ensure php backwards compatibility
         if (! defined('T_NAME_QUALIFIED')) {
-            define('T_NAME_QUALIFIED', 24000);
+            define('T_NAME_QUALIFIED', 24001);
         }
         if (! defined('T_NAME_FULLY_QUALIFIED')) {
-            define('T_NAME_FULLY_QUALIFIED', 24000);
+            define('T_NAME_FULLY_QUALIFIED', 24002);
         }
 
         /**
