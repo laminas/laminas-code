@@ -2,27 +2,34 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.5.0 - TBD
+## 3.5.0 - 2020-11-11
 
 ### Added
 
 - [#47](https://github.com/laminas/laminas-code/pull/47) adds support for PHP 8. NOTE: this simply means the code runs on PHP 8, not that it can generate code specific to PHP 8.
 
-### Changed
 
-- Nothing.
+-----
 
-### Deprecated
+### Release Notes for [3.5.0](https://github.com/laminas/laminas-code/milestone/3)
 
-- Nothing.
+next feature release (minor)
 
-### Removed
+### 3.5.0
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **3**
+- Total contributors: **3**
 
-### Fixed
+#### Enhancement,hacktoberfest-accepted
 
-- Nothing.
+ - [47: Start PHP 8.0 support](https://github.com/laminas/laminas-code/pull/47) thanks to @Slamdunk
+
+ - [43: QA fix for phpstan](https://github.com/laminas/laminas-code/pull/43) thanks to @janvernieuwe
+
+#### Documentation
+
+ - [31: Modify the examples to make them compatible with PSR-12](https://github.com/laminas/laminas-code/pull/31) thanks to @simivar
 
 ## 3.4.1 - 2019-12-10
 
