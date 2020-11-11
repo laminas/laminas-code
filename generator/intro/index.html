@@ -209,7 +209,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -341,7 +341,6 @@ echo $file-&gt;generate();
 
 // or write it to a file:
 file_put_contents('World.php', $file-&gt;generate());</code></pre>
-
 <p>Both of the above samples will render the same result:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
@@ -354,7 +353,6 @@ class World
     }
 
 }</code></pre>
-
 <p>Another common use case is to update existing code -- for instance, to add a method to a class. In
 such a case, you must first inspect the existing code using reflection, and then add your new
 method. <code>Laminas\Code\Generator</code> makes this trivially simple, by leveraging <code>Laminas\Code\Reflection</code>.</p>
@@ -377,7 +375,6 @@ echo $file-&gt;generate();
 
 // Or, better yet, write it back to the original file:
 file_put_contents('World.php', $file-&gt;generate());</code></pre>
-
 <p>The resulting class file will now look like this:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 

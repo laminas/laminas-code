@@ -209,7 +209,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -317,7 +317,6 @@ $docblock = DocBlockGenerator::fromArray([
 $foo-&gt;setName('Foo')
     -&gt;setDocblock($docblock);
 echo $foo-&gt;generate();</code></pre>
-
 <p>The above code will result in the following:</p>
 <pre class="highlight"><code class="language-php">/**
  * Sample generated class
@@ -332,7 +331,6 @@ class Foo
 {
 
 }</code></pre>
-
 <h3>Generating PHP classes with class properties</h3>
 <p>Building on the previous example, we now add properties to our generated class.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
@@ -357,14 +355,13 @@ $docblock = DocBlockGenerator::fromArray([
 $foo-&gt;setName('Foo')
     -&gt;setDocblock($docblock)
     -&gt;addProperties([
-         ['_bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
-         ['baz',  'bat', PropertyGenerator::FLAG_PUBLIC]
+         ['bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
+         ['baz', 'bat', PropertyGenerator::FLAG_PUBLIC]
    ])
    -&gt;addConstants([
          ['bat',  'foobarbazbat']
     ]);
 echo $foo-&gt;generate();</code></pre>
-
 <p>The above results in the following class definition:</p>
 <pre class="highlight"><code class="language-php">/**
  * Sample generated class
@@ -378,14 +375,13 @@ echo $foo-&gt;generate();</code></pre>
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
     const bat = 'foobarbazbat';
 
 }</code></pre>
-
 <h3>Generating PHP classes with class methods</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> allows you to attach methods with optional content to your
 classes. Methods may be attached as either arrays or concrete <code>Laminas\Code\Generator\MethodGenerator</code>
@@ -414,7 +410,7 @@ $docblock = DocBlockGenerator::fromArray([
 $foo-&gt;setName('Foo')
     -&gt;setDocblock($docblock)
     -&gt;addProperties([
-        ['_bar', 'baz',          PropertyGenerator::FLAG_PROTECTED],
+        ['bar',  'baz',          PropertyGenerator::FLAG_PROTECTED],
         ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
     ])
     -&gt;addConstants([
@@ -425,7 +421,7 @@ $foo-&gt;setName('Foo')
         MethodGenerator::fromArray([
             'name'       =&gt; 'setBar',
             'parameters' =&gt; ['bar'],
-            'body'       =&gt; '$this-&gt;_bar = $bar;' . "\n" . 'return $this;',
+            'body'       =&gt; '$this-&gt;bar = $bar;' . "\n" . 'return $this;',
             'docblock'   =&gt; DocBlockGenerator::fromArray([
                 'shortDescription' =&gt; 'Set the bar property',
                 'longDescription'  =&gt; null,
@@ -445,7 +441,7 @@ $foo-&gt;setName('Foo')
             'getBar',
             [],
             MethodGenerator::FLAG_PUBLIC,
-            'return $this-&gt;_bar;',
+            'return $this-&gt;bar;',
             DocBlockGenerator::fromArray([
                 'shortDescription' =&gt; 'Retrieve the bar property',
                 'longDescription'  =&gt; null,
@@ -459,7 +455,6 @@ $foo-&gt;setName('Foo')
     ]);
 
 echo $foo-&gt;generate();</code></pre>
-
 <p>The above generates the following output:</p>
 <pre class="highlight"><code class="language-php">/**
  * Sample generated class
@@ -472,7 +467,7 @@ echo $foo-&gt;generate();</code></pre>
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
@@ -486,7 +481,7 @@ class Foo
      */
     public function setBar($bar)
     {
-        $this-&gt;_bar = $bar;
+        $this-&gt;bar = $bar;
         return $this;
     }
 
@@ -497,11 +492,10 @@ class Foo
      */
     public function getBar()
     {
-        return $this-&gt;_bar;
+        return $this-&gt;bar;
     }
 
 }</code></pre>
-
 <h2 id="generating-php-files">Generating PHP files</h2>
 <p><code>Laminas\Code\Generator\FileGenerator</code> can be used to generate the contents of a <em>PHP</em> file. You can
 include classes as well as arbitrary content body. When attaching classes, you should attach either
@@ -525,12 +519,10 @@ $file = FileGenerator::fromArray([
     ]),
     'body'     =&gt; 'define(\'APPLICATION_ENV\', \'testing\');',
 ]);</code></pre>
-
 <p>Calling <code>generate()</code> will generate the code -- but not write it to a file. You will need to capture
 the contents and write them to a file yourself. As an example:</p>
 <pre class="highlight"><code class="language-php">$code = $file-&gt;generate();
 file_put_contents('Foo.php', $code);</code></pre>
-
 <p>The above will generate the following file:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 /**
@@ -550,7 +542,7 @@ file_put_contents('Foo.php', $code);</code></pre>
 class Foo
 {
 
-    protected $_bar = 'baz';
+    protected $bar = 'baz';
 
     public $baz = 'bat';
 
@@ -564,7 +556,7 @@ class Foo
      */
     public function setBar($bar)
     {
-        $this-&gt;_bar = $bar;
+        $this-&gt;bar = $bar;
         return $this;
     }
 
@@ -575,13 +567,12 @@ class Foo
      */
     public function getBar()
     {
-        return $this-&gt;_bar;
+        return $this-&gt;bar;
     }
 
 }
 
 define('APPLICATION_ENV', 'testing');</code></pre>
-
 <h2 id="add-code-to-existing-php-files-and-classes">Add code to existing PHP files and classes</h2>
 <h3>Seeding PHP file code generation via reflection</h3>
 <p>You can add <em>PHP</em> code to an existing <em>PHP</em> file using the code generator. To do so, you need to
@@ -589,7 +580,6 @@ first do reflection on it. The static method <code>fromReflectedFileName()</code
 <pre class="highlight"><code class="language-php">$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);
 $generator-&gt;setBody("\$foo-&gt;bar();");
 file_put_contents($path, $generator-&gt;generate());</code></pre>
-
 <h3>Seeding PHP class generation via reflection</h3>
 <p>You may add code to an existing class. To do so, first use the static <code>fromReflection()</code> method to
 map the class into a generator object. From there, you may add additional properties or methods, and
@@ -607,7 +597,7 @@ $generator-&gt;addMethod(
     'setBaz',
     ['baz'],
     MethodGenerator::FLAG_PUBLIC,
-    '$this-&gt;_baz = $baz;' . "\n" . 'return $this;',
+    '$this-&gt;baz = $baz;' . "\n" . 'return $this;',
     DocBlockGenerator::fromArray([
         'shortDescription' =&gt; 'Set the baz property',
         'longDescription'  =&gt; null,
