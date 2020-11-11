@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#47](https://github.com/laminas/laminas-code/pull/47) adds support for PHP 8. NOTE: this simply means the code runs on PHP 8, not that it can generate code specific to PHP 8.
 
 ### Changed
 
