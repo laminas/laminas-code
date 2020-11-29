@@ -27,10 +27,10 @@ matrix:
     - php: 7.4
       env:
         - DEPS=latest
-    - php: nightly
+    - php: 8.0
       env:
         - DEPS=lowest
-    - php: nightly
+    - php: 8.0
       env:
         - DEPS=latest
 
