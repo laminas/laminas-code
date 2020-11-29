@@ -21,19 +21,9 @@ use function substr;
 final class TypeGenerator implements GeneratorInterface
 {
     /**
-     * @var bool
-     */
-    private $isInternalPhpType;
-
-    /**
-     * @var string
+     * @var array
      */
     private $type;
-
-    /**
-     * @var bool
-     */
-    private $nullable;
 
     /**
      * @var string[]
@@ -49,7 +39,8 @@ final class TypeGenerator implements GeneratorInterface
         'array',
         'callable',
         'iterable',
-        'object'
+        'object',
+        'null'
     ];
 
     /**
@@ -67,35 +58,43 @@ final class TypeGenerator implements GeneratorInterface
      */
     public static function fromTypeString($type)
     {
-        list($nullable, $trimmedNullable) = self::trimNullable($type);
-        list($wasTrimmed, $trimmedType) = self::trimType($trimmedNullable);
+        $typeList = [];
 
-        if (! preg_match(self::$validIdentifierMatcher, $trimmedType)) {
-            throw new InvalidArgumentException(sprintf(
-                'Provided type "%s" is invalid: must conform "%s"',
-                $type,
-                self::$validIdentifierMatcher
-            ));
-        }
+        foreach (explode('|', $type) as $typeString) {
+            list($nullable, $trimmedNullable) = self::trimNullable($typeString);
+            list($wasTrimmed, $trimmedType) = self::trimType($trimmedNullable);
 
-        $isInternalPhpType = self::isInternalPhpType($trimmedType);
+            if (! preg_match(self::$validIdentifierMatcher, $trimmedType)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Provided type "%s" is invalid: must conform "%s"',
+                    $typeString,
+                    self::$validIdentifierMatcher
+                ));
+            }
 
-        if ($wasTrimmed && $isInternalPhpType) {
-            throw new InvalidArgumentException(sprintf(
-                'Provided type "%s" is an internal PHP type, but was provided with a namespace separator prefix',
-                $type
-            ));
-        }
+            $isInternalPhpType = self::isInternalPhpType($trimmedType);
 
-        if ($nullable && $isInternalPhpType && 'void' === strtolower($trimmedType)) {
-            throw new InvalidArgumentException(sprintf('Provided type "%s" cannot be nullable', $type));
+            if ($wasTrimmed && $isInternalPhpType) {
+                throw new InvalidArgumentException(sprintf(
+                    'Provided type "%s" is an internal PHP type, but was provided with a namespace separator prefix',
+                    $typeString
+                ));
+            }
+
+            if ($nullable && $isInternalPhpType && 'void' === strtolower($trimmedType)) {
+                throw new InvalidArgumentException(sprintf('Provided type "%s" cannot be nullable', $typeString));
+            }
+
+            $typeList[] = [
+                'isInternalPhpType' => $isInternalPhpType,
+                'type' => $trimmedType,
+                'nullable' => $nullable,
+            ];
         }
 
         $instance = new self();
 
-        $instance->type              = $trimmedType;
-        $instance->nullable          = $nullable;
-        $instance->isInternalPhpType = $isInternalPhpType;
+        $instance->type = $typeList;
 
         return $instance;
     }
@@ -109,13 +108,20 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $nullable = $this->nullable ? '?' : '';
+        $str = [];
 
-        if ($this->isInternalPhpType) {
-            return $nullable . strtolower($this->type);
+        foreach ($this->type as $type) {
+            $nullable = $type['nullable'] ? '?' : '';
+
+            if ($type['isInternalPhpType']) {
+                $str[] = $nullable.strtolower($type['type']);
+                continue;
+            }
+
+            $str[] = $nullable.'\\' . $type['type'];
         }
 
-        return $nullable . '\\' . $this->type;
+        return implode('|', $str);
     }
 
     /**

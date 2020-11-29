@@ -584,6 +584,18 @@ class ParameterGeneratorTest extends TestCase
         self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
     }
 
+    /**
+     * @group laminas/laminas-code#53
+     */
+    public function testGetInternalClassDefaultParameterValueWithUnionType()
+    {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection([\Phar::class, 'extractTo'], 1));
+
+        self::assertSame('array|string|null', strtolower((string) $parameter->getType()));
+        self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
+        self::assertSame('array|string|null $files = null', $parameter->generate());
+    }
+
     public function testOmitType()
     {
         $parameter = new ParameterGenerator('foo', 'string', 'bar');
