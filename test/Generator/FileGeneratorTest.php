@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace LaminasTest\Code\Generator;
@@ -11,6 +11,7 @@ namespace LaminasTest\Code\Generator;
 use Laminas\Code\DeclareStatement;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\ClassGenerator;
+use Laminas\Code\Generator\Exception\ClassNotFoundException;
 use Laminas\Code\Generator\FileGenerator;
 use Laminas\Code\Reflection\FileReflection;
 use PHPUnit\Framework\TestCase;
@@ -158,6 +159,19 @@ class TestSampleSingleClass
 EOS;
 
         self::assertEquals($expectedOutput, $codeGenFileFromDisk->generate());
+    }
+
+    public function testClassNotFoundException()
+    {
+        $fileGenerator = new FileGenerator();
+
+        $this->expectException(ClassNotFoundException::class);
+        $this->expectExceptionMessage('No class is set');
+        $fileGenerator->getClass();
+
+        $this->expectException(ClassNotFoundException::class);
+        $this->expectExceptionMessage('Class TestClass is not set');
+        $fileGenerator->getClass('TestClass');
     }
 
     /**

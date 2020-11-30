@@ -4,42 +4,38 @@
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
-        "laminasframwork",
+        "laminasframework",
         "code"
     ],
-    "homepage": "https://laminasframwork.dev",
+    "homepage": "https://laminas.dev",
     "support": {
-        "docs": "https://docs.laminasframwork.dev/laminas-code/",
-        "issues": "https://github.com/laminasframwork/laminas-code/issues",
-        "source": "https://github.com/laminasframwork/laminas-code",
-        "rss": "https://github.com/laminasframwork/laminas-code/releases.atom",
+        "docs": "https://docs.laminas.dev/laminas-code/",
+        "issues": "https://github.com/laminas/laminas-code/issues",
+        "source": "https://github.com/laminas/laminas-code",
+        "rss": "https://github.com/laminas/laminas-code/releases.atom",
         "chat": "https://laminas.dev/chat",
         "forum": "https://discourse.laminas.dev"
     },
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.4.x-dev",
-            "dev-develop": "3.5.x-dev",
-            "dev-dev-4.0": "4.0.x-dev"
-        }
-    },
     "require": {
-        "php": "^7.1",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "php": "^7.3 || ~8.0.0",
+        "laminas/laminas-eventmanager": "^3.3",
+        "laminas/laminas-zendframework-bridge": "^1.1"
     },
     "require-dev": {
         "ext-phar": "*",
-        "laminas/laminas-coding-standard": "^1.0",
-        "laminas/laminas-stdlib": "^2.7 || ^3.0",
-        "phpunit/phpunit": "^7.5.16 || ^8.4"
+        "doctrine/annotations": "^1.10.4",
+        "laminas/laminas-coding-standard": "^1.0.0",
+        "laminas/laminas-stdlib": "^3.3.0",
+        "phpunit/phpunit": "^9.4.2"
     },
     "conflict": {
         "phpspec/prophecy": "<1.9.0"
     },
     "suggest": {
+        "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
         "laminas/laminas-stdlib": "Laminas\\Stdlib component"
     },
     "autoload": {

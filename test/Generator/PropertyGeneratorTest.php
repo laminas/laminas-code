@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace LaminasTest\Code\Generator;
@@ -241,8 +241,8 @@ EOS;
     {
         $propertyGenerator = PropertyGenerator::fromArray([
             'name'             => 'SampleProperty',
-            'const'            => true,
-            'defaultvalue'     => 'foo',
+            'const'            => false,
+            'defaultvalue'     => 'default-foo',
             'docblock'         => [
                 'shortdescription' => 'foo',
             ],
@@ -254,13 +254,14 @@ EOS;
         ]);
 
         self::assertEquals('SampleProperty', $propertyGenerator->getName());
-        self::assertTrue($propertyGenerator->isConst());
+        self::assertFalse($propertyGenerator->isConst());
         self::assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
         self::assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
         self::assertTrue($propertyGenerator->isAbstract());
         self::assertTrue($propertyGenerator->isFinal());
         self::assertTrue($propertyGenerator->isStatic());
         self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
+        self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
 
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 

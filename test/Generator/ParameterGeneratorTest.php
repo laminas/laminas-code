@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace LaminasTest\Code\Generator;
@@ -211,7 +211,7 @@ class ParameterGeneratorTest extends TestCase
         $parameterGenerator = ParameterGenerator::fromArray([
             'name'              => 'SampleParameter',
             'type'              => 'int',
-            'defaultvalue'      => 'foo',
+            'defaultvalue'      => 'default-foo',
             'passedbyreference' => false,
             'position'          => 1,
             'sourcedirty'       => false,
@@ -228,6 +228,7 @@ class ParameterGeneratorTest extends TestCase
         self::assertFalse($parameterGenerator->isSourceDirty());
         self::assertEquals('foo', $parameterGenerator->getSourceContent());
         self::assertEquals('-', $parameterGenerator->getIndentation());
+        self::assertStringNotContainsString('default-foo', $parameterGenerator->generate());
 
         $reflectionOmitDefaultValue = new ReflectionProperty($parameterGenerator, 'omitDefaultValue');
 
