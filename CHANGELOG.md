@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- BC BREAK [laminas/laminas-code#39](https://github.com/laminas/laminas-code/pull/39) changed generated class
+- BC BREAK [laminas/laminas-code#38](https://github.com/laminas/laminas-code/pull/38) changed generated class
   output to no longer contain excessive whitespace around contents. The structure of the generated output
   will still be the same, but spacing changed, which will likely lead o breakages if you
   are asserting/depending upon the strings produced by `Laminas\Code\Generator\ClassGenerator#generate()` 
@@ -21,8 +21,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [zendframwork/zend-code#153](https://github.com/zendframework/zend-code/pull/153) Removed
+- BC BREAK [zendframwork/zend-code#153](https://github.com/zendframework/zend-code/pull/153) Removed
   the annotation API from the library
+- BC BREAK [laminas/laminas-code#39](https://github.com/laminas/laminas-code/pull/39) the
+  `laminas/laminas-zendframework-bridge` has been removed, and is instead to be installed optionally
+  by consumers of the library. If you are still migrating from `zendframework/zend-code`, you will
+  need to add it to your `composer.json` yourself, or directly use to `Laminas\Code` symbols.
 
 ### Fixed
 
