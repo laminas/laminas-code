@@ -13,7 +13,11 @@ All notable changes to this project will be documented in this file, in reverse 
 - BC BREAK [laminas/laminas-code#38](https://github.com/laminas/laminas-code/pull/38) changed generated class
   output to no longer contain excessive whitespace around contents. The structure of the generated output
   will still be the same, but spacing changed, which will likely lead o breakages if you
-  are asserting/depending upon the strings produced by `Laminas\Code\Generator\ClassGenerator#generate()` 
+  are asserting/depending upon the strings produced by `Laminas\Code\Generator\ClassGenerator#generate()`
+- BC BREAK [laminas/laminas-code#42](https://github.com/laminas/laminas-code/pull/42) `declare()` statements
+  will now be generated above `namespace` declarations: this is to be better compliant with PSR-2, but it
+  may break downstream applications if these rely on the stability of code produced
+  by `Laminas\Code\Generator\FileGenerator#generate()`
 
 ### Deprecated
 

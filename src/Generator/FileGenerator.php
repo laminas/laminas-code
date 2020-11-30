@@ -516,22 +516,6 @@ class FileGenerator extends AbstractGenerator
         // newline
         $output .= self::LINE_FEED;
 
-        // namespace, if any
-        $namespace = $this->getNamespace();
-        if ($namespace) {
-            $namespace = sprintf('namespace %s;%s', $namespace, str_repeat(self::LINE_FEED, 2));
-            if (preg_match('#/\* Laminas_Code_Generator_FileGenerator-NamespaceMarker \*/#m', $output)) {
-                $output = preg_replace(
-                    '#/\* Laminas_Code_Generator_FileGenerator-NamespaceMarker \*/#m',
-                    $namespace,
-                    $output,
-                    1
-                );
-            } else {
-                $output .= $namespace;
-            }
-        }
-
         // declares, if any
         if ($this->declares) {
             $declareStatements = '';
@@ -552,6 +536,22 @@ class FileGenerator extends AbstractGenerator
             }
 
             $output .= self::LINE_FEED;
+        }
+
+        // namespace, if any
+        $namespace = $this->getNamespace();
+        if ($namespace) {
+            $namespace = sprintf('namespace %s;%s', $namespace, str_repeat(self::LINE_FEED, 2));
+            if (preg_match('#/\* Laminas_Code_Generator_FileGenerator-NamespaceMarker \*/#m', $output)) {
+                $output = preg_replace(
+                    '#/\* Laminas_Code_Generator_FileGenerator-NamespaceMarker \*/#m',
+                    $namespace,
+                    $output,
+                    1
+                );
+            } else {
+                $output .= $namespace;
+            }
         }
 
         // process required files
