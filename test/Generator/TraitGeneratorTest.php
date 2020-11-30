@@ -204,7 +204,6 @@ class TraitGeneratorTest extends TestCase
         $expectedOutput = <<<EOS
 trait SampleClass
 {
-
     public \$foo = null;
 
     public \$bar = null;
@@ -212,8 +211,6 @@ trait SampleClass
     public function baz()
     {
     }
-
-
 }
 
 EOS;
@@ -279,8 +276,6 @@ EOS;
         $expected = <<<CODE
 trait MyClass
 {
-
-
 }
 
 CODE;
@@ -300,8 +295,6 @@ CODE;
         $expected = <<<CODE
 trait MyClass
 {
-
-
 }
 
 CODE;
@@ -322,8 +315,6 @@ namespace LaminasTest\Code\Generator\\TestAsset;
 
 trait ClassWithNamespace
 {
-
-
 }
 
 CODE;
@@ -474,12 +465,9 @@ CODE;
         $expected = <<<CODE
 trait MyClass
 {
-
     public function methodOne()
     {
     }
-
-
 }
 
 CODE;

@@ -25,6 +25,7 @@ use LaminasTest\Code\TestAsset\ObjectHintsClass;
 use LaminasTest\Code\TestAsset\VariadicParametersClass;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionProperty;
 use function array_combine;
 use function array_filter;
 use function array_map;
@@ -227,7 +228,12 @@ class ParameterGeneratorTest extends TestCase
         self::assertFalse($parameterGenerator->isSourceDirty());
         self::assertEquals('foo', $parameterGenerator->getSourceContent());
         self::assertEquals('-', $parameterGenerator->getIndentation());
-        self::assertAttributeEquals(true, 'omitDefaultValue', $parameterGenerator);
+
+        $reflectionOmitDefaultValue = new ReflectionProperty($parameterGenerator, 'omitDefaultValue');
+
+        $reflectionOmitDefaultValue->setAccessible(true);
+
+        self::assertTrue($reflectionOmitDefaultValue->getValue($parameterGenerator));
     }
 
     /**

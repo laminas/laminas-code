@@ -88,15 +88,12 @@ class InterfaceGeneratorTest extends TestCase
         $expectedOutput = <<<EOS
 interface SampleInterface
 {
-
     public function baz();
-
 }
 
 EOS;
 
-        $output = $classGenerator->generate();
-        self::assertEquals($expectedOutput, $output, $output);
+        self::assertEquals($expectedOutput, $classGenerator->generate());
     }
 
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
@@ -109,8 +106,6 @@ EOS;
         $expected = <<<CODE
 interface MyInterface
 {
-
-
 }
 
 CODE;
@@ -127,8 +122,6 @@ CODE;
         $expected = <<<CODE
 interface MyInterface
 {
-
-
 }
 
 CODE;
@@ -150,13 +143,11 @@ namespace LaminasTest\Code\TestAsset;
 
 interface FooInterface
 {
-
     public const BAR = 5;
 
     public const FOO = 5;
 
     public function fooBarBaz();
-
 }
 
 CODE;
@@ -225,8 +216,6 @@ CODE;
  */
 interface MyInterface
 {
-
-
 }
 
 CODE;
@@ -244,9 +233,7 @@ CODE;
         $expected = <<<CODE
 interface MyInterface
 {
-
     public function methodOne();
-
 }
 
 CODE;
@@ -266,9 +253,7 @@ CODE;
         $expected = <<<CODE
 interface MyCollection extends Countable, IteratorAggregate
 {
-
     public function isEmpty();
-
 }
 
 CODE;
