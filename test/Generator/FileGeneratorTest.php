@@ -72,8 +72,6 @@ require_once 'SampleClass.php';
 
 abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
 {
-
-
 }
 
 
@@ -130,7 +128,6 @@ namespace LaminasTest\Code\Generator\TestAsset;
  */
 class TestSampleSingleClass
 {
-
     /**
      * Enter description here...
      *
@@ -155,8 +152,6 @@ class TestSampleSingleClass
     public function foobar()
     {
     }
-
-
 }
 
 
@@ -352,12 +347,9 @@ use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
 
 class ClassWithUses
 {
-
     public function added()
     {
     }
-
-
 }
 
 
@@ -396,12 +388,9 @@ use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
 
 class ClassWithUses
 {
-
     public function added()
     {
     }
-
-
 }
 
 
@@ -431,8 +420,6 @@ declare(strict_types=1);
 
 class SampleClass
 {
-
-
 }
 
 
@@ -464,8 +451,6 @@ declare(ticks=2);
 
 class SampleClass
 {
-
-
 }
 
 
@@ -526,8 +511,6 @@ declare(strict_types=1);
 
 class SampleClass
 {
-
-
 }
 
 

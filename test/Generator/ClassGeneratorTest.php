@@ -261,7 +261,6 @@ class ClassGeneratorTest extends TestCase
         $expectedOutput = <<<EOS
 abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
 {
-
     public \$foo = null;
 
     public \$bar = null;
@@ -269,8 +268,6 @@ abstract class SampleClass extends ExtendedClassName implements Iterator, Traver
     public function baz()
     {
     }
-
-
 }
 
 EOS;
@@ -340,8 +337,6 @@ EOS;
         $expected = <<<CODE
 class MyClass
 {
-
-
 }
 
 CODE;
@@ -361,8 +356,6 @@ CODE;
         $expected = <<<CODE
 class MyClass extends ParentClass
 {
-
-
 }
 
 CODE;
@@ -383,8 +376,6 @@ namespace LaminasTest\Code\Generator\\TestAsset;
 
 class ClassWithNamespace
 {
-
-
 }
 
 CODE;
@@ -577,12 +568,9 @@ CODE;
         $expected = <<<CODE
 class MyClass
 {
-
     public function methodOne()
     {
     }
-
-
 }
 
 CODE;
@@ -800,7 +788,6 @@ namespace LaminasTest\Code\Generator\TestAsset;
  */
 class TestSampleSingleClass
 {
-
     public const fooProperty = 'duplicate';
 
     public $fooProperty = true;
@@ -825,13 +812,11 @@ class TestSampleSingleClass
         /* test test */
         return true;
     }
-
-
 }
 
 CODE;
 
-        self::assertEquals($classGenerator->generate(), $contents);
+        self::assertEquals($contents, $classGenerator->generate());
     }
 
     /**
@@ -853,7 +838,6 @@ CODE;
         $contents = <<< 'CODE'
 class OutputClass
 {
-
     public function someFunction()
     {
         $output = <<< END
@@ -863,8 +847,6 @@ class OutputClass
                 Fix it, fix it!
 END;
     }
-
-
 }
 
 CODE;
@@ -1116,14 +1098,11 @@ CODE;
         $output = <<<'CODE'
 class myClass
 {
-
     use myTrait, hisTrait, thatTrait;
-
-
 }
 
 CODE;
-        self::assertEquals($classGenerator->generate(), $output);
+        self::assertEquals($output, $classGenerator->generate());
     }
 
     /**
@@ -1142,19 +1121,16 @@ CODE;
         $output = <<<'CODE'
 class myClass
 {
-
     use myTrait, hisTrait, thatTrait {
         hisTrait::foo as public test;
         myTrait::bar insteadof hisTrait;
         myTrait::bar insteadof thatTrait;
 
     }
-
-
 }
 
 CODE;
-        self::assertEquals($classGenerator->generate(), $output);
+        self::assertEquals($output, $classGenerator->generate());
     }
 
     public function testGenerateWithFinalFlag()
@@ -1167,8 +1143,6 @@ CODE;
         $expectedOutput = <<<EOS
 final class SomeClass
 {
-
-
 }
 
 EOS;

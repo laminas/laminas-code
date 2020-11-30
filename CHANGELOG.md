@@ -10,7 +10,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- BC BREAK [laminas/laminas-code#39](https://github.com/laminas/laminas-code/pull/39) changed generated class
+  output to no longer contain excessive whitespace around contents. The structure of the generated output
+  will still be the same, but spacing changed, which will likely lead o breakages if you
+  are asserting/depending upon the strings produced by `Laminas\Code\Generator\ClassGenerator#generate()` 
 
 ### Deprecated
 

@@ -11,6 +11,7 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\Reflection\ClassReflection;
 
 use function array_diff;
+use function array_filter;
 use function array_map;
 use function array_pop;
 use function array_search;
@@ -25,6 +26,7 @@ use function is_array;
 use function is_scalar;
 use function is_string;
 use function ltrim;
+use function rtrim;
 use function sprintf;
 use function str_replace;
 use function strpos;
@@ -1081,30 +1083,42 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
             $output .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }
 
-        $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
-        $output .= $this->traitUsageGenerator->generate();
+        $output .= self::LINE_FEED . '{' . self::LINE_FEED;
+        $traitUseOutput = rtrim($this->traitUsageGenerator->generate(), self::LINE_FEED);
+        $constants = [];
+        $properties = [];
+        $methods = [];
 
-        $constants = $this->getConstants();
-
-        foreach ($constants as $constant) {
-            $output .= $constant->generate() . self::LINE_FEED . self::LINE_FEED;
+        foreach ($this->getConstants() as $constant) {
+            $constants[] = $constant->generate();
         }
 
-        $properties = $this->getProperties();
-
-        foreach ($properties as $property) {
-            $output .= $property->generate() . self::LINE_FEED . self::LINE_FEED;
+        foreach ($this->getProperties() as $property) {
+            $properties[] = $property->generate();
         }
 
-        $methods = $this->getMethods();
-
-        foreach ($methods as $method) {
-            $output .= $method->generate() . self::LINE_FEED;
+        foreach ($this->getMethods() as $method) {
+            $methods[] = $method->generate();
         }
 
-        $output .= self::LINE_FEED . '}' . self::LINE_FEED;
+        $contents = rtrim(
+            implode(
+                self::LINE_FEED . self::LINE_FEED,
+                array_filter([
+                    $traitUseOutput,
+                    implode(self::LINE_FEED . self::LINE_FEED, $constants),
+                    implode(self::LINE_FEED . self::LINE_FEED, $properties),
+                    implode(self::LINE_FEED, $methods),
+                ])
+            ),
+            self::LINE_FEED
+        );
 
-        return $output;
+        return $output
+            . $contents
+            . ($contents === '' ? '' : self::LINE_FEED)
+            . '}'
+            . self::LINE_FEED;
     }
 
     /**

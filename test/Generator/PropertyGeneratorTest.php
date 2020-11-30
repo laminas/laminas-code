@@ -18,6 +18,7 @@ use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
 
+use ReflectionProperty;
 use function array_shift;
 use function str_replace;
 
@@ -260,7 +261,12 @@ EOS;
         self::assertTrue($propertyGenerator->isFinal());
         self::assertTrue($propertyGenerator->isStatic());
         self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
-        self::assertAttributeEquals(true, 'omitDefaultValue', $propertyGenerator);
+
+        $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
+
+        $reflectionOmitDefaultValue->setAccessible(true);
+
+        self::assertTrue($reflectionOmitDefaultValue->getValue($propertyGenerator));
     }
 
     /**
