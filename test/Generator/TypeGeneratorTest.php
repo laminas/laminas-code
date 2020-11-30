@@ -24,6 +24,7 @@ use function strpos;
  * @group zendframework/zend-code#29
  *
  * @covers \Laminas\Code\Generator\TypeGenerator
+ * @covers \Laminas\Code\Generator\TypeGenerator\AtomicType
  */
 class TypeGeneratorTest extends TestCase
 {
@@ -55,21 +56,10 @@ class TypeGeneratorTest extends TestCase
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
-        self::assertSame(ltrim($expectedReturnType, '?\\'), (string) $generator);
-    }
-
-    /**
-     * @dataProvider validClassName
-     *
-     * @param string $typeString
-     * @param string $expectedReturnType
-     */
-    public function testStripsPrefixingBackslashFromClassNames($typeString, $expectedReturnType)
-    {
-        $generator = TypeGenerator::fromTypeString('\\' . $typeString);
-
-        self::assertSame($expectedReturnType, $generator->generate());
-        self::assertSame(ltrim($expectedReturnType, '\\'), (string) $generator);
+        self::assertSame(
+            str_replace('|\\', '|', ltrim($expectedReturnType, '?\\')),
+            $generator->__toString()
+        );
     }
 
     /**
@@ -86,14 +76,20 @@ class TypeGeneratorTest extends TestCase
 
     /**
      * @return string[][]
+     *
+     * IMPORTANT: the reason why we don't convert `foo|null` into `?foo` or `?foo` into `foo|null`
+     *            is that this library still supports generating code that is compatible with PHP 7,
+     *            and therefore we cannot normalize nullable types to use `|null`, for now.
      */
     public function validType()
     {
         $valid = [
+            ['\\foo', '\\foo'],
             ['foo', '\\foo'],
             ['foo', '\\foo'],
             ['foo1', '\\foo1'],
             ['foo\\bar', '\\foo\\bar'],
+            ['\\foo\\bar', '\\foo\\bar'],
             ['a\\b\\c', '\\a\\b\\c'],
             ['foo\\bar\\baz', '\\foo\\bar\\baz'],
             ['foo\\bar\\baz1', '\\foo\\bar\\baz1'],
@@ -126,9 +122,9 @@ class TypeGeneratorTest extends TestCase
             ['object', 'object'],
             ['Object', 'object'],
             ['OBJECT', 'object'],
-            ['mixed', '\\mixed'],
-            ['Mixed', '\\Mixed'],
-            ['MIXED', '\\MIXED'],
+            ['mixed', 'mixed'],
+            ['Mixed', 'mixed'],
+            ['MIXED', 'mixed'],
             ['resource', '\\resource'],
             ['Resource', '\\Resource'],
             ['RESOURCE', '\\RESOURCE'],
@@ -166,15 +162,48 @@ class TypeGeneratorTest extends TestCase
             ['?object', '?object'],
             ['?Object', '?object'],
             ['?OBJECT', '?object'],
-            ['?mixed', '?\\mixed'],
-            ['?Mixed', '?\\Mixed'],
-            ['?MIXED', '?\\MIXED'],
             ['?resource', '?\\resource'],
             ['?Resource', '?\\Resource'],
             ['?RESOURCE', '?\\RESOURCE'],
             ['?foo_bar', '?\\foo_bar'],
             ["\x80", "\\\x80"],
             ["\x80\\\x80", "\\\x80\\\x80"],
+
+            // Basic union types
+            ['foo|bar', '\\bar|\\foo'],
+            ['\\foo|\\bar', '\\bar|\\foo'],
+            ['foo|string', '\\foo|string'],
+
+            // Capitalization of given types must be preserved
+            ['Foo\\Bar|Baz\\Tab', '\\Baz\\Tab|\\Foo\\Bar'],
+            ['\\Foo\\Bar|\\Baz\\Tab', '\\Baz\\Tab|\\Foo\\Bar'],
+
+            // Union types are sorted
+            ['C|B|D|A', '\\A|\\B|\\C|\\D'],
+            ['string|int|bool|null|float|\\Foo', '\\Foo|bool|int|float|string|null'],
+
+            // Union types may be composed by FQCN and non-FQCN
+            ['\\Foo\\Bar|Baz\\Tab', '\\Baz\\Tab|\\Foo\\Bar'],
+            ['Foo\\Bar|\\Baz\\Tab', '\\Baz\\Tab|\\Foo\\Bar'],
+
+            // Nullable types using `|null` should be equivalent to their `?` counterparts, but
+            // we cannot normalize them until PHP 7 support is dropped.
+            ['foo|null', '\\foo|null'],
+            ['null|foo', '\\foo|null'],
+            ['foo|bar|null', '\\bar|\\foo|null'],
+
+            // The `false` type can only be used in combination with other types
+            ['foo|false', '\\foo|false'],
+            ['string|false', 'string|false'],
+            ['string|false|null', 'string|false|null'],
+
+            // `false` + `null` requires a third type
+            ['Foo|false|null', '\\Foo|false|null'],
+
+            // The `static` type should not be turned into a FQCN
+            ['static', 'static'],
+            ['?static', '?static'],
+            ['static|null', 'static|null'],
         ];
 
         return array_combine(
@@ -218,38 +247,108 @@ class TypeGeneratorTest extends TestCase
             ['foo\\bar\\1'],
             ['1foo'],
             ['foo\\1foo'],
+            ['?foo\\bar|null'],
             ['*'],
             ["\0"],
             ['\\array'],
             ['\\Array'],
             ['\\ARRAY'],
+            ['\\array|null'],
+            ['null|\\array'],
+            ['?array|null'],
             ['\\callable'],
             ['\\Callable'],
             ['\\CALLABLE'],
+            ['\\callable|null'],
+            ['null|\\callable'],
+            ['?callable|null'],
             ['\\string'],
             ['\\String'],
             ['\\STRING'],
+            ['\\string|null'],
+            ['null|\\string'],
+            ['?string|null'],
             ['\\int'],
             ['\\Int'],
             ['\\INT'],
+            ['\\int|null'],
+            ['null|\\int'],
+            ['?int|null'],
             ['\\float'],
             ['\\Float'],
             ['\\FLOAT'],
+            ['\\float|null'],
+            ['null|\\float'],
+            ['?float|null'],
+            ['\\false'],
+            ['\\FALSE'],
+            ['\\False'],
+            ['?false|null'],
             ['\\bool'],
             ['\\Bool'],
             ['\\BOOL'],
+            ['\\bool|null'],
+            ['null|\\bool'],
+            ['?bool|null'],
             ['\\void'],
             ['\\Void'],
             ['\\VOID'],
+            ['\\void|null'],
+            ['null|\\void'],
             ['?void'],
             ['?Void'],
             ['?VOID'],
+            ['void|null'],
+            ['?void|null'],
             ['\\iterable'],
             ['\\Iterable'],
             ['\\ITERABLE'],
+            ['\\iterable|null'],
+            ['null|\\iterable'],
+            ['?iterable|null'],
             ['\\object'],
             ['\\Object'],
             ['\\OBJECT'],
+            ['\\object|null'],
+            ['null|\\object'],
+            ['?object|null'],
+            ['\\static'],
+            ['\\STATIC'],
+            ['\\Static'],
+            ['\\static|null'],
+            ['null|\\static'],
+            ['?static|null'],
+            ['\\mixed'],
+            ['\\MIXED'],
+            ['\\Mixed'],
+            ['\\mixed|null'],
+            ['null|\\mixed'],
+
+            // `mixed` can not be union-ed with anything
+            ['?mixed'],
+            ['mixed|null'],
+            ['mixed|Foo'],
+            ['mixed|\\foo'],
+
+            // `false` and `null` must always be used as part of a union type
+            ['null'],
+            ['false'],
+            ['?null'],
+            ['?false'],
+            ['false|null'],
+            ['null|false'],
+
+            // Duplicate types are rejected
+            ['A|A'],
+            ['A|\A'],
+            ['\A|A'],
+            ['A|A|null'],
+            ['A|null|A'],
+            ['null|A|A'],
+            ['string|string'],
+            ['string|string|null'],
+            ['string|null|string'],
+            ['null|string|string'],
         ];
 
         return array_combine(

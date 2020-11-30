@@ -10,21 +10,33 @@ namespace Laminas\Code\Generator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 
-use function in_array;
-use function ltrim;
-use function preg_match;
+use Laminas\Code\Generator\TypeGenerator\AtomicType;
+use ReflectionClass;
+use ReflectionNamedType;
+use ReflectionType;
+use ReflectionUnionType;
+use function array_diff_key;
+use function array_flip;
+use function array_map;
+use function count;
+use function explode;
+use function implode;
 use function sprintf;
 use function strpos;
 use function strtolower;
 use function substr;
+use function usort;
 
+/** @psalm-immutable */
 final class TypeGenerator implements GeneratorInterface
 {
     /**
-     * @var array
+     * @var AtomicType[]
+     *
+     * @psalm-var non-empty-list<AtomicType>
      */
-    private $type;
-
+    private array $types;
+    private bool $nullable;
     /**
      * @var string[]
      *
@@ -40,96 +52,150 @@ final class TypeGenerator implements GeneratorInterface
         'callable',
         'iterable',
         'object',
-        'null'
+        'null',
     ];
 
     /**
-     * @var string a regex pattern to match valid class names or types
-     */
-    private static $validIdentifierMatcher = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*'
-        . '(\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)*$/';
-
-    /**
-     * @param string $type
+     * @param ReflectionNamedType|ReflectionUnionType
      *
-     * @return TypeGenerator
+     * @internal
      *
-     * @throws InvalidArgumentException
+     * @psalm-pure
      */
-    public static function fromTypeString($type)
-    {
-        $typeList = [];
-
-        foreach (explode('|', $type) as $typeString) {
-            list($nullable, $trimmedNullable) = self::trimNullable($typeString);
-            list($wasTrimmed, $trimmedType) = self::trimType($trimmedNullable);
-
-            if (! preg_match(self::$validIdentifierMatcher, $trimmedType)) {
-                throw new InvalidArgumentException(sprintf(
-                    'Provided type "%s" is invalid: must conform "%s"',
-                    $typeString,
-                    self::$validIdentifierMatcher
-                ));
-            }
-
-            $isInternalPhpType = self::isInternalPhpType($trimmedType);
-
-            if ($wasTrimmed && $isInternalPhpType) {
-                throw new InvalidArgumentException(sprintf(
-                    'Provided type "%s" is an internal PHP type, but was provided with a namespace separator prefix',
-                    $typeString
-                ));
-            }
-
-            if ($nullable && $isInternalPhpType && 'void' === strtolower($trimmedType)) {
-                throw new InvalidArgumentException(sprintf('Provided type "%s" cannot be nullable', $typeString));
-            }
-
-            $typeList[] = [
-                'isInternalPhpType' => $isInternalPhpType,
-                'type' => $trimmedType,
-                'nullable' => $nullable,
-            ];
+    public static function fromReflectionType(
+        ?ReflectionType $type,
+        ?ReflectionClass $currentClass
+    ): ?self {
+        if (null === $type) {
+            return null;
         }
 
-        $instance = new self();
-
-        $instance->type = $typeList;
-
-        return $instance;
+        return self::fromTypeString(implode(
+            '|',
+            array_map(
+                static fn(ReflectionNamedType $type): string => self::reflectionNamedTypeToString($type, $currentClass),
+                $type instanceof ReflectionNamedType
+                    ? [$type]
+                    : $type->getTypes()
+            )
+        ));
     }
 
-    private function __construct()
+    /** @psalm-pure */
+    private static function reflectionNamedTypeToString(
+        ReflectionNamedType $type,
+        ?ReflectionClass $currentClass
+    ): string {
+        $lowerCaseName = strtolower($type->getName());
+
+        if ('mixed' === $lowerCaseName || 'null' === $lowerCaseName) {
+            // `mixed` and `null` are implicitly nullable, therefore we need to skip adding nullability markers to it
+            return $lowerCaseName;
+        }
+
+        $nullabilityMarker = $type->allowsNull()
+            ? '?'
+            : '';
+
+        if ('self' === $lowerCaseName && $currentClass) {
+            return $nullabilityMarker . $currentClass->getName();
+        }
+
+        if ('parent' === $lowerCaseName && $currentClass && $parentClass = $currentClass->getParentClass()) {
+            return $nullabilityMarker . $parentClass->getName();
+        }
+
+        return $nullabilityMarker . $type->getName();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     *
+     * @psalm-pure
+     */
+    public static function fromTypeString(string $type): self
     {
+        [$nullable, $trimmedNullable] = self::trimNullable($type);
+        $types = array_map([AtomicType::class, 'fromString'], explode('|', $trimmedNullable));
+
+        usort(
+            $types,
+            static fn(AtomicType $left, AtomicType $right): int => [$left->sortIndex,
+                                                                    $left->type] <=> [$right->sortIndex, $right->type]
+        );
+
+        if (1 === count($types)) {
+            $types[0]->assertCanBeAStandaloneType();
+
+            if ($nullable) {
+                $types[0]->assertCanBeStandaloneNullable();
+            }
+        } else {
+            if ($nullable) {
+                throw new InvalidArgumentException(sprintf(
+                    'Type "%s" is a union type, and therefore cannot be also marked nullable with the "?" prefix',
+                    $type
+                ));
+            }
+
+            foreach ($types as $index => $atomicType) {
+                $atomicType->assertCanUnionWith(array_diff_key($types, array_flip([$index])));
+            }
+        }
+
+        return new self($types, $nullable);
+    }
+
+    /**
+     * @var AtomicType[]                     $types
+     *
+     * @psalm-var non-empty-list<AtomicType> $types
+     */
+    private function __construct(array $types, bool $nullable)
+    {
+        $this->types    = $types;
+        $this->nullable = $nullable;
     }
 
     /**
      * {@inheritDoc}
+     *
+     * Generates the type string, including FQCN "\\" prefix, so that
+     * it can directly be used within any code snippet, regardless of
+     * imports.
+     *
+     * @psalm-return non-empty-string
      */
     public function generate()
     {
-        $str = [];
+        $typesAsStrings = array_map(
+            fn(AtomicType $type): string => $type->fullyQualifiedName(),
+            $this->types
+        );
 
-        foreach ($this->type as $type) {
-            $nullable = $type['nullable'] ? '?' : '';
-
-            if ($type['isInternalPhpType']) {
-                $str[] = $nullable.strtolower($type['type']);
-                continue;
-            }
-
-            $str[] = $nullable.'\\' . $type['type'];
+        if ($this->nullable) {
+            return '?' . implode('|', $typesAsStrings);
         }
 
-        return implode('|', $str);
+        return implode('|', $typesAsStrings);
+    }
+
+    public function equals(TypeGenerator $otherType): bool
+    {
+        return $this->generate() === $otherType->generate();
     }
 
     /**
-     * @return string the cleaned type string
+     * @return string the cleaned type string. Please note that this value is not suitable for code generation,
+     *                since the returned value does not include any root namespace prefixes, when applicable,
+     *                and therefore the values cannot be used as FQCN in generated code.
      */
     public function __toString()
     {
-        return ltrim($this->generate(), '?\\');
+        return implode('|', array_map(
+            fn(AtomicType $type): string => $type->type,
+            $this->types
+        ));
     }
 
     /**
@@ -137,6 +203,8 @@ final class TypeGenerator implements GeneratorInterface
      *
      * @return bool[]|string[] ordered tuple, first key represents whether the type is nullable, second is the
      *                         trimmed string
+     *
+     * @psalm-return array{bool, string}
      */
     private static function trimNullable($type)
     {
@@ -145,30 +213,5 @@ final class TypeGenerator implements GeneratorInterface
         }
 
         return [false, $type];
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return bool[]|string[] ordered tuple, first key represents whether the values was trimmed, second is the
-     *                         trimmed string
-     */
-    private static function trimType($type)
-    {
-        if (0 === strpos($type, '\\')) {
-            return [true, substr($type, 1)];
-        }
-
-        return [false, $type];
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    private static function isInternalPhpType($type)
-    {
-        return in_array(strtolower($type), self::$internalPhpTypes, true);
     }
 }

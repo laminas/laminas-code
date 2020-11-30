@@ -476,7 +476,8 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     public function setImplementedInterfaces(array $implementedInterfaces)
     {
         array_map(function ($implementedInterface) {
-            return (string) TypeGenerator::fromTypeString($implementedInterface);
+            // This loop is just validating that the given `$implementedInterfaces` contains valid syntax/symbols
+            return TypeGenerator::fromTypeString($implementedInterface);
         }, $implementedInterfaces);
 
         $this->implementedInterfaces = $implementedInterfaces;
@@ -497,8 +498,12 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function hasImplementedInterface($implementedInterface)
     {
-        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
-        return in_array($implementedInterface, $this->implementedInterfaces);
+        $interfaceType = TypeGenerator::fromTypeString($implementedInterface);
+
+        return (bool) array_filter(
+            array_map([TypeGenerator::class, 'fromTypeString'], $this->implementedInterfaces),
+            static fn (TypeGenerator $interface) : bool => $interfaceType->equals($interface)
+        );
     }
 
     /**
@@ -507,8 +512,13 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function removeImplementedInterface($implementedInterface)
     {
-        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
-        unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
+        $interfaceType = TypeGenerator::fromTypeString($implementedInterface);
+
+        $this->implementedInterfaces = array_filter(
+            array_map([TypeGenerator::class, 'fromTypeString'], $this->implementedInterfaces),
+            static fn (TypeGenerator $interface) : bool => ! $interfaceType->equals($interface)
+        );
+
         return $this;
     }
 

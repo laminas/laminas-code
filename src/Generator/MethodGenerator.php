@@ -15,7 +15,6 @@ use function explode;
 use function implode;
 use function is_array;
 use function is_string;
-use function method_exists;
 use function preg_replace;
 use function sprintf;
 use function str_replace;
@@ -82,7 +81,7 @@ class MethodGenerator extends AbstractMemberGenerator
         $method         = new static();
         $declaringClass = $reflectionMethod->getDeclaringClass();
 
-        $method->setReturnType(self::extractReturnTypeFromMethodReflection($reflectionMethod));
+        $method->returnType = TypeGenerator::fromReflectionType($reflectionMethod->getReturnType(), $declaringClass);
         $method->setFinal($reflectionMethod->isFinal());
 
         if ($reflectionMethod->isPrivate()) {
@@ -398,29 +397,6 @@ class MethodGenerator extends AbstractMemberGenerator
     public function __toString()
     {
         return $this->generate();
-    }
-
-    /**
-     * @param MethodReflection $methodReflection
-     *
-     * @return null|string
-     */
-    private static function extractReturnTypeFromMethodReflection(MethodReflection $methodReflection)
-    {
-        $returnType = method_exists($methodReflection, 'getReturnType')
-            ? $methodReflection->getReturnType()
-            : null;
-
-        if (! $returnType) {
-            return null;
-        }
-
-        if (! method_exists($returnType, 'getName')) {
-            return self::expandLiteralType((string) $returnType, $methodReflection);
-        }
-
-        return ($returnType->allowsNull() ? '?' : '')
-            . self::expandLiteralType($returnType->getName(), $methodReflection);
     }
 
     /**
