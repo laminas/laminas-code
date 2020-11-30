@@ -542,4 +542,17 @@ EOS;
         $this->expectExceptionMessage('setDeclares is expecting an array of Laminas\\Code\\DeclareStatement objects');
         $generator->setDeclares([new \stdClass()]);
     }
+
+    /** @group gh-42 */
+    public function testDeclareStatementsArePutBeforeNamespace(): void
+    {
+        $generator = new FileGenerator();
+
+        $generator->setNamespace('Foo');
+        $generator->setDeclares([
+            DeclareStatement::strictTypes(1)
+        ]);
+
+        self::assertStringMatchesFormat('%Adeclare(strict_types=1);%Anamespace Foo;%A', $generator->generate());
+    }
 }

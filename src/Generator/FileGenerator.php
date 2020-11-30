@@ -513,6 +513,9 @@ class FileGenerator extends AbstractGenerator
             }
         }
 
+        // newline
+        $output .= self::LINE_FEED;
+
         // declares, if any
         if ($this->declares) {
             $declareStatements = '';
@@ -550,9 +553,6 @@ class FileGenerator extends AbstractGenerator
                 $output .= $namespace;
             }
         }
-
-        // newline
-        $output .= self::LINE_FEED;
 
         // process required files
         // @todo marker replacement for required files
