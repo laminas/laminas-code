@@ -373,6 +373,26 @@ EOS;
         self::assertEquals("'foo'", $valueGenerator->generate());
     }
 
+    public function testPropertyDefaultValueCanHandleBool()
+    {
+        $valueGenerator1 = new ValueGenerator(
+            'FALSE',
+            ValueGenerator::TYPE_AUTO,
+            ValueGenerator::OUTPUT_MULTIPLE_LINE
+        );
+
+        $valueGenerator2 = new ValueGenerator(
+            'FALSE',
+            ValueGenerator::TYPE_STRING,
+            ValueGenerator::OUTPUT_MULTIPLE_LINE
+        );
+
+        $valueGenerator1->initEnvironmentConstants();
+        $valueGenerator2->initEnvironmentConstants();
+
+        self::assertNotEquals($valueGenerator1->generate(), $valueGenerator2->generate());
+    }
+
     /**
      * @dataProvider simpleArray
      *
