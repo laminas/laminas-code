@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace Laminas\Code\Scanner;
@@ -364,6 +364,14 @@ class TokenArrayScanner implements ScannerInterface
             return $infoIndex;
         };
 
+        // ensure php backwards compatibility
+        if (! defined('T_NAME_QUALIFIED')) {
+            define('T_NAME_QUALIFIED', 24001);
+        }
+        if (! defined('T_NAME_FULLY_QUALIFIED')) {
+            define('T_NAME_FULLY_QUALIFIED', 24002);
+        }
+
         /**
          * START FINITE STATE MACHINE FOR SCANNING TOKENS
          */
@@ -410,7 +418,11 @@ class TokenArrayScanner implements ScannerInterface
                     goto SCANNER_NAMESPACE_CONTINUE;
                 }
 
-                if ($tokenType === T_NS_SEPARATOR || $tokenType === T_STRING) {
+                if ($tokenType === T_NS_SEPARATOR
+                    || $tokenType === T_STRING
+                    || $tokenType === T_NAME_QUALIFIED
+                    || $tokenType === T_NAME_FULLY_QUALIFIED
+                ) {
                     $infos[$infoIndex]['namespace'] .= $tokenContent;
                 }
 
@@ -475,7 +487,11 @@ class TokenArrayScanner implements ScannerInterface
                         goto SCANNER_USE_CONTINUE;
                     }
 
-                    if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING) {
+                    if ($tokenType == T_NS_SEPARATOR
+                        || $tokenType == T_STRING
+                        || $tokenType == T_NAME_QUALIFIED
+                        || $tokenType == T_NAME_FULLY_QUALIFIED
+                    ) {
                         if ($useAsContext == false) {
                             $infos[$infoIndex]['statements'][$useStatementIndex]['use'] .= $tokenContent;
                         } else {

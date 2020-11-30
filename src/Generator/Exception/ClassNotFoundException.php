@@ -6,14 +6,9 @@
  * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
-namespace Laminas\Code\Reflection;
+namespace Laminas\Code\Generator\Exception;
 
-use Reflector;
-
-interface ReflectionInterface extends Reflector
+class ClassNotFoundException extends RuntimeException implements
+    ExceptionInterface
 {
-    /**
-     * @return string
-     */
-    public function toString();
 }

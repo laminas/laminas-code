@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace Laminas\Code\Scanner;
@@ -190,7 +190,14 @@ class ParameterScanner
                 goto SCANNER_CONTINUE;
             }
         } else {
-            if ($this->name === null && ($token[0] === T_STRING || $token[0] === T_NS_SEPARATOR)) {
+            if ($this->name === null
+                && (
+                    $token[0] === T_STRING
+                    || $token[0] === T_NS_SEPARATOR
+                    || $token[0] === T_NAME_QUALIFIED
+                    || $token[0] === T_NAME_FULLY_QUALIFIED
+                )
+            ) {
                 $this->class .= $token[1];
                 goto SCANNER_CONTINUE;
             }

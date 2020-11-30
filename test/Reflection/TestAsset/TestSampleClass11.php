@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace LaminasTest\Code\Reflection\TestAsset;
@@ -65,10 +65,10 @@ class TestSampleClass11
             }
             //blah
         }
- 
+
         return $cacheKey;
     }
- 
+
 //    //TODO - would it be better to define the binding like this?
 //    function __prototype() {
 //        $cacheKey = $this->getCacheKey($queryString);
@@ -80,5 +80,5 @@ class TestSampleClass11
 //        $result = parent::__prototype();
 //        $this->cache->put($cacheKey, $result);
 //        return $result;
-//    }    
+//    }
 }

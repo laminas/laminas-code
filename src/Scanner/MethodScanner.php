@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @see       https://github.com/laminasframwork/laminas-code for the canonical source repository
- * @copyright https://github.com/laminasframwork/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminasframwork/laminas-code/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-code for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New BSD License
  */
 
 namespace Laminas\Code\Scanner;
@@ -524,6 +524,8 @@ class MethodScanner implements ScannerInterface
 
             case T_VARIABLE:
             case T_STRING:
+            case T_NAME_QUALIFIED:
+            case T_NAME_FULLY_QUALIFIED:
                 if ($tokenType === T_STRING && $parentCount === 0) {
                     $this->name = $tokenContent;
                 }
