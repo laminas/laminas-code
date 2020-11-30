@@ -322,17 +322,6 @@ define('APPLICATION_ENV', 'testing');
 
 ## Add code to existing PHP files and classes
 
-### Seeding PHP file code generation via reflection
-
-You can add *PHP* code to an existing *PHP* file using the code generator. To do so, you need to
-first do reflection on it. The static method `fromReflectedFileName()` allows you to do this.
-
-```php
-$generator = Laminas\Code\Generator\FileGenerator::fromReflectedFileName($path);
-$generator->setBody("\$foo->bar();");
-file_put_contents($path, $generator->generate());
-```
-
 ### Seeding PHP class generation via reflection
 
 You may add code to an existing class. To do so, first use the static `fromReflection()` method to

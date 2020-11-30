@@ -16,8 +16,8 @@ use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\GeneratorInterface;
 use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
-use Laminas\Code\NameInformation;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\TestAsset\FooClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
@@ -1156,9 +1156,9 @@ EOS;
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('ClassName');
         $classGenerator->setNamespaceName('SomeNamespace');
-        $classGenerator->addUse(NameInformation::class);
-        $classGenerator->setExtendedClass(NameInformation::class);
-        self::assertStringContainsString('class ClassName extends NameInformation', $classGenerator->generate());
+        $classGenerator->addUse(FooClass::class);
+        $classGenerator->setExtendedClass(FooClass::class);
+        self::assertStringContainsString('class ClassName extends FooClass', $classGenerator->generate());
     }
 
     /**

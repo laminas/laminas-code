@@ -28,18 +28,6 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     protected $docBlock;
 
     /**
-     * Return the reflection file of the declaring file.
-     *
-     * @return FileReflection
-     */
-    public function getDeclaringFile()
-    {
-        $instance = new FileReflection($this->getFileName());
-
-        return $instance;
-    }
-
-    /**
      * Return the classes DocBlock reflection object
      *
      * @return DocBlockReflection|false

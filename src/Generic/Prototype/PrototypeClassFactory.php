@@ -22,6 +22,8 @@ use function str_replace;
  * If the factory can not supply the class someone is asking for
  * it tries to fallback on a generic default prototype, which would
  * have need to be set before.
+ *
+ * @internal this class is not part of the public API of this package
  */
 class PrototypeClassFactory
 {
