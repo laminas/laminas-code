@@ -29,6 +29,9 @@ matrix:
         - DEPS=latest
     - php: 8.0
       env:
+        - DEPS=lowest
+    - php: 8.0
+      env:
         - DEPS=latest
 
 before_install:
