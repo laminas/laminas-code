@@ -2,27 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.5.1 - TBD
+## 3.5.1 - 2020-11-30
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [3.5.1](https://github.com/laminas/laminas-code/milestone/4)
 
-- Nothing.
+3.5.x bugfix release (patch)
 
-### Deprecated
+### 3.5.1
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-### Removed
+#### Enhancement
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
+ - [55: Use `8.0` instead of `nightly` in travis-ci builds](https://github.com/laminas/laminas-code/pull/55) thanks to @fezfez
 
 ## 3.5.0 - 2020-11-11
 
