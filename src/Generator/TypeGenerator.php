@@ -133,21 +133,23 @@ final class TypeGenerator implements GeneratorInterface
             if ($nullable) {
                 $types[0]->assertCanBeStandaloneNullable();
             }
-        } else {
-            if ($nullable) {
-                throw new InvalidArgumentException(sprintf(
-                    'Type "%s" is a union type, and therefore cannot be also marked nullable with the "?" prefix',
-                    $type
-                ));
-            }
 
-            foreach ($types as $index => $atomicType) {
-                $otherTypes = array_diff_key($types, array_flip([$index]));
+            return new self($types, $nullable);
+        }
 
-                assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
+        if ($nullable) {
+            throw new InvalidArgumentException(sprintf(
+                'Type "%s" is a union type, and therefore cannot be also marked nullable with the "?" prefix',
+                $type
+            ));
+        }
 
-                $atomicType->assertCanUnionWith($otherTypes);
-            }
+        foreach ($types as $index => $atomicType) {
+            $otherTypes = array_diff_key($types, array_flip([$index]));
+
+            assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
+
+            $atomicType->assertCanUnionWith($otherTypes);
         }
 
         return new self($types, $nullable);
