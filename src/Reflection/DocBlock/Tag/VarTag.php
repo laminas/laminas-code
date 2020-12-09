@@ -8,27 +8,30 @@
 
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
+use function explode;
+use function preg_match;
+use function rtrim;
+
+use const PHP_EOL;
+
 class VarTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**
      * @var string[]
+     * @psalm-var list<string>
      */
     private $types = [];
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $variableName;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $description;
 
     /**
      * {@inheritDoc}
      */
-    public function getName() : string
+    public function getName(): string
     {
         return 'var';
     }
@@ -36,15 +39,17 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * {@inheritDoc}
      */
-    public function initialize($tagDocblockLine) : void
+    public function initialize($tagDocblockLine): void
     {
         $match = [];
 
-        if (! preg_match(
-            '#^([^\$]\S+)?\s*(\$[\S]+)?\s*(.*)$#m',
-            $tagDocblockLine,
-            $match
-        )) {
+        if (
+            ! preg_match(
+                '#^([^\$]\S+)?\s*(\$[\S]+)?\s*(.*)$#m',
+                $tagDocblockLine,
+                $match
+            )
+        ) {
             return;
         }
 
@@ -61,25 +66,26 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getTypes() : array
+    /** {@inheritDoc} */
+    public function getTypes(): array
     {
         return $this->types;
     }
 
-    public function getVariableName() : ?string
+    public function getVariableName(): ?string
     {
         return $this->variableName;
     }
 
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function __toString() : string
+    /**
+     * @psalm-return non-empty-string
+     */
+    public function __toString(): string
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . PHP_EOL;
     }

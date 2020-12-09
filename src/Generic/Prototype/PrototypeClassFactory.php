@@ -27,21 +27,16 @@ use function str_replace;
  */
 class PrototypeClassFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $prototypes = [];
 
-    /**
-     * @var PrototypeGenericInterface|null
-     */
+    /** @var PrototypeGenericInterface|null */
     protected $genericPrototype;
 
     /**
      * @param PrototypeInterface[] $prototypes
-     * @param PrototypeGenericInterface $genericPrototype
      */
-    public function __construct($prototypes = [], PrototypeGenericInterface $genericPrototype = null)
+    public function __construct($prototypes = [], ?PrototypeGenericInterface $genericPrototype = null)
     {
         foreach ((array) $prototypes as $prototype) {
             $this->addPrototype($prototype);
@@ -53,7 +48,6 @@ class PrototypeClassFactory
     }
 
     /**
-     * @param PrototypeInterface $prototype
      * @throws Exception\InvalidArgumentException
      */
     public function addPrototype(PrototypeInterface $prototype)
@@ -68,7 +62,6 @@ class PrototypeClassFactory
     }
 
     /**
-     * @param PrototypeGenericInterface $prototype
      * @throws Exception\InvalidArgumentException
      */
     public function setGenericPrototype(PrototypeGenericInterface $prototype)

@@ -8,12 +8,14 @@
 
 namespace LaminasTest\Code\Reflection;
 
+use Closure;
 use Laminas\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\TestAsset\ClassTypeHintedClass;
 use LaminasTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use LaminasTest\Code\TestAsset\InternalHintsClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionType;
 
 /**
  * @group Laminas_Reflection
@@ -50,7 +52,6 @@ class ParameterReflectionTest extends TestCase
 
     /**
      * @dataProvider paramType
-     *
      * @param string $param
      * @param string $type
      */
@@ -72,22 +73,24 @@ class ParameterReflectionTest extends TestCase
         self::assertEquals('callable', $parameter->detectType());
     }
 
-    public function paramType()
+    /**
+     * @return string[][]
+     * @psalm-return non-empty-list<array{non-empty-string, non-empty-string}>
+     */
+    public function paramType(): array
     {
         return [
-            ['one','int'],
-            ['two','int'],
-            ['three','string'],
-            ['array','array'],
-            ['class',TestAsset\TestSampleClass::class],
+            ['one', 'int'],
+            ['two', 'int'],
+            ['three', 'string'],
+            ['array', 'array'],
+            ['class', TestAsset\TestSampleClass::class],
         ];
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
      * @dataProvider reflectionHints
-     *
      * @param string $className
      * @param string $methodName
      * @param string $parameterName
@@ -102,15 +105,13 @@ class ParameterReflectionTest extends TestCase
 
         $type = $reflection->getType();
 
-        self::assertInstanceOf(\ReflectionType::class, $type);
+        self::assertInstanceOf(ReflectionType::class, $type);
         self::assertSame($expectedType, $type->getName());
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
      * @dataProvider reflectionHints
-     *
      * @param string $className
      * @param string $methodName
      * @param string $parameterName
@@ -146,16 +147,14 @@ class ParameterReflectionTest extends TestCase
             [ClassTypeHintedClass::class, 'selfParameter', 'foo', 'self'],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
-            [ClassTypeHintedClass::class, 'closureParameter', 'foo', \Closure::class],
-            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', \Closure::class],
+            [ClassTypeHintedClass::class, 'closureParameter', 'foo', Closure::class],
+            [ClassTypeHintedClass::class, 'importedClosureParameter', 'foo', Closure::class],
         ];
     }
 
     /**
      * @group zendframework/zend-code#29
-     *
      * @dataProvider docBlockHints
-     *
      * @param string $className
      * @param string $methodName
      * @param string $parameterName
@@ -172,9 +171,7 @@ class ParameterReflectionTest extends TestCase
 
     /**
      * @group zendframework/zend-code#29
-     *
      * @dataProvider docBlockHints
-     *
      * @param string $className
      * @param string $methodName
      * @param string $parameterName

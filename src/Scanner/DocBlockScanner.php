@@ -24,29 +24,19 @@ use function trim;
 /** @internal this class is not part of the public API of this package */
 class DocBlockScanner
 {
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $isScanned = false;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $docComment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $shortDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $longDescription = '';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $tags = [];
 
     /**
@@ -54,7 +44,7 @@ class DocBlockScanner
      */
     public function __construct($docComment)
     {
-        $this->docComment      = $docComment;
+        $this->docComment = $docComment;
     }
 
     /**
@@ -176,7 +166,7 @@ class DocBlockScanner
         $currentWord = null;
         $currentLine = null;
 
-        $MACRO_STREAM_ADVANCE_CHAR = function ($positionsForward = 1) use (
+        $MACRO_STREAM_ADVANCE_CHAR       = function ($positionsForward = 1) use (
             &$stream,
             &$streamIndex,
             &$currentChar,

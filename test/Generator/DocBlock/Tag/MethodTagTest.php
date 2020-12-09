@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class MethodTagTest extends TestCase
 {
-    /**
-     * @var MethodTag
-     */
+    /** @var MethodTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new MethodTag();
+        $this->tag        = new MethodTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -73,9 +69,9 @@ class MethodTagTest extends TestCase
     public function testConstructorWithOptions()
     {
         $this->tag->setOptions([
-            'isStatic' => true,
-            'methodName' => 'method',
-            'types' => ['string'],
+            'isStatic'    => true,
+            'methodName'  => 'method',
+            'types'       => ['string'],
             'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new MethodTag('method', ['string'], 'description', true);

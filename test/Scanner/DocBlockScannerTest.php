@@ -23,13 +23,13 @@ class DocBlockScannerTest extends TestCase
      */
     public function testDocBlockScannerParsesTagsWithNoValuesProperly()
     {
-        $docComment = <<<EOB
+        $docComment   = <<<EOB
 /**
  * @mytag
  */
 EOB;
         $tokenScanner = new DocBlockScanner($docComment);
-        $tags = $tokenScanner->getTags();
+        $tags         = $tokenScanner->getTags();
         self::assertCount(1, $tags);
         self::assertArrayHasKey('name', $tags[0]);
         self::assertEquals('@mytag', $tags[0]['name']);
@@ -39,7 +39,7 @@ EOB;
 
     public function testDocBlockScannerDescriptions()
     {
-        $docComment = <<<EOB
+        $docComment   = <<<EOB
 /**
  * Short Description
  *
@@ -52,7 +52,7 @@ EOB;
         self::assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
 
         // windows-style line separators
-        $docComment = str_replace("\n", "\r\n", $docComment);
+        $docComment   = str_replace("\n", "\r\n", $docComment);
         $tokenScanner = new DocBlockScanner($docComment);
         self::assertEquals('Short Description', $tokenScanner->getShortDescription());
         self::assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());

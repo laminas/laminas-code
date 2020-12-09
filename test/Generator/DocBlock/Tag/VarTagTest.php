@@ -19,17 +19,13 @@ use PHPUnit\Framework\TestCase;
  */
 class VarTagTest extends TestCase
 {
-    /**
-     * @var VarTag
-     */
+    /** @var VarTag */
     private $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     private $tagManager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -39,25 +35,25 @@ class VarTagTest extends TestCase
         $this->tagManager->initializeDefaultTags();
     }
 
-    public function testGetterAndSetterPersistValue() : void
+    public function testGetterAndSetterPersistValue(): void
     {
         $tag = new VarTag('variable');
 
         self::assertSame('variable', $tag->getVariableName());
     }
 
-    public function testGetterForVariableNameTrimsCorrectly() : void
+    public function testGetterForVariableNameTrimsCorrectly(): void
     {
         $this->tag->setVariableName('$variable$');
         $this->assertEquals('variable$', $this->tag->getVariableName());
     }
 
-    public function testNameIsCorrect() : void
+    public function testNameIsCorrect(): void
     {
         $this->assertEquals('var', $this->tag->getName());
     }
 
-    public function testParamProducesCorrectDocBlockLine() : void
+    public function testParamProducesCorrectDocBlockLine(): void
     {
         $this->tag->setVariableName('variable');
         $this->tag->setTypes('string[]');
@@ -65,7 +61,7 @@ class VarTagTest extends TestCase
         $this->assertEquals('@var string[] $variable description', $this->tag->generate());
     }
 
-    public function testConstructorWithOptions() : void
+    public function testConstructorWithOptions(): void
     {
         $this->tag->setOptions([
             'variableName' => 'foo',
@@ -76,7 +72,7 @@ class VarTagTest extends TestCase
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
-    public function testCreatingTagFromReflection() : void
+    public function testCreatingTagFromReflection(): void
     {
         $reflectionTag = (new DocBlockReflection('/** @var int $foo description'))
             ->getTag('var');

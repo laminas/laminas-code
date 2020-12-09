@@ -81,7 +81,7 @@ class InterfaceGeneratorTest extends TestCase
     public function testToString()
     {
         $classGenerator = InterfaceGenerator::fromArray([
-            'name' => 'SampleInterface',
+            'name'    => 'SampleInterface',
             'methods' => [
                 ['name' => 'baz'],
             ],
@@ -192,7 +192,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockFromArray()
     {
         $classGenerator = InterfaceGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'     => 'SampleClass',
             'docblock' => [
                 'shortdescription' => 'foo',
             ],
@@ -205,7 +205,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockInstance()
     {
         $classGenerator = InterfaceGenerator::fromArray([
-            'name' => 'MyInterface',
+            'name'     => 'MyInterface',
             'docblock' => new DocBlockGenerator('foo'),
         ]);
 
@@ -268,6 +268,6 @@ CODE;
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Class LaminasTest\Code\Generator\InterfaceGeneratorTest is not a interface');
-        InterfaceGenerator::fromReflection(new ClassReflection(__CLASS__));
+        InterfaceGenerator::fromReflection(new ClassReflection(self::class));
     }
 }

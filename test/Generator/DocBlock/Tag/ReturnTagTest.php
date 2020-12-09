@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class ReturnTagTest extends TestCase
 {
-    /**
-     * @var ReturnTag
-     */
+    /** @var ReturnTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new ReturnTag();
+        $this->tag        = new ReturnTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 

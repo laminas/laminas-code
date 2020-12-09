@@ -16,14 +16,13 @@ use function strtolower;
 
 class InterfaceGenerator extends ClassGenerator
 {
-    const OBJECT_TYPE = 'interface';
-    const IMPLEMENTS_KEYWORD = 'extends';
+    public const OBJECT_TYPE        = 'interface';
+    public const IMPLEMENTS_KEYWORD = 'extends';
 
     /**
      * Build a Code Generation Php Object from a Class Reflection
      *
-     * @param  ClassReflection $classReflection
-     * @return InterfaceGenerator
+     * @return static
      */
     public static function fromReflection(ClassReflection $classReflection)
     {
@@ -78,7 +77,6 @@ class InterfaceGenerator extends ClassGenerator
      * @configkey docblock       string        The docblock information
      * @configkey constants
      * @configkey methods
-     *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return InterfaceGenerator

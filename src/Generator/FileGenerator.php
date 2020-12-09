@@ -11,8 +11,11 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\DeclareStatement;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\Exception\ClassNotFoundException;
+use Traversable;
 
 use function array_key_exists;
+use function array_keys;
+use function array_map;
 use function array_merge;
 use function count;
 use function current;
@@ -35,52 +38,45 @@ use function strtolower;
 use function substr;
 use function token_get_all;
 
+use const T_COMMENT;
+use const T_DOC_COMMENT;
+use const T_OPEN_TAG;
+use const T_WHITESPACE;
+
 class FileGenerator extends AbstractGenerator
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $filename;
 
-    /**
-     * @var DocBlockGenerator
-     */
+    /** @var DocBlockGenerator */
     protected $docBlock;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $requiredFiles = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $namespace;
-
     /**
      * @var array
+     * @psalm-var list<array{string, string|null}>
      */
     protected $uses = [];
-
     /**
-     * @var array
+     * @var ClassGenerator[]
+     * @psalm-var array<string, ClassGenerator>
      */
     protected $classes = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $body;
 
-    /**
-     * @var DeclareStatement[]
-     */
+    /** @var DeclareStatement[] */
     protected $declares = [];
 
     /**
      * Passes $options to {@link setOptions()}.
      *
-     * @param  array|\Traversable $options
+     * @param array|Traversable $options
      */
     public function __construct($options = null)
     {
@@ -204,6 +200,7 @@ class FileGenerator extends AbstractGenerator
      *
      * @param  bool $withResolvedAs
      * @return array
+     * @psalm-return array<int, array{string, null|string, false|null|string}>
      */
     public function getUses($withResolvedAs = false)
     {
@@ -237,7 +234,7 @@ class FileGenerator extends AbstractGenerator
                 $import = $use['use'];
                 $alias  = $use['as'];
             } elseif (count($use) == 2) {
-                list($import, $alias) = $use;
+                [$import, $alias] = $use;
             } else {
                 $import = current($use);
                 $alias  = null;
@@ -274,8 +271,7 @@ class FileGenerator extends AbstractGenerator
     }
 
     /**
-     * @param string $name
-     *
+     * @param string|null $name
      * @return ClassGenerator
      * @throws ClassNotFoundException
      */
@@ -295,7 +291,7 @@ class FileGenerator extends AbstractGenerator
             throw new ClassNotFoundException(sprintf('Class %s is not set', $name));
         }
 
-        return $this->classes[(string)$name];
+        return $this->classes[$name];
     }
 
     /**
@@ -368,6 +364,7 @@ class FileGenerator extends AbstractGenerator
         return $this->body;
     }
 
+    /** @return static */
     public function setDeclares(array $declares)
     {
         foreach ($declares as $declare) {
@@ -503,7 +500,7 @@ class FileGenerator extends AbstractGenerator
             $output .= self::LINE_FEED;
         }
 
-        $classes = $this->getClasses();
+        $classes   = $this->getClasses();
         $classUses = [];
         //build uses array
         foreach ($classes as $class) {
@@ -520,7 +517,7 @@ class FileGenerator extends AbstractGenerator
             $useOutput = '';
 
             foreach ($uses as $use) {
-                list($import, $alias) = $use;
+                [$import, $alias] = $use;
                 if (null === $alias) {
                     $tempOutput = sprintf('%s', $import);
                 } else {

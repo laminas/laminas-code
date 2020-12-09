@@ -17,9 +17,9 @@ use Laminas\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionTagInterface;
 class Tag extends GenericTag
 {
     /**
-     * @param  ReflectionTagInterface $reflectionTag
-     * @return Tag
      * @deprecated Deprecated in 2.3. Use TagManager::createTagFromReflection() instead
+     *
+     * @return Tag
      */
     public static function fromReflection(ReflectionTagInterface $reflectionTag)
     {
@@ -29,9 +29,10 @@ class Tag extends GenericTag
     }
 
     /**
+     * @deprecated Deprecated in 2.3. Use GenericTag::setContent() instead
+     *
      * @param  string $description
      * @return Tag
-     * @deprecated Deprecated in 2.3. Use GenericTag::setContent() instead
      */
     public function setDescription($description)
     {
@@ -39,8 +40,9 @@ class Tag extends GenericTag
     }
 
     /**
-     * @return string
      * @deprecated Deprecated in 2.3. Use GenericTag::getContent() instead
+     *
+     * @return string
      */
     public function getDescription()
     {

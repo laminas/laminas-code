@@ -20,6 +20,7 @@ use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\TestAsset\FooClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
+use stdClass;
 
 use function current;
 use function fclose;
@@ -48,7 +49,7 @@ class ClassGeneratorTest extends TestCase
     public function testClassDocBlockAccessors()
     {
         $docBlockGenerator = new DocBlockGenerator();
-        $classGenerator = new ClassGenerator();
+        $classGenerator    = new ClassGenerator();
         $classGenerator->setDocBlock($docBlockGenerator);
         self::assertSame($docBlockGenerator, $classGenerator->getDocBlock());
     }
@@ -245,15 +246,15 @@ class ClassGeneratorTest extends TestCase
     public function testToString()
     {
         $classGenerator = ClassGenerator::fromArray([
-            'name' => 'SampleClass',
-            'flags' => ClassGenerator::FLAG_ABSTRACT,
-            'extendedClass' => 'ExtendedClassName',
+            'name'                  => 'SampleClass',
+            'flags'                 => ClassGenerator::FLAG_ABSTRACT,
+            'extendedClass'         => 'ExtendedClassName',
             'implementedInterfaces' => ['Iterator', 'Traversable'],
-            'properties' => [
+            'properties'            => [
                 'foo',
                 ['name' => 'bar'],
             ],
-            'methods' => [
+            'methods'               => [
                 ['name' => 'baz'],
             ],
         ]);
@@ -319,7 +320,7 @@ EOS;
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
+        $reflClass      = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         self::assertCount(1, $classGenerator->getMethods());
     }
@@ -367,7 +368,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
+        $reflClass      = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         self::assertEquals('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         self::assertEquals('ClassWithNamespace', $classGenerator->getName());
@@ -507,7 +508,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockFromArray()
     {
         $classGenerator = ClassGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'     => 'SampleClass',
             'docblock' => [
                 'shortdescription' => 'foo',
             ],
@@ -520,7 +521,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockInstance()
     {
         $classGenerator = ClassGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'     => 'SampleClass',
             'docblock' => new DocBlockGenerator('foo'),
         ]);
 
@@ -530,9 +531,9 @@ CODE;
 
     public function testExtendedClassProperies()
     {
-        $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
+        $reflClass      = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = ClassGenerator::fromReflection($reflClass);
-        $code = $classGenerator->generate();
+        $code           = $classGenerator->generate();
         self::assertStringContainsString('publicExtendedClassProperty', $code);
         self::assertStringContainsString('protectedExtendedClassProperty', $code);
         self::assertStringContainsString('privateExtendedClassProperty', $code);
@@ -677,7 +678,7 @@ CODE;
         $classGenerator = new ClassGenerator();
 
         $this->expectException(InvalidArgumentException::class);
-        $classGenerator->addConstant('a', new \stdClass());
+        $classGenerator->addConstant('a', new stdClass());
     }
 
     public function testAddConstantRejectsResourceConstantValue()
@@ -702,7 +703,7 @@ CODE;
         $classGenerator = new ClassGenerator();
 
         $this->expectException(InvalidArgumentException::class);
-        $classGenerator->addConstant('a', [new \stdClass()]);
+        $classGenerator->addConstant('a', [new stdClass()]);
     }
 
     /**
@@ -744,7 +745,7 @@ CODE;
      */
     public function testAddPropertiesIsBackwardsCompatibleWithConstants()
     {
-        $constants = [
+        $constants      = [
             new PropertyGenerator('x', 'value1', PropertyGenerator::FLAG_CONSTANT),
             new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT),
         ];
@@ -824,9 +825,9 @@ CODE;
      */
     public function testHereDoc()
     {
-        $reflector = new ClassReflection(TestAsset\TestClassWithHeredoc::class);
+        $reflector      = new ClassReflection(TestAsset\TestClassWithHeredoc::class);
         $classGenerator = new ClassGenerator();
-        $methods = $reflector->getMethods();
+        $methods        = $reflector->getMethods();
         $classGenerator->setName('OutputClass');
 
         foreach ($methods as $method) {
@@ -835,7 +836,7 @@ CODE;
             $classGenerator->addMethodFromGenerator($methodGenerator);
         }
 
-        $contents = <<< 'CODE'
+        $contents = <<<'CODE'
 class OutputClass
 {
     public function someFunction()
@@ -1136,7 +1137,7 @@ CODE;
     public function testGenerateWithFinalFlag()
     {
         $classGenerator = ClassGenerator::fromArray([
-            'name' => 'SomeClass',
+            'name'  => 'SomeClass',
             'flags' => ClassGenerator::FLAG_FINAL,
         ]);
 
@@ -1252,9 +1253,9 @@ EOS;
         $classGenerator->setNamespaceName('SomeNamespace');
         $classGenerator->addUse(GeneratorInterface::class);
         $classGenerator->setImplementedInterfaces([
-           'SomeNamespace\ClassInterface',
-           GeneratorInterface::class,
-           'Iteratable',
+            'SomeNamespace\ClassInterface',
+            GeneratorInterface::class,
+            'Iteratable',
         ]);
 
         $expected = 'class ClassName implements ClassInterface, GeneratorInterface, \Iteratable';

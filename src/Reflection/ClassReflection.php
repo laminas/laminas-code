@@ -20,17 +20,14 @@ use function strstr;
 
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
-
-    /**
-     * @var DocBlockReflection|null
-     */
+    /** @var DocBlockReflection|null */
     protected $docBlock;
 
     /**
      * Return the classes DocBlock reflection object
      *
      * @return DocBlockReflection|false
-     * @throws Exception\ExceptionInterface for missing DocBock or invalid reflection class
+     * @throws Exception\ExceptionInterface When missing DocBock or invalid reflection class.
      */
     public function getDocBlock()
     {
@@ -94,10 +91,10 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getInterfaces()
     {
-        $phpReflections  = parent::getInterfaces();
+        $phpReflections     = parent::getInterfaces();
         $laminasReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance          = new ClassReflection($phpReflection->getName());
+            $instance             = new ClassReflection($phpReflection->getName());
             $laminasReflections[] = $instance;
             unset($phpReflection);
         }
@@ -114,9 +111,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getMethod($name)
     {
-        $method = new MethodReflection($this->getName(), parent::getMethod($name)->getName());
-
-        return $method;
+        return new MethodReflection($this->getName(), parent::getMethod($name)->getName());
     }
 
     /**
@@ -143,7 +138,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getTraits()
     {
-        $vals = [];
+        $vals   = [];
         $traits = parent::getTraits();
         if ($traits === null) {
             return;
@@ -182,7 +177,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getProperty($name)
     {
-        $phpReflection  = parent::getProperty($name);
+        $phpReflection     = parent::getProperty($name);
         $laminasReflection = new PropertyReflection($this->getName(), $phpReflection->getName());
         unset($phpReflection);
 
@@ -197,10 +192,10 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getProperties($filter = -1)
     {
-        $phpReflections  = parent::getProperties($filter);
+        $phpReflections     = parent::getProperties($filter);
         $laminasReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance          = new PropertyReflection($this->getName(), $phpReflection->getName());
+            $instance             = new PropertyReflection($this->getName(), $phpReflection->getName());
             $laminasReflections[] = $instance;
             unset($phpReflection);
         }

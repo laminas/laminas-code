@@ -17,12 +17,10 @@ use PHPUnit\Framework\TestCase;
  */
 class AuthorTagTest extends TestCase
 {
-    /**
-     * @var AuthorTag
-     */
+    /** @var AuthorTag */
     protected $tag;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->tag = new AuthorTag();
     }

@@ -11,6 +11,8 @@ namespace Laminas\Code\Generator\DocBlock;
 use Laminas\Code\Generator\DocBlock\Tag\TagInterface;
 use Laminas\Code\Generic\Prototype\PrototypeClassFactory;
 use Laminas\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionTagInterface;
+use ReflectionClass;
+use ReflectionMethod;
 
 use function method_exists;
 use function strpos;
@@ -44,19 +46,18 @@ class TagManager extends PrototypeClassFactory
     }
 
     /**
-     * @param ReflectionTagInterface $reflectionTag
      * @return TagInterface
      */
     public function createTagFromReflection(ReflectionTagInterface $reflectionTag)
     {
         $tagName = $reflectionTag->getName();
 
-        /* @var TagInterface $newTag */
+        /** @var TagInterface $newTag */
         $newTag = $this->getClonedPrototype($tagName);
 
         // transport any properties via accessors and mutators from reflection to codegen object
-        $reflectionClass = new \ReflectionClass($reflectionTag);
-        foreach ($reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
+        $reflectionClass = new ReflectionClass($reflectionTag);
+        foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
             if (0 === strpos($method->getName(), 'get')) {
                 $propertyName = substr($method->getName(), 3);
                 if (method_exists($newTag, 'set' . $propertyName)) {

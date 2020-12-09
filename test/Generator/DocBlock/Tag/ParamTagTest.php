@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class ParamTagTest extends TestCase
 {
-    /**
-     * @var ParamTag
-     */
+    /** @var ParamTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new ParamTag();
+        $this->tag        = new ParamTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -71,8 +67,8 @@ class ParamTagTest extends TestCase
     {
         $this->tag->setOptions([
             'variableName' => 'foo',
-            'types' => ['string'],
-            'description' => 'description',
+            'types'        => ['string'],
+            'description'  => 'description',
         ]);
         $tagWithOptionsFromConstructor = new ParamTag('foo', ['string'], 'description');
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

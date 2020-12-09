@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class PropertyTagTest extends TestCase
 {
-    /**
-     * @var PropertyTag
-     */
+    /** @var PropertyTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new PropertyTag();
+        $this->tag        = new PropertyTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -71,8 +67,8 @@ class PropertyTagTest extends TestCase
     {
         $this->tag->setOptions([
             'propertyName' => 'property',
-            'types' => ['string'],
-            'description' => 'description',
+            'types'        => ['string'],
+            'description'  => 'description',
         ]);
         $tagWithOptionsFromConstructor = new PropertyTag('property', ['string'], 'description');
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

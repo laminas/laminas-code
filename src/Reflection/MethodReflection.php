@@ -25,17 +25,19 @@ use function token_get_all;
 use function token_name;
 use function var_export;
 
+use const FILE_IGNORE_NEW_LINES;
+
 class MethodReflection extends PhpReflectionMethod implements ReflectionInterface
 {
     /**
      * Constant use in @MethodReflection to display prototype as an array
      */
-    const PROTOTYPE_AS_ARRAY = 'prototype_as_array';
+    public const PROTOTYPE_AS_ARRAY = 'prototype_as_array';
 
     /**
      * Constant use in @MethodReflection to display prototype as a string
      */
-    const PROTOTYPE_AS_STRING = 'prototype_as_string';
+    public const PROTOTYPE_AS_STRING = 'prototype_as_string';
 
     /**
      * Retrieve method DocBlock reflection
@@ -48,9 +50,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             return false;
         }
 
-        $instance = new DocBlockReflection($this);
-
-        return $instance;
+        return new DocBlockReflection($this);
     }
 
     /**
@@ -77,7 +77,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      */
     public function getDeclaringClass()
     {
-        $phpReflection  = parent::getDeclaringClass();
+        $phpReflection     = parent::getDeclaringClass();
         $laminasReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
 
@@ -90,18 +90,18 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      * @param string $format
      * @return array|string
      */
-    public function getPrototype($format = MethodReflection::PROTOTYPE_AS_ARRAY)
+    public function getPrototype($format = self::PROTOTYPE_AS_ARRAY)
     {
         $returnType = 'mixed';
-        $docBlock = $this->getDocBlock();
+        $docBlock   = $this->getDocBlock();
         if ($docBlock) {
-            $return = $docBlock->getTag('return');
+            $return      = $docBlock->getTag('return');
             $returnTypes = $return->getTypes();
-            $returnType = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
+            $returnType  = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
         }
 
         $declaringClass = $this->getDeclaringClass();
-        $prototype = [
+        $prototype      = [
             'namespace'  => $declaringClass->getNamespaceName(),
             'class'      => substr($declaringClass->getName(), strlen($declaringClass->getNamespaceName()) + 1),
             'name'       => $this->getName(),
@@ -120,7 +120,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             ];
         }
 
-        if ($format == MethodReflection::PROTOTYPE_AS_STRING) {
+        if ($format == self::PROTOTYPE_AS_STRING) {
             $line = $prototype['visibility'] . ' ' . $prototype['return'] . ' ' . $prototype['name'] . '(';
             $args = [];
             foreach ($prototype['arguments'] as $name => $argument) {
@@ -148,10 +148,10 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      */
     public function getParameters()
     {
-        $phpReflections  = parent::getParameters();
+        $phpReflections     = parent::getParameters();
         $laminasReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance = new ParameterReflection(
+            $instance             = new ParameterReflection(
                 [$this->getDeclaringClass()->getName(), $this->getName()],
                 $phpReflection->getName()
             );
@@ -172,8 +172,8 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getContents($includeDocBlock = true)
     {
         $docComment = $this->getDocComment();
-        $content  = $includeDocBlock && ! empty($docComment) ? $docComment . "\n" : '';
-        $content .= $this->extractMethodContents();
+        $content    = $includeDocBlock && ! empty($docComment) ? $docComment . "\n" : '';
+        $content   .= $this->extractMethodContents();
 
         return $content;
     }
@@ -210,7 +210,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         );
 
         $functionLine = implode("\n", $lines);
-        $tokens = token_get_all('<?php ' . $functionLine);
+        $tokens       = token_get_all('<?php ' . $functionLine);
 
         //remove first entry which is php open tag
         array_shift($tokens);
@@ -219,9 +219,9 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             return '';
         }
 
-        $capture = false;
+        $capture    = false;
         $firstBrace = false;
-        $body = '';
+        $body       = '';
 
         foreach ($tokens as $key => $token) {
             $tokenType  = is_array($token) ? token_name($token[0]) : $token;
@@ -321,13 +321,13 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     protected function extractPrefixedWhitespace($haystack, $position)
     {
         $content = '';
-        $count = count($haystack);
+        $count   = count($haystack);
         if ($position + 1 == $count) {
             return $content;
         }
 
         for ($i = $position - 1; $i >= 0; $i--) {
-            $tokenType = is_array($haystack[$i]) ? token_name($haystack[$i][0]) : $haystack[$i];
+            $tokenType  = is_array($haystack[$i]) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = is_array($haystack[$i]) ? $haystack[$i][1] : $haystack[$i];
 
             //search only for whitespace
@@ -353,7 +353,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $count = count($haystack);
 
         //advance one position
-        $position = $position + 1;
+        $position += 1;
 
         if ($position == $count) {
             return true;
@@ -420,9 +420,9 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     protected function isValidFunction($haystack, $position, $functionName = null)
     {
         $isValid = false;
-        $count = count($haystack);
+        $count   = count($haystack);
         for ($i = $position + 1; $i < $count; $i++) {
-            $tokenType = is_array($haystack[$i]) ? token_name($haystack[$i][0]) : $haystack[$i];
+            $tokenType  = is_array($haystack[$i]) ? token_name($haystack[$i][0]) : $haystack[$i];
             $tokenValue = is_array($haystack[$i]) ? $haystack[$i][1] : $haystack[$i];
 
             //check for occurrence of ( or

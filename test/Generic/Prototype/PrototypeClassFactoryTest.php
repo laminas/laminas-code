@@ -19,17 +19,15 @@ use PHPUnit\Framework\TestCase;
  */
 class PrototypeClassFactoryTest extends TestCase
 {
-    /**
-     * @var PrototypeClassFactory
-     */
+    /** @var PrototypeClassFactory */
     protected $prototypeFactory;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->prototypeFactory = new PrototypeClassFactory();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         $this->prototypeFactory = null;
     }

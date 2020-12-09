@@ -23,40 +23,27 @@ use function wordwrap;
 
 class DocBlockGenerator extends AbstractGenerator
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $shortDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $longDescription;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $tags = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $indentation = '';
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $wordwrap = true;
 
-    /**
-     * @var TagManager|null
-     */
+    /** @var TagManager|null */
     protected static $tagManager;
 
     /**
      * Build a DocBlock generator object from a reflection object
      *
-     * @param  DocBlockReflection $reflectionDocBlock
      * @return DocBlockGenerator
      */
     public static function fromReflection(DocBlockReflection $reflectionDocBlock)
@@ -82,7 +69,6 @@ class DocBlockGenerator extends AbstractGenerator
      * @configkey shortdescription string The short description for this doc block
      * @configkey longdescription  string The long description for this doc block
      * @configkey tags             array
-     *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return DocBlockGenerator
@@ -255,7 +241,7 @@ class DocBlockGenerator extends AbstractGenerator
             $output .= $ld . self::LINE_FEED . self::LINE_FEED;
         }
 
-        /* @var $tag GeneratorInterface */
+        /** @var GeneratorInterface $tag */
         foreach ($this->getTags() as $tag) {
             $output .= $tag->generate() . self::LINE_FEED;
         }

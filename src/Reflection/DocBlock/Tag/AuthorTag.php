@@ -13,14 +13,10 @@ use function rtrim;
 
 class AuthorTag implements TagInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $authorName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $authorEmail;
 
     /**
@@ -69,6 +65,10 @@ class AuthorTag implements TagInterface
         return $this->authorEmail;
     }
 
+    /**
+     * @return string
+     * @psalm-return non-empty-string
+     */
     public function __toString()
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";

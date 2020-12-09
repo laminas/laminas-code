@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @copyright  Copyright (c) 2005-2016 Laminas (https://www.zend.com)
  * @license    https://getlaminas.org/license/new-bsd     New BSD License
+ *
  * @group      Laminas_Reflection
  * @group      Laminas_Reflection_DocBlock
  */
@@ -38,9 +39,8 @@ class DocBlockReflectionTest extends TestCase
     public function testDocBlockLongDescription()
     {
         $classReflection = new ClassReflection(TestAsset\TestSampleClass5::class);
-        $expectedOutput = 'This is a long description for the docblock of this class, it should be longer '
+        $expectedOutput  = 'This is a long description for the docblock of this class, it should be longer '
             . 'than 3 lines. It indeed is longer than 3 lines now.';
-
 
         self::assertEquals($expectedOutput, $classReflection->getDocBlock()->getLongDescription());
     }

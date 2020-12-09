@@ -23,20 +23,16 @@ use PHPUnit\Framework\TestCase;
  */
 class DocBlockGeneratorTest extends TestCase
 {
-    /**
-     * @var DocBlockGenerator
-     */
+    /** @var DocBlockGenerator */
     protected $docBlockGenerator;
 
-    /**
-     * @var DocBlockGenerator
-     */
+    /** @var DocBlockGenerator */
     protected $reflectionDocBlockGenerator;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->docBlockGenerator = $this->docBlockGenerator = new DocBlockGenerator();
-        $reflectionDocBlock = new DocBlockReflection(
+        $reflectionDocBlock      = new DocBlockReflection(
             '/**
  * Short Description
  * Long Description
@@ -113,7 +109,7 @@ EOS;
         $docBlock = DocBlockGenerator::fromArray([
             'shortdescription' => 'foo',
             'longdescription'  => 'bar',
-            'tags' => [
+            'tags'             => [
                 [
                     'name'        => 'foo',
                     'description' => 'bar',

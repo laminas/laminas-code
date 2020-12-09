@@ -9,12 +9,12 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
-
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionType;
 use ReflectionUnionType;
+
 use function array_diff_key;
 use function array_flip;
 use function array_map;
@@ -33,28 +33,10 @@ final class TypeGenerator implements GeneratorInterface
 {
     /**
      * @var AtomicType[]
-     *
      * @psalm-var non-empty-list<AtomicType>
      */
     private array $types;
     private bool $nullable;
-    /**
-     * @var string[]
-     *
-     * @link http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration
-     */
-    private static $internalPhpTypes = [
-        'void',
-        'int',
-        'float',
-        'string',
-        'bool',
-        'array',
-        'callable',
-        'iterable',
-        'object',
-        'null',
-    ];
 
     /**
      * @internal
@@ -111,13 +93,12 @@ final class TypeGenerator implements GeneratorInterface
 
     /**
      * @throws InvalidArgumentException
-     *
      * @psalm-pure
      */
     public static function fromTypeString(string $type): self
     {
         [$nullable, $trimmedNullable] = self::trimNullable($type);
-        $types = array_map([AtomicType::class, 'fromString'], explode('|', $trimmedNullable));
+        $types                        = array_map([AtomicType::class, 'fromString'], explode('|', $trimmedNullable));
 
         usort(
             $types,
@@ -157,7 +138,6 @@ final class TypeGenerator implements GeneratorInterface
 
     /**
      * @param AtomicType[]                     $types
-     *
      * @psalm-param non-empty-list<AtomicType> $types
      */
     private function __construct(array $types, bool $nullable)
@@ -209,12 +189,9 @@ final class TypeGenerator implements GeneratorInterface
 
     /**
      * @param string $type
-     *
      * @return bool[]|string[] ordered tuple, first key represents whether the type is nullable, second is the
      *                         trimmed string
-     *
      * @psalm-return array{bool, string}
-     *
      * @psalm-pure
      */
     private static function trimNullable($type)

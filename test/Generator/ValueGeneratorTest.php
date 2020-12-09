@@ -20,24 +20,24 @@ use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
 use PHPUnit\Framework\TestCase;
 
+use function fopen;
 use function str_replace;
 
 /**
  * @group Laminas_Code_Generator
  * @group Laminas_Code_Generator_Php
- *
  * @covers \Laminas\Code\Generator\ValueGenerator
  */
 class ValueGeneratorTest extends TestCase
 {
-    public function testDefaultInstance()
+    public function testDefaultInstance(): void
     {
         $valueGenerator = new ValueGenerator();
 
         self::assertInstanceOf(SplArrayObject::class, $valueGenerator->getConstants());
     }
 
-    public function testInvalidConstantsType()
+    public function testInvalidConstantsType(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$constants must be an instance of ArrayObject or Laminas\Stdlib\ArrayObject');
@@ -48,10 +48,9 @@ class ValueGeneratorTest extends TestCase
 
     /**
      * @dataProvider constantsType
-     *
      * @param SplArrayObject|StdlibArrayObject $constants
      */
-    public function testAllowedPossibleConstantsType($constants)
+    public function testAllowedPossibleConstantsType($constants): void
     {
         $valueGenerator = new ValueGenerator(
             null,
@@ -63,23 +62,24 @@ class ValueGeneratorTest extends TestCase
         self::assertSame($constants, $valueGenerator->getConstants());
     }
 
-    public function constantsType()
+    /**
+     * @return object[][]
+     * @psalm-return array<class-string, array{SplArrayObject|StdlibArrayObject}>
+     */
+    public function constantsType(): array
     {
         return [
-            SplArrayObject::class => [new SplArrayObject()],
+            SplArrayObject::class    => [new SplArrayObject()],
             StdlibArrayObject::class => [new StdlibArrayObject()],
         ];
     }
 
     /**
      * @group #94
-     *
      * @dataProvider validConstantTypes
-     *
-     * @param PropertyValueGenerator $generator
      * @param string $expectedOutput
      */
-    public function testValidConstantTypes(PropertyValueGenerator $generator, $expectedOutput)
+    public function testValidConstantTypes(PropertyValueGenerator $generator, $expectedOutput): void
     {
         $propertyGenerator = new PropertyGenerator('FOO', $generator);
         $propertyGenerator->setConst(true);
@@ -88,8 +88,9 @@ class ValueGeneratorTest extends TestCase
 
     /**
      * @return array
+     * @psalm-return non-empty-list<array{PropertyValueGenerator, non-empty-string}>
      */
-    public function validConstantTypes()
+    public function validConstantTypes(): array
     {
         return [
             [
@@ -191,8 +192,8 @@ EOS;
     {
         $value = [
             5,
-            'one' => 1,
-            'two' => '2',
+            'one'       => 1,
+            'two'       => '2',
             'constant1' => "__DIR__ . '/anydir1/anydir2'",
             [
                 'baz' => true,
@@ -263,7 +264,8 @@ EOS;
                             '5bcf08a0a6449' => '5bcf08a0a6485',
                         ],
                     ],
-                ], '5bcf08a0a64c8' => '5bcf08a0a6540',
+                ],
+                '5bcf08a0a64c8' => '5bcf08a0a6540',
                 '5bcf08a0a657f' => '5bcf08a0a65bf',
             ],
         ];
@@ -339,7 +341,6 @@ EOS;
 
     /**
      * @dataProvider unsortedKeysArray
-     *
      * @param string $type
      * @param array $value
      * @param string $expected
@@ -395,7 +396,6 @@ EOS;
 
     /**
      * @dataProvider simpleArray
-     *
      * @param string $type
      * @param array $value
      * @param string $expected
@@ -427,7 +427,6 @@ EOS;
 
     /**
      * @dataProvider complexArray
-     *
      * @param string $type
      * @param array $value
      * @param string $expected
@@ -449,7 +448,7 @@ EOS;
         string $type,
         array $value,
         string $expected
-    ) : void {
+    ): void {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
@@ -460,9 +459,7 @@ EOS;
 
     /**
      * @group 6023
-     *
      * @dataProvider getEscapedParameters
-     *
      * @param string $input
      * @param string $expectedEscapedValue
      */
@@ -485,7 +482,7 @@ EOS;
         ];
     }
 
-    public function invalidValue() : Generator
+    public function invalidValue(): Generator
     {
         yield 'object' => [new DateTime(), DateTime::class];
         yield 'resource' => [fopen('php://input', 'r'), 'resource'];
@@ -493,15 +490,14 @@ EOS;
 
     /**
      * @dataProvider invalidValue
-     *
      * @param mixed $value
      */
-    public function testExceptionInvalidValue($value, string $type) : void
+    public function testExceptionInvalidValue($value, string $type): void
     {
         $valueGenerator = new ValueGenerator($value);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Type "'.$type.'" is unknown or cannot be used');
+        $this->expectExceptionMessage('Type "' . $type . '" is unknown or cannot be used');
         $valueGenerator->generate();
     }
 }

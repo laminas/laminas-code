@@ -14,39 +14,24 @@ use function sprintf;
 
 abstract class AbstractMemberGenerator extends AbstractGenerator
 {
-    /**#@+
-     * @const int Flags for construction usage
-     */
-    const FLAG_ABSTRACT  = 0x01;
-    const FLAG_FINAL     = 0x02;
-    const FLAG_STATIC    = 0x04;
-    const FLAG_INTERFACE = 0x08;
-    const FLAG_PUBLIC    = 0x10;
-    const FLAG_PROTECTED = 0x20;
-    const FLAG_PRIVATE   = 0x40;
-    /**#@-*/
+    public const FLAG_ABSTRACT        = 0x01;
+    public const FLAG_FINAL           = 0x02;
+    public const FLAG_STATIC          = 0x04;
+    public const FLAG_INTERFACE       = 0x08;
+    public const FLAG_PUBLIC          = 0x10;
+    public const FLAG_PROTECTED       = 0x20;
+    public const FLAG_PRIVATE         = 0x40;
+    public const VISIBILITY_PUBLIC    = 'public';
+    public const VISIBILITY_PROTECTED = 'protected';
+    public const VISIBILITY_PRIVATE   = 'private';
 
-    /**#@+
-     * @param const string
-     */
-    const VISIBILITY_PUBLIC    = 'public';
-    const VISIBILITY_PROTECTED = 'protected';
-    const VISIBILITY_PRIVATE   = 'private';
-    /**#@-*/
-
-    /**
-     * @var DocBlockGenerator|null
-     */
+    /** @var DocBlockGenerator|null */
     protected $docBlock;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $flags = self::FLAG_PUBLIC;
 
     /**
