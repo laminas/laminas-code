@@ -454,7 +454,7 @@ PHP;
     }
 
     /**
-     * @psalm-return non-empty-list<int, class-string, non-empty-string, string, string>
+     * @psalm-return non-empty-list<array{class-string, non-empty-string, non-empty-string, non-empty-string}>
      */
     public function php80Methods(): array
     {

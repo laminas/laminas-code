@@ -2,6 +2,8 @@
 
 namespace LaminasTest\Code\TestAsset;
 
+use BadMethodCallException;
+
 /**
  * This test assets contains new types introduced with the PHP 8.0.0 release
  *
@@ -15,42 +17,42 @@ class Php80Types
 {
     public function mixedType(mixed $parameter): mixed
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     /** Note: the false type cannot be used standalone, and must be part of a union type */
     public function falseType(false|self $parameter): false|self
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function unionNullableType(bool|null $parameter): bool|null
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function unionReverseNullableType(null|bool $parameter): null|bool
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function unionNullableTypeWithDefaultValue(bool|string|null $parameter = null): bool|string|null
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function unionType(Php80Types|\stdClass $parameter): Php80Types|\stdClass
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function staticType(self $parameter): static
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 
     public function selfAndBoolType(self|bool $parameter): self|bool
     {
-        return $parameter;
+        throw new BadMethodCallException('Not supposed to be run');
     }
 }

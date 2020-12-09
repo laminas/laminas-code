@@ -8,6 +8,8 @@
 
 namespace LaminasTest\Code\Generator;
 
+use Countable;
+use IteratorAggregate;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\InterfaceGenerator;
@@ -248,7 +250,7 @@ CODE;
         $classGenerator->setName('MyCollection');
         $classGenerator->addMethod('isEmpty');
 
-        $classGenerator->setImplementedInterfaces(['Countable', 'IteratorAggregate']);
+        $classGenerator->setImplementedInterfaces([Countable::class, IteratorAggregate::class]);
 
         $expected = <<<CODE
 interface MyCollection extends Countable, IteratorAggregate

@@ -73,7 +73,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     protected $extendedClass;
 
     /**
-     * @var array Array of string names
+     * @var string[] Array of string names
+     *
+     * @psalm-var array<class-string>
      */
     protected $implementedInterfaces = [];
 
@@ -470,7 +472,8 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     }
 
     /**
-     * @param  array $implementedInterfaces
+     * @param string[] $implementedInterfaces
+     * @psalm-param array<class-string> $implementedInterfaces
      * @return self
      */
     public function setImplementedInterfaces(array $implementedInterfaces)
@@ -485,7 +488,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     }
 
     /**
-     * @return array
+     * @return string
+     *
+     * @psalm-return array<class-string>
      */
     public function getImplementedInterfaces()
     {
@@ -508,6 +513,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
     /**
      * @param string $implementedInterface
+     * @psalm-param class-string $implementedInterface
      * @return self
      */
     public function removeImplementedInterface($implementedInterface)

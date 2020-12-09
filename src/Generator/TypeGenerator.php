@@ -18,6 +18,7 @@ use ReflectionUnionType;
 use function array_diff_key;
 use function array_flip;
 use function array_map;
+use function assert;
 use function count;
 use function explode;
 use function implode;
@@ -56,8 +57,6 @@ final class TypeGenerator implements GeneratorInterface
     ];
 
     /**
-     * @param ReflectionNamedType|ReflectionUnionType
-     *
      * @internal
      *
      * @psalm-pure
@@ -69,6 +68,8 @@ final class TypeGenerator implements GeneratorInterface
         if (null === $type) {
             return null;
         }
+
+        assert($type instanceof ReflectionNamedType || $type instanceof ReflectionUnionType);
 
         return self::fromTypeString(implode(
             '|',
@@ -120,9 +121,11 @@ final class TypeGenerator implements GeneratorInterface
 
         usort(
             $types,
-            static fn(AtomicType $left, AtomicType $right): int => [$left->sortIndex,
-                                                                    $left->type] <=> [$right->sortIndex, $right->type]
+            static fn(AtomicType $left, AtomicType $right): int
+                => [$left->sortIndex, $left->type] <=> [$right->sortIndex, $right->type]
         );
+
+        assert([] !== $types);
 
         if (1 === count($types)) {
             $types[0]->assertCanBeAStandaloneType();
@@ -139,7 +142,11 @@ final class TypeGenerator implements GeneratorInterface
             }
 
             foreach ($types as $index => $atomicType) {
-                $atomicType->assertCanUnionWith(array_diff_key($types, array_flip([$index])));
+                $otherTypes = array_diff_key($types, array_flip([$index]));
+
+                assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
+
+                $atomicType->assertCanUnionWith($otherTypes);
             }
         }
 
@@ -147,9 +154,9 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
-     * @var AtomicType[]                     $types
+     * @param AtomicType[]                     $types
      *
-     * @psalm-var non-empty-list<AtomicType> $types
+     * @psalm-param non-empty-list<AtomicType> $types
      */
     private function __construct(array $types, bool $nullable)
     {
@@ -205,6 +212,8 @@ final class TypeGenerator implements GeneratorInterface
      *                         trimmed string
      *
      * @psalm-return array{bool, string}
+     *
+     * @psalm-pure
      */
     private static function trimNullable($type)
     {

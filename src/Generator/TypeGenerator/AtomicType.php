@@ -12,6 +12,7 @@ use Laminas\Code\Generator\Exception\InvalidArgumentException;
 
 use function array_filter;
 use function array_key_exists;
+use function assert;
 use function implode;
 use function preg_match;
 use function strtolower;
@@ -61,7 +62,7 @@ final class AtomicType
     private const VALID_IDENTIFIER_MATCHER = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*'
         . '(\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)*$/';
 
-    /** @psalm-var -1|one-of<self::BUILT_IN_TYPES_PRECEDENCE> */
+    /** @psalm-var value-of<AtomicType::BUILT_IN_TYPES_PRECEDENCE>|0 */
     public int $sortIndex;
 
     /** @psalm-var non-empty-string */
@@ -69,7 +70,7 @@ final class AtomicType
 
     /**
      * @psalm-param non-empty-string $type
-     * @psalm-param @psalm-var -1|one-of<self::BUILT_IN_TYPES_PRECEDENCE> $sortIndex
+     * @psalm-param value-of<AtomicType::BUILT_IN_TYPES_PRECEDENCE>|0 $sortIndex
      */
     private function __construct(string $type, int $sortIndex)
     {
@@ -109,7 +110,9 @@ final class AtomicType
             ));
         }
 
-        return new self($trimmedType, -1);
+        assert('' !== $trimmedType);
+
+        return new self($trimmedType, 0);
     }
 
     /** @psalm-pure */

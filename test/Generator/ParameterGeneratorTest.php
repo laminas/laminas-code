@@ -615,7 +615,7 @@ class ParameterGeneratorTest extends TestCase
     }
 
     /**
-     * @psalm-return non-empty-list<int, class-string, non-empty-string, positive-int|0, string, non-empty-string>
+     * @psalm-return non-empty-list<array{class-string, non-empty-string, positive-int|0, string, non-empty-string}>
      */
     public function php80Methods(): array
     {

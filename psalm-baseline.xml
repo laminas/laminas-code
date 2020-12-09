@@ -109,10 +109,8 @@
       <code>generate</code>
       <code>removeTrait</code>
     </MissingReturnType>
-    <MixedArgument occurrences="15">
+    <MixedArgument occurrences="13">
       <code>$array['name']</code>
-      <code>$implemented</code>
-      <code>$implementedInterface</code>
       <code>$this-&gt;traitUsageGenerator-&gt;generate()</code>
       <code>$value</code>
       <code>$value</code>
@@ -126,7 +124,8 @@
       <code>array_values($method)</code>
       <code>array_values($property)</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$interfaces</code>
       <code>$name</code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="7">
@@ -538,9 +537,6 @@
       <code>$parameter</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;returnType-&gt;generate()</code>
-    </MixedOperand>
     <PossiblyFalseArgument occurrences="1">
       <code>$reflectionMethod-&gt;getDocBlock()</code>
     </PossiblyFalseArgument>
@@ -556,9 +552,6 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $returnsReference</code>
     </RedundantCastGivenDocblockType>
-    <RedundantCondition occurrences="1">
-      <code>method_exists($methodReflection, 'getReturnType')</code>
-    </RedundantCondition>
     <UnsafeInstantiation occurrences="2">
       <code>new static($array['name'])</code>
       <code>new static()</code>
@@ -587,14 +580,7 @@
     <MixedAssignment occurrences="1">
       <code>$value</code>
     </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;type-&gt;generate()</code>
-    </MixedOperand>
     <NullableReturnStatement occurrences="1"/>
-    <PossiblyNullReference occurrences="2">
-      <code>getName</code>
-      <code>getParentClass</code>
-    </PossiblyNullReference>
     <PropertyNotSetInConstructor occurrences="4">
       <code>$defaultValue</code>
       <code>$name</code>
@@ -607,10 +593,6 @@
       <code>(int) $position</code>
       <code>(string) $name</code>
     </RedundantCastGivenDocblockType>
-    <RedundantCondition occurrences="2">
-      <code>method_exists($reflectionParameter, 'getType')</code>
-      <code>method_exists($reflectionParameter, 'isVariadic')</code>
-    </RedundantCondition>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>$this-&gt;defaultValue instanceof ValueGenerator</code>
     </RedundantConditionGivenDocblockType>
@@ -797,27 +779,22 @@
     </MissingReturnType>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <InvalidScalarArgument occurrences="4">
-      <code>$trimmedNullable</code>
-      <code>$trimmedType</code>
-      <code>$trimmedType</code>
-      <code>$trimmedType</code>
-    </InvalidScalarArgument>
-    <MissingReturnType occurrences="1">
-      <code>generate</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;generate()</code>
-    </MixedArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="2">
-      <code>$nullable</code>
-      <code>$trimmedType</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$isInternalPhpType</code>
-      <code>$nullable</code>
-      <code>$type</code>
-    </PropertyNotSetInConstructor>
+    <ImpureMethodCall occurrences="7">
+      <code>allowsNull</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getParentClass</code>
+      <code>getTypes</code>
+    </ImpureMethodCall>
+    <MixedArgument occurrences="1"/>
+  </file>
+  <file src="src/Generator/TypeGenerator/AtomicType.php">
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
+      <code>non-empty-string</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DocblockTypeContradiction occurrences="2">
@@ -1338,9 +1315,13 @@
     </MissingReturnType>
   </file>
   <file src="test/Generator/ClassGeneratorTest.php">
-    <ArgumentTypeCoercion occurrences="2">
+    <ArgumentTypeCoercion occurrences="7">
+      <code>'Class1'</code>
       <code>'InvalidArgumentException'</code>
       <code>'LaminasTest_Code_NsTest_BarClass'</code>
+      <code>['Class1', 'Class2']</code>
+      <code>['Class1', 'Class2']</code>
+      <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
     <InvalidArgument occurrences="5">
       <code>$resource</code>
@@ -1528,6 +1509,12 @@
       <code>getDefaultValue</code>
       <code>getDefaultValue</code>
     </PossiblyFalseReference>
+    <UndefinedClass occurrences="5">
+      <code>'Class1'</code>
+      <code>['Class1', 'Class2']</code>
+      <code>['Class1', 'Class2']</code>
+      <code>['Class1', 'Class2']</code>
+    </UndefinedClass>
   </file>
   <file src="test/Generator/DocBlock/Tag/AuthorTagTest.php">
     <MissingReturnType occurrences="5">
@@ -1718,6 +1705,9 @@
     </MissingReturnType>
   </file>
   <file src="test/Generator/InterfaceGeneratorTest.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>['Class1', 'Class2']</code>
+    </ArgumentTypeCoercion>
     <MissingReturnType occurrences="17">
       <code>testAbstractAccessorsReturnsFalse</code>
       <code>testClassNotAnInterfaceException</code>
@@ -1756,6 +1746,9 @@
       <code>isInterface</code>
       <code>isInterface</code>
     </PossiblyFalseReference>
+    <UndefinedClass occurrences="1">
+      <code>['Class1', 'Class2']</code>
+    </UndefinedClass>
   </file>
   <file src="test/Generator/MethodGeneratorTest.php">
     <ArgumentTypeCoercion occurrences="1">
@@ -2041,12 +2034,11 @@
     </MixedAssignment>
   </file>
   <file src="test/Generator/TypeGeneratorTest.php">
-    <MissingReturnType occurrences="5">
+    <MissingReturnType occurrences="4">
       <code>testFromValidTypeString</code>
       <code>testIsAGenerator</code>
       <code>testRejectsInvalidTypeString</code>
       <code>testStringCastFromValidTypeString</code>
-      <code>testStripsPrefixingBackslashFromClassNames</code>
     </MissingReturnType>
   </file>
   <file src="test/Generator/ValueGeneratorTest.php">
@@ -2856,6 +2848,19 @@
       <code>nullableObjectParameter</code>
       <code>objectParameter</code>
     </MissingReturnType>
+  </file>
+  <file src="test/TestAsset/Php80Types.php">
+    <ReservedWord occurrences="9">
+      <code>bool|null</code>
+      <code>bool|null $parameter</code>
+      <code>bool|string|null</code>
+      <code>false|self</code>
+      <code>false|self $parameter</code>
+      <code>mixed</code>
+      <code>mixed</code>
+      <code>null|bool</code>
+      <code>null|bool $parameter</code>
+    </ReservedWord>
   </file>
   <file src="test/TestAsset/ReturnTypeHintedClass.php">
     <InvalidReturnType occurrences="10">
