@@ -11,7 +11,6 @@ namespace LaminasTest\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use Laminas\Code\Scanner\CachingFileScanner;
-use LaminasTest\Code\Reflection\TestAsset\InjectablePropertyReflection;
 use PHPUnit\Framework\TestCase;
 
 use function get_class;

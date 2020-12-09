@@ -8,7 +8,6 @@
 
 namespace Laminas\Code\Reflection;
 
-use Laminas\Code\Scanner\FileScanner;
 use ReflectionClass;
 
 use function array_shift;
@@ -23,7 +22,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
 
     /**
-     * @var DocBlockReflection
+     * @var DocBlockReflection|null
      */
     protected $docBlock;
 
@@ -224,20 +223,5 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function __toString()
     {
         return parent::__toString();
-    }
-
-    /**
-     * Creates a new FileScanner instance.
-     *
-     * By having this as a separate method it allows the method to be overridden
-     * if a different FileScanner is needed.
-     *
-     * @param  string $filename
-     *
-     * @return FileScanner
-     */
-    protected function createFileScanner($filename)
-    {
-        return new FileScanner($filename);
     }
 }

@@ -8,7 +8,6 @@
 
 namespace Laminas\Code\Reflection;
 
-use Laminas\Code\Scanner\CachingFileScanner;
 use ReflectionProperty as PhpReflectionProperty;
 
 /**
@@ -60,20 +59,5 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
     public function toString()
     {
         return $this->__toString();
-    }
-
-    /**
-     * Creates a new FileScanner instance.
-     *
-     * By having this as a separate method it allows the method to be overridden
-     * if a different FileScanner is needed.
-     *
-     * @param  string $filename
-     *
-     * @return CachingFileScanner
-     */
-    protected function createFileScanner($filename)
-    {
-        return new CachingFileScanner($filename);
     }
 }

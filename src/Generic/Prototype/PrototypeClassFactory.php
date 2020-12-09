@@ -33,7 +33,7 @@ class PrototypeClassFactory
     protected $prototypes = [];
 
     /**
-     * @var PrototypeGenericInterface
+     * @var PrototypeGenericInterface|null
      */
     protected $genericPrototype;
 

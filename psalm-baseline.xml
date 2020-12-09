@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.2.1@ea9cb72143b77e7520c52fa37290bd8d8bc88fd9">
+<files psalm-version="4.3.1@2feba22a005a18bf31d4c7b9bdb9252c73897476">
   <file src="src/DeclareStatement.php">
     <MissingParamType occurrences="1">
       <code>$value</code>
@@ -38,6 +38,11 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$sourceContent</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="3">
+      <code>(bool) $isSourceDirty</code>
+      <code>(string) $indentation</code>
+      <code>(string) $sourceContent</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/AbstractMemberGenerator.php">
     <DocblockTypeContradiction occurrences="1">
@@ -50,12 +55,18 @@
     <MixedOperand occurrences="1">
       <code>$flag</code>
     </MixedOperand>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(string) $name</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/BodyGenerator.php">
     <PropertyNotSetInConstructor occurrences="2">
       <code>$content</code>
       <code>BodyGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(string) $content</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/ClassGenerator.php">
     <DocblockTypeContradiction occurrences="3">
@@ -161,6 +172,9 @@
       <code>$namespaceName</code>
       <code>ClassGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(string) $this-&gt;getNamespaceName()</code>
+    </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType occurrences="4">
       <code>is_array($constant)</code>
       <code>is_array($interfaces)</code>
@@ -235,6 +249,9 @@
       <code>MethodTag</code>
       <code>MethodTag</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $isStatic</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/DocBlock/Tag/ParamTag.php">
     <LessSpecificReturnStatement occurrences="2">
@@ -297,17 +314,13 @@
     <MoreSpecificReturnType occurrences="1">
       <code>TagInterface</code>
     </MoreSpecificReturnType>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>TagManager</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Generator/DocBlockGenerator.php">
     <DeprecatedClass occurrences="1">
       <code>new Tag()</code>
     </DeprecatedClass>
-    <DocblockTypeContradiction occurrences="2">
+    <DocblockTypeContradiction occurrences="1">
       <code>$tag instanceof TagInterface</code>
-      <code>isset(static::$tagManager)</code>
     </DocblockTypeContradiction>
     <MixedArgument occurrences="4">
       <code>$tag</code>
@@ -331,6 +344,9 @@
       <code>$shortDescription</code>
       <code>DocBlockGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $value</code>
+    </RedundantCastGivenDocblockType>
     <RedundantCondition occurrences="1">
       <code>is_array($tags)</code>
     </RedundantCondition>
@@ -360,13 +376,11 @@
     <MissingReturnType occurrences="1">
       <code>setDeclares</code>
     </MissingReturnType>
-    <MixedArgument occurrences="16">
+    <MixedArgument occurrences="14">
       <code>$alias</code>
       <code>$alias</code>
       <code>$class</code>
       <code>$class-&gt;generate()</code>
-      <code>$fileUse['as']</code>
-      <code>$fileUse['use']</code>
       <code>$import</code>
       <code>$import</code>
       <code>$import</code>
@@ -382,10 +396,8 @@
       <code>$name</code>
       <code>$name</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="8">
+    <MixedArrayAccess occurrences="6">
       <code>$alias</code>
-      <code>$fileUse['as']</code>
-      <code>$fileUse['use']</code>
       <code>$import</code>
       <code>$uses[$useIndex][0]</code>
       <code>$uses[$useIndex][0]</code>
@@ -397,12 +409,11 @@
       <code>$uses[$useIndex][2]</code>
       <code>$uses[$useIndex][2]</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="14">
+    <MixedAssignment occurrences="13">
       <code>$alias</code>
       <code>$class</code>
       <code>$class</code>
       <code>$class</code>
-      <code>$fileUse</code>
       <code>$import</code>
       <code>$import</code>
       <code>$requiredFile</code>
@@ -434,12 +445,6 @@
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
-    <PossiblyFalseArgument occurrences="1">
-      <code>$docBlock</code>
-    </PossiblyFalseArgument>
-    <PossiblyNullArgument occurrences="1">
-      <code>$namespace</code>
-    </PossiblyNullArgument>
     <PropertyNotSetInConstructor occurrences="5">
       <code>$body</code>
       <code>$docBlock</code>
@@ -447,21 +452,21 @@
       <code>$namespace</code>
       <code>FileGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="4">
+      <code>(string) $body</code>
+      <code>(string) $filename</code>
+      <code>(string) $namespace</code>
+      <code>(string)$name</code>
+    </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType occurrences="4">
       <code>! empty($uses) &amp;&amp; is_array($uses)</code>
       <code>$docBlock</code>
       <code>is_array($uses)</code>
       <code>null !== ($docBlock = $this-&gt;getDocBlock())</code>
     </RedundantConditionGivenDocblockType>
-    <UnsafeInstantiation occurrences="2">
-      <code>new static()</code>
+    <UnsafeInstantiation occurrences="1">
       <code>new static()</code>
     </UnsafeInstantiation>
-  </file>
-  <file src="src/Generator/FileGeneratorRegistry.php">
-    <MissingReturnType occurrences="1">
-      <code>registerFileCodeGenerator</code>
-    </MissingReturnType>
   </file>
   <file src="src/Generator/GeneratorInterface.php">
     <MissingReturnType occurrences="1">
@@ -548,6 +553,9 @@
       <code>MethodGenerator</code>
       <code>MethodGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $returnsReference</code>
+    </RedundantCastGivenDocblockType>
     <RedundantCondition occurrences="1">
       <code>method_exists($methodReflection, 'getReturnType')</code>
     </RedundantCondition>
@@ -593,6 +601,12 @@
       <code>$position</code>
       <code>ParameterGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="4">
+      <code>(bool) $passedByReference</code>
+      <code>(bool) $variadic</code>
+      <code>(int) $position</code>
+      <code>(string) $name</code>
+    </RedundantCastGivenDocblockType>
     <RedundantCondition occurrences="2">
       <code>method_exists($reflectionParameter, 'getType')</code>
       <code>method_exists($reflectionParameter, 'isVariadic')</code>
@@ -844,19 +858,22 @@
       <code>$allowedTypes</code>
       <code>ValueGenerator</code>
     </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="3">
+      <code>(int) $arrayDepth</code>
+      <code>(string) $outputMode</code>
+      <code>(string) $type</code>
+    </RedundantCastGivenDocblockType>
     <UnevaluatedCode occurrences="1">
       <code>'float'</code>
     </UnevaluatedCode>
   </file>
   <file src="src/Generic/Prototype/PrototypeClassFactory.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>! $this-&gt;hasPrototype($prototypeName) &amp;&amp; ! isset($this-&gt;genericPrototype)</code>
-    </DocblockTypeContradiction>
     <MissingReturnType occurrences="2">
       <code>addPrototype</code>
       <code>setGenericPrototype</code>
     </MissingReturnType>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment occurrences="2">
+      <code>$newPrototype</code>
       <code>$newPrototype</code>
     </MixedAssignment>
     <MixedClone occurrences="1">
@@ -865,57 +882,33 @@
     <MixedInferredReturnType occurrences="1">
       <code>PrototypeInterface</code>
     </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>setName</code>
+    </MixedMethodCall>
     <MixedReturnStatement occurrences="1">
       <code>$newPrototype</code>
     </MixedReturnStatement>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$genericPrototype</code>
-    </PropertyNotSetInConstructor>
+    <PossiblyInvalidClone occurrences="1">
+      <code>clone $this-&gt;genericPrototype</code>
+    </PossiblyInvalidClone>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(array) $prototypes</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generic/Prototype/PrototypeGenericInterface.php">
     <MissingReturnType occurrences="1">
       <code>setName</code>
     </MissingReturnType>
   </file>
-  <file src="src/NameInformation.php">
-    <MissingReturnType occurrences="1">
-      <code>addUse</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="3">
-      <code>$as</code>
-      <code>$as</code>
-      <code>$use</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="3">
-      <code>$as</code>
-      <code>$as</code>
-      <code>$use</code>
-    </MixedAssignment>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$use</code>
-    </PossiblyInvalidArgument>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$namespace</code>
-    </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="1">
-      <code>is_string($use)</code>
-    </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;namespace !== null</code>
-      <code>$this-&gt;uses</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Reflection/ClassReflection.php">
-    <FalsableReturnStatement occurrences="2">
+    <FalsableReturnStatement occurrences="1">
       <code>parent::getStartLine()</code>
-      <code>strstr(implode('', $lines), '{')</code>
     </FalsableReturnStatement>
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>ClassReflection|bool</code>
     </ImplementedReturnTypeMismatch>
-    <InvalidFalsableReturnType occurrences="2">
+    <InvalidFalsableReturnType occurrences="1">
       <code>int</code>
-      <code>string</code>
     </InvalidFalsableReturnType>
     <InvalidThrow occurrences="1">
       <code>Exception\ExceptionInterface</code>
@@ -926,10 +919,6 @@
       <code>PropertyReflection[]</code>
       <code>null|array</code>
     </LessSpecificImplementedReturnType>
-    <MissingConstructor occurrences="2">
-      <code>$docBlock</code>
-      <code>$docBlock</code>
-    </MissingConstructor>
     <PossiblyFalseReference occurrences="1">
       <code>getStartLine</code>
     </PossiblyFalseReference>
@@ -1046,9 +1035,6 @@
     <MoreSpecificReturnType occurrences="1">
       <code>TagInterface</code>
     </MoreSpecificReturnType>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>TagManager</code>
-    </PropertyNotSetInConstructor>
     <UndefinedInterfaceMethod occurrences="1">
       <code>initialize</code>
     </UndefinedInterfaceMethod>
@@ -1109,49 +1095,6 @@
       <code>getStartLine</code>
       <code>getStartLine</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Reflection/FileReflection.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$name</code>
-    </ArgumentTypeCoercion>
-    <ImplicitToStringCast occurrences="1">
-      <code>$function</code>
-    </ImplicitToStringCast>
-    <MixedArgument occurrences="1">
-      <code>$value</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$token[0]</code>
-      <code>$token[1]</code>
-      <code>$token[2]</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="6">
-      <code>$lineNum</code>
-      <code>$this-&gt;docComment</code>
-      <code>$this-&gt;startLine</code>
-      <code>$token</code>
-      <code>$type</code>
-      <code>$value</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$lineNum</code>
-    </MixedOperand>
-    <MixedPropertyTypeCoercion occurrences="4">
-      <code>$scanner-&gt;getClassNames()</code>
-      <code>$scanner-&gt;getIncludes()</code>
-      <code>$scanner-&gt;getNamespaces()</code>
-      <code>$scanner-&gt;getUses()</code>
-    </MixedPropertyTypeCoercion>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$scanner-&gt;getDocComment()</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$contents</code>
-      <code>$endLine</code>
-    </PropertyNotSetInConstructor>
-    <UnresolvableInclude occurrences="1">
-      <code>include $fileRealPath</code>
-    </UnresolvableInclude>
   </file>
   <file src="src/Reflection/FunctionReflection.php">
     <LessSpecificImplementedReturnType occurrences="1">
@@ -1256,623 +1199,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>getType</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Scanner/AggregateDirectoryScanner.php">
-    <MissingParamType occurrences="2">
-      <code>$returnDerivedScannerClass</code>
-      <code>$returnScannerClass</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="3">
-      <code>getFunctions</code>
-      <code>getIncludes</code>
-      <code>getNamespaces</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="3">
-      <code>$class</code>
-      <code>$classScanner</code>
-      <code>$returnDerivedScannerClass</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="2">
-      <code>$info['name']</code>
-      <code>$info['type']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
-      <code>$class</code>
-      <code>$classScanner</code>
-      <code>$functions[]</code>
-      <code>$info</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>getClass</code>
-    </MixedMethodCall>
-    <ParamNameMismatch occurrences="2">
-      <code>$returnScannerClass</code>
-      <code>$returnScannerClass</code>
-    </ParamNameMismatch>
-    <PossiblyInvalidMethodCall occurrences="3">
-      <code>getClasses</code>
-      <code>hasClass</code>
-      <code>hasClass</code>
-    </PossiblyInvalidMethodCall>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>AggregateDirectoryScanner</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedThisPropertyFetch occurrences="1">
-      <code>$this-&gt;infos</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="src/Scanner/CachingFileScanner.php">
-    <FalsableReturnStatement occurrences="1">
-      <code>$this-&gt;fileScanner-&gt;getClass($className)</code>
-    </FalsableReturnStatement>
-    <ImplementedReturnTypeMismatch occurrences="2">
-      <code>array</code>
-      <code>array|null|string</code>
-    </ImplementedReturnTypeMismatch>
-    <InvalidFalsableReturnType occurrences="1">
-      <code>ClassScanner</code>
-    </InvalidFalsableReturnType>
-    <InvalidNullableReturnType occurrences="1">
-      <code>array</code>
-    </InvalidNullableReturnType>
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>array</code>
-    </LessSpecificImplementedReturnType>
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;fileScanner</code>
-    </MixedAssignment>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;fileScanner-&gt;getIncludes()</code>
-    </NullableReturnStatement>
-    <PossiblyNullReference occurrences="11">
-      <code>getClass</code>
-      <code>getClassNameInformation</code>
-      <code>getClassNames</code>
-      <code>getClasses</code>
-      <code>getDocComment</code>
-      <code>getFile</code>
-      <code>getFunctionNames</code>
-      <code>getFunctions</code>
-      <code>getIncludes</code>
-      <code>getNamespaces</code>
-      <code>getUses</code>
-    </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>CachingFileScanner</code>
-      <code>CachingFileScanner</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Scanner/ClassScanner.php">
-    <FalsableReturnStatement occurrences="1">
-      <code>$returnMethod</code>
-    </FalsableReturnStatement>
-    <InvalidFalsableReturnType occurrences="1">
-      <code>MethodScanner</code>
-    </InvalidFalsableReturnType>
-    <InvalidReturnStatement occurrences="2">
-      <code>$return</code>
-      <code>$this-&gt;traits</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="2">
-      <code>ClassScanner[]</code>
-      <code>PropertyScanner[]</code>
-    </InvalidReturnType>
-    <InvalidScalarArgument occurrences="1">
-      <code>$visibility</code>
-    </InvalidScalarArgument>
-    <InvalidToString occurrences="1">
-      <code>__toString</code>
-    </InvalidToString>
-    <MissingClosureReturnType occurrences="2">
-      <code>function () use (</code>
-      <code>function () use (&amp;$infoIndex, &amp;$infos, &amp;$tokenIndex, &amp;$tokenLine) {</code>
-    </MissingClosureReturnType>
-    <MissingReturnType occurrences="1">
-      <code>export</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="18">
-      <code>$alias['alias']</code>
-      <code>$alias['original']</code>
-      <code>$alias['original']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['tokenEnd'] - $info['tokenStart'] + 1</code>
-      <code>$info['tokenEnd'] - $info['tokenStart'] + 1</code>
-      <code>$info['tokenEnd'] - $info['tokenStart'] + 1</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$lastTokenArray[1] ?? ''</code>
-      <code>$si</code>
-      <code>$tokenContent</code>
-      <code>$traitName</code>
-      <code>$traitName</code>
-      <code>$traitName</code>
-      <code>$traitName</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$methodAlias</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="69">
-      <code>$alias['alias']</code>
-      <code>$alias['alias']</code>
-      <code>$alias['alias']</code>
-      <code>$alias['original']</code>
-      <code>$alias['original']</code>
-      <code>$alias['visibility']</code>
-      <code>$info['aliases']</code>
-      <code>$info['aliases']</code>
-      <code>$info['aliases']</code>
-      <code>$info['aliases']</code>
-      <code>$info['aliases']</code>
-      <code>$info['aliases']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['use_statements']</code>
-      <code>$info['use_statements']</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$tokenContent</code>
-      <code>$tokenLine</code>
-      <code>$tokenType</code>
-      <code>$tokens[$tokenIndex + 1]</code>
-      <code>$tokens[$tokenIndex + 1]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="20">
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="30">
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$return[$alias['alias']]</code>
-      <code>$tokens[$tokenIndex + 1]</code>
-      <code>$tokens[$tokenIndex + 1]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="48">
-      <code>$alias</code>
-      <code>$alias</code>
-      <code>$alias</code>
-      <code>$classContext</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$infoIndex</code>
-      <code>$infos[$infoIndex]['aliases'][$useStatementIndex]['alias']</code>
-      <code>$infos[$infoIndex]['aliases'][$useStatementIndex]['visibility']</code>
-      <code>$infos[$infoIndex]['lineEnd']</code>
-      <code>$infos[$infoIndex]['name']</code>
-      <code>$infos[$infoIndex]['name']</code>
-      <code>$infos[$infoIndex]['tokenEnd']</code>
-      <code>$infos[$infoIndex]['tokenEnd']</code>
-      <code>$lastTokenArray</code>
-      <code>$methodNameOrInfoIndex</code>
-      <code>$return</code>
-      <code>$return[]</code>
-      <code>$return[]</code>
-      <code>$return[]</code>
-      <code>$si</code>
-      <code>$this-&gt;docComment</code>
-      <code>$this-&gt;lineEnd</code>
-      <code>$this-&gt;lineStart</code>
-      <code>$this-&gt;name</code>
-      <code>$this-&gt;name</code>
-      <code>$this-&gt;shortName</code>
-      <code>$this-&gt;shortName</code>
-      <code>$token</code>
-      <code>$tokenIndex</code>
-      <code>$trait</code>
-      <code>$traitName</code>
-      <code>$traitName</code>
-      <code>[$tokenType, $tokenContent, $tokenLine]</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedOperand occurrences="17">
-      <code>$infoIndex</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$infos[$infoIndex]['aliases'][$useStatementIndex]['original']</code>
-      <code>$infos[$infoIndex]['use_statements'][$useStatementIndex]</code>
-      <code>$this-&gt;shortInterfaces[$classInterfaceIndex]</code>
-      <code>$this-&gt;shortInterfaces[$classInterfaceIndex]</code>
-      <code>$this-&gt;shortName</code>
-      <code>$this-&gt;shortName</code>
-      <code>$tokenContent</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenLine</code>
-    </MixedOperand>
-    <MixedReturnStatement occurrences="1">
-      <code>$return</code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion occurrences="3">
-      <code>$this-&gt;methods</code>
-      <code>$this-&gt;traits</code>
-      <code>MethodScanner[]</code>
-    </MixedReturnTypeCoercion>
-    <NullableReturnStatement occurrences="1">
-      <code>$return</code>
-    </NullableReturnStatement>
-    <PossiblyNullArrayAccess occurrences="1">
-      <code>$infos[$infoIndex]['aliases'][$useStatementIndex]['original']</code>
-    </PossiblyNullArrayAccess>
-    <PossiblyNullOperand occurrences="1">
-      <code>$trait-&gt;getName()</code>
-    </PossiblyNullOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$nameInformation</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="7">
-      <code>$docComment</code>
-      <code>$lineEnd</code>
-      <code>$lineStart</code>
-      <code>$name</code>
-      <code>$parentClass</code>
-      <code>$shortName</code>
-      <code>$shortParentClass</code>
-    </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="3">
-      <code>$tokenType === T_STRING &amp;&amp; null === $infos[$infoIndex]['name']</code>
-      <code>$tokenType === null &amp;&amp; $tokenContent === '{' &amp;&amp; $braceCount === 0</code>
-      <code>false === $useAliasContext</code>
-    </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="11">
-      <code>$this-&gt;nameInformation</code>
-      <code>$this-&gt;nameInformation</code>
-      <code>$this-&gt;nameInformation</code>
-      <code>$this-&gt;nameInformation instanceof NameInformation</code>
-      <code>$this-&gt;nameInformation instanceof NameInformation</code>
-      <code>$this-&gt;nameInformation instanceof NameInformation</code>
-      <code>$this-&gt;parentClass !== null</code>
-      <code>is_object($this-&gt;getMethod($name))</code>
-      <code>is_string($constantNameOrInfoIndex)</code>
-      <code>is_string($propertyNameOrInfoIndex)</code>
-      <code>null !== $visibility</code>
-    </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainType occurrences="5">
-      <code>$braceCount === 0</code>
-      <code>$memberContext !== null</code>
-      <code>$memberContext === 'method'</code>
-      <code>$memberContext === 'method'</code>
-      <code>$useAliasContext === true</code>
-    </TypeDoesNotContainType>
-    <UndefinedConstant occurrences="2">
-      <code>T_NAME_FULLY_QUALIFIED</code>
-      <code>T_NAME_QUALIFIED</code>
-    </UndefinedConstant>
-  </file>
-  <file src="src/Scanner/ConstantScanner.php">
-    <DocblockTypeContradiction occurrences="3">
-      <code>$this-&gt;docComment === null</code>
-      <code>$this-&gt;name === null</code>
-      <code>null === $this-&gt;name</code>
-    </DocblockTypeContradiction>
-    <InvalidArrayAccess occurrences="9">
-      <code>$tokenContent</code>
-      <code>$tokenLine</code>
-      <code>$tokenNextContent</code>
-      <code>$tokenNextContent</code>
-      <code>$tokenNextLine</code>
-      <code>$tokenNextLine</code>
-      <code>$tokenNextType</code>
-      <code>$tokenNextType</code>
-      <code>$tokenType</code>
-    </InvalidArrayAccess>
-    <InvalidArrayOffset occurrences="3">
-      <code>list($tokenNextType, $tokenNextContent, $tokenNextLine)</code>
-      <code>list($tokenNextType, $tokenNextContent, $tokenNextLine)</code>
-      <code>list($tokenType, $tokenContent, $tokenLine)</code>
-    </InvalidArrayOffset>
-    <MissingReturnType occurrences="3">
-      <code>scan</code>
-      <code>setClass</code>
-      <code>setScannerClass</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="6">
-      <code>$string</code>
-      <code>$string</code>
-      <code>$string</code>
-      <code>$string</code>
-      <code>$tokenNextContent</code>
-      <code>$tokenNextContent</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="9">
-      <code>$tokenContent</code>
-      <code>$tokenLine</code>
-      <code>$tokenNextContent</code>
-      <code>$tokenNextContent</code>
-      <code>$tokenNextLine</code>
-      <code>$tokenNextLine</code>
-      <code>$tokenNextType</code>
-      <code>$tokenNextType</code>
-      <code>$tokenType</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="9">
-      <code>$string</code>
-      <code>$string</code>
-      <code>$this-&gt;docComment</code>
-      <code>$this-&gt;name</code>
-      <code>$this-&gt;value</code>
-      <code>$token</code>
-      <code>list($tokenNextType, $tokenNextContent, $tokenNextLine)</code>
-      <code>list($tokenNextType, $tokenNextContent, $tokenNextLine)</code>
-      <code>list($tokenType, $tokenContent, $tokenLine)</code>
-    </MixedAssignment>
-    <ParadoxicalCondition occurrences="2">
-      <code>is_string($token)</code>
-      <code>is_string($token)</code>
-    </ParadoxicalCondition>
-    <PossiblyInvalidMethodCall occurrences="1">
-      <code>getValue</code>
-    </PossiblyInvalidMethodCall>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$nameInformation</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="6">
-      <code>$class</code>
-      <code>$docComment</code>
-      <code>$lineStart</code>
-      <code>$name</code>
-      <code>$scannerClass</code>
-      <code>$value</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Scanner/DerivedClassScanner.php">
-    <InvalidArgument occurrences="2">
-      <code>$iName</code>
-      <code>$iName</code>
-    </InvalidArgument>
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$this-&gt;interfaceClassScanners</code>
-    </InvalidPropertyAssignmentValue>
-    <InvalidScalarArgument occurrences="3">
-      <code>$constantNameOrInfoIndex</code>
-      <code>$methodNameOrInfoIndex</code>
-      <code>$propertyNameOrInfoIndex</code>
-    </InvalidScalarArgument>
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>array</code>
-    </LessSpecificImplementedReturnType>
-    <MixedArgument occurrences="7">
-      <code>$pClassScanner-&gt;getConstantNames()</code>
-      <code>$pClassScanner-&gt;getConstants($namesOnly)</code>
-      <code>$pClassScanner-&gt;getInterfaces()</code>
-      <code>$pClassScanner-&gt;getMethodNames()</code>
-      <code>$pClassScanner-&gt;getMethods()</code>
-      <code>$pClassScanner-&gt;getProperties($returnScannerProperty)</code>
-      <code>$pClassScanner-&gt;getPropertyNames()</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="13">
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-      <code>$pClassScanner</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
-      <code>MethodScanner</code>
-      <code>bool|ConstantScanner</code>
-      <code>bool|PropertyScanner</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="16">
-      <code>getConstant</code>
-      <code>getConstantNames</code>
-      <code>getConstants</code>
-      <code>getInterfaces</code>
-      <code>getMethod</code>
-      <code>getMethodNames</code>
-      <code>getMethods</code>
-      <code>getProperties</code>
-      <code>getProperty</code>
-      <code>getPropertyNames</code>
-      <code>hasConstant</code>
-      <code>hasConstant</code>
-      <code>hasMethod</code>
-      <code>hasMethod</code>
-      <code>hasProperty</code>
-      <code>hasProperty</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="3">
-      <code>$pClassScanner-&gt;getConstant($constantNameOrInfoIndex)</code>
-      <code>$pClassScanner-&gt;getMethod($methodNameOrInfoIndex)</code>
-      <code>$pClassScanner-&gt;getProperty($propertyNameOrInfoIndex)</code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>$methods</code>
-      <code>MethodScanner[]</code>
-    </MixedReturnTypeCoercion>
-    <PossiblyNullArgument occurrences="5">
-      <code>$currentParentClassName</code>
-      <code>$currentParentClassName</code>
-      <code>$this-&gt;classScanner-&gt;getName()</code>
-      <code>$this-&gt;classScanner-&gt;getName()</code>
-      <code>$this-&gt;classScanner-&gt;getName()</code>
-    </PossiblyNullArgument>
-    <PossiblyNullArrayOffset occurrences="1">
-      <code>$this-&gt;parentClassScanners</code>
-    </PossiblyNullArrayOffset>
-    <PropertyNotSetInConstructor occurrences="8">
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-      <code>DerivedClassScanner</code>
-    </PropertyNotSetInConstructor>
-    <TooManyArguments occurrences="1">
-      <code>getProperties</code>
-    </TooManyArguments>
-  </file>
-  <file src="src/Scanner/DirectoryScanner.php">
-    <DocblockTypeContradiction occurrences="4">
-      <code>$this-&gt;classToFileScanner === null</code>
-      <code>$this-&gt;classToFileScanner === null</code>
-      <code>$this-&gt;classToFileScanner === null</code>
-      <code>$this-&gt;classToFileScanner === null</code>
-    </DocblockTypeContradiction>
-    <FalsableReturnStatement occurrences="1">
-      <code>$returnClass</code>
-    </FalsableReturnStatement>
-    <InvalidFalsableReturnType occurrences="1">
-      <code>ClassScanner|DerivedClassScanner</code>
-    </InvalidFalsableReturnType>
-    <InvalidToString occurrences="1">
-      <code>__toString</code>
-    </InvalidToString>
-    <MissingReturnType occurrences="2">
-      <code>export</code>
-      <code>getNamespaces</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="3">
-      <code>$d</code>
-      <code>$item-&gt;getRealPath()</code>
-      <code>$item-&gt;getRealPath()</code>
-    </MixedArgument>
-    <MixedArrayOffset occurrences="3">
-      <code>$this-&gt;classToFileScanner[$fsClassName]</code>
-      <code>$this-&gt;fileScanners[$fsIndex]</code>
-      <code>$this-&gt;fileScanners[$this-&gt;classToFileScanner[$class]]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="4">
-      <code>$d</code>
-      <code>$fsClassName</code>
-      <code>$fsIndex</code>
-      <code>$item</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="3">
-      <code>getRealPath</code>
-      <code>getRealPath</code>
-      <code>isFile</code>
-    </MixedMethodCall>
-    <PossiblyFalseArgument occurrences="1">
-      <code>$classScanner</code>
-    </PossiblyFalseArgument>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$classToFileScanner</code>
-    </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>$this-&gt;classToFileScanner !== null</code>
-      <code>is_array($directory)</code>
-      <code>is_string($directory)</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Scanner/DocBlockScanner.php">
     <MissingClosureParamType occurrences="3">
@@ -1985,9 +1311,6 @@
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$nameInformation</code>
-    </PossiblyNullPropertyAssignmentValue>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$shortDescription</code>
     </PropertyNotSetInConstructor>
@@ -1998,437 +1321,6 @@
     <TypeDoesNotContainType occurrences="1">
       <code>$tagIndex !== null</code>
     </TypeDoesNotContainType>
-  </file>
-  <file src="src/Scanner/FileScanner.php">
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>FileScanner</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Scanner/MethodScanner.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>$this-&gt;docComment === null</code>
-      <code>$this-&gt;name === null</code>
-    </DocblockTypeContradiction>
-    <MissingClosureReturnType occurrences="3">
-      <code>function () use (</code>
-      <code>function () use (&amp;$infoIndex, &amp;$infos, &amp;$tokenIndex, &amp;$tokenLine) {</code>
-      <code>function () use (&amp;$infoIndex, &amp;$infos, &amp;$tokenIndex, &amp;$tokenLine) {</code>
-    </MissingClosureReturnType>
-    <MissingReturnType occurrences="2">
-      <code>export</code>
-      <code>scan</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="6">
-      <code>$info['name']</code>
-      <code>$info['position']</code>
-      <code>$info['tokenEnd'] - $info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$lastTokenArray[1] ?? ''</code>
-      <code>$tokenContent</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="16">
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['position']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$tokenContent</code>
-      <code>$tokenLine</code>
-      <code>$tokenType</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="4">
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="9">
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="15">
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$infoIndex</code>
-      <code>$infos[$infoIndex]['lineEnd']</code>
-      <code>$infos[$infoIndex]['tokenEnd']</code>
-      <code>$lastTokenArray</code>
-      <code>$return[]</code>
-      <code>$this-&gt;docComment</code>
-      <code>$this-&gt;lineEnd</code>
-      <code>$this-&gt;lineStart</code>
-      <code>$this-&gt;name</code>
-      <code>$token</code>
-      <code>$tokenIndex</code>
-      <code>[$tokenType, $tokenContent, $tokenLine]</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="6">
-      <code>$infoIndex</code>
-      <code>$infoIndex</code>
-      <code>$info['tokenEnd']</code>
-      <code>$tokenContent</code>
-      <code>$tokenIndex</code>
-      <code>$tokenLine</code>
-    </MixedOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="2">
-      <code>$nameInformation</code>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PossiblyUndefinedVariable occurrences="4">
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-    </PossiblyUndefinedVariable>
-    <PropertyNotSetInConstructor occurrences="6">
-      <code>$class</code>
-      <code>$docComment</code>
-      <code>$lineEnd</code>
-      <code>$lineStart</code>
-      <code>$name</code>
-      <code>$scannerClass</code>
-    </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="1">
-      <code>$tokenType === T_STRING &amp;&amp; $parentCount === 0</code>
-    </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>is_string($parameterNameOrInfoIndex)</code>
-    </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainType occurrences="2">
-      <code>$parentCount === 1</code>
-      <code>$parentCount === 1</code>
-    </TypeDoesNotContainType>
-    <UndefinedConstant occurrences="2">
-      <code>T_NAME_FULLY_QUALIFIED</code>
-      <code>T_NAME_QUALIFIED</code>
-    </UndefinedConstant>
-  </file>
-  <file src="src/Scanner/ParameterScanner.php">
-    <InvalidNullableReturnType occurrences="8">
-      <code>ClassScanner</code>
-      <code>MethodScanner</code>
-      <code>int</code>
-      <code>string</code>
-      <code>string</code>
-      <code>string</code>
-      <code>string</code>
-      <code>string</code>
-    </InvalidNullableReturnType>
-    <MixedArgument occurrences="2">
-      <code>$token[1]</code>
-      <code>is_string($token) ? $token : $token[1]</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="5">
-      <code>$token[0]</code>
-      <code>$token[0]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
-      <code>$token</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$token[1]</code>
-    </MixedOperand>
-    <NullableReturnStatement occurrences="8">
-      <code>$this-&gt;class</code>
-      <code>$this-&gt;declaringClass</code>
-      <code>$this-&gt;declaringFunction</code>
-      <code>$this-&gt;declaringScannerClass</code>
-      <code>$this-&gt;declaringScannerFunction</code>
-      <code>$this-&gt;defaultValue</code>
-      <code>$this-&gt;name</code>
-      <code>$this-&gt;position</code>
-    </NullableReturnStatement>
-    <PossiblyNullArgument occurrences="3">
-      <code>$this-&gt;tokens</code>
-      <code>$tokens</code>
-      <code>$tokens</code>
-    </PossiblyNullArgument>
-    <PossiblyNullOperand occurrences="1">
-      <code>$this-&gt;defaultValue</code>
-    </PossiblyNullOperand>
-    <UndefinedConstant occurrences="2">
-      <code>T_NAME_FULLY_QUALIFIED</code>
-      <code>T_NAME_QUALIFIED</code>
-    </UndefinedConstant>
-  </file>
-  <file src="src/Scanner/PropertyScanner.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>$this-&gt;docComment === null &amp;&amp; $this-&gt;name === null</code>
-      <code>$this-&gt;name === null</code>
-    </DocblockTypeContradiction>
-    <MissingReturnType occurrences="3">
-      <code>scan</code>
-      <code>setClass</code>
-      <code>setScannerClass</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="4">
-      <code>$token</code>
-      <code>$token</code>
-      <code>$tokenContent</code>
-      <code>$tokenContent</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$tokenContent</code>
-      <code>$tokenLine</code>
-      <code>$tokenType</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
-      <code>$tempValue</code>
-      <code>$this-&gt;docComment</code>
-      <code>$token</code>
-      <code>list($tokenType, $tokenContent, $tokenLine)</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$tempValue</code>
-    </MixedOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="2">
-      <code>$nameInformation</code>
-      <code>empty($value) ? null : $value</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="7">
-      <code>$class</code>
-      <code>$docComment</code>
-      <code>$lineStart</code>
-      <code>$name</code>
-      <code>$scannerClass</code>
-      <code>$value</code>
-      <code>$valueType</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Scanner/TokenArrayScanner.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>$namespace === null</code>
-      <code>is_string($namespace)</code>
-    </DocblockTypeContradiction>
-    <InvalidReturnStatement occurrences="1">
-      <code>$return</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>ClassScanner[]</code>
-    </InvalidReturnType>
-    <InvalidToString occurrences="1">
-      <code>__toString</code>
-    </InvalidToString>
-    <MissingClosureReturnType occurrences="5">
-      <code>function () use (</code>
-      <code>function () use (&amp;$infoIndex, &amp;$infos, &amp;$tokenIndex, &amp;$tokenLine) {</code>
-      <code>function () use (&amp;$tokenIndex, &amp;$docCommentIndex) {</code>
-      <code>function () use (&amp;$tokenIndex, &amp;$docCommentIndex) {</code>
-      <code>function () use (&amp;$tokenType, &amp;$docCommentIndex) {</code>
-    </MissingClosureReturnType>
-    <MissingReturnType occurrences="2">
-      <code>export</code>
-      <code>scan</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="9">
-      <code>$info['name']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['tokenEnd'] - $info['tokenStart'] + 1</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['uses']</code>
-      <code>$info['uses']</code>
-      <code>$namespace</code>
-      <code>$validTrailingTokens</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="45">
-      <code>$includeTypes[$tokens[$tokenIndex][0]]</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['name']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['namespace']</code>
-      <code>$info['statements']</code>
-      <code>$info['tokenEnd']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['tokenStart']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['type']</code>
-      <code>$info['uses']</code>
-      <code>$info['uses']</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$token[0]</code>
-      <code>$token[1]</code>
-      <code>$token[2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="13">
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="26">
-      <code>$includeTypes[$tokens[$tokenIndex][0]]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$infos[$infoIndex]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex + 2]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="32">
-      <code>$docCommentIndex</code>
-      <code>$functionNames[]</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$infoIndex</code>
-      <code>$infos[$infoIndex]['lineEnd']</code>
-      <code>$infos[$infoIndex]['shortName']</code>
-      <code>$infos[$infoIndex]['statements'][$useStatementIndex]['as']</code>
-      <code>$infos[$infoIndex]['tokenEnd']</code>
-      <code>$namespace</code>
-      <code>$namespace</code>
-      <code>$namespaces[]</code>
-      <code>$namespaces[]</code>
-      <code>$return[]</code>
-      <code>$statement</code>
-      <code>$this-&gt;docComment</code>
-      <code>$token</code>
-      <code>$token</code>
-      <code>$tokenContent</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$type</code>
-      <code>$uses[]</code>
-      <code>$value</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>string|null</code>
-    </MixedInferredReturnType>
-    <MixedOperand occurrences="12">
-      <code>$infoIndex</code>
-      <code>$info['tokenEnd']</code>
-      <code>$infos[$infoIndex]['shortName']</code>
-      <code>$infos[$infoIndex]['statements'][$useStatementIndex]['use']</code>
-      <code>$namespace</code>
-      <code>$tokenContent</code>
-      <code>$tokenContent</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-      <code>$tokenIndex</code>
-    </MixedOperand>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;docComment</code>
-    </MixedReturnStatement>
-    <PossiblyNullArgument occurrences="2">
-      <code>$namespace</code>
-      <code>$namespace</code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$tokens</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PossiblyUndefinedVariable occurrences="5">
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-      <code>$info</code>
-    </PossiblyUndefinedVariable>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$nameInformation</code>
-    </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>is_string($name)</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Scanner/Util.php">
-    <MixedArgument occurrences="1">
-      <code>$data-&gt;uses</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$data-&gt;uses[$firstPart]</code>
-    </MixedArrayAccess>
-    <MixedOperand occurrences="2">
-      <code>$data-&gt;namespace</code>
-      <code>$data-&gt;namespace</code>
-    </MixedOperand>
-    <RedundantCondition occurrences="1">
-      <code>$data-&gt;uses</code>
-    </RedundantCondition>
   </file>
   <file src="test/Generator/AbstractGeneratorTest.php">
     <MissingReturnType occurrences="2">
@@ -2464,6 +1356,10 @@
       <code>true</code>
       <code>true</code>
     </InvalidScalarArgument>
+    <MissingDependency occurrences="2">
+      <code>FooClass</code>
+      <code>FooClass</code>
+    </MissingDependency>
     <MissingReturnType occurrences="91">
       <code>testAbstractAccessors</code>
       <code>testAddConstantAcceptsMixedScalars</code>
@@ -2557,7 +1453,7 @@
       <code>testTraitGenerationWithAliasesAndOverrides</code>
       <code>testUseTraitGeneration</code>
     </MissingReturnType>
-    <MixedArgument occurrences="27">
+    <MixedArgument occurrences="29">
       <code>$classGenerator-&gt;generate()</code>
       <code>$classGenerator-&gt;generate()</code>
       <code>$classGenerator-&gt;generate()</code>
@@ -2585,6 +1481,8 @@
       <code>$received</code>
       <code>$received</code>
       <code>$received</code>
+      <code>FooClass::class</code>
+      <code>FooClass::class</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="7">
       <code>$aliases['myTrait::method']['alias']</code>
@@ -2800,21 +1698,15 @@
     </MissingReturnType>
   </file>
   <file src="test/Generator/FileGeneratorTest.php">
-    <MissingReturnType occurrences="22">
-      <code>testCanAppendToBodyOfReflectedFile</code>
+    <MissingReturnType occurrences="16">
       <code>testClassNotFoundException</code>
       <code>testConstruction</code>
       <code>testCreateFromArrayWithClassFromArray</code>
       <code>testCreateFromArrayWithClassInstance</code>
       <code>testFileLineEndingsAreAlwaysLineFeed</code>
-      <code>testFromFileReflection</code>
-      <code>testFromReflection</code>
-      <code>testGeneratedClassesHaveUses</code>
       <code>testGeneratesNamespaceStatements</code>
       <code>testGeneratesUseStatements</code>
-      <code>testGeneratingFromAReflectedFileName</code>
       <code>testIndentationGetterAndSetter</code>
-      <code>testIssue4747FileGenerationWithAddedMethodIsCorrectlyFormatted</code>
       <code>testSetUseAllowsMultipleAliasedUseStatements</code>
       <code>testSetUseDoesntGenerateMultipleIdenticalUseStatements</code>
       <code>testSetUsesDoesntGenerateMultipleIdenticalUseStatements</code>
@@ -2824,10 +1716,6 @@
       <code>testSourceContentGetterAndSetter</code>
       <code>testToString</code>
     </MissingReturnType>
-    <UnresolvableInclude occurrences="2">
-      <code>require_once $file</code>
-      <code>require_once $tempFile</code>
-    </UnresolvableInclude>
   </file>
   <file src="test/Generator/InterfaceGeneratorTest.php">
     <MissingReturnType occurrences="17">
@@ -3206,24 +2094,16 @@
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
-  <file src="test/NameInformationTest.php">
-    <MissingReturnType occurrences="3">
-      <code>testNamespaceResolverCorrectlyResolvesNames</code>
-      <code>testNamespaceResolverPersistsNamespace</code>
-      <code>testNamespaceResolverPersistsUseRules</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Reflection/ClassReflectionTest.php">
     <ArgumentTypeCoercion occurrences="2">
       <code>'ReflectionClass'</code>
       <code>__NAMESPACE__ . '\\' . $className</code>
     </ArgumentTypeCoercion>
-    <MissingReturnType occurrences="11">
+    <MissingReturnType occurrences="10">
       <code>testGetContentsReturnsContents</code>
       <code>testGetContentsReturnsContentsWithImplementsOnSeparateLine</code>
       <code>testGetContentsReturnsEmptyContentsOnEvaldCode</code>
       <code>testGetContentsReturnsEmptyContentsOnInternalCode</code>
-      <code>testGetDeclaringFileReturnsFilename</code>
       <code>testGetTraits</code>
       <code>testInterfaceReturn</code>
       <code>testMethodReturns</code>
@@ -3355,43 +2235,6 @@
       <code>getType</code>
       <code>getType</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="test/Reflection/FileReflectionTest.php">
-    <MissingReturnType occurrences="15">
-      <code>testFileCanReflectFileWithInterface</code>
-      <code>testFileCanReflectFileWithUses</code>
-      <code>testFileConstructorFromAReflectedFilenameInIncludePath</code>
-      <code>testFileConstructorFromAReflectedFilenameInIncludePathWithoutIncludeFlagEnabled</code>
-      <code>testFileConstructorFromAReflectedFilenameIncluded</code>
-      <code>testFileConstructorThrowsExceptionOnNonExistentFile</code>
-      <code>testFileGetClassReturnsClassReflectionObject</code>
-      <code>testFileGetClassReturnsFirstClassWithNoOptions</code>
-      <code>testFileGetClassThrowsExceptionOnNonExistentClassName</code>
-      <code>testFileGetDocBlockReturnsFileDocBlock</code>
-      <code>testFileGetFilenameReturnsCorrectFilename</code>
-      <code>testFileGetFunctionsReturnsFunctions</code>
-      <code>testFileGetLineNumbersWorks</code>
-      <code>testFileReflectionShouldNotRaiseNoticesWhenReflectingClosures</code>
-      <code>testFileReflectorRequiredFunctionsDoNothing</code>
-    </MissingReturnType>
-    <PossiblyFalseReference occurrences="2">
-      <code>getAuthorEmail</code>
-      <code>getAuthorName</code>
-    </PossiblyFalseReference>
-    <UndefinedInterfaceMethod occurrences="2">
-      <code>getAuthorEmail</code>
-      <code>getAuthorName</code>
-    </UndefinedInterfaceMethod>
-    <UnresolvableInclude occurrences="8">
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToReflect</code>
-      <code>include_once $fileToRequire</code>
-    </UnresolvableInclude>
   </file>
   <file src="test/Reflection/FunctionReflectionTest.php">
     <ArgumentTypeCoercion occurrences="1">
@@ -3608,57 +2451,6 @@
       <code>test2</code>
     </MissingReturnType>
   </file>
-  <file src="test/Reflection/TestAsset/InjectableClassReflection.php">
-    <MissingParamType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>setFileScanner</code>
-    </MissingReturnType>
-    <MixedInferredReturnType occurrences="1">
-      <code>createFileScanner</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;fileScanner</code>
-    </MixedReturnStatement>
-  </file>
-  <file src="test/Reflection/TestAsset/InjectableMethodReflection.php">
-    <MissingParamType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>setFileScanner</code>
-    </MissingReturnType>
-    <MixedInferredReturnType occurrences="1">
-      <code>createFileScanner</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;fileScanner</code>
-    </MixedReturnStatement>
-  </file>
-  <file src="test/Reflection/TestAsset/InjectablePropertyReflection.php">
-    <MissingParamType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$fileScanner</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>setFileScanner</code>
-    </MissingReturnType>
-    <MixedInferredReturnType occurrences="1">
-      <code>createFileScanner</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;fileScanner</code>
-    </MixedReturnStatement>
-  </file>
   <file src="test/Reflection/TestAsset/SampleAnnotation.php">
     <MissingParamType occurrences="1">
       <code>$content</code>
@@ -3854,145 +2646,6 @@
       <code>function9</code>
     </MissingReturnType>
   </file>
-  <file src="test/Scanner/AggregateDirectoryScannerTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testAggregationOfDirectories</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Scanner/CachingFileScannerTest.php">
-    <MissingReturnType occurrences="4">
-      <code>assertDifferentInternalFileScanner</code>
-      <code>assertSameInternalFileScanner</code>
-      <code>getCacheCount</code>
-      <code>testCachingFileScannerWillUseSameInternalFileScannerWithMatchingFileName</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>$cacheProp-&gt;getValue($cfs)</code>
-    </MixedArgument>
-  </file>
-  <file src="test/Scanner/ClassScannerTest.php">
-    <MissingDependency occurrences="14">
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-      <code>FooClass</code>
-    </MissingDependency>
-    <MissingReturnType occurrences="23">
-      <code>testAbstractClassIsNotInstantiable</code>
-      <code>testClassIsInstantiable</code>
-      <code>testClassScannerCanGetTraitMethodsInGetMethods</code>
-      <code>testClassScannerCanReturnLineNumbers</code>
-      <code>testClassScannerCanScanClassAndGetTraitsAliases</code>
-      <code>testClassScannerCanScanClassThatUsesTraits</code>
-      <code>testClassScannerCanScanInterface</code>
-      <code>testClassScannerCanScanTraits</code>
-      <code>testClassScannerHasClassInformation</code>
-      <code>testClassScannerHasConstant</code>
-      <code>testClassScannerHasMethods</code>
-      <code>testClassScannerHasProperties</code>
-      <code>testClassScannerReturnsMethodsWithMethodScanners</code>
-      <code>testClassScannerReturnsPropertiesWithPropertyScanners</code>
-      <code>testGetConstantsReturnsConstantNames</code>
-      <code>testGetConstantsReturnsInstancesOfConstantScanner</code>
-      <code>testGetInterfacesFromInterface</code>
-      <code>testGetMethodsThrowsExceptionOnDuplicateMethods</code>
-      <code>testHasConstant</code>
-      <code>testHasMethod</code>
-      <code>testHasProperty</code>
-      <code>testInterfaceIsNotInstantiable</code>
-      <code>testTraitIsNotInstantiable</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="14">
-      <code>$method-&gt;getBody</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
-    </MixedArgument>
-    <PossiblyFalseReference occurrences="24">
-      <code>getConstantNames</code>
-      <code>getConstants</code>
-      <code>getConstants</code>
-      <code>getLineStart</code>
-      <code>getLineStart</code>
-      <code>getMethodNames</code>
-      <code>getMethods</code>
-      <code>getMethods</code>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getProperties</code>
-      <code>getPropertyNames</code>
-      <code>hasConstant</code>
-      <code>hasMethod</code>
-      <code>hasProperty</code>
-      <code>isAbstract</code>
-      <code>isAbstract</code>
-      <code>isInterface</code>
-      <code>isInterface</code>
-      <code>isTrait</code>
-      <code>isTrait</code>
-      <code>isTrait</code>
-      <code>isTrait</code>
-      <code>isTrait</code>
-    </PossiblyFalseReference>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>assertIsArray</code>
-    </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainType occurrences="2">
-      <code>$testMethod === 'bar'</code>
-      <code>$testMethod === 'bar'</code>
-    </TypeDoesNotContainType>
-    <UndefinedPropertyFetch occurrences="1">
-      <code>$method-&gt;getBody</code>
-    </UndefinedPropertyFetch>
-  </file>
-  <file src="test/Scanner/ConstantScannerTest.php">
-    <MissingDependency occurrences="1">
-      <code>FooClass</code>
-    </MissingDependency>
-    <MissingReturnType occurrences="1">
-      <code>testConstantScannerHasConstantInformation</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>FooClass::class</code>
-    </MixedArgument>
-    <PossiblyFalseReference occurrences="1">
-      <code>getConstant</code>
-    </PossiblyFalseReference>
-    <PossiblyInvalidMethodCall occurrences="7">
-      <code>getDocComment</code>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getValue</code>
-      <code>getValue</code>
-      <code>getValue</code>
-    </PossiblyInvalidMethodCall>
-  </file>
-  <file src="test/Scanner/DerivedClassScannerTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testCreatesClass</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Scanner/DocBlockScannerTest.php">
     <MissingReturnType occurrences="2">
       <code>testDocBlockScannerDescriptions</code>
@@ -4006,189 +2659,6 @@
       <code>$tags[0]['name']</code>
       <code>$tags[0]['value']</code>
     </MixedArrayAccess>
-  </file>
-  <file src="test/Scanner/FileScannerTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testFileScannerCanReturnClasses</code>
-    </MissingReturnType>
-    <PossiblyFalseReference occurrences="2">
-      <code>getName</code>
-      <code>getName</code>
-    </PossiblyFalseReference>
-  </file>
-  <file src="test/Scanner/MethodScannerTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>'\Laminas\Code\Exception\InvalidArgumentException'</code>
-    </ArgumentTypeCoercion>
-    <MissingDependency occurrences="1">
-      <code>FooClass</code>
-    </MissingDependency>
-    <MissingReturnType occurrences="11">
-      <code>testMethodScannerHasMethodInformation</code>
-      <code>testMethodScannerMethodSignatureLatestOptionalParamHasParentheses</code>
-      <code>testMethodScannerParsesClassNames</code>
-      <code>testMethodScannerReturnsBodyMethods</code>
-      <code>testMethodScannerReturnsLineNumbersForMethods</code>
-      <code>testMethodScannerReturnsParameterScanner</code>
-      <code>testMethodScannerReturnsParameters</code>
-      <code>testMethodScannerReturnsPropertyWithNoDefault</code>
-      <code>testMethodScannerSetVisibilityAcceptsIntegerTokens</code>
-      <code>testMethodScannerSetVisibilityThrowsInvalidArgumentException</code>
-      <code>testMethodScannerWorksWithSingleAbstractFunction</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>FooClass::class</code>
-    </MixedArgument>
-    <PossiblyFalseReference occurrences="9">
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-      <code>getMethod</code>
-    </PossiblyFalseReference>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>assertIsArray</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="test/Scanner/ParameterScannerTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testParameterScannerHasParameterInformation</code>
-    </MissingReturnType>
-    <PossiblyFalseReference occurrences="1">
-      <code>getMethod</code>
-    </PossiblyFalseReference>
-  </file>
-  <file src="test/Scanner/PropertyScannerTest.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>assertNull</code>
-    </DocblockTypeContradiction>
-    <MissingDependency occurrences="1">
-      <code>FooClass</code>
-    </MissingDependency>
-    <MissingReturnType occurrences="3">
-      <code>testPropertyScannerHasPropertyInformation</code>
-      <code>testPropertyScannerReturnsProperValue</code>
-      <code>testPropertyScannerReturnsProperValueRegardlessOfOrder</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>FooClass::class</code>
-    </MixedArgument>
-    <PossiblyFalseReference occurrences="3">
-      <code>getProperties</code>
-      <code>getProperty</code>
-      <code>getProperty</code>
-    </PossiblyFalseReference>
-    <PossiblyInvalidMethodCall occurrences="22">
-      <code>getName</code>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getValue</code>
-      <code>getValue</code>
-      <code>getValue</code>
-      <code>getValue</code>
-      <code>getValue</code>
-      <code>getValueType</code>
-      <code>getValueType</code>
-      <code>isPrivate</code>
-      <code>isPrivate</code>
-      <code>isPrivate</code>
-      <code>isProtected</code>
-      <code>isProtected</code>
-      <code>isProtected</code>
-      <code>isPublic</code>
-      <code>isPublic</code>
-      <code>isPublic</code>
-      <code>isStatic</code>
-      <code>isStatic</code>
-      <code>isStatic</code>
-    </PossiblyInvalidMethodCall>
-  </file>
-  <file src="test/Scanner/TestAsset/MapperExample/DbAdapter.php">
-    <MissingParamType occurrences="2">
-      <code>$password</code>
-      <code>$username</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="2">
-      <code>$password</code>
-      <code>$username</code>
-    </MissingPropertyType>
-    <MixedOperand occurrences="2">
-      <code>$this-&gt;password</code>
-      <code>$this-&gt;username</code>
-    </MixedOperand>
-  </file>
-  <file src="test/Scanner/TestAsset/MapperExample/Mapper.php">
-    <MissingPropertyType occurrences="1">
-      <code>$dbAdapter</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>setDbAdapter</code>
-    </MissingReturnType>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;dbAdapter</code>
-    </MixedOperand>
-  </file>
-  <file src="test/Scanner/TestAsset/MapperExample/RepositoryA.php">
-    <MissingPropertyType occurrences="1">
-      <code>$mapper</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="2">
-      <code>find</code>
-      <code>setMapper</code>
-    </MissingReturnType>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;mapper</code>
-    </MixedOperand>
-  </file>
-  <file src="test/Scanner/TestAsset/MapperExample/RepositoryB.php">
-    <MissingReturnType occurrences="1">
-      <code>findEntityOfTypeB</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Scanner/TestAsset/TestClassWithAliasException.php">
-    <MissingFile occurrences="2">
-      <code>require_once __DIR__ . '/BarTrait.php'</code>
-      <code>require_once __DIR__ . '/TraitWithSameMethods.php'</code>
-    </MissingFile>
-    <MissingReturnType occurrences="1">
-      <code>bazFooBar</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Scanner/TokenArrayScannerTest.php">
-    <MissingDependency occurrences="1">
-      <code>FooClass</code>
-    </MissingDependency>
-    <MissingReturnType occurrences="7">
-      <code>testScannerCanHandleMultipleNamespaceFile</code>
-      <code>testScannerReturnsClassNames</code>
-      <code>testScannerReturnsClassNamesForTraits</code>
-      <code>testScannerReturnsClassScanner</code>
-      <code>testScannerReturnsFunctions</code>
-      <code>testScannerReturnsNamespaces</code>
-      <code>testScannerReturnsNamespacesInNotNamespacedClasses</code>
-    </MissingReturnType>
-    <MixedArrayAccess occurrences="1">
-      <code>$use['use']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
-      <code>$foundUses[]</code>
-      <code>$use</code>
-    </MixedAssignment>
-    <PossiblyFalseReference occurrences="2">
-      <code>getName</code>
-      <code>getName</code>
-    </PossiblyFalseReference>
-    <RedundantConditionGivenDocblockType occurrences="5">
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/TestAsset/AbstractClass.php">
     <MissingPropertyType occurrences="1">
@@ -4386,15 +2856,6 @@
       <code>nullableObjectParameter</code>
       <code>objectParameter</code>
     </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/Proxy/CachingFileScannerProxy.php">
-    <MissingReturnType occurrences="1">
-      <code>getCache</code>
-    </MissingReturnType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>CachingFileScannerProxy</code>
-      <code>CachingFileScannerProxy</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="test/TestAsset/ReturnTypeHintedClass.php">
     <InvalidReturnType occurrences="10">

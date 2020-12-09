@@ -12,7 +12,6 @@ use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\ParameterReflection;
 use Laminas\Code\Scanner\CachingFileScanner;
-use LaminasTest\Code\Reflection\TestAsset\InjectableMethodReflection;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;

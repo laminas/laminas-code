@@ -8,7 +8,6 @@
 
 namespace Laminas\Code\Reflection;
 
-use Laminas\Code\Scanner\CachingFileScanner;
 use ReflectionMethod as PhpReflectionMethod;
 
 use function array_shift;
@@ -458,20 +457,5 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function __toString()
     {
         return parent::__toString();
-    }
-
-    /**
-     * Creates a new FileScanner instance.
-     *
-     * By having this as a separate method it allows the method to be overridden
-     * if a different FileScanner is needed.
-     *
-     * @param  string $filename
-     *
-     * @return CachingFileScanner
-     */
-    protected function createFileScanner($filename)
-    {
-        return new CachingFileScanner($filename);
     }
 }
