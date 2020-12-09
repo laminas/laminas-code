@@ -13,7 +13,6 @@ use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\Exception\ClassNotFoundException;
 use Laminas\Code\Generator\FileGenerator;
-use Laminas\Code\Reflection\FileReflection;
 use PHPUnit\Framework\TestCase;
 
 use function explode;
@@ -80,85 +79,6 @@ EOS;
 
         $output = $codeGenFile->generate();
         self::assertEquals($expectedOutput, $output, $output);
-    }
-
-    public function testFromReflection()
-    {
-        $tempFile = tempnam(sys_get_temp_dir(), 'UnitFile');
-
-        $codeGenFile = FileGenerator::fromArray([
-            'class' => [
-                'name' => 'SampleClass',
-            ],
-        ]);
-
-        file_put_contents($tempFile, $codeGenFile->generate());
-
-        require_once $tempFile;
-
-        $fileGenerator = FileGenerator::fromReflection(new FileReflection($tempFile));
-
-        unlink($tempFile);
-
-        self::assertEquals(FileGenerator::class, get_class($fileGenerator));
-        self::assertCount(1, $fileGenerator->getClasses());
-    }
-
-    public function testFromFileReflection()
-    {
-        $file = __DIR__ . '/TestAsset/TestSampleSingleClass.php';
-        require_once $file;
-
-        $codeGenFileFromDisk = FileGenerator::fromReflection($fileRefl = new FileReflection($file));
-
-        $codeGenFileFromDisk->getClass()->addMethod('foobar');
-
-        $expectedOutput = <<<'EOS'
-<?php
-/**
- * File header here
- *
- * @author Ralph Schindler <ralph.schindler@zend.com>
- */
-
-
-namespace LaminasTest\Code\Generator\TestAsset;
-
-/**
- * class docblock
- */
-class TestSampleSingleClass
-{
-    /**
-     * Enter description here...
-     *
-     * @return bool
-     */
-    public function someMethod()
-    {
-        /* test test */
-    }
-
-    /**
-     * Enter description here...
-     *
-     * @return bool
-     */
-    protected function withParamsAndReturnType($mixed, array $array, ?callable $callable = null, ?int $int = 0) : bool
-    {
-        /* test test */
-        return true;
-    }
-
-    public function foobar()
-    {
-    }
-}
-
-
-EOS;
-
-        self::assertEquals($expectedOutput, $codeGenFileFromDisk->generate());
     }
 
     public function testClassNotFoundException()
@@ -314,104 +234,6 @@ EOS;
         ]);
         $class = $fileGenerator->getClass('bar');
         self::assertInstanceOf(ClassGenerator::class, $class);
-    }
-
-    public function testGeneratingFromAReflectedFileName()
-    {
-        $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/OneInterface.php');
-        self::assertInstanceOf(FileGenerator::class, $generator);
-    }
-
-    public function testGeneratedClassesHaveUses()
-    {
-        $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
-        $class = $generator->getClass();
-
-        $expectedUses = [TestAsset\ClassWithNamespace::class];
-
-        self::assertEquals($expectedUses, $class->getUses());
-    }
-
-    /**
-     * @group 4747
-     */
-    public function testIssue4747FileGenerationWithAddedMethodIsCorrectlyFormatted()
-    {
-        $g = new FileGenerator();
-        $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
-        $g->setFilename(sys_get_temp_dir() . '/result_class.php');
-        $g->getClass()->addMethod('added');
-        $g->write();
-
-        $expected = <<<'CODE'
-<?php
-/**
- * @see       https://github.com/laminas/laminas-code for the canonical source
- * repository
- * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New
- * BSD License
- */
-
-
-namespace LaminasTest\Code\Generator\TestAsset;
-
-
-use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
-
-class ClassWithUses
-{
-    public function added()
-    {
-    }
-}
-
-
-CODE;
-        $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @group 4747
-     */
-    public function testCanAppendToBodyOfReflectedFile()
-    {
-        $g = new FileGenerator();
-        $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
-        $g->setFilename(sys_get_temp_dir() . '/result_class.php');
-        $g->getClass()->addMethod('added');
-        $g->setBody('$foo->bar();');
-        $g->write();
-
-        $expected = <<<'CODE'
-<?php
-/**
- * @see       https://github.com/laminas/laminas-code for the canonical source
- * repository
- * @copyright https://github.com/laminas/laminas-code/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-code/blob/master/LICENSE.md New
- * BSD License
- */
-
-
-namespace LaminasTest\Code\Generator\TestAsset;
-
-
-use LaminasTest\Code\Generator\TestAsset\ClassWithNamespace;
-
-class ClassWithUses
-{
-    public function added()
-    {
-    }
-}
-
-
-$foo->bar();
-CODE;
-        $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
-        self::assertEquals($expected, $actual);
     }
 
     public function testSingleDeclareStatement(): void

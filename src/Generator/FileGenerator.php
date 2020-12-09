@@ -11,8 +11,6 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\DeclareStatement;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\Exception\ClassNotFoundException;
-use Laminas\Code\Reflection\Exception as ReflectionException;
-use Laminas\Code\Reflection\FileReflection;
 
 use function array_key_exists;
 use function array_merge;
@@ -89,66 +87,6 @@ class FileGenerator extends AbstractGenerator
         if (null !== $options) {
             $this->setOptions($options);
         }
-    }
-
-    /**
-     * Use this if you intend on generating code generation objects based on the same file.
-     * This will keep previous changes to the file in tact during the same PHP process
-     *
-     * @param  string $filePath
-     * @param  bool $includeIfNotAlreadyIncluded
-     * @throws ReflectionException\InvalidArgumentException If file does not exists
-     * @throws ReflectionException\RuntimeException If file exists but is not included or required
-     * @return FileGenerator
-     */
-    public static function fromReflectedFileName($filePath, $includeIfNotAlreadyIncluded = true)
-    {
-        $fileReflector = new FileReflection($filePath, $includeIfNotAlreadyIncluded);
-        $codeGenerator = static::fromReflection($fileReflector);
-
-        return $codeGenerator;
-    }
-
-    /**
-     * @param  FileReflection $fileReflection
-     * @return FileGenerator
-     */
-    public static function fromReflection(FileReflection $fileReflection)
-    {
-        $file = new static();
-
-        $file->setSourceContent($fileReflection->getContents());
-        $file->setSourceDirty(false);
-
-        $uses = $fileReflection->getUses();
-
-        foreach ($fileReflection->getClasses() as $class) {
-            $phpClass = ClassGenerator::fromReflection($class);
-            $phpClass->setContainingFileGenerator($file);
-
-            foreach ($uses as $fileUse) {
-                $phpClass->addUse($fileUse['use'], $fileUse['as']);
-            }
-
-            $file->setClass($phpClass);
-        }
-
-        $namespace = $fileReflection->getNamespace();
-
-        if ($namespace != '') {
-            $file->setNamespace($namespace);
-        }
-
-        if ($uses) {
-            $file->setUses($uses);
-        }
-
-        if ($fileReflection->getDocComment() != '') {
-            $docBlock = $fileReflection->getDocBlock();
-            $file->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
-        }
-
-        return $file;
     }
 
     /**

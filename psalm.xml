@@ -15,15 +15,32 @@
     </projectFiles>
 
     <issueHandlers>
+        <InternalClass>
+            <errorLevel type="suppress">
+                <!-- the scanner internal component can be used by package internals -->
+                <referencedClass name="Laminas\Code\Generic\Prototype\PrototypeClassFactory"/>
+                <referencedClass name="Laminas\Code\Scanner\DocBlockScanner"/>
+            </errorLevel>
+        </InternalClass>
+
         <InternalMethod>
             <errorLevel type="suppress">
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::method"/>
-            </errorLevel>
-            <errorLevel type="suppress">
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturn"/>
+                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with"/>
+            </errorLevel>
+
+            <!-- the scanner internal component can be used by package internals -->
+            <errorLevel type="suppress">
+                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::addPrototype"/>
+                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::getClonedPrototype"/>
+                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::setGenericPrototype"/>
+                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeInterface::getName"/>
+                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getLongDescription"/>
+                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getShortDescription"/>
+                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getTags"/>
             </errorLevel>
             <errorLevel type="suppress">
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with"/>
             </errorLevel>
         </InternalMethod>
     </issueHandlers>

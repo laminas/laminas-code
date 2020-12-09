@@ -8,8 +8,6 @@
 
 namespace Laminas\Code\Scanner;
 
-use Laminas\Code\NameInformation;
-
 use function array_pop;
 use function array_push;
 use function current;
@@ -23,7 +21,8 @@ use function strpos;
 use function substr;
 use function trim;
 
-class DocBlockScanner implements ScannerInterface
+/** @internal this class is not part of the public API of this package */
+class DocBlockScanner
 {
     /**
      * @var bool
@@ -34,11 +33,6 @@ class DocBlockScanner implements ScannerInterface
      * @var string
      */
     protected $docComment;
-
-    /**
-     * @var NameInformation
-     */
-    protected $nameInformation;
 
     /**
      * @var string
@@ -57,12 +51,10 @@ class DocBlockScanner implements ScannerInterface
 
     /**
      * @param  string $docComment
-     * @param null|NameInformation $nameInformation
      */
-    public function __construct($docComment, NameInformation $nameInformation = null)
+    public function __construct($docComment)
     {
         $this->docComment      = $docComment;
-        $this->nameInformation = $nameInformation;
     }
 
     /**

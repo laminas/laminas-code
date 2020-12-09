@@ -49,7 +49,7 @@ class DocBlockGenerator extends AbstractGenerator
     protected $wordwrap = true;
 
     /**
-     * @var TagManager
+     * @var TagManager|null
      */
     protected static $tagManager;
 

@@ -31,6 +31,44 @@ All notable changes to this project will be documented in this file, in reverse 
   `laminas/laminas-zendframework-bridge` has been removed, and is instead to be installed optionally
   by consumers of the library. If you are still migrating from `zendframework/zend-code`, you will
   need to add it to your `composer.json` yourself, or directly use to `Laminas\Code` symbols.
+- BC BREAK [laminas/laminas-code#58](https://github.com/laminas/laminas-code/pull/58) the `Scanner`
+  and `Annotation` components have been removed, and with it all API that interacted with it:
+   * `Laminas\Code\Generator\FileGeneratorRegistry` has been deleted
+   * `Laminas\Code\Generator\FileGenerator::fromReflectedFileName()` was removed
+   * `Laminas\Code\Generator\FileGenerator::fromReflection()` was removed
+   * `Laminas\Code\NameInformation` has been deleted
+   * `Laminas\Code\Reflection\ReflectionInterface` was marked `@internal`
+   * `Laminas\Code\Reflection\FileReflection` has been deleted
+   * `Laminas\Code\Generic\Prototype\PrototypeInterface` was marked `@internal`
+   * `Laminas\Code\Generic\Prototype\PrototypeClassFactory` was marked `@internal`
+   * `Laminas\Code\Generic\Prototype\PrototypeGenericInterface` was marked `@internal`
+   * `Laminas\Code\Annotation\AnnotationInterface` has been deleted
+   * `Laminas\Code\Annotation\Parser\GenericAnnotationParser` has been deleted
+   * `Laminas\Code\Annotation\Parser\ParserInterface` has been deleted
+   * `Laminas\Code\Annotation\Parser\DoctrineAnnotationParser` has been deleted
+   * `Laminas\Code\Annotation\AnnotationManager` has been deleted
+   * `Laminas\Code\Annotation\AnnotationCollection` has been deleted
+   * `Laminas\Code\Scanner\ValueScanner` has been deleted
+   * `Laminas\Code\Scanner\DirectoryScanner` has been deleted
+   * `Laminas\Code\Scanner\DocBlockScanner#$nameInformation` was removed
+   * `Laminas\Code\Scanner\DocBlockScanner#$annotationManager` was removed
+   * `Laminas\Code\Scanner\DocBlockScanner#$annotations` was removed
+   * `Laminas\Code\Scanner\DocBlockScanner#getAnnotations()` was removed
+   * `Laminas\Code\Scanner\DocBlockScanner` was marked `@internal`
+   * `Laminas\Code\Scanner\ConstantScanner` has been deleted
+   * `Laminas\Code\Scanner\FunctionScanner` has been deleted
+   * `Laminas\Code\Scanner\AnnotationScanner` has been deleted
+   * `Laminas\Code\Scanner\DerivedClassScanner` has been deleted
+   * `Laminas\Code\Scanner\ClassScanner` has been deleted
+   * `Laminas\Code\Scanner\AggregateDirectoryScanner` has been deleted
+   * `Laminas\Code\Scanner\TokenArrayScanner` has been deleted
+   * `Laminas\Code\Scanner\ParameterScanner` has been deleted
+   * `Laminas\Code\Scanner\FileScanner` has been deleted
+   * `Laminas\Code\Scanner\PropertyScanner` has been deleted
+   * `Laminas\Code\Scanner\CachingFileScanner` has been deleted
+   * `Laminas\Code\Scanner\ScannerInterface` has been deleted
+   * `Laminas\Code\Scanner\MethodScanner` has been deleted
+   * `Laminas\Code\Scanner\Util` has been deleted
 
 ### Fixed
 

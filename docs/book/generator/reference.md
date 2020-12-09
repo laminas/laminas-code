@@ -268,7 +268,6 @@ class Laminas\Code\Generator\FileGenerator extends Laminas\Code\Generator\Abstra
         $filePath,
         $usePreviousCodeGeneratorIfItExists = true,
         $includeIfNotAlreadyIncluded = true)
-    public static function fromReflection(Laminas\Code\Reflection\FileReflection $reflectionFile)
     public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)
     public function getDocblock()
     public function setRequiredFiles($requiredFiles)

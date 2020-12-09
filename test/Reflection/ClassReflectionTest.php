@@ -12,7 +12,6 @@ use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use Laminas\Code\Scanner\FileScanner;
-use LaminasTest\Code\Reflection\TestAsset\InjectableClassReflection;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -146,12 +145,6 @@ EOS;
 
         self::assertEquals(18, $reflectionClass->getStartLine());
         self::assertEquals(5, $reflectionClass->getStartLine(true));
-    }
-
-    public function testGetDeclaringFileReturnsFilename()
-    {
-        $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
-        self::assertStringContainsString('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 
     public function testGetContentsReturnsEmptyContentsOnEvaldCode()
