@@ -22,10 +22,12 @@ use LaminasTest\Code\TestAsset\IterableHintsClass;
 use LaminasTest\Code\TestAsset\NullableHintsClass;
 use LaminasTest\Code\TestAsset\NullNullableDefaultHintsClass;
 use LaminasTest\Code\TestAsset\ObjectHintsClass;
+use LaminasTest\Code\TestAsset\Php80Types;
 use LaminasTest\Code\TestAsset\VariadicParametersClass;
 use PHPUnit\Framework\TestCase;
 
 use ReflectionProperty;
+use stdClass;
 use function array_combine;
 use function array_filter;
 use function array_map;
@@ -360,9 +362,6 @@ class ParameterGeneratorTest extends TestCase
             ['baz\\tab'],
             ['baz\\tab\\taz'],
             ['baz\\tab\\taz1'],
-            ['mixed'],
-            ['Mixed'],
-            ['MIXED'],
             ['resource'],
             ['Resource'],
             ['RESOURCE'],
@@ -589,6 +588,46 @@ class ParameterGeneratorTest extends TestCase
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection([\Phar::class, 'compress'], 1));
 
         self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
+    }
+
+    /**
+     * @requires PHP >= 8.0
+     * @group laminas/laminas-code#53
+     *
+     * @dataProvider php80Methods
+     *
+     * @psalm-param class-string $className
+     * @psalm-param non-empty-string $method
+     * @psalm-param positive-int|0 $parameterIndex
+     * @psalm-param non-empty-string $expectedGeneratedSignature
+     */
+    public function testGeneratedSignatureForPhp80ParameterType(
+        string $className,
+        string $method,
+        int $parameterIndex,
+        string $expectedType,
+        string $expectedGeneratedSignature
+    ): void {
+        $parameter = ParameterGenerator::fromReflection(new ParameterReflection([$className, $method], $parameterIndex));
+
+        self::assertSame($expectedType, $parameter->getType());
+        self::assertSame($expectedGeneratedSignature, $parameter->generate());
+    }
+
+    /**
+     * @psalm-return non-empty-list<array{class-string, non-empty-string, positive-int|0, string, non-empty-string}>
+     */
+    public function php80Methods(): array
+    {
+        return [
+            [Php80Types::class, 'mixedType', 0, 'mixed', 'mixed $parameter'],
+            [Php80Types::class, 'falseType', 0, Php80Types::class . '|false', '\\' . Php80Types::class . '|false $parameter'],
+            [Php80Types::class, 'unionNullableType', 0, 'bool', '?bool $parameter'],
+            [Php80Types::class, 'unionReverseNullableType', 0, 'bool', '?bool $parameter'],
+            [Php80Types::class, 'unionNullableTypeWithDefaultValue', 0, 'bool|string|null', 'bool|string|null $parameter = null'],
+            [Php80Types::class, 'unionType', 0, Php80Types::class . '|' . stdClass::class, '\\' . Php80Types::class . '|\\' . stdClass::class . ' $parameter'],
+            [Php80Types::class, 'selfAndBoolType', 0, Php80Types::class . '|bool', '\\' . Php80Types::class . '|bool $parameter'],
+        ];
     }
 
     public function testOmitType()

@@ -9,9 +9,7 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\ParameterReflection;
-use ReflectionParameter;
 
-use function is_string;
 use function method_exists;
 use function str_replace;
 use function strtolower;
@@ -62,14 +60,11 @@ class ParameterGenerator extends AbstractGenerator
         $param = new ParameterGenerator();
 
         $param->setName($reflectionParameter->getName());
-
-        if ($type = self::extractFQCNTypeFromReflectionType($reflectionParameter)) {
-            $param->setType($type);
-        }
+        $param->type = TypeGenerator::fromReflectionType($reflectionParameter->getType(), $reflectionParameter->getDeclaringClass());
 
         $param->setPosition($reflectionParameter->getPosition());
 
-        $variadic = method_exists($reflectionParameter, 'isVariadic') && $reflectionParameter->isVariadic();
+        $variadic = $reflectionParameter->isVariadic();
 
         $param->setVariadic($variadic);
 
@@ -193,7 +188,7 @@ class ParameterGenerator extends AbstractGenerator
     public function getType()
     {
         return $this->type
-            ? (string) $this->type
+            ? $this->type->__toString()
             : null;
     }
 
@@ -325,76 +320,6 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         return $output;
-    }
-
-    /**
-     * @param ParameterReflection $reflectionParameter
-     *
-     * @return null|string
-     */
-    private static function extractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
-    {
-        if (! method_exists($reflectionParameter, 'getType')) {
-            return self::prePhp7ExtractFQCNTypeFromReflectionType($reflectionParameter);
-        }
-
-        $type = method_exists($reflectionParameter, 'getType')
-            ? $reflectionParameter->getType()
-            : null;
-
-        if (! $type) {
-            return null;
-        }
-
-        if (! method_exists($type, 'getName')) {
-            return self::expandLiteralParameterType((string) $type, $reflectionParameter);
-        }
-
-        return ($type->allowsNull() ? '?' : '')
-            . self::expandLiteralParameterType($type->getName(), $reflectionParameter);
-    }
-
-    /**
-     * For ancient PHP versions (yes, you should upgrade to 7.0):
-     *
-     * @param ParameterReflection $reflectionParameter
-     *
-     * @return string|null
-     */
-    private static function prePhp7ExtractFQCNTypeFromReflectionType(ParameterReflection $reflectionParameter)
-    {
-        if ($reflectionParameter->isCallable()) {
-            return 'callable';
-        }
-
-        if ($reflectionParameter->isArray()) {
-            return 'array';
-        }
-
-        if ($class = $reflectionParameter->getClass()) {
-            return $class->getName();
-        }
-
-        return null;
-    }
-
-    /**
-     * @param string              $literalParameterType
-     * @param ReflectionParameter $reflectionParameter
-     *
-     * @return string
-     */
-    private static function expandLiteralParameterType($literalParameterType, ReflectionParameter $reflectionParameter)
-    {
-        if ('self' === strtolower($literalParameterType)) {
-            return $reflectionParameter->getDeclaringClass()->getName();
-        }
-
-        if ('parent' === strtolower($literalParameterType)) {
-            return $reflectionParameter->getDeclaringClass()->getParentClass()->getName();
-        }
-
-        return $literalParameterType;
     }
 
     /**

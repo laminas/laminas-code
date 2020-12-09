@@ -21,6 +21,7 @@ use LaminasTest\Code\TestAsset\InternalHintsClass;
 use LaminasTest\Code\TestAsset\IterableHintsClass;
 use LaminasTest\Code\TestAsset\NullableReturnTypeHintedClass;
 use LaminasTest\Code\TestAsset\ObjectHintsClass;
+use LaminasTest\Code\TestAsset\Php80Types;
 use LaminasTest\Code\TestAsset\ReturnTypeHintedClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -351,7 +352,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%A{%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%w{%A', $methodGenerator->generate());
     }
 
     public function returnTypeHintClasses()
@@ -382,15 +383,20 @@ PHP;
             [IterableHintsClass::class, 'nullableIterableReturnValue', '?iterable'],
             [ObjectHintsClass::class, 'objectReturnValue', 'object'],
             [ObjectHintsClass::class, 'nullableObjectReturnValue', '?object'],
+            [Php80Types::class, 'mixedType', 'mixed'],
+            [Php80Types::class, 'falseType', '\\' . Php80Types::class . '|false'],
+            [Php80Types::class, 'unionNullableType', '?bool'],
+            [Php80Types::class, 'unionReverseNullableType', '?bool'],
+            [Php80Types::class, 'unionNullableTypeWithDefaultValue', 'bool|string|null'],
+            [Php80Types::class, 'unionType', '\\' . Php80Types::class . '|\\' . stdClass::class],
+            [Php80Types::class, 'staticType', 'static'],
         ];
 
         return array_filter(
             $parameters,
             function (array $parameter) {
-                return PHP_VERSION_ID >= 70200
-                    || (
-                        false === strpos($parameter[2], 'object')
-                    );
+                return PHP_VERSION_ID >= 80000
+                    || $parameter[0] !== Php80Types::class;
             }
         );
     }
@@ -421,5 +427,46 @@ PHP;
         );
 
         self::assertStringMatchesFormat('%Apublic function & byRefReturn()%A', $methodGenerator->generate());
+    }
+
+    /**
+     * @requires PHP >= 8.0
+     * @group laminas/laminas-code#53
+     *
+     * @dataProvider php80Methods
+     *
+     * @psalm-param class-string $className
+     * @psalm-param non-empty-string $method
+     * @psalm-param non-empty-string $expectedGeneratedSignature
+     */
+    public function testGeneratedReturnTypeForPhp80ReturnType(
+        string $className,
+        string $method,
+        string $expectedType,
+        string $expectedGeneratedSignature
+    ): void {
+        $generator = MethodGenerator::fromReflection(new MethodReflection($className, $method));
+        $returnType = $generator->getReturnType();
+
+        self::assertNotNull($returnType);
+        self::assertSame($expectedType, $returnType->__toString());
+        self::assertSame($expectedGeneratedSignature, $returnType->generate());
+    }
+
+    /**
+     * @psalm-return non-empty-list<array{class-string, non-empty-string, non-empty-string, non-empty-string}>
+     */
+    public function php80Methods(): array
+    {
+        return [
+            [Php80Types::class, 'mixedType', 'mixed', 'mixed'],
+            [Php80Types::class, 'falseType', Php80Types::class . '|false', '\\' . Php80Types::class . '|false'],
+            [Php80Types::class, 'unionNullableType', 'bool', '?bool'],
+            [Php80Types::class, 'unionReverseNullableType', 'bool', '?bool'],
+            [Php80Types::class, 'unionNullableTypeWithDefaultValue', 'bool|string|null', 'bool|string|null'],
+            [Php80Types::class, 'unionType', Php80Types::class . '|' . stdClass::class, '\\' . Php80Types::class . '|\\' . stdClass::class],
+            [Php80Types::class, 'staticType', 'static', 'static'],
+            [Php80Types::class, 'selfAndBoolType', Php80Types::class . '|bool', '\\' . Php80Types::class . '|bool'],
+        ];
     }
 }

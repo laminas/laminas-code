@@ -40,8 +40,6 @@
                 <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getShortDescription"/>
                 <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getTags"/>
             </errorLevel>
-            <errorLevel type="suppress">
-            </errorLevel>
         </InternalMethod>
     </issueHandlers>
     <plugins>

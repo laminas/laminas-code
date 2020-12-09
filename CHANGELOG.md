@@ -6,10 +6,18 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [laminas/laminas-code#57](https://github.com/laminas/laminas-code/pull/57) support for following PHP 8
+  types have been added:
+   * union types
+   * `false`
+   * `mixed`
+   * `null`
+   * `static`
 
 ### Changed
 
+- [laminas/laminas-code#57](https://github.com/laminas/laminas-code/pull/57) due to internal refactoring
+  requiring better internal types, the minimum supported PHP version is now `7.4`
 - BC BREAK [laminas/laminas-code#38](https://github.com/laminas/laminas-code/pull/38) changed generated class
   output to no longer contain excessive whitespace around contents. The structure of the generated output
   will still be the same, but spacing changed, which will likely lead o breakages if you

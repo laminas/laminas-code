@@ -73,7 +73,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     protected $extendedClass;
 
     /**
-     * @var array Array of string names
+     * @var string[] Array of string names
+     *
+     * @psalm-var array<class-string>
      */
     protected $implementedInterfaces = [];
 
@@ -470,13 +472,15 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     }
 
     /**
-     * @param  array $implementedInterfaces
+     * @param string[] $implementedInterfaces
+     * @psalm-param array<class-string> $implementedInterfaces
      * @return self
      */
     public function setImplementedInterfaces(array $implementedInterfaces)
     {
         array_map(function ($implementedInterface) {
-            return (string) TypeGenerator::fromTypeString($implementedInterface);
+            // This loop is just validating that the given `$implementedInterfaces` contains valid syntax/symbols
+            return TypeGenerator::fromTypeString($implementedInterface);
         }, $implementedInterfaces);
 
         $this->implementedInterfaces = $implementedInterfaces;
@@ -484,7 +488,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     }
 
     /**
-     * @return array
+     * @return string
+     *
+     * @psalm-return array<class-string>
      */
     public function getImplementedInterfaces()
     {
@@ -497,18 +503,28 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function hasImplementedInterface($implementedInterface)
     {
-        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
-        return in_array($implementedInterface, $this->implementedInterfaces);
+        $interfaceType = TypeGenerator::fromTypeString($implementedInterface);
+
+        return (bool) array_filter(
+            array_map([TypeGenerator::class, 'fromTypeString'], $this->implementedInterfaces),
+            static fn (TypeGenerator $interface) : bool => $interfaceType->equals($interface)
+        );
     }
 
     /**
      * @param string $implementedInterface
+     * @psalm-param class-string $implementedInterface
      * @return self
      */
     public function removeImplementedInterface($implementedInterface)
     {
-        $implementedInterface = (string) TypeGenerator::fromTypeString($implementedInterface);
-        unset($this->implementedInterfaces[array_search($implementedInterface, $this->implementedInterfaces)]);
+        $interfaceType = TypeGenerator::fromTypeString($implementedInterface);
+
+        $this->implementedInterfaces = array_filter(
+            array_map([TypeGenerator::class, 'fromTypeString'], $this->implementedInterfaces),
+            static fn (TypeGenerator $interface) : bool => ! $interfaceType->equals($interface)
+        );
+
         return $this;
     }
 
