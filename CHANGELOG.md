@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 4.0.0 - TBD
+## 4.0.0 - 2020-12-30
 
 ### Added
 
@@ -26,10 +26,6 @@ All notable changes to this project will be documented in this file, in reverse 
   will now be generated above `namespace` declarations: this is to be better compliant with PSR-2, but it
   may break downstream applications if these rely on the stability of code produced
   by `Laminas\Code\Generator\FileGenerator#generate()`
-
-### Deprecated
-
-- Nothing.
 
 ### Removed
 
@@ -78,9 +74,80 @@ All notable changes to this project will be documented in this file, in reverse 
    * `Laminas\Code\Scanner\MethodScanner` has been deleted
    * `Laminas\Code\Scanner\Util` has been deleted
 
-### Fixed
 
-- Nothing.
+-----
+
+### Release Notes for [4.0.0](https://github.com/laminas/laminas-code/milestone/1)
+
+next backward compatibility break release (major)
+
+### 4.0.0
+
+- Total issues resolved: **21**
+- Total pull requests resolved: **13**
+- Total contributors: **9**
+
+#### Enhancement
+
+ - [64: Verify `4.0.x` branch against real-world applications before releasing](https://github.com/laminas/laminas-code/issues/64) thanks to @Ocramius
+ - [63: Feature - #62 upgrade coding standard and lock dependencies](https://github.com/laminas/laminas-code/pull/63) thanks to @Ocramius
+ - [61: fix #45 : Psalm integration](https://github.com/laminas/laminas-code/pull/61) thanks to @fezfez and @boesing
+ - [60: Remove travi-ci and move to github action](https://github.com/laminas/laminas-code/pull/60) thanks to @fezfez and @weierophinney
+ - [59: Merge release 3.5.1 into 4.0.x](https://github.com/laminas/laminas-code/pull/59) thanks to @github-actions[bot]
+ - [57: #53 support php-8.0 type system additions](https://github.com/laminas/laminas-code/pull/57) thanks to @Ocramius and @weierophinney
+ - [56: #48 merge release `3.5.0` into development branch for `4.0.x`](https://github.com/laminas/laminas-code/pull/56) thanks to @Ocramius
+ - [10: Additional blank lines make generated class not PSR2 compliant](https://github.com/laminas/laminas-code/issues/10) thanks to @weierophinney
+
+#### BC Break,Enhancement
+
+ - [58: BC BREAK: removed `Scanner` component, removed `FileReflection`, removed `NameInformation` and made `DocBlockScanner` `@internal`](https://github.com/laminas/laminas-code/pull/58) thanks to @Ocramius
+ - [39: Suggest &quot;laminas/laminas-zendframework-bridge&quot;](https://github.com/laminas/laminas-code/pull/39) thanks to @olvlvl
+ - [12: Remove code scanners to improve library maintainability](https://github.com/laminas/laminas-code/issues/12) thanks to @weierophinney
+
+#### Duplicate,Enhancement
+
+ - [54: #53 added support for generating parameters with union types in their definitions](https://github.com/laminas/laminas-code/pull/54) thanks to @fezfez and @weierophinney
+ - [48: Merge release 3.5.0 into 4.0.x](https://github.com/laminas/laminas-code/pull/48) thanks to @github-actions[bot]
+
+#### Bug
+
+ - [50: Some constants are not rendered properly depending on environment values](https://github.com/laminas/laminas-code/pull/50) thanks to @drupol
+
+#### Bug,Unit Test Needed
+
+ - [42: Moved declare statements above namespace](https://github.com/laminas/laminas-code/pull/42) thanks to @jguittard
+
+#### Awaiting Author Updates,BC Break
+
+ - [38: Generating class in a better format.](https://github.com/laminas/laminas-code/pull/38) thanks to @tiagosampaio
+
+#### Bug,Duplicate,Won't Fix
+
+ - [28: DirectoryScanner-&gt;getClasses() returns no classes](https://github.com/laminas/laminas-code/issues/28) thanks to @weierophinney
+
+#### Bug,Won't Fix
+
+ - [27: Zend\Code\Scanner\MethodScanner does not account for scalar type declarations](https://github.com/laminas/laminas-code/issues/27) thanks to @weierophinney
+ - [26: v3 only: Unknown Notices from ClassScanner](https://github.com/laminas/laminas-code/issues/26) thanks to @weierophinney
+ - [22: Update AnnotationScanner.php](https://github.com/laminas/laminas-code/issues/22) thanks to @weierophinney
+ - [18: Notice when using array as default value for parameter](https://github.com/laminas/laminas-code/issues/18) thanks to @weierophinney
+ - [15: E&#95;NOTICE with trait method aliases](https://github.com/laminas/laminas-code/issues/15) thanks to @weierophinney
+ - [9: Zend\Code\Reflection\FileReflection getBody()](https://github.com/laminas/laminas-code/issues/9) thanks to @weierophinney
+ - [8: Zend\Code\Reflection\FileReflection crashes on Zend's module.config.php](https://github.com/laminas/laminas-code/issues/8) thanks to @weierophinney
+ - [3: Not using return value of array&#95;map in ClassGenerator-&gt;setImplementedInterfaces](https://github.com/laminas/laminas-code/issues/3) thanks to @weierophinney
+
+#### Question,Won't Fix
+
+ - [25: Use Reflection\FileReflection without including file? ](https://github.com/laminas/laminas-code/issues/25) thanks to @weierophinney
+
+#### Enhancement,Won't Fix
+
+ - [19: Support nullable types](https://github.com/laminas/laminas-code/issues/19) thanks to @weierophinney
+ - [1: perfect FunctionScanner class ](https://github.com/laminas/laminas-code/issues/1) thanks to @weierophinney
+
+#### BC Break,Enhancement,Question
+
+ - [17: Deprecate scanner functionality (4.0), drop it (5.0) in favor of ](https://github.com/laminas/laminas-code/issues/17) thanks to @weierophinney
 
 ## 3.5.1 - 2020-11-30
 
