@@ -102,7 +102,7 @@ class ReflectionDocBlockTagTest extends TestCase
     public function testNamespaceInParam()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass7::class);
-        $paramTag = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
+        $paramTag        = $classReflection->getMethod('doSomething')->getDocBlock()->getTag('param');
 
         self::assertEquals('Laminas\Foo\Bar', $paramTag->getType());
         self::assertEquals('$var', $paramTag->getVariableName());
@@ -170,14 +170,14 @@ class ReflectionDocBlockTagTest extends TestCase
     public function propertyVarDocProvider(): array
     {
         return [
-            'only type' => ['onlyType', ['string'], null, null],
-            'type and description' => [
+            'only type'                  => ['onlyType', ['string'], null, null],
+            'type and description'       => [
                 'typeDescription',
                 ['string'],
                 null,
                 'Foo bar',
             ],
-            'type and name' => ['typeName', ['string'], '$typeName', null],
+            'type and name'              => ['typeName', ['string'], '$typeName', null],
             'type, name and description' => [
                 'typeNameDescription',
                 ['string'],

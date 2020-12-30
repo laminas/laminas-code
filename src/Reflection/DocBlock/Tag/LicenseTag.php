@@ -13,14 +13,10 @@ use function trim;
 
 class LicenseTag implements TagInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $url;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $licenseName;
 
     /**
@@ -69,6 +65,10 @@ class LicenseTag implements TagInterface
         return $this->licenseName;
     }
 
+    /**
+     * @return string
+     * @psalm-return non-empty-string
+     */
     public function __toString()
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";

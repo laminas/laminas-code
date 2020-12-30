@@ -26,29 +26,19 @@ use function strpos;
 
 class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterface
 {
-    /**
-     * @var ClassGenerator
-     */
+    /** @var ClassGenerator */
     protected $classGenerator;
 
-    /**
-     * @var array Array of trait names
-     */
+    /** @var array Array of trait names */
     protected $traits = [];
 
-    /**
-     * @var array Array of trait aliases
-     */
+    /** @var array Array of trait aliases */
     protected $traitAliases = [];
 
-    /**
-     * @var array Array of trait overrides
-     */
+    /** @var array Array of trait overrides */
     protected $traitOverrides = [];
 
-    /**
-     * @var array Array of string names
-     */
+    /** @var array Array of string names */
     protected $uses = [];
 
     public function __construct(ClassGenerator $classGenerator)
@@ -113,9 +103,6 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
 
     /**
      * Returns the alias of the provided FQCN
-     *
-     * @param string $use
-     * @return string|null
      */
     public function getUseAlias(string $use): ?string
     {
@@ -130,9 +117,6 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
 
     /**
      * Returns true if the alias is defined in the use list
-     *
-     * @param string $alias
-     * @return bool
      */
     public function isUseAlias(string $alias): bool
     {
@@ -280,7 +264,8 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
         if ($this->classGenerator->hasMethod($alias)) {
             throw new Exception\InvalidArgumentException('Invalid Alias: Method name already exists on this class.');
         }
-        if (null !== $visibility
+        if (
+            null !== $visibility
             && $visibility !== ReflectionMethod::IS_PUBLIC
             && $visibility !== ReflectionMethod::IS_PRIVATE
             && $visibility !== ReflectionMethod::IS_PROTECTED
@@ -291,7 +276,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
             );
         }
 
-        list($trait, $method) = explode('::', $traitAndMethod);
+        [$trait, $method] = explode('::', $traitAndMethod);
         if (! $this->hasTrait($trait)) {
             throw new Exception\InvalidArgumentException('Invalid trait: Trait does not exists on this class');
         }
@@ -341,7 +326,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
             );
         }
 
-        list($trait, $method) = explode('::', $traitAndMethod);
+        [$trait, $method] = explode('::', $traitAndMethod);
         if (! $this->hasTrait($trait)) {
             throw new Exception\InvalidArgumentException('Invalid trait: Trait does not exists on this class');
         }
@@ -417,8 +402,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
         $aliases   = $this->getTraitAliases();
         $overrides = $this->getTraitOverrides();
         if (empty($aliases) && empty($overrides)) {
-            $output .= ';' . self::LINE_FEED . self::LINE_FEED;
-            return $output;
+            return $output . ';' . self::LINE_FEED . self::LINE_FEED;
         }
 
         $output .= ' {' . self::LINE_FEED;
@@ -459,8 +443,6 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
             }
         }
 
-        $output .= self::LINE_FEED . $indent . '}' . self::LINE_FEED . self::LINE_FEED;
-
-        return $output;
+        return $output . self::LINE_FEED . $indent . '}' . self::LINE_FEED . self::LINE_FEED;
     }
 }

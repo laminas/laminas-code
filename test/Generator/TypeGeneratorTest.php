@@ -18,11 +18,11 @@ use function array_filter;
 use function array_map;
 use function class_implements;
 use function ltrim;
+use function str_replace;
 use function strpos;
 
 /**
  * @group zendframework/zend-code#29
- *
  * @covers \Laminas\Code\Generator\TypeGenerator
  * @covers \Laminas\Code\Generator\TypeGenerator\AtomicType
  */
@@ -35,7 +35,6 @@ class TypeGeneratorTest extends TestCase
 
     /**
      * @dataProvider validType
-     *
      * @param string $typeString
      * @param string $expectedReturnType
      */
@@ -48,7 +47,6 @@ class TypeGeneratorTest extends TestCase
 
     /**
      * @dataProvider validType
-     *
      * @param string $typeString
      * @param string $expectedReturnType
      */
@@ -64,7 +62,6 @@ class TypeGeneratorTest extends TestCase
 
     /**
      * @dataProvider invalidType
-     *
      * @param string $typeString
      */
     public function testRejectsInvalidTypeString($typeString)

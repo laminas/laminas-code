@@ -4,11 +4,21 @@ namespace Laminas\Code;
 
 use Laminas\Code\Exception\InvalidArgumentException;
 
+use function array_keys;
+use function gettype;
+use function implode;
+use function is_string;
+use function key;
+use function lcfirst;
+use function sprintf;
+use function str_replace;
+use function ucwords;
+
 class DeclareStatement
 {
-    public const TICKS = 'ticks';
+    public const TICKS        = 'ticks';
     public const STRICT_TYPES = 'strict_types';
-    public const ENCODING = 'encoding';
+    public const ENCODING     = 'encoding';
 
     private const ALLOWED = [
         self::TICKS        => 'integer',
@@ -16,25 +26,19 @@ class DeclareStatement
         self::ENCODING     => 'string',
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $directive;
 
-    /**
-     * @var int|string
-     */
+    /** @var int|string */
     protected $value;
 
+    /** @param int|string $value */
     private function __construct(string $directive, $value)
     {
         $this->directive = $directive;
-        $this->value = $value;
+        $this->value     = $value;
     }
 
-    /**
-     * @return string
-     */
     public function getDirective(): string
     {
         return $this->directive;
@@ -48,28 +52,16 @@ class DeclareStatement
         return $this->value;
     }
 
-    /**
-     * @param int $value
-     * @return self
-     */
     public static function ticks(int $value): self
     {
         return new self(self::TICKS, $value);
     }
 
-    /**
-     * @param int $value
-     * @return self
-     */
     public static function strictTypes(int $value): self
     {
         return new self(self::STRICT_TYPES, $value);
     }
 
-    /**
-     * @param string $value
-     * @return self
-     */
     public static function encoding(string $value): self
     {
         return new self(self::ENCODING, $value);
@@ -78,7 +70,7 @@ class DeclareStatement
     public static function fromArray(array $config): self
     {
         $directive = key($config);
-        $value = $config[$directive];
+        $value     = $config[$directive];
 
         if (! isset(self::ALLOWED[$directive])) {
             throw new InvalidArgumentException(
@@ -104,9 +96,6 @@ class DeclareStatement
         return self::{$method}($value);
     }
 
-    /**
-     * @return string
-     */
     public function getStatement(): string
     {
         $value = is_string($this->value) ? '\'' . $this->value . '\'' : $this->value;

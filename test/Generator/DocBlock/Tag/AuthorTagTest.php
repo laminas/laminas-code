@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class AuthorTagTest extends TestCase
 {
-    /**
-     * @var AuthorTag
-     */
+    /** @var AuthorTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new AuthorTag();
+        $this->tag        = new AuthorTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -66,7 +62,7 @@ class AuthorTagTest extends TestCase
     {
         $this->tag->setOptions([
             'authorEmail' => 'string',
-            'authorName' => 'foo',
+            'authorName'  => 'foo',
         ]);
         $tagWithOptionsFromConstructor = new AuthorTag('foo', 'string');
         self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());

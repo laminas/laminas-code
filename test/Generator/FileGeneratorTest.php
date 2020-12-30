@@ -14,17 +14,15 @@ use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\Exception\ClassNotFoundException;
 use Laminas\Code\Generator\FileGenerator;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function explode;
 use function file_get_contents;
-use function file_put_contents;
 use function get_class;
 use function strlen;
 use function strpos;
 use function strrpos;
 use function sys_get_temp_dir;
-use function tempnam;
-use function unlink;
 
 /**
  * @group Laminas_Code_Generator
@@ -57,10 +55,10 @@ class FileGeneratorTest extends TestCase
     {
         $codeGenFile = FileGenerator::fromArray([
             'requiredFiles' => ['SampleClass.php'],
-            'class' => [
-                'flags' => ClassGenerator::FLAG_ABSTRACT,
-                'name' => 'SampleClass',
-                'extendedClass' => 'ExtendedClassName',
+            'class'         => [
+                'flags'                 => ClassGenerator::FLAG_ABSTRACT,
+                'name'                  => 'SampleClass',
+                'extendedClass'         => 'ExtendedClassName',
                 'implementedInterfaces' => ['Iterator', 'Traversable'],
             ],
         ]);
@@ -101,10 +99,10 @@ EOS;
     {
         $codeGenFile = FileGenerator::fromArray([
             'requiredFiles' => ['SampleClass.php'],
-            'class' => [
-                'abstract' => true,
-                'name' => 'SampleClass',
-                'extendedClass' => 'ExtendedClassName',
+            'class'         => [
+                'abstract'              => true,
+                'name'                  => 'SampleClass',
+                'extendedClass'         => 'ExtendedClassName',
                 'implementedInterfaces' => ['Iterator', 'Traversable'],
             ],
         ]);
@@ -217,22 +215,22 @@ EOS;
     public function testCreateFromArrayWithClassInstance()
     {
         $fileGenerator = FileGenerator::fromArray([
-            'filename'  => 'foo.php',
-            'class'     => new ClassGenerator('bar'),
+            'filename' => 'foo.php',
+            'class'    => new ClassGenerator('bar'),
         ]);
-        $class = $fileGenerator->getClass('bar');
+        $class         = $fileGenerator->getClass('bar');
         self::assertInstanceOf(ClassGenerator::class, $class);
     }
 
     public function testCreateFromArrayWithClassFromArray()
     {
         $fileGenerator = FileGenerator::fromArray([
-            'filename'  => 'foo.php',
-            'class'     => [
+            'filename' => 'foo.php',
+            'class'    => [
                 'name' => 'bar',
             ],
         ]);
-        $class = $fileGenerator->getClass('bar');
+        $class         = $fileGenerator->getClass('bar');
         self::assertInstanceOf(ClassGenerator::class, $class);
     }
 
@@ -242,7 +240,7 @@ EOS;
             'declares' => [
                 'strict_types' => 1,
             ],
-            'class' => [
+            'class'    => [
                 'name' => 'SampleClass',
             ],
         ]);
@@ -270,9 +268,9 @@ EOS;
         $generator = FileGenerator::fromArray([
             'declares' => [
                 'strict_types' => 1,
-                'ticks' => 2,
+                'ticks'        => 2,
             ],
-            'class' => [
+            'class'    => [
                 'name' => 'SampleClass',
             ],
         ]);
@@ -305,7 +303,7 @@ EOS;
             'declares' => [
                 'fubar' => 1,
             ],
-            'class' => [
+            'class'    => [
                 'name' => 'SampleClass',
             ],
         ]);
@@ -320,7 +318,7 @@ EOS;
             'declares' => [
                 'strict_types' => 'wrong type',
             ],
-            'class' => [
+            'class'    => [
                 'name' => 'SampleClass',
             ],
         ]);
@@ -336,7 +334,7 @@ EOS;
         $generator->setFilename(sys_get_temp_dir() . '/result_file.php');
         $generator->setDeclares([
             DeclareStatement::strictTypes(1),
-            DeclareStatement::strictTypes(2)
+            DeclareStatement::strictTypes(2),
         ]);
         $generator->write();
 
@@ -362,7 +360,7 @@ EOS;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('setDeclares is expecting an array of Laminas\\Code\\DeclareStatement objects');
-        $generator->setDeclares([new \stdClass()]);
+        $generator->setDeclares([new stdClass()]);
     }
 
     /** @group gh-42 */
@@ -372,7 +370,7 @@ EOS;
 
         $generator->setNamespace('Foo');
         $generator->setDeclares([
-            DeclareStatement::strictTypes(1)
+            DeclareStatement::strictTypes(1),
         ]);
 
         self::assertStringMatchesFormat('%Adeclare(strict_types=1);%Anamespace Foo;%A', $generator->generate());

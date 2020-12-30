@@ -12,15 +12,14 @@ use Laminas\Code\Generator\AbstractMemberGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class AbstractMemberGeneratorTest extends TestCase
 {
-    /**
-     * @var AbstractMemberGenerator
-     */
+    /** @var AbstractMemberGenerator */
     private $fixture;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->fixture = $this->getMockForAbstractClass(AbstractMemberGenerator::class);
     }
@@ -41,7 +40,7 @@ class AbstractMemberGeneratorTest extends TestCase
     public function testSetDocBlockThrowsExceptionWithInvalidType()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->fixture->setDocBlock(new \stdClass());
+        $this->fixture->setDocBlock(new stdClass());
     }
 
     public function testRemoveDocBlock(): void

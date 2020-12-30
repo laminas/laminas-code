@@ -22,21 +22,15 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * Line feed to use in place of EOL
      */
-    const LINE_FEED = "\n";
+    public const LINE_FEED = "\n";
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $isSourceDirty = true;
 
-    /**
-     * @var int|string 4 spaces by default
-     */
+    /** @var int|string 4 spaces by default */
     protected $indentation = '    ';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $sourceContent;
 
     /**

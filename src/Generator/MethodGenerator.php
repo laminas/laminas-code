@@ -9,7 +9,6 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\MethodReflection;
-use ReflectionMethod;
 
 use function explode;
 use function implode;
@@ -25,33 +24,22 @@ use function trim;
 
 class MethodGenerator extends AbstractMemberGenerator
 {
-    /**
-     * @var DocBlockGenerator
-     */
+    /** @var DocBlockGenerator */
     protected $docBlock;
 
-    /**
-     * @var ParameterGenerator[]
-     */
+    /** @var ParameterGenerator[] */
     protected $parameters = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $body;
 
-    /**
-     * @var null|TypeGenerator
-     */
+    /** @var null|TypeGenerator */
     private $returnType;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $returnsReference = false;
 
     /**
-     * @param  MethodReflection $reflectionMethod
      * @return MethodGenerator
      */
     public static function fromReflection(MethodReflection $reflectionMethod)
@@ -109,7 +97,6 @@ class MethodGenerator extends AbstractMemberGenerator
      * from all lines
      *
      * @param string $body
-     *
      * @return string
      */
     protected static function clearBodyIndention($body)
@@ -145,7 +132,6 @@ class MethodGenerator extends AbstractMemberGenerator
      * @configkey final          bool
      * @configkey static         bool
      * @configkey visibility     string
-     *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return MethodGenerator
@@ -299,7 +285,6 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * @param string|null $returnType
-     *
      * @return MethodGenerator
      */
     public function setReturnType($returnType = null)
@@ -321,7 +306,6 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * @param bool $returnsReference
-     *
      * @return MethodGenerator
      */
     public function setReturnsReference($returnsReference)
@@ -394,27 +378,9 @@ class MethodGenerator extends AbstractMemberGenerator
         return $output;
     }
 
+    /** @return string */
     public function __toString()
     {
         return $this->generate();
-    }
-
-    /**
-     * @param string           $literalReturnType
-     * @param ReflectionMethod $methodReflection
-     *
-     * @return string
-     */
-    private static function expandLiteralType($literalReturnType, ReflectionMethod $methodReflection)
-    {
-        if ('self' === strtolower($literalReturnType)) {
-            return $methodReflection->getDeclaringClass()->getName();
-        }
-
-        if ('parent' === strtolower($literalReturnType)) {
-            return $methodReflection->getDeclaringClass()->getParentClass()->getName();
-        }
-
-        return $literalReturnType;
     }
 }

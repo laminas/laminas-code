@@ -17,17 +17,15 @@ use PHPUnit\Framework\TestCase;
  */
 class TypableTagTest extends TestCase
 {
-    /**
-     * @var TypeableTag
-     */
+    /** @var TypeableTag */
     protected $tag;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->tag = new TypeableTag();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         $this->tag = null;
     }
@@ -67,7 +65,7 @@ class TypableTagTest extends TestCase
     public function testConstructorWithOptions()
     {
         $this->tag->setOptions([
-            'types' => ['string', 'null'],
+            'types'       => ['string', 'null'],
             'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new TypeableTag(['string', 'null'], 'description');

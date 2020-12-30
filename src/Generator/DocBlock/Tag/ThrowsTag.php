@@ -23,10 +23,8 @@ class ThrowsTag extends AbstractTypeableTag implements TagInterface
      */
     public function generate()
     {
-        $output = '@throws'
+        return '@throws'
         . (! empty($this->types) ? ' ' . $this->getTypesAsString() : '')
         . (! empty($this->description) ? ' ' . $this->description : '');
-
-        return $output;
     }
 }

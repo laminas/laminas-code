@@ -22,7 +22,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
      */
     public function getDeclaringClass()
     {
-        $phpReflection  = parent::getDeclaringClass();
+        $phpReflection     = parent::getDeclaringClass();
         $laminasReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
 
@@ -48,9 +48,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
             return false;
         }
 
-        $docBlockReflection = new DocBlockReflection($docComment);
-
-        return $docBlockReflection;
+        return new DocBlockReflection($docComment);
     }
 
     /**

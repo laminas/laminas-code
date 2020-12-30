@@ -36,55 +36,55 @@ class VarTagTest extends TestCase
     public function varTagProvider(): array
     {
         return [
-            'only type' => [
+            'only type'                            => [
                 'string',
                 ['string'],
                 null,
                 null,
             ],
-            'only multiple types' => [
+            'only multiple types'                  => [
                 'string|int',
                 ['string', 'int'],
                 null,
                 null,
             ],
-            'type and name' => [
+            'type and name'                        => [
                 'string $test',
                 ['string'],
                 '$test',
                 null,
             ],
-            'multiple types and name' => [
+            'multiple types and name'              => [
                 'string|int $test',
                 ['string', 'int'],
                 '$test',
                 null,
             ],
-            'only name' => [
+            'only name'                            => [
                 '$test',
                 [],
                 '$test',
                 null,
             ],
-            'name and description' => [
+            'name and description'                 => [
                 '$test Foo Bar',
                 [],
                 '$test',
                 'Foo Bar',
             ],
-            'type and description' => [
+            'type and description'                 => [
                 'string Foo bar',
                 ['string'],
                 null,
                 'Foo bar',
             ],
-            'multiple types and description' => [
+            'multiple types and description'       => [
                 'string|int Foo bar',
                 ['string', 'int'],
                 null,
                 'Foo bar',
             ],
-            'type, name and description' => [
+            'type, name and description'           => [
                 'string $test Foo bar',
                 ['string'],
                 '$test',
@@ -96,7 +96,6 @@ class VarTagTest extends TestCase
                 '$test',
                 'Foo bar',
             ],
-
         ];
     }
 }

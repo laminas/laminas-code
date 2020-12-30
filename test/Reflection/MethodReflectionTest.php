@@ -11,7 +11,6 @@ namespace LaminasTest\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\ParameterReflection;
-use Laminas\Code\Scanner\CachingFileScanner;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -32,7 +31,7 @@ class MethodReflectionTest extends TestCase
 
     public function testParemeterReturn()
     {
-        $method = new MethodReflection(TestAsset\TestSampleClass2::class, 'getProp2');
+        $method     = new MethodReflection(TestAsset\TestSampleClass2::class, 'getProp2');
         $parameters = $method->getParameters();
         self::assertCount(2, $parameters);
         self::assertInstanceOf(ParameterReflection::class, array_shift($parameters));
@@ -64,42 +63,42 @@ class MethodReflectionTest extends TestCase
         self::assertEquals($body, $reflectionMethod->getBody());
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'doSomething');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'doSomething';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'doSomethingElse');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'doSomethingElse';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'doSomethingAgain');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(
             trim($body),
             "\$closure = function(\$foo) { return \$foo; };\n\n        return 'doSomethingAgain';"
         );
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'doStaticSomething');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'doStaticSomething';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline1');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'inline1';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline2');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'inline2';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline3');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'inline3';");
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'emptyFunction');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), '');
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'visibility');
-        $body = $reflectionMethod->getBody();
+        $body             = $reflectionMethod->getBody();
         self::assertEquals(trim($body), "return 'visibility';");
     }
 
@@ -114,7 +113,7 @@ class MethodReflectionTest extends TestCase
      */
     public function testMethodContentsReturnWithoutDocBlock()
     {
-        $contents = <<<CONTENTS
+        $contents         = <<<CONTENTS
     public function doSomething()
     {
         return 'doSomething';
@@ -123,7 +122,7 @@ CONTENTS;
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'doSomething');
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = '    public function doSomethingElse($one, $two = 2, $three = \'three\')'
+        $contents         = '    public function doSomethingElse($one, $two = 2, $three = \'three\')'
             . ' { return \'doSomethingElse\'; }';
         $reflectionMethod = new MethodReflection(
             TestAsset\TestSampleClass11::class,
@@ -131,7 +130,7 @@ CONTENTS;
         );
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = <<<'CONTENTS'
+        $contents         = <<<'CONTENTS'
     public function doSomethingAgain()
     {
         $closure = function($foo) { return $foo; };
@@ -145,19 +144,19 @@ CONTENTS;
         );
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = '    public function inline1() { return \'inline1\'; }';
+        $contents         = '    public function inline1() { return \'inline1\'; }';
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline1');
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = ' public function inline2() { return \'inline2\'; }';
+        $contents         = ' public function inline2() { return \'inline2\'; }';
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline2');
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = ' public function inline3() { return \'inline3\'; }';
+        $contents         = ' public function inline3() { return \'inline3\'; }';
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass11::class, 'inline3');
         self::assertEquals($contents, $reflectionMethod->getContents(false));
 
-        $contents = <<<'CONTENTS'
+        $contents         = <<<'CONTENTS'
     public function visibility()
     {
         return 'visibility';
@@ -169,7 +168,7 @@ CONTENTS;
 
     public function testFunctionContentsReturnWithDocBlock()
     {
-        $contents = <<<'CONTENTS'
+        $contents         = <<<'CONTENTS'
 /**
      * Doc block doSomething
      * @return string
@@ -202,20 +201,20 @@ CONTENTS;
             TestAsset\TestSampleClass10::class,
             'doSomethingElse'
         );
-        $prototype = [
-            'namespace' => 'LaminasTest\Code\Reflection\TestAsset',
-            'class' => 'TestSampleClass10',
-            'name' => 'doSomethingElse',
+        $prototype        = [
+            'namespace'  => 'LaminasTest\Code\Reflection\TestAsset',
+            'class'      => 'TestSampleClass10',
+            'name'       => 'doSomethingElse',
             'visibility' => 'public',
-            'return' => 'int',
-            'arguments' => [
-                'one' => [
+            'return'     => 'int',
+            'arguments'  => [
+                'one'   => [
                     'type'     => 'int',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
                 ],
-                'two' => [
+                'two'   => [
                     'type'     => 'int',
                     'required' => false,
                     'by_ref'   => false,
@@ -236,13 +235,13 @@ CONTENTS;
         );
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass2::class, 'getProp2');
-        $prototype = [
-            'namespace' => 'LaminasTest\Code\Reflection\TestAsset',
-            'class' => 'TestSampleClass2',
-            'name' => 'getProp2',
+        $prototype        = [
+            'namespace'  => 'LaminasTest\Code\Reflection\TestAsset',
+            'class'      => 'TestSampleClass2',
+            'name'       => 'getProp2',
             'visibility' => 'public',
-            'return' => 'mixed',
-            'arguments' => [
+            'return'     => 'mixed',
+            'arguments'  => [
                 'param1' => [
                     'type'     => '',
                     'required' => true,
@@ -264,13 +263,13 @@ CONTENTS;
         );
 
         $reflectionMethod = new MethodReflection(TestAsset\TestSampleClass12::class, 'doSomething');
-        $prototype = [
-            'namespace' => 'LaminasTest\Code\Reflection\TestAsset',
-            'class' => 'TestSampleClass12',
-            'name' => 'doSomething',
+        $prototype        = [
+            'namespace'  => 'LaminasTest\Code\Reflection\TestAsset',
+            'class'      => 'TestSampleClass12',
+            'name'       => 'doSomething',
             'visibility' => 'protected',
-            'return' => 'string',
-            'arguments' => [
+            'return'     => 'string',
+            'arguments'  => [
                 'one' => [
                     'type'     => 'int',
                     'required' => true,

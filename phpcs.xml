@@ -1,10 +1,35 @@
 <?xml version="1.0"?>
-<ruleset name="Laminas coding standard">
-    <rule ref="./vendor/laminas/laminas-coding-standard/ruleset.xml"/>
-
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
     <!-- Paths to check -->
     <file>src</file>
     <file>test</file>
     <exclude-pattern>*/TestAsset/*</exclude-pattern>
     <exclude-pattern>*/_files/*</exclude-pattern>
+
+    <rule ref="LaminasCodingStandard">
+        <!-- non-strict comparisons are used in a lot of legacy code, and must be removed with care and additional
+             testing. For now, we accept that it exists in the codebase -->
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator"/>
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator"/>
+
+        <!-- the `GOTO` statement is used in legacy scanner code that was written in such way in order to achieve
+             better performance in a time at which the PHP engine did not yet have JIT or OpCache optimizations.
+             It could be removed in future, but adapting the code now is a major endeavour that should be taken
+             on with clarity that it requires a lot of effort to do so. -->
+        <exclude name="Generic.PHP.DiscourageGoto.Found"/>
+
+        <!-- As a result of using `GOTO`, some code is incorrectly detected as "unreachable" by phpcs -->
+        <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
+
+        <!-- Variables in scanner code do not respect standard naming conventions due to parser logic following
+             more traditional lexeme/token uppercase naming -->
+        <exclude name="WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps"/>
+
+        <!-- sometimes, the reference and bitwise `&` are confused by coding standard rules, and that can lead
+             to mis-interpretation of spacing rules -->
+        <exclude name="WebimpressCodingStandard.Formatting.Reference.UnexpectedSpace"/>
+    </rule>
 </ruleset>

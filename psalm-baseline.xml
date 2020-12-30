@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.3.1@2feba22a005a18bf31d4c7b9bdb9252c73897476">
   <file src="src/DeclareStatement.php">
-    <MissingParamType occurrences="1">
-      <code>$value</code>
-    </MissingParamType>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="2">
-      <code>$this-&gt;value</code>
+    <MixedAssignment occurrences="1">
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
@@ -103,15 +99,13 @@
       <code>self::FLAG_FINAL</code>
       <code>self::FLAG_FINAL</code>
     </InvalidScalarArgument>
-    <MissingReturnType occurrences="4">
+    <MissingReturnType occurrences="3">
       <code>addTraitAlias</code>
       <code>addTraitOverride</code>
-      <code>generate</code>
       <code>removeTrait</code>
     </MissingReturnType>
-    <MixedArgument occurrences="13">
+    <MixedArgument occurrences="12">
       <code>$array['name']</code>
-      <code>$this-&gt;traitUsageGenerator-&gt;generate()</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -306,14 +300,6 @@
       <code>VarTag</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="src/Generator/DocBlock/TagManager.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$newTag</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>TagInterface</code>
-    </MoreSpecificReturnType>
-  </file>
   <file src="src/Generator/DocBlockGenerator.php">
     <DeprecatedClass occurrences="1">
       <code>new Tag()</code>
@@ -353,9 +339,6 @@
       <code>null !== ($ld = $this-&gt;getLongDescription())</code>
       <code>null !== ($sd = $this-&gt;getShortDescription())</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>generate</code>
-    </UndefinedInterfaceMethod>
     <UnsafeInstantiation occurrences="2">
       <code>new static()</code>
       <code>new static()</code>
@@ -369,22 +352,16 @@
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$uses</code>
+    </LessSpecificReturnStatement>
     <MissingClosureParamType occurrences="1">
       <code>$value</code>
     </MissingClosureParamType>
-    <MissingReturnType occurrences="1">
-      <code>setDeclares</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="14">
-      <code>$alias</code>
+    <MixedArgument occurrences="8">
       <code>$alias</code>
       <code>$class</code>
-      <code>$class-&gt;generate()</code>
       <code>$import</code>
-      <code>$import</code>
-      <code>$import</code>
-      <code>$uses[$useIndex][0]</code>
-      <code>$uses[$useIndex][0]</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -395,52 +372,21 @@
       <code>$name</code>
       <code>$name</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="6">
+    <MixedAssignment occurrences="7">
       <code>$alias</code>
-      <code>$import</code>
-      <code>$uses[$useIndex][0]</code>
-      <code>$uses[$useIndex][0]</code>
-      <code>$uses[$useIndex][0]</code>
-      <code>$uses[$useIndex][1]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="3">
-      <code>$uses[$useIndex][2]</code>
-      <code>$uses[$useIndex][2]</code>
-      <code>$uses[$useIndex][2]</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="13">
-      <code>$alias</code>
-      <code>$class</code>
-      <code>$class</code>
       <code>$class</code>
       <code>$import</code>
       <code>$import</code>
       <code>$requiredFile</code>
       <code>$use</code>
-      <code>$use</code>
-      <code>$uses[$useIndex][2]</code>
-      <code>$uses[$useIndex][2]</code>
       <code>$value</code>
-      <code>list($import, $alias)</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>ClassGenerator</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="1">
-      <code>isSourceDirty</code>
-    </MixedMethodCall>
-    <MixedOperand occurrences="2">
-      <code>$class-&gt;generate()</code>
+    <MixedOperand occurrences="1">
       <code>$requiredFile</code>
     </MixedOperand>
-    <MixedReturnStatement occurrences="2">
-      <code>$class</code>
-      <code>$this-&gt;classes[(string)$name]</code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>$this-&gt;classes</code>
-      <code>ClassGenerator[]</code>
-    </MixedReturnTypeCoercion>
+    <MoreSpecificReturnType occurrences="1">
+      <code>array&lt;int, array{string, null|string, false|null|string}&gt;</code>
+    </MoreSpecificReturnType>
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
@@ -451,11 +397,10 @@
       <code>$namespace</code>
       <code>FileGenerator</code>
     </PropertyNotSetInConstructor>
-    <RedundantCastGivenDocblockType occurrences="4">
+    <RedundantCastGivenDocblockType occurrences="3">
       <code>(string) $body</code>
       <code>(string) $filename</code>
       <code>(string) $namespace</code>
-      <code>(string)$name</code>
     </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType occurrences="4">
       <code>! empty($uses) &amp;&amp; is_array($uses)</code>
@@ -466,11 +411,6 @@
     <UnsafeInstantiation occurrences="1">
       <code>new static()</code>
     </UnsafeInstantiation>
-  </file>
-  <file src="src/Generator/GeneratorInterface.php">
-    <MissingReturnType occurrences="1">
-      <code>generate</code>
-    </MissingReturnType>
   </file>
   <file src="src/Generator/InterfaceGenerator.php">
     <MissingParamType occurrences="1">
@@ -683,10 +623,9 @@
     <DocblockTypeContradiction occurrences="1">
       <code>is_string($alias)</code>
     </DocblockTypeContradiction>
-    <MissingReturnType occurrences="4">
+    <MissingReturnType occurrences="3">
       <code>addTraitAlias</code>
       <code>addTraitOverride</code>
-      <code>generate</code>
       <code>removeTrait</code>
     </MissingReturnType>
     <MixedArgument occurrences="16">
@@ -814,21 +753,14 @@
       <code>$n</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="5">
       <code>$constant</code>
       <code>$curValue</code>
       <code>$n</code>
-      <code>$outputParts[]</code>
-      <code>$partV</code>
       <code>$v</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="2">
-      <code>generate</code>
-      <code>setArrayDepth</code>
-    </MixedMethodCall>
-    <MixedOperand occurrences="2">
-      <code>$partV</code>
+    <MixedOperand occurrences="1">
       <code>$value</code>
     </MixedOperand>
     <PropertyNotSetInConstructor occurrences="2">
@@ -939,28 +871,12 @@
       <code>$description</code>
       <code>$methodName</code>
     </MissingConstructor>
-    <MixedInferredReturnType occurrences="1">
-      <code>null|string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;types[0]</code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>$this-&gt;types</code>
-      <code>getTypes</code>
-    </MixedReturnTypeCoercion>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ParamTag.php">
     <MissingConstructor occurrences="2">
       <code>$description</code>
       <code>$variableName</code>
     </MissingConstructor>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;types[0]</code>
-    </MixedReturnStatement>
     <MixedReturnTypeCoercion occurrences="2">
       <code>$this-&gt;types</code>
       <code>getTypes</code>
@@ -971,16 +887,6 @@
       <code>$description</code>
       <code>$propertyName</code>
     </MissingConstructor>
-    <MixedInferredReturnType occurrences="1">
-      <code>null|string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;types[0]</code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion occurrences="2">
-      <code>$this-&gt;types</code>
-      <code>getTypes</code>
-    </MixedReturnTypeCoercion>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ReturnTag.php">
     <MissingConstructor occurrences="1">
@@ -998,23 +904,9 @@
     </MixedReturnTypeCoercion>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ThrowsTag.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>array</code>
-    </LessSpecificImplementedReturnType>
     <MissingConstructor occurrences="1">
       <code>$description</code>
     </MissingConstructor>
-  </file>
-  <file src="src/Reflection/DocBlock/TagManager.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$newTag</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>TagInterface</code>
-    </MoreSpecificReturnType>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>initialize</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/DocBlockReflection.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1307,7 +1199,7 @@
   </file>
   <file src="test/Generator/AbstractMemberGeneratorTest.php">
     <InvalidArgument occurrences="1">
-      <code>new \stdClass()</code>
+      <code>new stdClass()</code>
     </InvalidArgument>
     <MissingReturnType occurrences="2">
       <code>testSetDocBlockThrowsExceptionWithInvalidType</code>
@@ -1328,7 +1220,7 @@
       <code>ExceptionInterface::class</code>
       <code>[]</code>
       <code>new ClassGenerator()</code>
-      <code>new \stdClass()</code>
+      <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidScalarArgument occurrences="5">
       <code>'public'</code>
@@ -1434,34 +1326,11 @@
       <code>testTraitGenerationWithAliasesAndOverrides</code>
       <code>testUseTraitGeneration</code>
     </MissingReturnType>
-    <MixedArgument occurrences="29">
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$classGenerator-&gt;generate()</code>
-      <code>$code</code>
-      <code>$code</code>
-      <code>$code</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$output</code>
-      <code>$output</code>
+    <MixedArgument occurrences="6">
       <code>$overrides['myTrait::foo']</code>
       <code>$overrides['myTrait::foo']</code>
       <code>$overrides['myTrait::foo']</code>
       <code>$overrides['myTrait::foo']</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
       <code>FooClass::class</code>
       <code>FooClass::class</code>
     </MixedArgument>
@@ -1474,24 +1343,6 @@
       <code>$overrides['myTrait::foo'][1]</code>
       <code>$overrides['myTrait::foo'][1]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="16">
-      <code>$code</code>
-      <code>$code</code>
-      <code>$code</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$output</code>
-      <code>$output</code>
-      <code>$output</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-    </MixedAssignment>
     <PossiblyFalseReference occurrences="15">
       <code>getDefaultValue</code>
       <code>getDefaultValue</code>
@@ -1727,21 +1578,6 @@
       <code>testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate</code>
       <code>testToString</code>
     </MissingReturnType>
-    <MixedArgument occurrences="5">
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="6">
-      <code>$output</code>
-      <code>$output</code>
-      <code>$output</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-    </MixedAssignment>
     <PossiblyFalseReference occurrences="2">
       <code>isInterface</code>
       <code>isInterface</code>
@@ -1757,12 +1593,7 @@
     <InvalidArgument occurrences="1">
       <code>new stdClass()</code>
     </InvalidArgument>
-    <MissingDocblockType occurrences="2">
-      <code>$baz</code>
-      <code>$foo</code>
-    </MissingDocblockType>
-    <MissingReturnType occurrences="21">
-      <code>returnTypeHintClasses</code>
+    <MissingReturnType occurrences="20">
       <code>testByRefReturnType</code>
       <code>testCopyMethodSignature</code>
       <code>testCreateFromArray</code>
@@ -1797,8 +1628,7 @@
     <InvalidReturnType occurrences="1">
       <code>string[][]</code>
     </InvalidReturnType>
-    <MissingReturnType occurrences="27">
-      <code>dataFromReflectionGenerate</code>
+    <MissingReturnType occurrences="26">
       <code>testCallableTypeHint</code>
       <code>testCreateFromArray</code>
       <code>testDefaultValueGetterAndSetterPersistValue</code>
@@ -1833,7 +1663,7 @@
   <file src="test/Generator/PropertyGeneratorTest.php">
     <InvalidArgument occurrences="2">
       <code>[PropertyGenerator::FLAG_CONSTANT, $flag]</code>
-      <code>new \stdClass()</code>
+      <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidReturnStatement occurrences="1"/>
     <InvalidReturnType occurrences="1">
@@ -1950,9 +1780,6 @@
     </InvalidReturnType>
   </file>
   <file src="test/Generator/TestAsset/TypeableTag.php">
-    <MissingReturnType occurrences="1">
-      <code>generate</code>
-    </MissingReturnType>
     <PropertyNotSetInConstructor occurrences="2">
       <code>TypeableTag</code>
       <code>TypeableTag</code>
@@ -2005,33 +1832,6 @@
       <code>testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate</code>
       <code>testToString</code>
     </MissingReturnType>
-    <MixedArgument occurrences="12">
-      <code>$code</code>
-      <code>$code</code>
-      <code>$code</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$output</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="11">
-      <code>$code</code>
-      <code>$code</code>
-      <code>$code</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$generated</code>
-      <code>$output</code>
-      <code>$output</code>
-      <code>$received</code>
-      <code>$received</code>
-      <code>$received</code>
-    </MixedAssignment>
   </file>
   <file src="test/Generator/TypeGeneratorTest.php">
     <MissingReturnType occurrences="4">
@@ -2048,12 +1848,8 @@
     <InvalidArgument occurrences="1">
       <code>$constants</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="14">
-      <code>constantsType</code>
-      <code>testAllowedPossibleConstantsType</code>
-      <code>testDefaultInstance</code>
+    <MissingReturnType occurrences="9">
       <code>testEscaping</code>
-      <code>testInvalidConstantsType</code>
       <code>testPropertyDefaultValueCanHandleArray</code>
       <code>testPropertyDefaultValueCanHandleArrayWithUnsortedKeys</code>
       <code>testPropertyDefaultValueCanHandleBool</code>
@@ -2062,11 +1858,9 @@
       <code>testPropertyDefaultValueCanHandleUnquotedString</code>
       <code>testPropertyDefaultValueConstructor</code>
       <code>testPropertyDefaultValueIsSettable</code>
-      <code>testValidConstantTypes</code>
     </MissingReturnType>
-    <MixedInferredReturnType occurrences="6">
+    <MixedInferredReturnType occurrences="5">
       <code>Generator</code>
-      <code>array</code>
       <code>array</code>
       <code>array</code>
       <code>array</code>
@@ -2339,8 +2133,7 @@
     </MissingReturnType>
   </file>
   <file src="test/Reflection/ParameterReflectionTest.php">
-    <MissingReturnType occurrences="10">
-      <code>paramType</code>
+    <MissingReturnType occurrences="9">
       <code>testCallableTypeHint</code>
       <code>testClassReturn</code>
       <code>testClassReturnNoClassGivenReturnsNull</code>

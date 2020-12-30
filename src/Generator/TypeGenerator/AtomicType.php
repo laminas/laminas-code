@@ -15,6 +15,7 @@ use function array_key_exists;
 use function assert;
 use function implode;
 use function preg_match;
+use function sprintf;
 use function strtolower;
 use function substr;
 
@@ -52,9 +53,9 @@ final class AtomicType
 
     /** @psalm-var array<non-empty-string, null> */
     private const NOT_NULLABLE_TYPES = [
-        'null' => null,
+        'null'  => null,
         'false' => null,
-        'void' => null,
+        'void'  => null,
         'mixed' => null,
     ];
 
@@ -74,18 +75,17 @@ final class AtomicType
      */
     private function __construct(string $type, int $sortIndex)
     {
-        $this->type = $type;
+        $this->type      = $type;
         $this->sortIndex = $sortIndex;
     }
 
     /**
      * @psalm-pure
-     *
      * @throws InvalidArgumentException
      */
     public static function fromString(string $type): self
     {
-        $trimmedType = '\\' === ($type[0] ?? '')
+        $trimmedType   = '\\' === ($type[0] ?? '')
             ? substr($type, 1)
             : $type;
         $lowerCaseType = strtolower($trimmedType);
@@ -103,7 +103,8 @@ final class AtomicType
 
         if (1 !== preg_match(self::VALID_IDENTIFIER_MATCHER, $trimmedType)) {
             throw new InvalidArgumentException(sprintf(
-                'Provided type "%s" is not recognized as a valid expression: it must match "%s" or be one of the built-in types (%s)',
+                'Provided type "%s" is not recognized as a valid expression: '
+                . 'it must match "%s" or be one of the built-in types (%s)',
                 $type,
                 self::VALID_IDENTIFIER_MATCHER,
                 implode(', ', self::BUILT_IN_TYPES_PRECEDENCE)
@@ -131,12 +132,12 @@ final class AtomicType
 
     /**
      * @psalm-param non-empty-array<self> $others
-     *
      * @throws InvalidArgumentException
      */
     public function assertCanUnionWith(array $others): void
     {
-        if ('mixed' === $this->type
+        if (
+            'mixed' === $this->type
             || 'void' === $this->type
         ) {
             throw new InvalidArgumentException(sprintf(
@@ -155,8 +156,9 @@ final class AtomicType
             }
         }
 
-        if ($this->requiresUnionWithStandaloneType() &&
-            [] === array_filter($others, static fn (self $type) : bool => ! $type->requiresUnionWithStandaloneType())
+        if (
+            $this->requiresUnionWithStandaloneType() &&
+            [] === array_filter($others, static fn (self $type): bool => ! $type->requiresUnionWithStandaloneType())
         ) {
             throw new InvalidArgumentException(sprintf(
                 'Type "%s" requires to be composed with non-standalone types',

@@ -11,7 +11,6 @@ namespace LaminasTest\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\PropertyReflection;
-use Laminas\Code\Scanner\FileScanner;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -76,7 +75,7 @@ class ClassReflectionTest extends TestCase
     public function testGetContentsReturnsContents()
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
-        $target = <<<EOS
+        $target          = <<<EOS
 {
     protected \$_prop1 = null;
 
@@ -102,14 +101,14 @@ class ClassReflectionTest extends TestCase
 
 }
 EOS;
-        $contents = $reflectionClass->getContents();
+        $contents        = $reflectionClass->getContents();
         self::assertEquals(trim($target), trim($contents));
     }
 
     public function testGetContentsReturnsContentsWithImplementsOnSeparateLine()
     {
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass9::class);
-        $target = <<<EOS
+        $target          = <<<EOS
 {
     protected \$_prop1 = null;
 
@@ -135,7 +134,7 @@ EOS;
 
 }
 EOS;
-        $contents = $reflectionClass->getContents();
+        $contents        = $reflectionClass->getContents();
         self::assertEquals(trim($target), trim($contents));
     }
 
@@ -170,13 +169,13 @@ EOS;
         // error so I test just normal behaviour.
 
         $reflectionClass = new ClassReflection(TestAsset\TestTraitClass4::class);
-        $traitsArray = $reflectionClass->getTraits();
+        $traitsArray     = $reflectionClass->getTraits();
         self::assertIsArray($traitsArray);
         self::assertCount(1, $traitsArray);
         self::assertInstanceOf(ClassReflection::class, $traitsArray[0]);
 
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
-        $traitsArray = $reflectionClass->getTraits();
+        $traitsArray     = $reflectionClass->getTraits();
         self::assertIsArray($traitsArray);
         self::assertCount(0, $traitsArray);
     }

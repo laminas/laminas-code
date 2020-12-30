@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class LicenseTagTest extends TestCase
 {
-    /**
-     * @var LicenseTag
-     */
+    /** @var LicenseTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new LicenseTag();
+        $this->tag        = new LicenseTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -66,7 +62,7 @@ class LicenseTagTest extends TestCase
     public function testConstructorWithOptions()
     {
         $this->tag->setOptions([
-            'url' => 'foo',
+            'url'         => 'foo',
             'licenseName' => 'bar',
         ]);
         $tagWithOptionsFromConstructor = new LicenseTag('foo', 'bar');

@@ -15,18 +15,15 @@ use function rtrim;
 class PropertyTag implements TagInterface, PhpDocTypedTagInterface
 {
     /**
-     * @var array
+     * @var string[]
+     * @psalm-var list<string>
      */
     protected $types = [];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $propertyName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $description;
 
     /**
@@ -63,8 +60,9 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
     }
 
     /**
-     * @return null|string
      * @deprecated 2.0.4 use getTypes instead
+     *
+     * @return null|string
      */
     public function getType()
     {
@@ -75,6 +73,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types[0];
     }
 
+    /** {@inheritDoc} */
     public function getTypes()
     {
         return $this->types;
@@ -96,6 +95,10 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
         return $this->description;
     }
 
+    /**
+     * @return string
+     * @psalm-return non-empty-string
+     */
     public function __toString()
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";

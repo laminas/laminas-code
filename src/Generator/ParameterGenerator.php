@@ -9,50 +9,35 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\ParameterReflection;
+use ReflectionException;
 
-use function method_exists;
 use function str_replace;
 use function strtolower;
 
 class ParameterGenerator extends AbstractGenerator
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $name;
 
-    /**
-     * @var TypeGenerator|null
-     */
+    /** @var TypeGenerator|null */
     protected $type;
 
-    /**
-     * @var ValueGenerator
-     */
+    /** @var ValueGenerator */
     protected $defaultValue;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $position;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $passedByReference = false;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $variadic = false;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $omitDefaultValue = false;
 
     /**
-     * @param  ParameterReflection $reflectionParameter
      * @return ParameterGenerator
      */
     public static function fromReflection(ParameterReflection $reflectionParameter)
@@ -60,7 +45,10 @@ class ParameterGenerator extends AbstractGenerator
         $param = new ParameterGenerator();
 
         $param->setName($reflectionParameter->getName());
-        $param->type = TypeGenerator::fromReflectionType($reflectionParameter->getType(), $reflectionParameter->getDeclaringClass());
+        $param->type = TypeGenerator::fromReflectionType(
+            $reflectionParameter->getType(),
+            $reflectionParameter->getDeclaringClass()
+        );
 
         $param->setPosition($reflectionParameter->getPosition());
 
@@ -71,7 +59,7 @@ class ParameterGenerator extends AbstractGenerator
         if (! $variadic && ($reflectionParameter->isOptional() || $reflectionParameter->isDefaultValueAvailable())) {
             try {
                 $param->setDefaultValue($reflectionParameter->getDefaultValue());
-            } catch (\ReflectionException $e) {
+            } catch (ReflectionException $e) {
                 $param->setDefaultValue(null);
             }
         }
@@ -93,7 +81,6 @@ class ParameterGenerator extends AbstractGenerator
      * @configkey indentation           string
      * @configkey sourcecontent         string
      * @configkey omitdefaultvalue      bool
-     *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return ParameterGenerator
@@ -274,7 +261,6 @@ class ParameterGenerator extends AbstractGenerator
 
     /**
      * @param bool $variadic
-     *
      * @return ParameterGenerator
      */
     public function setVariadic($variadic)
@@ -335,7 +321,6 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
-     * @param bool $omit
      * @return ParameterGenerator
      */
     public function omitDefaultValue(bool $omit = true)

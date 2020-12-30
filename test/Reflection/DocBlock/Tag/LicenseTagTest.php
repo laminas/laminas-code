@@ -17,12 +17,10 @@ use PHPUnit\Framework\TestCase;
  */
 class LicenseTagTest extends TestCase
 {
-    /**
-     * @var LicenseTag
-     */
+    /** @var LicenseTag */
     protected $tag;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->tag = new LicenseTag();
     }

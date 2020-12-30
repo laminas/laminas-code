@@ -28,7 +28,9 @@ use stdClass;
 
 use function array_filter;
 use function array_shift;
-use function strpos;
+use function array_values;
+
+use const PHP_VERSION_ID;
 
 /**
  * @group Laminas_Code_Generator
@@ -47,7 +49,7 @@ class MethodGeneratorTest extends TestCase
         $methodGenerator = new MethodGenerator();
         $methodGenerator->setParameters(['one']);
         $params = $methodGenerator->getParameters();
-        $param = array_shift($params);
+        $param  = array_shift($params);
         self::assertInstanceOf(ParameterGenerator::class, $param);
     }
 
@@ -62,7 +64,7 @@ class MethodGeneratorTest extends TestCase
         $params = $methodGenerator->getParameters();
         self::assertCount(3, $params);
 
-        /** @var $foo ParameterGenerator */
+        /** @var ParameterGenerator $foo */
         $foo = array_shift($params);
         self::assertInstanceOf(ParameterGenerator::class, $foo);
         self::assertEquals('foo', $foo->getName());
@@ -70,7 +72,7 @@ class MethodGeneratorTest extends TestCase
         $bar = array_shift($params);
         self::assertEquals(ParameterGenerator::fromArray(['name' => 'bar', 'type' => 'array']), $bar);
 
-        /** @var $baz ParameterGenerator */
+        /** @var ParameterGenerator $baz */
         $baz = array_shift($params);
         self::assertEquals('baz', $baz->getName());
 
@@ -99,7 +101,7 @@ class MethodGeneratorTest extends TestCase
         $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'withParamsAndReturnType');
 
         $methodGenerator = MethodGenerator::copyMethodSignature($ref);
-        $target = <<<'EOS'
+        $target          = <<<'EOS'
     protected function withParamsAndReturnType($mixed, array $array, ?callable $callable = null, ?int $int = 0) : bool
     {
     }
@@ -113,7 +115,7 @@ EOS;
         $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'someMethod');
 
         $methodGenerator = MethodGenerator::fromReflection($ref);
-        $target = <<<EOS
+        $target          = <<<EOS
     /**
      * Enter description here...
      *
@@ -133,7 +135,7 @@ EOS;
         $ref = new MethodReflection(TestAsset\TestSampleSingleClassMultiLines::class, 'someMethod');
 
         $methodGenerator = MethodGenerator::fromReflection($ref);
-        $target = <<<EOS
+        $target          = <<<EOS
     /**
      * Enter description here...
      *
@@ -238,11 +240,11 @@ EOS;
      */
     public function testDefaultValueGenerationDoesNotIncludeTrailingSemicolon()
     {
-        $method = new MethodGenerator('setOptions');
+        $method  = new MethodGenerator('setOptions');
         $default = new ValueGenerator();
         $default->setValue([]);
 
-        $param   = new ParameterGenerator('options', 'array');
+        $param = new ParameterGenerator('options', 'array');
         $param->setDefaultValue($default);
 
         $method->setParameter($param);
@@ -279,9 +281,9 @@ EOS;
     public function testCreateInterfaceMethodFromArray()
     {
         $methodGenerator = MethodGenerator::fromArray([
-            'name'       => 'execute',
-            'interface'  => true,
-            'docblock'   => [
+            'name'      => 'execute',
+            'interface' => true,
+            'docblock'  => [
                 'shortdescription' => 'Short Description',
             ],
         ]);
@@ -341,9 +343,7 @@ PHP;
 
     /**
      * @group zendframework/zend-code#29
-     *
      * @dataProvider returnTypeHintClasses
-     *
      * @param string $className
      * @param string $methodName
      * @param string $expectedReturnSignature
@@ -355,6 +355,10 @@ PHP;
         self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%w{%A', $methodGenerator->generate());
     }
 
+    /**
+     * @return string[][]
+     * @psalm-return list<array{class-string, non-empty-string, non-empty-string}>
+     */
     public function returnTypeHintClasses()
     {
         $parameters = [
@@ -392,13 +396,13 @@ PHP;
             [Php80Types::class, 'staticType', 'static'],
         ];
 
-        return array_filter(
+        return array_values(array_filter(
             $parameters,
             function (array $parameter) {
                 return PHP_VERSION_ID >= 80000
                     || $parameter[0] !== Php80Types::class;
             }
-        );
+        ));
     }
 
     /**
@@ -432,9 +436,7 @@ PHP;
     /**
      * @requires PHP >= 8.0
      * @group laminas/laminas-code#53
-     *
      * @dataProvider php80Methods
-     *
      * @psalm-param class-string $className
      * @psalm-param non-empty-string $method
      * @psalm-param non-empty-string $expectedGeneratedSignature
@@ -445,7 +447,7 @@ PHP;
         string $expectedType,
         string $expectedGeneratedSignature
     ): void {
-        $generator = MethodGenerator::fromReflection(new MethodReflection($className, $method));
+        $generator  = MethodGenerator::fromReflection(new MethodReflection($className, $method));
         $returnType = $generator->getReturnType();
 
         self::assertNotNull($returnType);
@@ -464,7 +466,12 @@ PHP;
             [Php80Types::class, 'unionNullableType', 'bool', '?bool'],
             [Php80Types::class, 'unionReverseNullableType', 'bool', '?bool'],
             [Php80Types::class, 'unionNullableTypeWithDefaultValue', 'bool|string|null', 'bool|string|null'],
-            [Php80Types::class, 'unionType', Php80Types::class . '|' . stdClass::class, '\\' . Php80Types::class . '|\\' . stdClass::class],
+            [
+                Php80Types::class,
+                'unionType',
+                Php80Types::class . '|' . stdClass::class,
+                '\\' . Php80Types::class . '|\\' . stdClass::class,
+            ],
             [Php80Types::class, 'staticType', 'static', 'static'],
             [Php80Types::class, 'selfAndBoolType', Php80Types::class . '|bool', '\\' . Php80Types::class . '|bool'],
         ];

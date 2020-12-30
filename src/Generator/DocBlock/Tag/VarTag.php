@@ -8,17 +8,15 @@
 
 namespace Laminas\Code\Generator\DocBlock\Tag;
 
+use function ltrim;
+
 class VarTag extends AbstractTypeableTag implements TagInterface
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $variableName;
 
     /**
-     * @param string|null     $variableName
      * @param string|string[] $types
-     * @param string|null     $description
      */
     public function __construct(?string $variableName = null, $types = [], ?string $description = null)
     {
@@ -32,24 +30,25 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     /**
      * {@inheritDoc}
      */
-    public function getName() : string
+    public function getName(): string
     {
         return 'var';
     }
 
     /**
      * @internal this code is only public for compatibility with the
-     *           @see \Laminas\Code\Generator\DocBlock\TagManager, which
+     *
+     * @see \Laminas\Code\Generator\DocBlock\TagManager, which
      *           uses setters
      */
-    public function setVariableName(?string $variableName) : void
+    public function setVariableName(?string $variableName): void
     {
         if (null !== $variableName) {
             $this->variableName = ltrim($variableName, '$');
         }
     }
 
-    public function getVariableName() : ?string
+    public function getVariableName(): ?string
     {
         return $this->variableName;
     }
@@ -57,11 +56,11 @@ class VarTag extends AbstractTypeableTag implements TagInterface
     /**
      * {@inheritDoc}
      */
-    public function generate() : string
+    public function generate(): string
     {
         return '@var'
-            . ((! empty($this->types)) ? ' ' . $this->getTypesAsString() : '')
+            . (! empty($this->types) ? ' ' . $this->getTypesAsString() : '')
             . (null !== $this->variableName ? ' $' . $this->variableName : '')
-            . ((! empty($this->description)) ? ' ' . $this->description : '');
+            . (! empty($this->description) ? ' ' . $this->description : '');
     }
 }

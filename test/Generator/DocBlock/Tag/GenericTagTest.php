@@ -19,26 +19,22 @@ use PHPUnit\Framework\TestCase;
  */
 class GenericTagTest extends TestCase
 {
-    /**
-     * @var GenericTag
-     */
+    /** @var GenericTag */
     protected $tag;
 
-    /**
-     * @var TagManager
-     */
+    /** @var TagManager */
     protected $tagmanager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->tag = new GenericTag();
+        $this->tag        = new GenericTag();
         $this->tagmanager = new TagManager();
         $this->tagmanager->initializeDefaultTags();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
-        $this->tag = null;
+        $this->tag        = null;
         $this->tagmanager = null;
     }
 
@@ -60,7 +56,7 @@ class GenericTagTest extends TestCase
     public function testConstructorWithOptions()
     {
         $this->tag->setOptions([
-            'name' => 'var',
+            'name'    => 'var',
             'content' => 'string',
         ]);
         $tagWithOptionsFromConstructor = new GenericTag('var', 'string');

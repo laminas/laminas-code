@@ -14,7 +14,6 @@ use Laminas\Code\Scanner\DocBlockScanner;
 use Reflector;
 
 use function count;
-use function get_class;
 use function is_string;
 use function ltrim;
 use function method_exists;
@@ -24,54 +23,34 @@ use function substr_count;
 
 class DocBlockReflection implements ReflectionInterface
 {
-    /**
-     * @var Reflector
-     */
+    /** @var Reflector */
     protected $reflector;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $docComment;
 
-    /**
-     * @var DocBlockTagManager
-     */
+    /** @var DocBlockTagManager */
     protected $tagManager;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $startLine;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $endLine;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $cleanDocComment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $longDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $shortDescription;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $tags = [];
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $isReflected = false;
 
     /**
@@ -88,10 +67,9 @@ class DocBlockReflection implements ReflectionInterface
 
     /**
      * @param  Reflector|string $commentOrReflector
-     * @param  null|DocBlockTagManager $tagManager
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($commentOrReflector, DocBlockTagManager $tagManager = null)
+    public function __construct($commentOrReflector, ?DocBlockTagManager $tagManager = null)
     {
         if (! $tagManager) {
             $tagManager = new DocBlockTagManager();
@@ -104,7 +82,7 @@ class DocBlockReflection implements ReflectionInterface
             if (! method_exists($commentOrReflector, 'getDocComment')) {
                 throw new Exception\InvalidArgumentException('Reflector must contain method "getDocComment"');
             }
-            /* @var MethodReflection $commentOrReflector */
+
             $this->docComment = $commentOrReflector->getDocComment();
 
             // determine line numbers
@@ -116,7 +94,7 @@ class DocBlockReflection implements ReflectionInterface
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s must have a (string) DocComment or a Reflector in the constructor',
-                get_class($this)
+                static::class
             ));
         }
 
@@ -281,7 +259,7 @@ class DocBlockReflection implements ReflectionInterface
      */
     public function toString()
     {
-        $str = 'DocBlock [ /* DocBlock */ ] {' . "\n\n";
+        $str  = 'DocBlock [ /* DocBlock */ ] {' . "\n\n";
         $str .= '  - Tags [' . count($this->tags) . '] {' . "\n";
 
         foreach ($this->tags as $tag) {
