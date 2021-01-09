@@ -34,32 +34,32 @@ class TypableTagTest extends TestCase
     {
         $this->tag->setTypes(['string', 'null']);
         $this->tag->setDescription('Description');
-        self::assertEquals(['string', 'null'], $this->tag->getTypes());
-        self::assertEquals('Description', $this->tag->getDescription());
+        self::assertSame(['string', 'null'], $this->tag->getTypes());
+        self::assertSame('Description', $this->tag->getDescription());
     }
 
     public function testGetterForTypesAsStringWithSingleType()
     {
         $this->tag->setTypes(['string']);
-        self::assertEquals('string', $this->tag->getTypesAsString());
+        self::assertSame('string', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithSingleTypeAndDelimiter()
     {
         $this->tag->setTypes(['string']);
-        self::assertEquals('string', $this->tag->getTypesAsString('/'));
+        self::assertSame('string', $this->tag->getTypesAsString('/'));
     }
 
     public function testGetterForTypesAsStringWithMultipleTypes()
     {
         $this->tag->setTypes(['string', 'null']);
-        self::assertEquals('string|null', $this->tag->getTypesAsString());
+        self::assertSame('string|null', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithMultipleTypesAndDelimiter()
     {
         $this->tag->setTypes(['string', 'null']);
-        self::assertEquals('string/null', $this->tag->getTypesAsString('/'));
+        self::assertSame('string/null', $this->tag->getTypesAsString('/'));
     }
 
     public function testConstructorWithOptions()
@@ -69,6 +69,6 @@ class TypableTagTest extends TestCase
             'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new TypeableTag(['string', 'null'], 'description');
-        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 }

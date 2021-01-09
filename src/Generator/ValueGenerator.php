@@ -59,17 +59,14 @@ class ValueGenerator extends AbstractGenerator
     /** @var mixed */
     protected $value;
 
-    /** @var string */
-    protected $type = self::TYPE_AUTO;
+    protected string $type = self::TYPE_AUTO;
 
-    /** @var int */
-    protected $arrayDepth = 0;
+    protected int $arrayDepth = 0;
 
-    /** @var string */
-    protected $outputMode = self::OUTPUT_MULTIPLE_LINE;
+    protected string $outputMode = self::OUTPUT_MULTIPLE_LINE;
 
     /** @var array */
-    protected $allowedTypes;
+    protected array $allowedTypes = [];
 
     /**
      * Autodetectable constants

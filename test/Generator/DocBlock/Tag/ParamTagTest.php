@@ -41,18 +41,18 @@ class ParamTagTest extends TestCase
     public function testGetterAndSetterPersistValue()
     {
         $this->tag->setVariableName('Foo');
-        self::assertEquals('Foo', $this->tag->getVariableName());
+        self::assertSame('Foo', $this->tag->getVariableName());
     }
 
     public function testGetterForVariableNameTrimsCorrectly()
     {
         $this->tag->setVariableName('$param$');
-        self::assertEquals('param$', $this->tag->getVariableName());
+        self::assertSame('param$', $this->tag->getVariableName());
     }
 
     public function testNameIsCorrect()
     {
-        self::assertEquals('param', $this->tag->getName());
+        self::assertSame('param', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine()
@@ -60,7 +60,7 @@ class ParamTagTest extends TestCase
         $this->tag->setVariableName('foo');
         $this->tag->setTypes('string|null');
         $this->tag->setDescription('description');
-        self::assertEquals('@param string|null $foo description', $this->tag->generate());
+        self::assertSame('@param string|null $foo description', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -71,7 +71,7 @@ class ParamTagTest extends TestCase
             'description'  => 'description',
         ]);
         $tagWithOptionsFromConstructor = new ParamTag('foo', ['string'], 'description');
-        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -82,8 +82,8 @@ class ParamTagTest extends TestCase
         /** @var ParamTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(ParamTag::class, $tag);
-        self::assertEquals('foo', $tag->getVariableName());
-        self::assertEquals('description', $tag->getDescription());
-        self::assertEquals('int', $tag->getTypesAsString());
+        self::assertSame('foo', $tag->getVariableName());
+        self::assertSame('description', $tag->getDescription());
+        self::assertSame('int', $tag->getTypesAsString());
     }
 }

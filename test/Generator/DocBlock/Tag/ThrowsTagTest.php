@@ -40,14 +40,14 @@ class ThrowsTagTest extends TestCase
 
     public function testNameIsCorrect()
     {
-        self::assertEquals('throws', $this->tag->getName());
+        self::assertSame('throws', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine()
     {
         $this->tag->setTypes('Exception\\MyException');
         $this->tag->setDescription('description');
-        self::assertEquals('@throws Exception\\MyException description', $this->tag->generate());
+        self::assertSame('@throws Exception\\MyException description', $this->tag->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -58,7 +58,7 @@ class ThrowsTagTest extends TestCase
         /** @var ThrowsTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(ThrowsTag::class, $tag);
-        self::assertEquals('description', $tag->getDescription());
-        self::assertEquals('Exception\Invalid', $tag->getTypesAsString());
+        self::assertSame('description', $tag->getDescription());
+        self::assertSame('Exception\Invalid', $tag->getTypesAsString());
     }
 }

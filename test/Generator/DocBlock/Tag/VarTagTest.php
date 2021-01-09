@@ -45,12 +45,12 @@ class VarTagTest extends TestCase
     public function testGetterForVariableNameTrimsCorrectly(): void
     {
         $this->tag->setVariableName('$variable$');
-        $this->assertEquals('variable$', $this->tag->getVariableName());
+        $this->assertSame('variable$', $this->tag->getVariableName());
     }
 
     public function testNameIsCorrect(): void
     {
-        $this->assertEquals('var', $this->tag->getName());
+        $this->assertSame('var', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine(): void
@@ -58,7 +58,7 @@ class VarTagTest extends TestCase
         $this->tag->setVariableName('variable');
         $this->tag->setTypes('string[]');
         $this->tag->setDescription('description');
-        $this->assertEquals('@var string[] $variable description', $this->tag->generate());
+        $this->assertSame('@var string[] $variable description', $this->tag->generate());
     }
 
     public function testConstructorWithOptions(): void
@@ -69,7 +69,7 @@ class VarTagTest extends TestCase
             'description'  => 'description',
         ]);
         $tagWithOptionsFromConstructor = new VarTag('foo', ['string'], 'description');
-        $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        $this->assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection(): void
@@ -83,8 +83,8 @@ class VarTagTest extends TestCase
         $tag = $this->tagManager->createTagFromReflection($reflectionTag);
 
         $this->assertInstanceOf(VarTag::class, $tag);
-        $this->assertEquals('foo', $tag->getVariableName());
-        $this->assertEquals('description', $tag->getDescription());
-        $this->assertEquals('int', $tag->getTypesAsString());
+        $this->assertSame('foo', $tag->getVariableName());
+        $this->assertSame('description', $tag->getDescription());
+        $this->assertSame('int', $tag->getTypesAsString());
     }
 }

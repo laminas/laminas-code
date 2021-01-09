@@ -67,14 +67,14 @@ class MethodGeneratorTest extends TestCase
         /** @var ParameterGenerator $foo */
         $foo = array_shift($params);
         self::assertInstanceOf(ParameterGenerator::class, $foo);
-        self::assertEquals('foo', $foo->getName());
+        self::assertSame('foo', $foo->getName());
 
         $bar = array_shift($params);
         self::assertEquals(ParameterGenerator::fromArray(['name' => 'bar', 'type' => 'array']), $bar);
 
         /** @var ParameterGenerator $baz */
         $baz = array_shift($params);
-        self::assertEquals('baz', $baz->getName());
+        self::assertSame('baz', $baz->getName());
 
         $this->expectException(InvalidArgumentException::class);
         $methodGenerator->setParameter(new stdClass());
@@ -84,7 +84,7 @@ class MethodGeneratorTest extends TestCase
     {
         $method = new MethodGenerator();
         $method->setBody('Foo');
-        self::assertEquals('Foo', $method->getBody());
+        self::assertSame('Foo', $method->getBody());
     }
 
     public function testDocBlockGetterAndSetter()
@@ -107,7 +107,7 @@ class MethodGeneratorTest extends TestCase
     }
 
 EOS;
-        self::assertEquals($target, (string) $methodGenerator);
+        self::assertSame($target, (string) $methodGenerator);
     }
 
     public function testMethodFromReflection()
@@ -127,7 +127,7 @@ EOS;
     }
 
 EOS;
-        self::assertEquals($target, (string) $methodGenerator);
+        self::assertSame($target, (string) $methodGenerator);
     }
 
     public function testMethodFromReflectionMultiLinesIndention()
@@ -151,7 +151,7 @@ EOS;
     }
 
 EOS;
-        self::assertEquals($target, (string) $methodGenerator);
+        self::assertSame($target, (string) $methodGenerator);
     }
 
     /**
@@ -171,7 +171,7 @@ EOS;
 
 EOS;
 
-        self::assertEquals($expected, $methodGenerator->generate());
+        self::assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -190,7 +190,7 @@ EOS;
     }
 
 EOS;
-        self::assertEquals($expected, $methodGenerator->generate());
+        self::assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -207,7 +207,7 @@ EOS;
         $expected = <<<EOS
     abstract public function foo(\$one);
 EOS;
-        self::assertEquals($expected, $methodGenerator->generate());
+        self::assertSame($expected, $methodGenerator->generate());
     }
 
     /**
@@ -232,7 +232,7 @@ EOS;
     }
 
 EOS;
-        self::assertEquals($expected, $methodGeneratorProperty->generate());
+        self::assertSame($expected, $methodGeneratorProperty->generate());
     }
 
     /**
@@ -267,15 +267,15 @@ EOS;
             'returntype' => '\\SampleType',
         ]);
 
-        self::assertEquals('SampleMethod', $methodGenerator->getName());
-        self::assertEquals('foo', $methodGenerator->getBody());
+        self::assertSame('SampleMethod', $methodGenerator->getName());
+        self::assertSame('foo', $methodGenerator->getBody());
         self::assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
         self::assertTrue($methodGenerator->isAbstract());
         self::assertTrue($methodGenerator->isFinal());
         self::assertTrue($methodGenerator->isStatic());
-        self::assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
+        self::assertSame(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
-        self::assertEquals('\\SampleType', $methodGenerator->getReturnType()->generate());
+        self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
     }
 
     public function testCreateInterfaceMethodFromArray()
@@ -298,8 +298,8 @@ CODE;
         $methodGenerator->setParameter(['name' => 'command', 'type' => 'Runnable']);
 
         self::assertTrue($methodGenerator->isInterface());
-        self::assertEquals('execute', $methodGenerator->getName());
-        self::assertEquals($expected, $methodGenerator->generate());
+        self::assertSame('execute', $methodGenerator->getName());
+        self::assertSame($expected, $methodGenerator->generate());
         self::assertInstanceOf(DocBlockGenerator::class, $methodGenerator->getDocBlock());
     }
 

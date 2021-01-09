@@ -8,6 +8,7 @@
 
 namespace LaminasTest\Code\Generator;
 
+use DateTime;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
@@ -21,6 +22,8 @@ use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionException;
+use Serializable;
+use Throwable;
 
 use function current;
 
@@ -30,10 +33,6 @@ use function current;
  */
 class TraitGeneratorTest extends TestCase
 {
-    protected function setUp(): void
-    {
-    }
-
     public function testConstruction(): void
     {
         $class = new TraitGenerator();
@@ -44,7 +43,7 @@ class TraitGeneratorTest extends TestCase
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('TestClass');
-        self::assertEquals('TestClass', $classGenerator->getName());
+        self::assertSame('TestClass', $classGenerator->getName());
     }
 
     public function testClassDocBlockAccessors(): void
@@ -75,7 +74,7 @@ class TraitGeneratorTest extends TestCase
     public function testAddFlagDoesNothing(): void
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
+        $classGenerator->addFlag(ClassGenerator::FLAG_FINAL);
 
         self::assertSame(0x00, $this->getFlags($classGenerator));
     }
@@ -83,7 +82,7 @@ class TraitGeneratorTest extends TestCase
     public function testSetFlagsDoesNothing(): void
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->setFlags(ClassGenerator::OBJECT_TYPE);
+        $classGenerator->setFlags(ClassGenerator::FLAG_FINAL);
 
         self::assertSame(0x00, $this->getFlags($classGenerator));
     }
@@ -91,9 +90,9 @@ class TraitGeneratorTest extends TestCase
     public function testRemoveFlagDoesNothing(): void
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
-        $classGenerator->addFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
-        $classGenerator->removeFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
+        $classGenerator->addFlag(ClassGenerator::FLAG_ABSTRACT);
+        $classGenerator->addFlag(ClassGenerator::FLAG_FINAL);
+        $classGenerator->removeFlag(ClassGenerator::FLAG_ABSTRACT);
 
         self::assertSame(0x00, $this->getFlags($classGenerator));
     }
@@ -103,13 +102,13 @@ class TraitGeneratorTest extends TestCase
         $classGenerator = new TraitGenerator();
         $classGenerator->setFinal(true);
 
-        self::assertSame(0x00, $classGenerator->isFinal());
+        self::assertSame(false, $classGenerator->isFinal());
     }
 
     public function testImplementedInterfacesAccessors(): void
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+        $classGenerator->setImplementedInterfaces([Serializable::class, Throwable::class]);
         self::assertCount(0, $classGenerator->getImplementedInterfaces());
     }
 
@@ -127,7 +126,7 @@ class TraitGeneratorTest extends TestCase
 
         $property = $classGenerator->getProperty('propTwo');
         self::assertInstanceOf(PropertyGenerator::class, $property);
-        self::assertEquals('propTwo', $property->getName());
+        self::assertSame('propTwo', $property->getName());
 
         // add a new property
         $classGenerator->addProperty('prop3');
@@ -167,7 +166,7 @@ class TraitGeneratorTest extends TestCase
 
         $method = $classGenerator->getMethod('methodOne');
         self::assertInstanceOf(MethodGenerator::class, $method);
-        self::assertEquals('methodOne', $method->getName());
+        self::assertSame('methodOne', $method->getName());
 
         // add a new property
         $classGenerator->addMethod('methodThree');
@@ -260,7 +259,7 @@ trait SampleClass
 EOS;
 
         $output = $classGenerator->generate();
-        self::assertEquals($expectedOutput, $output, $output);
+        self::assertSame($expectedOutput, $output, $output);
     }
 
     /**
@@ -323,7 +322,7 @@ EOS;
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass
             ->setName('MyClass')
-            ->setExtendedClass('');
+            ->setExtendedClass(null);
 
         $expected = <<<CODE
 trait MyClass
@@ -331,7 +330,7 @@ trait MyClass
 }
 
 CODE;
-        self::assertEquals($expected, $classGeneratorClass->generate());
+        self::assertSame($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -342,7 +341,7 @@ CODE;
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass
             ->setName('MyClass')
-            ->setExtendedClass('ParentClass');
+            ->setExtendedClass(DateTime::class);
 
         $expected = <<<CODE
 trait MyClass
@@ -350,7 +349,7 @@ trait MyClass
 }
 
 CODE;
-        self::assertEquals($expected, $classGeneratorClass->generate());
+        self::assertSame($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -360,8 +359,8 @@ CODE;
     {
         $reflClass      = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
-        self::assertEquals('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
-        self::assertEquals('ClassWithNamespace', $classGenerator->getName());
+        self::assertSame('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
+        self::assertSame('ClassWithNamespace', $classGenerator->getName());
         $expected = <<<CODE
 namespace LaminasTest\Code\Generator\\TestAsset;
 
@@ -371,7 +370,7 @@ trait ClassWithNamespace
 
 CODE;
         $received = $classGenerator->generate();
-        self::assertEquals($expected, $received, $received);
+        self::assertSame($expected, $received, $received);
     }
 
     /**
@@ -381,7 +380,7 @@ CODE;
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
-        self::assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
+        self::assertSame('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
     /**
@@ -558,7 +557,7 @@ trait MyClass
 CODE;
 
         $output = $classGenerator->generate();
-        self::assertEquals($expected, $output);
+        self::assertSame($expected, $output);
     }
 
     /**

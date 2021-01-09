@@ -42,20 +42,20 @@ class AuthorTagTest extends TestCase
     {
         $this->tag->setAuthorName('Foo');
         $this->tag->setAuthorEmail('Bar');
-        self::assertEquals('Foo', $this->tag->getAuthorName());
-        self::assertEquals('Bar', $this->tag->getAuthorEmail());
+        self::assertSame('Foo', $this->tag->getAuthorName());
+        self::assertSame('Bar', $this->tag->getAuthorEmail());
     }
 
     public function testParamProducesCorrectDocBlockLine()
     {
         $this->tag->setAuthorName('foo');
         $this->tag->setAuthorEmail('string');
-        self::assertEquals('@author foo <string>', $this->tag->generate());
+        self::assertSame('@author foo <string>', $this->tag->generate());
     }
 
     public function testNameIsCorrect()
     {
-        self::assertEquals('author', $this->tag->getName());
+        self::assertSame('author', $this->tag->getName());
     }
 
     public function testConstructorWithOptions()
@@ -65,7 +65,7 @@ class AuthorTagTest extends TestCase
             'authorName'  => 'foo',
         ]);
         $tagWithOptionsFromConstructor = new AuthorTag('foo', 'string');
-        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -76,7 +76,7 @@ class AuthorTagTest extends TestCase
         /** @var AuthorTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(AuthorTag::class, $tag);
-        self::assertEquals('Mister Miller', $tag->getAuthorName());
-        self::assertEquals('mister.miller@zend.com', $tag->getAuthorEmail());
+        self::assertSame('Mister Miller', $tag->getAuthorName());
+        self::assertSame('mister.miller@zend.com', $tag->getAuthorEmail());
     }
 }

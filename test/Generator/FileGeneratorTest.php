@@ -34,21 +34,21 @@ class FileGeneratorTest extends TestCase
     public function testConstruction()
     {
         $file = new FileGenerator();
-        self::assertEquals(FileGenerator::class, get_class($file));
+        self::assertSame(FileGenerator::class, get_class($file));
     }
 
     public function testSourceContentGetterAndSetter()
     {
         $file = new FileGenerator();
         $file->setSourceContent('Foo');
-        self::assertEquals('Foo', $file->getSourceContent());
+        self::assertSame('Foo', $file->getSourceContent());
     }
 
     public function testIndentationGetterAndSetter()
     {
         $file = new FileGenerator();
         $file->setIndentation('        ');
-        self::assertEquals('        ', $file->getIndentation());
+        self::assertSame('        ', $file->getIndentation());
     }
 
     public function testToString()
@@ -76,7 +76,7 @@ abstract class SampleClass extends ExtendedClassName implements Iterator, Traver
 EOS;
 
         $output = $codeGenFile->generate();
-        self::assertEquals($expectedOutput, $output, $output);
+        self::assertSame($expectedOutput, $output, $output);
     }
 
     public function testClassNotFoundException()
@@ -111,8 +111,8 @@ EOS;
         $lines = explode("\n", $codeGenFile->generate());
 
         $targetLength = strlen('require_once \'SampleClass.php\';');
-        self::assertEquals($targetLength, strlen($lines[2]));
-        self::assertEquals(';', $lines[2][$targetLength - 1]);
+        self::assertSame($targetLength, strlen($lines[2]));
+        self::assertSame(';', $lines[2][$targetLength - 1]);
     }
 
     /**
@@ -260,7 +260,7 @@ class SampleClass
 EOS;
 
         $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testMultiDeclareStatements(): void
@@ -291,7 +291,7 @@ class SampleClass
 EOS;
 
         $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testDeclareUnknownDirectiveShouldRaiseException(): void
@@ -351,7 +351,7 @@ class SampleClass
 EOS;
 
         $actual = file_get_contents(sys_get_temp_dir() . '/result_file.php');
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testWrongDeclareTypeShouldRaiseException(): void
@@ -360,6 +360,7 @@ EOS;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('setDeclares is expecting an array of Laminas\\Code\\DeclareStatement objects');
+        /** @psalm-suppress InvalidArgument */
         $generator->setDeclares([new stdClass()]);
     }
 

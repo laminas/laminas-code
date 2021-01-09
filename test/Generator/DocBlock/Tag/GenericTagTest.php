@@ -42,15 +42,15 @@ class GenericTagTest extends TestCase
     {
         $this->tag->setName('var');
         $this->tag->setContent('string');
-        self::assertEquals('var', $this->tag->getName());
-        self::assertEquals('string', $this->tag->getContent());
+        self::assertSame('var', $this->tag->getName());
+        self::assertSame('string', $this->tag->getContent());
     }
 
     public function testParamProducesCorrectDocBlockLine()
     {
         $this->tag->setName('var');
         $this->tag->setContent('string');
-        self::assertEquals('@var string', $this->tag->generate());
+        self::assertSame('@var string', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -60,7 +60,7 @@ class GenericTagTest extends TestCase
             'content' => 'string',
         ]);
         $tagWithOptionsFromConstructor = new GenericTag('var', 'string');
-        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -71,7 +71,7 @@ class GenericTagTest extends TestCase
         /** @var GenericTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(GenericTag::class, $tag);
-        self::assertEquals('global', $tag->getName());
-        self::assertEquals('string', $tag->getContent());
+        self::assertSame('global', $tag->getName());
+        self::assertSame('string', $tag->getContent());
     }
 }
