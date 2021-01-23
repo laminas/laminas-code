@@ -8,6 +8,7 @@
 
 namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
@@ -17,6 +18,7 @@ use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\TraitGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 use function current;
 
@@ -66,6 +68,41 @@ class TraitGeneratorTest extends TestCase
         $classGenerator = new TraitGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
         self::assertNull($classGenerator->getExtendedClass());
+    }
+
+    public function testAddFlagDoesNothing()
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
+
+        self::assertSame(0x00, $this->getNonPublicProperty($classGenerator, 'flags'));
+    }
+
+    public function testSetFlagsDoesNothing()
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setFlags(ClassGenerator::OBJECT_TYPE);
+
+        self::assertSame(0x00, $this->getNonPublicProperty($classGenerator, 'flags'));
+    }
+
+    public function testRemoveFlagDoesNothing()
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
+        $classGenerator->addFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
+        $classGenerator->addFlag(ClassGenerator::FLAG_ABSTRACT);
+        $classGenerator->removeFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
+
+        self::assertSame(0x00, $this->getNonPublicProperty($classGenerator, 'flags'));
+    }
+
+    public function testSetFinalToTrueDoesNothing()
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setFinal(true);
+
+        self::assertSame(0x00, $classGenerator->isFinal());
     }
 
     public function testImplementedInterfacesAccessors()
@@ -513,5 +550,15 @@ CODE;
 
         $output = $classGenerator->generate();
         self::assertEquals($expected, $output);
+    }
+
+    private function getNonPublicProperty(TraitGenerator $classGenerator, string $property)
+    {
+        $reflectedClass = new ReflectionClass($classGenerator);
+
+        $reflection = $reflectedClass->getProperty($property);
+        $reflection->setAccessible(true);
+
+        return $reflection->getValue($classGenerator);
     }
 }
