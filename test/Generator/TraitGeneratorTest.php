@@ -45,7 +45,12 @@ class TraitGeneratorTest extends TestCase
 
     public function testClassDocBlockAccessors()
     {
-        $this->markTestIncomplete();
+        $docBlock = new DocBlockGenerator('some description');
+
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setDocBlock($docBlock);
+
+        self::assertSame($docBlock, $classGenerator->getDocBlock());
     }
 
     public function testAbstractAccessorsReturnsFalse()
