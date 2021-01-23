@@ -425,6 +425,16 @@ CODE;
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
+    public function testCreateFromArrayWithoutNameThrowsException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class generator requires that a name is provided for this object');
+
+        TraitGenerator::fromArray([
+            'docblock' => new DocBlockGenerator('foo'),
+        ]);
+    }
+
     public function testExtendedClassProperies()
     {
         $reflClass      = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
