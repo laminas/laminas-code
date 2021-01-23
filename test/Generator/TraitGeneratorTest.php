@@ -405,12 +405,24 @@ CODE;
     public function testCreateFromArrayWithContainingFileGeneratorInstance()
     {
         $classGenerator = TraitGenerator::fromArray([
-            'name'     => 'SampleClass',
+            'name' => 'SampleClass',
             'containingfile' => new FileGenerator(),
         ]);
 
         $fileGenerator = $classGenerator->getContainingFileGenerator();
         self::assertInstanceOf(FileGenerator::class, $fileGenerator);
+    }
+
+    public function testCreateFromArrayWithNamespace()
+    {
+        $namespace = "SomeNamespace";
+
+        $classGenerator = TraitGenerator::fromArray([
+            'name' => 'SampleClass',
+            'namespacename' => $namespace,
+        ]);
+
+        self::assertSame($namespace, $classGenerator->getNamespaceName());
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
