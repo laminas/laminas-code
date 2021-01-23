@@ -17,6 +17,7 @@ use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\TraitGenerator;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -302,6 +303,14 @@ EOS;
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
         $reflClass      = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
+        $classGenerator = TraitGenerator::fromReflection($reflClass);
+        self::assertCount(1, $classGenerator->getMethods());
+    }
+
+    public function testNamespacedClassReturnsAllMethods()
+    {
+        $reflClass = new ClassReflection(PrototypeClass::class);
+
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         self::assertCount(1, $classGenerator->getMethods());
     }
