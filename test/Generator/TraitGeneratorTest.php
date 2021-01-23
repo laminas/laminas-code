@@ -11,6 +11,7 @@ namespace LaminasTest\Code\Generator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\FileGenerator;
 use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\TraitGenerator;
@@ -399,6 +400,17 @@ CODE;
         self::assertCount(1, $classGenerator->getUses());
 
         self::assertStringContainsString('use My\First\Use\Class as MyAlias;', $generated);
+    }
+
+    public function testCreateFromArrayWithContainingFileGeneratorInstance()
+    {
+        $classGenerator = TraitGenerator::fromArray([
+            'name'     => 'SampleClass',
+            'containingfile' => new FileGenerator(),
+        ]);
+
+        $fileGenerator = $classGenerator->getContainingFileGenerator();
+        self::assertInstanceOf(FileGenerator::class, $fileGenerator);
     }
 
     public function testCreateFromArrayWithDocBlockFromArray()
