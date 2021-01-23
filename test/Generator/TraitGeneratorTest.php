@@ -20,8 +20,8 @@ use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-
 use ReflectionException;
+
 use function current;
 
 /**
@@ -235,12 +235,12 @@ class TraitGeneratorTest extends TestCase
     public function testToString(): void
     {
         $classGenerator = TraitGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'       => 'SampleClass',
             'properties' => [
                 'foo',
                 ['name' => 'bar'],
             ],
-            'methods' => [
+            'methods'    => [
                 ['name' => 'baz'],
             ],
         ]);
@@ -302,7 +302,7 @@ EOS;
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
-        $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
+        $reflClass      = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         self::assertCount(1, $classGenerator->getMethods());
     }
@@ -358,7 +358,7 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection(): void
     {
-        $reflClass = new ClassReflection(TestAsset\ClassWithNamespace::class);
+        $reflClass      = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
         self::assertEquals('LaminasTest\Code\Generator\TestAsset', $classGenerator->getNamespaceName());
         self::assertEquals('ClassWithNamespace', $classGenerator->getName());
@@ -456,7 +456,7 @@ CODE;
     public function testCreateFromArrayWithContainingFileGeneratorInstance(): void
     {
         $classGenerator = TraitGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'           => 'SampleClass',
             'containingfile' => new FileGenerator(),
         ]);
 
@@ -469,7 +469,7 @@ CODE;
         $namespace = "SomeNamespace";
 
         $classGenerator = TraitGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'          => 'SampleClass',
             'namespacename' => $namespace,
         ]);
 
@@ -479,7 +479,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockFromArray(): void
     {
         $classGenerator = TraitGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'     => 'SampleClass',
             'docblock' => [
                 'shortdescription' => 'foo',
             ],
@@ -492,7 +492,7 @@ CODE;
     public function testCreateFromArrayWithDocBlockInstance(): void
     {
         $classGenerator = TraitGenerator::fromArray([
-            'name' => 'SampleClass',
+            'name'     => 'SampleClass',
             'docblock' => new DocBlockGenerator('foo'),
         ]);
 
@@ -512,9 +512,9 @@ CODE;
 
     public function testExtendedClassProperies(): void
     {
-        $reflClass = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
+        $reflClass      = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
-        $code = $classGenerator->generate();
+        $code           = $classGenerator->generate();
         self::assertStringContainsString('publicExtendedClassProperty', $code);
         self::assertStringContainsString('protectedExtendedClassProperty', $code);
         self::assertStringContainsString('privateExtendedClassProperty', $code);
@@ -562,7 +562,6 @@ CODE;
     }
 
     /**
-     * @param TraitGenerator $classGenerator
      * @return mixed
      * @throws ReflectionException
      */
