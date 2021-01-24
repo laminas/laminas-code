@@ -8,14 +8,19 @@
 
 namespace LaminasTest\Code\Generator;
 
+use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
+use Laminas\Code\Generator\FileGenerator;
 use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\TraitGenerator;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 
 use function current;
 
@@ -29,25 +34,30 @@ class TraitGeneratorTest extends TestCase
     {
     }
 
-    public function testConstruction()
+    public function testConstruction(): void
     {
         $class = new TraitGenerator();
         self::assertInstanceOf(TraitGenerator::class, $class);
     }
 
-    public function testNameAccessors()
+    public function testNameAccessors(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('TestClass');
         self::assertEquals('TestClass', $classGenerator->getName());
     }
 
-    public function testClassDocBlockAccessors()
+    public function testClassDocBlockAccessors(): void
     {
-        $this->markTestIncomplete();
+        $docBlock = new DocBlockGenerator('some description');
+
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setDocBlock($docBlock);
+
+        self::assertSame($docBlock, $classGenerator->getDocBlock());
     }
 
-    public function testAbstractAccessorsReturnsFalse()
+    public function testAbstractAccessorsReturnsFalse(): void
     {
         $classGenerator = new TraitGenerator();
         self::assertFalse($classGenerator->isAbstract());
@@ -55,21 +65,55 @@ class TraitGeneratorTest extends TestCase
         self::assertFalse($classGenerator->isAbstract());
     }
 
-    public function testExtendedClassAccessors()
+    public function testExtendedClassAccessors(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setExtendedClass('ExtendedClass');
         self::assertNull($classGenerator->getExtendedClass());
     }
 
-    public function testImplementedInterfacesAccessors()
+    public function testAddFlagDoesNothing(): void
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
+
+        self::assertSame(0x00, $this->getFlags($classGenerator));
+    }
+
+    public function testSetFlagsDoesNothing(): void
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setFlags(ClassGenerator::OBJECT_TYPE);
+
+        self::assertSame(0x00, $this->getFlags($classGenerator));
+    }
+
+    public function testRemoveFlagDoesNothing(): void
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->addFlag(ClassGenerator::OBJECT_TYPE);
+        $classGenerator->addFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
+        $classGenerator->removeFlag(ClassGenerator::IMPLEMENTS_KEYWORD);
+
+        self::assertSame(0x00, $this->getFlags($classGenerator));
+    }
+
+    public function testSetFinalToTrueDoesNothing(): void
+    {
+        $classGenerator = new TraitGenerator();
+        $classGenerator->setFinal(true);
+
+        self::assertSame(0x00, $classGenerator->isFinal());
+    }
+
+    public function testImplementedInterfacesAccessors(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
         self::assertCount(0, $classGenerator->getImplementedInterfaces());
     }
 
-    public function testPropertyAccessors()
+    public function testPropertyAccessors(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addProperties([
@@ -90,7 +134,7 @@ class TraitGeneratorTest extends TestCase
         self::assertCount(3, $classGenerator->getProperties());
     }
 
-    public function testSetPropertyAlreadyExistsThrowsException()
+    public function testSetPropertyAlreadyExistsThrowsException(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addProperty('prop3');
@@ -100,7 +144,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator->addProperty('prop3');
     }
 
-    public function testSetPropertyNoArrayOrPropertyThrowsException()
+    public function testSetPropertyNoArrayOrPropertyThrowsException(): void
     {
         $classGenerator = new TraitGenerator();
 
@@ -109,7 +153,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator->addProperty(true);
     }
 
-    public function testMethodAccessors()
+    public function testMethodAccessors(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethods([
@@ -130,7 +174,7 @@ class TraitGeneratorTest extends TestCase
         self::assertCount(3, $classGenerator->getMethods());
     }
 
-    public function testSetMethodNoMethodOrArrayThrowsException()
+    public function testSetMethodNoMethodOrArrayThrowsException(): void
     {
         $classGenerator = new TraitGenerator();
 
@@ -140,7 +184,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator->addMethod(true);
     }
 
-    public function testSetMethodNameAlreadyExistsThrowsException()
+    public function testSetMethodNameAlreadyExistsThrowsException(): void
     {
         $methodA = new MethodGenerator();
         $methodA->setName('foo');
@@ -159,7 +203,7 @@ class TraitGeneratorTest extends TestCase
     /**
      * @group Laminas-7361
      */
-    public function testHasMethod()
+    public function testHasMethod(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethod('methodOne');
@@ -167,7 +211,7 @@ class TraitGeneratorTest extends TestCase
         self::assertTrue($classGenerator->hasMethod('methodOne'));
     }
 
-    public function testRemoveMethod()
+    public function testRemoveMethod(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethod('methodOne');
@@ -180,7 +224,7 @@ class TraitGeneratorTest extends TestCase
     /**
      * @group Laminas-7361
      */
-    public function testHasProperty()
+    public function testHasProperty(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addProperty('propertyOne');
@@ -188,7 +232,7 @@ class TraitGeneratorTest extends TestCase
         self::assertTrue($classGenerator->hasProperty('propertyOne'));
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $classGenerator = TraitGenerator::fromArray([
             'name'       => 'SampleClass',
@@ -222,7 +266,7 @@ EOS;
     /**
      * @group Laminas-7909
      */
-    public function testClassFromReflectionThatImplementsInterfaces()
+    public function testClassFromReflectionThatImplementsInterfaces(): void
     {
         $reflClass = new ClassReflection(TestAsset\ClassWithInterface::class);
 
@@ -238,7 +282,7 @@ EOS;
     /**
      * @group Laminas-7909
      */
-    public function testClassFromReflectionDiscardParentImplementedInterfaces()
+    public function testClassFromReflectionDiscardParentImplementedInterfaces(): void
     {
         $reflClass = new ClassReflection(TestAsset\NewClassWithInterface::class);
 
@@ -254,7 +298,7 @@ EOS;
     /**
      * @group 4988
      */
-    public function testNonNamespaceClassReturnsAllMethods()
+    public function testNonNamespaceClassReturnsAllMethods(): void
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
@@ -263,10 +307,18 @@ EOS;
         self::assertCount(1, $classGenerator->getMethods());
     }
 
+    public function testNamespacedClassReturnsAllMethods(): void
+    {
+        $reflClass = new ClassReflection(PrototypeClass::class);
+
+        $classGenerator = TraitGenerator::fromReflection($reflClass);
+        self::assertCount(1, $classGenerator->getMethods());
+    }
+
     /**
      * @group Laminas-9602
      */
-    public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
+    public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate(): void
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass
@@ -285,7 +337,7 @@ CODE;
     /**
      * @group Laminas-9602
      */
-    public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
+    public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate(): void
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass
@@ -304,7 +356,7 @@ CODE;
     /**
      * @group namespace
      */
-    public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
+    public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection(): void
     {
         $reflClass      = new ClassReflection(TestAsset\ClassWithNamespace::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
@@ -325,7 +377,7 @@ CODE;
     /**
      * @group namespace
      */
-    public function testSetNameShouldDetermineIfNamespaceSegmentIsPresent()
+    public function testSetNameShouldDetermineIfNamespaceSegmentIsPresent(): void
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
@@ -335,7 +387,7 @@ CODE;
     /**
      * @group namespace
      */
-    public function testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration()
+    public function testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration(): void
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
@@ -346,7 +398,7 @@ CODE;
     /**
      * @group namespace
      */
-    public function testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace()
+    public function testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace(): void
     {
         $classGeneratorClass = new TraitGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
@@ -357,7 +409,7 @@ CODE;
     /**
      * @group Laminas-151
      */
-    public function testAddUses()
+    public function testAddUses(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('My\Class');
@@ -372,7 +424,7 @@ CODE;
     /**
      * @group 4990
      */
-    public function testAddOneUseTwiceOnlyAddsOne()
+    public function testAddOneUseTwiceOnlyAddsOne(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('My\Class');
@@ -388,7 +440,7 @@ CODE;
     /**
      * @group 4990
      */
-    public function testAddOneUseWithAliasTwiceOnlyAddsOne()
+    public function testAddOneUseWithAliasTwiceOnlyAddsOne(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('My\Class');
@@ -401,7 +453,30 @@ CODE;
         self::assertStringContainsString('use My\First\Use\Class as MyAlias;', $generated);
     }
 
-    public function testCreateFromArrayWithDocBlockFromArray()
+    public function testCreateFromArrayWithContainingFileGeneratorInstance(): void
+    {
+        $classGenerator = TraitGenerator::fromArray([
+            'name'           => 'SampleClass',
+            'containingfile' => new FileGenerator(),
+        ]);
+
+        $fileGenerator = $classGenerator->getContainingFileGenerator();
+        self::assertInstanceOf(FileGenerator::class, $fileGenerator);
+    }
+
+    public function testCreateFromArrayWithNamespace(): void
+    {
+        $namespace = "SomeNamespace";
+
+        $classGenerator = TraitGenerator::fromArray([
+            'name'          => 'SampleClass',
+            'namespacename' => $namespace,
+        ]);
+
+        self::assertSame($namespace, $classGenerator->getNamespaceName());
+    }
+
+    public function testCreateFromArrayWithDocBlockFromArray(): void
     {
         $classGenerator = TraitGenerator::fromArray([
             'name'     => 'SampleClass',
@@ -414,7 +489,7 @@ CODE;
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
-    public function testCreateFromArrayWithDocBlockInstance()
+    public function testCreateFromArrayWithDocBlockInstance(): void
     {
         $classGenerator = TraitGenerator::fromArray([
             'name'     => 'SampleClass',
@@ -425,7 +500,17 @@ CODE;
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
-    public function testExtendedClassProperies()
+    public function testCreateFromArrayWithoutNameThrowsException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class generator requires that a name is provided for this object');
+
+        TraitGenerator::fromArray([
+            'docblock' => new DocBlockGenerator('foo'),
+        ]);
+    }
+
+    public function testExtendedClassProperies(): void
     {
         $reflClass      = new ClassReflection(TestAsset\ExtendedClassWithProperties::class);
         $classGenerator = TraitGenerator::fromReflection($reflClass);
@@ -438,7 +523,7 @@ CODE;
         self::assertStringNotContainsString('privateClassProperty', $code);
     }
 
-    public function testHasMethodInsensitive()
+    public function testHasMethodInsensitive(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethod('methodOne');
@@ -447,7 +532,7 @@ CODE;
         self::assertTrue($classGenerator->hasMethod('MethoDonE'));
     }
 
-    public function testRemoveMethodInsensitive()
+    public function testRemoveMethodInsensitive(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->addMethod('methodOne');
@@ -456,7 +541,7 @@ CODE;
         self::assertFalse($classGenerator->hasMethod('methodOne'));
     }
 
-    public function testGenerateClassAndAddMethod()
+    public function testGenerateClassAndAddMethod(): void
     {
         $classGenerator = new TraitGenerator();
         $classGenerator->setName('MyClass');
@@ -474,5 +559,19 @@ CODE;
 
         $output = $classGenerator->generate();
         self::assertEquals($expected, $output);
+    }
+
+    /**
+     * @return mixed
+     * @throws ReflectionException
+     */
+    private function getFlags(TraitGenerator $classGenerator)
+    {
+        $reflectedClass = new ReflectionClass($classGenerator);
+
+        $reflection = $reflectedClass->getProperty('flags');
+        $reflection->setAccessible(true);
+
+        return $reflection->getValue($classGenerator);
     }
 }
