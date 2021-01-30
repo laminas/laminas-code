@@ -523,6 +523,7 @@ class ParameterGeneratorTest extends TestCase
         ));
 
         self::assertTrue($parameter->getVariadic());
+        self::assertNull($parameter->getDefaultValue());
         self::assertSame($expectedGeneratedSignature, $parameter->generate());
     }
 
