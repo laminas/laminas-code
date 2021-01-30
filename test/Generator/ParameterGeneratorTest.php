@@ -9,9 +9,7 @@
 namespace LaminasTest\Code\Generator;
 
 use Closure;
-use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\ParameterGenerator;
-use Laminas\Code\Generator\TypeGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
@@ -68,7 +66,7 @@ class ParameterGeneratorTest extends TestCase
 
         $value = new ValueGenerator('Foo', ValueGenerator::TYPE_CONSTANT);
         $parameterGenerator->setDefaultValue($value);
-        self::assertEquals('Foo', (string)$parameterGenerator->getDefaultValue());
+        self::assertEquals('Foo', (string) $parameterGenerator->getDefaultValue());
     }
 
     public function testPositionGetterAndSetterPersistValue()
@@ -93,7 +91,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetParameterName()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('name');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertEquals('param', $codeGenParam->getName());
     }
@@ -101,7 +99,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetParameterType()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('type');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertEquals('stdClass', $codeGenParam->getType());
     }
@@ -109,7 +107,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetReference()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('reference');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertTrue($codeGenParam->getPassedByReference());
     }
@@ -117,10 +115,10 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetDefaultValue()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('defaultValue');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         $defaultValue = $codeGenParam->getDefaultValue();
-        self::assertEquals('\'foo\'', (string)$defaultValue);
+        self::assertEquals('\'foo\'', (string) $defaultValue);
     }
 
     /**
@@ -142,7 +140,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetArrayHint()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('fromArray');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertEquals('array', $codeGenParam->getType());
     }
@@ -150,7 +148,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGetWithNativeType()
     {
         $reflectionParameter = $this->getFirstReflectionParameter('hasNativeDocTypes');
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertNotEquals('int', $codeGenParam->getType());
         self::assertEquals('', $codeGenParam->getType());
@@ -173,7 +171,7 @@ class ParameterGeneratorTest extends TestCase
     public function testFromReflectionGenerate($methodName, $expectedCode)
     {
         $reflectionParameter = $this->getFirstReflectionParameter($methodName);
-        $codeGenParam = ParameterGenerator::fromReflection($reflectionParameter);
+        $codeGenParam        = ParameterGenerator::fromReflection($reflectionParameter);
 
         self::assertEquals($expectedCode, $codeGenParam->generate());
     }
@@ -210,7 +208,7 @@ class ParameterGeneratorTest extends TestCase
     protected function getFirstReflectionParameter($method)
     {
         $reflectionClass = new ClassReflection(ParameterClass::class);
-        $method = $reflectionClass->getMethod($method);
+        $method          = $reflectionClass->getMethod($method);
 
         $params = $method->getParameters();
 
@@ -220,15 +218,15 @@ class ParameterGeneratorTest extends TestCase
     public function testCreateFromArray()
     {
         $parameterGenerator = ParameterGenerator::fromArray([
-            'name' => 'SampleParameter',
-            'type' => 'int',
-            'defaultvalue' => 'default-foo',
+            'name'              => 'SampleParameter',
+            'type'              => 'int',
+            'defaultvalue'      => 'default-foo',
             'passedbyreference' => false,
-            'position' => 1,
-            'sourcedirty' => false,
-            'sourcecontent' => 'foo',
-            'indentation' => '-',
-            'omitdefaultvalue' => true,
+            'position'          => 1,
+            'sourcedirty'       => false,
+            'sourcecontent'     => 'foo',
+            'indentation'       => '-',
+            'omitdefaultvalue'  => true,
         ]);
 
         self::assertEquals('SampleParameter', $parameterGenerator->getName());
@@ -256,7 +254,7 @@ class ParameterGeneratorTest extends TestCase
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
 
         $reflClass = new ClassReflection('LaminasTest_Code_NsTest_BarClass');
-        $params = $reflClass->getMethod('fooMethod')->getParameters();
+        $params    = $reflClass->getMethod('fooMethod')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
@@ -271,7 +269,7 @@ class ParameterGeneratorTest extends TestCase
         require_once __DIR__ . '/TestAsset/NamespaceTypeHintClass.php';
 
         $reflClass = new ClassReflection('Namespaced\TypeHint\Bar');
-        $params = $reflClass->getMethod('method')->getParameters();
+        $params    = $reflClass->getMethod('method')->getParameters();
 
         $param = ParameterGenerator::fromReflection($params[0]);
 
@@ -375,9 +373,9 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      * @dataProvider reflectionHints
-     * @param string $className
-     * @param string $methodName
-     * @param string $parameterName
+     * @param string      $className
+     * @param string      $methodName
+     * @param string      $parameterName
      * @param string|null $expectedType
      */
     public function testTypeHintFromReflection($className, $methodName, $parameterName, $expectedType)
@@ -399,9 +397,9 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @group zendframework/zend-code#29
      * @dataProvider reflectionHints
-     * @param string $className
-     * @param string $methodName
-     * @param string $parameterName
+     * @param string      $className
+     * @param string      $methodName
+     * @param string      $parameterName
      * @param string|null $expectedType
      */
     public function testTypeHintFromReflectionGeneratedCode($className, $methodName, $parameterName, $expectedType)
@@ -518,32 +516,14 @@ class ParameterGeneratorTest extends TestCase
         $methodName,
         $parameterName,
         $expectedGeneratedSignature
-    ): void {
+    ) {
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
             [$className, $methodName],
             $parameterName
         ));
 
         self::assertTrue($parameter->getVariadic());
-        self::assertNull($parameter->getDefaultValue());
         self::assertSame($expectedGeneratedSignature, $parameter->generate());
-    }
-
-    public function testGeneratingVariadicParameterWithDefaultValueThrowsInvalidArgumentException(): void
-    {
-        $parameter = new ParameterGenerator();
-
-        $parameter->setName('parameter');
-        $parameter->setType('int');
-        $parameter->setPosition(1);
-        $parameter->setVariadic(true);
-
-        $parameter->setDefaultValue([]);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Variadic parameter cannot have a default value');
-
-        $parameter->generate();
     }
 
     /**
@@ -603,7 +583,7 @@ class ParameterGeneratorTest extends TestCase
     {
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection([Phar::class, 'compress'], 1));
 
-        self::assertSame('null', strtolower((string)$parameter->getDefaultValue()));
+        self::assertSame('null', strtolower((string) $parameter->getDefaultValue()));
     }
 
     /**
