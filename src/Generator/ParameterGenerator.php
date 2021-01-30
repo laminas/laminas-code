@@ -300,6 +300,11 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         if ($this->defaultValue instanceof ValueGenerator) {
+
+            if ($this->variadic) {
+                throw new Exception\InvalidArgumentException('Variadic parameter cannot have a default value');
+            }
+
             $output .= ' = ';
             $this->defaultValue->setOutputMode(ValueGenerator::OUTPUT_SINGLE_LINE);
             $output .= $this->defaultValue;
