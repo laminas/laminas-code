@@ -480,6 +480,14 @@ class MethodScanner implements ScannerInterface
             return $infoIndex;
         };
 
+        // ensure php backwards compatibility
+        if (! defined('T_NAME_QUALIFIED')) {
+            define('T_NAME_QUALIFIED', 24001);
+        }
+        if (! defined('T_NAME_FULLY_QUALIFIED')) {
+            define('T_NAME_FULLY_QUALIFIED', 24002);
+        }
+
         /**
          * START FINITE STATE MACHINE FOR SCANNING TOKENS
          */
