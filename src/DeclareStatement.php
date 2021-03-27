@@ -26,8 +26,7 @@ class DeclareStatement
         self::ENCODING     => 'string',
     ];
 
-    /** @var string */
-    protected $directive;
+    protected string $directive;
 
     /** @var int|string */
     protected $value;

@@ -20,6 +20,6 @@ class PropertyValueGeneratorTest extends TestCase
     public function testPropertyValueAddsSemicolonToValueGenerator()
     {
         $value = new PropertyValueGenerator('foo');
-        self::assertEquals('\'foo\';', $value->generate());
+        self::assertSame('\'foo\';', $value->generate());
     }
 }

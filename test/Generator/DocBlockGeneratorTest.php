@@ -55,19 +55,19 @@ class DocBlockGeneratorTest extends TestCase
         $tags = $docBlockGenerator->getTags();
         self::assertCount(1, $tags);
 
-        self::assertEquals('foo', $tags[0]->getName());
+        self::assertSame('foo', $tags[0]->getName());
     }
 
     public function testShortDescriptionGetterAndSetter()
     {
         $this->docBlockGenerator->setShortDescription('Short Description');
-        self::assertEquals('Short Description', $this->docBlockGenerator->getShortDescription());
+        self::assertSame('Short Description', $this->docBlockGenerator->getShortDescription());
     }
 
     public function testLongDescriptionGetterAndSetter()
     {
         $this->docBlockGenerator->setLongDescription('Long Description');
-        self::assertEquals('Long Description', $this->docBlockGenerator->getLongDescription());
+        self::assertSame('Long Description', $this->docBlockGenerator->getLongDescription());
     }
 
     public function testTagGettersAndSetters()
@@ -92,7 +92,7 @@ class DocBlockGeneratorTest extends TestCase
 
 EOS;
 
-        self::assertEquals($target, $this->docBlockGenerator->generate());
+        self::assertSame($target, $this->docBlockGenerator->generate());
     }
 
     public function testGenerationOfDocBlock()
@@ -101,7 +101,7 @@ EOS;
 
         $expected = '/**' . DocBlockGenerator::LINE_FEED . ' * @var Foo this is foo bar'
             . DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
-        self::assertEquals($expected, $this->docBlockGenerator->generate());
+        self::assertSame($expected, $this->docBlockGenerator->generate());
     }
 
     public function testCreateFromArray()
@@ -117,8 +117,8 @@ EOS;
             ],
         ]);
 
-        self::assertEquals('foo', $docBlock->getShortDescription());
-        self::assertEquals('bar', $docBlock->getLongDescription());
+        self::assertSame('foo', $docBlock->getShortDescription());
+        self::assertSame('bar', $docBlock->getLongDescription());
         self::assertCount(1, $docBlock->getTags());
     }
 
@@ -134,7 +134,7 @@ EOS;
             . ' * @var This is a very large string that will be wrapped if it contains more than'
             . DocBlockGenerator::LINE_FEED . ' * 80 characters' . DocBlockGenerator::LINE_FEED
             . ' */' . DocBlockGenerator::LINE_FEED;
-        self::assertEquals($expected, $this->docBlockGenerator->generate());
+        self::assertSame($expected, $this->docBlockGenerator->generate());
     }
 
     /**
@@ -149,17 +149,17 @@ EOS;
         $expected = '/**' . DocBlockGenerator::LINE_FEED
             . ' * @var This is a very large string that will not be wrapped if it contains more than'
             . ' 80 characters' . DocBlockGenerator::LINE_FEED . ' */' . DocBlockGenerator::LINE_FEED;
-        self::assertEquals($expected, $this->docBlockGenerator->generate());
+        self::assertSame($expected, $this->docBlockGenerator->generate());
     }
 
     public function testDocBlockFromReflectionLongDescription()
     {
-        self::assertEquals('Long Description', $this->reflectionDocBlockGenerator->getLongDescription());
+        self::assertSame('Long Description', $this->reflectionDocBlockGenerator->getLongDescription());
     }
 
     public function testDocBlockFromReflectionShortDescription()
     {
-        self::assertEquals('Short Description', $this->reflectionDocBlockGenerator->getShortDescription());
+        self::assertSame('Short Description', $this->reflectionDocBlockGenerator->getShortDescription());
     }
 
     public function testDocBlockFromReflectionTagsCount()

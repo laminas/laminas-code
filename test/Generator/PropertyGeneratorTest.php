@@ -65,8 +65,8 @@ class PropertyGeneratorTest extends TestCase
         $defaultValue->setType($type);
         $defaultValue->setValue($value);
 
-        self::assertEquals($type, $defaultValue->getType());
-        self::assertEquals($code, $defaultValue->generate());
+        self::assertSame($type, $defaultValue->getType());
+        self::assertSame($code, $defaultValue->generate());
     }
 
     /**
@@ -83,13 +83,13 @@ class PropertyGeneratorTest extends TestCase
         $defaultValue->setType('bogus');
         $defaultValue->setValue($value);
 
-        self::assertEquals($code, $defaultValue->generate());
+        self::assertSame($code, $defaultValue->generate());
     }
 
     public function testPropertyReturnsSimpleValue(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
-        self::assertEquals('    public $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertSame('    public $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     public function testPropertyMultilineValue(): void
@@ -119,7 +119,7 @@ EOS;
         $targetSource = $property->generate();
         $targetSource = str_replace("\r", '', $targetSource);
 
-        self::assertEquals($expectedSource, $targetSource);
+        self::assertSame($expectedSource, $targetSource);
     }
 
     public function visibility(): Generator
@@ -141,7 +141,7 @@ EOS;
     public function testPropertyCanProduceContstantModifier(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_CONSTANT);
-        self::assertEquals('    public const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertSame('    public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
@@ -151,13 +151,13 @@ EOS;
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         $codeGenProperty->setConst(true);
-        self::assertEquals('    public const someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertSame('    public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     public function testPropertyCanProduceStaticModifier(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_STATIC);
-        self::assertEquals('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertSame('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
@@ -172,19 +172,23 @@ EOS;
 
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
-        self::assertEquals('_bazProperty', $cgProp->getName());
-        self::assertEquals([true, false, true], $cgProp->getDefaultValue()->getValue());
-        self::assertEquals('private', $cgProp->getVisibility());
+        self::assertSame('_bazProperty', $cgProp->getName());
+        $bazPropertyValue = $cgProp->getDefaultValue();
+        self::assertNotNull($bazPropertyValue);
+        self::assertSame([true, false, true], $bazPropertyValue->getValue());
+        self::assertSame('private', $cgProp->getVisibility());
 
         $reflProp = $reflectionClass->getProperty('_bazStaticProperty');
 
         // test property 2
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
-        self::assertEquals('_bazStaticProperty', $cgProp->getName());
-        self::assertEquals(TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
+        self::assertSame('_bazStaticProperty', $cgProp->getName());
+        $bazStaticValue = $cgProp->getDefaultValue();
+        self::assertNotNull($bazStaticValue);
+        self::assertSame(TestAsset\TestClassWithManyProperties::FOO, $bazStaticValue->getValue());
         self::assertTrue($cgProp->isStatic());
-        self::assertEquals('private', $cgProp->getVisibility());
+        self::assertSame('private', $cgProp->getVisibility());
     }
 
     /**
@@ -197,7 +201,7 @@ EOS;
             'some string value',
             PropertyGenerator::FLAG_STATIC | PropertyGenerator::FLAG_PROTECTED
         );
-        self::assertEquals('    protected static $someVal = \'some string value\';', $codeGenProperty->generate());
+        self::assertSame('    protected static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
@@ -219,7 +223,7 @@ EOS;
      */
     protected static \$someVal = 'some string value';
 EOS;
-        self::assertEquals($expected, $codeGenProperty->generate());
+        self::assertSame($expected, $codeGenProperty->generate());
     }
 
     public function testOtherTypesThrowExceptionOnGenerate(): void
@@ -248,14 +252,14 @@ EOS;
             'omitdefaultvalue' => true,
         ]);
 
-        self::assertEquals('SampleProperty', $propertyGenerator->getName());
+        self::assertSame('SampleProperty', $propertyGenerator->getName());
         self::assertFalse($propertyGenerator->isConst());
         self::assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
         self::assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
         self::assertTrue($propertyGenerator->isAbstract());
         self::assertTrue($propertyGenerator->isFinal());
         self::assertTrue($propertyGenerator->isStatic());
-        self::assertEquals(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
+        self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
 
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
@@ -275,7 +279,7 @@ EOS;
         $reflProp = $reflectionClass->getProperty('fooProperty');
         $cgProp   = PropertyGenerator::fromReflection($reflProp);
 
-        self::assertEquals('fooProperty', $cgProp->getName());
+        self::assertSame('fooProperty', $cgProp->getName());
 
         $docBlock = $cgProp->getDocBlock();
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
@@ -284,7 +288,7 @@ EOS;
         self::assertCount(1, $tags);
         $tag = array_shift($tags);
         self::assertInstanceOf(VarTag::class, $tag);
-        self::assertEquals('var', $tag->getName());
+        self::assertSame('var', $tag->getName());
     }
 
     /**
@@ -296,8 +300,10 @@ EOS;
         $property = new PropertyGenerator();
         $property->setDefaultValue($value, $type);
 
-        self::assertEquals($type, $property->getDefaultValue()->getType());
-        self::assertEquals($value, $property->getDefaultValue()->getValue());
+        $valueGenerator = $property->getDefaultValue();
+        self::assertNotNull($valueGenerator);
+        self::assertSame($type, $valueGenerator->getType());
+        self::assertSame($value, $valueGenerator->getValue());
     }
 
     public function testOmitType()
@@ -305,7 +311,7 @@ EOS;
         $property = new PropertyGenerator('foo', null);
         $property->omitDefaultValue();
 
-        self::assertEquals('    public $foo;', $property->generate());
+        self::assertSame('    public $foo;', $property->generate());
     }
 
     public function testFromReflectionOmitsDefaultValueIfItIsNull(): void
@@ -316,6 +322,6 @@ EOS;
         $generator = PropertyGenerator::fromReflection($propertyReflection);
         $code      = $generator->generate();
 
-        $this->assertEquals('    public static $fooStaticProperty;', $code);
+        $this->assertSame('    public static $fooStaticProperty;', $code);
     }
 }

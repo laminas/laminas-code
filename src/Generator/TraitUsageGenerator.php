@@ -26,20 +26,19 @@ use function strpos;
 
 class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterface
 {
-    /** @var ClassGenerator */
-    protected $classGenerator;
+    protected ClassGenerator $classGenerator;
 
-    /** @var array Array of trait names */
-    protected $traits = [];
+    /** @psalm-var array<int, string> Array of trait names */
+    protected array $traits = [];
 
     /** @var array Array of trait aliases */
-    protected $traitAliases = [];
+    protected array $traitAliases = [];
 
     /** @var array Array of trait overrides */
-    protected $traitOverrides = [];
+    protected array $traitOverrides = [];
 
     /** @var array Array of string names */
-    protected $uses = [];
+    protected array $uses = [];
 
     public function __construct(ClassGenerator $classGenerator)
     {
@@ -166,7 +165,6 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
      */
     public function addTrait($trait)
     {
-        $traitName = $trait;
         if (is_array($trait)) {
             if (! array_key_exists('traitName', $trait)) {
                 throw new Exception\InvalidArgumentException('Missing required value for traitName');
@@ -184,6 +182,8 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
                     $this->addTraitOverride($insteadof);
                 }
             }
+        } else {
+            $traitName = $trait;
         }
 
         if (! $this->hasTrait($traitName)) {

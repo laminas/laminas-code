@@ -42,19 +42,19 @@ class MethodTagTest extends TestCase
     {
         $this->tag->setIsStatic(true);
         $this->tag->setMethodName('method');
-        self::assertEquals(true, $this->tag->isStatic());
-        self::assertEquals('method', $this->tag->getMethodName());
+        self::assertSame(true, $this->tag->isStatic());
+        self::assertSame('method', $this->tag->getMethodName());
     }
 
     public function testGetterForMethodNameTrimsCorrectly()
     {
         $this->tag->setMethodName('()method()');
-        self::assertEquals('()method', $this->tag->getMethodName());
+        self::assertSame('()method', $this->tag->getMethodName());
     }
 
     public function testNameIsCorrect()
     {
-        self::assertEquals('method', $this->tag->getName());
+        self::assertSame('method', $this->tag->getName());
     }
 
     public function testParamProducesCorrectDocBlockLine()
@@ -63,7 +63,7 @@ class MethodTagTest extends TestCase
         $this->tag->setMethodName('method');
         $this->tag->setTypes('int');
         $this->tag->setDescription('method(string $a)');
-        self::assertEquals('@method static int method() method(string $a)', $this->tag->generate());
+        self::assertSame('@method static int method() method(string $a)', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
@@ -75,7 +75,7 @@ class MethodTagTest extends TestCase
             'description' => 'description',
         ]);
         $tagWithOptionsFromConstructor = new MethodTag('method', ['string'], 'description', true);
-        self::assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
+        self::assertSame($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -86,9 +86,9 @@ class MethodTagTest extends TestCase
         /** @var MethodTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(MethodTag::class, $tag);
-        self::assertEquals(true, $tag->isStatic());
-        self::assertEquals('int', $tag->getTypesAsString());
-        self::assertEquals('method', $tag->getMethodName());
-        self::assertEquals('method(int $a)', $tag->getDescription());
+        self::assertSame(true, $tag->isStatic());
+        self::assertSame('int', $tag->getTypesAsString());
+        self::assertSame('method', $tag->getMethodName());
+        self::assertSame('method(int $a)', $tag->getDescription());
     }
 }

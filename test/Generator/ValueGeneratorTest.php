@@ -351,7 +351,7 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        self::assertEquals($expected, $valueGenerator->generate());
+        self::assertSame($expected, $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueConstructor()
@@ -364,14 +364,14 @@ EOS;
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('foo');
-        self::assertEquals('foo', $valueGenerator->getValue());
+        self::assertSame('foo', $valueGenerator->getValue());
     }
 
     public function testPropertyDefaultValueCanHandleStrings()
     {
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('foo');
-        self::assertEquals("'foo'", $valueGenerator->generate());
+        self::assertSame("'foo'", $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueCanHandleBool()
@@ -406,7 +406,7 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        self::assertEquals($expected, $valueGenerator->generate());
+        self::assertSame($expected, $valueGenerator->generate());
     }
 
     public function testPropertyDefaultValueCanHandleUnquotedString()
@@ -414,15 +414,15 @@ EOS;
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue('PHP_EOL');
         $valueGenerator->setType('constant');
-        self::assertEquals('PHP_EOL', $valueGenerator->generate());
+        self::assertSame('PHP_EOL', $valueGenerator->generate());
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue(5);
-        self::assertEquals('5', $valueGenerator->generate());
+        self::assertSame('5', $valueGenerator->generate());
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue(5.25);
-        self::assertEquals('5.25', $valueGenerator->generate());
+        self::assertSame('5.25', $valueGenerator->generate());
     }
 
     /**
@@ -438,7 +438,7 @@ EOS;
         $valueGenerator->setType($type);
         $valueGenerator->setValue($value);
 
-        self::assertEquals($expected, $valueGenerator->generate());
+        self::assertSame($expected, $valueGenerator->generate());
     }
 
     /**
@@ -454,7 +454,7 @@ EOS;
         $valueGenerator->setValue($value);
         $valueGenerator->setIndentation("\t");
 
-        self::assertEquals($expected, $valueGenerator->generate());
+        self::assertSame($expected, $valueGenerator->generate());
     }
 
     /**

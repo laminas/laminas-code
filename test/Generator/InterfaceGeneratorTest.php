@@ -9,6 +9,7 @@
 namespace LaminasTest\Code\Generator;
 
 use Countable;
+use DateTime;
 use IteratorAggregate;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
@@ -36,7 +37,7 @@ class InterfaceGeneratorTest extends TestCase
     public function testExtendedClassAccessors()
     {
         $classGenerator = new InterfaceGenerator();
-        $classGenerator->setExtendedClass('ExtendedClass');
+        $classGenerator->setExtendedClass(DateTime::class);
 
         self::assertNull($classGenerator->getExtendedClass());
     }
@@ -95,7 +96,7 @@ interface SampleInterface
 
 EOS;
 
-        self::assertEquals($expectedOutput, $classGenerator->generate());
+        self::assertSame($expectedOutput, $classGenerator->generate());
     }
 
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
@@ -103,7 +104,7 @@ EOS;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass
             ->setName('MyInterface')
-            ->setExtendedClass('');
+            ->setExtendedClass(null);
 
         $expected = <<<CODE
 interface MyInterface
@@ -111,7 +112,7 @@ interface MyInterface
 }
 
 CODE;
-        self::assertEquals($expected, $classGeneratorClass->generate());
+        self::assertSame($expected, $classGeneratorClass->generate());
     }
 
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
@@ -119,7 +120,7 @@ CODE;
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass
             ->setName('MyInterface')
-            ->setExtendedClass('MyInterface');
+            ->setExtendedClass(DateTime::class);
 
         $expected = <<<CODE
 interface MyInterface
@@ -127,7 +128,7 @@ interface MyInterface
 }
 
 CODE;
-        self::assertEquals($expected, $classGeneratorClass->generate());
+        self::assertSame($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -138,8 +139,8 @@ CODE;
         $reflClass      = new ClassReflection(FooInterface::class);
         $classGenerator = InterfaceGenerator::fromReflection($reflClass);
 
-        self::assertEquals('LaminasTest\Code\TestAsset', $classGenerator->getNamespaceName());
-        self::assertEquals('FooInterface', $classGenerator->getName());
+        self::assertSame('LaminasTest\Code\TestAsset', $classGenerator->getNamespaceName());
+        self::assertSame('FooInterface', $classGenerator->getName());
         $expected = <<<CODE
 namespace LaminasTest\Code\TestAsset;
 
@@ -154,7 +155,7 @@ interface FooInterface
 
 CODE;
         $received = $classGenerator->generate();
-        self::assertEquals($expected, $received, $received);
+        self::assertSame($expected, $received, $received);
     }
 
     /**
@@ -164,7 +165,7 @@ CODE;
     {
         $classGeneratorClass = new InterfaceGenerator();
         $classGeneratorClass->setName('My\Namespaced\FunClass');
-        self::assertEquals('My\Namespaced', $classGeneratorClass->getNamespaceName());
+        self::assertSame('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
     /**
@@ -223,7 +224,7 @@ interface MyInterface
 CODE;
 
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
-        self::assertEquals($expected, $output);
+        self::assertSame($expected, $output);
     }
 
     public function testGenerateClassAndAddMethod()
@@ -241,7 +242,7 @@ interface MyInterface
 CODE;
 
         $output = $classGenerator->generate();
-        self::assertEquals($expected, $output);
+        self::assertSame($expected, $output);
     }
 
     public function testGenerateImplementsInterface()
@@ -261,7 +262,7 @@ interface MyCollection extends Countable, IteratorAggregate
 CODE;
 
         $output = $classGenerator->generate();
-        self::assertEquals($expected, $output);
+        self::assertSame($expected, $output);
     }
 
     public function testClassNotAnInterfaceException()

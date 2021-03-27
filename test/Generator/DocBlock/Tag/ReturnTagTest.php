@@ -40,14 +40,14 @@ class ReturnTagTest extends TestCase
 
     public function testNameIsCorrect()
     {
-        self::assertEquals('return', $this->tag->getName());
+        self::assertSame('return', $this->tag->getName());
     }
 
     public function testReturnProducesCorrectDocBlockLine()
     {
         $this->tag->setTypes('string|int');
         $this->tag->setDescription('bar bar bar');
-        self::assertEquals('@return string|int bar bar bar', $this->tag->generate());
+        self::assertSame('@return string|int bar bar bar', $this->tag->generate());
     }
 
     public function testCreatingTagFromReflection()
@@ -58,7 +58,7 @@ class ReturnTagTest extends TestCase
         /** @var ReturnTag $tag */
         $tag = $this->tagmanager->createTagFromReflection($reflectionTag);
         self::assertInstanceOf(ReturnTag::class, $tag);
-        self::assertEquals('The return', $tag->getDescription());
-        self::assertEquals('int', $tag->getTypesAsString());
+        self::assertSame('The return', $tag->getDescription());
+        self::assertSame('int', $tag->getTypesAsString());
     }
 }
