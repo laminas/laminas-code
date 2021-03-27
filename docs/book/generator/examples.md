@@ -160,7 +160,7 @@ $foo->setName('Foo')
                             'array'
                         ],
                         'parameter description'
-                        )
+                    ),
                     new Tag\ReturnTag([
                         'datatype'  => 'string',
                     ]),
