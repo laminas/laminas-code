@@ -331,7 +331,7 @@ class Foo
 {
 
 }</code></pre>
-<h3>Generating PHP classes with class properties</h3>
+<h3 id="generating-php-classes-with-class-properties">Generating PHP classes with class properties</h3>
 <p>Building on the previous example, we now add properties to our generated class.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
@@ -382,7 +382,7 @@ class Foo
     const bat = 'foobarbazbat';
 
 }</code></pre>
-<h3>Generating PHP classes with class methods</h3>
+<h3 id="generating-php-classes-with-class-methods">Generating PHP classes with class methods</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> allows you to attach methods with optional content to your
 classes. Methods may be attached as either arrays or concrete <code>Laminas\Code\Generator\MethodGenerator</code>
 instances.</p>
@@ -426,10 +426,14 @@ $foo-&gt;setName('Foo')
                 'shortDescription' =&gt; 'Set the bar property',
                 'longDescription'  =&gt; null,
                 'tags'             =&gt; [
-                    new Tag\ParamTag([
-                        'paramName' =&gt; 'bar',
-                        'datatype'  =&gt; 'string'
-                    ]),
+                     new Tag\ParamTag(
+                        'bar', 
+                        [
+                            'string',
+                            'array'
+                        ],
+                        'parameter description'
+                    ),
                     new Tag\ReturnTag([
                         'datatype'  =&gt; 'string',
                     ]),
@@ -476,8 +480,7 @@ class Foo
     /**
      * Set the bar property
      *
-     * @param string bar
-     * @return string
+     * @param string|array $bar parameter description
      */
     public function setBar($bar)
     {
@@ -574,7 +577,7 @@ class Foo
 
 define('APPLICATION_ENV', 'testing');</code></pre>
 <h2 id="add-code-to-existing-php-files-and-classes">Add code to existing PHP files and classes</h2>
-<h3>Seeding PHP class generation via reflection</h3>
+<h3 id="seeding-php-class-generation-via-reflection">Seeding PHP class generation via reflection</h3>
 <p>You may add code to an existing class. To do so, first use the static <code>fromReflection()</code> method to
 map the class into a generator object. From there, you may add additional properties or methods, and
 then regenerate the class.</p>
@@ -728,6 +731,7 @@ $code = $generator-&gt;generate();</code></pre>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -800,7 +804,7 @@ $code = $generator-&gt;generate();</code></pre>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>

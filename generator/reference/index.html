@@ -291,14 +291,14 @@
 
     <h1 id="laminascodegenerator-reference">Laminas\Code\Generator Reference</h1>
 <h2 id="abstract-classes-and-interfaces">Abstract Classes and Interfaces</h2>
-<h3>Laminas\Code\Generator\GeneratorInterface</h3>
+<h3 id="laminascodegeneratorgeneratorinterface">Laminas\Code\Generator\GeneratorInterface</h3>
 <p>The base interface from which all CodeGenerator classes implement provides the minimal functionality
 necessary. It's <em>API</em> is as follows:</p>
 <pre class="highlight"><code class="language-php">interface Laminas\Code\Generator\GeneratorInterface
 {
     public function generate();
 }</code></pre>
-<h3>Laminas\Code\Generator\AbstractGenerator</h3>
+<h3 id="laminascodegeneratorabstractgenerator">Laminas\Code\Generator\AbstractGenerator</h3>
 <p><code>Laminas\Code\Generator\AbstractGenerator</code> implements <code>Laminas\Code\Generator\GeneratorInterface</code>, and
 adds some properties for tracking whether content has changed as well as the amount of indentation
 that should appear before generated content. Its <em>API</em> is as follows:</p>
@@ -319,7 +319,7 @@ that should appear before generated content. Its <em>API</em> is as follows:</p>
 the class, and passes the value on to that method if found.</p>
 <p><code>setSourceContent()</code> and <code>getSourceContent()</code> are intended to either set the default content for the
 code being generated, or to replace said content once all generation tasks are complete.</p>
-<h3>Laminas\Code\Generator\AbstractMemberGenerator</h3>
+<h3 id="laminascodegeneratorabstractmembergenerator">Laminas\Code\Generator\AbstractMemberGenerator</h3>
 <p><code>Laminas\Code\Generator\AbstractMemberGenerator</code> is a base class for generating class members --
 properties and methods -- and provides accessors and mutators for establishing visibility; whether
 or not the member is abstract, static, or final; and the name of the member. Its <em>API</em> is as
@@ -337,7 +337,7 @@ follows:</p>
     public function getName()
 }</code></pre>
 <h2 id="concrete-codegenerator-classes">Concrete CodeGenerator Classes</h2>
-<h3>Laminas\Code\Generator\BodyGenerator</h3>
+<h3 id="laminascodegeneratorbodygenerator">Laminas\Code\Generator\BodyGenerator</h3>
 <p><code>Laminas\Code\Generator\BodyGenerator</code> is intended for generating arbitrary procedural code to include
 within a file. As such, you simply set content for the object, and it will return that content when
 you invoke <code>generate()</code>.</p>
@@ -348,7 +348,7 @@ you invoke <code>generate()</code>.</p>
     public function getContent()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\ClassGenerator</h3>
+<h3 id="laminascodegeneratorclassgenerator">Laminas\Code\Generator\ClassGenerator</h3>
 <p><code>Laminas\Code\Generator\ClassGenerator</code> is intended for generating <em>PHP</em> classes. The basic
 functionality just generates the <em>PHP</em> class itself, as well as optionally the related <em>PHP</em>
 DocBlock. Classes may implement or inherit from other classes, and may be marked as abstract.
@@ -408,7 +408,7 @@ methods.</p>
 information for generating a <code>Laminas\Code\Generator\MethodGenerator</code> instance or a concrete instance
 of that class.</p>
 <p>Note that <code>setDocBlock()</code> expects an instance of <code>Laminas\Code\Generator\DocBlockGenerator</code>.</p>
-<h3>Laminas\Code\Generator\DocBlockGenerator</h3>
+<h3 id="laminascodegeneratordocblockgenerator">Laminas\Code\Generator\DocBlockGenerator</h3>
 <p><code>Laminas\Code\Generator\DocBlockGenerator</code> can be used to generate arbitrary <em>PHP</em> docblocks, including
 all the standard docblock features: short and long descriptions and annotation tags.</p>
 <p>Annotation tags may be set using the <code>setTag()</code> and <code>setTags()</code> methods; these each take either an
@@ -429,7 +429,7 @@ or an instance of that class.</p>
     public function getTags()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\DocBlock\Tag</h3>
+<h3 id="laminascodegeneratordocblocktag">Laminas\Code\Generator\DocBlock\Tag</h3>
 <p><code>Laminas\Code\Generator\DocBlock\Tag</code> is intended for creating arbitrary annotation tags for inclusion
 in <em>PHP</em> docblocks. Tags are expected to contain a name (the portion immediately following the '@'
 symbol) and a description (everything following the tag name).</p>
@@ -446,7 +446,7 @@ symbol) and a description (everything following the tag name).</p>
     public function getDescription()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\DocBlock\Tag\ParamTag</h3>
+<h3 id="laminascodegeneratordocblocktagparamtag">Laminas\Code\Generator\DocBlock\Tag\ParamTag</h3>
 <p><code>Laminas\Code\Generator\DocBlock\Tag\ParamTag</code> is a specialized version of
 <code>Laminas\Code\Generator\DocBlock\Tag</code>, and represents a method parameter. The tag name is therefor
 known ("param"), but due to the format of this annotation tag, additional information is required in
@@ -464,7 +464,7 @@ order to generate it: the parameter name and data type it represents.</p>
     public function getParamName()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</h3>
+<h3 id="laminascodegeneratordocblocktagreturntag">Laminas\Code\Generator\DocBlock\Tag\ReturnTag</h3>
 <p>Like the param docblock tag variant, <code>Laminas\Code\Generator\DocBlock\Tag\ReturnTag</code> is an annotation
 tag variant for representing a method return value. In this case, the annotation tag name is known
 ("return"), but requires a return type.</p>
@@ -479,7 +479,7 @@ tag variant for representing a method return value. In this case, the annotation
     public function getDatatype()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\FileGenerator</h3>
+<h3 id="laminascodegeneratorfilegenerator">Laminas\Code\Generator\FileGenerator</h3>
 <p><code>Laminas\Code\Generator\FileGenerator</code> is used to generate the full contents of a file that will
 contain <em>PHP</em> code. The file may contain classes or arbitrary <em>PHP</em> code, as well as a file-level
 docblock if desired.</p>
@@ -509,7 +509,7 @@ constructor to consume or an instance of the class.</p>
     public function isSourceDirty()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\Member\ContainerGenerator</h3>
+<h3 id="laminascodegeneratormembercontainergenerator">Laminas\Code\Generator\Member\ContainerGenerator</h3>
 <p><code>Laminas\Code\Generator\Member\ContainerGenerator</code> is used internally by
 <code>Laminas\Code\Generator\ClassGenerator</code> to keep track of class members -- properties and methods alike.
 These are indexed by name, using the concrete instances of the members as values.</p>
@@ -518,7 +518,7 @@ These are indexed by name, using the concrete instances of the members as values
 {
     public function __construct($type = self::TYPE_PROPERTY)
 }</code></pre>
-<h3>Laminas\Code\Generator\MethodGenerator</h3>
+<h3 id="laminascodegeneratormethodgenerator">Laminas\Code\Generator\MethodGenerator</h3>
 <p><code>Laminas\Code\Generator\MethodGenerator</code> describes a class method, and can generate both the code and
 the docblock for the method. The visibility and status as static, abstract, or final may be
 indicated, per its parent class, <code>Laminas\Code\Generator\AbstractMemberGenerator</code>. Finally, the
@@ -543,7 +543,7 @@ constructor or an instance of that class.</p>
     public function getBody()
     public function generate()
 }</code></pre>
-<h3>Laminas\Code\Generator\ParameterGenerator</h3>
+<h3 id="laminascodegeneratorparametergenerator">Laminas\Code\Generator\ParameterGenerator</h3>
 <p><code>Laminas\Code\Generator\ParameterGenerator</code> may be used to specify method parameters. Each parameter
 may have a position (if unspecified, the order in which they are registered with the method will be
 used), a default value, and a data type; a parameter name is required.</p>
@@ -578,7 +578,7 @@ $parameter-&gt;setDefaultValue(
 );</code></pre>
 <p>Internally <code>setDefaultValue()</code> also converts the values which can't be expressed in <em>PHP</em> into the
 value holder.</p>
-<h3>Laminas\Code\Generator\PropertyGenerator</h3>
+<h3 id="laminascodegeneratorpropertygenerator">Laminas\Code\Generator\PropertyGenerator</h3>
 <p><code>Laminas\Code\Generator\PropertyGenerator</code> describes a class property, which may be either a constant
 or a variable. In each case, the property may have an optional default value associated with it.
 Additionally, the visibility of variable properties may be set, per the parent class,
@@ -718,6 +718,7 @@ Additionally, the visibility of variable properties may be set, per the parent c
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -790,7 +791,7 @@ Additionally, the visibility of variable properties may be set, per the parent c
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
