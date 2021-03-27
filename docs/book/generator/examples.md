@@ -153,10 +153,14 @@ $foo->setName('Foo')
                 'shortDescription' => 'Set the bar property',
                 'longDescription'  => null,
                 'tags'             => [
-                    new Tag\ParamTag([
-                        'paramName' => 'bar',
-                        'datatype'  => 'string'
-                    ]),
+                     new Tag\ParamTag(
+                        'bar', 
+                        [
+                            'string',
+                            'array'
+                        ],
+                        'parameter description'
+                    ),
                     new Tag\ReturnTag([
                         'datatype'  => 'string',
                     ]),
@@ -207,8 +211,7 @@ class Foo
     /**
      * Set the bar property
      *
-     * @param string bar
-     * @return string
+     * @param string|array $bar parameter description
      */
     public function setBar($bar)
     {
