@@ -2,27 +2,29 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 4.1.0 - TBD
+## 4.1.0 - 2021-03-27
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [4.1.0](https://github.com/laminas/laminas-code/milestone/8)
 
-- Nothing.
+Feature release (minor)
 
-### Deprecated
+### 4.1.0
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **3**
+- Total contributors: **3**
 
-### Removed
+#### Enhancement
 
-- Nothing.
+ - [70: Improve `TraitGenerator` test code coverage](https://github.com/laminas/laminas-code/pull/70) thanks to @mchekin
+ - [68: &#91;Feature&#93; Add/update type information for source files](https://github.com/laminas/laminas-code/pull/68) thanks to @lisachenko
 
-### Fixed
+#### Documentation
 
-- Nothing.
+ - [65: Correction of Laminas\Code\Generator\DocBlock\Tag\ParamTag example](https://github.com/laminas/laminas-code/pull/65) thanks to @mdthh
 
 ## 4.0.0 - 2020-12-30
 
