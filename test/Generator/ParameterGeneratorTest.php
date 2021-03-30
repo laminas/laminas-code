@@ -577,7 +577,7 @@ class ParameterGeneratorTest extends TestCase
         self::assertSame('$foo', $parameter->generate());
     }
 
-    public function testGeneratingVariadicParameterWithDefaultValueThrowsInvalidArgumentException(): void
+    public function testAssigningDefaultValueToVariadicParameterThrowsInvalidArgumentException(): void
     {
         $parameter = new ParameterGenerator();
 
@@ -586,12 +586,26 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setPosition(1);
         $parameter->setVariadic(true);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Variadic parameter cannot have a default value');
+
+        $parameter->setDefaultValue([]);
+    }
+
+    public function testMakingParameterVariadicWithExistingDefaultValueThrowsInvalidArgumentException(): void
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('parameter');
+        $parameter->setType('int');
+        $parameter->setPosition(1);
+
         $parameter->setDefaultValue([]);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Variadic parameter cannot have a default value');
 
-        $parameter->generate();
+        $parameter->setVariadic(true);
     }
 
     /**

@@ -207,6 +207,10 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setDefaultValue($defaultValue)
     {
+        if ($this->variadic) {
+            throw new Exception\InvalidArgumentException('Variadic parameter cannot have a default value');
+        }
+
         if (! $defaultValue instanceof ValueGenerator) {
             $defaultValue = new ValueGenerator($defaultValue);
         }
@@ -265,6 +269,10 @@ class ParameterGenerator extends AbstractGenerator
      */
     public function setVariadic($variadic)
     {
+        if (isset($this->defaultValue)) {
+            throw new Exception\InvalidArgumentException('Variadic parameter cannot have a default value');
+        }
+
         $this->variadic = (bool) $variadic;
 
         return $this;
@@ -300,10 +308,6 @@ class ParameterGenerator extends AbstractGenerator
         }
 
         if ($this->defaultValue instanceof ValueGenerator) {
-            if ($this->variadic) {
-                throw new Exception\InvalidArgumentException('Variadic parameter cannot have a default value');
-            }
-
             $output .= ' = ';
             $this->defaultValue->setOutputMode(ValueGenerator::OUTPUT_SINGLE_LINE);
             $output .= $this->defaultValue;
