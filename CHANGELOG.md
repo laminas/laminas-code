@@ -2,27 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 4.2.0 - TBD
+## 4.2.0 - 2021-04-14
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [4.2.0](https://github.com/laminas/laminas-code/milestone/11)
 
-- Nothing.
+Feature release (minor)
 
-### Deprecated
+### 4.2.0
 
-- Nothing.
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **2**
 
-### Removed
+#### Enhancement
 
-- Nothing.
+ - [72: Make sure variadic parameter does not have default value](https://github.com/laminas/laminas-code/pull/72) thanks to @mchekin
 
-### Fixed
+#### Bug,Enhancement,Help Wanted
 
-- Nothing.
+ - [35: `ParameterGenerator` always fails with variadic parameters](https://github.com/laminas/laminas-code/issues/35) thanks to @michalbundyra
 
 ## 4.1.0 - 2021-03-27
 
