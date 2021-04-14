@@ -9,6 +9,7 @@
 namespace LaminasTest\Code\Generator;
 
 use Closure;
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
@@ -517,7 +518,7 @@ class ParameterGeneratorTest extends TestCase
         $methodName,
         $parameterName,
         $expectedGeneratedSignature
-    ) {
+    ): void {
         $parameter = ParameterGenerator::fromReflection(new ParameterReflection(
             [$className, $methodName],
             $parameterName
@@ -575,6 +576,37 @@ class ParameterGeneratorTest extends TestCase
 
         self::assertFalse($parameter->getVariadic());
         self::assertSame('$foo', $parameter->generate());
+    }
+
+    public function testAssigningDefaultValueToVariadicParameterThrowsInvalidArgumentException(): void
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('parameter');
+        $parameter->setType('int');
+        $parameter->setPosition(1);
+        $parameter->setVariadic(true);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Variadic parameter cannot have a default value');
+
+        $parameter->setDefaultValue([]);
+    }
+
+    public function testMakingParameterVariadicWithExistingDefaultValueThrowsInvalidArgumentException(): void
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('parameter');
+        $parameter->setType('int');
+        $parameter->setPosition(1);
+
+        $parameter->setDefaultValue([]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Variadic parameter cannot have a default value');
+
+        $parameter->setVariadic(true);
     }
 
     /**
