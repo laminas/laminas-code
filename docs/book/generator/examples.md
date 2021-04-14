@@ -370,3 +370,46 @@ $generator->addMethod(
 );
 $code = $generator->generate();
 ```
+
+
+## Generating Trait 
+
+`Laminas\Code\Generator\FileGenerator` can be used to generate the contents of a *PHP* file. You can
+include classes as well as arbitrary content body.
+
+```php
+use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\TraitGenerator;
+
+$traitclass = new TraitGenerator();
+$traitclass->addMethod('MethodOne');
+$traitclass->addConstant('VERSION','1.0.0');
+
+$traitFile = new Laminas\Code\Generator\FileGenerator();
+$traitFile->setClass($traitclass);
+
+```
+
+Calling `generate()` will generate the code -- but not write it to a file. You will need to capture
+the contents and write them to a file yourself. As an example:
+
+```php
+$code = $traitFile->generate();
+file_put_contents('Trait.php', $traitclass);
+```
+
+The above will generate the following file:
+
+```php
+<?php
+
+trait 
+{
+    public const VERSION = '1.0.0';
+
+    public function MethodOne()
+    {
+    }
+}
+
+```
