@@ -16,6 +16,8 @@ use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\PropertyValueGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\PropertyReflection;
+use LaminasTest\Code\Generator\TestAsset\ClassWithTypedProperty;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
@@ -323,5 +325,15 @@ EOS;
         $code      = $generator->generate();
 
         $this->assertSame('    public static $fooStaticProperty;', $code);
+    }
+
+    public function testFromReflectionOmitsTypeHintInTypedProperty(): void
+    {
+        $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
+
+        $generator = PropertyGenerator::fromReflection($reflectionProperty);
+        $code      = $generator->generate();
+
+        self::assertSame('    private $typedProperty;', $code);
     }
 }
