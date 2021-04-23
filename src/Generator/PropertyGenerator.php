@@ -35,7 +35,7 @@ class PropertyGenerator extends AbstractMemberGenerator
 
         $allDefaultProperties = $reflectionProperty->getDeclaringClass()->getDefaultProperties();
 
-        $defaultValue = $allDefaultProperties[$reflectionProperty->getName()];
+        $defaultValue = $allDefaultProperties[$reflectionProperty->getName()] ?? null;
         $property->setDefaultValue($defaultValue);
         if ($defaultValue === null) {
             $property->omitDefaultValue = true;

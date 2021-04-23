@@ -24,6 +24,25 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+## 4.2.1 - 2021-04-23
+
+
+-----
+
+### Release Notes for [4.2.1](https://github.com/laminas/laminas-code/milestone/12)
+
+4.2.x bugfix release (patch)
+
+### 4.2.1
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug
+
+ - [77: Consider missing indices in PropertyGenerator](https://github.com/laminas/laminas-code/pull/77) thanks to @rieschl
+
 ## 4.2.0 - 2021-04-14
 
 
