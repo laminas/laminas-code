@@ -2,27 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 4.2.2 - TBD
+## 4.2.2 - 2021-05-07
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [4.2.2](https://github.com/laminas/laminas-code/milestone/14)
 
-- Nothing.
+4.2.x bugfix release (patch)
 
-### Deprecated
+### 4.2.2
 
-- Nothing.
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-### Removed
+#### Bug
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
+ - [81: Fix `DocBlockGenerator` formatting issue when docblock long description is not available](https://github.com/laminas/laminas-code/pull/81) thanks to @martin-helmich
 
 ## 4.2.1 - 2021-04-23
 
