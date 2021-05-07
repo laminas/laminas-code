@@ -202,4 +202,21 @@ EOS;
         $tags = $this->reflectionDocBlockGenerator->getTags();
         self::assertInstanceOf(ReturnTag::class, $tags[3]);
     }
+
+    public function testGenerateOmitsLongDescriptionWithTags(): void
+    {
+        $generator = new DocBlockGenerator(
+            "foo",
+            null,
+            [new Tag\GenericTag("var", "array")],
+        );
+
+        $expected = '/**' . DocBlockGenerator::LINE_FEED
+            . ' * foo' . DocBlockGenerator::LINE_FEED
+            . ' *' . DocBlockGenerator::LINE_FEED
+            . ' * @var array' . DocBlockGenerator::LINE_FEED
+            . ' */' . DocBlockGenerator::LINE_FEED;
+
+        self::assertSame($expected, $generator->generate());
+    }
 }
