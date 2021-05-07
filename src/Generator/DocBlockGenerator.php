@@ -228,10 +228,10 @@ class DocBlockGenerator extends AbstractGenerator
         }
 
         $output = '';
-        if (null !== ($sd = $this->getShortDescription())) {
+        if ($sd = $this->getShortDescription()) {
             $output .= $sd . self::LINE_FEED . self::LINE_FEED;
         }
-        if (null !== ($ld = $this->getLongDescription())) {
+        if ($ld = $this->getLongDescription()) {
             $output .= $ld . self::LINE_FEED . self::LINE_FEED;
         }
 
