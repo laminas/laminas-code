@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+
+## 4.3.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+
 ## 4.2.2 - 2021-05-07
 
 
@@ -20,6 +44,7 @@ All notable changes to this project will be documented in this file, in reverse 
 #### Bug
 
  - [81: Fix `DocBlockGenerator` formatting issue when docblock long description is not available](https://github.com/laminas/laminas-code/pull/81) thanks to @martin-helmich
+
 
 ## 4.2.1 - 2021-04-23
 
