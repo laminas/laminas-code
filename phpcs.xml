@@ -10,6 +10,9 @@
     <exclude-pattern>*/_files/*</exclude-pattern>
 
     <rule ref="LaminasCodingStandard">
+        <!-- This rule is deprecated and produces false positives. -->
+        <exclude name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
+
         <!-- non-strict comparisons are used in a lot of legacy code, and must be removed with care and additional
              testing. For now, we accept that it exists in the codebase -->
         <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator"/>

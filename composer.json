@@ -21,6 +21,7 @@
         "laminas/laminas-stdlib": "^3.3.0",
         "phpunit/phpunit": "^9.4.2",
         "psalm/plugin-phpunit": "^0.14.0",
+        "symfony/polyfill-php81": "^1.23",
         "vimeo/psalm": "^4.3.1"
     },
     "suggest": {
