@@ -9,8 +9,7 @@
     "homepage": "https://laminas.dev",
     "license": "BSD-3-Clause",
     "require": {
-        "php": "^7.4 || ~8.0.0",
-        "laminas/laminas-eventmanager": "^3.3"
+        "php": "^7.4 || ~8.0.0"
     },
     "replace": {
         "zendframework/zend-code": "self.version"
