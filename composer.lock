@@ -4,141 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fb9c06f414decb3542601521e351397",
-    "packages": [
-        {
-            "name": "laminas/laminas-eventmanager",
-            "version": "3.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-eventmanager.git",
-                "reference": "1940ccf30e058b2fd66f5a9d696f1b5e0027b082"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-eventmanager/zipball/1940ccf30e058b2fd66f5a9d696f1b5e0027b082",
-                "reference": "1940ccf30e058b2fd66f5a9d696f1b5e0027b082",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^7.3 || ^8.0"
-            },
-            "replace": {
-                "zendframework/zend-eventmanager": "^3.2.1"
-            },
-            "require-dev": {
-                "container-interop/container-interop": "^1.1",
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "laminas/laminas-stdlib": "^2.7.3 || ^3.0",
-                "phpbench/phpbench": "^0.17.1",
-                "phpunit/phpunit": "^8.5.8"
-            },
-            "suggest": {
-                "container-interop/container-interop": "^1.1, to use the lazy listeners feature",
-                "laminas/laminas-stdlib": "^2.7.3 || ^3.0, to use the FilterChain feature"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3.x-dev",
-                    "dev-develop": "3.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\EventManager\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Trigger and listen to events within a PHP application",
-            "homepage": "https://laminas.dev",
-            "keywords": [
-                "event",
-                "eventmanager",
-                "events",
-                "laminas"
-            ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-eventmanager/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-eventmanager/issues",
-                "rss": "https://github.com/laminas/laminas-eventmanager/releases.atom",
-                "source": "https://github.com/laminas/laminas-eventmanager"
-            },
-            "funding": [
-                {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
-                }
-            ],
-            "time": "2020-08-25T11:10:44+00:00"
-        },
-        {
-            "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "6ede70583e101030bcace4dcddd648f760ddf642"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6ede70583e101030bcace4dcddd648f760ddf642",
-                "reference": "6ede70583e101030bcace4dcddd648f760ddf642",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.1 || ^9.3",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "module": "Laminas\\ZendFrameworkBridge"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/autoload.php"
-                ],
-                "psr-4": {
-                    "Laminas\\ZendFrameworkBridge\\": "src//"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Alias legacy ZF class names to Laminas Project equivalents.",
-            "keywords": [
-                "ZendFramework",
-                "autoloading",
-                "laminas",
-                "zf"
-            ],
-            "support": {
-                "forum": "https://discourse.laminas.dev/",
-                "issues": "https://github.com/laminas/laminas-zendframework-bridge/issues",
-                "rss": "https://github.com/laminas/laminas-zendframework-bridge/releases.atom",
-                "source": "https://github.com/laminas/laminas-zendframework-bridge"
-            },
-            "funding": [
-                {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
-                }
-            ],
-            "time": "2020-09-14T14:23:00+00:00"
-        }
-    ],
+    "content-hash": "0dc801ff3a6de9be0727fe15155ef2e9",
+    "packages": [],
     "packages-dev": [
         {
             "name": "amphp/amp",
@@ -1060,6 +927,66 @@
                 }
             ],
             "time": "2020-11-19T20:18:59+00:00"
+        },
+        {
+            "name": "laminas/laminas-zendframework-bridge",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6ede70583e101030bcace4dcddd648f760ddf642",
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.1 || ^9.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laminas": {
+                    "module": "Laminas\\ZendFrameworkBridge"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ],
+                "psr-4": {
+                    "Laminas\\ZendFrameworkBridge\\": "src//"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Alias legacy ZF class names to Laminas Project equivalents.",
+            "keywords": [
+                "ZendFramework",
+                "autoloading",
+                "laminas",
+                "zf"
+            ],
+            "support": {
+                "forum": "https://discourse.laminas.dev/",
+                "issues": "https://github.com/laminas/laminas-zendframework-bridge/issues",
+                "rss": "https://github.com/laminas/laminas-zendframework-bridge/releases.atom",
+                "source": "https://github.com/laminas/laminas-zendframework-bridge"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-09-14T14:23:00+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4293,12 +4220,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -4336,8 +4263,8 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
             },
             "time": "2020-07-08T17:02:28+00:00"
         },
@@ -4403,5 +4330,5 @@
     "platform-dev": {
         "ext-phar": "*"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
