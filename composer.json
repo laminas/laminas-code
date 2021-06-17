@@ -11,9 +11,6 @@
     "require": {
         "php": "^7.4 || ~8.0.0"
     },
-    "replace": {
-        "zendframework/zend-code": "self.version"
-    },
     "conflict": {
         "phpspec/prophecy": "<1.9.0"
     },
