@@ -74,6 +74,33 @@ class MethodGeneratorTest extends TestCase
         $methodGenerator->setParameter(new stdClass());
     }
 
+    public function testMethodParameterSetPosition()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setParameter('foo');
+        $methodGenerator->setParameter(['name' => 'bar', 'type' => 'array', 'position' => 2]);
+        $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]));
+
+        $params = $methodGenerator->getParameters();
+        self::assertCount(3, $params);
+
+        /** @var ParameterGenerator $foo */
+        $foo = array_shift($params);
+        self::assertInstanceOf(ParameterGenerator::class, $foo);
+        self::assertSame('foo', $foo->getName());
+
+        $bar = array_shift($params);
+        self::assertEquals(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]), $bar);
+
+        /** @var ParameterGenerator $baz */
+        $baz = array_shift($params);
+        self::assertSame('bar', $baz->getName());
+
+        $this->expectException(InvalidArgumentException::class);
+        $methodGenerator->setParameter(new stdClass());
+    }
+
     public function testMethodBodyGetterAndSetter()
     {
         $method = new MethodGenerator();
