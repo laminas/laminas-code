@@ -15,6 +15,7 @@ use function strlen;
 use function strtolower;
 use function substr;
 use function trim;
+use function usort;
 
 class MethodGenerator extends AbstractMemberGenerator
 {

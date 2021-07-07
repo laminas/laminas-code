@@ -80,7 +80,9 @@ class MethodGeneratorTest extends TestCase
 
         $methodGenerator->setParameter('foo');
         $methodGenerator->setParameter(['name' => 'bar', 'type' => 'array', 'position' => 2]);
-        $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]));
+        $methodGenerator->setParameter(
+            ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1])
+        );
 
         $params = $methodGenerator->getParameters();
         self::assertCount(3, $params);
@@ -91,7 +93,10 @@ class MethodGeneratorTest extends TestCase
         self::assertSame('foo', $foo->getName());
 
         $bar = array_shift($params);
-        self::assertEquals(ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]), $bar);
+        self::assertEquals(
+            ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]),
+            $bar
+        );
 
         /** @var ParameterGenerator $baz */
         $baz = array_shift($params);
