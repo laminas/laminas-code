@@ -30,8 +30,6 @@ class MethodGenerator extends AbstractMemberGenerator
 
     private bool $returnsReference = false;
 
-    private bool $sortParametersOnSet = true;
-
     /**
      * @return MethodGenerator
      */
@@ -215,13 +213,10 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     public function setParameters(array $parameters)
     {
-        $this->sortParametersOnSet = false;
-
         foreach ($parameters as $parameter) {
             $this->setParameter($parameter);
         }
 
-        $this->sortParametersOnSet = true;
         $this->sortParameters();
 
         return $this;
@@ -252,9 +247,8 @@ class MethodGenerator extends AbstractMemberGenerator
 
         $this->parameters[$parameter->getName()] = $parameter;
 
-        if ($this->sortParametersOnSet) {
-            $this->sortParameters();
-        }
+        $this->sortParameters();
+
         return $this;
     }
 
