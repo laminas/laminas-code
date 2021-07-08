@@ -318,6 +318,7 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * Sort parameters by their position
+     * @return void
      */
     protected function sortParameters()
     {

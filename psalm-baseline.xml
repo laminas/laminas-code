@@ -1590,10 +1590,10 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$className</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="2">
       <code>new stdClass()</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="20">
+    <MissingReturnType occurrences="21">
       <code>testByRefReturnType</code>
       <code>testCopyMethodSignature</code>
       <code>testCreateFromArray</code>
