@@ -1590,10 +1590,10 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$className</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="1">
       <code>new stdClass()</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="21">
+    <MissingReturnType occurrences="22">
       <code>testByRefReturnType</code>
       <code>testCopyMethodSignature</code>
       <code>testCreateFromArray</code>
@@ -1609,6 +1609,8 @@
       <code>testMethodFromReflectionMultiLinesIndention</code>
       <code>testMethodParameterAccessors</code>
       <code>testMethodParameterMutator</code>
+      <code>testSetMethodParameter</code>
+      <code>testSetMethodParameters</code>
       <code>testMethodWithFinalModifierIsEmitted</code>
       <code>testMethodWithFinalModifierIsNotEmittedWhenMethodIsAbstract</code>
       <code>testMethodWithStaticModifierIsEmitted</code>

@@ -312,10 +312,8 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * Sort parameters by their position
-     *
-     * @return void
      */
-    protected function sortParameters()
+    private function sortParameters(): void
     {
         usort($this->parameters, static function (ParameterGenerator $item1, ParameterGenerator $item2) {
             return $item1->getPosition() <=> $item2->getPosition();

@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function array_filter;
+use function array_map;
 use function array_shift;
 use function array_values;
 
@@ -74,7 +75,22 @@ class MethodGeneratorTest extends TestCase
         $methodGenerator->setParameter(new stdClass());
     }
 
-    public function testMethodParameterSetPosition()
+    public function testSetMethodParameter()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setParameter('foo');
+
+        $params = $methodGenerator->getParameters();
+        self::assertCount(1, $params);
+
+        /** @var ParameterGenerator $foo */
+        $foo = array_shift($params);
+        self::assertInstanceOf(ParameterGenerator::class, $foo);
+        self::assertSame('foo', $foo->getName());
+    }
+
+    public function testSetMethodParameters()
     {
         $methodGenerator = new MethodGenerator();
 
@@ -85,25 +101,12 @@ class MethodGeneratorTest extends TestCase
         );
 
         $params = $methodGenerator->getParameters();
-        self::assertCount(3, $params);
 
-        /** @var ParameterGenerator $foo */
-        $foo = array_shift($params);
-        self::assertInstanceOf(ParameterGenerator::class, $foo);
-        self::assertSame('foo', $foo->getName());
+        $sorting = array_map(static function (ParameterGenerator $parameter): string {
+            return $parameter->getName();
+        }, $params);
 
-        $bar = array_shift($params);
-        self::assertEquals(
-            ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1]),
-            $bar
-        );
-
-        /** @var ParameterGenerator $baz */
-        $baz = array_shift($params);
-        self::assertSame('bar', $baz->getName());
-
-        $this->expectException(InvalidArgumentException::class);
-        $methodGenerator->setParameter(new stdClass());
+        self::assertEquals(['foo', 'baz', 'bar'], $sorting);
     }
 
     public function testMethodBodyGetterAndSetter()
