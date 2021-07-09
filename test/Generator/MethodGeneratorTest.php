@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function array_filter;
+use function array_map;
 use function array_shift;
 use function array_values;
 
@@ -72,6 +73,40 @@ class MethodGeneratorTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $methodGenerator->setParameter(new stdClass());
+    }
+
+    public function testSetMethodParameter()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setParameter('foo');
+
+        $params = $methodGenerator->getParameters();
+        self::assertCount(1, $params);
+
+        /** @var ParameterGenerator $foo */
+        $foo = array_shift($params);
+        self::assertInstanceOf(ParameterGenerator::class, $foo);
+        self::assertSame('foo', $foo->getName());
+    }
+
+    public function testSetMethodParameters()
+    {
+        $methodGenerator = new MethodGenerator();
+
+        $methodGenerator->setParameter('foo');
+        $methodGenerator->setParameter(['name' => 'bar', 'type' => 'array', 'position' => 2]);
+        $methodGenerator->setParameter(
+            ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class, 'position' => 1])
+        );
+
+        $params = $methodGenerator->getParameters();
+
+        $sorting = array_map(static function (ParameterGenerator $parameter): string {
+            return $parameter->getName();
+        }, $params);
+
+        self::assertEquals(['foo', 'baz', 'bar'], $sorting);
     }
 
     public function testMethodBodyGetterAndSetter()

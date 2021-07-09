@@ -15,6 +15,7 @@ use function strlen;
 use function strtolower;
 use function substr;
 use function trim;
+use function usort;
 
 class MethodGenerator extends AbstractMemberGenerator
 {
@@ -216,6 +217,8 @@ class MethodGenerator extends AbstractMemberGenerator
             $this->setParameter($parameter);
         }
 
+        $this->sortParameters();
+
         return $this;
     }
 
@@ -243,6 +246,8 @@ class MethodGenerator extends AbstractMemberGenerator
         }
 
         $this->parameters[$parameter->getName()] = $parameter;
+
+        $this->sortParameters();
 
         return $this;
     }
@@ -303,6 +308,16 @@ class MethodGenerator extends AbstractMemberGenerator
         $this->returnsReference = (bool) $returnsReference;
 
         return $this;
+    }
+
+    /**
+     * Sort parameters by their position
+     */
+    private function sortParameters(): void
+    {
+        usort($this->parameters, static function (ParameterGenerator $item1, ParameterGenerator $item2) {
+            return $item1->getPosition() <=> $item2->getPosition();
+        });
     }
 
     /**
