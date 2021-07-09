@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionMethod as PhpReflectionMethod;
+use ReturnTypeWillChange;
 
 use function array_shift;
 use function array_slice;
@@ -53,6 +54,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      * @param  bool $includeDocComment
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -69,6 +71,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      *
      * @return ClassReflection
      */
+    #[ReturnTypeWillChange]
     public function getDeclaringClass()
     {
         $phpReflection     = parent::getDeclaringClass();
@@ -84,6 +87,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      * @param string $format
      * @return array|string
      */
+    #[ReturnTypeWillChange]
     public function getPrototype($format = self::PROTOTYPE_AS_ARRAY)
     {
         $returnType = 'mixed';
@@ -140,6 +144,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      *
      * @return ParameterReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getParameters()
     {
         $phpReflections     = parent::getParameters();

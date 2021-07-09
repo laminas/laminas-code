@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionFunction;
+use ReturnTypeWillChange;
 
 use function array_shift;
 use function array_slice;
@@ -56,6 +57,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      * @param  bool $includeDocComment
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -180,6 +182,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      *
      * @return ParameterReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getParameters()
     {
         $phpReflections     = parent::getParameters();

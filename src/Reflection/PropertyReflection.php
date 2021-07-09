@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionProperty as PhpReflectionProperty;
+use ReturnTypeWillChange;
 
 /**
  * @todo       implement line numbers
@@ -14,6 +15,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
      *
      * @return ClassReflection
      */
+    #[ReturnTypeWillChange]
     public function getDeclaringClass()
     {
         $phpReflection     = parent::getDeclaringClass();
@@ -28,6 +30,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
      *
      * @return string|false False if no DocBlock defined
      */
+    #[ReturnTypeWillChange]
     public function getDocComment()
     {
         return parent::getDocComment();
