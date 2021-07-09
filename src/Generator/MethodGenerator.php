@@ -15,7 +15,7 @@ use function strlen;
 use function strtolower;
 use function substr;
 use function trim;
-use function usort;
+use function uasort;
 
 class MethodGenerator extends AbstractMemberGenerator
 {
@@ -315,7 +315,7 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     private function sortParameters(): void
     {
-        usort($this->parameters, static function (ParameterGenerator $item1, ParameterGenerator $item2) {
+        uasort($this->parameters, static function (ParameterGenerator $item1, ParameterGenerator $item2) {
             return $item1->getPosition() <=> $item2->getPosition();
         });
     }

@@ -106,7 +106,7 @@ class MethodGeneratorTest extends TestCase
             return $parameter->getName();
         }, $params);
 
-        self::assertEquals(['foo', 'baz', 'bar'], $sorting);
+        self::assertEquals(['foo' => 'foo', 'baz' => 'baz', 'bar' => 'bar'], $sorting);
     }
 
     public function testMethodBodyGetterAndSetter()
