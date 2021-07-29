@@ -52,4 +52,21 @@ class TestSampleClass5
     {
         return 'mixedValue';
     }
+
+    /**
+     * @param string|array|null $two
+     * @param int|null $three
+     * @param string|bool|int|float|array|null $five
+     *
+     * @return void
+     */
+    public function methodWithNotAllParamsDeclared(
+        string $one,
+        $two = null,
+        int $three = null,
+        string $four = '',
+        $five = null
+    ) {
+
+    }
 }
