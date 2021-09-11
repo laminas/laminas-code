@@ -13,9 +13,6 @@ use Laminas\Code\Reflection\DocBlockReflection;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @copyright  Copyright (c) 2005-2016 Laminas (https://www.zend.com)
- * @license    https://getlaminas.org/license/new-bsd     New BSD License
- *
  * @group      Laminas_Reflection
  * @group      Laminas_Reflection_DocBlock
  */

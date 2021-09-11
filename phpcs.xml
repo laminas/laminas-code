@@ -31,5 +31,11 @@
         <!-- sometimes, the reference and bitwise `&` are confused by coding standard rules, and that can lead
              to mis-interpretation of spacing rules -->
         <exclude name="WebimpressCodingStandard.Formatting.Reference.UnexpectedSpace"/>
+
+        <!-- Strict types need to be tested throughly before enabling them everywhere. Disabling the check for now. -->
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
+
+        <!-- This rule produces invalid PHP 7.4 code -->
+        <exclude name="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
     </rule>
 </ruleset>

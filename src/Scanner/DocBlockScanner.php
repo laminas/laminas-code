@@ -144,6 +144,7 @@ class DocBlockScanner
     }
 
     /**
+     * @phpcs:disable Generic.Formatting.MultipleStatementAlignment.NotSame
      * @return array
      */
     protected function tokenize()
@@ -160,7 +161,7 @@ class DocBlockScanner
         $currentWord = null;
         $currentLine = null;
 
-        $MACRO_STREAM_ADVANCE_CHAR       = function ($positionsForward = 1) use (
+        $MACRO_STREAM_ADVANCE_CHAR = function ($positionsForward = 1) use (
             &$stream,
             &$streamIndex,
             &$currentChar,
