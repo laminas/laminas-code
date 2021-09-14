@@ -118,6 +118,7 @@ class ParameterGeneratorTest extends TestCase
 
     /**
      * @group 95
+     * @requires PHP < 8.1
      */
     public function testFromReflectionGetDefaultValueNotOptional()
     {

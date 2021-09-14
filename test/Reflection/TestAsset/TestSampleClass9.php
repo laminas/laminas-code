@@ -25,9 +25,9 @@ class TestSampleClass9
         return $this->_prop2;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
-        return [];
+        return new \EmptyIterator();
     }
 
 }

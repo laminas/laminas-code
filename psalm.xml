@@ -41,6 +41,13 @@
                 <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getTags"/>
             </errorLevel>
         </InternalMethod>
+
+        <UndefinedAttributeClass>
+            <errorLevel type="suppress">
+                <!-- This class has been added in PHP 8.1 and Psalm does not know it yet. -->
+                <referencedClass name="ReturnTypeWillChange"/>
+            </errorLevel>
+        </UndefinedAttributeClass>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

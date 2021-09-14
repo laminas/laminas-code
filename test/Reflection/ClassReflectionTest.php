@@ -88,9 +88,9 @@ class ClassReflectionTest extends TestCase
         return \$this->_prop2;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
-        return [];
+        return new \EmptyIterator();
     }
 
 }
@@ -121,9 +121,9 @@ EOS;
         return \$this->_prop2;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
-        return [];
+        return new \EmptyIterator();
     }
 
 }
