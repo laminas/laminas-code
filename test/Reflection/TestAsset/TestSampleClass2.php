@@ -23,9 +23,9 @@ class TestSampleClass2 implements \IteratorAggregate
         return $this->_prop2;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
-        return [];
+        return new \EmptyIterator();
     }
 
 }

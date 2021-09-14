@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionClass;
+use ReturnTypeWillChange;
 
 use function array_shift;
 use function array_slice;
@@ -44,6 +45,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * @param  bool $includeDocComment
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment && $this->getDocComment() != '') {
@@ -83,6 +85,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      *
      * @return ClassReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getInterfaces()
     {
         $phpReflections     = parent::getInterfaces();
@@ -103,6 +106,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * @param  string $name
      * @return MethodReflection
      */
+    #[ReturnTypeWillChange]
     public function getMethod($name)
     {
         return new MethodReflection($this->getName(), parent::getMethod($name)->getName());
@@ -114,6 +118,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * @param  int $filter
      * @return MethodReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getMethods($filter = -1)
     {
         $methods = [];
@@ -130,6 +135,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      *
      * @return null|array
      */
+    #[ReturnTypeWillChange]
     public function getTraits()
     {
         $vals   = [];
@@ -150,6 +156,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      *
      * @return ClassReflection|bool
      */
+    #[ReturnTypeWillChange]
     public function getParentClass()
     {
         $phpReflection = parent::getParentClass();
@@ -169,6 +176,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * @param  string $name
      * @return PropertyReflection
      */
+    #[ReturnTypeWillChange]
     public function getProperty($name)
     {
         $phpReflection     = parent::getProperty($name);
@@ -184,6 +192,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * @param  int $filter
      * @return PropertyReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getProperties($filter = -1)
     {
         $phpReflections     = parent::getProperties($filter);
