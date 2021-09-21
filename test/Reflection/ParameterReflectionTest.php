@@ -58,6 +58,20 @@ class ParameterReflectionTest extends TestCase
         self::assertEquals($type, $parameter->detectType());
     }
 
+    /**
+     * This test covers type detection when not all params declared in phpDoc block
+     *
+     * @dataProvider paramTypeWithNotAllParamsDeclared
+     */
+    public function testTypeReturnWithNotAllParamsDeclared(string $param, string $type): void
+    {
+        $parameter = new Reflection\ParameterReflection(
+            [TestAsset\TestSampleClass5::class, 'methodWithNotAllParamsDeclared'],
+            $param
+        );
+        self::assertEquals($type, $parameter->detectType());
+    }
+
     public function testCallableTypeHint()
     {
         $parameter = new Reflection\ParameterReflection(
@@ -79,6 +93,21 @@ class ParameterReflectionTest extends TestCase
             ['three', 'string'],
             ['array', 'array'],
             ['class', TestAsset\TestSampleClass::class],
+        ];
+    }
+
+    /**
+     * @return string[][]
+     * @psalm-return non-empty-list<array{non-empty-string, non-empty-string}>
+     */
+    public function paramTypeWithNotAllParamsDeclared(): array
+    {
+        return [
+            ['one', 'string'],
+            ['two', 'string'],
+            ['three', 'int'],
+            ['four', 'string'],
+            ['five', 'string'],
         ];
     }
 
