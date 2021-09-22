@@ -18,10 +18,10 @@
         "ext-phar": "*",
         "doctrine/annotations": "^1.10.4",
         "laminas/laminas-coding-standard": "^2.3.0",
-        "laminas/laminas-stdlib": "^3.3.0",
+        "laminas/laminas-stdlib": "^3.6.0",
         "phpunit/phpunit": "^9.5.9",
-        "psalm/plugin-phpunit": "^0.14.0",
-        "vimeo/psalm": "^4.3.1"
+        "psalm/plugin-phpunit": "^0.16.1",
+        "vimeo/psalm": "^4.10.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -29,7 +29,10 @@
         "laminas/laminas-zendframework-bridge": "A bridge with Zend Framework"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.99"
+        }
     },
     "autoload": {
         "psr-4": {
