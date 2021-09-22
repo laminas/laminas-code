@@ -195,13 +195,11 @@ class TypeGeneratorTest extends TestCase
             ['static', 'static'],
             ['?static', '?static'],
             ['static|null', 'static|null'],
-            ['static&\\foo', '\\foo&static'],
 
             // Basic intersection types
             ['foo|bar', '\\bar|\\foo'],
             ['foo&bar', '\\bar&\\foo'],
             ['\\foo&\\bar', '\\bar&\\foo'],
-            ['foo&string', '\\foo&string'],
 
             // Capitalization of given types must be preserved
             ['Foo\\Bar&Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
@@ -209,7 +207,6 @@ class TypeGeneratorTest extends TestCase
 
             // Intersection types are sorted
             ['C&B&D&A', '\\A&\\B&\\C&\\D'],
-            ['string&int&bool&null&float&\\Foo', '\\Foo&bool&int&float&string&null'],
 
             // Union types may be composed by FQCN and non-FQCN
             ['\\Foo\\Bar&Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
@@ -357,6 +354,7 @@ class TypeGeneratorTest extends TestCase
             ['\\Static'],
             ['\\static|null'],
             ['\\static&null'],
+            ['static&\\foo'],
             ['null|\\static'],
             ['null&\\static'],
             ['?static|null'],
@@ -368,6 +366,13 @@ class TypeGeneratorTest extends TestCase
             ['\\mixed&null'],
             ['null|\\mixed'],
             ['null&\\mixed'],
+            ['\\never'],
+            ['\\NEVER'],
+            ['\\Never'],
+            ['\\never|null'],
+            ['\\never&null'],
+            ['null|\\never'],
+            ['null&\\never'],
 
             // `mixed` can not be union-ed with anything
             ['?mixed'],
@@ -375,11 +380,23 @@ class TypeGeneratorTest extends TestCase
             ['mixed|Foo'],
             ['mixed|\\foo'],
 
+            // `never` can not be union-ed with anything
+            ['?never'],
+            ['never|null'],
+            ['never|Foo'],
+            ['never|\\foo'],
+
             // `mixed` can not be intersect-ed with anything
             ['?mixed'],
             ['mixed&null'],
             ['mixed&Foo'],
             ['mixed&\\foo'],
+
+            // `never` can not be intersect-ed with anything
+            ['?never'],
+            ['never&null'],
+            ['never&Foo'],
+            ['never&\\foo'],
 
             // `false` and `null` must always be used as part of a union type
             ['null'],

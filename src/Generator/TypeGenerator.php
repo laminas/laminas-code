@@ -143,7 +143,11 @@ final class TypeGenerator implements GeneratorInterface
 
             assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
 
-            $atomicType->assertCanUnionWith($otherTypes);
+            if ($isIntersection) {
+                $atomicType->assertCanIntersectWith($otherTypes);
+            } else {
+                $atomicType->assertCanUnionWith($otherTypes);
+            }
         }
 
         return new self($types, $nullable, $isIntersection);
