@@ -20,8 +20,8 @@
         "laminas/laminas-coding-standard": "^2.3.0",
         "laminas/laminas-stdlib": "^3.6.0",
         "phpunit/phpunit": "^9.5.9",
-        "psalm/plugin-phpunit": "^0.14.0",
-        "vimeo/psalm": "^4.3.1"
+        "psalm/plugin-phpunit": "^0.16.1",
+        "vimeo/psalm": "^4.10.0"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
