@@ -29,7 +29,10 @@
         "laminas/laminas-zendframework-bridge": "A bridge with Zend Framework"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.99"
+        }
     },
     "autoload": {
         "psr-4": {
