@@ -283,7 +283,7 @@ EOS;
 
     public function testCreateFromArray()
     {
-        $methodGenerator = MethodGenerator::fromArray([
+        $config = [
             'name'       => 'SampleMethod',
             'body'       => 'foo',
             'docblock'   => [
@@ -294,7 +294,8 @@ EOS;
             'static'     => true,
             'visibility' => MethodGenerator::VISIBILITY_PROTECTED,
             'returntype' => '\\SampleType',
-        ]);
+        ];
+        $methodGenerator = MethodGenerator::fromArray($config);
 
         self::assertSame('SampleMethod', $methodGenerator->getName());
         self::assertSame('foo', $methodGenerator->getBody());
@@ -305,6 +306,11 @@ EOS;
         self::assertSame(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
+        self::assertFalse($methodGenerator->getParameters()['returnsreference']);
+
+        $config['returnsreference'] = true;
+        $methodGenerator = MethodGenerator::fromArray($config);
+        self::assertTrue($methodGenerator->getParameters()['returnsreference']);
     }
 
     public function testCreateInterfaceMethodFromArray()
