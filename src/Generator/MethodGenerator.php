@@ -115,8 +115,8 @@ class MethodGenerator extends AbstractMemberGenerator
      * Generate from array
      *
      * @configkey name             string        [required] Class Name
-     * @configkey docblock         string        The docblock information
-     * @configkey flags            int           Flags, one of MethodGenerator::FLAG_ABSTRACT MethodGenerator::FLAG_FINAL
+     * @configkey docblock         string        The DocBlock information
+     * @configkey flags            int           Flags, one of self::FLAG_ABSTRACT, self::FLAG_FINAL
      * @configkey parameters       string        Class which this class is extending
      * @configkey body             string
      * @configkey returntype       string
