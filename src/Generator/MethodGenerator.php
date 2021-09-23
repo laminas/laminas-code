@@ -118,15 +118,17 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
-     * @configkey name           string        [required] Class Name
-     * @configkey docblock       string        The docblock information
-     * @configkey flags          int           Flags, one of MethodGenerator::FLAG_ABSTRACT MethodGenerator::FLAG_FINAL
-     * @configkey parameters     string        Class which this class is extending
-     * @configkey body           string
-     * @configkey abstract       bool
-     * @configkey final          bool
-     * @configkey static         bool
-     * @configkey visibility     string
+     * @configkey name             string        [required] Class Name
+     * @configkey docblock         string        The DocBlock information
+     * @configkey flags            int           Flags, one of self::FLAG_ABSTRACT, self::FLAG_FINAL
+     * @configkey parameters       string        Class which this class is extending
+     * @configkey body             string
+     * @configkey returntype       string
+     * @configkey returnsreference bool
+     * @configkey abstract         bool
+     * @configkey final            bool
+     * @configkey static           bool
+     * @configkey visibility       string
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return MethodGenerator
@@ -174,6 +176,8 @@ class MethodGenerator extends AbstractMemberGenerator
                 case 'returntype':
                     $method->setReturnType($value);
                     break;
+                case 'returnsreference':
+                    $method->setReturnsReference($value);
             }
         }
 
@@ -312,6 +316,14 @@ class MethodGenerator extends AbstractMemberGenerator
         $this->returnsReference = (bool) $returnsReference;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReturnsReference(): bool
+    {
+        return $this->returnsReference;
     }
 
     /**
