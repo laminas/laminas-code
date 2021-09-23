@@ -306,7 +306,6 @@ EOS;
         self::assertSame(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
-        self::assertFalse($methodGenerator->getParameters()['returnsreference']);
 
         $config['returnsreference'] = true;
         $methodGenerator = MethodGenerator::fromArray($config);
