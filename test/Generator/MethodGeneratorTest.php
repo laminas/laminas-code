@@ -306,10 +306,11 @@ EOS;
         self::assertSame(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
+        self::assertFalse($methodGenerator->isReturnsReference());
 
         $config['returnsreference'] = true;
         $methodGenerator = MethodGenerator::fromArray($config);
-        self::assertTrue($methodGenerator->getParameters()['returnsreference']);
+        self::assertTrue($methodGenerator->isReturnsReference());
     }
 
     public function testCreateInterfaceMethodFromArray()
