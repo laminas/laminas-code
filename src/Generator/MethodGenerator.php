@@ -315,6 +315,14 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
+     * @return bool
+     */
+    public function isReturnsReference()
+    {
+        return $this->returnsReference;
+    }
+
+    /**
      * Sort parameters by their position
      */
     private function sortParameters(): void
