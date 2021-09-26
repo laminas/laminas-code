@@ -446,11 +446,6 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function setImplementedInterfaces(array $implementedInterfaces)
     {
-        array_map(function ($implementedInterface) {
-            // This loop is just validating that the given `$implementedInterfaces` contains valid syntax/symbols
-            return TypeGenerator::fromTypeString($implementedInterface);
-        }, $implementedInterfaces);
-
         $this->implementedInterfaces = $implementedInterfaces;
         return $this;
     }

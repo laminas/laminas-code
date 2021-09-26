@@ -18,9 +18,9 @@ class TestClassWithManyProperties
 
     protected $_barProperty = 1.1115;
 
-    private static $_bazStaticProperty = self::FOO;
+    private static string $_bazStaticProperty = self::FOO;
 
-    private $_bazProperty = [true, false, true];
+    private array $_bazProperty = [true, false, true];
 
     protected $_complexType = [
         5,

@@ -480,20 +480,16 @@ class ParameterGeneratorTest extends TestCase
 
         $compatibleParameters = array_filter(
             $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 70200
-                    || (
-                        false === strpos($parameter[3], 'object')
-                    );
-            }
+            static fn(array $parameter) => PHP_VERSION_ID >= 70200
+                || (
+                    false === strpos($parameter[3], 'object')
+                )
         );
 
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
             array_map(
-                function (array $definition) {
-                    return $definition[0] . '#' . $definition[1];
-                },
+                static fn(array $definition) => $definition[0] . '#' . $definition[1],
                 $compatibleParameters
             ),
             $compatibleParameters

@@ -100,9 +100,10 @@ class FileGenerator extends AbstractGenerator
                     $fileGenerator->setRequiredFiles($value);
                     break;
                 case 'declares':
-                    $fileGenerator->setDeclares(array_map(static function ($directive, $value) {
-                        return DeclareStatement::fromArray([$directive => $value]);
-                    }, array_keys($value), $value));
+                    $fileGenerator->setDeclares(
+                        array_map(static fn($directive, $value) =>
+                            DeclareStatement::fromArray([$directive => $value]), array_keys($value), $value)
+                    );
                     break;
                 default:
                     if (property_exists($fileGenerator, $name)) {
