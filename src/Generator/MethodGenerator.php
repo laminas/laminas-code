@@ -317,7 +317,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * @return bool
      */
-    public function isReturnsReference()
+    public function isReturnsReference(): bool
     {
         return $this->returnsReference;
     }
