@@ -315,9 +315,11 @@ class MethodGenerator extends AbstractMemberGenerator
      */
     private function sortParameters(): void
     {
-        uasort($this->parameters, static function (ParameterGenerator $item1, ParameterGenerator $item2) {
-            return $item1->getPosition() <=> $item2->getPosition();
-        });
+        uasort(
+            $this->parameters,
+            static fn(ParameterGenerator $item1, ParameterGenerator $item2)
+                => $item1->getPosition() <=> $item2->getPosition()
+        );
     }
 
     /**

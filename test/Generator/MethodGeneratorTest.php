@@ -102,9 +102,7 @@ class MethodGeneratorTest extends TestCase
 
         $params = $methodGenerator->getParameters();
 
-        $sorting = array_map(static function (ParameterGenerator $parameter): string {
-            return $parameter->getName();
-        }, $params);
+        $sorting = array_map(static fn(ParameterGenerator $parameter): string => $parameter->getName(), $params);
 
         self::assertEquals(['foo' => 'foo', 'baz' => 'baz', 'bar' => 'bar'], $sorting);
     }
@@ -427,10 +425,8 @@ PHP;
 
         return array_values(array_filter(
             $parameters,
-            function (array $parameter) {
-                return PHP_VERSION_ID >= 80000
-                    || $parameter[0] !== Php80Types::class;
-            }
+            static fn(array $parameter) => PHP_VERSION_ID >= 80000
+                || $parameter[0] !== Php80Types::class
         ));
     }
 
