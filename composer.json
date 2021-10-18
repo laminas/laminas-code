@@ -37,12 +37,18 @@
     "autoload": {
         "psr-4": {
             "Laminas\\Code\\": "src/"
-        }
+        },
+        "files": [
+            "polyfill/ReflectionEnumPolyfill.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "LaminasTest\\Code\\": "test/"
-        }
+        },
+        "files": [
+            "polyfill/test/enums.php"
+        ]
     },
     "scripts": {
         "check": [

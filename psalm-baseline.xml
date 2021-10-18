@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+  <file src="polyfill/test/Environment.php">
+    <ParseError occurrences="1">
+      <code>Environment</code>
+    </ParseError>
+  </file>
+  <file src="polyfill/test/Flags.php">
+    <ParseError occurrences="2">
+      <code>Flags</code>
+      <code>case</code>
+    </ParseError>
+  </file>
+  <file src="polyfill/test/Orientation.php">
+    <ParseError occurrences="2">
+      <code>Orientation</code>
+      <code>case</code>
+    </ParseError>
+  </file>
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -77,9 +94,8 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$name</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$use</code>
-      <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedOperand occurrences="3">
@@ -257,6 +273,47 @@
       <code>new static()</code>
       <code>new static()</code>
     </UnsafeInstantiation>
+  </file>
+  <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$pureCases</code>
+    </ArgumentTypeCoercion>
+    <MixedArgument occurrences="2">
+      <code>$backingType-&gt;getName()</code>
+      <code>$enum-&gt;getCases()</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$backedCases</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayOffset occurrences="1">
+      <code>$backedCases[$singleCase-&gt;getName()]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="3">
+      <code>$backedCases[$singleCase-&gt;getName()]</code>
+      <code>$backingType</code>
+      <code>$singleCase</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="3">
+      <code>getBackingValue</code>
+      <code>getName</code>
+      <code>getName</code>
+    </MixedMethodCall>
+    <UndefinedClass occurrences="1">
+      <code>ReflectionEnumUnitCase</code>
+    </UndefinedClass>
+    <UndefinedMethod occurrences="3">
+      <code>getBackingType</code>
+      <code>getCases</code>
+      <code>getCases</code>
+    </UndefinedMethod>
+  </file>
+  <file src="src/Generator/EnumGenerator/EnumGenerator.php">
+    <MixedArgument occurrences="1">
+      <code>$enum-&gt;getName()</code>
+    </MixedArgument>
+    <UndefinedMethod occurrences="1">
+      <code>getName</code>
+    </UndefinedMethod>
   </file>
   <file src="src/Generator/FileGenerator.php">
     <DocblockTypeContradiction occurrences="2">
@@ -1133,99 +1190,6 @@
       <code>FooClass</code>
       <code>FooClass</code>
     </MissingDependency>
-    <MissingReturnType occurrences="91">
-      <code>testAbstractAccessors</code>
-      <code>testAddConstantAcceptsMixedScalars</code>
-      <code>testAddConstantRejectsArrayWithInvalidNestedValue</code>
-      <code>testAddConstantRejectsObjectConstantValue</code>
-      <code>testAddConstantRejectsResourceConstantValue</code>
-      <code>testAddConstantThrowsExceptionOnDuplicate</code>
-      <code>testAddConstantThrowsExceptionWithEmptyConstantName</code>
-      <code>testAddConstantThrowsExceptionWithInvalidName</code>
-      <code>testAddOneUseTwiceOnlyAddsOne</code>
-      <code>testAddOneUseWithAliasTwiceOnlyAddsOne</code>
-      <code>testAddPropertiesIsBackwardsCompatibleWithConstants</code>
-      <code>testAddPropertyIsBackwardsCompatibleWithConstants</code>
-      <code>testAddTraitAliasExceptionInvalidAliasArgument</code>
-      <code>testAddTraitAliasExceptionInvalidMethodFormat</code>
-      <code>testAddTraitAliasExceptionInvalidMethodTraitDoesNotExist</code>
-      <code>testAddTraitAliasExceptionInvalidVisibilityValue</code>
-      <code>testAddTraitAliasExceptionMethodAlreadyExists</code>
-      <code>testAddTraitOverrideExceptionInvalidMethodArgInArray</code>
-      <code>testAddTraitOverrideExceptionInvalidMethodFormat</code>
-      <code>testAddTraitOverrideExceptionInvalidMethodTraitDoesNotExist</code>
-      <code>testAddTraitOverrideExceptionInvalidTraitName</code>
-      <code>testAddTraitOverrideExceptionInvalidTraitToReplaceArgument</code>
-      <code>testAddUses</code>
-      <code>testCanAddConstant</code>
-      <code>testCanAddConstantsWithArrayOfGenerators</code>
-      <code>testCanAddConstantsWithArrayOfKeyValues</code>
-      <code>testCanAddMultipleTraitOverrides</code>
-      <code>testCanAddTraitAliasWithArray</code>
-      <code>testCanAddTraitAliasWithString</code>
-      <code>testCanAddTraitOverride</code>
-      <code>testCanAddTraitWithArray</code>
-      <code>testCanAddTraitWithString</code>
-      <code>testCanGetTraitsMethod</code>
-      <code>testCanRemoveAllTraitOverrides</code>
-      <code>testCanRemoveTrait</code>
-      <code>testCanRemoveTraitOverride</code>
-      <code>testClassCanBeGeneratedWithConstantAndPropertyWithSameName</code>
-      <code>testClassDocBlockAccessors</code>
-      <code>testClassFromReflectionDiscardParentImplementedInterfaces</code>
-      <code>testClassFromReflectionThatImplementsInterfaces</code>
-      <code>testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection</code>
-      <code>testConstantsAddedFromReflection</code>
-      <code>testConstruction</code>
-      <code>testCorrectExtendNames</code>
-      <code>testCorrectExtendNamesFromGlobalNamespace</code>
-      <code>testCorrectImplementNames</code>
-      <code>testCorrectlyExtendsAliasOfProvidedFQCNIfUseAliasExists</code>
-      <code>testCorrectlyExtendsFullyQualifiedParentClass</code>
-      <code>testCorrectlyExtendsProvidedAliasIfUseAliasExists</code>
-      <code>testCorrectlyExtendsProvidedNamespaceAliasIfUseAliasExistsForNamespace</code>
-      <code>testCorrectlyExtendsRelativeParentClass</code>
-      <code>testCorrectlyExtendsWithNamespaceAliasOfProvidedFQCNIfUseAliasExistsForNamespace</code>
-      <code>testCreateFromArrayWithDocBlockFromArray</code>
-      <code>testCreateFromArrayWithDocBlockInstance</code>
-      <code>testExtendedClassAccessors</code>
-      <code>testExtendedClassProperies</code>
-      <code>testGenerateClassAndAddMethod</code>
-      <code>testGenerateWithFinalFlag</code>
-      <code>testHasExtendedClass</code>
-      <code>testHasImplementedInterface</code>
-      <code>testHasMethod</code>
-      <code>testHasMethodInsensitive</code>
-      <code>testHasProperty</code>
-      <code>testHasUse</code>
-      <code>testHasUseAlias</code>
-      <code>testHereDoc</code>
-      <code>testImplementedInterfacesAccessors</code>
-      <code>testMethodAccessors</code>
-      <code>testNameAccessors</code>
-      <code>testNonNamespaceClassReturnsAllMethods</code>
-      <code>testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace</code>
-      <code>testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration</code>
-      <code>testPropertyAccessors</code>
-      <code>testRemoveConstant</code>
-      <code>testRemoveExtendedClass</code>
-      <code>testRemoveImplementedInterface</code>
-      <code>testRemoveMethod</code>
-      <code>testRemoveMethodInsensitive</code>
-      <code>testRemoveProperty</code>
-      <code>testRemoveUse</code>
-      <code>testRemoveUseAlias</code>
-      <code>testSetMethodNameAlreadyExistsThrowsException</code>
-      <code>testSetMethodNoMethodOrArrayThrowsException</code>
-      <code>testSetNameShouldDetermineIfNamespaceSegmentIsPresent</code>
-      <code>testSetPropertyAlreadyExistsThrowsException</code>
-      <code>testSetPropertyNoArrayOrPropertyThrowsException</code>
-      <code>testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate</code>
-      <code>testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate</code>
-      <code>testToString</code>
-      <code>testTraitGenerationWithAliasesAndOverrides</code>
-      <code>testUseTraitGeneration</code>
-    </MissingReturnType>
     <MixedArgument occurrences="6">
       <code>$overrides['myTrait::foo']</code>
       <code>$overrides['myTrait::foo']</code>
@@ -1456,6 +1420,17 @@
       <code>testShortDescriptionGetterAndSetter</code>
       <code>testTagGettersAndSetters</code>
     </MissingReturnType>
+  </file>
+  <file src="test/Generator/EnumGeneratorTest.php">
+    <InvalidDocblock occurrences="1">
+      <code>public function testReflectionEnumWorks(string $enumClass, string $expected): void</code>
+    </InvalidDocblock>
+    <MoreSpecificReturnType occurrences="1"/>
+    <UndefinedClass occurrences="3">
+      <code>Environment</code>
+      <code>Flags</code>
+      <code>Orientation</code>
+    </UndefinedClass>
   </file>
   <file src="test/Generator/FileGeneratorTest.php">
     <MissingReturnType occurrences="16">
