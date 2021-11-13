@@ -211,7 +211,12 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $this->name
                 ));
             }
-            return $output . $this->indentation . $this->getVisibility() . ' const ' . $name . ' = '
+            return $output
+                . $this->indentation
+                . ($this->isFinal() ? 'final ' : '')
+                . $this->getVisibility()
+                . ' const '
+                . $name . ' = '
                 . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         }
 

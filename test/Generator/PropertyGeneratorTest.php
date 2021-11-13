@@ -128,16 +128,26 @@ EOS;
     /**
      * @dataProvider visibility
      */
-    public function testPropertyCanProduceConstatWithVisibility(int $flag, string $visibility): void
+    public function testPropertyCanProduceConstantWithVisibility(int $flag, string $visibility): void
     {
         $codeGenProperty = new PropertyGenerator('FOO', 'bar', [PropertyGenerator::FLAG_CONSTANT, $flag]);
         self::assertSame('    ' . $visibility . ' const FOO = \'bar\';', $codeGenProperty->generate());
     }
 
-    public function testPropertyCanProduceContstantModifier(): void
+    public function testPropertyCanProduceConstantModifier(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value', PropertyGenerator::FLAG_CONSTANT);
         self::assertSame('    public const someVal = \'some string value\';', $codeGenProperty->generate());
+    }
+
+    public function testPropertyCanProduceFinalConstantModifier(): void
+    {
+        $codeGenProperty = new PropertyGenerator(
+            'someVal',
+            'some string value',
+            PropertyGenerator::FLAG_CONSTANT | PropertyGenerator::FLAG_FINAL
+        );
+        self::assertSame('    final public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
     /**
