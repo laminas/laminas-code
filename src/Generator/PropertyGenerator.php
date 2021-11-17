@@ -4,6 +4,12 @@ namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\PropertyReflection;
 
+use function array_reduce;
+use function get_class;
+use function gettype;
+use function is_bool;
+use function is_object;
+use function method_exists;
 use function sprintf;
 use function str_replace;
 use function strtolower;
@@ -11,6 +17,7 @@ use function strtolower;
 class PropertyGenerator extends AbstractMemberGenerator
 {
     public const FLAG_CONSTANT = 0x08;
+    public const FLAG_READONLY = 0x80;
 
     protected bool $isConst = false;
 
@@ -18,9 +25,7 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     private bool $omitDefaultValue = false;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function fromReflection(PropertyReflection $reflectionProperty)
     {
         $property = new static();
@@ -41,6 +46,10 @@ class PropertyGenerator extends AbstractMemberGenerator
 
         if ($reflectionProperty->isStatic()) {
             $property->setStatic(true);
+        }
+
+        if (method_exists($reflectionProperty, 'isReadonly') && $reflectionProperty->isReadonly()) {
+            $property->setReadonly(true);
         }
 
         if ($reflectionProperty->isPrivate()) {
@@ -68,6 +77,7 @@ class PropertyGenerator extends AbstractMemberGenerator
      * @configkey static             bool
      * @configkey visibility         string
      * @configkey omitdefaultvalue   bool
+     * @configkey readonly           bool
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return static
@@ -112,6 +122,20 @@ class PropertyGenerator extends AbstractMemberGenerator
                 case 'omitdefaultvalue':
                     $property->omitDefaultValue($value);
                     break;
+                case 'readonly':
+                    if (! is_bool($value)) {
+                        throw new Exception\InvalidArgumentException(sprintf(
+                            '%s is expecting boolean on key %s. Got %s',
+                            __METHOD__,
+                            $name,
+                            is_object($value)
+                                ? get_class($value)
+                                : gettype($value)
+                        ));
+                    }
+
+                    $property->setReadonly($value);
+                    break;
             }
         }
 
@@ -119,12 +143,13 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param ?string $name
      * @param PropertyValueGenerator|string|array|null $defaultValue
-     * @param int $flags
+     * @param int|int[] $flags
      */
-    public function __construct($name = null, $defaultValue = null, $flags = self::FLAG_PUBLIC)
+    public function __construct(?string $name = null, $defaultValue = null, $flags = self::FLAG_PUBLIC)
     {
+        parent::__construct();
+
         if (null !== $name) {
             $this->setName($name);
         }
@@ -142,12 +167,12 @@ class PropertyGenerator extends AbstractMemberGenerator
      */
     public function setConst($const)
     {
-        if ($const) {
+        if (true === $const) {
             $this->setFlags(self::FLAG_CONSTANT);
-        } else {
-            $this->removeFlag(self::FLAG_CONSTANT);
+            return $this;
         }
 
+        $this->removeFlag(self::FLAG_CONSTANT);
         return $this;
     }
 
@@ -159,11 +184,47 @@ class PropertyGenerator extends AbstractMemberGenerator
         return (bool) ($this->flags & self::FLAG_CONSTANT);
     }
 
+    public function setReadonly(bool $readonly): self
+    {
+        if (true === $readonly) {
+            $this->setFlags(self::FLAG_READONLY);
+            return $this;
+        }
+
+        $this->removeFlag(self::FLAG_READONLY);
+        return $this;
+    }
+
+    public function isReadonly(): bool
+    {
+        return (bool) ($this->flags & self::FLAG_READONLY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setFlags($flags)
+    {
+        $flags = array_reduce((array) $flags, static function (int $a, int $b): int {
+            return $a | $b;
+        }, 0);
+
+        if ($flags & self::FLAG_READONLY && $flags & self::FLAG_STATIC) {
+            throw new Exception\RuntimeException('Modifier "readonly" in combination with "static" not permitted.');
+        }
+
+        if ($flags & self::FLAG_READONLY && $flags & self::FLAG_CONSTANT) {
+            throw new Exception\RuntimeException('Modifier "readonly" in combination with "constant" not permitted.');
+        }
+
+        return parent::setFlags($flags);
+    }
+
     /**
      * @param PropertyValueGenerator|mixed $defaultValue
      * @param string                       $defaultValueType
      * @param string                       $defaultValueOutputMode
-     * @return $this
+     * @return static
      */
     public function setDefaultValue(
         $defaultValue,
@@ -190,6 +251,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * @throws Exception\RuntimeException
      * @return string
+     * @psalm-return non-empty-string
      */
     public function generate()
     {
@@ -215,7 +277,11 @@ class PropertyGenerator extends AbstractMemberGenerator
                 . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         }
 
-        $output .= $this->indentation . $this->getVisibility() . ($this->isStatic() ? ' static' : '') . ' $' . $name;
+        $output .= $this->indentation
+            . $this->getVisibility()
+            . ($this->isReadonly() ? ' readonly' : '')
+            . ($this->isStatic() ? ' static' : '')
+            . ' $' . $name;
 
         if ($this->omitDefaultValue) {
             return $output . ';';

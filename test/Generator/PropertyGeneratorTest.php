@@ -12,12 +12,14 @@ use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use LaminasTest\Code\Generator\TestAsset\ClassWithTypedProperty;
+use PHP_CodeSniffer\Tokenizers\PHP;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
 
 use function array_shift;
 use function str_replace;
+use function uniqid;
 
 /**
  * @group Laminas_Code_Generator
@@ -141,9 +143,46 @@ EOS;
     }
 
     /**
+     * @dataProvider visibility
+     */
+    public function testPropertyCanProduceReadonlyModifier(int $flag, string $visibility): void
+    {
+        $codeGenProperty = new PropertyGenerator(
+            'someVal',
+            'some string value',
+            PropertyGenerator::FLAG_READONLY | $flag
+        );
+
+        self::assertSame(
+            '    ' . $visibility . ' readonly $someVal = \'some string value\';',
+            $codeGenProperty->generate()
+        );
+    }
+
+    public function testFailToProduceReadonlyStatic(): void
+    {
+        $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Modifier "readonly" in combination with "static" not permitted.');
+
+        $codeGenProperty->setFlags(PropertyGenerator::FLAG_READONLY | PropertyGenerator::FLAG_STATIC);
+    }
+
+    public function testFailToProduceReadonlyConstant(): void
+    {
+        $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Modifier "readonly" in combination with "constant" not permitted.');
+
+        $codeGenProperty->setFlags(PropertyGenerator::FLAG_READONLY | PropertyGenerator::FLAG_CONSTANT);
+    }
+
+    /**
      * @group PR-704
      */
-    public function testPropertyCanProduceContstantModifierWithSetter(): void
+    public function testPropertyCanProduceConstantModifierWithSetter(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
         $codeGenProperty->setConst(true);
@@ -250,6 +289,7 @@ EOS;
 
         self::assertSame('SampleProperty', $propertyGenerator->getName());
         self::assertFalse($propertyGenerator->isConst());
+        self::assertFalse($propertyGenerator->isReadonly());
         self::assertInstanceOf(ValueGenerator::class, $propertyGenerator->getDefaultValue());
         self::assertInstanceOf(DocBlockGenerator::class, $propertyGenerator->getDocBlock());
         self::assertTrue($propertyGenerator->isAbstract());
@@ -263,6 +303,22 @@ EOS;
         $reflectionOmitDefaultValue->setAccessible(true);
 
         self::assertTrue($reflectionOmitDefaultValue->getValue($propertyGenerator));
+    }
+
+    public function testCreateReadonlyFromArray(): void
+    {
+        $propertyGenerator = PropertyGenerator::fromArray([
+            'name'     => 'ReadonlyProperty',
+            'readonly' => true,
+        ]);
+
+        self::assertSame('ReadonlyProperty', $propertyGenerator->getName());
+        self::assertFalse($propertyGenerator->isConst());
+        self::assertFalse($propertyGenerator->isAbstract());
+        self::assertFalse($propertyGenerator->isFinal());
+        self::assertFalse($propertyGenerator->isStatic());
+        self::assertTrue($propertyGenerator->isReadonly());
+        self::assertSame(PropertyGenerator::VISIBILITY_PUBLIC, $propertyGenerator->getVisibility());
     }
 
     /**
@@ -329,5 +385,20 @@ EOS;
         $code      = $generator->generate();
 
         self::assertSame('    private $typedProperty;', $code);
+    }
+
+    /** @requires PHP >= 8.1 */
+    public function testFromReflectionReadonlyProperty(): void
+    {
+        $className = uniqid('ClassWithReadonlyProperty', false);
+
+        eval('namespace ' . __NAMESPACE__ . '; class ' . $className . '{ public readonly string $readonly; }');
+
+        $reflectionProperty = new PropertyReflection(__NAMESPACE__ . '\\' . $className, 'readonly');
+
+        $generator = PropertyGenerator::fromReflection($reflectionProperty);
+        $code      = $generator->generate();
+
+        self::assertSame('    public readonly $readonly;', $code);
     }
 }
