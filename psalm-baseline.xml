@@ -423,9 +423,8 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$name</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment occurrences="1">
       <code>$defaultValue</code>
-      <code>$value</code>
     </MixedAssignment>
     <PossiblyFalseArgument occurrences="1">
       <code>$reflectionProperty-&gt;getDocBlock()</code>
@@ -1585,8 +1584,7 @@
     </PossiblyNullArgument>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
-    <InvalidArgument occurrences="2">
-      <code>[PropertyGenerator::FLAG_CONSTANT, $flag]</code>
+    <InvalidArgument occurrences="1">
       <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidReturnStatement occurrences="1"/>
@@ -1596,6 +1594,9 @@
     <MissingReturnType occurrences="1">
       <code>testOmitType</code>
     </MissingReturnType>
+    <MixedAssignment occurrences="1">
+      <code>$generator</code>
+    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>Generator</code>
     </MixedInferredReturnType>
@@ -1686,11 +1687,9 @@
     </UnusedVariable>
   </file>
   <file src="test/Generator/TestAsset/TestClassWithManyProperties.php">
-    <MissingPropertyType occurrences="6">
+    <MissingPropertyType occurrences="4">
       <code>$_barProperty</code>
       <code>$_barStaticProperty</code>
-      <code>$_bazProperty</code>
-      <code>$_bazStaticProperty</code>
       <code>$_complexType</code>
       <code>$fooStaticProperty</code>
     </MissingPropertyType>
