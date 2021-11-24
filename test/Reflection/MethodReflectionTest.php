@@ -285,6 +285,37 @@ CONTENTS;
         );
     }
 
+    /** @requires PHP >= 8.0 */
+    public function testGetPrototypeMethodForPromotedParameter(): void
+    {
+        $reflectionMethod = new MethodReflection(
+            TestAsset\ClassWithPromotedParameter::class,
+            '__construct'
+        );
+        $prototype        = [
+            'namespace'  => 'LaminasTest\Code\Reflection\TestAsset',
+            'class'      => 'ClassWithPromotedParameter',
+            'name'       => '__construct',
+            'visibility' => 'public',
+            'return'     => 'mixed',
+            'arguments'  => [
+                'promotedParameter' => [
+                    'type'       => 'string',
+                    'required'   => true,
+                    'by_ref'     => false,
+                    'default'    => null,
+                    'promoted'   => true,
+                    'visibility' => 'private',
+                ],
+            ],
+        ];
+        self::assertEquals($prototype, $reflectionMethod->getPrototype());
+        self::assertEquals(
+            'public mixed __construct(private string $promotedParameter)',
+            $reflectionMethod->getPrototype(MethodReflection::PROTOTYPE_AS_STRING)
+        );
+    }
+
     /**
      * @group 5062
      */

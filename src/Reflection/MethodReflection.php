@@ -5,6 +5,7 @@ namespace Laminas\Code\Reflection;
 use ReflectionMethod as PhpReflectionMethod;
 use ReturnTypeWillChange;
 
+use function array_key_exists;
 use function array_shift;
 use function array_slice;
 use function class_exists;
@@ -116,15 +117,37 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
             ];
+
+            if ($parameter->isPromoted()) {
+                $prototype['arguments'][$parameter->getName()]['promoted'] = true;
+                if ($parameter->isPublicPromoted()) {
+                    $prototype['arguments'][$parameter->getName()]['visibility'] = 'public';
+                } elseif ($parameter->isProtectedPromoted()) {
+                    $prototype['arguments'][$parameter->getName()]['visibility'] = 'protected';
+                } elseif ($parameter->isPrivatePromoted()) {
+                    $prototype['arguments'][$parameter->getName()]['visibility'] = 'private';
+                }
+            }
         }
 
         if ($format == self::PROTOTYPE_AS_STRING) {
             $line = $prototype['visibility'] . ' ' . $prototype['return'] . ' ' . $prototype['name'] . '(';
             $args = [];
             foreach ($prototype['arguments'] as $name => $argument) {
-                $argsLine = ($argument['type'] ?
-                    $argument['type'] . ' '
-                    : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
+                $argsLine =
+                    (
+                        array_key_exists('visibility', $argument)
+                            ? $argument['visibility'] . ' '
+                            : ''
+                    ) . (
+                        $argument['type']
+                            ? $argument['type'] . ' '
+                            : ''
+                    ) . (
+                        $argument['by_ref']
+                            ? '&'
+                            : ''
+                    ) . '$' . $name;
                 if (! $argument['required']) {
                     $argsLine .= ' = ' . var_export($argument['default'], true);
                 }

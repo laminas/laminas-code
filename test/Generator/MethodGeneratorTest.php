@@ -137,6 +137,21 @@ EOS;
         self::assertSame($target, (string) $methodGenerator);
     }
 
+    /** @requires PHP >= 8.0 */
+    public function testCopyMethodSignatureForPromotedParameter(): void
+    {
+        $ref = new MethodReflection(TestAsset\ClassWithPromotedParameter::class, '__construct');
+
+        $methodGenerator = MethodGenerator::copyMethodSignature($ref);
+        $target          = <<<'EOS'
+    public function __construct(private string $promotedParameter)
+    {
+    }
+
+EOS;
+        self::assertSame($target, (string) $methodGenerator);
+    }
+
     public function testMethodFromReflection()
     {
         $ref = new MethodReflection(TestAsset\TestSampleSingleClass::class, 'someMethod');

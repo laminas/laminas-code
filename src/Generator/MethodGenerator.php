@@ -77,7 +77,11 @@ class MethodGenerator extends AbstractMemberGenerator
         $method->setName($reflectionMethod->getName());
 
         foreach ($reflectionMethod->getParameters() as $reflectionParameter) {
-            $method->setParameter(ParameterGenerator::fromReflection($reflectionParameter));
+            $method->setParameter(
+                $reflectionParameter->isPromoted()
+                    ? PromotedParameterGenerator::fromReflection($reflectionParameter)
+                    : ParameterGenerator::fromReflection($reflectionParameter)
+            );
         }
 
         return $method;

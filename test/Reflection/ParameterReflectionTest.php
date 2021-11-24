@@ -5,6 +5,7 @@ namespace LaminasTest\Code\Reflection;
 use Closure;
 use Laminas\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\Reflection\TestAsset\ClassWithPromotedParameter;
 use LaminasTest\Code\TestAsset\ClassTypeHintedClass;
 use LaminasTest\Code\TestAsset\DocBlockOnlyHintsClass;
 use LaminasTest\Code\TestAsset\InternalHintsClass;
@@ -226,5 +227,19 @@ class ParameterReflectionTest extends TestCase
             [DocBlockOnlyHintsClass::class, 'classParameter', 'foo', 'DocBlockOnlyHintsClass'],
             [DocBlockOnlyHintsClass::class, 'otherClassParameter', 'foo', 'InternalHintsClass'],
         ];
+    }
+
+    /** @requires PHP >= 8.0 */
+    public function testPromotedParameter(): void
+    {
+        $reflection = new Reflection\ParameterReflection(
+            [ClassWithPromotedParameter::class, '__construct'],
+            'promotedParameter'
+        );
+
+        self::assertTrue($reflection->isPromoted());
+        self::assertTrue($reflection->isPrivatePromoted());
+        self::assertFalse($reflection->isProtectedPromoted());
+        self::assertFalse($reflection->isPublicPromoted());
     }
 }

@@ -33,6 +33,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     public const IMPLEMENTS_KEYWORD = 'implements';
     public const FLAG_ABSTRACT      = 0x01;
     public const FLAG_FINAL         = 0x02;
+    private const CONSTRUCTOR_NAME  = '__construct';
 
     protected ?FileGenerator $containingFileGenerator = null;
 
@@ -140,7 +141,17 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
             }
 
             if ($reflectionMethod->getDeclaringClass()->getName() == $className) {
-                $methods[] = MethodGenerator::fromReflection($reflectionMethod);
+                $method = MethodGenerator::fromReflection($reflectionMethod);
+
+                if (self::CONSTRUCTOR_NAME === strtolower($method->getName())) {
+                    foreach ($method->getParameters() as $parameter) {
+                        if ($parameter instanceof PromotedParameterGenerator) {
+                            $cg->removeProperty($parameter->getName());
+                        }
+                    }
+                }
+
+                $methods[] = $method;
             }
         }
 
@@ -855,6 +866,16 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                 'A method by name %s already exists in this class.',
                 $methodName
             ));
+        }
+
+        if (self::CONSTRUCTOR_NAME !== strtolower($methodName)) {
+            foreach ($method->getParameters() as $parameter) {
+                if ($parameter instanceof PromotedParameterGenerator) {
+                    throw new Exception\InvalidArgumentException(
+                        'Promoted parameter can only be added to constructor.'
+                    );
+                }
+            }
         }
 
         $this->methods[strtolower($methodName)] = $method;

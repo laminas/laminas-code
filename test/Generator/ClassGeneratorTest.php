@@ -9,8 +9,10 @@ use Laminas\Code\Generator\Exception\ExceptionInterface;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\GeneratorInterface;
 use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\PromotedParameterGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\Generator\TestAsset\ClassWithPromotedParameter;
 use LaminasTest\Code\TestAsset\FooClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -1355,5 +1357,69 @@ EOS;
 
         $output = $classGenerator->generate();
         self::assertSame($expectedOutput, $output, $output);
+    }
+
+    /** @requires PHP >= 8.0 */
+    public function testGenerateClassWithPromotedConstructorParameter(): void
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('ClassWithPromotedParameter');
+
+        $classGenerator->addMethod('__construct', [
+            new PromotedParameterGenerator(
+                'bar',
+                'Foo',
+                PromotedParameterGenerator::VISIBILITY_PRIVATE,
+            ),
+        ]);
+
+        $expectedOutput = <<<EOS
+class ClassWithPromotedParameter
+{
+    public function __construct(private \Foo \$bar)
+    {
+    }
+}
+
+EOS;
+
+        self::assertEquals($expectedOutput, $classGenerator->generate());
+    }
+
+    /** @requires PHP >= 8.0 */
+    public function testClassWithPromotedParameterFromReflection(): void
+    {
+        $classGenerator = ClassGenerator::fromReflection(
+            new ClassReflection(ClassWithPromotedParameter::class)
+        );
+
+        $expectedOutput = <<<EOS
+namespace LaminasTest\Code\Generator\TestAsset;
+
+class ClassWithPromotedParameter
+{
+    public function __construct(private string \$promotedParameter)
+    {
+    }
+}
+
+EOS;
+
+        self::assertEquals($expectedOutput, $classGenerator->generate());
+    }
+
+    /** @requires PHP >= 8.0 */
+    public function testFailToGenerateClassWithPromotedParameterOnNonConstructorMethod(): void
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('promotedParameterOnNonConstructorMethod');
+
+        $this->expectExceptionObject(
+            new InvalidArgumentException('Promoted parameter can only be added to constructor.')
+        );
+
+        $classGenerator->addMethod('thisIsNoConstructor', [
+            new PromotedParameterGenerator('promotedParameter', 'string'),
+        ]);
     }
 }
