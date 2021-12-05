@@ -25,8 +25,7 @@
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
-        "laminas/laminas-stdlib": "Laminas\\Stdlib component",
-        "laminas/laminas-zendframework-bridge": "A bridge with Zend Framework"
+        "laminas/laminas-stdlib": "Laminas\\Stdlib component"
     },
     "config": {
         "sort-packages": true,
