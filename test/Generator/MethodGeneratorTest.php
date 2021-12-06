@@ -313,7 +313,7 @@ EOS;
      * @param bool|string|int $value
      * @param bool $expected
      */
-    public function testCreateFromArrayWithReturnsReference($value, $expected)
+    public function testCreateFromArrayWithReturnsReference($value, $expected): void
     {
         $methodGenerator = MethodGenerator::fromArray([
             'name'             => 'SampleMethod',
@@ -327,7 +327,7 @@ EOS;
      * @return string[][]
      * @psalm-return list<array{bool|string|int, bool}>
      */
-    public function returnReturnsRefeferenceValues()
+    public function returnReturnsRefeferenceValues(): array
     {
         return [
             [true, true],
