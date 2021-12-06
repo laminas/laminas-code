@@ -305,11 +305,10 @@ EOS;
         self::assertSame(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
-        self::assertFalse($methodGenerator->isReturnsReference());
     }
 
     /**
-     * @dataProvider returnReturnsRefeferenceValues
+     * @dataProvider returnReturnsReferenceValues
      * @param bool|string|int $value
      * @param bool $expected
      */
@@ -327,7 +326,7 @@ EOS;
      * @return string[][]
      * @psalm-return list<array{bool|string|int, bool}>
      */
-    public function returnReturnsRefeferenceValues(): array
+    public function returnReturnsReferenceValues(): array
     {
         return [
             [true, true],
