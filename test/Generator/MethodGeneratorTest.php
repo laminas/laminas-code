@@ -283,7 +283,7 @@ EOS;
 
     public function testCreateFromArray()
     {
-        $config = [
+        $methodGenerator = MethodGenerator::fromArray([
             'name'       => 'SampleMethod',
             'body'       => 'foo',
             'docblock'   => [
@@ -294,8 +294,7 @@ EOS;
             'static'     => true,
             'visibility' => MethodGenerator::VISIBILITY_PROTECTED,
             'returntype' => '\\SampleType',
-        ];
-        $methodGenerator = MethodGenerator::fromArray($config);
+        ]);
 
         self::assertSame('SampleMethod', $methodGenerator->getName());
         self::assertSame('foo', $methodGenerator->getBody());
@@ -307,10 +306,37 @@ EOS;
         self::assertInstanceOf(TypeGenerator::class, $methodGenerator->getReturnType());
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
         self::assertFalse($methodGenerator->isReturnsReference());
+    }
 
-        $config['returnsreference'] = true;
-        $methodGenerator = MethodGenerator::fromArray($config);
-        self::assertTrue($methodGenerator->isReturnsReference());
+    /**
+     * @dataProvider returnReturnsRefeferenceValues
+     * @param bool|string|int $value
+     * @param bool $expected
+     */
+    public function testCreateFromArrayWithReturnsReference($value, $expected)
+    {
+        $methodGenerator = MethodGenerator::fromArray([
+            'name'             => 'SampleMethod',
+            'returnsreference' => $value,
+        ]);
+
+        self::assertSame($expected, $methodGenerator->isReturnsReference());
+    }
+
+    /**
+     * @return string[][]
+     * @psalm-return list<array{bool|string|int, bool}>
+     */
+    public function returnReturnsRefeferenceValues()
+    {
+        return [
+            [true, true],
+            [1, true],
+            ['true', true],
+            [false, false],
+            [0, false],
+            ['', false],
+        ];
     }
 
     public function testCreateInterfaceMethodFromArray()
