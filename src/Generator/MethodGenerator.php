@@ -177,7 +177,7 @@ class MethodGenerator extends AbstractMemberGenerator
                     $method->setReturnType($value);
                     break;
                 case 'returnsreference':
-                    $method->setReturnsReference($value);
+                    $method->setReturnsReference((bool) $value);
             }
         }
 
