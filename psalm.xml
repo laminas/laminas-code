@@ -15,6 +15,11 @@
         </ignoreFiles>
     </projectFiles>
 
+    <extraFiles>
+        <file name="test/Reflection/TestAsset/FileOfFunctions.php"/>
+        <file name="test/Reflection/TestAsset/functions.php"/>
+    </extraFiles>
+
     <issueHandlers>
         <InternalClass>
             <errorLevel type="suppress">

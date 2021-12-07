@@ -131,13 +131,10 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      */
     public function getPrototype($format = self::PROTOTYPE_AS_ARRAY)
     {
-        $returnType = 'mixed';
-        $docBlock   = $this->getDocBlock();
-        if ($docBlock) {
-            $return      = $docBlock->getTag('return');
-            $returnTypes = $return->getTypes();
-            $returnType  = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
-        }
+        $docBlock    = $this->getDocBlock();
+        $return      = $docBlock->getTag('return');
+        $returnTypes = $return->getTypes();
+        $returnType  = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
 
         $prototype = [
             'namespace' => $this->getNamespaceName(),
