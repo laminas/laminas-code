@@ -321,7 +321,7 @@ EOS;
     }
 
     /**
-     * @dataProvider returnReturnsReferenceValues
+     * @dataProvider returnsReferenceValues
      * @param bool|string|int $value
      * @param bool $expected
      */
@@ -332,14 +332,16 @@ EOS;
             'returnsreference' => $value,
         ]);
 
-        self::assertSame($expected, $methodGenerator->isReturnsReference());
+        self::assertSame($expected, $methodGenerator->returnsReference());
     }
 
     /**
-     * @return string[][]
-     * @psalm-return list<array{bool|string|int, bool}>
+     * @return list<array{
+     *     bool|string|int,
+     *     bool
+     * }>
      */
-    public function returnReturnsReferenceValues(): array
+    public function returnsReferenceValues(): array
     {
         return [
             [true, true],
