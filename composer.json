@@ -11,9 +11,6 @@
     "require": {
         "php": ">=7.4, <8.2"
     },
-    "conflict": {
-        "phpspec/prophecy": "<1.9.0"
-    },
     "require-dev": {
         "ext-phar": "*",
         "doctrine/annotations": "^1.10.4",
