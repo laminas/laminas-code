@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
-  <file src="polyfill/test/Environment.php">
-    <ParseError occurrences="1">
-      <code>Environment</code>
-    </ParseError>
-  </file>
-  <file src="polyfill/test/Flags.php">
-    <ParseError occurrences="2">
-      <code>Flags</code>
-      <code>case</code>
-    </ParseError>
-  </file>
-  <file src="polyfill/test/Orientation.php">
-    <ParseError occurrences="2">
-      <code>Orientation</code>
-      <code>case</code>
-    </ParseError>
-  </file>
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -1420,17 +1403,6 @@
       <code>testShortDescriptionGetterAndSetter</code>
       <code>testTagGettersAndSetters</code>
     </MissingReturnType>
-  </file>
-  <file src="test/Generator/EnumGeneratorTest.php">
-    <InvalidDocblock occurrences="1">
-      <code>public function testReflectionEnumWorks(string $enumClass, string $expected): void</code>
-    </InvalidDocblock>
-    <MoreSpecificReturnType occurrences="1"/>
-    <UndefinedClass occurrences="3">
-      <code>Environment</code>
-      <code>Flags</code>
-      <code>Orientation</code>
-    </UndefinedClass>
   </file>
   <file src="test/Generator/FileGeneratorTest.php">
     <MissingReturnType occurrences="16">

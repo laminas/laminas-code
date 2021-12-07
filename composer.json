@@ -45,10 +45,7 @@
     "autoload-dev": {
         "psr-4": {
             "LaminasTest\\Code\\": "test/"
-        },
-        "files": [
-            "polyfill/test/enums.php"
-        ]
+        }
     },
     "scripts": {
         "check": [

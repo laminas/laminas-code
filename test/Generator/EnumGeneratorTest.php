@@ -6,11 +6,8 @@ use InvalidArgumentException;
 use Laminas\Code\Generator\EnumGenerator\EnumGenerator;
 use PHPUnit\Framework\TestCase;
 use ReflectionEnum;
-use TestNamespace\Environment;
-use TestNamespace\Flags;
-use TestNamespace\Orientation;
 
-use const PHP_VERSION_ID;
+use function class_exists;
 
 final class EnumGeneratorTest extends TestCase
 {
@@ -126,12 +123,9 @@ final class EnumGeneratorTest extends TestCase
         ];
     }
 
+    /** @requires PHP < 8.1 */
     public function testReflectionEnumFailsForUnsupportedPhpVersions(): void
     {
-        if (PHP_VERSION_ID >= 80100) {
-            $this->markTestSkipped('ReflectionEnum is available from PHP 8.1 onwards.');
-        }
-
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('This feature only works from PHP 8.1 onwards.');
 
@@ -140,32 +134,32 @@ final class EnumGeneratorTest extends TestCase
     }
 
     /**
+     * @requires PHP >= 8.1
      * @dataProvider validEnumSpecifications
-     * @psalm-param array{
-     *      0: class-string,
-     *      1: non-empty-string
-     * }
+     * @psalm-param non-empty-string $enumClass
+     * @psalm-param non-empty-string $expected
      */
     public function testReflectionEnumWorks(string $enumClass, string $expected): void
     {
-        if (PHP_VERSION_ID < 80100) {
-            $this->markTestSkipped('ReflectionEnum is available from PHP 8.1 onwards.');
+        if (! class_exists($enumClass, false)) {
+            eval($expected);
         }
 
+        self::assertTrue(class_exists($enumClass, false));
         self::assertSame($expected, EnumGenerator::fromReflection(new ReflectionEnum($enumClass))->generate());
     }
 
     /**
      * @psalm-return iterable<string, array{
-     *      0: class-string,
+     *      0: non-empty-string,
      *      1: non-empty-string
      * }>
      */
     public function validEnumSpecifications(): iterable
     {
         yield 'pure enum reflection' => [
-            Environment::class,
-            <<<CODE
+            'TestNamespace\\Environment',
+            <<<'PHP'
                 namespace TestNamespace;
 
                 enum Environment {
@@ -174,11 +168,11 @@ final class EnumGeneratorTest extends TestCase
                     case Prod;
                 }
                 
-                CODE,
+                PHP,
         ];
         yield 'string backed enum reflection' => [
-            Orientation::class,
-            <<<CODE
+            'TestNamespace\\Orientation',
+            <<<'PHP'
                 namespace TestNamespace;
 
                 enum Orientation: string {
@@ -188,11 +182,11 @@ final class EnumGeneratorTest extends TestCase
                     case West = 'W';
                 }
                 
-                CODE,
+                PHP,
         ];
         yield 'int backed enum reflection' => [
-            Flags::class,
-            <<<CODE
+            'TestNamespace\\Flags',
+            <<<'PHP'
                 namespace TestNamespace;
 
                 enum Flags: int {
@@ -201,7 +195,7 @@ final class EnumGeneratorTest extends TestCase
                     case Private = 3;
                 }
                 
-                CODE,
+                PHP,
         ];
     }
 }
