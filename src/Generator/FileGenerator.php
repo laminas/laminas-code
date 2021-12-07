@@ -364,7 +364,6 @@ class FileGenerator extends AbstractGenerator
     public function setDeclares(array $declares)
     {
         foreach ($declares as $declare) {
-            /** @psalm-suppress DocblockTypeContradiction $declare should be always DeclareStatement */
             if (! $declare instanceof DeclareStatement) {
                 throw new InvalidArgumentException(sprintf(
                     '%s is expecting an array of %s objects',

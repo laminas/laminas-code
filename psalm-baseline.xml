@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+<files psalm-version="v4.14.0@14dcbc908ab2625cd7a74258ee6c740cbecc6140">
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -16,7 +16,7 @@
   </file>
   <file src="src/Generator/AbstractGenerator.php">
     <DocblockTypeContradiction occurrences="1">
-      <code>! is_array($options) &amp;&amp; ! $options instanceof Traversable</code>
+      <code>gettype($options)</code>
     </DocblockTypeContradiction>
     <MixedAssignment occurrences="2">
       <code>$optionName</code>
@@ -29,11 +29,11 @@
       <code>(bool) $isSourceDirty</code>
       <code>(string) $indentation</code>
     </RedundantCastGivenDocblockType>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_object($options)</code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Generator/AbstractMemberGenerator.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$docBlock instanceof DocBlockGenerator</code>
-    </DocblockTypeContradiction>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $name</code>
     </RedundantCastGivenDocblockType>
@@ -231,9 +231,6 @@
     <DeprecatedClass occurrences="1">
       <code>new Tag()</code>
     </DeprecatedClass>
-    <DocblockTypeContradiction occurrences="1">
-      <code>$tag instanceof TagInterface</code>
-    </DocblockTypeContradiction>
     <MixedArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
@@ -299,10 +296,6 @@
     </UndefinedMethod>
   </file>
   <file src="src/Generator/FileGenerator.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>$class instanceof ClassGenerator</code>
-      <code>$docBlock instanceof DocBlockGenerator</code>
-    </DocblockTypeContradiction>
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
@@ -374,9 +367,6 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/MethodGenerator.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$parameter instanceof ParameterGenerator</code>
-    </DocblockTypeContradiction>
     <MixedArgument occurrences="12">
       <code>$array['name']</code>
       <code>$parameterOutput</code>
@@ -602,10 +592,8 @@
     </MissingReturnType>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ImpureMethodCall occurrences="6">
+    <ImpureMethodCall occurrences="4">
       <code>allowsNull</code>
-      <code>getName</code>
-      <code>getName</code>
       <code>getName</code>
       <code>getName</code>
       <code>getParentClass</code>
@@ -616,16 +604,9 @@
       <code>ReflectionIntersectionType</code>
       <code>ReflectionIntersectionType</code>
     </UndefinedClass>
-    <UnusedMethodCall occurrences="4">
-      <code>assertCanBeAStandaloneType</code>
-      <code>assertCanBeStandaloneNullable</code>
-      <code>assertCanIntersectWith</code>
-      <code>assertCanUnionWith</code>
-    </UnusedMethodCall>
   </file>
   <file src="src/Generator/ValueGenerator.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>$constants instanceof StdlibArrayObject</code>
     </DocblockTypeContradiction>
     <MissingReturnType occurrences="1">
@@ -912,9 +893,6 @@
       <code>$startLine</code>
       <code>$startLine</code>
     </PossiblyInvalidOperand>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>$docBlock</code>
-    </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod occurrences="2">
       <code>getDescription</code>
       <code>getTypes</code>
@@ -1864,6 +1842,31 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>__NAMESPACE__ . '\\' . $functionName</code>
     </ArgumentTypeCoercion>
+    <InvalidArgument occurrences="23">
+      <code>'LaminasTest\Code\Reflection\TestAsset\function1'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function1'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function10'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function10'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function11'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function11'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function12'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function12'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function2'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function3'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function3'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function4'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function4'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function5'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function5'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function6'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function6'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function7'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function7'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function8'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function8'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function9'</code>
+      <code>'LaminasTest\Code\Reflection\TestAsset\function9'</code>
+    </InvalidArgument>
     <MissingReturnType occurrences="13">
       <code>testFunctionBodyReturn</code>
       <code>testFunctionClosureBodyReturn</code>
@@ -2262,7 +2265,8 @@
     <UnusedClosureParam occurrences="1">
       <code>$arg</code>
     </UnusedClosureParam>
-    <UnusedVariable occurrences="2">
+    <UnusedVariable occurrences="3">
+      <code>$c</code>
       <code>$closure</code>
       <code>$list1</code>
     </UnusedVariable>
