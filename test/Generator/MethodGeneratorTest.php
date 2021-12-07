@@ -320,6 +320,39 @@ EOS;
         self::assertSame('\\SampleType', $methodGenerator->getReturnType()->generate());
     }
 
+    /**
+     * @dataProvider returnsReferenceValues
+     * @param bool|string|int $value
+     * @param bool $expected
+     */
+    public function testCreateFromArrayWithReturnsReference($value, $expected): void
+    {
+        $methodGenerator = MethodGenerator::fromArray([
+            'name'             => 'SampleMethod',
+            'returnsreference' => $value,
+        ]);
+
+        self::assertSame($expected, $methodGenerator->returnsReference());
+    }
+
+    /**
+     * @return list<array{
+     *     bool|string|int,
+     *     bool
+     * }>
+     */
+    public function returnsReferenceValues(): array
+    {
+        return [
+            [true, true],
+            [1, true],
+            ['true', true],
+            [false, false],
+            [0, false],
+            ['', false],
+        ];
+    }
+
     public function testCreateInterfaceMethodFromArray()
     {
         $methodGenerator = MethodGenerator::fromArray([
