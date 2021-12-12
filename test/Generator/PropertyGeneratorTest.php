@@ -308,7 +308,7 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-        self::assertEquals('\\'.self::class, $propertyGenerator->getType());
+        self::assertEquals('\\' . self::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
