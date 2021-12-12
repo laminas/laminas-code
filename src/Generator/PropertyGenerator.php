@@ -10,10 +10,10 @@ use function get_class;
 use function gettype;
 use function is_bool;
 use function is_object;
+use function is_string;
 use function method_exists;
 use function sprintf;
 use function str_replace;
-use function str_starts_with;
 use function strpos;
 use function strtolower;
 
@@ -92,7 +92,14 @@ class PropertyGenerator extends AbstractMemberGenerator
         }
 
         if ($reflectionProperty->getType()) {
-            $property->setType($reflectionProperty->getType()->getName());
+            if (
+                $typeGenerator = TypeGenerator::fromReflectionType(
+                    $reflectionProperty->getType(),
+                    $reflectionProperty->getDeclaringClass()
+                )
+            ) {
+                    $property->setType($typeGenerator->generate());
+            }
         }
 
         $property->setSourceDirty(false);
@@ -113,7 +120,7 @@ class PropertyGenerator extends AbstractMemberGenerator
      * @configkey visibility         string
      * @configkey omitdefaultvalue   bool
      * @configkey readonly           bool
-     * @configkey readonly           string
+     * @configkey type               string
      * @param  array  $array
      * @return static
      * @throws Exception\InvalidArgumentException
@@ -173,6 +180,16 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $property->setReadonly($value);
                     break;
                 case 'type':
+                    if (! is_string($value)) {
+                        throw new Exception\InvalidArgumentException(sprintf(
+                            '%s is expecting string on key %s. Got %s',
+                            __METHOD__,
+                            $name,
+                            is_object($value)
+                                ? get_class($value)
+                                : gettype($value)
+                        ));
+                    }
                     $property->setType($value);
                     break;
             }
@@ -311,7 +328,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                    . $this->getVisibility()
                    . ($this->isReadonly() ? ' readonly' : '')
                    . ($this->isStatic() ? ' static' : '')
-                   . ($this->getType() ? ' ' . $this->getType() : '')
+                   . ($this->getType() ? ' ' . (string) $this->getType() : '')
                    . ' $' . $name;
 
         if ($this->omitDefaultValue) {
@@ -336,7 +353,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         return $this->type;
     }
 
-    public function setType(?string $type): void
+    public function setType(string $type): void
     {
         if (class_exists($type) && ! (0 === strpos($type, '\\'))) {
             $type = '\\' . $type;
