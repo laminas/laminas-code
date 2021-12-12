@@ -14,6 +14,7 @@ use function method_exists;
 use function sprintf;
 use function str_replace;
 use function str_starts_with;
+use function strpos;
 use function strtolower;
 
 class PropertyGenerator extends AbstractMemberGenerator
@@ -337,7 +338,7 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     public function setType(?string $type): void
     {
-        if (class_exists($type) && ! str_starts_with($type, '\\')) {
+        if (class_exists($type) && ! (0 === strpos($type, '\\'))) {
             $type = '\\' . $type;
         }
         $this->type = $type;
