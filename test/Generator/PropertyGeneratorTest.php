@@ -295,7 +295,7 @@ EOS;
             'static'           => true,
             'visibility'       => PropertyGenerator::VISIBILITY_PROTECTED,
             'omitdefaultvalue' => true,
-            'type'             => self::class
+            'type'             => self::class,
         ]);
 
         self::assertSame('SampleProperty', $propertyGenerator->getName());
@@ -308,7 +308,7 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-        self::assertEquals('\\LaminasTest\\Code\\Generator\\PropertyGeneratorTest',$propertyGenerator->getType());
+        self::assertEquals(self::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
@@ -415,7 +415,7 @@ EOS;
 
     public function testPropertyCanProduceTypeHinting(): void
     {
-        $codeGenProperty = new PropertyGenerator('someVal', 'value',[],'SomeClass');
+        $codeGenProperty = new PropertyGenerator('someVal', 'value', [], 'SomeClass');
         self::assertSame('    public SomeClass $someVal = \'value\';', $codeGenProperty->generate());
     }
 }
