@@ -308,7 +308,7 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-        self::assertEquals(self::class, $propertyGenerator->getType());
+        self::assertEquals('\\'.self::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
@@ -410,7 +410,7 @@ EOS;
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    public readonly $readonly;', $code);
+        self::assertSame('    public readonly string $readonly;', $code);
     }
 
     public function testPropertyCanProduceTypeHinting(): void
