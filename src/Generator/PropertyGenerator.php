@@ -3,7 +3,6 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\PropertyReflection;
-
 use function array_reduce;
 use function get_class;
 use function gettype;
@@ -21,9 +20,38 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     protected bool $isConst = false;
 
+    protected ?string $type = null;
+
     protected ?PropertyValueGenerator $defaultValue = null;
 
     private bool $omitDefaultValue = false;
+
+    /**
+     * @param  PropertyValueGenerator|string|array|null  $defaultValue
+     * @param  int|int[]                                 $flags
+     * @param  string                                    $type
+     */
+    public function __construct(
+        ?string $name = null,
+        $defaultValue = null,
+        $flags = self::FLAG_PUBLIC,
+        ?string $type = null
+    ) {
+        parent::__construct();
+
+        if (null !== $name) {
+            $this->setName($name);
+        }
+        if (null !== $defaultValue) {
+            $this->setDefaultValue($defaultValue);
+        }
+        if ($flags !== self::FLAG_PUBLIC) {
+            $this->setFlags($flags);
+        }
+        if (null !== $type) {
+            $this->setType($type);
+        }
+    }
 
     /** @return static */
     public static function fromReflection(PropertyReflection $reflectionProperty)
@@ -60,6 +88,10 @@ class PropertyGenerator extends AbstractMemberGenerator
             $property->setVisibility(self::VISIBILITY_PUBLIC);
         }
 
+        if ($reflectionProperty->getType()) {
+            $property->setType($reflectionProperty->getType()->getName());
+        }
+
         $property->setSourceDirty(false);
 
         return $property;
@@ -68,7 +100,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
-     * @configkey name               string                                          [required] Class Name
+     * @configkey name               string   [required] Class Name
      * @configkey const              bool
      * @configkey defaultvalue       null|bool|string|int|float|array|ValueGenerator
      * @configkey flags              int
@@ -78,13 +110,16 @@ class PropertyGenerator extends AbstractMemberGenerator
      * @configkey visibility         string
      * @configkey omitdefaultvalue   bool
      * @configkey readonly           bool
-     * @throws Exception\InvalidArgumentException
-     * @param  array $array
+     * @configkey readonly           string
+     *
+     * @param  array  $array
+     *
      * @return static
+     * @throws Exception\InvalidArgumentException
      */
     public static function fromArray(array $array)
     {
-        if (! isset($array['name'])) {
+        if (!isset($array['name'])) {
             throw new Exception\InvalidArgumentException(
                 'Property generator requires that a name is provided for this object'
             );
@@ -123,7 +158,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $property->omitDefaultValue($value);
                     break;
                 case 'readonly':
-                    if (! is_bool($value)) {
+                    if (!is_bool($value)) {
                         throw new Exception\InvalidArgumentException(sprintf(
                             '%s is expecting boolean on key %s. Got %s',
                             __METHOD__,
@@ -136,6 +171,9 @@ class PropertyGenerator extends AbstractMemberGenerator
 
                     $property->setReadonly($value);
                     break;
+                case 'type':
+                    $property->setType($value);
+                    break;
             }
         }
 
@@ -143,36 +181,20 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param PropertyValueGenerator|string|array|null $defaultValue
-     * @param int|int[] $flags
-     */
-    public function __construct(?string $name = null, $defaultValue = null, $flags = self::FLAG_PUBLIC)
-    {
-        parent::__construct();
-
-        if (null !== $name) {
-            $this->setName($name);
-        }
-        if (null !== $defaultValue) {
-            $this->setDefaultValue($defaultValue);
-        }
-        if ($flags !== self::FLAG_PUBLIC) {
-            $this->setFlags($flags);
-        }
-    }
-
-    /**
-     * @param  bool $const
+     * @param  bool  $const
+     *
      * @return PropertyGenerator
      */
     public function setConst($const)
     {
         if (true === $const) {
             $this->setFlags(self::FLAG_CONSTANT);
+
             return $this;
         }
 
         $this->removeFlag(self::FLAG_CONSTANT);
+
         return $this;
     }
 
@@ -181,23 +203,25 @@ class PropertyGenerator extends AbstractMemberGenerator
      */
     public function isConst()
     {
-        return (bool) ($this->flags & self::FLAG_CONSTANT);
+        return (bool)($this->flags & self::FLAG_CONSTANT);
     }
 
     public function setReadonly(bool $readonly): self
     {
         if (true === $readonly) {
             $this->setFlags(self::FLAG_READONLY);
+
             return $this;
         }
 
         $this->removeFlag(self::FLAG_READONLY);
+
         return $this;
     }
 
     public function isReadonly(): bool
     {
-        return (bool) ($this->flags & self::FLAG_READONLY);
+        return (bool)($this->flags & self::FLAG_READONLY);
     }
 
     /**
@@ -205,7 +229,7 @@ class PropertyGenerator extends AbstractMemberGenerator
      */
     public function setFlags($flags)
     {
-        $flags = array_reduce((array) $flags, static function (int $a, int $b): int {
+        $flags = array_reduce((array)$flags, static function (int $a, int $b): int {
             return $a | $b;
         }, 0);
 
@@ -221,9 +245,18 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param PropertyValueGenerator|mixed $defaultValue
-     * @param string                       $defaultValueType
-     * @param string                       $defaultValueOutputMode
+     * @return ?PropertyValueGenerator
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * @param  PropertyValueGenerator|mixed  $defaultValue
+     * @param  string                        $defaultValueType
+     * @param  string                        $defaultValueOutputMode
+     *
      * @return static
      */
     public function setDefaultValue(
@@ -231,7 +264,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         $defaultValueType = PropertyValueGenerator::TYPE_AUTO,
         $defaultValueOutputMode = PropertyValueGenerator::OUTPUT_MULTIPLE_LINE
     ) {
-        if (! $defaultValue instanceof PropertyValueGenerator) {
+        if (!$defaultValue instanceof PropertyValueGenerator) {
             $defaultValue = new PropertyValueGenerator($defaultValue, $defaultValueType, $defaultValueOutputMode);
         }
 
@@ -241,17 +274,9 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @return ?PropertyValueGenerator
-     */
-    public function getDefaultValue()
-    {
-        return $this->defaultValue;
-    }
-
-    /**
-     * @throws Exception\RuntimeException
      * @return string
      * @psalm-return non-empty-string
+     * @throws Exception\RuntimeException
      */
     public function generate()
     {
@@ -266,27 +291,29 @@ class PropertyGenerator extends AbstractMemberGenerator
         }
 
         if ($this->isConst()) {
-            if ($defaultValue !== null && ! $defaultValue->isValidConstantType()) {
+            if ($defaultValue !== null && !$defaultValue->isValidConstantType()) {
                 throw new Exception\RuntimeException(sprintf(
                     'The property %s is said to be '
                     . 'constant but does not have a valid constant value.',
                     $this->name
                 ));
             }
+
             return $output
-                . $this->indentation
-                . ($this->isFinal() ? 'final ' : '')
-                . $this->getVisibility()
-                . ' const '
-                . $name . ' = '
-                . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
+                   . $this->indentation
+                   . ($this->isFinal() ? 'final ' : '')
+                   . $this->getVisibility()
+                   . ' const '
+                   . $name . ' = '
+                   . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         }
 
         $output .= $this->indentation
-            . $this->getVisibility()
-            . ($this->isReadonly() ? ' readonly' : '')
-            . ($this->isStatic() ? ' static' : '')
-            . ' $' . $name;
+                   . $this->getVisibility()
+                   . ($this->isReadonly() ? ' readonly' : '')
+                   . ($this->isStatic() ? ' static' : '')
+                   . ($this->getType() ? ' ' . $this->getType() : '')
+                   . ' $' . $name;
 
         if ($this->omitDefaultValue) {
             return $output . ';';
@@ -303,5 +330,24 @@ class PropertyGenerator extends AbstractMemberGenerator
         $this->omitDefaultValue = $omit;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param  string|null  $type
+     */
+    public function setType(?string $type): void
+    {
+        if (class_exists($type) && !str_starts_with($type, '\\')) {
+            $type = '\\' . $type;
+        }
+        $this->type = $type;
     }
 }

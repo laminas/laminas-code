@@ -295,6 +295,7 @@ EOS;
             'static'           => true,
             'visibility'       => PropertyGenerator::VISIBILITY_PROTECTED,
             'omitdefaultvalue' => true,
+            'type'             => self::class
         ]);
 
         self::assertSame('SampleProperty', $propertyGenerator->getName());
@@ -307,7 +308,7 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-
+        self::assertEquals('\\LaminasTest\\Code\\Generator\\PropertyGeneratorTest',$propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
@@ -387,14 +388,14 @@ EOS;
         $this->assertSame('    public static $fooStaticProperty;', $code);
     }
 
-    public function testFromReflectionOmitsTypeHintInTypedProperty(): void
+    public function testFromReflectionWithTypeHintInTypedProperty(): void
     {
         $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
 
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    private $typedProperty;', $code);
+        self::assertSame('    private string $typedProperty;', $code);
     }
 
     /** @requires PHP >= 8.1 */
@@ -410,5 +411,11 @@ EOS;
         $code      = $generator->generate();
 
         self::assertSame('    public readonly $readonly;', $code);
+    }
+
+    public function testPropertyCanProduceTypeHinting(): void
+    {
+        $codeGenProperty = new PropertyGenerator('someVal', 'value',[],'SomeClass');
+        self::assertSame('    public SomeClass $someVal = \'value\';', $codeGenProperty->generate());
     }
 }
