@@ -5,16 +5,13 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\Reflection\PropertyReflection;
 
 use function array_reduce;
-use function class_exists;
 use function get_class;
 use function gettype;
 use function is_bool;
 use function is_object;
-use function is_string;
 use function method_exists;
 use function sprintf;
 use function str_replace;
-use function strpos;
 use function strtolower;
 
 class PropertyGenerator extends AbstractMemberGenerator
@@ -24,7 +21,7 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     protected bool $isConst = false;
 
-    protected ?string $type = null;
+    protected ?TypeGenerator $type = null;
 
     protected ?PropertyValueGenerator $defaultValue = null;
 
@@ -38,7 +35,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         ?string $name = null,
         $defaultValue = null,
         $flags = self::FLAG_PUBLIC,
-        ?string $type = null
+        ?TypeGenerator $type = null
     ) {
         parent::__construct();
 
@@ -98,7 +95,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $reflectionProperty->getDeclaringClass()
                 )
             ) {
-                    $property->setType($typeGenerator->generate());
+                $property->setType($typeGenerator);
             }
         }
 
@@ -120,7 +117,7 @@ class PropertyGenerator extends AbstractMemberGenerator
      * @configkey visibility         string
      * @configkey omitdefaultvalue   bool
      * @configkey readonly           bool
-     * @configkey type               string
+     * @configkey type               null|TypeGenerator
      * @param  array  $array
      * @return static
      * @throws Exception\InvalidArgumentException
@@ -180,14 +177,13 @@ class PropertyGenerator extends AbstractMemberGenerator
                     $property->setReadonly($value);
                     break;
                 case 'type':
-                    if (! is_string($value)) {
+                    if (! $value instanceof TypeGenerator) {
                         throw new Exception\InvalidArgumentException(sprintf(
-                            '%s is expecting string on key %s. Got %s',
+                            '%s is expecting %s on key %s. Got %s',
                             __METHOD__,
+                            TypeGenerator::class,
                             $name,
-                            is_object($value)
-                                ? get_class($value)
-                                : gettype($value)
+                            is_object($value) ? get_class($value) : gettype($value)
                         ));
                     }
                     $property->setType($value);
@@ -348,16 +344,13 @@ class PropertyGenerator extends AbstractMemberGenerator
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?TypeGenerator
     {
         return $this->type;
     }
 
-    public function setType(string $type): void
+    public function setType(TypeGenerator $type): void
     {
-        if (class_exists($type) && ! (0 === strpos($type, '\\'))) {
-            $type = '\\' . $type;
-        }
         $this->type = $type;
     }
 }

@@ -8,11 +8,11 @@ use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\RuntimeException;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\PropertyValueGenerator;
+use Laminas\Code\Generator\TypeGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use LaminasTest\Code\Generator\TestAsset\ClassWithTypedProperty;
-use PHP_CodeSniffer\Tokenizers\PHP;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
@@ -55,7 +55,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetTypeSetValueGenerate(string $type, $value, string $code): void
     {
@@ -69,7 +69,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code): void
     {
@@ -295,7 +295,7 @@ EOS;
             'static'           => true,
             'visibility'       => PropertyGenerator::VISIBILITY_PROTECTED,
             'omitdefaultvalue' => true,
-            'type'             => self::class,
+            'type'             => TypeGenerator::fromTypeString(self::class),
         ]);
 
         self::assertSame('SampleProperty', $propertyGenerator->getName());
@@ -308,7 +308,8 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-        self::assertEquals('\\' . self::class, $propertyGenerator->getType());
+        self::assertEquals(self::class, $propertyGenerator->getType());
+        self::assertInstanceOf(TypeGenerator::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
@@ -356,7 +357,7 @@ EOS;
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetDefaultValue(string $type, $value): void
     {
@@ -415,7 +416,7 @@ EOS;
 
     public function testPropertyCanProduceTypeHinting(): void
     {
-        $codeGenProperty = new PropertyGenerator('someVal', 'value', [], 'SomeClass');
+        $codeGenProperty = new PropertyGenerator('someVal', 'value', [], TypeGenerator::fromTypeString('SomeClass'));
         self::assertSame('    public SomeClass $someVal = \'value\';', $codeGenProperty->generate());
     }
 }
