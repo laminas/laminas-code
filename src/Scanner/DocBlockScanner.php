@@ -25,7 +25,7 @@ class DocBlockScanner
     protected $docComment;
 
     /** @var string */
-    protected $shortDescription;
+    protected $shortDescription = '';
 
     /** @var string */
     protected $longDescription = '';
