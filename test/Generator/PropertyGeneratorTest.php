@@ -423,7 +423,7 @@ EOS;
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    public readonly string $readonly;', $code);
+        self::assertSame('    public readonly $readonly;', $code);
     }
 
     public function testPropertyCanProduceTypeHinting(): void
