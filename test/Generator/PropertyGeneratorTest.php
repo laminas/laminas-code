@@ -5,6 +5,7 @@ namespace LaminasTest\Code\Generator;
 use Generator;
 use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\Exception\RuntimeException;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\PropertyValueGenerator;
@@ -17,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
 
+use function addslashes;
 use function array_shift;
 use function str_replace;
 use function uniqid;
@@ -389,11 +391,21 @@ EOS;
         $this->assertSame('    public static $fooStaticProperty;', $code);
     }
 
-    public function testFromReflectionWithTypeHintInTypedProperty(): void
+    public function testFromReflectionOmitsTypeHintInTypedPropertyByDefault(): void
     {
         $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
 
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
+        $code      = $generator->generate();
+
+        self::assertSame('    private $typedProperty;', $code);
+    }
+
+    public function testFromReflectionWithTypeHintInTypedProperty(): void
+    {
+        $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
+
+        $generator = PropertyGenerator::fromReflection($reflectionProperty, true);
         $code      = $generator->generate();
 
         self::assertSame('    private string $typedProperty;', $code);
@@ -418,5 +430,16 @@ EOS;
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'value', [], TypeGenerator::fromTypeString('SomeClass'));
         self::assertSame('    public SomeClass $someVal = \'value\';', $codeGenProperty->generate());
+    }
+
+    public function testFromArrayWithIncorrectTypePassed(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/is expecting ' . addslashes(TypeGenerator::class) . '/');
+
+        PropertyGenerator::fromArray([
+            'name' => 'someVal',
+            'type' => 'invalidStringn',
+        ]);
     }
 }
