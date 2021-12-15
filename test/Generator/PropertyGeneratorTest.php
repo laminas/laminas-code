@@ -391,16 +391,6 @@ EOS;
         $this->assertSame('    public static $fooStaticProperty;', $code);
     }
 
-    public function testFromReflectionOmitsTypeHintInTypedPropertyByDefault(): void
-    {
-        $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
-
-        $generator = PropertyGenerator::fromReflection($reflectionProperty);
-        $code      = $generator->generate();
-
-        self::assertSame('    private $typedProperty;', $code);
-    }
-
     public function testFromReflectionWithTypeHintInTypedProperty(): void
     {
         $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
@@ -423,7 +413,7 @@ EOS;
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    public readonly $readonly;', $code);
+        self::assertSame('    public readonly string $readonly;', $code);
     }
 
     public function testPropertyCanProduceTypeHinting(): void

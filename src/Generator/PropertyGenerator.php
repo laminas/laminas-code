@@ -54,7 +54,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /** @return static */
-    public static function fromReflection(PropertyReflection $reflectionProperty, bool $enablePropertyTypeHint = false)
+    public static function fromReflection(PropertyReflection $reflectionProperty)
     {
         $property = new static();
 
@@ -88,7 +88,7 @@ class PropertyGenerator extends AbstractMemberGenerator
             $property->setVisibility(self::VISIBILITY_PUBLIC);
         }
 
-        if ($enablePropertyTypeHint && $reflectionProperty->getType()) {
+        if ($reflectionProperty->getType()) {
             if (
                 $typeGenerator = TypeGenerator::fromReflectionType(
                     $reflectionProperty->getType(),
