@@ -395,7 +395,7 @@ EOS;
     {
         $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
 
-        $generator = PropertyGenerator::fromReflection($reflectionProperty, true);
+        $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
         self::assertSame('    private string $typedProperty;', $code);
