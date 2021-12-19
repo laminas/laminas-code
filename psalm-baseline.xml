@@ -103,6 +103,9 @@
     <PossiblyNullOperand occurrences="1">
       <code>$namespaceAlias</code>
     </PossiblyNullOperand>
+    <RedundantCondition occurrences="1">
+      <code>method_exists($constReflection, 'isFinal')</code>
+    </RedundantCondition>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_array($constant)</code>
     </RedundantConditionGivenDocblockType>
@@ -278,9 +281,6 @@
       <code>getName</code>
       <code>getName</code>
     </MixedMethodCall>
-    <UndefinedClass occurrences="1">
-      <code>ReflectionEnumUnitCase</code>
-    </UndefinedClass>
     <UndefinedMethod occurrences="3">
       <code>getBackingType</code>
       <code>getCases</code>
@@ -367,9 +367,10 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/MethodGenerator.php">
-    <MixedArgument occurrences="12">
+    <MixedArgument occurrences="13">
       <code>$array['name']</code>
       <code>$parameterOutput</code>
+      <code>$reflectionMethod-&gt;isStatic()</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -459,6 +460,9 @@
     <PossiblyFalseArgument occurrences="1">
       <code>$reflectionProperty-&gt;getDocBlock()</code>
     </PossiblyFalseArgument>
+    <RedundantCondition occurrences="1">
+      <code>method_exists($reflectionProperty, 'isReadonly')</code>
+    </RedundantCondition>
     <UnsafeInstantiation occurrences="2">
       <code>new static($array['name'])</code>
       <code>new static()</code>
@@ -592,18 +596,14 @@
     </MissingReturnType>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ImpureMethodCall occurrences="4">
+    <ImpureMethodCall occurrences="5">
       <code>allowsNull</code>
       <code>getName</code>
       <code>getName</code>
       <code>getParentClass</code>
+      <code>getTypes</code>
     </ImpureMethodCall>
-    <MixedArgument occurrences="2"/>
-    <TypeDoesNotContainType occurrences="1"/>
-    <UndefinedClass occurrences="2">
-      <code>ReflectionIntersectionType</code>
-      <code>ReflectionIntersectionType</code>
-    </UndefinedClass>
+    <MixedArgument occurrences="1"/>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1086,9 +1086,6 @@
     <MixedReturnStatement occurrences="1">
       <code>$tokens</code>
     </MixedReturnStatement>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$shortDescription</code>
-    </PropertyNotSetInConstructor>
     <RedundantCondition occurrences="2">
       <code>$context === 0x00</code>
       <code>$this-&gt;shortDescription != '' &amp;&amp; $tagIndex === null</code>
@@ -2304,14 +2301,16 @@
     </UnusedVariable>
   </file>
   <file src="test/Scanner/DocBlockScannerTest.php">
-    <InternalMethod occurrences="3">
+    <InternalMethod occurrences="4">
+      <code>new DocBlockScanner($docComment)</code>
       <code>new DocBlockScanner($docComment)</code>
       <code>new DocBlockScanner($docComment)</code>
       <code>new DocBlockScanner($docComment)</code>
     </InternalMethod>
-    <MissingReturnType occurrences="2">
+    <MissingReturnType occurrences="3">
       <code>testDocBlockScannerDescriptions</code>
       <code>testDocBlockScannerParsesTagsWithNoValuesProperly</code>
+      <code>testInvalidDocBlock</code>
     </MissingReturnType>
     <MixedArgument occurrences="2">
       <code>$tags[0]</code>
