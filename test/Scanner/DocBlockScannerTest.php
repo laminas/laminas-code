@@ -51,4 +51,11 @@ EOB;
         self::assertEquals('Short Description', $tokenScanner->getShortDescription());
         self::assertEquals('Long Description continued in the second line', $tokenScanner->getLongDescription());
     }
+
+    public function testInvalidDocBlock()
+    {
+        $docComment   = '/**';
+        $tokenScanner = new DocBlockScanner($docComment);
+        self::assertEquals('', $tokenScanner->getShortDescription());
+    }
 }
