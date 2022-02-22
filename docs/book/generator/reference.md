@@ -264,10 +264,7 @@ The *API* of the class is as follows:
 ```php
 class Laminas\Code\Generator\FileGenerator extends Laminas\Code\Generator\AbstractGenerator
 {
-    public static function fromReflectedFilePath(
-        $filePath,
-        $usePreviousCodeGeneratorIfItExists = true,
-        $includeIfNotAlreadyIncluded = true)
+    public static function fromArray(array $values)
     public function setDocblock(Laminas\Code\Generator\DocBlockGenerator $docblock)
     public function getDocblock()
     public function setRequiredFiles($requiredFiles)
