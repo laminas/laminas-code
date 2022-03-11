@@ -258,40 +258,18 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
-    <ArgumentTypeCoercion occurrences="1">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$backedCases</code>
       <code>$pureCases</code>
     </ArgumentTypeCoercion>
-    <MixedArgument occurrences="2">
-      <code>$backingType-&gt;getName()</code>
-      <code>$enum-&gt;getCases()</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$backedCases</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayOffset occurrences="1">
-      <code>$backedCases[$singleCase-&gt;getName()]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="3">
-      <code>$backedCases[$singleCase-&gt;getName()]</code>
-      <code>$backingType</code>
-      <code>$singleCase</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="3">
-      <code>getBackingValue</code>
-      <code>getName</code>
-      <code>getName</code>
-    </MixedMethodCall>
-    <UndefinedMethod occurrences="3">
-      <code>getBackingType</code>
-      <code>getCases</code>
-      <code>getCases</code>
-    </UndefinedMethod>
-  </file>
-  <file src="src/Generator/EnumGenerator/EnumGenerator.php">
     <MixedArgument occurrences="1">
-      <code>$enum-&gt;getName()</code>
+      <code>$backingType-&gt;getName()</code>
     </MixedArgument>
-    <UndefinedMethod occurrences="1">
+    <MixedAssignment occurrences="1">
+      <code>$backedCases[$singleCase-&gt;getName()]</code>
+    </MixedAssignment>
+    <UndefinedMethod occurrences="2">
+      <code>getBackingValue</code>
       <code>getName</code>
     </UndefinedMethod>
   </file>
@@ -299,9 +277,12 @@
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
-    <LessSpecificReturnStatement occurrences="1">
+    <InvalidReturnStatement occurrences="1">
       <code>$uses</code>
-    </LessSpecificReturnStatement>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>array&lt;int, array{string, null|string, false|null|string}&gt;</code>
+    </InvalidReturnType>
     <MissingClosureParamType occurrences="1">
       <code>$value</code>
     </MissingClosureParamType>
@@ -325,9 +306,6 @@
       <code>$use</code>
       <code>$value</code>
     </MixedAssignment>
-    <MoreSpecificReturnType occurrences="1">
-      <code>array&lt;int, array{string, null|string, false|null|string}&gt;</code>
-    </MoreSpecificReturnType>
     <RedundantCastGivenDocblockType occurrences="3">
       <code>(string) $body</code>
       <code>(string) $filename</code>
@@ -968,9 +946,10 @@
     <PossiblyUndefinedVariable occurrences="1">
       <code>$type</code>
     </PossiblyUndefinedVariable>
-    <UndefinedMethod occurrences="2">
+    <UndefinedMethod occurrences="3">
       <code>getName</code>
       <code>getName</code>
+      <code>isBuiltin</code>
     </UndefinedMethod>
   </file>
   <file src="src/Scanner/DocBlockScanner.php">
@@ -2519,19 +2498,6 @@
       <code>nullableObjectParameter</code>
       <code>objectParameter</code>
     </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/Php80Types.php">
-    <ReservedWord occurrences="9">
-      <code>bool|null</code>
-      <code>bool|null $parameter</code>
-      <code>bool|string|null</code>
-      <code>false|self</code>
-      <code>false|self $parameter</code>
-      <code>mixed</code>
-      <code>mixed</code>
-      <code>null|bool</code>
-      <code>null|bool $parameter</code>
-    </ReservedWord>
   </file>
   <file src="test/TestAsset/ReturnTypeHintedClass.php">
     <InvalidReturnType occurrences="10">

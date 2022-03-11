@@ -28,6 +28,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.4.99"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
