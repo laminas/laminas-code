@@ -5,7 +5,7 @@ if (\PHP_VERSION_ID >= 80100) {
 }
 
 /** @internal */
-final class ReflectionEnum
+class ReflectionEnum
 {
     public function __construct($enum)
     {
