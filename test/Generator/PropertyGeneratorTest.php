@@ -419,7 +419,7 @@ EOS;
     public function testPropertyCanProduceTypeHinting(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'value', [], TypeGenerator::fromTypeString('SomeClass'));
-        self::assertSame('    public SomeClass $someVal = \'value\';', $codeGenProperty->generate());
+        self::assertSame('    public \SomeClass $someVal = \'value\';', $codeGenProperty->generate());
     }
 
     public function testFromArrayWithIncorrectTypePassed(): void

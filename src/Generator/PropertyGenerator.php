@@ -324,7 +324,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                    . $this->getVisibility()
                    . ($this->isReadonly() ? ' readonly' : '')
                    . ($this->isStatic() ? ' static' : '')
-                   . ($this->getType() ? ' ' . (string) $this->getType() : '')
+                   . ($this->getType() ? ' ' . $this->getType()->generate() : '')
                    . ' $' . $name;
 
         if ($this->omitDefaultValue) {
