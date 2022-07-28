@@ -432,4 +432,17 @@ EOS;
             'type' => 'invalidStringn',
         ]);
     }
+
+    public function testCanChangeTypeForPropertyGenerator(): void
+    {
+        $property = new PropertyGenerator('p', null, [], TypeGenerator::fromTypeString('?string'));
+        self::assertSame('    public ?string $p = null;', $property->generate());
+
+        $property->setType(null);
+        self::assertSame(
+            '    public $p = null;',
+            $property->generate(),
+            'A property type can be dropped'
+        );
+    }
 }

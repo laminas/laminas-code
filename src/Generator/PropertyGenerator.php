@@ -48,9 +48,8 @@ class PropertyGenerator extends AbstractMemberGenerator
         if ($flags !== self::FLAG_PUBLIC) {
             $this->setFlags($flags);
         }
-        if (null !== $type) {
-            $this->setType($type);
-        }
+
+        $this->type = $type;
     }
 
     /** @return static */
@@ -88,16 +87,10 @@ class PropertyGenerator extends AbstractMemberGenerator
             $property->setVisibility(self::VISIBILITY_PUBLIC);
         }
 
-        if ($reflectionProperty->getType()) {
-            if (
-                $typeGenerator = TypeGenerator::fromReflectionType(
-                    $reflectionProperty->getType(),
-                    $reflectionProperty->getDeclaringClass()
-                )
-            ) {
-                $property->setType($typeGenerator);
-            }
-        }
+        $property->setType(TypeGenerator::fromReflectionType(
+            $reflectionProperty->getType(),
+            $reflectionProperty->getDeclaringClass()
+        ));
 
         $property->setSourceDirty(false);
 
@@ -349,7 +342,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         return $this->type;
     }
 
-    public function setType(TypeGenerator $type): void
+    public function setType(?TypeGenerator $type): void
     {
         $this->type = $type;
     }
