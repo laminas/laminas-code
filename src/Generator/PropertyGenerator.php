@@ -313,11 +313,12 @@ class PropertyGenerator extends AbstractMemberGenerator
                    . ($defaultValue !== null ? $defaultValue->generate() : 'null;');
         }
 
+        $type    = $this->type;
         $output .= $this->indentation
                    . $this->getVisibility()
                    . ($this->isReadonly() ? ' readonly' : '')
                    . ($this->isStatic() ? ' static' : '')
-                   . ($this->getType() ? ' ' . $this->getType()->generate() : '')
+                   . ($type ? ' ' . $type->generate() : '')
                    . ' $' . $name;
 
         if ($this->omitDefaultValue) {
