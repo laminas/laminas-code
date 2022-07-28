@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="v4.14.0@14dcbc908ab2625cd7a74258ee6c740cbecc6140">
+<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -1086,8 +1086,9 @@
     <MixedReturnStatement occurrences="1">
       <code>$tokens</code>
     </MixedReturnStatement>
-    <RedundantCondition occurrences="2">
+    <RedundantCondition occurrences="3">
       <code>$context === 0x00</code>
+      <code>$mode &lt;= 2</code>
       <code>$this-&gt;shortDescription != '' &amp;&amp; $tagIndex === null</code>
     </RedundantCondition>
     <TypeDoesNotContainType occurrences="1">
