@@ -5,18 +5,20 @@ namespace LaminasTest\Code\Generator;
 use Generator;
 use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\Exception\RuntimeException;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\PropertyValueGenerator;
+use Laminas\Code\Generator\TypeGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use LaminasTest\Code\Generator\TestAsset\ClassWithTypedProperty;
-use PHP_CodeSniffer\Tokenizers\PHP;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
 
+use function addslashes;
 use function array_shift;
 use function str_replace;
 use function uniqid;
@@ -55,7 +57,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetTypeSetValueGenerate(string $type, $value, string $code): void
     {
@@ -69,7 +71,7 @@ class PropertyGeneratorTest extends TestCase
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code): void
     {
@@ -295,6 +297,7 @@ EOS;
             'static'           => true,
             'visibility'       => PropertyGenerator::VISIBILITY_PROTECTED,
             'omitdefaultvalue' => true,
+            'type'             => TypeGenerator::fromTypeString(self::class),
         ]);
 
         self::assertSame('SampleProperty', $propertyGenerator->getName());
@@ -307,7 +310,8 @@ EOS;
         self::assertTrue($propertyGenerator->isStatic());
         self::assertSame(PropertyGenerator::VISIBILITY_PROTECTED, $propertyGenerator->getVisibility());
         self::assertStringNotContainsString('default-foo', $propertyGenerator->generate());
-
+        self::assertEquals(self::class, $propertyGenerator->getType());
+        self::assertInstanceOf(TypeGenerator::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
         $reflectionOmitDefaultValue->setAccessible(true);
@@ -355,7 +359,7 @@ EOS;
 
     /**
      * @dataProvider dataSetTypeSetValueGenerate
-     * @param mixed $value
+     * @param  mixed  $value
      */
     public function testSetDefaultValue(string $type, $value): void
     {
@@ -387,14 +391,14 @@ EOS;
         $this->assertSame('    public static $fooStaticProperty;', $code);
     }
 
-    public function testFromReflectionOmitsTypeHintInTypedProperty(): void
+    public function testFromReflectionWithTypeHintInTypedProperty(): void
     {
         $reflectionProperty = new PropertyReflection(ClassWithTypedProperty::class, 'typedProperty');
 
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    private $typedProperty;', $code);
+        self::assertSame('    private string $typedProperty;', $code);
     }
 
     /** @requires PHP >= 8.1 */
@@ -409,6 +413,36 @@ EOS;
         $generator = PropertyGenerator::fromReflection($reflectionProperty);
         $code      = $generator->generate();
 
-        self::assertSame('    public readonly $readonly;', $code);
+        self::assertSame('    public readonly string $readonly;', $code);
+    }
+
+    public function testPropertyCanProduceTypeHinting(): void
+    {
+        $codeGenProperty = new PropertyGenerator('someVal', 'value', [], TypeGenerator::fromTypeString('SomeClass'));
+        self::assertSame('    public \SomeClass $someVal = \'value\';', $codeGenProperty->generate());
+    }
+
+    public function testFromArrayWithIncorrectTypePassed(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/is expecting ' . addslashes(TypeGenerator::class) . '/');
+
+        PropertyGenerator::fromArray([
+            'name' => 'someVal',
+            'type' => 'invalidStringn',
+        ]);
+    }
+
+    public function testCanChangeTypeForPropertyGenerator(): void
+    {
+        $property = new PropertyGenerator('p', null, [], TypeGenerator::fromTypeString('?string'));
+        self::assertSame('    public ?string $p = null;', $property->generate());
+
+        $property->setType(null);
+        self::assertSame(
+            '    public $p = null;',
+            $property->generate(),
+            'A property type can be dropped'
+        );
     }
 }
