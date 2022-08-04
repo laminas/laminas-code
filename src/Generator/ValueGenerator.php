@@ -5,6 +5,7 @@ namespace Laminas\Code\Generator;
 use ArrayObject as SplArrayObject;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
+use UnitEnum;
 
 use function addcslashes;
 use function array_keys;
@@ -44,6 +45,7 @@ class ValueGenerator extends AbstractGenerator
     public const TYPE_ARRAY_LONG  = 'array_long';
     public const TYPE_CONSTANT    = 'constant';
     public const TYPE_NULL        = 'null';
+    public const TYPE_ENUM        = 'enum';
     public const TYPE_OBJECT      = 'object';
     public const TYPE_OTHER       = 'other';
     /**#@-*/
@@ -286,6 +288,7 @@ class ValueGenerator extends AbstractGenerator
             self::TYPE_ARRAY_LONG,
             self::TYPE_CONSTANT,
             self::TYPE_NULL,
+            self::TYPE_ENUM,
             self::TYPE_OBJECT,
             self::TYPE_OTHER,
         ];
@@ -326,6 +329,10 @@ class ValueGenerator extends AbstractGenerator
             case 'NULL':
                 return self::TYPE_NULL;
             case 'object':
+                if ($value instanceof UnitEnum) {
+                    return self::TYPE_ENUM;
+                }
+                // enums are typed as objects, so this fall through is intentional
             case 'resource':
             case 'unknown type':
             default:
@@ -439,6 +446,13 @@ class ValueGenerator extends AbstractGenerator
                     $output .= self::LINE_FEED . str_repeat($this->indentation, $this->arrayDepth);
                 }
                 $output .= $endArray;
+                break;
+            case self::TYPE_ENUM:
+                if (! is_object($value)) {
+                    throw new Exception\RuntimeException('Value is not an object.');
+                }
+
+                $output = sprintf('%s::%s', get_class($value), (string) $value->name);
                 break;
             case self::TYPE_OTHER:
             default:
