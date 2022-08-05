@@ -208,7 +208,7 @@ class FileGenerator extends AbstractGenerator
      *
      * @param  bool $withResolvedAs
      * @return array
-     * @psalm-return array<int, array{string, null|string, false|null|string}>
+     * @psalm-return array<int, array{string, null|string, null|string}>
      */
     public function getUses($withResolvedAs = false)
     {

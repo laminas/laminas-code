@@ -407,10 +407,14 @@ EOS;
 
         $valueGenerator1->initEnvironmentConstants();
         $valueGenerator2->initEnvironmentConstants();
+        /** @var TestEnum $value1 */
+        $value1 = $valueGenerator1->generate();
+        /** @var TestEnum $value2 */
+        $value2 = $valueGenerator2->generate();
 
-        self::assertNotEquals($valueGenerator1->generate(), $valueGenerator2->generate());
-        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test1'), $valueGenerator1->generate());
-        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test2'), $valueGenerator2->generate());
+        self::assertNotEquals($value1, $value2);
+        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test1'), $value1);
+        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test2'), $value2);
     }
 
     /**
