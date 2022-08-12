@@ -2,6 +2,7 @@
 
 namespace Laminas\Code\Generator;
 
+use Laminas\Code\Generator\AttributeGenerator\AttributeBuilder;
 use Laminas\Code\Reflection\ClassReflection;
 
 use function array_diff;
@@ -67,6 +68,8 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
     /** @var TraitUsageGenerator Object to encapsulate trait usage logic */
     protected TraitUsageGenerator $traitUsageGenerator;
+
+    private ?AttributeGenerator $attributeGenerator = null;
 
     /**
      * Build a Code Generation Php Object from a Class Reflection
@@ -197,6 +200,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                 case 'docblock':
                     $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $cg->setDocBlock($docBlock);
+                    break;
+                case 'attribute':
+                    $generator = $value instanceof AttributeBuilder ? AttributeGenerator::fromBuilder($value) : AttributeGenerator::fromArray($value);
+                    $cg->setAttributes($generator);
                     break;
                 case 'flags':
                     $cg->setFlags($value);
@@ -336,12 +343,24 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return $this;
     }
 
+    public function setAttributes(AttributeGenerator $attributeGenerator): self
+    {
+        $this->attributeGenerator = $attributeGenerator;
+
+        return $this;
+    }
+
     /**
      * @return ?DocBlockGenerator
      */
     public function getDocBlock()
     {
         return $this->docBlock;
+    }
+
+    public function getAttributes(): ?AttributeGenerator
+    {
+        return $this->attributeGenerator;
     }
 
     /**
@@ -1061,6 +1080,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         if (null !== ($docBlock = $this->getDocBlock())) {
             $docBlock->setIndentation('');
             $output .= $docBlock->generate();
+        }
+
+        if ($attributeGenerator = $this->getAttributes()) {
+            $output .= $attributeGenerator->generate() . self::LINE_FEED;
         }
 
         if ($this->isAbstract()) {
