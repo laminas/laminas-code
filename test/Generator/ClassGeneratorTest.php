@@ -4,6 +4,7 @@ namespace LaminasTest\Code\Generator;
 
 use DateTime;
 use Laminas\Code\Generator\AttributeGenerator;
+use Laminas\Code\Generator\AttributeGenerator\AttributePrototype;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
@@ -55,7 +56,7 @@ class ClassGeneratorTest extends TestCase
 
     public function testClassAttributesAccessors(): void
     {
-        $attributeGenerator = AttributeGenerator::fromBuilder(new AttributeGenerator\AttributeBuilder());
+        $attributeGenerator = AttributeGenerator::fromArray([]);
         $classGenerator    = new ClassGenerator();
         $classGenerator->setAttributes($attributeGenerator);
         self::assertSame($attributeGenerator, $classGenerator->getAttributes());
@@ -537,8 +538,7 @@ CODE;
             ],
         ]);
 
-        $builder = (new AttributeGenerator\AttributeBuilder())->add($attributeName, $attributeArguments);
-        $expectedGenerator = AttributeGenerator::fromBuilder($builder);
+        $expectedGenerator = AttributeGenerator::fromPrototype(new AttributePrototype($attributeName, $attributeArguments));
         $attributeGenerator = $classGenerator->getAttributes();
         self::assertInstanceOf(AttributeGenerator::class, $attributeGenerator);
         self::assertEquals($expectedGenerator, $attributeGenerator);

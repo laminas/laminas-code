@@ -16,7 +16,7 @@ final class SimpleAttributeAssembler extends AbstractAttributeAssembler
         $this->assertAttributeWithoutArguments();
     }
 
-    public function __toString(): string
+    public function assemble(): string
     {
         $attributeName = $this->getName();
 

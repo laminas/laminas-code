@@ -8,7 +8,7 @@ use Laminas\Code\Generator\AttributeGenerator\Exception\NestedAttributesAreNotSu
 
 final class AttributeWithArgumentsAssembler extends AbstractAttributeAssembler
 {
-    public function __toString(): string
+    public function assemble(): string
     {
         $attributeName = $this->getName();
 
@@ -24,7 +24,7 @@ final class AttributeWithArgumentsAssembler extends AbstractAttributeAssembler
         $argumentsList = [];
 
         foreach ($this->getArguments() as $argumentName => $argumentValue) {
-            $argumentsList[] = $argumentName . ': ' . $this->formatArgumentValue($argumentValue);
+            $argumentsList[] = $argumentName . AttributePart::T_ATTR_ARGUMENTS_LIST_ASSIGN_OPERAND . $this->formatArgumentValue($argumentValue);
         }
 
         $output .= implode(AttributePart::T_ATTR_ARGUMENTS_LIST_SEPARATOR, $argumentsList);

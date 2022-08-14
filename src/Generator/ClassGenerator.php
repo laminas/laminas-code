@@ -202,7 +202,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                     $cg->setDocBlock($docBlock);
                     break;
                 case 'attribute':
-                    $generator = $value instanceof AttributeBuilder ? AttributeGenerator::fromBuilder($value) : AttributeGenerator::fromArray($value);
+                    $generator = $value instanceof AttributeGenerator ? $value : AttributeGenerator::fromArray($value);
                     $cg->setAttributes($generator);
                     break;
                 case 'flags':
@@ -235,17 +235,17 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      * @psalm-param array<class-string>            $interfaces
      * @param PropertyGenerator[]|string[]|array[] $properties
      * @param MethodGenerator[]|string[]|array[]   $methods
-     * @param DocBlockGenerator                    $docBlock
      */
     public function __construct(
-        $name = null,
+        string $name = null,
         $namespaceName = null,
         $flags = null,
         $extends = null,
         array $interfaces = [],
         array $properties = [],
         array $methods = [],
-        $docBlock = null
+        DocBlockGenerator $docBlock = null,
+        AttributeGenerator $attributeGenerator = null,
     ) {
         $this->traitUsageGenerator = new TraitUsageGenerator($this);
 
@@ -272,6 +272,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         }
         if ($docBlock !== null) {
             $this->setDocBlock($docBlock);
+        }
+        if ($attributeGenerator) {
+            $this->setAttributes($attributeGenerator);
         }
     }
 

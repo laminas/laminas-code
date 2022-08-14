@@ -5,50 +5,78 @@ declare(strict_types=1);
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Generator\AttributeGenerator\AttributeAssembler;
-use Laminas\Code\Generator\AttributeGenerator\AttributeAssemblerBag;
-use Laminas\Code\Generator\AttributeGenerator\AttributeAssemblerFactory;
-use Laminas\Code\Generator\AttributeGenerator\AttributeBuilder;
+use Laminas\Code\Generator\AttributeGenerator\AttributePrototype;
+use Laminas\Code\Generator\AttributeGenerator\AttributeWithArgumentsAssembler;
+use Laminas\Code\Generator\AttributeGenerator\SimpleAttributeAssembler;
+use ReflectionAttribute;
 use ReflectionClass;
 
-class AttributeGenerator extends AbstractGenerator
+final class AttributeGenerator implements GeneratorInterface
 {
-    private function __construct(private AttributeAssemblerBag $attributeAssemblerBag)
+    private array $assemblers;
+
+    private function __construct(AttributeAssembler ...$assembler)
     {
+        $this->assemblers = $assembler;
     }
 
     public function generate(): string
     {
-        $generatedAttributes = array_map(fn(AttributeAssembler $attributeAssembler) => $attributeAssembler->__toString(),
-            $this->attributeAssemblerBag->toArray(),
+        $generatedAttributes = array_map(fn(AttributeAssembler $attributeAssembler) => $attributeAssembler->assemble(),
+            $this->assemblers,
         );
 
-        return implode(self::LINE_FEED, $generatedAttributes);
+        return implode(AbstractGenerator::LINE_FEED, $generatedAttributes);
+    }
+
+    public static function fromPrototype(AttributePrototype ...$attributePrototype): self
+    {
+        $assemblers = [];
+        
+        foreach ($attributePrototype as $prototype) {
+            $assemblers[] = self::negotiateAssembler($prototype);
+        }
+
+        return new self(...$assemblers);
     }
 
     public static function fromReflection(ReflectionClass $reflectionClass): self
     {
-        return new self(AttributeAssemblerFactory::createForClassByReflection($reflectionClass));
-    }
+        $attributes = $reflectionClass->getAttributes();
+        $assemblers = [];
 
-    public static function fromBuilder(AttributeBuilder $attributeBuilder): self
-    {
-        return new self(AttributeAssemblerFactory::createForClassFromBuilder($attributeBuilder));
+        foreach ($attributes as $attribute) {
+            $assembler = self::negotiateAssembler($attribute);
+
+            $assemblers[] = $assembler;
+        }
+
+        return new self(...$assemblers);
     }
 
     public static function fromArray(array $definitions): self
     {
-        $builder = new AttributeBuilder();
+        $assemblers = [];
 
         foreach ($definitions as $definition) {
             @list($attributeName, $attributeArguments) = $definition;
 
-            if (!isset($attributeArguments)) {
-                $attributeArguments = [];
-            }
+            $prototype = new AttributePrototype($attributeName, $attributeArguments ?? []);
 
-            $builder->add($attributeName, $attributeArguments);
+            $assemblers[] = self::negotiateAssembler($prototype);
         }
 
-        return self::fromBuilder($builder);
+        return new self(...$assemblers);
+    }
+
+    private static function negotiateAssembler(ReflectionAttribute|AttributePrototype $reflectionPrototype): AttributeAssembler
+    {
+        $hasArguments = !empty($reflectionPrototype->getArguments());
+
+        if ($hasArguments) {
+            return new AttributeWithArgumentsAssembler($reflectionPrototype);
+        }
+
+        return new SimpleAttributeAssembler($reflectionPrototype);
     }
 }
