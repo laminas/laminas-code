@@ -437,6 +437,6 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
             }
         }
 
-        return $output . self::LINE_FEED . $indent . '}' . self::LINE_FEED . self::LINE_FEED;
+        return $output . $indent . '}' . self::LINE_FEED . self::LINE_FEED;
     }
 }
