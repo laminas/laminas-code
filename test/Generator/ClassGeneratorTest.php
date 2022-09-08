@@ -1167,7 +1167,6 @@ class myClass
         hisTrait::foo as public test;
         myTrait::bar insteadof hisTrait;
         myTrait::bar insteadof thatTrait;
-
     }
 }
 
