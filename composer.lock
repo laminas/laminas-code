@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb2e7a6eab093f01c5f16027b30f2da9",
+    "content-hash": "bdac2a2a26a0a63994c2cbae675d445b",
     "packages": [],
     "packages-dev": [
         {
@@ -1973,16 +1973,16 @@
         },
         {
             "name": "psalm/plugin-phpunit",
-            "version": "0.17.0",
+            "version": "0.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-phpunit.git",
-                "reference": "45951541beef07e93e3ad197daf01da88e85c31d"
+                "reference": "e61073617d3efd4d9dee3b830f754f5283306aff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/45951541beef07e93e3ad197daf01da88e85c31d",
-                "reference": "45951541beef07e93e3ad197daf01da88e85c31d",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/e61073617d3efd4d9dee3b830f754f5283306aff",
+                "reference": "e61073617d3efd4d9dee3b830f754f5283306aff",
                 "shasum": ""
             },
             "require": {
@@ -1990,7 +1990,7 @@
                 "composer/semver": "^1.4 || ^2.0 || ^3.0",
                 "ext-simplexml": "*",
                 "php": "^7.1 || ^8.0",
-                "vimeo/psalm": "dev-master || dev-4.x || ^4.5"
+                "vimeo/psalm": "dev-master || dev-4.x || ^4.5 || ^5@beta"
             },
             "conflict": {
                 "phpunit/phpunit": "<7.5"
@@ -2027,9 +2027,9 @@
             "description": "Psalm plugin for PHPUnit",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-phpunit/issues",
-                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.17.0"
+                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.18.0"
             },
-            "time": "2022-06-14T17:05:57+00:00"
+            "time": "2022-11-01T18:44:31+00:00"
         },
         {
             "name": "psr/cache",
