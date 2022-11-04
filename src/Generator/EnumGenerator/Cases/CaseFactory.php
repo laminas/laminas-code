@@ -10,6 +10,7 @@ use ReflectionEnumUnitCase;
 use function array_key_exists;
 use function array_map;
 use function assert;
+use function method_exists;
 
 use const PHP_VERSION_ID;
 
@@ -65,6 +66,13 @@ final class CaseFactory
             $backedCases[$singleCase->getName()] = $singleCase->getBackingValue();
         }
 
-        return BackedCases::fromCasesWithType($backedCases, $backingType->getName());
+        // PHP 8.2
+        if (method_exists($backingType, 'getName')) {
+            /** @var string $backingTypeName */
+            $backingTypeName = $backingType->getName();
+        } else {
+            $backingTypeName = (string) $backingType;
+        }
+        return BackedCases::fromCasesWithType($backedCases, $backingTypeName);
     }
 }
