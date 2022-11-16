@@ -9,13 +9,13 @@
     "homepage": "https://laminas.dev",
     "license": "BSD-3-Clause",
     "require": {
-        "php": ">=7.4, <8.2"
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
     },
     "require-dev": {
         "ext-phar": "*",
         "doctrine/annotations": "^1.13.3",
-        "laminas/laminas-coding-standard": "^2.3.0",
-        "laminas/laminas-stdlib": "^3.6.1",
+        "laminas/laminas-coding-standard": "^2.4.0",
+        "laminas/laminas-stdlib": "^3.10.1",
         "phpunit/phpunit": "^9.5.26",
         "psalm/plugin-phpunit": "^0.18.0",
         "vimeo/psalm": "^4.29.0"
@@ -29,7 +29,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "7.4.99"
+            "php": "8.0.99"
         },
         "sort-packages": true
     },
