@@ -42,14 +42,16 @@ final class AtomicType
         'mixed'    => 10,
         'void'     => 11,
         'false'    => 12,
-        'null'     => 13,
-        'never'    => 14,
+        'true'     => 13,
+        'null'     => 14,
+        'never'    => 15,
     ];
 
     /** @psalm-var array<non-empty-string, null> */
     private const NOT_NULLABLE_TYPES = [
         'null'  => null,
         'false' => null,
+        'true'  => null,
         'void'  => null,
         'mixed' => null,
         'never' => null,
@@ -151,6 +153,17 @@ final class AtomicType
                     $other->type
                 ));
             }
+
+            if (
+                ('true' === $other->type && 'false' === $this->type) ||
+                ('false' === $other->type && 'true' === $this->type)
+            ) {
+                throw new InvalidArgumentException(sprintf(
+                    'Type "%s" cannot be composed in a union with type "%s"',
+                    $this->type,
+                    $other->type
+                ));
+            }
         }
 
         if (
@@ -222,6 +235,6 @@ final class AtomicType
 
     private function requiresUnionWithStandaloneType(): bool
     {
-        return 'null' === $this->type || 'false' === $this->type;
+        return false;
     }
 }
