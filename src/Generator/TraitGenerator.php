@@ -60,6 +60,9 @@ class TraitGenerator extends ClassGenerator
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey name           string        [required] Class Name
      * @configkey filegenerator  FileGenerator File generator that holds this class
      * @configkey namespacename  string        The namespace for this class
@@ -69,9 +72,6 @@ class TraitGenerator extends ClassGenerator
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return static
-     *
-     * @deprecated this API is deprecated, and will be removed in the next major release. Please
-     *             use the other constructors of this class instead.
      */
     public static function fromArray(array $array)
     {

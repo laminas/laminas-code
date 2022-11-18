@@ -100,6 +100,9 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey name               string   [required] Class Name
      * @configkey const              bool
      * @configkey defaultvalue       null|bool|string|int|float|array|ValueGenerator
@@ -114,9 +117,6 @@ class PropertyGenerator extends AbstractMemberGenerator
      * @param  array  $array
      * @return static
      * @throws Exception\InvalidArgumentException
-     *
-     * @deprecated this API is deprecated, and will be removed in the next major release. Please
-     *             use the other constructors of this class instead.
      */
     public static function fromArray(array $array)
     {
