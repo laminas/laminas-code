@@ -203,6 +203,10 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      *
      * @throws Exception\InvalidArgumentException
      * @return DocBlockReflection
+     *
+     * @deprecated this method is unreliable, and will be dropped in the next major release.
+     *             If you are attempting to inspect the return type of an expression, please
+     *             use more reliable tools, such as `vimeo/psalm` or `phpstan/phpstan` instead.
      */
     public function getReturn()
     {
