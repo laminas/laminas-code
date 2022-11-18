@@ -583,7 +583,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      * Add Constant
      *
      * @param  string                      $name Non-empty string
-     * @param  string|int|null|float|array $value Scalar
+     * @param  mixed                       $value Scalar
      * @throws Exception\InvalidArgumentException
      * @return static
      */

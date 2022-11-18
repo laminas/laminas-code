@@ -4,6 +4,7 @@ namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\MethodReflection;
 
+use function array_map;
 use function explode;
 use function implode;
 use function is_array;
@@ -366,14 +367,10 @@ class MethodGenerator extends AbstractMemberGenerator
             . ($this->returnsReference ? '& ' : '')
             . $this->getName() . '(';
 
-        $parameters = $this->getParameters();
-        if (! empty($parameters)) {
-            foreach ($parameters as $parameter) {
-                $parameterOutput[] = $parameter->generate();
-            }
-
-            $output .= implode(', ', $parameterOutput);
-        }
+        $output .= implode(', ', array_map(
+            static fn (ParameterGenerator $parameter): string => $parameter->generate(),
+            $this->getParameters()
+        ));
 
         $output .= ')';
 

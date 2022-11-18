@@ -34,8 +34,10 @@ class InterfaceGenerator extends ClassGenerator
         $cg->setSourceContent($cg->getSourceContent());
         $cg->setSourceDirty(false);
 
-        if ($classReflection->getDocComment() != '') {
-            $cg->setDocBlock(DocBlockGenerator::fromReflection($classReflection->getDocBlock()));
+        $docBlock = $classReflection->getDocBlock();
+
+        if ($docBlock) {
+            $cg->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
         }
 
         // set the namespace
