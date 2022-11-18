@@ -9,7 +9,7 @@
     "homepage": "https://laminas.dev",
     "license": "BSD-3-Clause",
     "require": {
-        "php": ">=7.4, <8.2"
+        "php": "~8.0.0 || ~8.1.0"
     },
     "require-dev": {
         "ext-phar": "*",
@@ -29,7 +29,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "7.4.99"
+            "php": "8.0.99"
         },
         "sort-packages": true
     },
