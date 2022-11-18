@@ -11,7 +11,6 @@ use ReflectionProperty;
 use ReturnTypeWillChange;
 
 use function assert;
-use function method_exists;
 
 /** @psalm-immutable */
 class ParameterReflection extends ReflectionParameter implements ReflectionInterface
