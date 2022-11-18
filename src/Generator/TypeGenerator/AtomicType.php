@@ -165,16 +165,6 @@ final class AtomicType
                 ));
             }
         }
-
-        if (
-            $this->requiresUnionWithStandaloneType() &&
-            [] === array_filter($others, static fn (self $type): bool => ! $type->requiresUnionWithStandaloneType())
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" requires to be composed with non-standalone types',
-                $this->type
-            ));
-        }
     }
 
     /**
@@ -199,27 +189,6 @@ final class AtomicType
                 ));
             }
         }
-
-        if (
-            $this->requiresUnionWithStandaloneType() &&
-            [] === array_filter($others, static fn (self $type): bool => ! $type->requiresUnionWithStandaloneType())
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" requires to be composed with non-standalone types',
-                $this->type
-            ));
-        }
-    }
-
-    /** @throws InvalidArgumentException */
-    public function assertCanBeAStandaloneType(): void
-    {
-        if ($this->requiresUnionWithStandaloneType()) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" cannot be used standalone, and must be part of a union type',
-                $this->type
-            ));
-        }
     }
 
     /** @throws InvalidArgumentException */
@@ -231,10 +200,5 @@ final class AtomicType
                 $this->type
             ));
         }
-    }
-
-    private function requiresUnionWithStandaloneType(): bool
-    {
-        return false;
     }
 }

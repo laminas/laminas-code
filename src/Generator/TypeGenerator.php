@@ -120,8 +120,6 @@ final class TypeGenerator implements GeneratorInterface
         );
 
         if (1 === count($types)) {
-            $types[0]->assertCanBeAStandaloneType();
-
             if ($nullable) {
                 $types[0]->assertCanBeStandaloneNullable();
             }
