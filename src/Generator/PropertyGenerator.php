@@ -9,7 +9,6 @@ use function get_class;
 use function gettype;
 use function is_bool;
 use function is_object;
-use function method_exists;
 use function sprintf;
 use function str_replace;
 use function strtolower;
@@ -75,7 +74,7 @@ class PropertyGenerator extends AbstractMemberGenerator
             $property->setStatic(true);
         }
 
-        if (method_exists($reflectionProperty, 'isReadonly') && $reflectionProperty->isReadonly()) {
+        if ($reflectionProperty->isReadonly()) {
             $property->setReadonly(true);
         }
 

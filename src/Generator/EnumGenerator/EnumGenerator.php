@@ -2,7 +2,6 @@
 
 namespace Laminas\Code\Generator\EnumGenerator;
 
-use InvalidArgumentException;
 use Laminas\Code\Generator\EnumGenerator\Cases\BackedCases;
 use Laminas\Code\Generator\EnumGenerator\Cases\CaseFactory;
 use Laminas\Code\Generator\EnumGenerator\Cases\PureCases;
@@ -10,8 +9,6 @@ use ReflectionEnum;
 
 use function array_map;
 use function implode;
-
-use const PHP_VERSION_ID;
 
 /** @psalm-immutable */
 final class EnumGenerator
@@ -97,10 +94,6 @@ final class EnumGenerator
 
     public static function fromReflection(ReflectionEnum $enum): self
     {
-        if (PHP_VERSION_ID < 80100) {
-            throw new InvalidArgumentException('This feature only works from PHP 8.1 onwards.');
-        }
-
         return new self(
             Name::fromFullyQualifiedClassName($enum->getName()),
             CaseFactory::fromReflectionCases($enum),

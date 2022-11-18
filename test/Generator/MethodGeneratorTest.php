@@ -25,8 +25,6 @@ use function array_map;
 use function array_shift;
 use function array_values;
 
-use const PHP_VERSION_ID;
-
 /**
  * @group Laminas_Code_Generator
  * @group Laminas_Code_Generator_Php
@@ -436,7 +434,7 @@ PHP;
      */
     public function returnTypeHintClasses()
     {
-        $parameters = [
+        return [
             [ReturnTypeHintedClass::class, 'voidReturn', 'void'],
             [ReturnTypeHintedClass::class, 'arrayReturn', 'array'],
             [ReturnTypeHintedClass::class, 'callableReturn', 'callable'],
@@ -470,12 +468,6 @@ PHP;
             [Php80Types::class, 'unionType', '\\' . Php80Types::class . '|\\' . stdClass::class],
             [Php80Types::class, 'staticType', 'static'],
         ];
-
-        return array_values(array_filter(
-            $parameters,
-            static fn(array $parameter) => PHP_VERSION_ID >= 80000
-                || $parameter[0] !== Php80Types::class
-        ));
     }
 
     /**

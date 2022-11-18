@@ -11,8 +11,6 @@ use function array_key_exists;
 use function array_map;
 use function assert;
 
-use const PHP_VERSION_ID;
-
 /** @internal */
 final class CaseFactory
 {
@@ -47,10 +45,6 @@ final class CaseFactory
      */
     public static function fromReflectionCases(ReflectionEnum $enum)
     {
-        if (PHP_VERSION_ID < 80100) {
-            throw new InvalidArgumentException('This feature only works from PHP 8.1 onwards.');
-        }
-
         $backingType = $enum->getBackingType();
 
         if ($backingType === null) {

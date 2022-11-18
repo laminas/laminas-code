@@ -36,10 +36,7 @@
     "autoload": {
         "psr-4": {
             "Laminas\\Code\\": "src/"
-        },
-        "files": [
-            "polyfill/ReflectionEnumPolyfill.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
