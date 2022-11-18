@@ -70,6 +70,7 @@ interface TraitUsageInterface
      * Remove a trait by its name
      *
      * @param string $traitName
+     * @return self
      */
     public function removeTrait($traitName);
 
@@ -92,6 +93,7 @@ interface TraitUsageInterface
      * @param mixed $method String or Array
      * @param string $alias
      * @param null|int $visibility
+     * @return $this
      */
     public function addTraitAlias($method, $alias, $visibility = null);
 
@@ -120,6 +122,7 @@ interface TraitUsageInterface
 
      * @param mixed $method
      * @param mixed $traitsToReplace
+     * @return $this
      */
     public function addTraitOverride($method, $traitsToReplace);
 
