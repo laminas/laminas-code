@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionMethod as PhpReflectionMethod;
+use ReflectionParameter as PhpReflectionParameter;
 use ReturnTypeWillChange;
 
 use function array_key_exists;
@@ -169,24 +170,18 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Get all method parameter reflection objects
      *
-     * @return ParameterReflection[]
+     * @return list<ParameterReflection>
      */
     #[ReturnTypeWillChange]
     public function getParameters()
     {
-        $phpReflections     = parent::getParameters();
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new ParameterReflection(
-                [$this->getDeclaringClass()->getName(), $this->getName()],
-                $phpReflection->getName()
-            );
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
-
-        return $laminasReflections;
+        $method = [$this->getDeclaringClass()->getName(), $this->getName()];
+        
+        return array_map(
+            static fn (PhpReflectionParameter $parameter): ParameterReflection
+                => new ParameterReflection($method, $parameter->getName()),
+            parent::getParameters()
+        );
     }
 
     /**
@@ -372,7 +367,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      *
      * @param array $haystack
      * @param int $position
-     * @return bool
+     * @return bool|void
      */
     protected function isEndingBrace($haystack, $position)
     {
