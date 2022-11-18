@@ -5,6 +5,7 @@ namespace LaminasTest\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\PropertyReflection;
+use LaminasTest\Code\Reflection\TestAsset\TestTraitClass3;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -164,13 +165,13 @@ EOS;
 
         $reflectionClass = new ClassReflection(TestAsset\TestTraitClass4::class);
         $traitsArray     = $reflectionClass->getTraits();
-        self::assertIsArray($traitsArray);
+
         self::assertCount(1, $traitsArray);
-        self::assertInstanceOf(ClassReflection::class, $traitsArray[0]);
+        self::assertSame(TestTraitClass3::class, $traitsArray[TestTraitClass3::class]->getName());
 
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
         $traitsArray     = $reflectionClass->getTraits();
-        self::assertIsArray($traitsArray);
-        self::assertCount(0, $traitsArray);
+
+        self::assertEmpty($traitsArray);
     }
 }
