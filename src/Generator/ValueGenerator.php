@@ -57,6 +57,7 @@ class ValueGenerator extends AbstractGenerator
 
     protected int $arrayDepth = 0;
 
+    /** @var self::OUTPUT_* */
     protected string $outputMode = self::OUTPUT_MULTIPLE_LINE;
 
     /** @var array */
@@ -70,9 +71,9 @@ class ValueGenerator extends AbstractGenerator
     protected $constants;
 
     /**
-     * @param mixed       $value
-     * @param string      $type
-     * @param string      $outputMode
+     * @param mixed                                 $value
+     * @param string                                $type
+     * @param self::OUTPUT_*                        $outputMode
      * @param null|SplArrayObject|StdlibArrayObject $constants
      */
     public function __construct(
@@ -449,8 +450,8 @@ class ValueGenerator extends AbstractGenerator
     }
 
     /**
-     * @param  string $outputMode
-     * @return ValueGenerator
+     * @param  self::OUTPUT_* $outputMode
+     * @return $this
      */
     public function setOutputMode($outputMode)
     {
@@ -459,7 +460,7 @@ class ValueGenerator extends AbstractGenerator
     }
 
     /**
-     * @return string
+     * @return self::OUTPUT_*
      */
     public function getOutputMode()
     {
