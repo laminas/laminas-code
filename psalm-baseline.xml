@@ -257,46 +257,26 @@
       <code>new static()</code>
     </UnsafeInstantiation>
   </file>
-  <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$pureCases</code>
-    </ArgumentTypeCoercion>
-    <MixedArgument occurrences="2">
-      <code>$backingType-&gt;getName()</code>
-      <code>$enum-&gt;getCases()</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$backedCases</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayOffset occurrences="1">
-      <code>$backedCases[$singleCase-&gt;getName()]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="3">
-      <code>$backedCases[$singleCase-&gt;getName()]</code>
-      <code>$backingType</code>
-      <code>$singleCase</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="3">
-      <code>getBackingValue</code>
-      <code>getName</code>
-      <code>getName</code>
-    </MixedMethodCall>
-    <UndefinedClass occurrences="1">
-      <code>ReflectionEnumUnitCase</code>
-    </UndefinedClass>
-    <UndefinedMethod occurrences="3">
-      <code>getBackingType</code>
-      <code>getCases</code>
-      <code>getCases</code>
-    </UndefinedMethod>
+  <file src="src/Generator/EnumGenerator/Cases/BackedCases.php">
+    <DocblockTypeContradiction occurrences="2">
+      <code>$type === 'int' || $type === 'string'</code>
+      <code>$type === 'string'</code>
+    </DocblockTypeContradiction>
   </file>
-  <file src="src/Generator/EnumGenerator/EnumGenerator.php">
-    <MixedArgument occurrences="1">
-      <code>$enum-&gt;getName()</code>
-    </MixedArgument>
-    <UndefinedMethod occurrences="1">
-      <code>getName</code>
-    </UndefinedMethod>
+  <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
+    <ArgumentTypeCoercion occurrences="3">
+      <code>$backingType-&gt;getName()</code>
+      <code>static fn(ReflectionEnumBackedCase $case): string =&gt; $case-&gt;getName()</code>
+      <code>static fn(ReflectionEnumBackedCase $case): string|int =&gt; $case-&gt;getBackingValue()</code>
+    </ArgumentTypeCoercion>
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$case-&gt;getName()</code>
+      <code>$singleCase-&gt;getName()</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>non-empty-string</code>
+      <code>non-empty-string</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Generator/FileGenerator.php">
     <DeprecatedMethod occurrences="3">
@@ -612,18 +592,16 @@
     </MissingReturnType>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ImpureMethodCall occurrences="4">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>static fn(ReflectionNamedType $type): string =&gt; self::reflectionNamedTypeToString($type, $currentClass)</code>
+    </ArgumentTypeCoercion>
+    <ImpureMethodCall occurrences="5">
       <code>allowsNull</code>
       <code>getName</code>
       <code>getName</code>
       <code>getParentClass</code>
+      <code>getTypes</code>
     </ImpureMethodCall>
-    <MixedArgument occurrences="2"/>
-    <TypeDoesNotContainType occurrences="1"/>
-    <UndefinedClass occurrences="2">
-      <code>ReflectionIntersectionType</code>
-      <code>ReflectionIntersectionType</code>
-    </UndefinedClass>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1147,6 +1125,11 @@
       <code>testSetFlagsWithArray</code>
     </MissingReturnType>
   </file>
+  <file src="test/Generator/Cases/BackedCasesTest.php">
+    <InvalidArgument occurrences="1">
+      <code>'bool'</code>
+    </InvalidArgument>
+  </file>
   <file src="test/Generator/ClassGeneratorTest.php">
     <ArgumentTypeCoercion occurrences="7">
       <code>''</code>
@@ -1541,9 +1524,6 @@
       <code>testTypeHintWithValidClassName</code>
       <code>testTypehintsWithNamespaceInNamepsacedClassReturnTypewithBackslash</code>
     </MissingReturnType>
-    <PossiblyNullArgument occurrences="1">
-      <code>$parameter[3]</code>
-    </PossiblyNullArgument>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
     <DeprecatedMethod occurrences="3"/>
