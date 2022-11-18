@@ -5,12 +5,15 @@ namespace Laminas\Code\Reflection;
 use Laminas\Code\Reflection\DocBlock\Tag\ParamTag;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty;
 use ReturnTypeWillChange;
 
+use function assert;
 use function method_exists;
 
+/** @psalm-immutable */
 class ParameterReflection extends ReflectionParameter implements ReflectionInterface
 {
     /** @var bool */
@@ -19,16 +22,18 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /**
      * Get declaring class reflection object
      *
-     * @return ClassReflection
+     * @return ClassReflection|null
      */
     #[ReturnTypeWillChange]
     public function getDeclaringClass()
     {
-        $phpReflection     = parent::getDeclaringClass();
-        $laminasReflection = new ClassReflection($phpReflection->getName());
-        unset($phpReflection);
-
-        return $laminasReflection;
+        $reflection = parent::getDeclaringClass();
+        
+        if (! $reflection) {
+            return null;
+        }
+        
+        return new ClassReflection($reflection->getName());
     }
 
     /**
@@ -39,15 +44,17 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     #[ReturnTypeWillChange]
     public function getClass()
     {
-        $phpReflectionType = parent::getType();
-        if ($phpReflectionType === null) {
+        $type = parent::getType();
+
+        if ($type === null) {
+            return null;
+        }
+        
+        if (! ($type instanceof ReflectionNamedType && ! $type->isBuiltin())) {
             return null;
         }
 
-        $laminasReflection = new ClassReflection($phpReflectionType->getName());
-        unset($phpReflectionType);
-
-        return $laminasReflection;
+        new ClassReflection($type->getName());
     }
 
     /**
@@ -58,15 +65,13 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     #[ReturnTypeWillChange]
     public function getDeclaringFunction()
     {
-        $phpReflection = parent::getDeclaringFunction();
-        if ($phpReflection instanceof ReflectionMethod) {
-            $laminasReflection = new MethodReflection($this->getDeclaringClass()->getName(), $phpReflection->getName());
-        } else {
-            $laminasReflection = new FunctionReflection($phpReflection->getName());
-        }
-        unset($phpReflection);
+        $function = parent::getDeclaringFunction();
 
-        return $laminasReflection;
+        if ($function instanceof ReflectionMethod) {
+            return new MethodReflection($function->getDeclaringClass()->getName(), $function->getName());
+        }
+
+        return new FunctionReflection($function->getName());
     }
 
     /**
@@ -81,15 +86,18 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     public function detectType()
     {
         if (
-            method_exists($this, 'getType')
-            && null !== ($type = $this->getType())
+            null !== ($type = $this->getType())
             && $type->isBuiltin()
         ) {
             return $type->getName();
         }
 
         if (null !== $type && $type->getName() === 'self') {
-            return $this->getDeclaringClass()->getName();
+            $declaringClass = $this->getDeclaringClass();
+
+            assert($declaringClass !== null, 'A parameter called `self` can only exist on a class');
+
+            return $declaringClass->getName();
         }
 
         if (($class = $this->getClass()) instanceof ReflectionClass) {
@@ -128,44 +136,49 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
         return parent::__toString();
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return parent::__toString();
-    }
-
-    /** @psalm-pure */
-    public function isPromoted(): bool
-    {
-        return parent::isPromoted();
-    }
-
     public function isPublicPromoted(): bool
     {
-        return $this->isPromoted()
-            && $this->getDeclaringClass()
-                ->getProperty($this->getName())
-                ->getModifiers()
-            & ReflectionProperty::IS_PUBLIC;
+        $property = $this->promotedProperty();
+
+        if ($property === null) {
+            return false;
+        }
+
+        return (bool) ($property->getModifiers() & ReflectionProperty::IS_PUBLIC);
     }
 
     public function isProtectedPromoted(): bool
     {
-        return $this->isPromoted()
-            && $this->getDeclaringClass()
-                ->getProperty($this->getName())
-                ->getModifiers()
-            & ReflectionProperty::IS_PROTECTED;
+        $property = $this->promotedProperty();
+
+        if ($property === null) {
+            return false;
+        }
+
+        return (bool) ($property->getModifiers() & ReflectionProperty::IS_PROTECTED);
     }
 
     public function isPrivatePromoted(): bool
     {
-        return $this->isPromoted()
-            && $this->getDeclaringClass()
-                ->getProperty($this->getName())
-                ->getModifiers()
-            & ReflectionProperty::IS_PRIVATE;
+        $property = $this->promotedProperty();
+
+        if ($property === null) {
+            return false;
+        }
+
+        return (bool) ($property->getModifiers() & ReflectionProperty::IS_PRIVATE);
+    }
+    
+    private function promotedProperty(): ?ReflectionProperty
+    {
+        if (! $this->isPromoted()) {
+            return null;
+        }
+        
+        $declaringClass = $this->getDeclaringClass();
+
+        assert($declaringClass !== null, 'Promoted properties are always part of a class');
+
+        return $declaringClass->getProperty($this->getName());
     }
 }
