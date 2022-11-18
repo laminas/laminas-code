@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -44,6 +44,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/ClassGenerator.php">
+    <DeprecatedMethod occurrences="1">
+      <code>DocBlockGenerator::fromArray($value)</code>
+    </DeprecatedMethod>
     <DocblockTypeContradiction occurrences="3">
       <code>! is_string($name)</code>
       <code>is_string($name)</code>
@@ -296,6 +299,11 @@
     </UndefinedMethod>
   </file>
   <file src="src/Generator/FileGenerator.php">
+    <DeprecatedMethod occurrences="3">
+      <code>ClassGenerator::fromArray($class)</code>
+      <code>ClassGenerator::fromArray($value)</code>
+      <code>DeclareStatement::fromArray([$directive =&gt; $value])</code>
+    </DeprecatedMethod>
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
@@ -342,6 +350,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/InterfaceGenerator.php">
+    <DeprecatedMethod occurrences="1">
+      <code>DocBlockGenerator::fromArray($value)</code>
+    </DeprecatedMethod>
     <MixedArgument occurrences="7">
       <code>$array['name']</code>
       <code>$value</code>
@@ -367,6 +378,10 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/MethodGenerator.php">
+    <DeprecatedMethod occurrences="2">
+      <code>DocBlockGenerator::fromArray($value)</code>
+      <code>ParameterGenerator::fromArray($parameter)</code>
+    </DeprecatedMethod>
     <MixedArgument occurrences="13">
       <code>$array['name']</code>
       <code>$parameterOutput</code>
@@ -440,6 +455,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/PropertyGenerator.php">
+    <DeprecatedMethod occurrences="1">
+      <code>DocBlockGenerator::fromArray($value)</code>
+    </DeprecatedMethod>
     <MixedArgument occurrences="9">
       <code>$array['name']</code>
       <code>$value</code>
@@ -469,6 +487,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/TraitGenerator.php">
+    <DeprecatedMethod occurrences="1">
+      <code>DocBlockGenerator::fromArray($value)</code>
+    </DeprecatedMethod>
     <MixedArgument occurrences="6">
       <code>$array['name']</code>
       <code>$value</code>
@@ -562,12 +583,11 @@
       <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedOperand occurrences="5">
+    <MixedOperand occurrences="4">
       <code>$alias['alias']</code>
       <code>$insteadofTrait</code>
       <code>$method['method']</code>
       <code>$method['traitName']</code>
-      <code>current(Reflection::getModifierNames($alias['visibility']))</code>
     </MixedOperand>
     <TooFewArguments occurrences="1">
       <code>addTraitOverride</code>
@@ -1127,6 +1147,7 @@
       <code>'ParentClass'</code>
       <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="5"/>
     <InvalidArgument occurrences="5">
       <code>$resource</code>
       <code>ExceptionInterface::class</code>
@@ -1358,7 +1379,7 @@
     </InternalMethod>
   </file>
   <file src="test/Generator/DocBlockGeneratorTest.php">
-    <DeprecatedMethod occurrences="2">
+    <DeprecatedMethod occurrences="3">
       <code>setDatatype</code>
       <code>setDatatype</code>
     </DeprecatedMethod>
@@ -1381,6 +1402,7 @@
     </MissingReturnType>
   </file>
   <file src="test/Generator/FileGeneratorTest.php">
+    <DeprecatedMethod occurrences="9"/>
     <MissingReturnType occurrences="16">
       <code>testClassNotFoundException</code>
       <code>testConstruction</code>
@@ -1404,6 +1426,7 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="3"/>
     <MissingReturnType occurrences="17">
       <code>testAbstractAccessorsReturnsFalse</code>
       <code>testClassNotAnInterfaceException</code>
@@ -1435,6 +1458,11 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$className</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="6">
+      <code>ParameterGenerator::fromArray(['name' =&gt; 'bar', 'type' =&gt; 'array'])</code>
+      <code>ParameterGenerator::fromArray(['name' =&gt; 'baz', 'type' =&gt; stdClass::class, 'position' =&gt; 1])</code>
+      <code>ParameterGenerator::fromArray(['name' =&gt; 'baz', 'type' =&gt; stdClass::class])</code>
+    </DeprecatedMethod>
     <InvalidArgument occurrences="1">
       <code>new stdClass()</code>
     </InvalidArgument>
@@ -1471,6 +1499,7 @@
       <code>'LaminasTest_Code_NsTest_BarClass'</code>
       <code>'Namespaced\TypeHint\Bar'</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="1"/>
     <InvalidReturnStatement occurrences="1"/>
     <InvalidReturnType occurrences="1">
       <code>string[][]</code>
@@ -1507,6 +1536,7 @@
     </PossiblyNullArgument>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
+    <DeprecatedMethod occurrences="3"/>
     <InvalidArgument occurrences="1">
       <code>new stdClass()</code>
     </InvalidArgument>
@@ -1639,6 +1669,7 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>'LaminasTest_Code_NsTest_BarClass'</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="6"/>
     <InvalidArgument occurrences="1">
       <code>ExceptionInterface::class</code>
     </InvalidArgument>

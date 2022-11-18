@@ -132,6 +132,9 @@ class MethodGenerator extends AbstractMemberGenerator
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return MethodGenerator
+     *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
      */
     public static function fromArray(array $array)
     {

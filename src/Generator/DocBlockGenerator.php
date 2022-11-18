@@ -60,6 +60,9 @@ class DocBlockGenerator extends AbstractGenerator
      * @throws Exception\InvalidArgumentException
      * @param  array $array
      * @return DocBlockGenerator
+     *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
      */
     public static function fromArray(array $array)
     {
