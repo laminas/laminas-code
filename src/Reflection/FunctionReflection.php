@@ -3,9 +3,10 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionFunction;
+use ReflectionParameter;
 use ReturnTypeWillChange;
 
-use function array_shift;
+use function array_map;
 use function array_slice;
 use function count;
 use function file;
@@ -181,21 +182,18 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     /**
      * Get function parameters
      *
-     * @return ParameterReflection[]
+     * @return list<ParameterReflection>
      */
     #[ReturnTypeWillChange]
     public function getParameters()
     {
-        $phpReflections     = parent::getParameters();
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new ParameterReflection($this->getName(), $phpReflection->getName());
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
+        $name = $this->getName();
 
-        return $laminasReflections;
+        return array_map(
+            static fn (ReflectionParameter $parameter): ParameterReflection
+                => new ParameterReflection($name, $parameter->getName()),
+            parent::getParameters()
+        );
     }
 
     /**
