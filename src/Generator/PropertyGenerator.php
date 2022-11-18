@@ -66,8 +66,10 @@ class PropertyGenerator extends AbstractMemberGenerator
             $property->omitDefaultValue = true;
         }
 
-        if ($reflectionProperty->getDocComment() != '') {
-            $property->setDocBlock(DocBlockGenerator::fromReflection($reflectionProperty->getDocBlock()));
+        $docBlock = $reflectionProperty->getDocBlock();
+
+        if ($docBlock) {
+            $property->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
         }
 
         if ($reflectionProperty->isStatic()) {
@@ -261,9 +263,9 @@ class PropertyGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param  PropertyValueGenerator|mixed  $defaultValue
-     * @param  string                        $defaultValueType
-     * @param  string                        $defaultValueOutputMode
+     * @param  PropertyValueGenerator|mixed     $defaultValue
+     * @param  PropertyValueGenerator::TYPE_*   $defaultValueType
+     * @param  PropertyValueGenerator::OUTPUT_* $defaultValueOutputMode
      * @return static
      */
     public function setDefaultValue(
