@@ -7,6 +7,7 @@ interface PrototypeGenericInterface extends PrototypeInterface
 {
     /**
      * @param string $name
+     * @return void
      */
     public function setName($name);
 }
