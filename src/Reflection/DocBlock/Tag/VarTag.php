@@ -33,14 +33,14 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * {@inheritDoc}
      */
-    public function initialize($tagDocblockLine): void
+    public function initialize($content): void
     {
         $match = [];
 
         if (
             ! preg_match(
                 '#^([^\$]\S+)?\s*(\$[\S]+)?\s*(.*)$#m',
-                $tagDocblockLine,
+                $content,
                 $match
             )
         ) {
