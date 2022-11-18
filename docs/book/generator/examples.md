@@ -234,7 +234,7 @@ $file = (new FileGenerator)
                 new GenericTag('license', 'New BSD')
             ])
     )
-    ->setBody('define(\'APPLICATION_ENV\', \'testing\');');
+    ->setBody("define('APPLICATION_ENV', 'testing');");
 ```
 
 Calling `generate()` will generate the code -- but not write it to a file. You will need to capture
