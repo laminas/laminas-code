@@ -9,36 +9,27 @@ use function trim;
 
 class ParamTag implements TagInterface, PhpDocTypedTagInterface
 {
-    /**
-     * @var string[]
-     * @psalm-return list<string>
-     */
+    /** @var list<string> */
     protected $types = [];
 
-    /** @var string */
+    /** @var string|null */
     protected $variableName;
 
-    /** @var string */
+    /** @var string|null */
     protected $description;
 
-    /**
-     * @return string
-     */
+    /** @return 'param' */
     public function getName()
     {
         return 'param';
     }
 
-    /**
-     * Initializer
-     *
-     * @param  string $tagDocBlockLine
-     */
-    public function initialize($tagDocBlockLine)
+    /** {@inheritDoc} */
+    public function initialize($content)
     {
         $matches = [];
 
-        if (! preg_match('#((?:[\w|\\\]+(?:\[\])*\|?)+)(?:\s+(\$\S+))?(?:\s+(.*))?#s', $tagDocBlockLine, $matches)) {
+        if (! preg_match('#((?:[\w|\\\]+(?:\[\])*\|?)+)(?:\s+(\$\S+))?(?:\s+(.*))?#s', $content, $matches)) {
             return;
         }
 
@@ -75,19 +66,13 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types;
     }
 
-    /**
-     * Get parameter name
-     *
-     * @return string
-     */
+    /** @return string|null */
     public function getVariableName()
     {
         return $this->variableName;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string|null */
     public function getDescription()
     {
         return $this->description;
