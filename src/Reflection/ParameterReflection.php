@@ -73,6 +73,10 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
      * Get parameter type
      *
      * @return string|null
+     *
+     * @deprecated this method is unreliable, and should not be used: it will be removed in the next major release.
+     *             It may crash on parameters with union types, and will return relative types, instead of
+     *             FQN references
      */
     public function detectType()
     {
@@ -135,11 +139,7 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /** @psalm-pure */
     public function isPromoted(): bool
     {
-        if (! method_exists(parent::class, 'isPromoted')) {
-            return false;
-        }
-
-        return (bool) parent::isPromoted();
+        return parent::isPromoted();
     }
 
     public function isPublicPromoted(): bool

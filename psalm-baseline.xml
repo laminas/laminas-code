@@ -106,9 +106,6 @@
     <PossiblyNullOperand occurrences="1">
       <code>$namespaceAlias</code>
     </PossiblyNullOperand>
-    <RedundantCondition occurrences="1">
-      <code>method_exists($constReflection, 'isFinal')</code>
-    </RedundantCondition>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_array($constant)</code>
     </RedundantConditionGivenDocblockType>
@@ -284,6 +281,9 @@
       <code>getName</code>
       <code>getName</code>
     </MixedMethodCall>
+    <UndefinedClass occurrences="1">
+      <code>ReflectionEnumUnitCase</code>
+    </UndefinedClass>
     <UndefinedMethod occurrences="3">
       <code>getBackingType</code>
       <code>getCases</code>
@@ -307,9 +307,12 @@
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
-    <LessSpecificReturnStatement occurrences="1">
+    <InvalidReturnStatement occurrences="1">
       <code>$uses</code>
-    </LessSpecificReturnStatement>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>array&lt;int, array{string, null|string, false|null|string}&gt;</code>
+    </InvalidReturnType>
     <MissingClosureParamType occurrences="1">
       <code>$value</code>
     </MissingClosureParamType>
@@ -333,9 +336,6 @@
       <code>$use</code>
       <code>$value</code>
     </MixedAssignment>
-    <MoreSpecificReturnType occurrences="1">
-      <code>array&lt;int, array{string, null|string, false|null|string}&gt;</code>
-    </MoreSpecificReturnType>
     <RedundantCastGivenDocblockType occurrences="3">
       <code>(string) $body</code>
       <code>(string) $filename</code>
@@ -382,10 +382,9 @@
       <code>DocBlockGenerator::fromArray($value)</code>
       <code>ParameterGenerator::fromArray($parameter)</code>
     </DeprecatedMethod>
-    <MixedArgument occurrences="13">
+    <MixedArgument occurrences="12">
       <code>$array['name']</code>
       <code>$parameterOutput</code>
-      <code>$reflectionMethod-&gt;isStatic()</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -478,9 +477,6 @@
     <PossiblyFalseArgument occurrences="1">
       <code>$reflectionProperty-&gt;getDocBlock()</code>
     </PossiblyFalseArgument>
-    <RedundantCondition occurrences="1">
-      <code>method_exists($reflectionProperty, 'isReadonly')</code>
-    </RedundantCondition>
     <UnsafeInstantiation occurrences="2">
       <code>new static($array['name'])</code>
       <code>new static()</code>
@@ -616,14 +612,18 @@
     </MissingReturnType>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ImpureMethodCall occurrences="5">
+    <ImpureMethodCall occurrences="4">
       <code>allowsNull</code>
       <code>getName</code>
       <code>getName</code>
       <code>getParentClass</code>
-      <code>getTypes</code>
     </ImpureMethodCall>
-    <MixedArgument occurrences="1"/>
+    <MixedArgument occurrences="2"/>
+    <TypeDoesNotContainType occurrences="1"/>
+    <UndefinedClass occurrences="2">
+      <code>ReflectionIntersectionType</code>
+      <code>ReflectionIntersectionType</code>
+    </UndefinedClass>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DocblockTypeContradiction occurrences="1">
@@ -876,6 +876,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/FunctionReflection.php">
+    <DeprecatedMethod occurrences="1">
+      <code>detectType</code>
+    </DeprecatedMethod>
     <LessSpecificImplementedReturnType occurrences="1">
       <code>ParameterReflection[]</code>
     </LessSpecificImplementedReturnType>
@@ -919,6 +922,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/MethodReflection.php">
+    <DeprecatedMethod occurrences="1">
+      <code>detectType</code>
+    </DeprecatedMethod>
     <InvalidNullableReturnType occurrences="1">
       <code>bool</code>
     </InvalidNullableReturnType>
@@ -963,6 +969,9 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$phpReflection-&gt;getName()</code>
     </ArgumentTypeCoercion>
+    <ImpureMethodCall occurrences="1">
+      <code>isPromoted</code>
+    </ImpureMethodCall>
     <MissingImmutableAnnotation occurrences="5">
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
@@ -988,9 +997,10 @@
     <PossiblyUndefinedVariable occurrences="1">
       <code>$type</code>
     </PossiblyUndefinedVariable>
-    <UndefinedMethod occurrences="2">
+    <UndefinedMethod occurrences="3">
       <code>getName</code>
       <code>getName</code>
+      <code>isBuiltin</code>
     </UndefinedMethod>
   </file>
   <file src="src/Scanner/DocBlockScanner.php">
@@ -1871,6 +1881,10 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>__NAMESPACE__ . '\\' . $functionName</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="2">
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+    </DeprecatedMethod>
     <InvalidArgument occurrences="23">
       <code>'LaminasTest\Code\Reflection\TestAsset\function1'</code>
       <code>'LaminasTest\Code\Reflection\TestAsset\function1'</code>
@@ -1984,6 +1998,16 @@
       <code>'ReflectionException'</code>
       <code>__NAMESPACE__ . '\\' . $className</code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="8">
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+      <code>getPrototype</code>
+    </DeprecatedMethod>
     <MissingReturnType occurrences="15">
       <code>testCanParseClassBodyWhenUsingTrait</code>
       <code>testCodeGetBodyReturnsEmptyWithCommentedFunction</code>
@@ -2003,6 +2027,13 @@
     </MissingReturnType>
   </file>
   <file src="test/Reflection/ParameterReflectionTest.php">
+    <DeprecatedMethod occurrences="5">
+      <code>detectType</code>
+      <code>detectType</code>
+      <code>detectType</code>
+      <code>detectType</code>
+      <code>detectType</code>
+    </DeprecatedMethod>
     <MissingReturnType occurrences="9">
       <code>testCallableTypeHint</code>
       <code>testClassReturn</code>
@@ -2551,19 +2582,6 @@
       <code>nullableObjectParameter</code>
       <code>objectParameter</code>
     </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/Php80Types.php">
-    <ReservedWord occurrences="9">
-      <code>bool|null</code>
-      <code>bool|null $parameter</code>
-      <code>bool|string|null</code>
-      <code>false|self</code>
-      <code>false|self $parameter</code>
-      <code>mixed</code>
-      <code>mixed</code>
-      <code>null|bool</code>
-      <code>null|bool $parameter</code>
-    </ReservedWord>
   </file>
   <file src="test/TestAsset/ReturnTypeHintedClass.php">
     <InvalidReturnType occurrences="10">

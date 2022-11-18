@@ -128,6 +128,10 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      *
      * @param string $format
      * @return array|string
+     *
+     * @deprecated this method is unreliable, and should not be used: it will be removed in the next major release.
+     *             It may crash on parameters with union types, and will return relative types, instead of
+     *             FQN references
      */
     public function getPrototype($format = self::PROTOTYPE_AS_ARRAY)
     {
