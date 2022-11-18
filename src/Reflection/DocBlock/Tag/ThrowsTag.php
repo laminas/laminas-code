@@ -14,7 +14,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
      */
     protected $types = [];
 
-    /** @var string */
+    /** @var string|null */
     protected $description;
 
     /**
@@ -57,7 +57,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDescription()
     {
