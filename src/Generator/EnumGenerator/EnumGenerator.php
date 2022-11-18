@@ -58,7 +58,7 @@ final class EnumGenerator
             return '';
         }
 
-        return ': ' . $this->cases->getBackedType();
+        return ': ' . $this->cases->type;
     }
 
     private function retrieveCases(): string
@@ -67,7 +67,7 @@ final class EnumGenerator
             '',
             array_map(
                 fn (string $case): string => self::INDENTATION . 'case ' . $case . ';' . self::LINE_FEED,
-                $this->cases->getCases()
+                $this->cases->cases
             )
         );
     }
