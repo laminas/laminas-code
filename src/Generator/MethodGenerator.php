@@ -118,6 +118,9 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey name             string        [required] Class Name
      * @configkey docblock         string        The DocBlock information
      * @configkey flags            int           Flags, one of self::FLAG_ABSTRACT, self::FLAG_FINAL

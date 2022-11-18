@@ -54,6 +54,9 @@ class DocBlockGenerator extends AbstractGenerator
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey shortdescription string The short description for this doc block
      * @configkey longdescription  string The long description for this doc block
      * @configkey tags             array

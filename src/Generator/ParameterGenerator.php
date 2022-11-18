@@ -59,6 +59,9 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey name                  string                                          [required] Class Name
      * @configkey type                  string
      * @configkey defaultvalue          null|bool|string|int|float|array|ValueGenerator

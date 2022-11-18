@@ -163,6 +163,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     /**
      * Generate from array
      *
+     * @deprecated this API is deprecated, and will be removed in the next major release. Please
+     *             use the other constructors of this class instead.
+     *
      * @configkey name           string        [required] Class Name
      * @configkey filegenerator  FileGenerator File generator that holds this class
      * @configkey namespacename  string        The namespace for this class
