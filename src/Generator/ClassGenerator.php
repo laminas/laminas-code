@@ -79,9 +79,11 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
         $cg->setSourceContent($cg->getSourceContent());
         $cg->setSourceDirty(false);
+        
+        $docBlock = $classReflection->getDocBlock();
 
-        if ($classReflection->getDocComment() != '') {
-            $cg->setDocBlock(DocBlockGenerator::fromReflection($classReflection->getDocBlock()));
+        if ($docBlock) {
+            $cg->setDocBlock(DocBlockGenerator::fromReflection($docBlock));
         }
 
         $cg->setAbstract($classReflection->isAbstract());
@@ -582,10 +584,11 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     /**
      * Add Constant
      *
-     * @param  string                      $name Non-empty string
-     * @param  mixed                       $value Scalar
-     * @throws Exception\InvalidArgumentException
+     * @param non-empty-string $name
+     * @param mixed            $value Scalar
+     *
      * @return static
+     *@throws Exception\InvalidArgumentException
      */
     public function addConstant($name, $value, bool $isFinal = false)
     {
@@ -725,13 +728,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return false;
     }
 
-    /**
-     * Add a class to "use" classes
-     *
-     * @param  string $use
-     * @param  string|null $useAlias
-     * @return static
-     */
+    /** {@inheritDoc} */
     public function addUse($use, $useAlias = null)
     {
         $this->traitUsageGenerator->addUse($use, $useAlias);
@@ -776,11 +773,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return $this;
     }
 
-    /**
-     * Returns the "use" classes
-     *
-     * @return array
-     */
+    /** {@inheritDoc} */
     public function getUses()
     {
         return $this->traitUsageGenerator->getUses();
@@ -828,13 +821,14 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     /**
      * Add Method from scalars
      *
-     * @param  string $name
-     * @param  ParameterGenerator[]|array[]|string[] $parameters
-     * @param  int $flags
-     * @param  string $body
-     * @param  string $docBlock
-     * @throws Exception\InvalidArgumentException
+     * @param non-empty-string                      $name
+     * @param ParameterGenerator[]|array[]|string[] $parameters
+     * @param int                                   $flags
+     * @param string                                $body
+     * @param string                                $docBlock
+     *
      * @return static
+     * @throws Exception\InvalidArgumentException
      */
     public function addMethod(
         $name,
@@ -1044,7 +1038,6 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
             }
         }
 
-        $indent = $this->getIndentation();
         $output = '';
 
         if (null !== ($namespace = $this->getNamespaceName())) {
@@ -1081,7 +1074,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         $implemented = $this->getImplementedInterfaces();
 
         if (! empty($implemented)) {
-            $implemented = array_map([$this, 'generateShortOrCompleteClassname'], $implemented);
+            $implemented = array_map($this->generateShortOrCompleteClassname(...), $implemented);
             $output     .= ' ' . static::IMPLEMENTS_KEYWORD . ' ' . implode(', ', $implemented);
         }
 
@@ -1124,18 +1117,16 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     }
 
     /**
-     * @param mixed $value
-     * @return void
      * @throws Exception\InvalidArgumentException
      */
-    private function validateConstantValue($value)
+    private function validateConstantValue(mixed $value): void
     {
         if (null === $value || is_scalar($value)) {
             return;
         }
 
         if (is_array($value)) {
-            array_walk($value, [$this, 'validateConstantValue']);
+            array_walk($value, $this->validateConstantValue(...));
 
             return;
         }
@@ -1146,11 +1137,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         ));
     }
 
-    /**
-     * @param string $fqnClassName
-     * @return string
-     */
-    private function generateShortOrCompleteClassname($fqnClassName)
+    private function generateShortOrCompleteClassname(string $fqnClassName): string
     {
         $fqnClassName     = ltrim($fqnClassName, '\\');
         $parts            = explode('\\', $fqnClassName);
