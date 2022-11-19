@@ -368,7 +368,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      *
      * @param array $haystack
      * @param int $position
-     * @return bool|void
+     * @return bool|null
      */
     protected function isEndingBrace($haystack, $position)
     {
@@ -428,6 +428,8 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                     return false;
             }
         }
+
+        return null;
     }
 
     /**
