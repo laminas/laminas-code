@@ -37,6 +37,18 @@ use const T_DOC_COMMENT;
 use const T_OPEN_TAG;
 use const T_WHITESPACE;
 
+/**
+ * @psalm-type InputUses = array<
+ *     string|int,
+ *     array{
+ *      'use': non-empty-string,
+ *      'as': non-empty-string|null
+ *     }|array{
+ *      non-empty-string,
+ *      non-empty-string|null
+ *     }|non-empty-string
+ * >
+ */
 class FileGenerator extends AbstractGenerator
 {
     protected string $filename = '';
@@ -219,16 +231,7 @@ class FileGenerator extends AbstractGenerator
     }
 
     /**
-     * @param array<
-     *     string|int,
-     *     array{
-     *      'use': non-empty-string,
-     *      'as': non-empty-string|null
-     *     }|array{
-     *      non-empty-string,
-     *      non-empty-string|null
-     *     }|non-empty-string
-     * > $uses
+     * @param InputUses $uses
      * @return FileGenerator
      */
     public function setUses(array $uses)
