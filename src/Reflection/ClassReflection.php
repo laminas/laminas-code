@@ -3,9 +3,11 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 use ReturnTypeWillChange;
 
-use function array_shift;
+use function array_map;
 use function array_slice;
 use function array_unshift;
 use function file;
@@ -40,10 +42,9 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     }
 
     /**
-     * Return the start line of the class
+     * {@inheritDoc}
      *
-     * @param  bool $includeDocComment
-     * @return int
+     * @param bool $includeDocComment
      */
     #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
@@ -83,21 +84,15 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Get all reflection objects of implemented interfaces
      *
-     * @return ClassReflection[]
+     * @return array<class-string, ClassReflection>
      */
     #[ReturnTypeWillChange]
     public function getInterfaces()
     {
-        $phpReflections     = parent::getInterfaces();
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new ClassReflection($phpReflection->getName());
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
-
-        return $laminasReflections;
+        return array_map(
+            static fn (ReflectionClass $interface): ClassReflection => new ClassReflection($interface->getName()),
+            parent::getInterfaces()
+        );
     }
 
     /**
@@ -113,65 +108,55 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     }
 
     /**
-     * Get reflection objects of all methods
+     * {@inheritDoc}
      *
      * @param  int $filter
-     * @return MethodReflection[]
+     * @return list<MethodReflection>
      */
     #[ReturnTypeWillChange]
     public function getMethods($filter = -1)
     {
-        $methods = [];
-        foreach (parent::getMethods($filter) as $method) {
-            $instance  = new MethodReflection($this->getName(), $method->getName());
-            $methods[] = $instance;
-        }
+        $name = $this->getName();
 
-        return $methods;
+        return array_map(
+            static fn (ReflectionMethod $method): MethodReflection => new MethodReflection($name, $method->getName()),
+            parent::getMethods($filter)
+        );
     }
 
     /**
-     * Returns an array of reflection classes of traits used by this class.
+     * {@inheritDoc}
      *
-     * @return null|array
+     * @return array<trait-string, ClassReflection>
      */
     #[ReturnTypeWillChange]
     public function getTraits()
     {
-        $vals   = [];
-        $traits = parent::getTraits();
-        if ($traits === null) {
-            return;
-        }
-
-        foreach ($traits as $trait) {
-            $vals[] = new ClassReflection($trait->getName());
-        }
-
-        return $vals;
+        return array_map(
+            static fn (ReflectionClass $trait): ClassReflection => new ClassReflection($trait->getName()),
+            parent::getTraits()
+        );
     }
 
     /**
-     * Get parent reflection class of reflected class
+     * {@inheritDoc}
      *
-     * @return ClassReflection|bool
+     * @return ClassReflection|false
      */
     #[ReturnTypeWillChange]
     public function getParentClass()
     {
-        $phpReflection = parent::getParentClass();
-        if ($phpReflection) {
-            $laminasReflection = new ClassReflection($phpReflection->getName());
-            unset($phpReflection);
+        $reflection = parent::getParentClass();
 
-            return $laminasReflection;
+        if (! $reflection) {
+            return false;
         }
 
-        return false;
+        return new ClassReflection($reflection->getName());
     }
 
     /**
-     * Return reflection property of this class by name
+     * {@inheritDoc}
      *
      * @param  string $name
      * @return PropertyReflection
@@ -187,24 +172,21 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     }
 
     /**
-     * Return reflection properties of this class
+     * {@inheritDoc}
      *
-     * @param  int $filter
-     * @return PropertyReflection[]
+     * @param int $filter
+     * @return list<PropertyReflection>
      */
     #[ReturnTypeWillChange]
     public function getProperties($filter = -1)
     {
-        $phpReflections     = parent::getProperties($filter);
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new PropertyReflection($this->getName(), $phpReflection->getName());
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
+        $name = $this->getName();
 
-        return $laminasReflections;
+        return array_map(
+            static fn (ReflectionProperty $property): PropertyReflection
+                => new PropertyReflection($name, $property->getName()),
+            parent::getProperties($filter)
+        );
     }
 
     /**

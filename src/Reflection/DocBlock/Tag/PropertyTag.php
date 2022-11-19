@@ -8,16 +8,13 @@ use function rtrim;
 
 class PropertyTag implements TagInterface, PhpDocTypedTagInterface
 {
-    /**
-     * @var string[]
-     * @psalm-var list<string>
-     */
+    /** @var list<string> */
     protected $types = [];
 
-    /** @var string */
+    /** @var string|null */
     protected $propertyName;
 
-    /** @var string */
+    /** @var string|null */
     protected $description;
 
     /**
@@ -28,15 +25,11 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
         return 'property';
     }
 
-    /**
-     * Initializer
-     *
-     * @param  string $tagDocblockLine
-     */
-    public function initialize($tagDocblockLine)
+    /** @inheritDoc */
+    public function initialize($content)
     {
         $match = [];
-        if (! preg_match('#^(.+)?(\$[\S]+)[\s]*(.*)$#m', $tagDocblockLine, $match)) {
+        if (! preg_match('#^(.+)?(\$[\S]+)[\s]*(.*)$#m', $content, $match)) {
             return;
         }
 
@@ -61,13 +54,13 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
     public function getType()
     {
         if (empty($this->types)) {
-            return;
+            return null;
         }
 
         return $this->types[0];
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

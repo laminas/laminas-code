@@ -3,8 +3,7 @@ name: docs-build
 on:
   release:
     types: [published]
-  repository_dispatch:
-    types: docs-build
+  workflow_dispatch:
 
 jobs:
   build-deploy:
@@ -13,5 +12,5 @@ jobs:
       - name: Build Docs
         uses: laminas/documentation-theme/github-actions/docs@master
         env:
-          "DOCS_DEPLOY_KEY": ${{ secrets.DOCS_DEPLOY_KEY }}
-          "GITHUB_TOKEN": ${{ secrets.GITHUB_TOKEN }}
+          DOCS_TOKEN: ${{ secrets.ORGANIZATION_ADMIN_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

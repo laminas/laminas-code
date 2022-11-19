@@ -3,9 +3,11 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionMethod as PhpReflectionMethod;
+use ReflectionParameter as PhpReflectionParameter;
 use ReturnTypeWillChange;
 
 use function array_key_exists;
+use function array_map;
 use function array_shift;
 use function array_slice;
 use function class_exists;
@@ -84,6 +86,10 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
 
     /**
      * Get method prototype
+     *
+     * @deprecated this method is unreliable, and should not be used: it will be removed in the next major release.
+     *             It may crash on parameters with union types, and will return relative types, instead of
+     *             FQN references
      *
      * @param string $format
      * @return array|string
@@ -165,24 +171,18 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Get all method parameter reflection objects
      *
-     * @return ParameterReflection[]
+     * @return list<ParameterReflection>
      */
     #[ReturnTypeWillChange]
     public function getParameters()
     {
-        $phpReflections     = parent::getParameters();
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new ParameterReflection(
-                [$this->getDeclaringClass()->getName(), $this->getName()],
-                $phpReflection->getName()
-            );
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
+        $method = [$this->getDeclaringClass()->getName(), $this->getName()];
 
-        return $laminasReflections;
+        return array_map(
+            static fn (PhpReflectionParameter $parameter): ParameterReflection
+                => new ParameterReflection($method, $parameter->getName()),
+            parent::getParameters()
+        );
     }
 
     /**
@@ -368,7 +368,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      *
      * @param array $haystack
      * @param int $position
-     * @return bool
+     * @return bool|null
      */
     protected function isEndingBrace($haystack, $position)
     {
@@ -428,6 +428,8 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
                     return false;
             }
         }
+
+        return null;
     }
 
     /**

@@ -2,13 +2,15 @@
 
 namespace Laminas\Code\Generator;
 
+use ReflectionMethod;
+
 interface TraitUsageInterface
 {
     /**
      * Add a class to "use" classes
      *
-     * @param  string $use
-     * @param  string|null $useAlias
+     * @param non-empty-string      $use
+     * @param non-empty-string|null $useAlias
      * @return self
      */
     public function addUse($use, $useAlias = null);
@@ -16,7 +18,7 @@ interface TraitUsageInterface
     /**
      * Returns the "use" classes
      *
-     * @return array
+     * @return list<non-empty-string>
      */
     public function getUses();
 
@@ -70,6 +72,7 @@ interface TraitUsageInterface
      * Remove a trait by its name
      *
      * @param string $traitName
+     * @return self
      */
     public function removeTrait($traitName);
 
@@ -86,17 +89,21 @@ interface TraitUsageInterface
      * $alias:
      * Alias is a string representing the new method name.
      *
-     * $visibilty:
-     * ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PRIVATE | ReflectionMethod::IS_PROTECTED
-     *
-     * @param mixed $method String or Array
-     * @param string $alias
-     * @param null|int $visibility
+     * @param array{traitName: non-empty-string, method: non-empty-string}|non-empty-string                $method
+     * @param non-empty-string                                                                             $alias
+     * @param ReflectionMethod::IS_PUBLIC|ReflectionMethod::IS_PRIVATE|ReflectionMethod::IS_PROTECTED|null $visibility
+     * @return $this
      */
     public function addTraitAlias($method, $alias, $visibility = null);
 
     /**
-     * @return array
+     * @return array<
+     *     non-empty-string,
+     *     array{
+     *      alias: string,
+     *      visibility: ReflectionMethod::IS_PRIVATE|ReflectionMethod::IS_PROTECTED|ReflectionMethod::IS_PUBLIC|null
+     *     }
+     * >
      */
     public function getTraitAliases();
 
@@ -120,6 +127,7 @@ interface TraitUsageInterface
 
      * @param mixed $method
      * @param mixed $traitsToReplace
+     * @return $this
      */
     public function addTraitOverride($method, $traitsToReplace);
 

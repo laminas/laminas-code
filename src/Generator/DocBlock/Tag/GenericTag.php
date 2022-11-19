@@ -9,15 +9,15 @@ use function ltrim;
 
 class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGenericInterface
 {
-    /** @var string */
+    /** @var string|null */
     protected $name;
 
-    /** @var string */
+    /** @var string|null */
     protected $content;
 
     /**
-     * @param string $name
-     * @param string $content
+     * @param string|null $name
+     * @param string|null $content
      */
     public function __construct($name = null, $content = null)
     {
@@ -32,7 +32,7 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
 
     /**
      * @param  string $name
-     * @return GenericTag
+     * @return $this
      */
     public function setName($name)
     {
@@ -40,9 +40,7 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string|null */
     public function getName()
     {
         return $this->name;
@@ -50,7 +48,7 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
 
     /**
      * @param string $content
-     * @return GenericTag
+     * @return $this
      */
     public function setContent($content)
     {
@@ -58,17 +56,13 @@ class GenericTag extends AbstractGenerator implements TagInterface, PrototypeGen
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string|null */
     public function getContent()
     {
         return $this->content;
     }
 
-    /**
-     * @return string
-     */
+    /** @return non-empty-string */
     public function generate()
     {
         return '@' . $this->name

@@ -479,7 +479,7 @@ EOS;
     public function invalidValue(): Generator
     {
         yield 'object' => [new DateTime(), DateTime::class];
-        yield 'resource' => [fopen('php://input', 'r'), 'resource'];
+        yield 'resource' => [fopen('php://input', 'r'), 'resource (stream)'];
     }
 
     /**
