@@ -45,15 +45,11 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     {
         $type = parent::getType();
 
-        if ($type === null) {
-            return null;
-        }
-        
         if (! ($type instanceof ReflectionNamedType && ! $type->isBuiltin())) {
             return null;
         }
 
-        new ClassReflection($type->getName());
+        return new ClassReflection($type->getName());
     }
 
     /**
