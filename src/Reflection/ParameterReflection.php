@@ -27,11 +27,11 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     public function getDeclaringClass()
     {
         $reflection = parent::getDeclaringClass();
-        
+
         if (! $reflection) {
             return null;
         }
-        
+
         return new ClassReflection($reflection->getName());
     }
 
@@ -163,13 +163,13 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
 
         return (bool) ($property->getModifiers() & ReflectionProperty::IS_PRIVATE);
     }
-    
+
     private function promotedProperty(): ?ReflectionProperty
     {
         if (! $this->isPromoted()) {
             return null;
         }
-        
+
         $declaringClass = $this->getDeclaringClass();
 
         assert($declaringClass !== null, 'Promoted properties are always part of a class');

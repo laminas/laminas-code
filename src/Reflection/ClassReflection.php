@@ -111,7 +111,6 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * {@inheritDoc}
      *
      * @param  int $filter
-     *
      * @return list<MethodReflection>
      */
     #[ReturnTypeWillChange]
@@ -176,7 +175,6 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      * {@inheritDoc}
      *
      * @param int $filter
-     *
      * @return list<PropertyReflection>
      */
     #[ReturnTypeWillChange]

@@ -229,7 +229,6 @@ class FileGenerator extends AbstractGenerator
      *      non-empty-string|null
      *     }|non-empty-string
      * > $uses
-     *
      * @return FileGenerator
      */
     public function setUses(array $uses)

@@ -102,7 +102,7 @@ class PrototypeClassFactory
         if (! $this->hasPrototype($prototypeName)) {
             $newPrototype = clone $this->genericPrototype;
             $newPrototype->setName($prototypeName);
-            
+
             return $newPrototype;
         }
 

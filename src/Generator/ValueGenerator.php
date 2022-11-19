@@ -104,7 +104,7 @@ class ValueGenerator extends AbstractGenerator
 
     /**
      * Init constant list by defined and magic constants
-     * 
+     *
      * @deprecated this method attempts to make some magic constants work with the value generator,
      *             but the value generator is not aware of its surrounding, and cannot really
      *             generate constant expressions. For such a functionality, consider using an AST-based
@@ -130,13 +130,13 @@ class ValueGenerator extends AbstractGenerator
     /**
      * Add constant to list
      *
-     * @param string $constant
-     * @return $this
-     *
      * @deprecated this method attempts to make some magic constants work with the value generator,
      *             but the value generator is not aware of its surrounding, and cannot really
      *             generate constant expressions. For such a functionality, consider using an AST-based
      *             code builder instead.
+     *
+     * @param string $constant
+     * @return $this
      */
     public function addConstant($constant)
     {
@@ -148,13 +148,13 @@ class ValueGenerator extends AbstractGenerator
     /**
      * Delete constant from constant list
      *
-     * @param string $constant
-     * @return bool
-     *
      * @deprecated this method attempts to make some magic constants work with the value generator,
      *             but the value generator is not aware of its surrounding, and cannot really
      *             generate constant expressions. For such a functionality, consider using an AST-based
      *             code builder instead.
+     *
+     * @param string $constant
+     * @return bool
      */
     public function deleteConstant($constant)
     {
@@ -168,12 +168,12 @@ class ValueGenerator extends AbstractGenerator
     /**
      * Return constant list
      *
-     * @return SplArrayObject|StdlibArrayObject
-     *
      * @deprecated this method attempts to make some magic constants work with the value generator,
      *             but the value generator is not aware of its surrounding, and cannot really
      *             generate constant expressions. For such a functionality, consider using an AST-based
      *             code builder instead.
+     *
+     * @return SplArrayObject|StdlibArrayObject
      */
     public function getConstants()
     {

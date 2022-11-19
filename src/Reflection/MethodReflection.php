@@ -7,6 +7,7 @@ use ReflectionParameter as PhpReflectionParameter;
 use ReturnTypeWillChange;
 
 use function array_key_exists;
+use function array_map;
 use function array_shift;
 use function array_slice;
 use function class_exists;
@@ -176,7 +177,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getParameters()
     {
         $method = [$this->getDeclaringClass()->getName(), $this->getName()];
-        
+
         return array_map(
             static fn (PhpReflectionParameter $parameter): ParameterReflection
                 => new ParameterReflection($method, $parameter->getName()),

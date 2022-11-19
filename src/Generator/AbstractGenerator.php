@@ -4,8 +4,8 @@ namespace Laminas\Code\Generator;
 
 use Traversable;
 
-use function is_array;
 use function get_debug_type;
+use function is_array;
 use function method_exists;
 use function sprintf;
 

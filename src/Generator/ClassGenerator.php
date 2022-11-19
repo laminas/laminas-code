@@ -79,7 +79,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
         $cg->setSourceContent($cg->getSourceContent());
         $cg->setSourceDirty(false);
-        
+
         $docBlock = $classReflection->getDocBlock();
 
         if ($docBlock) {
@@ -586,9 +586,8 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      *
      * @param non-empty-string $name
      * @param mixed            $value Scalar
-     *
      * @return static
-     *@throws Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function addConstant($name, $value, bool $isFinal = false)
     {
@@ -826,7 +825,6 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      * @param int                                   $flags
      * @param string                                $body
      * @param string                                $docBlock
-     *
      * @return static
      * @throws Exception\InvalidArgumentException
      */

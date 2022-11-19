@@ -11,7 +11,6 @@ interface TraitUsageInterface
      *
      * @param non-empty-string      $use
      * @param non-empty-string|null $useAlias
-     *
      * @return self
      */
     public function addUse($use, $useAlias = null);
@@ -93,7 +92,6 @@ interface TraitUsageInterface
      * @param array{traitName: non-empty-string, method: non-empty-string}|non-empty-string                $method
      * @param non-empty-string                                                                             $alias
      * @param ReflectionMethod::IS_PUBLIC|ReflectionMethod::IS_PRIVATE|ReflectionMethod::IS_PROTECTED|null $visibility
-     *
      * @return $this
      */
     public function addTraitAlias($method, $alias, $visibility = null);
