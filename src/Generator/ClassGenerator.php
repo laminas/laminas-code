@@ -727,7 +727,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return false;
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function addUse($use, $useAlias = null)
     {
         $this->traitUsageGenerator->addUse($use, $useAlias);
