@@ -11,7 +11,7 @@ use function array_pop;
 use function array_values;
 use function array_walk;
 use function explode;
-use function gettype;
+use function get_debug_type;
 use function implode;
 use function in_array;
 use function is_array;
@@ -1133,7 +1133,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
         throw new Exception\InvalidArgumentException(sprintf(
             'Expected value for constant, value must be a "scalar" or "null", "%s" found',
-            gettype($value)
+            get_debug_type($value)
         ));
     }
 

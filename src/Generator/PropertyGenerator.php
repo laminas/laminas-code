@@ -5,10 +5,8 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\Reflection\PropertyReflection;
 
 use function array_reduce;
-use function get_class;
-use function gettype;
+use function get_debug_type;
 use function is_bool;
-use function is_object;
 use function sprintf;
 use function str_replace;
 use function strtolower;
@@ -165,9 +163,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                             '%s is expecting boolean on key %s. Got %s',
                             __METHOD__,
                             $name,
-                            is_object($value)
-                                ? get_class($value)
-                                : gettype($value)
+                            get_debug_type($value)
                         ));
                     }
 
@@ -180,7 +176,7 @@ class PropertyGenerator extends AbstractMemberGenerator
                             __METHOD__,
                             TypeGenerator::class,
                             $name,
-                            is_object($value) ? get_class($value) : gettype($value)
+                            get_debug_type($value)
                         ));
                     }
                     $property->setType($value);

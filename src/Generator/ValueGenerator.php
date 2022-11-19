@@ -11,7 +11,7 @@ use function array_keys;
 use function array_merge;
 use function array_search;
 use function count;
-use function get_class;
+use function get_debug_type;
 use function get_defined_constants;
 use function gettype;
 use function implode;
@@ -443,7 +443,7 @@ class ValueGenerator extends AbstractGenerator
             default:
                 throw new Exception\RuntimeException(sprintf(
                     'Type "%s" is unknown or cannot be used as property default value.',
-                    is_object($value) ? get_class($value) : gettype($value)
+                    get_debug_type($value)
                 ));
         }
 
