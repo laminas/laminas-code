@@ -19,7 +19,7 @@ class LicenseTag implements TagInterface
         return 'license';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $match = [];

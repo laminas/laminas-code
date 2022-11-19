@@ -116,17 +116,13 @@ class InterfaceGenerator extends ClassGenerator
         return $cg;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function addPropertyFromGenerator(PropertyGenerator $property)
     {
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function addMethodFromGenerator(MethodGenerator $method)
     {
         $method->setInterface(true);
@@ -134,17 +130,13 @@ class InterfaceGenerator extends ClassGenerator
         return parent::addMethodFromGenerator($method);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function setExtendedClass($extendedClass)
     {
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function setAbstract($isAbstract)
     {
         return $this;

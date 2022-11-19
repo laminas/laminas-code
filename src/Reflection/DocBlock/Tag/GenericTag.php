@@ -29,7 +29,7 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
         $this->contentSplitCharacter = $contentSplitCharacter;
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $this->parse($content);

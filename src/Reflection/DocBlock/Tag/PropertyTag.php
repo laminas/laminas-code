@@ -25,7 +25,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
         return 'property';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $match = [];
@@ -60,7 +60,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types[0];
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

@@ -20,9 +20,7 @@ class VarTag extends AbstractTypeableTag implements TagInterface
         parent::__construct($types, $description);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function getName(): string
     {
         return 'var';
@@ -46,9 +44,7 @@ class VarTag extends AbstractTypeableTag implements TagInterface
         return $this->variableName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function generate(): string
     {
         return '@var'

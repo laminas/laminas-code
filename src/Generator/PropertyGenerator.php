@@ -230,9 +230,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         return (bool) ($this->flags & self::FLAG_READONLY);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function setFlags($flags)
     {
         $flags = array_reduce((array) $flags, static function (int $a, int $b): int {

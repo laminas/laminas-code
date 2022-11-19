@@ -25,7 +25,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
         return 'throws';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $matches = [];
@@ -50,7 +50,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
         return implode('|', $this->getTypes());
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

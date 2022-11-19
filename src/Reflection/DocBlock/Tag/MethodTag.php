@@ -26,7 +26,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
         return 'method';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $match = [];
@@ -66,7 +66,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types[0];
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

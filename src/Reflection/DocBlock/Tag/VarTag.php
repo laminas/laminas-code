@@ -22,17 +22,13 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
     /** @var string|null */
     private $description;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function getName(): string
     {
         return 'var';
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @inheritDoc */
     public function initialize($content): void
     {
         $match = [];
@@ -60,7 +56,7 @@ class VarTag implements TagInterface, PhpDocTypedTagInterface
         }
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes(): array
     {
         return $this->types;

@@ -23,7 +23,7 @@ class ReturnTag implements TagInterface, PhpDocTypedTagInterface
         return 'return';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $matches = [];
@@ -52,7 +52,7 @@ class ReturnTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types[0];
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

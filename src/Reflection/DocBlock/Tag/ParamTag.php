@@ -24,7 +24,7 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
         return 'param';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $matches = [];
@@ -60,7 +60,7 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
         return $this->types[0];
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getTypes()
     {
         return $this->types;

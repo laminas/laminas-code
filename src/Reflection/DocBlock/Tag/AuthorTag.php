@@ -19,7 +19,7 @@ class AuthorTag implements TagInterface
         return 'author';
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function initialize($content)
     {
         $match = [];

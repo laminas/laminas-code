@@ -62,7 +62,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getUses()
     {
         return array_values($this->uses);
