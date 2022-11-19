@@ -54,11 +54,11 @@ final class EnumGenerator
 
     private function retrieveType(): string
     {
-        if ($this->cases instanceof PureCases) {
-            return '';
+        if ($this->cases instanceof BackedCases) {
+            return ': ' . $this->cases->type;
         }
 
-        return ': ' . $this->cases->type;
+        return '';
     }
 
     private function retrieveCases(): string
