@@ -772,7 +772,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
+    /** @inheritDoc */
     public function getUses()
     {
         return $this->traitUsageGenerator->getUses();
