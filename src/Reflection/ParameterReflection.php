@@ -45,7 +45,7 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     {
         $type = parent::getType();
 
-        if (! ($type instanceof ReflectionNamedType && ! $type->isBuiltin())) {
+        if (! $type instanceof ReflectionNamedType || $type->isBuiltin()) {
             return null;
         }
 
