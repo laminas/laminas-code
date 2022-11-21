@@ -33,6 +33,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     public const IMPLEMENTS_KEYWORD = 'implements';
     public const FLAG_ABSTRACT      = 0x01;
     public const FLAG_FINAL         = 0x02;
+    public const FLAG_READONLY      = 0x04;
     private const CONSTRUCTOR_NAME  = '__construct';
 
     protected ?FileGenerator $containingFileGenerator = null;
@@ -88,6 +89,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
         $cg->setAbstract($classReflection->isAbstract());
         $cg->setFinal($classReflection->isFinal());
+
+        if (method_exists($classReflection, 'isReadonly')) {
+            $cg->setReadonly((bool) $classReflection->isReadonly());
+        }
 
         // set the namespace
         if ($classReflection->inNamespace()) {
@@ -421,6 +426,16 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     public function isFinal()
     {
         return (bool) ($this->flags & self::FLAG_FINAL);
+    }
+
+    public function setReadonly(bool $isReadonly): self
+    {
+        return $isReadonly ? $this->addFlag(self::FLAG_READONLY) : $this->removeFlag(self::FLAG_READONLY);
+    }
+
+    public function isReadonly(): bool
+    {
+        return (bool) ($this->flags & self::FLAG_READONLY);
     }
 
     /**
@@ -1062,6 +1077,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
             $output .= 'abstract ';
         } elseif ($this->isFinal()) {
             $output .= 'final ';
+        }
+
+        if ($this->isReadonly()) {
+            $output .= 'readonly ';
         }
 
         $output .= static::OBJECT_TYPE . ' ' . $this->getName();
