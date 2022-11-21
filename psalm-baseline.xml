@@ -874,7 +874,7 @@
       <code>'ParentClass'</code>
       <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
-    <DeprecatedMethod occurrences="5"/>
+    <DeprecatedMethod occurrences="6"/>
     <InvalidArgument occurrences="6">
       <code>''</code>
       <code>'public'</code>
@@ -1291,94 +1291,6 @@
     <MissingReturnType occurrences="1">
       <code>testPropertyValueAddsSemicolonToValueGenerator</code>
     </MissingReturnType>
-  </file>
-  <file src="test/Generator/TestAsset/CallableTypeHintClass.php">
-    <MissingReturnType occurrences="1">
-      <code>foo</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Generator/TestAsset/ClassWithProperties.php">
-    <MissingPropertyType occurrences="3">
-      <code>$privateClassProperty</code>
-      <code>$protectedClassProperty</code>
-      <code>$publicClassProperty</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/Generator/TestAsset/ExtendedClassWithProperties.php">
-    <MissingPropertyType occurrences="3">
-      <code>$privateExtendedClassProperty</code>
-      <code>$protectedExtendedClassProperty</code>
-      <code>$publicExtendedClassProperty</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/Generator/TestAsset/NamespaceTypeHintClass.php">
-    <MissingReturnType occurrences="1">
-      <code>method</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Generator/TestAsset/ParameterClass.php">
-    <MissingParamType occurrences="13">
-      <code>$array</code>
-      <code>$array</code>
-      <code>$b</code>
-      <code>$baz</code>
-      <code>$con</code>
-      <code>$float</code>
-      <code>$number</code>
-      <code>$number</code>
-      <code>$param</code>
-      <code>$val</code>
-      <code>$val</code>
-      <code>$value</code>
-      <code>$value</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="16">
-      <code>defaultArray</code>
-      <code>defaultArrayWithValues</code>
-      <code>defaultConstant</code>
-      <code>defaultFalse</code>
-      <code>defaultFloat</code>
-      <code>defaultNull</code>
-      <code>defaultNumber</code>
-      <code>defaultObjectEqualsNullAndNotOptional</code>
-      <code>defaultTrue</code>
-      <code>defaultValue</code>
-      <code>defaultZero</code>
-      <code>fromArray</code>
-      <code>hasNativeDocTypes</code>
-      <code>name</code>
-      <code>reference</code>
-      <code>type</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Generator/TestAsset/TestClassWithHeredoc.php">
-    <MissingReturnType occurrences="1">
-      <code>someFunction</code>
-    </MissingReturnType>
-    <UnusedVariable occurrences="1">
-      <code>$output</code>
-    </UnusedVariable>
-  </file>
-  <file src="test/Generator/TestAsset/TestClassWithManyProperties.php">
-    <MissingPropertyType occurrences="4">
-      <code>$_barProperty</code>
-      <code>$_barStaticProperty</code>
-      <code>$_complexType</code>
-      <code>$fooStaticProperty</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/Generator/TestAsset/TestSampleSingleClass.php">
-    <InvalidReturnType occurrences="1">
-      <code>bool</code>
-    </InvalidReturnType>
-    <MissingParamType occurrences="1">
-      <code>$mixed</code>
-    </MissingParamType>
-  </file>
-  <file src="test/Generator/TestAsset/TestSampleSingleClassMultiLines.php">
-    <InvalidReturnType occurrences="1">
-      <code>bool</code>
-    </InvalidReturnType>
   </file>
   <file src="test/Generator/TraitGeneratorTest.php">
     <ArgumentTypeCoercion occurrences="1">
