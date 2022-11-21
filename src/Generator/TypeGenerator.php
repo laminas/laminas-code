@@ -18,6 +18,8 @@ use function count;
 use function explode;
 use function implode;
 use function sprintf;
+use function str_contains;
+use function str_starts_with;
 use function strpos;
 use function strtolower;
 use function substr;
@@ -106,7 +108,7 @@ final class TypeGenerator implements GeneratorInterface
         $isIntersection = false;
         $separator      = '|';
 
-        if (false !== strpos($type, '&')) {
+        if (str_contains($type, '&')) {
             $isIntersection = true;
             $separator      = '&';
         }
@@ -210,7 +212,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     private static function trimNullable($type): array
     {
-        if (0 === strpos($type, '?')) {
+        if (str_starts_with($type, '?')) {
             return [true, substr($type, 1)];
         }
 

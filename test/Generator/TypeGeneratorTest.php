@@ -13,6 +13,7 @@ use function array_map;
 use function class_implements;
 use function ltrim;
 use function str_replace;
+use function str_starts_with;
 use function strpos;
 
 /**
@@ -241,7 +242,7 @@ class TypeGeneratorTest extends TestCase
     {
         return array_filter(
             $this->validType(),
-            static fn(array $pair) => 0 === strpos($pair[1], '\\')
+            static fn(array $pair) => str_starts_with($pair[1], '\\')
         );
     }
 

@@ -16,6 +16,7 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function sprintf;
+use function str_contains;
 use function strpos;
 
 /** @psalm-type Visibility = ReflectionMethod::IS_PRIVATE|ReflectionMethod::IS_PROTECTED|ReflectionMethod::IS_PUBLIC */
@@ -254,7 +255,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
         }
 
         // Validations
-        if (false === strpos($traitAndMethod, '::')) {
+        if (! str_contains($traitAndMethod, '::')) {
             throw new Exception\InvalidArgumentException(
                 'Invalid Format: $method must be in the format of trait::method'
             );
@@ -321,7 +322,7 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
         }
 
         // Validations
-        if (false === strpos($traitAndMethod, '::')) {
+        if (! str_contains($traitAndMethod, '::')) {
             throw new Exception\InvalidArgumentException(
                 'Invalid Format: $method must be in the format of trait::method'
             );
