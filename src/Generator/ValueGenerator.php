@@ -21,6 +21,7 @@ use function is_int;
 use function is_object;
 use function max;
 use function sprintf;
+use function str_contains;
 use function str_repeat;
 use function strpos;
 
@@ -311,7 +312,7 @@ class ValueGenerator extends AbstractGenerator
                         return self::TYPE_CONSTANT;
                     }
 
-                    if (strpos($value, $constant) !== false) {
+                    if (str_contains($value, $constant)) {
                         return self::TYPE_CONSTANT;
                     }
                 }

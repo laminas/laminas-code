@@ -481,7 +481,8 @@
     <MissingReturnType occurrences="1">
       <code>initEnvironmentConstants</code>
     </MissingReturnType>
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="3">
+      <code>$constant</code>
       <code>$n</code>
       <code>$value</code>
     </MixedArgument>
