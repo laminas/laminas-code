@@ -1395,7 +1395,7 @@ EOS;
         $expectedOutput = <<<EOS
 namespace LaminasTest\Code\Generator\TestAsset;
 
-class ClassWithPromotedParameter
+final class ClassWithPromotedParameter
 {
     public function __construct(private string \$promotedParameter)
     {
