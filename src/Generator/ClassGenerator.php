@@ -2,6 +2,7 @@
 
 namespace Laminas\Code\Generator;
 
+use Laminas\Code\Generator\AttributeGenerator\AttributeBuilder;
 use Laminas\Code\Reflection\ClassReflection;
 
 use function array_diff;
@@ -67,6 +68,8 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
 
     /** @var TraitUsageGenerator Object to encapsulate trait usage logic */
     protected TraitUsageGenerator $traitUsageGenerator;
+
+    private ?AttributeGenerator $attributeGenerator = null;
 
     /**
      * Build a Code Generation Php Object from a Class Reflection
@@ -199,6 +202,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                     $docBlock = $value instanceof DocBlockGenerator ? $value : DocBlockGenerator::fromArray($value);
                     $cg->setDocBlock($docBlock);
                     break;
+                case 'attribute':
+                    $generator = $value instanceof AttributeGenerator ? $value : AttributeGenerator::fromArray($value);
+                    $cg->setAttributes($generator);
+                    break;
                 case 'flags':
                     $cg->setFlags($value);
                     break;
@@ -229,17 +236,17 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      * @psalm-param array<class-string>            $interfaces
      * @param PropertyGenerator[]|string[]|array[] $properties
      * @param MethodGenerator[]|string[]|array[]   $methods
-     * @param DocBlockGenerator                    $docBlock
      */
     public function __construct(
-        $name = null,
+        string $name = null,
         $namespaceName = null,
         $flags = null,
         $extends = null,
         array $interfaces = [],
         array $properties = [],
         array $methods = [],
-        $docBlock = null
+        DocBlockGenerator $docBlock = null,
+        AttributeGenerator $attributeGenerator = null,
     ) {
         $this->traitUsageGenerator = new TraitUsageGenerator($this);
 
@@ -266,6 +273,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         }
         if ($docBlock !== null) {
             $this->setDocBlock($docBlock);
+        }
+        if ($attributeGenerator) {
+            $this->setAttributes($attributeGenerator);
         }
     }
 
@@ -337,12 +347,24 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         return $this;
     }
 
+    public function setAttributes(AttributeGenerator $attributeGenerator): self
+    {
+        $this->attributeGenerator = $attributeGenerator;
+
+        return $this;
+    }
+
     /**
      * @return ?DocBlockGenerator
      */
     public function getDocBlock()
     {
         return $this->docBlock;
+    }
+
+    public function getAttributes(): ?AttributeGenerator
+    {
+        return $this->attributeGenerator;
     }
 
     /**
@@ -1062,6 +1084,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         if (null !== ($docBlock = $this->getDocBlock())) {
             $docBlock->setIndentation('');
             $output .= $docBlock->generate();
+        }
+
+        if ($attributeGenerator = $this->getAttributes()) {
+            $output .= $attributeGenerator->generate() . self::LINE_FEED;
         }
 
         if ($this->isAbstract()) {
