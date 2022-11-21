@@ -22,7 +22,7 @@ use function substr;
  *
  * @psalm-immutable
  */
-final class AtomicType
+final class AtomicType implements Type
 {
     /**
      * Built-in type sorting, ascending.
@@ -126,6 +126,11 @@ final class AtomicType
         return array_key_exists($this->type, self::BUILT_IN_TYPES_PRECEDENCE)
             ? $this->type
             : '\\' . $this->type;
+    }
+
+    public function __toString(): string
+    {
+        return $this->fullyQualifiedName();
     }
 
     /**
