@@ -225,7 +225,6 @@ class TypeGeneratorTest extends TestCase
             // Union types may be composed by FQCN and non-FQCN
             ['\\Foo\\Bar&Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
             ['Foo\\Bar&\\Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
-
             ['(foo&bar)|baz|null', '(\\bar&\\foo)|\\baz|null'],
         ];
 

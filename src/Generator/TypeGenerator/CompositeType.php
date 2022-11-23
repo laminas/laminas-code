@@ -4,14 +4,28 @@ namespace Laminas\Code\Generator\TypeGenerator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 
+use function array_diff_key;
+use function array_filter;
+use function array_flip;
+use function array_map;
+use function assert;
+use function explode;
+use function implode;
+use function sprintf;
+use function str_contains;
+use function str_ends_with;
+use function str_starts_with;
+use function substr;
+use function usort;
+
 /** @internal */
-class CompositeType implements Type
+class CompositeType implements TypeInterface
 {
-    public const UNION_SEPARATOR = '|';
+    public const UNION_SEPARATOR        = '|';
     public const INTERSECTION_SEPARATOR = '&';
 
     /**
-     * @param list<Type> $types
+     * @param list<TypeInterface> $types
      */
     private function __construct(protected readonly array $types, private readonly bool $isIntersection)
     {
@@ -19,17 +33,17 @@ class CompositeType implements Type
 
     public static function fromString(string $type): self
     {
-        $types = [];
+        $types          = [];
         $isIntersection = false;
-        $separator = self::UNION_SEPARATOR;
+        $separator      = self::UNION_SEPARATOR;
 
-        if (!str_contains($type, $separator)) {
+        if (! str_contains($type, $separator)) {
             $isIntersection = true;
-            $separator = self::INTERSECTION_SEPARATOR;
+            $separator      = self::INTERSECTION_SEPARATOR;
 
             // Trim parenthesis for intersection types that are a part of a union type
             if (str_starts_with($type, '(')) {
-                if (!str_ends_with($type, ')')) {
+                if (! str_ends_with($type, ')')) {
                     throw new InvalidArgumentException(sprintf(
                         'Invalid intersection type "%s": missing closing parenthesis',
                         $type
@@ -49,7 +63,7 @@ class CompositeType implements Type
 
         usort(
             $types,
-            static function (Type $left, Type $right): int {
+            static function (TypeInterface $left, TypeInterface $right): int {
                 if ($left instanceof AtomicType && $right instanceof AtomicType) {
                     return [$left->sortIndex, $left->type] <=> [$right->sortIndex, $right->type];
                 }
@@ -59,7 +73,7 @@ class CompositeType implements Type
         );
 
         foreach ($types as $index => $typeItem) {
-            if (!$typeItem instanceof AtomicType) {
+            if (! $typeItem instanceof AtomicType) {
                 continue;
             }
 
@@ -67,7 +81,7 @@ class CompositeType implements Type
 
             assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
 
-            $otherTypes = array_filter($otherTypes, static fn (Type $type) => !($type instanceof self));
+            $otherTypes = array_filter($otherTypes, static fn (TypeInterface $type) => ! $type instanceof self);
 
             if ([] === $otherTypes) {
                 continue;
@@ -84,7 +98,7 @@ class CompositeType implements Type
     }
 
     /**
-     * @return list<Type>
+     * @return list<TypeInterface>
      */
     public function getTypes(): array
     {
@@ -101,10 +115,10 @@ class CompositeType implements Type
         return $this->isIntersection ? self::INTERSECTION_SEPARATOR : self::UNION_SEPARATOR;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $typesAsStrings = array_map(
-            static function (Type $type): string {
+            static function (TypeInterface $type): string {
                 $typeString = $type->__toString();
 
                 return $type instanceof self && $type->isIntersection() ? sprintf('(%s)', $typeString) : $typeString;
@@ -118,7 +132,7 @@ class CompositeType implements Type
     public function toString(): string
     {
         $typesAsStrings = array_map(
-            static function (Type $type): string {
+            static function (TypeInterface $type): string {
                 $typeString = $type->toString();
 
                 return $type instanceof self && $type->isIntersection() ? sprintf('(%s)', $typeString) : $typeString;

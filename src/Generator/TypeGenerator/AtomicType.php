@@ -22,7 +22,7 @@ use function substr;
  *
  * @psalm-immutable
  */
-final class AtomicType implements Type
+final class AtomicType implements TypeInterface
 {
     /**
      * Built-in type sorting, ascending.
@@ -133,7 +133,7 @@ final class AtomicType implements Type
         return $this->fullyQualifiedName();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->type;
     }

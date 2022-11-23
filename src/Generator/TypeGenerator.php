@@ -5,7 +5,7 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use Laminas\Code\Generator\TypeGenerator\CompositeType;
-use Laminas\Code\Generator\TypeGenerator\Type;
+use Laminas\Code\Generator\TypeGenerator\TypeInterface;
 use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
@@ -30,6 +30,8 @@ use function usort;
 /** @psalm-immutable */
 final class TypeGenerator implements GeneratorInterface
 {
+    private const NULL_MARKER = '?';
+
     /**
      * @internal
      *
@@ -43,25 +45,39 @@ final class TypeGenerator implements GeneratorInterface
             return null;
         }
 
+        // Having to go through `fromTypeString` leads to interesting invalid types as "acceptable", but that's neither
+        // a security issue, nor a major problem, since {@see ReflectionType} should itself produce valid/usable strings
+        return self::fromTypeString(self::reflectionTypeToString($type, $currentClass));
+    }
+
+    /** @psalm-pure */
+    private static function reflectionTypeToString(ReflectionType $type, ?ReflectionClass $currentClass): string
+    {
         assert(
             $type instanceof ReflectionNamedType
             || $type instanceof ReflectionUnionType
             || $type instanceof ReflectionIntersectionType
         );
 
-        // Having to go through `fromTypeString` leads to interesting invalid types as "acceptable", but that's neither
-        // a security issue, nor a major problem, since {@see ReflectionType} should itself produce valid/usable strings
-        return self::fromTypeString(implode(
+        if ($type instanceof ReflectionNamedType) {
+            return self::reflectionNamedTypeToString($type, $currentClass);
+        }
+
+        return implode(
             $type instanceof ReflectionIntersectionType
-                ? '&'
-                : '|',
+                ? CompositeType::INTERSECTION_SEPARATOR
+                : CompositeType::UNION_SEPARATOR,
             array_map(
-                static fn(ReflectionNamedType $type): string => self::reflectionNamedTypeToString($type, $currentClass),
-                $type instanceof ReflectionNamedType
-                    ? [$type]
-                    : $type->getTypes()
+                static function (ReflectionType $type) use ($currentClass): string {
+                    if ($type instanceof ReflectionIntersectionType) {
+                        return '(' . self::reflectionTypeToString($type, $currentClass) . ')';
+                    }
+
+                    return self::reflectionTypeToString($type, $currentClass);
+                },
+                $type->getTypes()
             )
-        ));
+        );
     }
 
     /** @psalm-pure */
@@ -77,7 +93,7 @@ final class TypeGenerator implements GeneratorInterface
         }
 
         $nullabilityMarker = $type->allowsNull()
-            ? '?'
+            ? self::NULL_MARKER
             : '';
 
         if ('self' === $lowerCaseName && $currentClass) {
@@ -99,8 +115,10 @@ final class TypeGenerator implements GeneratorInterface
     {
         [$nullable, $trimmedNullable] = self::trimNullable($type);
 
-        if (!str_contains($trimmedNullable, CompositeType::INTERSECTION_SEPARATOR)
-            && !str_contains($trimmedNullable, CompositeType::UNION_SEPARATOR)) {
+        if (
+            ! str_contains($trimmedNullable, CompositeType::INTERSECTION_SEPARATOR)
+            && ! str_contains($trimmedNullable, CompositeType::UNION_SEPARATOR)
+        ) {
             return new self(AtomicType::fromString($trimmedNullable), $nullable);
         }
 
@@ -114,20 +132,10 @@ final class TypeGenerator implements GeneratorInterface
         return new self(CompositeType::fromString($trimmedNullable), $nullable);
     }
 
-    /**
-     * @param Type $type
-     */
-    private function __construct(private readonly Type $type, private readonly bool $nullable)
+    private function __construct(private readonly TypeInterface $type, private readonly bool $nullable)
     {
-        if ($nullable) {
-            if ($this->type instanceof AtomicType) {
-                $this->type->assertCanBeStandaloneNullable();
-            } else {
-                throw new InvalidArgumentException(sprintf(
-                    'Type "%s" is a composite type, and therefore cannot be also marked nullable with the "?" prefix',
-                    $this->type->toString()
-                ));
-            }
+        if ($nullable && $this->type instanceof AtomicType) {
+            $this->type->assertCanBeStandaloneNullable();
         }
     }
 
@@ -142,7 +150,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate(): string
     {
-        return ($this->nullable ? '?' : '') . $this->type->toString();
+        return ($this->nullable ? self::NULL_MARKER : '') . $this->type->toString();
     }
 
     public function equals(TypeGenerator $otherType): bool
@@ -161,7 +169,6 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
-     * @param string $type
      * @return bool[]|string[] ordered tuple, first key represents whether the type is nullable, second is the
      *                         trimmed string
      * @psalm-return array{bool, string}
@@ -169,7 +176,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     private static function trimNullable(string $type): array
     {
-        if (str_starts_with($type, '?')) {
+        if (str_starts_with($type, self::NULL_MARKER)) {
             return [true, substr($type, 1)];
         }
 
