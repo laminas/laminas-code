@@ -4,6 +4,8 @@ namespace Laminas\Code\Generator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
+use Laminas\Code\Generator\TypeGenerator\CompositeType;
+use Laminas\Code\Generator\TypeGenerator\Type;
 use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
@@ -28,14 +30,6 @@ use function usort;
 /** @psalm-immutable */
 final class TypeGenerator implements GeneratorInterface
 {
-    /**
-     * @var AtomicType[]
-     * @psalm-var non-empty-list<AtomicType>
-     */
-    private array $types;
-    private bool $nullable;
-    private bool $isIntersection;
-
     /**
      * @internal
      *
@@ -105,28 +99,9 @@ final class TypeGenerator implements GeneratorInterface
     {
         [$nullable, $trimmedNullable] = self::trimNullable($type);
 
-        $isIntersection = false;
-        $separator      = '|';
-
-        if (str_contains($type, '&')) {
-            $isIntersection = true;
-            $separator      = '&';
-        }
-
-        $types = array_map([AtomicType::class, 'fromString'], explode($separator, $trimmedNullable));
-
-        usort(
-            $types,
-            static fn(AtomicType $left, AtomicType $right): int
-                => [$left->sortIndex, $left->type] <=> [$right->sortIndex, $right->type]
-        );
-
-        if (1 === count($types)) {
-            if ($nullable) {
-                $types[0]->assertCanBeStandaloneNullable();
-            }
-
-            return new self($types, $nullable, $isIntersection);
+        if (!str_contains($trimmedNullable, CompositeType::INTERSECTION_SEPARATOR)
+            && !str_contains($trimmedNullable, CompositeType::UNION_SEPARATOR)) {
+            return new self(AtomicType::fromString($trimmedNullable), $nullable);
         }
 
         if ($nullable) {
@@ -136,30 +111,24 @@ final class TypeGenerator implements GeneratorInterface
             ));
         }
 
-        foreach ($types as $index => $atomicType) {
-            $otherTypes = array_diff_key($types, array_flip([$index]));
-
-            assert([] !== $otherTypes, 'There are always 2 or more types in a union type');
-
-            if ($isIntersection) {
-                $atomicType->assertCanIntersectWith($otherTypes);
-            } else {
-                $atomicType->assertCanUnionWith($otherTypes);
-            }
-        }
-
-        return new self($types, $nullable, $isIntersection);
+        return new self(CompositeType::fromString($trimmedNullable), $nullable);
     }
 
     /**
-     * @param AtomicType[]                     $types
-     * @psalm-param non-empty-list<AtomicType> $types
+     * @param Type $type
      */
-    private function __construct(array $types, bool $nullable, bool $isIntersection)
+    private function __construct(private readonly Type $type, private readonly bool $nullable)
     {
-        $this->types          = $types;
-        $this->nullable       = $nullable;
-        $this->isIntersection = $isIntersection;
+        if ($nullable) {
+            if ($this->type instanceof AtomicType) {
+                $this->type->assertCanBeStandaloneNullable();
+            } else {
+                throw new InvalidArgumentException(sprintf(
+                    'Type "%s" is a composite type, and therefore cannot be also marked nullable with the "?" prefix',
+                    $this->type->toString()
+                ));
+            }
+        }
     }
 
     /**
@@ -173,16 +142,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate(): string
     {
-        $typesAsStrings = array_map(
-            static fn (AtomicType $type): string => $type->fullyQualifiedName(),
-            $this->types
-        );
-
-        if ($this->nullable) {
-            return '?' . implode($this->atomicTypesSeparator(), $typesAsStrings);
-        }
-
-        return implode($this->atomicTypesSeparator(), $typesAsStrings);
+        return ($this->nullable ? '?' : '') . $this->type->toString();
     }
 
     public function equals(TypeGenerator $otherType): bool
@@ -197,10 +157,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function __toString(): string
     {
-        return implode($this->atomicTypesSeparator(), array_map(
-            static fn (AtomicType $type): string => $type->type,
-            $this->types
-        ));
+        return $this->type->__toString();
     }
 
     /**
@@ -210,20 +167,12 @@ final class TypeGenerator implements GeneratorInterface
      * @psalm-return array{bool, string}
      * @psalm-pure
      */
-    private static function trimNullable($type): array
+    private static function trimNullable(string $type): array
     {
         if (str_starts_with($type, '?')) {
             return [true, substr($type, 1)];
         }
 
         return [false, $type];
-    }
-
-    /** @psalm-return '|'|'&' */
-    private function atomicTypesSeparator(): string
-    {
-        return $this->isIntersection
-            ? '&'
-            : '|';
     }
 }

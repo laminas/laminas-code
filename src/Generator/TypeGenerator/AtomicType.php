@@ -128,9 +128,14 @@ final class AtomicType implements Type
             : '\\' . $this->type;
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->fullyQualifiedName();
+    }
+
+    public function __toString()
+    {
+        return $this->type;
     }
 
     /**
