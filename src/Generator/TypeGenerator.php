@@ -129,13 +129,13 @@ final class TypeGenerator implements GeneratorInterface
             ));
         }
 
-        return new self(CompositeType::fromString($trimmedNullable), $nullable);
+        return new self(CompositeType::fromString($trimmedNullable));
     }
 
-    private function __construct(private readonly TypeInterface $type, private readonly bool $nullable)
+    private function __construct(private readonly TypeInterface $type, private readonly bool $nullable = false)
     {
-        if ($nullable && $this->type instanceof AtomicType) {
-            $this->type->assertCanBeStandaloneNullable();
+        if ($nullable && $type instanceof AtomicType) {
+            $type->assertCanBeStandaloneNullable();
         }
     }
 

@@ -431,6 +431,14 @@ class TypeGeneratorTest extends TestCase
             ['string|string|null'],
             ['string|null|string'],
             ['null|string|string'],
+
+            // DNF types must include parenthesis
+            ['foo&bar|baz|null'],
+            ['(foo&bar|baz|null'],
+            ['foo&bar)|baz|null'],
+            ['(foo&bar)'],
+            ['(foo|bar)'],
+            ['(foo|bar)|baz'],
         ];
 
         return array_combine(

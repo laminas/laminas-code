@@ -40,22 +40,25 @@ class CompositeType implements TypeInterface
         if (! str_contains($type, $separator)) {
             $isIntersection = true;
             $separator      = self::INTERSECTION_SEPARATOR;
-
-            // Trim parenthesis for intersection types that are a part of a union type
-            if (str_starts_with($type, '(')) {
-                if (! str_ends_with($type, ')')) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Invalid intersection type "%s": missing closing parenthesis',
-                        $type
-                    ));
-                }
-                $type = substr($type, 1, -1);
-            }
         }
 
         foreach (explode($separator, $type) as $typeString) {
             if (str_contains($typeString, self::INTERSECTION_SEPARATOR)) {
-                $types[] = self::fromString($typeString);
+                if (! str_starts_with($typeString, '(')) {
+                    throw new InvalidArgumentException(sprintf(
+                        'Invalid intersection type "%s": missing opening parenthesis',
+                        $typeString
+                    ));
+                }
+
+                if (! str_ends_with($typeString, ')')) {
+                    throw new InvalidArgumentException(sprintf(
+                        'Invalid intersection type "%s": missing closing parenthesis',
+                        $typeString
+                    ));
+                }
+
+                $types[] = self::fromString(substr($typeString, 1, -1));
             } else {
                 $types[] = AtomicType::fromString($typeString);
             }
