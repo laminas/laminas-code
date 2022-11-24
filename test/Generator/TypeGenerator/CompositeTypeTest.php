@@ -14,7 +14,7 @@ class CompositeTypeTest extends TestCase
     {
         $type = CompositeType::fromString($typeString);
 
-        self::assertSame($expectedReturnType, $type->toString());
+        self::assertSame($expectedReturnType, $type->fullyQualifiedName());
     }
 
     public static function validType(): iterable

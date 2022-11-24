@@ -18,14 +18,21 @@ use function str_starts_with;
 use function substr;
 use function usort;
 
-/** @internal */
-class CompositeType implements TypeInterface
+/**
+ * Represents a union/intersection type, as supported by PHP.
+ * This means that this object can be composed of {@see AtomicType} or other {@see CompositeType} objects.
+ *
+ * @internal the {@see CompositeType} is an implementation detail of the type generator,
+ *
+ * @psalm-immutable
+ */
+final class CompositeType implements TypeInterface
 {
     public const UNION_SEPARATOR        = '|';
     public const INTERSECTION_SEPARATOR = '&';
 
     /**
-     * @param list<TypeInterface> $types
+     * @param non-empty-list<TypeInterface> $types
      */
     private function __construct(protected readonly array $types, private readonly bool $isIntersection)
     {
@@ -132,11 +139,11 @@ class CompositeType implements TypeInterface
         return implode($this->getSeparator(), $typesAsStrings);
     }
 
-    public function toString(): string
+    public function fullyQualifiedName(): string
     {
         $typesAsStrings = array_map(
             static function (TypeInterface $type): string {
-                $typeString = $type->toString();
+                $typeString = $type->fullyQualifiedName();
 
                 return $type instanceof self && $type->isIntersection() ? sprintf('(%s)', $typeString) : $typeString;
             },

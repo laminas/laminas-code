@@ -69,11 +69,11 @@ final class TypeGenerator implements GeneratorInterface
                 : CompositeType::UNION_SEPARATOR,
             array_map(
                 static function (ReflectionType $type) use ($currentClass): string {
-                    if ($type instanceof ReflectionIntersectionType) {
-                        return '(' . self::reflectionTypeToString($type, $currentClass) . ')';
-                    }
+                    $typeString = self::reflectionTypeToString($type, $currentClass);
 
-                    return self::reflectionTypeToString($type, $currentClass);
+                    return $type instanceof ReflectionIntersectionType
+                        ? sprintf('(%s)', $typeString)
+                        : $typeString;
                 },
                 $type->getTypes()
             )
@@ -150,7 +150,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function generate(): string
     {
-        return ($this->nullable ? self::NULL_MARKER : '') . $this->type->toString();
+        return ($this->nullable ? self::NULL_MARKER : '') . $this->type->fullyQualifiedName();
     }
 
     public function equals(TypeGenerator $otherType): bool
