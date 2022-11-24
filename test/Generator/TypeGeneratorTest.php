@@ -73,7 +73,7 @@ class TypeGeneratorTest extends TestCase
      *            is that this library still supports generating code that is compatible with PHP 7,
      *            and therefore we cannot normalize nullable types to use `|null`, for now.
      */
-    public function validType()
+    public static function validType()
     {
         $valid = [
             ['\\foo', '\\foo'],
@@ -249,7 +249,7 @@ class TypeGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function invalidType()
+    public static function invalidType()
     {
         $invalid = [
             [''],

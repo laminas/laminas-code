@@ -175,7 +175,7 @@ class ParameterGeneratorTest extends TestCase
      * @return string[][]
      * @psalm-return non-empty-list<array{non-empty-string, non-empty-string}>
      */
-    public function dataFromReflectionGenerate(): array
+    public static function dataFromReflectionGenerate(): array
     {
         return [
             ['name', '$param'],
@@ -305,7 +305,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function simpleHints()
+    public static function simpleHints()
     {
         return [
             ['callable', 'callable'],
@@ -347,7 +347,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function validClassName()
+    public static function validClassName()
     {
         return [
             ['stdClass'],
@@ -416,7 +416,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function reflectionHints()
+    public static function reflectionHints()
     {
         $parameters = [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -512,7 +512,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @return string[][]
      */
-    public function variadicHints()
+    public static function variadicHints()
     {
         return [
             [VariadicParametersClass::class, 'firstVariadicParameter', 'foo', '... $foo'],
@@ -627,7 +627,7 @@ class ParameterGeneratorTest extends TestCase
     /**
      * @psalm-return non-empty-list<array{class-string, non-empty-string, positive-int|0, string, non-empty-string}>
      */
-    public function php80Methods(): array
+    public static function php80Methods(): array
     {
         return [
             [Php80Types::class, 'mixedType', 0, 'mixed', 'mixed $parameter'],

@@ -161,7 +161,7 @@ class ReflectionDocBlockTagTest extends TestCase
         self::assertSame($expectedDescription, $varTag->getDescription());
     }
 
-    public function propertyVarDocProvider(): array
+    public static function propertyVarDocProvider(): array
     {
         return [
             'only type'                  => ['onlyType', ['string'], null, null],
