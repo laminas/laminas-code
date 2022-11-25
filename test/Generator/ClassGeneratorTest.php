@@ -13,6 +13,7 @@ use Laminas\Code\Generator\PromotedParameterGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\Generator\TestAsset\ClassWithPromotedParameter;
+use LaminasTest\Code\Generator\TestAsset\ReadonlyClassWithPromotedParameter;
 use LaminasTest\Code\TestAsset\FooClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -1192,6 +1193,24 @@ EOS;
         self::assertSame($expectedOutput, $output, $output);
     }
 
+    public function testGenerateWithFinalReadonlyFlag(): void
+    {
+        $classGenerator = ClassGenerator::fromArray([
+            'name'  => 'SomeClass',
+            'flags' => ClassGenerator::FLAG_FINAL | ClassGenerator::FLAG_READONLY,
+        ]);
+
+        $expectedOutput = <<<EOS
+final readonly class SomeClass
+{
+}
+
+EOS;
+
+        $output = $classGenerator->generate();
+        self::assertSame($expectedOutput, $output, $output);
+    }
+
     public function testCorrectExtendNames(): void
     {
         $classGenerator = new ClassGenerator();
@@ -1395,7 +1414,7 @@ EOS;
         $expectedOutput = <<<EOS
 namespace LaminasTest\Code\Generator\TestAsset;
 
-class ClassWithPromotedParameter
+final class ClassWithPromotedParameter
 {
     public function __construct(private string \$promotedParameter)
     {
@@ -1420,5 +1439,27 @@ EOS;
         $classGenerator->addMethod('thisIsNoConstructor', [
             new PromotedParameterGenerator('promotedParameter', 'string'),
         ]);
+    }
+
+    /** @requires PHP >= 8.2 */
+    public function testReadonlyClassWithPromotedParameterFromReflection(): void
+    {
+        $classGenerator = ClassGenerator::fromReflection(
+            new ClassReflection(ReadonlyClassWithPromotedParameter::class)
+        );
+
+        $expectedOutput = <<<EOS
+namespace LaminasTest\Code\Generator\TestAsset;
+
+final readonly class ReadonlyClassWithPromotedParameter
+{
+    public function __construct(private string \$promotedParameter)
+    {
+    }
+}
+
+EOS;
+
+        self::assertEquals($expectedOutput, $classGenerator->generate());
     }
 }

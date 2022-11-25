@@ -7,30 +7,24 @@ use function rtrim;
 
 class AuthorTag implements TagInterface
 {
-    /** @var string */
+    /** @var string|null */
     protected $authorName;
 
-    /** @var string */
+    /** @var string|null */
     protected $authorEmail;
 
-    /**
-     * @return string
-     */
+    /** @return 'author' */
     public function getName()
     {
         return 'author';
     }
 
-    /**
-     * Initializer
-     *
-     * @param  string $tagDocblockLine
-     */
-    public function initialize($tagDocblockLine)
+    /** @inheritDoc */
+    public function initialize($content)
     {
         $match = [];
 
-        if (! preg_match('/^([^\<]*)(\<([^\>]*)\>)?(.*)$/u', $tagDocblockLine, $match)) {
+        if (! preg_match('/^([^\<]*)(\<([^\>]*)\>)?(.*)$/u', $content, $match)) {
             return;
         }
 
@@ -43,26 +37,19 @@ class AuthorTag implements TagInterface
         }
     }
 
-    /**
-     * @return null|string
-     */
+    /** @return null|string */
     public function getAuthorName()
     {
         return $this->authorName;
     }
 
-    /**
-     * @return null|string
-     */
+    /** @return null|string */
     public function getAuthorEmail()
     {
         return $this->authorEmail;
     }
 
-    /**
-     * @return string
-     * @psalm-return non-empty-string
-     */
+    /** @return non-empty-string */
     public function __toString()
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";

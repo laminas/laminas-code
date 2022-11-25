@@ -3,9 +3,10 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionFunction;
+use ReflectionParameter;
 use ReturnTypeWillChange;
 
-use function array_shift;
+use function array_map;
 use function array_slice;
 use function count;
 use function file;
@@ -126,6 +127,10 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     /**
      * Get method prototype
      *
+     * @deprecated this method is unreliable, and should not be used: it will be removed in the next major release.
+     *             It may crash on parameters with union types, and will return relative types, instead of
+     *             FQN references
+     *
      * @param string $format
      * @return array|string
      */
@@ -177,25 +182,26 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     /**
      * Get function parameters
      *
-     * @return ParameterReflection[]
+     * @return list<ParameterReflection>
      */
     #[ReturnTypeWillChange]
     public function getParameters()
     {
-        $phpReflections     = parent::getParameters();
-        $laminasReflections = [];
-        while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance             = new ParameterReflection($this->getName(), $phpReflection->getName());
-            $laminasReflections[] = $instance;
-            unset($phpReflection);
-        }
-        unset($phpReflections);
+        $name = $this->getName();
 
-        return $laminasReflections;
+        return array_map(
+            static fn (ReflectionParameter $parameter): ParameterReflection
+                => new ParameterReflection($name, $parameter->getName()),
+            parent::getParameters()
+        );
     }
 
     /**
      * Get return type tag
+     *
+     * @deprecated this method is unreliable, and will be dropped in the next major release.
+     *             If you are attempting to inspect the return type of an expression, please
+     *             use more reliable tools, such as `vimeo/psalm` or `phpstan/phpstan` instead.
      *
      * @throws Exception\InvalidArgumentException
      * @return DocBlockReflection

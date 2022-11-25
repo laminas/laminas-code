@@ -13,6 +13,7 @@ use function array_map;
 use function class_implements;
 use function ltrim;
 use function str_replace;
+use function str_starts_with;
 use function strpos;
 
 /**
@@ -186,13 +187,23 @@ class TypeGeneratorTest extends TestCase
             ['null|foo', '\\foo|null'],
             ['foo|bar|null', '\\bar|\\foo|null'],
 
-            // The `false` type can only be used in combination with other types
+            // Standalone `false` type
+            ['false', 'false'],
             ['foo|false', '\\foo|false'],
             ['string|false', 'string|false'],
             ['string|false|null', 'string|false|null'],
 
             // `false` + `null` requires a third type
             ['Foo|false|null', '\\Foo|false|null'],
+
+            // The `true` type
+            ['foo|true', '\\foo|true'],
+            ['string|true', 'string|true'],
+            ['true', 'true'],
+            ['true|null', 'true|null'],
+
+            // Standalone `null` type
+            ['null', 'null'],
 
             // The `static` type should not be turned into a FQCN
             ['static', 'static'],
@@ -231,7 +242,7 @@ class TypeGeneratorTest extends TestCase
     {
         return array_filter(
             $this->validType(),
-            static fn(array $pair) => 0 === strpos($pair[1], '\\')
+            static fn(array $pair) => str_starts_with($pair[1], '\\')
         );
     }
 
@@ -398,14 +409,11 @@ class TypeGeneratorTest extends TestCase
             ['never&null'],
             ['never&Foo'],
             ['never&\\foo'],
-
-            // `false` and `null` must always be used as part of a union type
-            ['null'],
-            ['false'],
             ['?null'],
-            ['?false'],
-            ['false|null'],
-            ['null|false'],
+
+            // `false` and `true` cannot be used together
+            ['true|false'],
+            ['false|true'],
 
             // Duplicate types are rejected
             ['A|A'],

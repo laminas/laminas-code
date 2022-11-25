@@ -7,25 +7,20 @@ The following example generates an empty class with a class-level DocBlock.
 ```php
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
 
-$foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray([
-    'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
-    'tags'             => [
-        [
-            'name'        => 'version',
-            'description' => '$Rev:$',
-        ],
-        [
-            'name'        => 'license',
-            'description' => 'New BSD',
-        ],
-    ],
-]);
-$foo->setName('Foo')
-    ->setDocblock($docblock);
-echo $foo->generate();
+echo (new ClassGenerator())
+    ->setName('Foo')
+    ->setDocblock(
+        (new DocBlockGenerator())
+            ->setShortDescription('Sample generated class')
+            ->setLongDescription('This is a class generated with Laminas\Code\Generator.')
+            ->setTags([
+                new GenericTag('version', '$Rev:$'),
+                new GenericTag('license', 'New BSD'),
+            ])
+    )
+    ->generate();
 ```
 
 The above code will result in the following:
@@ -55,31 +50,25 @@ use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 
-$foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray([
-    'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
-    'tags'             => [
-        [
-            'name'        => 'version',
-            'description' => '$Rev:$',
-        ],
-        [
-            'name'        => 'license',
-            'description' => 'New BSD',
-        ],
-    ],
-]);
-$foo->setName('Foo')
-    ->setDocblock($docblock)
+echo (new ClassGenerator())
+    ->setName('Foo')
+    ->setDocblock(
+        (new DocBlockGenerator())
+            ->setShortDescription('Sample generated class')
+            ->setLongDescription('This is a class generated with Laminas\Code\Generator.')
+            ->setTags([
+                new GenericTag('version', '$Rev:$'),
+                new GenericTag('license', 'New BSD'),
+            ])
+    )
     ->addProperties([
-         ['bar', 'baz', PropertyGenerator::FLAG_PROTECTED],
-         ['baz', 'bat', PropertyGenerator::FLAG_PUBLIC]
+        new PropertyGenerator('bar', 'baz', PropertyGenerator::FLAG_PROTECTED),
+        new PropertyGenerator('baz', 'bat', PropertyGenerator::FLAG_PUBLIC),
    ])
    ->addConstants([
-         ['bat',  'foobarbazbat']
+        new PropertyGenerator('bat', 'foobarbazbat', PropertyGenerator::FLAG_CONSTANT)
     ]);
-echo $foo->generate();
+    ->generate();
 ```
 
 The above results in the following class definition:
@@ -117,55 +106,49 @@ use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\DocBlock\Tag;
 use Laminas\Code\Generator\MethodGenerator;
+use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 
-$foo      = new ClassGenerator();
-$docblock = DocBlockGenerator::fromArray([
-    'shortDescription' => 'Sample generated class',
-    'longDescription'  => 'This is a class generated with Laminas\Code\Generator.',
-    'tags'             => [
-        [
-            'name'        => 'version',
-            'description' => '$Rev:$',
-        ],
-        [
-            'name'        => 'license',
-            'description' => 'New BSD',
-        ],
-    ],
-]);
-$foo->setName('Foo')
-    ->setDocblock($docblock)
+echo (new ClassGenerator())
+    ->setName('Foo')
+    ->setDocblock(
+        (new DocBlockGenerator())
+            ->setShortDescription('Sample generated class')
+            ->setLongDescription('This is a class generated with Laminas\Code\Generator.')
+            ->setTags([
+                new GenericTag('version', '$Rev:$'),
+                new GenericTag('license', 'New BSD'),
+            ])
+    )
     ->addProperties([
-        ['bar',  'baz',          PropertyGenerator::FLAG_PROTECTED],
-        ['baz',  'bat',          PropertyGenerator::FLAG_PUBLIC]
+        new PropertyGenerator('bar', 'baz', PropertyGenerator::FLAG_PROTECTED),
+        new PropertyGenerator('baz', 'bat', PropertyGenerator::FLAG_PUBLIC),
     ])
     ->addConstants([
-        ['bat',  'foobarbazbat', PropertyGenerator::FLAG_CONSTANT]
-    ])
+        new PropertyGenerator('bat', 'foobarbazbat', PropertyGenerator::FLAG_CONSTANT)
+    ]);
     ->addMethods([
-        // Method passed as array
-        MethodGenerator::fromArray([
-            'name'       => 'setBar',
-            'parameters' => ['bar'],
-            'body'       => '$this->bar = $bar;' . "\n" . 'return $this;',
-            'docblock'   => DocBlockGenerator::fromArray([
-                'shortDescription' => 'Set the bar property',
-                'longDescription'  => null,
-                'tags'             => [
-                     new Tag\ParamTag(
-                        'bar', 
-                        [
-                            'string',
-                            'array'
-                        ],
-                        'parameter description'
-                    ),
-                    new Tag\ReturnTag([
-                        'datatype'  => 'string',
-                    ]),
-                ],
-            ]),
+        // Method built programmatically
+        (new MethodGenerator())
+            ->setName('setBar')
+            ->setParameters([
+                new ParameterGenerator('bar')
+            ])
+            ->setBody('$this->bar = $bar;' . "\n" . 'return $this;')
+            ->setDocBlock(
+                (new DocBlockGenerator())
+                    ->setShortDescription('Set the bar property')
+                    ->setTags([
+                        new Tag\ParamTag(
+                            'bar', 
+                            ['string', 'array'],
+                            'parameter description'
+                        ),
+                        new Tag\ReturnTag([
+                            'datatype'  => 'string',
+                        ]),
+                    ])
+            )
         ]),
         // Method passed as concrete instance
         new MethodGenerator(
@@ -173,19 +156,15 @@ $foo->setName('Foo')
             [],
             MethodGenerator::FLAG_PUBLIC,
             'return $this->bar;',
-            DocBlockGenerator::fromArray([
-                'shortDescription' => 'Retrieve the bar property',
-                'longDescription'  => null,
-                'tags'             => [
-                    new Tag\ReturnTag([
-                        'datatype'  => 'string|null',
-                    ]),
-                ],
+            (new DocBlockGenerator())
+                ->setShortDescription('Retrieve the bar property'),
+                ->setTags([
+                    new Tag\ReturnTag(['string|null']),
+                ])
             ])
         ),
     ]);
-
-echo $foo->generate();
+    ->generate();
 ```
 
 The above generates the following output:
@@ -244,21 +223,18 @@ previous example.
 ```php
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\FileGenerator;
+use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
 
-$file = FileGenerator::fromArray([
-    'classes'  => [$foo],
-    'docblock' => DocBlockGenerator::fromArray([
-        'shortDescription' => 'Foo class file',
-        'longDescription'   => null,
-        'tags'             => [
-            [
-                'name'        => 'license',
-                'description' => 'New BSD',
-            ],
-        ],
-    ]),
-    'body'     => 'define(\'APPLICATION_ENV\', \'testing\');',
-]);
+$file = (new FileGenerator)
+    ->setClasses([$foo])
+    ->setDocBlock(
+        (new DocBlockGenerator())
+            ->setShortDescription('Foo class file')
+            ->setTag([
+                new GenericTag('license', 'New BSD')
+            ])
+    )
+    ->setBody("define('APPLICATION_ENV', 'testing');");
 ```
 
 Calling `generate()` will generate the code -- but not write it to a file. You will need to capture
@@ -346,19 +322,12 @@ $generator->addMethod(
     ['baz'],
     MethodGenerator::FLAG_PUBLIC,
     '$this->baz = $baz;' . "\n" . 'return $this;',
-    DocBlockGenerator::fromArray([
-        'shortDescription' => 'Set the baz property',
-        'longDescription'  => null,
-        'tags'             => [
-            new Tag\ParamTag([
-                'paramName' => 'baz',
-                'datatype'  => 'string'
-            ]),
-            new Tag\ReturnTag([
-                'datatype'  => 'string',
-            ]),
-        ],
-    ])
+    (new DocBlockGenerator())
+        ->setShortDescription('Set the baz property')
+        ->setTags([
+            new Tag\ParamTag('baz', ['string']),
+            new Tag\ReturnTag('string'),
+        ])
 );
 $code = $generator->generate();
 ```

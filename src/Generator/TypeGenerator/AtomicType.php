@@ -42,14 +42,16 @@ final class AtomicType
         'mixed'    => 10,
         'void'     => 11,
         'false'    => 12,
-        'null'     => 13,
-        'never'    => 14,
+        'true'     => 13,
+        'null'     => 14,
+        'never'    => 15,
     ];
 
     /** @psalm-var array<non-empty-string, null> */
     private const NOT_NULLABLE_TYPES = [
         'null'  => null,
         'false' => null,
+        'true'  => null,
         'void'  => null,
         'mixed' => null,
         'never' => null,
@@ -151,16 +153,17 @@ final class AtomicType
                     $other->type
                 ));
             }
-        }
 
-        if (
-            $this->requiresUnionWithStandaloneType() &&
-            [] === array_filter($others, static fn (self $type): bool => ! $type->requiresUnionWithStandaloneType())
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" requires to be composed with non-standalone types',
-                $this->type
-            ));
+            if (
+                ('true' === $other->type && 'false' === $this->type) ||
+                ('false' === $other->type && 'true' === $this->type)
+            ) {
+                throw new InvalidArgumentException(sprintf(
+                    'Type "%s" cannot be composed in a union with type "%s"',
+                    $this->type,
+                    $other->type
+                ));
+            }
         }
     }
 
@@ -186,27 +189,6 @@ final class AtomicType
                 ));
             }
         }
-
-        if (
-            $this->requiresUnionWithStandaloneType() &&
-            [] === array_filter($others, static fn (self $type): bool => ! $type->requiresUnionWithStandaloneType())
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" requires to be composed with non-standalone types',
-                $this->type
-            ));
-        }
-    }
-
-    /** @throws InvalidArgumentException */
-    public function assertCanBeAStandaloneType(): void
-    {
-        if ($this->requiresUnionWithStandaloneType()) {
-            throw new InvalidArgumentException(sprintf(
-                'Type "%s" cannot be used standalone, and must be part of a union type',
-                $this->type
-            ));
-        }
     }
 
     /** @throws InvalidArgumentException */
@@ -218,10 +200,5 @@ final class AtomicType
                 $this->type
             ));
         }
-    }
-
-    private function requiresUnionWithStandaloneType(): bool
-    {
-        return 'null' === $this->type || 'false' === $this->type;
     }
 }

@@ -2,16 +2,15 @@
 
 namespace Laminas\Code\Generator\EnumGenerator\Cases;
 
-use InvalidArgumentException;
 use ReflectionEnum;
 use ReflectionEnumBackedCase;
 use ReflectionEnumUnitCase;
+use ReflectionNamedType;
 
+use function array_combine;
 use function array_key_exists;
 use function array_map;
 use function assert;
-
-use const PHP_VERSION_ID;
 
 /** @internal */
 final class CaseFactory
@@ -47,24 +46,30 @@ final class CaseFactory
      */
     public static function fromReflectionCases(ReflectionEnum $enum)
     {
-        if (PHP_VERSION_ID < 80100) {
-            throw new InvalidArgumentException('This feature only works from PHP 8.1 onwards.');
-        }
-
         $backingType = $enum->getBackingType();
 
         if ($backingType === null) {
-            $callback  = static fn(ReflectionEnumUnitCase $singleCase): string => $singleCase->getName();
-            $pureCases = array_map($callback, $enum->getCases());
-
-            return PureCases::fromCases($pureCases);
+            return PureCases::fromCases(array_map(
+                /** @return non-empty-string */
+                static fn(ReflectionEnumUnitCase $singleCase): string => $singleCase->getName(),
+                $enum->getCases()
+            ));
         }
 
-        $backedCases = [];
-        foreach ($enum->getCases() as $singleCase) {
-            $backedCases[$singleCase->getName()] = $singleCase->getBackingValue();
-        }
+        assert($backingType instanceof ReflectionNamedType);
 
-        return BackedCases::fromCasesWithType($backedCases, $backingType->getName());
+        $cases = $enum->getCases();
+
+        return BackedCases::fromCasesWithType(
+            array_combine(
+                array_map(
+                    /** @return non-empty-string */
+                    static fn(ReflectionEnumBackedCase $case): string => $case->getName(),
+                    $cases
+                ),
+                array_map(static fn(ReflectionEnumBackedCase $case): string|int => $case->getBackingValue(), $cases),
+            ),
+            $backingType->getName()
+        );
     }
 }

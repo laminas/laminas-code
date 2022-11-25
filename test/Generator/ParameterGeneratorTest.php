@@ -33,8 +33,6 @@ use function ltrim;
 use function strpos;
 use function strtolower;
 
-use const PHP_VERSION_ID;
-
 /**
  * @group Laminas_Code_Generator
  * @group Laminas_Code_Generator_Php
@@ -478,21 +476,13 @@ class ParameterGeneratorTest extends TestCase
             [ObjectHintsClass::class, 'nullDefaultObjectParameter', 'foo', '?object'],
         ];
 
-        $compatibleParameters = array_filter(
-            $parameters,
-            static fn(array $parameter) => PHP_VERSION_ID >= 70200
-                || (
-                    false === strpos($parameter[3], 'object')
-                )
-        );
-
         // just re-organizing the keys so that the phpunit data set makes sense in errors:
         return array_combine(
             array_map(
                 static fn(array $definition) => $definition[0] . '#' . $definition[1],
-                $compatibleParameters
+                $parameters
             ),
-            $compatibleParameters
+            $parameters
         );
     }
 

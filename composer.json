@@ -9,7 +9,7 @@
     "homepage": "https://laminas.dev",
     "license": "BSD-3-Clause",
     "require": {
-        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0"
+        "php": "~8.1.0 || ~8.2.0"
     },
     "require-dev": {
         "ext-phar": "*",
@@ -29,17 +29,14 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "8.0.99"
+            "php": "8.1.99"
         },
         "sort-packages": true
     },
     "autoload": {
         "psr-4": {
             "Laminas\\Code\\": "src/"
-        },
-        "files": [
-            "polyfill/ReflectionEnumPolyfill.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

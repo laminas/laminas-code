@@ -9,23 +9,9 @@ namespace Laminas\Code\Generator\EnumGenerator\Cases;
  */
 final class PureCases
 {
-    /** @var list<non-empty-string> */
-    private array $cases;
-
-    /**
-     * @param list<non-empty-string> $cases
-     */
-    private function __construct(array $cases)
+    /** @param list<non-empty-string> $cases */
+    private function __construct(public readonly array $cases)
     {
-        $this->cases = $cases;
-    }
-
-    /**
-     * @return list<string>
-     */
-    public function getCases(): array
-    {
-        return $this->cases;
     }
 
     /**

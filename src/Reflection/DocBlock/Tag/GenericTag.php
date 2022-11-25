@@ -9,56 +9,48 @@ use function trim;
 
 class GenericTag implements TagInterface, PrototypeGenericInterface
 {
-    /** @var string */
+    /** @var string|null */
     protected $name;
 
-    /** @var string */
+    /** @var string|null */
     protected $content;
 
-    /** @var null|string */
+    /** @var string */
     protected $contentSplitCharacter;
 
-    /** @var array */
+    /** @var list<string> */
     protected $values = [];
 
     /**
-     * @param  string $contentSplitCharacter
+     * @param string $contentSplitCharacter
      */
     public function __construct($contentSplitCharacter = ' ')
     {
         $this->contentSplitCharacter = $contentSplitCharacter;
     }
 
-    /**
-     * @param  string $tagDocBlockLine
-     * @return void
-     */
-    public function initialize($tagDocBlockLine)
+    /** @inheritDoc */
+    public function initialize($content)
     {
-        $this->parse($tagDocBlockLine);
+        $this->parse($content);
     }
 
-    /**
-     * Get annotation tag name
-     *
-     * @return string
-     */
+    /** @return string|null */
     public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param  string $name
+     * @param string $name
+     * @return void
      */
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string|null */
     public function getContent()
     {
         return $this->content;
@@ -73,15 +65,7 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
         return $this->values[$position];
     }
 
-    /**
-     * Serialize to string
-     *
-     * Required by Reflector
-     *
-     * @todo   What should this do?
-     * @return string
-     * @psalm-return non-empty-string
-     */
+    /** @return non-empty-string */
     public function __toString()
     {
         return 'DocBlock Tag [ * @' . $this->name . ' ]' . "\n";
@@ -89,6 +73,7 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
 
     /**
      * @param  string $docBlockLine
+     * @return void
      */
     protected function parse($docBlockLine)
     {
