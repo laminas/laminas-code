@@ -339,7 +339,7 @@ EOS;
      *     bool
      * }>
      */
-    public function returnsReferenceValues(): array
+    public static function returnsReferenceValues(): array
     {
         return [
             [true, true],
@@ -432,7 +432,7 @@ PHP;
      * @return string[][]
      * @psalm-return list<array{class-string, non-empty-string, non-empty-string}>
      */
-    public function returnTypeHintClasses()
+    public static function returnTypeHintClasses()
     {
         return [
             [ReturnTypeHintedClass::class, 'voidReturn', 'void'],
@@ -523,7 +523,7 @@ PHP;
     /**
      * @psalm-return non-empty-list<array{class-string, non-empty-string, non-empty-string, non-empty-string}>
      */
-    public function php80Methods(): array
+    public static function php80Methods(): array
     {
         return [
             [Php80Types::class, 'mixedType', 'mixed', 'mixed'],

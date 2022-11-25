@@ -27,7 +27,7 @@ class VarTagTest extends TestCase
         $this->assertSame($expectedDescription, $tag->getDescription());
     }
 
-    public function varTagProvider(): array
+    public static function varTagProvider(): array
     {
         return [
             'only type'                            => [

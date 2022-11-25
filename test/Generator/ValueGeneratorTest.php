@@ -60,7 +60,7 @@ class ValueGeneratorTest extends TestCase
      * @return object[][]
      * @psalm-return array<class-string, array{SplArrayObject|StdlibArrayObject}>
      */
-    public function constantsType(): array
+    public static function constantsType(): array
     {
         return [
             SplArrayObject::class    => [new SplArrayObject()],
@@ -84,7 +84,7 @@ class ValueGeneratorTest extends TestCase
      * @return array
      * @psalm-return non-empty-list<array{PropertyValueGenerator, non-empty-string}>
      */
-    public function validConstantTypes(): array
+    public static function validConstantTypes(): array
     {
         return [
             [
@@ -127,7 +127,7 @@ class ValueGeneratorTest extends TestCase
      * @param array $value
      * @return array
      */
-    protected function generateArrayData($longOutput, array $value)
+    protected static function generateArrayData($longOutput, array $value)
     {
         $shortOutput = str_replace(
             ['array(', ')'],
@@ -164,7 +164,7 @@ class ValueGeneratorTest extends TestCase
      *
      * @return array
      */
-    public function simpleArray()
+    public static function simpleArray()
     {
         $value = ['foo'];
 
@@ -174,7 +174,7 @@ array(
 )
 EOS;
 
-        return $this->generateArrayData($longOutput, $value);
+        return self::generateArrayData($longOutput, $value);
     }
 
     /**
@@ -182,7 +182,7 @@ EOS;
      *
      * @return array
      */
-    public function complexArray()
+    public static function complexArray()
     {
         $value = [
             5,
@@ -222,13 +222,13 @@ array(
 )
 EOS;
 
-        return $this->generateArrayData($longOutput, $value);
+        return self::generateArrayData($longOutput, $value);
     }
 
     /**
      * Data provider for testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes test
      */
-    public function complexArrayWCustomIndent(): array
+    public static function complexArrayWCustomIndent(): array
     {
         $value = [
             '5bcf08a0a5d20' => [
@@ -302,7 +302,7 @@ array(
 )
 EOS;
 
-        return $this->generateArrayData($longOutput, $value);
+        return self::generateArrayData($longOutput, $value);
     }
 
     /**
@@ -310,7 +310,7 @@ EOS;
      *
      * @return array
      */
-    public function unsortedKeysArray()
+    public static function unsortedKeysArray()
     {
         $value = [
             1 => 'a',
@@ -330,7 +330,7 @@ array(
 )
 EOS;
 
-        return $this->generateArrayData($longOutput, $value);
+        return self::generateArrayData($longOutput, $value);
     }
 
     /**
@@ -467,7 +467,7 @@ EOS;
      *
      * @return string[][]
      */
-    public function getEscapedParameters()
+    public static function getEscapedParameters()
     {
         return [
             ['\\', '\\\\'],
@@ -476,7 +476,7 @@ EOS;
         ];
     }
 
-    public function invalidValue(): Generator
+    public static function invalidValue(): Generator
     {
         yield 'object' => [new DateTime(), DateTime::class];
         yield 'resource' => [fopen('php://input', 'r'), 'resource (stream)'];

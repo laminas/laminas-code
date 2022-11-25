@@ -38,7 +38,7 @@ class PropertyGeneratorTest extends TestCase
     /**
      * @return bool[][]|string[][]|int[][]|null[][]
      */
-    public function dataSetTypeSetValueGenerate(): array
+    public static function dataSetTypeSetValueGenerate(): array
     {
         return [
             ['string', 'foo', "'foo';"],
@@ -122,7 +122,7 @@ EOS;
         self::assertSame($expectedSource, $targetSource);
     }
 
-    public function visibility(): Generator
+    public static function visibility(): Generator
     {
         yield 'public' => [PropertyGenerator::FLAG_PUBLIC, 'public'];
         yield 'protected' => [PropertyGenerator::FLAG_PROTECTED, 'protected'];

@@ -86,7 +86,7 @@ class ParameterReflectionTest extends TestCase
      * @return string[][]
      * @psalm-return non-empty-list<array{non-empty-string, non-empty-string}>
      */
-    public function paramType(): array
+    public static function paramType(): array
     {
         return [
             ['one', 'int'],
@@ -101,7 +101,7 @@ class ParameterReflectionTest extends TestCase
      * @return string[][]
      * @psalm-return non-empty-list<array{non-empty-string, non-empty-string}>
      */
-    public function paramTypeWithNotAllParamsDeclared(): array
+    public static function paramTypeWithNotAllParamsDeclared(): array
     {
         return [
             ['one', 'string'],
@@ -159,7 +159,7 @@ class ParameterReflectionTest extends TestCase
     /**
      * @return string[][]
      */
-    public function reflectionHints()
+    public static function reflectionHints()
     {
         return [
             [InternalHintsClass::class, 'arrayParameter', 'foo', 'array'],
@@ -214,7 +214,7 @@ class ParameterReflectionTest extends TestCase
     /**
      * @return string[][]
      */
-    public function docBlockHints()
+    public static function docBlockHints()
     {
         return [
             [DocBlockOnlyHintsClass::class, 'arrayParameter', 'foo', 'array'],

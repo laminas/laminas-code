@@ -44,7 +44,7 @@ final class EnumGeneratorTest extends TestCase
      *      1: non-empty-string
      * }>
      */
-    public function validOptionSpecifications(): iterable
+    public static function validOptionSpecifications(): iterable
     {
         yield 'pure enum without namespace' => [
             [
@@ -155,7 +155,7 @@ final class EnumGeneratorTest extends TestCase
      *      1: non-empty-string
      * }>
      */
-    public function validEnumSpecifications(): iterable
+    public static function validEnumSpecifications(): iterable
     {
         yield 'pure enum reflection' => [
             'TestNamespace\\Environment',
