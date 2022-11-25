@@ -44,7 +44,8 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * {@inheritDoc}
      *
-     * @param bool $includeDocComment
+     * @param  bool $includeDocComment
+     * @return int|false
      */
     #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
