@@ -18,7 +18,7 @@
         "laminas/laminas-stdlib": "^3.6.1",
         "phpunit/phpunit": "^9.5.26",
         "psalm/plugin-phpunit": "^0.18.0",
-        "vimeo/psalm": "^4.29.0"
+        "vimeo/psalm": "dev-master"
     },
     "suggest": {
         "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",

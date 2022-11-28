@@ -12,7 +12,8 @@
         <directory name="test"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <directory name="test/Generator/TestAsset"/>
+            <!-- Psalm crashing when handling DNF types -->
+            <file name="test/Generator/TestAsset/ClassWithDnfTypes.php" />
         </ignoreFiles>
     </projectFiles>
 
