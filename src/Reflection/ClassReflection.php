@@ -15,6 +15,10 @@ use function file_exists;
 use function implode;
 use function strstr;
 
+/**
+ * @template TReflected of object
+ * @template-extends ReflectionClass<TReflected>
+ */
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {
     /** @var DocBlockReflection|null */
