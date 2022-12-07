@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+<files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
   <file src="src/DeclareStatement.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$directive</code>
@@ -15,6 +15,9 @@
     </MixedReturnStatement>
   </file>
   <file src="src/Generator/AbstractGenerator.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>! is_array($options) &amp;&amp; ! $options instanceof Traversable</code>
+    </DocblockTypeContradiction>
     <MixedAssignment occurrences="2">
       <code>$optionName</code>
       <code>$optionValue</code>
@@ -45,15 +48,14 @@
     <DeprecatedMethod occurrences="1">
       <code>DocBlockGenerator::fromArray($value)</code>
     </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="3">
-      <code>! is_string($name)</code>
+    <DocblockTypeContradiction occurrences="2">
       <code>is_string($name)</code>
       <code>is_string($name)</code>
     </DocblockTypeContradiction>
     <InvalidNullableReturnType occurrences="1">
       <code>string</code>
     </InvalidNullableReturnType>
-    <MixedArgument occurrences="12">
+    <MixedArgument occurrences="19">
       <code>$array['name']</code>
       <code>$value</code>
       <code>$value</code>
@@ -64,7 +66,14 @@
       <code>$value</code>
       <code>$value</code>
       <code>array_values($constant)</code>
+      <code>array_values($constant)</code>
       <code>array_values($method)</code>
+      <code>array_values($method)</code>
+      <code>array_values($method)</code>
+      <code>array_values($method)</code>
+      <code>array_values($method)</code>
+      <code>array_values($property)</code>
+      <code>array_values($property)</code>
       <code>array_values($property)</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
@@ -92,6 +101,9 @@
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_array($constant)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainType occurrences="1">
+      <code>! is_string($name)</code>
+    </TypeDoesNotContainType>
     <UnsafeInstantiation occurrences="2">
       <code>new static($array['name'])</code>
       <code>new static($classReflection-&gt;getName())</code>
@@ -114,7 +126,8 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Generator/DocBlock/Tag/GenericTag.php">
-    <ImplementedReturnTypeMismatch occurrences="2">
+    <ImplementedReturnTypeMismatch occurrences="3">
+      <code>$this</code>
       <code>$this</code>
       <code>string|null</code>
     </ImplementedReturnTypeMismatch>
@@ -193,6 +206,9 @@
       <code>$type === 'int' || $type === 'string'</code>
       <code>$type === 'string'</code>
     </DocblockTypeContradiction>
+    <NoValue occurrences="1">
+      <code>$type</code>
+    </NoValue>
   </file>
   <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
     <ArgumentTypeCoercion occurrences="3">
@@ -218,6 +234,9 @@
     <InvalidArgument occurrences="1">
       <code>$docBlock</code>
     </InvalidArgument>
+    <InvalidArrayOffset occurrences="1">
+      <code>[$directive =&gt; $value]</code>
+    </InvalidArrayOffset>
     <InvalidReturnStatement occurrences="1">
       <code>$uses</code>
     </InvalidReturnStatement>
@@ -264,6 +283,10 @@
     <DeprecatedMethod occurrences="1">
       <code>DocBlockGenerator::fromArray($value)</code>
     </DeprecatedMethod>
+    <InvalidClassConstantType occurrences="2">
+      <code>IMPLEMENTS_KEYWORD</code>
+      <code>OBJECT_TYPE</code>
+    </InvalidClassConstantType>
     <MixedArgument occurrences="6">
       <code>$array['name']</code>
       <code>$value</code>
@@ -289,6 +312,9 @@
       <code>DocBlockGenerator::fromArray($value)</code>
       <code>ParameterGenerator::fromArray($parameter)</code>
     </DeprecatedMethod>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MixedArgument occurrences="11">
       <code>$array['name']</code>
       <code>$value</code>
@@ -376,6 +402,9 @@
     <DeprecatedMethod occurrences="1">
       <code>DocBlockGenerator::fromArray($value)</code>
     </DeprecatedMethod>
+    <InvalidClassConstantType occurrences="1">
+      <code>OBJECT_TYPE</code>
+    </InvalidClassConstantType>
     <MixedArgument occurrences="6">
       <code>$array['name']</code>
       <code>$value</code>
@@ -399,7 +428,7 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/TraitUsageGenerator.php">
-    <DocblockTypeContradiction occurrences="2">
+    <DocblockTypeContradiction occurrences="1">
       <code>is_string($alias)</code>
     </DocblockTypeContradiction>
     <MixedArgument occurrences="6">
@@ -440,9 +469,11 @@
     <MixedOperand occurrences="1">
       <code>$insteadofTrait</code>
     </MixedOperand>
-    <TooFewArguments occurrences="1">
+    <TooFewArguments occurrences="2">
+      <code>addTraitOverride</code>
       <code>addTraitOverride</code>
     </TooFewArguments>
+    <TypeDoesNotContainType occurrences="1"/>
     <UndefinedMethod occurrences="1">
       <code>addAlias</code>
     </UndefinedMethod>
@@ -460,16 +491,19 @@
     </UnusedVariable>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>static fn(ReflectionNamedType $type): string =&gt; self::reflectionNamedTypeToString($type, $currentClass)</code>
-    </ArgumentTypeCoercion>
-    <ImpureMethodCall occurrences="5">
+    <ImpureMethodCall occurrences="6">
       <code>allowsNull</code>
       <code>getName</code>
       <code>getName</code>
       <code>getParentClass</code>
       <code>getTypes</code>
+      <code>getTypes</code>
     </ImpureMethodCall>
+  </file>
+  <file src="src/Generator/TypeGenerator/CompositeType.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$types</code>
+    </InvalidScalarArgument>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod occurrences="1">
@@ -478,6 +512,9 @@
     <DocblockTypeContradiction occurrences="1">
       <code>$constants instanceof StdlibArrayObject</code>
     </DocblockTypeContradiction>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MissingReturnType occurrences="1">
       <code>initEnvironmentConstants</code>
     </MissingReturnType>
@@ -526,6 +563,9 @@
     <InvalidThrow occurrences="1">
       <code>Exception\ExceptionInterface</code>
     </InvalidThrow>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$lines</code>
     </MixedArgumentTypeCoercion>
@@ -540,18 +580,44 @@
       <code>getStartLine</code>
     </PossiblyFalseReference>
   </file>
+  <file src="src/Reflection/DocBlock/Tag/AuthorTag.php">
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
+  </file>
   <file src="src/Reflection/DocBlock/Tag/GenericTag.php">
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>string|null</code>
     </ImplementedReturnTypeMismatch>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <PossiblyNullOperand occurrences="1">
       <code>$this-&gt;name</code>
     </PossiblyNullOperand>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/LicenseTag.php">
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/MethodTag.php">
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/PropertyTag.php">
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
   </file>
   <file src="src/Reflection/DocBlockReflection.php">
     <DocblockTypeContradiction occurrences="1">
       <code>! is_string($filter)</code>
     </DocblockTypeContradiction>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MixedArgument occurrences="3">
       <code>$tag['name']</code>
       <code>$tag['value']</code>
@@ -608,6 +674,9 @@
     <DeprecatedMethod occurrences="1">
       <code>detectType</code>
     </DeprecatedMethod>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MixedArgument occurrences="2">
       <code>$returnTypes</code>
       <code>$returnTypes</code>
@@ -651,6 +720,9 @@
     <DeprecatedMethod occurrences="1">
       <code>detectType</code>
     </DeprecatedMethod>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
     <MixedArgument occurrences="5">
       <code>$haystack[$i][0]</code>
       <code>$haystack[$i][0]</code>
@@ -689,8 +761,9 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$function-&gt;getName()</code>
     </ArgumentTypeCoercion>
-    <ImpureMethodCall occurrences="13">
+    <ImpureMethodCall occurrences="14">
       <code>getDeclaringClass</code>
+      <code>getDocBlock</code>
       <code>getDocBlock</code>
       <code>getModifiers</code>
       <code>getModifiers</code>
@@ -717,6 +790,10 @@
     </UndefinedMethod>
   </file>
   <file src="src/Scanner/DocBlockScanner.php">
+    <InvalidArrayOffset occurrences="2">
+      <code>$this-&gt;tags[$tagIndex]</code>
+      <code>$this-&gt;tags[$tagIndex]</code>
+    </InvalidArrayOffset>
     <MissingClosureParamType occurrences="3">
       <code>$length</code>
       <code>$positionsForward</code>
@@ -744,7 +821,7 @@
       <code>$streamIndex</code>
       <code>$tokens</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="15">
+    <MixedArrayAccess occurrences="19">
       <code>$stream[$streamIndex]</code>
       <code>$this-&gt;tags[$tagIndex]['value']</code>
       <code>$this-&gt;tags[$tagIndex]['value']</code>
@@ -760,8 +837,12 @@
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
     </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="7">
+    <MixedArrayAssignment occurrences="12">
       <code>$this-&gt;tags[$tagIndex]['value']</code>
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
@@ -769,11 +850,20 @@
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex][0]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
+      <code>$tokens[$tokenIndex][1]</code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="9">
+    <MixedArrayOffset occurrences="13">
       <code>$stream[$streamIndex]</code>
       <code>$stream[$streamIndex]</code>
-      <code>$this-&gt;tags[$tagIndex]</code>
+      <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex]</code>
+      <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
       <code>$tokens[$tokenIndex]</code>
@@ -829,10 +919,9 @@
     <MixedReturnStatement occurrences="1">
       <code>$tokens</code>
     </MixedReturnStatement>
-    <RedundantCondition occurrences="3">
+    <RedundantCondition occurrences="2">
       <code>$context === 0x00</code>
       <code>$mode &lt;= 2</code>
-      <code>$this-&gt;shortDescription != '' &amp;&amp; $tagIndex === null</code>
     </RedundantCondition>
     <TypeDoesNotContainType occurrences="1">
       <code>$tagIndex !== null</code>
@@ -876,23 +965,31 @@
       <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="6"/>
-    <InvalidArgument occurrences="6">
+    <InvalidArgument occurrences="19">
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflector</code>
+      <code>$reflector</code>
+      <code>$reflector</code>
       <code>''</code>
       <code>'public'</code>
       <code>'public'</code>
       <code>ExceptionInterface::class</code>
       <code>[]</code>
       <code>new ClassGenerator()</code>
+      <code>new ClassReflection(ClassWithDnfTypes::class)</code>
+      <code>new ClassReflection(ClassWithPromotedParameter::class)</code>
+      <code>new ClassReflection(ReadonlyClassWithPromotedParameter::class)</code>
+      <code>true</code>
+      <code>true</code>
+      <code>true</code>
     </InvalidArgument>
     <InvalidCast occurrences="2">
       <code>[]</code>
       <code>new ClassGenerator()</code>
     </InvalidCast>
-    <InvalidScalarArgument occurrences="3">
-      <code>true</code>
-      <code>true</code>
-      <code>true</code>
-    </InvalidScalarArgument>
     <MissingDependency occurrences="2">
       <code>FooClass</code>
       <code>FooClass</code>
@@ -1153,6 +1250,10 @@
       <code>['Class1', 'Class2']</code>
     </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="3"/>
+    <InvalidArgument occurrences="2">
+      <code>$reflClass</code>
+      <code>new ClassReflection(self::class)</code>
+    </InvalidArgument>
     <MissingReturnType occurrences="17">
       <code>testAbstractAccessorsReturnsFalse</code>
       <code>testClassNotAnInterfaceException</code>
@@ -1279,9 +1380,11 @@
     <MixedInferredReturnType occurrences="1">
       <code>Generator</code>
     </MixedInferredReturnType>
-    <PossiblyInvalidArgument occurrences="3">
+    <PossiblyInvalidArgument occurrences="5">
+      <code>testSetBogusTypeSetValueGenerateUseAutoDetection</code>
       <code>testSetBogusTypeSetValueGenerateUseAutoDetection</code>
       <code>testSetDefaultValue</code>
+      <code>testSetTypeSetValueGenerate</code>
       <code>testSetTypeSetValueGenerate</code>
     </PossiblyInvalidArgument>
     <RedundantConditionGivenDocblockType occurrences="1">
@@ -1298,13 +1401,28 @@
       <code>'LaminasTest_Code_NsTest_BarClass'</code>
     </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="6"/>
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="8">
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflClass</code>
+      <code>$reflClass</code>
       <code>ExceptionInterface::class</code>
+      <code>true</code>
+      <code>true</code>
     </InvalidArgument>
-    <InvalidScalarArgument occurrences="2">
-      <code>true</code>
-      <code>true</code>
-    </InvalidScalarArgument>
+  </file>
+  <file src="test/Generator/TypeGenerator/CompositeTypeTest.php">
+    <InternalClass occurrences="1">
+      <code>CompositeType::fromString($typeString)</code>
+    </InternalClass>
+    <InternalMethod occurrences="2">
+      <code>CompositeType::fromString($typeString)</code>
+      <code>fullyQualifiedName</code>
+    </InternalMethod>
+    <MixedInferredReturnType occurrences="1">
+      <code>iterable</code>
+    </MixedInferredReturnType>
   </file>
   <file src="test/Generator/TypeGeneratorTest.php">
     <MissingReturnType occurrences="4">
@@ -1599,7 +1717,7 @@
       <code>$body</code>
       <code>$body</code>
     </PossiblyFalseArgument>
-    <UndefinedGlobalVariable occurrences="14">
+    <UndefinedVariable occurrences="14">
       <code>$function1</code>
       <code>$function10</code>
       <code>$function10</code>
@@ -1614,7 +1732,7 @@
       <code>$list1</code>
       <code>$list2</code>
       <code>$list3</code>
-    </UndefinedGlobalVariable>
+    </UndefinedVariable>
   </file>
   <file src="test/Reflection/MethodReflectionTest.php">
     <ArgumentTypeCoercion occurrences="7">
@@ -1753,244 +1871,6 @@
       <code>getVariableName</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="test/Reflection/TestAsset/CallableTypeHintClass.php">
-    <MissingReturnType occurrences="1">
-      <code>foo</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Reflection/TestAsset/FileOfFunctions.php">
-    <MissingParamType occurrences="2">
-      <code>$bar</code>
-      <code>$foo</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="2">
-      <code>test1</code>
-      <code>test2</code>
-    </MissingReturnType>
-    <UnusedParam occurrences="2">
-      <code>$bar</code>
-      <code>$foo</code>
-    </UnusedParam>
-  </file>
-  <file src="test/Reflection/TestAsset/SampleAnnotation.php">
-    <MissingParamType occurrences="1">
-      <code>$content</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$content</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>initialize</code>
-    </MissingReturnType>
-    <MixedOperand occurrences="1">
-      <code>$content</code>
-    </MixedOperand>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass10.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>'mixedValue'</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>int</code>
-    </InvalidReturnType>
-    <MissingParamType occurrences="2">
-      <code>$two</code>
-      <code>$two</code>
-    </MissingParamType>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass11.php">
-    <MissingClosureParamType occurrences="1">
-      <code>$foo</code>
-    </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="1">
-      <code>function($foo) { return $foo; }</code>
-    </MissingClosureReturnType>
-    <MissingParamType occurrences="3">
-      <code>$one</code>
-      <code>$three</code>
-      <code>$two</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="9">
-      <code>doSomethingAgain</code>
-      <code>doSomethingElse</code>
-      <code>doStaticSomething</code>
-      <code>emptyFunction</code>
-      <code>getCacheKey</code>
-      <code>inline1</code>
-      <code>inline2</code>
-      <code>inline3</code>
-      <code>visibility</code>
-    </MissingReturnType>
-    <MixedAssignment occurrences="2">
-      <code>$arg</code>
-      <code>$argElement</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="2">
-      <code>$arg</code>
-      <code>$argElement</code>
-    </MixedOperand>
-    <UnusedVariable occurrences="1">
-      <code>$closure</code>
-    </UnusedVariable>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass13.php">
-    <InvalidReturnType occurrences="1">
-      <code>Something</code>
-    </InvalidReturnType>
-    <MissingReturnType occurrences="1">
-      <code>doSomething</code>
-    </MissingReturnType>
-    <UndefinedDocblockClass occurrences="1">
-      <code>Something</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass14.php">
-    <MissingConstructor occurrences="4">
-      <code>$onlyType</code>
-      <code>$typeDescription</code>
-      <code>$typeName</code>
-      <code>$typeNameDescription</code>
-    </MissingConstructor>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass2.php">
-    <MissingParamType occurrences="1">
-      <code>$param1</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="2">
-      <code>$_prop1</code>
-      <code>$_prop2</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="2">
-      <code>getProp1</code>
-      <code>getProp2</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass5.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>'mixedValue'</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>int</code>
-    </InvalidReturnType>
-    <MissingParamType occurrences="2">
-      <code>$two</code>
-      <code>$two</code>
-    </MissingParamType>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass6.php">
-    <UnusedVariable occurrences="2">
-      <code>$alsoAssigined</code>
-      <code>$assigned</code>
-    </UnusedVariable>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass7.php">
-    <InvalidReturnType occurrences="1">
-      <code>Laminas\Code\Reflection\DocBlock</code>
-    </InvalidReturnType>
-    <UndefinedDocblockClass occurrences="1">
-      <code>Laminas\Code\Reflection\DocBlock</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass8.php">
-    <InvalidReturnType occurrences="1">
-      <code>Laminas\Code\Reflection\DocBlock</code>
-    </InvalidReturnType>
-    <UndefinedDocblockClass occurrences="1">
-      <code>Laminas\Code\Reflection\DocBlock</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="test/Reflection/TestAsset/TestSampleClass9.php">
-    <MissingParamType occurrences="1">
-      <code>$param1</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="2">
-      <code>$_prop1</code>
-      <code>$_prop2</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="2">
-      <code>getProp1</code>
-      <code>getProp2</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Reflection/TestAsset/TestTraitClass1.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;other</code>
-    </UndefinedThisPropertyAssignment>
-  </file>
-  <file src="test/Reflection/TestAsset/TestTraitClass2.php">
-    <InvalidDocblockParamName occurrences="1">
-      <code>$autoFetchingAllowed</code>
-    </InvalidDocblockParamName>
-    <InvalidReturnType occurrences="1">
-      <code>Model_AbstractModel</code>
-    </InvalidReturnType>
-    <MissingParamType occurrences="1">
-      <code>$dummy</code>
-    </MissingParamType>
-    <UndefinedDocblockClass occurrences="1">
-      <code>Model_AbstractModel</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="test/Reflection/TestAsset/closures.php">
-    <MissingClosureParamType occurrences="1">
-      <code>$arg</code>
-    </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="10">
-      <code>function($arg) {</code>
-      <code>function()</code>
-      <code>function()</code>
-      <code>function() use ($list1) { return 'function 8'; }</code>
-      <code>function() { return $c = function() { return 'function7'; }; return $c(); }</code>
-      <code>function() { return 'bar'; }</code>
-      <code>function() { return 'function2'; }</code>
-      <code>function() { return 'function5'; }</code>
-      <code>function() { return 'function6'; }</code>
-      <code>function() {}</code>
-    </MissingClosureReturnType>
-    <UnevaluatedCode occurrences="1">
-      <code>return $c();</code>
-    </UnevaluatedCode>
-    <UnusedClosureParam occurrences="1">
-      <code>$arg</code>
-    </UnusedClosureParam>
-    <UnusedVariable occurrences="3">
-      <code>$c</code>
-      <code>$closure</code>
-      <code>$list1</code>
-    </UnusedVariable>
-  </file>
-  <file src="test/Reflection/TestAsset/functions.php">
-    <MissingClosureReturnType occurrences="2">
-      <code>function() { return 'bar'; }</code>
-      <code>function() { return 'function10'; }</code>
-    </MissingClosureReturnType>
-    <MissingParamType occurrences="1">
-      <code>$arg</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="10">
-      <code>function1</code>
-      <code>function10</code>
-      <code>function11</code>
-      <code>function12</code>
-      <code>function4</code>
-      <code>function5</code>
-      <code>function6</code>
-      <code>function7</code>
-      <code>function8</code>
-      <code>function9</code>
-    </MissingReturnType>
-    <UnusedParam occurrences="5">
-      <code>$arg</code>
-      <code>$one</code>
-      <code>$one</code>
-      <code>$two</code>
-      <code>$two</code>
-    </UnusedParam>
-    <UnusedVariable occurrences="2">
-      <code>$closure</code>
-      <code>$foo</code>
-    </UnusedVariable>
-  </file>
   <file src="test/Scanner/DocBlockScannerTest.php">
     <InternalMethod occurrences="4">
       <code>new DocBlockScanner($docComment)</code>
@@ -2011,244 +1891,5 @@
       <code>$tags[0]['name']</code>
       <code>$tags[0]['value']</code>
     </MixedArrayAccess>
-  </file>
-  <file src="test/TestAsset/AbstractClass.php">
-    <MissingPropertyType occurrences="1">
-      <code>$config</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="2">
-      <code>getConfig</code>
-      <code>helloWorld</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/BarClass.php">
-    <InvalidParamDefault occurrences="1">
-      <code>FooBarBaz\BazBarFoo</code>
-    </InvalidParamDefault>
-    <MissingFile occurrences="1">
-      <code>include __DIR__ . '/foo/bar/baz.php'</code>
-    </MissingFile>
-    <MissingParamType occurrences="2">
-      <code>$one</code>
-      <code>$two</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$bar</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="5">
-      <code>five</code>
-      <code>four</code>
-      <code>one</code>
-      <code>three</code>
-      <code>two</code>
-    </MissingReturnType>
-    <UndefinedClass occurrences="1">
-      <code>FooBarBaz\BazBarFoo</code>
-    </UndefinedClass>
-    <UnusedParam occurrences="1">
-      <code>$a</code>
-    </UnusedParam>
-  </file>
-  <file src="test/TestAsset/BarTrait.php">
-    <MissingReturnType occurrences="1">
-      <code>bar</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/BazClass.php">
-    <MissingPropertyType occurrences="1">
-      <code>$foo</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/TestAsset/BazTrait.php">
-    <MissingReturnType occurrences="1">
-      <code>baz</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/ClassTypeHintedClass.php">
-    <MissingReturnType occurrences="6">
-      <code>classParameter</code>
-      <code>closureParameter</code>
-      <code>importedClosureParameter</code>
-      <code>otherClassParameter</code>
-      <code>parentParameter</code>
-      <code>selfParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/ClassWithByRefReturnMethod.php">
-    <MissingReturnType occurrences="1">
-      <code>byRefReturn</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/DocBlockOnlyHintsClass.php">
-    <InvalidReturnType occurrences="9">
-      <code>DocBlockOnlyHintsClass</code>
-      <code>InternalHintsClass</code>
-      <code>array</code>
-      <code>bool</code>
-      <code>callable</code>
-      <code>float</code>
-      <code>int</code>
-      <code>self</code>
-      <code>string</code>
-    </InvalidReturnType>
-  </file>
-  <file src="test/TestAsset/FooClass.php">
-    <MissingFile occurrences="1">
-      <code>include __DIR__ . '/foo/bar/baz.php'</code>
-    </MissingFile>
-    <UndefinedClass occurrences="1">
-      <code>E\Blarg</code>
-    </UndefinedClass>
-  </file>
-  <file src="test/TestAsset/FooInterface.php">
-    <MissingReturnType occurrences="1">
-      <code>fooBarBaz</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/FooTrait.php">
-    <MissingReturnType occurrences="2">
-      <code>foo</code>
-      <code>fooBarBaz</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/InternalHintsClass.php">
-    <MissingReturnType occurrences="6">
-      <code>arrayParameter</code>
-      <code>boolParameter</code>
-      <code>callableParameter</code>
-      <code>floatParameter</code>
-      <code>intParameter</code>
-      <code>stringParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/IterableHintsClass.php">
-    <InvalidReturnType occurrences="2">
-      <code>?iterable</code>
-      <code>iterable</code>
-    </InvalidReturnType>
-    <MissingReturnType occurrences="3">
-      <code>iterableParameter</code>
-      <code>nullDefaultIterableParameter</code>
-      <code>nullableIterableParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/MultipleNamespaces.php">
-    <MissingReturnType occurrences="1">
-      <code>setGlobalStuff</code>
-    </MissingReturnType>
-    <UndefinedClass occurrences="4">
-      <code>Bam</code>
-      <code>Bar\Boo</code>
-      <code>GlobalStuff</code>
-      <code>SM\Blah</code>
-    </UndefinedClass>
-  </file>
-  <file src="test/TestAsset/NonNamespaceClass.php">
-    <MissingReturnType occurrences="1">
-      <code>fooMethod</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/NullDefaultHintsClass.php">
-    <MissingReturnType occurrences="8">
-      <code>arrayParameter</code>
-      <code>boolParameter</code>
-      <code>callableParameter</code>
-      <code>floatParameter</code>
-      <code>intParameter</code>
-      <code>nullDefaultHintsClassParameter</code>
-      <code>selfParameter</code>
-      <code>stringParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/NullNullableDefaultHintsClass.php">
-    <MissingReturnType occurrences="9">
-      <code>arrayParameter</code>
-      <code>boolParameter</code>
-      <code>callableParameter</code>
-      <code>floatParameter</code>
-      <code>intParameter</code>
-      <code>nullableDefaultHintsClassParameter</code>
-      <code>parentParameter</code>
-      <code>selfParameter</code>
-      <code>stringParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/NullableHintsClass.php">
-    <MissingReturnType occurrences="9">
-      <code>arrayParameter</code>
-      <code>boolParameter</code>
-      <code>callableParameter</code>
-      <code>floatParameter</code>
-      <code>intParameter</code>
-      <code>nullableHintsClassParameter</code>
-      <code>parentParameter</code>
-      <code>selfParameter</code>
-      <code>stringParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/NullableReturnTypeHintedClass.php">
-    <InvalidReturnType occurrences="10">
-      <code>?InternalHintsClass</code>
-      <code>?NullableReturnTypeHintedClass</code>
-      <code>?array</code>
-      <code>?bool</code>
-      <code>?callable</code>
-      <code>?float</code>
-      <code>?int</code>
-      <code>?parent</code>
-      <code>?self</code>
-      <code>?string</code>
-    </InvalidReturnType>
-  </file>
-  <file src="test/TestAsset/ObjectHintsClass.php">
-    <InvalidReturnType occurrences="2">
-      <code>?object</code>
-      <code>object</code>
-    </InvalidReturnType>
-    <MissingReturnType occurrences="3">
-      <code>nullDefaultObjectParameter</code>
-      <code>nullableObjectParameter</code>
-      <code>objectParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/ReturnTypeHintedClass.php">
-    <InvalidReturnType occurrences="10">
-      <code>InternalHintsClass</code>
-      <code>ReturnTypeHintedClass</code>
-      <code>array</code>
-      <code>bool</code>
-      <code>callable</code>
-      <code>float</code>
-      <code>int</code>
-      <code>parent</code>
-      <code>self</code>
-      <code>string</code>
-    </InvalidReturnType>
-  </file>
-  <file src="test/TestAsset/TestClassWithTraitAliases.php">
-    <MissingReturnType occurrences="1">
-      <code>bazFooBar</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/VariadicParametersClass.php">
-    <MissingParamType occurrences="4">
-      <code>$bar</code>
-      <code>$bar</code>
-      <code>$foo</code>
-      <code>$foo</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="5">
-      <code>byRefTypeHintedVariadic</code>
-      <code>byRefVariadic</code>
-      <code>firstVariadicParameter</code>
-      <code>secondVariadicParameter</code>
-      <code>typeHintedVariadicParameter</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/TestAsset/functions.php">
-    <MissingReturnType occurrences="2">
-      <code>bar_foo</code>
-      <code>foo_bar</code>
-    </MissingReturnType>
   </file>
 </files>
