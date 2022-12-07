@@ -12,6 +12,9 @@
         <directory name="test"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="test/Generator/TestAsset"/>
+            <directory name="test/Reflection/TestAsset"/>
+            <directory name="test/TestAsset"/>
         </ignoreFiles>
     </projectFiles>
 
