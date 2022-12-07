@@ -26,4 +26,7 @@ interface TypeInterface extends Stringable
      * @psalm-return non-empty-string
      */
     public function fullyQualifiedName(): string;
+
+    /** @return non-empty-string */
+    public function __toString(): string;
 }
