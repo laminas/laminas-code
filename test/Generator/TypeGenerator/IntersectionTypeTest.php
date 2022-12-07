@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\Code\Generator\TypeGenerator;
 
+use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use Laminas\Code\Generator\TypeGenerator\IntersectionType;
 use PHPUnit\Framework\TestCase;
@@ -24,35 +25,77 @@ class IntersectionTypeTest extends TestCase
             (new IntersectionType($types))->fullyQualifiedName()
         );
     }
-    
+
     /** @return non-empty-array<non-empty-string, array{non-empty-list<AtomicType>, non-empty-string}> */
     public static function sortingExamples(): array
     {
         return [
-            'class types are sorted by name' => [
+            'class types are sorted by name'                               => [
+                [
+                    AtomicType::fromString('B'),
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('C'),
+                ],
+                '\A&\B&\C',
+            ],
+            'class types are sorted by name, ignoring namespace qualifier' => [
                 [
                     AtomicType::fromString('\C'),
                     AtomicType::fromString('A'),
                     AtomicType::fromString('\B'),
                     AtomicType::fromString('\D'),
                 ],
-                '\A&\B&\C&\D'
+                '\A&\B&\C&\D',
             ],
-            'built-in types are moved to the end' => [
+            'namespace is considered in sorting'                           => [
                 [
-                    AtomicType::fromString('iterable'),
-                    AtomicType::fromString('myIterator1'),
-                    AtomicType::fromString('myIterator2'),
+                    AtomicType::fromString('C\A'),
+                    AtomicType::fromString('B\A'),
+                    AtomicType::fromString('A\D'),
                 ],
-                '\myIterator1&\myIterator2&iterable'
+                '\A\D&\B\A&\C\A',
             ],
-            'built-in types are kept at the end' => [
-                [
-                    AtomicType::fromString('myIterator2'),
-                    AtomicType::fromString('myIterator1'),
-                    AtomicType::fromString('iterable'),
+        ];
+    }
+
+    /**
+     * @dataProvider invalidIntersectionsExamples
+     *
+     * @param non-empty-list<AtomicType> $types
+     */
+    public function testWillRejectInvalidIntersections(array $types): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(' cannot be composed in an intersection with ');
+
+        new IntersectionType($types);
+    }
+
+    /** @return non-empty-array<non-empty-string, array{non-empty-list<AtomicType>}> */
+    public static function invalidIntersectionsExamples(): array
+    {
+        return [
+            [
+                'same type makes no sense' => [
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('A'),
                 ],
-                '\myIterator1&\myIterator2&iterable'
+                'same type makes no sense, even with different namespace qualifier' => [
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('\A'),
+                ],
+                'duplicate type in long chain of types' => [
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('B'),
+                    AtomicType::fromString('C'),
+                    AtomicType::fromString('D'),
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('E'),
+                ],
+                'native types cannot intersect with other types' => [
+                    AtomicType::fromString('A'),
+                    AtomicType::fromString('bool'),
+                ],
             ],
         ];
     }
