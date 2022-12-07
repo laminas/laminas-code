@@ -109,7 +109,7 @@ final class CompositeType implements TypeInterface
     }
 
     /**
-     * @return list<TypeInterface>
+     * @return non-empty-list<TypeInterface>
      */
     public function getTypes(): array
     {
