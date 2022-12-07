@@ -19,7 +19,7 @@ use function usort;
  */
 final class IntersectionType
 {
-    /** @var non-empty-list<AtomicType> at least 2 values always present */
+    /** @var non-empty-list<AtomicType> sorted, at least 2 values always present */
     private readonly array $types;
 
     /**
