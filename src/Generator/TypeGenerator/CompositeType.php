@@ -127,6 +127,7 @@ final class CompositeType implements TypeInterface
         return $this->isIntersection ? self::INTERSECTION_SEPARATOR : self::UNION_SEPARATOR;
     }
 
+    /** @return non-empty-string */
     public function __toString(): string
     {
         $typesAsStrings = array_map(
@@ -141,6 +142,7 @@ final class CompositeType implements TypeInterface
         return implode($this->getSeparator(), $typesAsStrings);
     }
 
+    /** @return non-empty-string */
     public function fullyQualifiedName(): string
     {
         $typesAsStrings = array_map(

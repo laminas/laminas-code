@@ -128,6 +128,7 @@ final class AtomicType implements TypeInterface
             : '\\' . $this->type;
     }
 
+    /** @return non-empty-string */
     public function __toString(): string
     {
         return $this->type;
