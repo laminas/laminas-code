@@ -38,6 +38,7 @@ final class CompositeType implements TypeInterface
     {
     }
 
+    /** @psalm-pure */
     public static function fromString(string $type): self
     {
         $types          = [];
