@@ -121,6 +121,7 @@ final class CompositeType implements TypeInterface
         return $this->isIntersection;
     }
 
+    /** @return self::INTERSECTION_SEPARATOR|self::UNION_SEPARATOR */
     public function getSeparator(): string
     {
         return $this->isIntersection ? self::INTERSECTION_SEPARATOR : self::UNION_SEPARATOR;
