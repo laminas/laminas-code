@@ -5,7 +5,8 @@ namespace Laminas\Code\Generator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use Laminas\Code\Generator\TypeGenerator\CompositeType;
-use Laminas\Code\Generator\TypeGenerator\TypeInterface;
+use Laminas\Code\Generator\TypeGenerator\IntersectionType;
+use Laminas\Code\Generator\TypeGenerator\UnionType;
 use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
@@ -132,7 +133,7 @@ final class TypeGenerator implements GeneratorInterface
         return new self(CompositeType::fromString($trimmedNullable));
     }
 
-    private function __construct(private readonly TypeInterface $type, private readonly bool $nullable = false)
+    private function __construct(private readonly UnionType|IntersectionType|AtomicType $type, private readonly bool $nullable = false)
     {
         if ($nullable && $type instanceof AtomicType) {
             $type->assertCanBeStandaloneNullable();
@@ -165,7 +166,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public function __toString(): string
     {
-        return $this->type->__toString();
+        return $this->type->toString();
     }
 
     /**
