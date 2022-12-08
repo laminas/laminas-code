@@ -12,6 +12,7 @@ use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PromotedParameterGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Reflection\ClassReflection;
+use LaminasTest\Code\Generator\TestAsset\ClassWithDnfTypes;
 use LaminasTest\Code\Generator\TestAsset\ClassWithPromotedParameter;
 use LaminasTest\Code\Generator\TestAsset\ReadonlyClassWithPromotedParameter;
 use LaminasTest\Code\TestAsset\FooClass;
@@ -1459,6 +1460,30 @@ final readonly class ReadonlyClassWithPromotedParameter
 }
 
 EOS;
+
+        self::assertEquals($expectedOutput, $classGenerator->generate());
+    }
+
+    /** @requires PHP >= 8.2 */
+    public function testDnfClass(): void
+    {
+        $classGenerator = ClassGenerator::fromReflection(
+            new ClassReflection(ClassWithDnfTypes::class)
+        );
+
+        // @phpcs:disable Generic.Files.LineLength
+        $expectedOutput = <<<EOS
+namespace LaminasTest\Code\Generator\TestAsset;
+
+final class ClassWithDnfTypes
+{
+    public function __construct(private (\LaminasTest\Code\Generator\TestAsset\ThreeInterface&\LaminasTest\Code\Generator\TestAsset\TwoInterface)|\LaminasTest\Code\Generator\TestAsset\OneInterface \$promotedParameter)
+    {
+    }
+}
+
+EOS;
+        // @phpcs:enable
 
         self::assertEquals($expectedOutput, $classGenerator->generate());
     }

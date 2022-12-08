@@ -50,7 +50,7 @@ class TypeGeneratorTest extends TestCase
         $generator = TypeGenerator::fromTypeString($typeString);
 
         self::assertSame(
-            str_replace(['|\\', '&\\'], ['|', '&'], ltrim($expectedReturnType, '?\\')),
+            str_replace(['|\\', '&\\', '(\\'], ['|', '&', '('], ltrim($expectedReturnType, '?\\')),
             $generator->__toString()
         );
     }
@@ -225,6 +225,7 @@ class TypeGeneratorTest extends TestCase
             // Union types may be composed by FQCN and non-FQCN
             ['\\Foo\\Bar&Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
             ['Foo\\Bar&\\Baz\\Tab', '\\Baz\\Tab&\\Foo\\Bar'],
+            ['(foo&bar)|baz|null', '(\\bar&\\foo)|\\baz|null'],
         ];
 
         return array_combine(
@@ -430,6 +431,14 @@ class TypeGeneratorTest extends TestCase
             ['string|string|null'],
             ['string|null|string'],
             ['null|string|string'],
+
+            // DNF types must include parenthesis
+            ['foo&bar|baz|null'],
+            ['(foo&bar|baz|null'],
+            ['foo&bar)|baz|null'],
+            ['(foo&bar)'],
+            ['(foo|bar)'],
+            ['(foo|bar)|baz'],
         ];
 
         return array_combine(
