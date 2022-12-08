@@ -24,7 +24,6 @@ use function max;
 use function sprintf;
 use function str_contains;
 use function str_repeat;
-use function strpos;
 
 class ValueGenerator extends AbstractGenerator
 {
@@ -452,7 +451,7 @@ class ValueGenerator extends AbstractGenerator
                     throw new Exception\RuntimeException('Value is not an object.');
                 }
 
-                $output = sprintf('%s::%s', $value::class, (string) $value->name);
+                $output = sprintf('\%s::%s', $value::class, (string) $value->name);
                 break;
             case self::TYPE_OTHER:
             default:

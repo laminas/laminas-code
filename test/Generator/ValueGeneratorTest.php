@@ -390,7 +390,6 @@ EOS;
         self::assertNotEquals($valueGenerator1->generate(), $valueGenerator2->generate());
     }
 
-    /** @requires PHP >= 8.1 */
     public function testPropertyDefaultValueCanHandleEnums(): void
     {
         $valueGenerator1 = new ValueGenerator(
@@ -399,18 +398,10 @@ EOS;
             ValueGenerator::OUTPUT_MULTIPLE_LINE
         );
 
-        $valueGenerator2 = new ValueGenerator(
-            TestEnum::Test2,
-            ValueGenerator::TYPE_ENUM,
-            ValueGenerator::OUTPUT_MULTIPLE_LINE
-        );
+        $valueGenerator2 = new ValueGenerator(TestEnum::Test2);
 
-        $value1 = $valueGenerator1->generate();
-        $value2 = $valueGenerator2->generate();
-
-        self::assertNotEquals($value1, $value2);
-        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test1'), $value1);
-        self::assertEquals(sprintf('%s::%s', TestEnum::class, 'Test2'), $value2);
+        self::assertSame('\LaminasTest\Code\Generator\TestAsset\TestEnum::Test1', $valueGenerator1->generate());
+        self::assertSame('\LaminasTest\Code\Generator\TestAsset\TestEnum::Test2', $valueGenerator2->generate());
     }
 
     /**
