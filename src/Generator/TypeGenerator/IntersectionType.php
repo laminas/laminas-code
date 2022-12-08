@@ -37,9 +37,9 @@ final class IntersectionType
         );
 
         foreach ($types as $index => $atomicType) {
-            $otherTypes = array_diff_key($types, array_flip([$index]));
-
-            $atomicType->assertCanIntersectWith($otherTypes);
+            foreach (array_diff_key($types, array_flip([$index])) as $otherType) {
+                $atomicType->assertCanIntersectWith($otherType);
+            }
         }
 
         $this->types = $types;

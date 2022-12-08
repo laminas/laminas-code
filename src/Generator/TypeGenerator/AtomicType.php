@@ -4,6 +4,9 @@ namespace Laminas\Code\Generator\TypeGenerator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 
+use ReflectionClass;
+use ReflectionNamedType;
+
 use function array_key_exists;
 use function assert;
 use function implode;
@@ -113,10 +116,26 @@ final class AtomicType
         return new self($trimmedType, 0);
     }
 
-    /** @psalm-pure */
-    public static function null(): self
-    {
-        return new self('null', self::BUILT_IN_TYPES_PRECEDENCE['null']);
+    /**
+     * @psalm-pure
+     * @throws InvalidArgumentException
+     */
+    public static function fromReflectionNamedTypeAndClass(
+        ReflectionNamedType $type,
+        ?ReflectionClass $currentClass
+    ): self {
+        $name = $type->getName();
+        $lowerCaseName = strtolower($name);
+
+        if ('self' === $lowerCaseName && $currentClass) {
+            return new self($currentClass->getName(), 0);
+        }
+
+        if ('parent' === $lowerCaseName && $currentClass && $parentClass = $currentClass->getParentClass()) {
+            return new self($parentClass->getName(), 0);
+        }
+
+        return self::fromString($name);
     }
 
     /** @psalm-return non-empty-string */
@@ -173,11 +192,8 @@ final class AtomicType
         }
     }
 
-    /**
-     * @psalm-param non-empty-array<self> $others
-     * @throws InvalidArgumentException
-     */
-    public function assertCanIntersectWith(array $others): void
+    /** @throws InvalidArgumentException */
+    public function assertCanIntersectWith(AtomicType $other): void
     {
         if (array_key_exists($this->type, self::BUILT_IN_TYPES_PRECEDENCE)) {
             throw new InvalidArgumentException(sprintf(
@@ -186,14 +202,12 @@ final class AtomicType
             ));
         }
 
-        foreach ($others as $other) {
-            if ($other->type === $this->type) {
-                throw new InvalidArgumentException(sprintf(
-                    'Type "%s" cannot be composed in an intersection with the same type "%s"',
-                    $this->type,
-                    $other->type
-                ));
-            }
+        if ($other->type === $this->type) {
+            throw new InvalidArgumentException(sprintf(
+                'Type "%s" cannot be composed in an intersection with the same type "%s"',
+                $this->type,
+                $other->type
+            ));
         }
     }
 

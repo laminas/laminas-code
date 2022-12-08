@@ -75,16 +75,20 @@ class IntersectionTypeTest extends TestCase
     public static function invalidIntersectionsExamples(): array
     {
         return [
-            [
-                'same type makes no sense' => [
+            'same type makes no sense'                                          => [
+                [
                     AtomicType::fromString('A'),
                     AtomicType::fromString('A'),
                 ],
-                'same type makes no sense, even with different namespace qualifier' => [
+            ],
+            'same type makes no sense, even with different namespace qualifier' => [
+                [
                     AtomicType::fromString('A'),
                     AtomicType::fromString('\A'),
                 ],
-                'duplicate type in long chain of types' => [
+            ],
+            'duplicate type in long chain of types'                             => [
+                [
                     AtomicType::fromString('A'),
                     AtomicType::fromString('B'),
                     AtomicType::fromString('C'),
@@ -92,7 +96,9 @@ class IntersectionTypeTest extends TestCase
                     AtomicType::fromString('A'),
                     AtomicType::fromString('E'),
                 ],
-                'native types cannot intersect with other types' => [
+            ],
+            'native types cannot intersect with other types'                    => [
+                [
                     AtomicType::fromString('A'),
                     AtomicType::fromString('bool'),
                 ],

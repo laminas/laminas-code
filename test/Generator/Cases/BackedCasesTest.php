@@ -15,7 +15,6 @@ final class BackedCasesTest extends TestCase
             '"bool" is not a valid type for Enums, only "int" and "string" types are allowed.'
         );
 
-        /** @psalm-suppress InternalMethod, InternalClass */
         BackedCases::fromCasesWithType([], 'bool');
     }
 }

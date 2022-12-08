@@ -29,34 +29,17 @@
                 <!-- the scanner internal component can be used by package internals -->
                 <referencedClass name="Laminas\Code\Generic\Prototype\PrototypeClassFactory"/>
                 <referencedClass name="Laminas\Code\Scanner\DocBlockScanner"/>
+                <!-- our tests often verify `@internal` details of our library, by design -->
+                <directory name="test"/>
             </errorLevel>
         </InternalClass>
 
         <InternalMethod>
             <errorLevel type="suppress">
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::method"/>
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturn"/>
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with"/>
-            </errorLevel>
-
-            <!-- the scanner internal component can be used by package internals -->
-            <errorLevel type="suppress">
-                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::addPrototype"/>
-                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::getClonedPrototype"/>
-                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeClassFactory::setGenericPrototype"/>
-                <referencedMethod name="Laminas\Code\Generic\Prototype\PrototypeInterface::getName"/>
-                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getLongDescription"/>
-                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getShortDescription"/>
-                <referencedMethod name="Laminas\Code\Scanner\DocBlockScanner::getTags"/>
+                <!-- our tests often verify `@internal` details of our library, by design -->
+                <directory name="test"/>
             </errorLevel>
         </InternalMethod>
-
-        <UndefinedAttributeClass>
-            <errorLevel type="suppress">
-                <!-- This class has been added in PHP 8.1 and Psalm does not know it yet. -->
-                <referencedClass name="ReturnTypeWillChange"/>
-            </errorLevel>
-        </UndefinedAttributeClass>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

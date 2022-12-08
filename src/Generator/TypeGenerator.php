@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
@@ -10,28 +12,26 @@ use Laminas\Code\Generator\TypeGenerator\UnionType;
 use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
-use ReflectionType;
 use ReflectionUnionType;
 
-use function array_diff_key;
-use function array_flip;
 use function array_map;
-use function assert;
-use function count;
-use function explode;
-use function implode;
 use function sprintf;
 use function str_contains;
 use function str_starts_with;
-use function strpos;
-use function strtolower;
 use function substr;
-use function usort;
 
 /** @psalm-immutable */
 final class TypeGenerator implements GeneratorInterface
 {
     private const NULL_MARKER = '?';
+
+    private function __construct(
+        private readonly UnionType|IntersectionType|AtomicType $type, private readonly bool $nullable = false
+    ) {
+        if ($nullable && $type instanceof AtomicType) {
+            $type->assertCanBeStandaloneNullable();
+        }
+    }
 
     /**
      * @internal
@@ -39,73 +39,50 @@ final class TypeGenerator implements GeneratorInterface
      * @psalm-pure
      */
     public static function fromReflectionType(
-        ?ReflectionType $type,
-        ?ReflectionClass $currentClass
+        ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null $type,
+        ?ReflectionClass                                                        $currentClass
     ): ?self {
         if (null === $type) {
             return null;
         }
 
-        // Having to go through `fromTypeString` leads to interesting invalid types as "acceptable", but that's neither
-        // a security issue, nor a major problem, since {@see ReflectionType} should itself produce valid/usable strings
-        return self::fromTypeString(self::reflectionTypeToString($type, $currentClass));
-    }
-
-    /** @psalm-pure */
-    private static function reflectionTypeToString(ReflectionType $type, ?ReflectionClass $currentClass): string
-    {
-        assert(
-            $type instanceof ReflectionNamedType
-            || $type instanceof ReflectionUnionType
-            || $type instanceof ReflectionIntersectionType
-        );
-
-        if ($type instanceof ReflectionNamedType) {
-            return self::reflectionNamedTypeToString($type, $currentClass);
+        if ($type instanceof ReflectionUnionType) {
+            return new self(
+                new UnionType(array_map(
+                    static fn(
+                        ReflectionIntersectionType|ReflectionNamedType $type
+                    ): IntersectionType|AtomicType => $type instanceof ReflectionNamedType
+                        ? AtomicType::fromReflectionNamedTypeAndClass($type, $currentClass)
+                        : self::fromIntersectionType($type, $currentClass),
+                    $type->getTypes()
+                )),
+                false
+            );
         }
 
-        return implode(
-            $type instanceof ReflectionIntersectionType
-                ? CompositeType::INTERSECTION_SEPARATOR
-                : CompositeType::UNION_SEPARATOR,
-            array_map(
-                static function (ReflectionType $type) use ($currentClass): string {
-                    $typeString = self::reflectionTypeToString($type, $currentClass);
+        if ($type instanceof ReflectionIntersectionType) {
+            return new self(self::fromIntersectionType($type, $currentClass), false);
+        }
+        
+        $atomicType = AtomicType::fromReflectionNamedTypeAndClass($type, $currentClass);
 
-                    return $type instanceof ReflectionIntersectionType
-                        ? sprintf('(%s)', $typeString)
-                        : $typeString;
-                },
-                $type->getTypes()
-            )
+        return new self(
+            $atomicType,
+            $atomicType->type !== 'mixed' && $atomicType !== 'null' && $type->allowsNull()
         );
     }
 
     /** @psalm-pure */
-    private static function reflectionNamedTypeToString(
-        ReflectionNamedType $type,
-        ?ReflectionClass $currentClass
-    ): string {
-        $lowerCaseName = strtolower($type->getName());
-
-        if ('mixed' === $lowerCaseName || 'null' === $lowerCaseName) {
-            // `mixed` and `null` are implicitly nullable, therefore we need to skip adding nullability markers to it
-            return $lowerCaseName;
-        }
-
-        $nullabilityMarker = $type->allowsNull()
-            ? self::NULL_MARKER
-            : '';
-
-        if ('self' === $lowerCaseName && $currentClass) {
-            return $nullabilityMarker . $currentClass->getName();
-        }
-
-        if ('parent' === $lowerCaseName && $currentClass && $parentClass = $currentClass->getParentClass()) {
-            return $nullabilityMarker . $parentClass->getName();
-        }
-
-        return $nullabilityMarker . $type->getName();
+    private static function fromIntersectionType(
+        ReflectionIntersectionType $intersectionType,
+        ?ReflectionClass           $currentClass
+    ): IntersectionType {
+        return new IntersectionType(array_map(
+            static fn(
+                ReflectionNamedType $type
+            ): AtomicType => AtomicType::fromReflectionNamedTypeAndClass($type, $currentClass),
+            $intersectionType->getTypes()
+        ));
     }
 
     /**
@@ -120,7 +97,7 @@ final class TypeGenerator implements GeneratorInterface
             ! str_contains($trimmedNullable, CompositeType::INTERSECTION_SEPARATOR)
             && ! str_contains($trimmedNullable, CompositeType::UNION_SEPARATOR)
         ) {
-            return new self(AtomicType::fromString($trimmedNullable), $nullable);
+            return new self(CompositeType::fromString($trimmedNullable), $nullable);
         }
 
         if ($nullable) {
@@ -131,13 +108,6 @@ final class TypeGenerator implements GeneratorInterface
         }
 
         return new self(CompositeType::fromString($trimmedNullable));
-    }
-
-    private function __construct(private readonly UnionType|IntersectionType|AtomicType $type, private readonly bool $nullable = false)
-    {
-        if ($nullable && $type instanceof AtomicType) {
-            $type->assertCanBeStandaloneNullable();
-        }
     }
 
     /**
@@ -160,9 +130,9 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
-     * @return string the cleaned type string. Please note that this value is not suitable for code generation,
-     *                since the returned value does not include any root namespace prefixes, when applicable,
-     *                and therefore the values cannot be used as FQCN in generated code.
+     * @return non-empty-string the cleaned type string. Note that this value is not suitable for code generation,
+     *                          since the returned value does not include any root namespace prefixes, when applicable,
+     *                          and therefore the values cannot be used as FQCN in generated code.
      */
     public function __toString(): string
     {

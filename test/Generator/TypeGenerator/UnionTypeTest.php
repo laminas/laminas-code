@@ -16,8 +16,8 @@ class UnionTypeTest extends TestCase
     /**
      * @dataProvider sortingExamples
      *
-     * @param AtomicType|IntersectionType $types
-     * @param non-empty-string            $expected
+     * @param non-empty-list<AtomicType|IntersectionType> $types
+     * @param non-empty-string                            $expected
      */
     public function testTypeSorting(array $types, string $expected): void
     {
@@ -108,7 +108,7 @@ class UnionTypeTest extends TestCase
         new UnionType($types);
     }
 
-    /** @return non-empty-array<non-empty-string, array{non-empty-list<AtomicType>}> */
+    /** @return non-empty-array<non-empty-string, array{non-empty-list<AtomicType|IntersectionType>}> */
     public static function invalidUnionsExamples(): array
     {
         return [

@@ -308,6 +308,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/MethodGenerator.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$reflectionMethod-&gt;getReturnType()</code>
+    </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="2">
       <code>DocBlockGenerator::fromArray($value)</code>
       <code>ParameterGenerator::fromArray($parameter)</code>
@@ -346,6 +349,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/ParameterGenerator.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$reflectionParameter-&gt;getType()</code>
+    </ArgumentTypeCoercion>
     <MixedArgument occurrences="8">
       <code>$array['name']</code>
       <code>$value</code>
@@ -373,6 +379,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/PropertyGenerator.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$reflectionProperty-&gt;getType()</code>
+    </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="1">
       <code>DocBlockGenerator::fromArray($value)</code>
     </DeprecatedMethod>
@@ -491,19 +500,29 @@
     </UnusedVariable>
   </file>
   <file src="src/Generator/TypeGenerator.php">
-    <ImpureMethodCall occurrences="6">
+    <ArgumentTypeCoercion occurrences="1"/>
+    <ImpureMethodCall occurrences="3">
       <code>allowsNull</code>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getParentClass</code>
       <code>getTypes</code>
       <code>getTypes</code>
     </ImpureMethodCall>
+    <InvalidArgument occurrences="1">
+      <code>$type</code>
+    </InvalidArgument>
+    <RedundantCondition occurrences="2">
+      <code>$atomicType !== 'null'</code>
+      <code>$atomicType-&gt;type !== 'mixed' &amp;&amp; $atomicType !== 'null'</code>
+    </RedundantCondition>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>$type instanceof ReflectionNamedType</code>
+    </RedundantConditionGivenDocblockType>
   </file>
-  <file src="src/Generator/TypeGenerator/CompositeType.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>$types</code>
-    </InvalidScalarArgument>
+  <file src="src/Generator/TypeGenerator/AtomicType.php">
+    <ImpureMethodCall occurrences="3">
+      <code>getName</code>
+      <code>getName</code>
+      <code>getParentClass</code>
+    </ImpureMethodCall>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod occurrences="1">
@@ -1029,9 +1048,6 @@
     </UndefinedClass>
   </file>
   <file src="test/Generator/DocBlock/Tag/AuthorTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="5">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1048,9 +1064,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/GenericTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="4">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1066,9 +1079,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/LicenseTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="5">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1085,9 +1095,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/MethodTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="6">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1105,9 +1112,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ParamTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="6">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1125,9 +1129,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/PropertyTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="6">
       <code>testConstructorWithOptions</code>
       <code>testCreatingTagFromReflection</code>
@@ -1145,9 +1146,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ReturnTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="3">
       <code>testCreatingTagFromReflection</code>
       <code>testNameIsCorrect</code>
@@ -1162,9 +1160,6 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ThrowsTagTest.php">
-    <InternalMethod occurrences="1">
-      <code>new TagManager()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="3">
       <code>testCreatingTagFromReflection</code>
       <code>testNameIsCorrect</code>
@@ -1190,13 +1185,6 @@
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
-  </file>
-  <file src="test/Generator/DocBlock/Tag/VarTagTest.php">
-    <InternalMethod occurrences="3">
-      <code>new TagManager()</code>
-      <code>setVariableName</code>
-      <code>setVariableName</code>
-    </InternalMethod>
   </file>
   <file src="test/Generator/DocBlockGeneratorTest.php">
     <DeprecatedMethod occurrences="3">
@@ -1413,13 +1401,6 @@
     </InvalidArgument>
   </file>
   <file src="test/Generator/TypeGenerator/CompositeTypeTest.php">
-    <InternalClass occurrences="1">
-      <code>CompositeType::fromString($typeString)</code>
-    </InternalClass>
-    <InternalMethod occurrences="2">
-      <code>CompositeType::fromString($typeString)</code>
-      <code>fullyQualifiedName</code>
-    </InternalMethod>
     <MixedInferredReturnType occurrences="1">
       <code>iterable</code>
     </MixedInferredReturnType>
@@ -1466,9 +1447,6 @@
     <DeprecatedMethod occurrences="1">
       <code>setMethods</code>
     </DeprecatedMethod>
-    <InternalMethod occurrences="1">
-      <code>new PrototypeClassFactory()</code>
-    </InternalMethod>
     <MissingReturnType occurrences="3">
       <code>testAddAndGetPrototype</code>
       <code>testFallBackToGeneric</code>
@@ -1872,12 +1850,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="test/Scanner/DocBlockScannerTest.php">
-    <InternalMethod occurrences="4">
-      <code>new DocBlockScanner($docComment)</code>
-      <code>new DocBlockScanner($docComment)</code>
-      <code>new DocBlockScanner($docComment)</code>
-      <code>new DocBlockScanner($docComment)</code>
-    </InternalMethod>
     <MissingReturnType occurrences="3">
       <code>testDocBlockScannerDescriptions</code>
       <code>testDocBlockScannerParsesTagsWithNoValuesProperly</code>
