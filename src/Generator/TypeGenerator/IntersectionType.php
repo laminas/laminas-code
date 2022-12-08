@@ -10,6 +10,8 @@ use function array_diff_key;
 use function array_flip;
 use function array_map;
 use function implode;
+use function sprintf;
+use function str_contains;
 use function usort;
 
 /**
@@ -59,5 +61,28 @@ final class IntersectionType
             '&',
             array_map(static fn(AtomicType $type): string => $type->fullyQualifiedName(), $this->types)
         );
+    }
+
+    /** @throws InvalidArgumentException */
+    public function assertCanUnionWith(AtomicType|self $other): void
+    {
+        if ($other instanceof AtomicType) {
+            foreach ($this->types as $type) {
+                $type->assertCanUnionWith($other);
+            }
+
+            return;
+        }
+
+        $thisString = $this->toString();
+        $otherString = $other->toString();
+        
+        if (str_contains($thisString, $otherString) || str_contains($otherString, $thisString)) {
+            throw new InvalidArgumentException(sprintf(
+                'Types "%s" and "%s" cannot be intersected, as they include each other',
+                $thisString,
+                $otherString
+            ));
+        }
     }
 }

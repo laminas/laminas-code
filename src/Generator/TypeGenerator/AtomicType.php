@@ -4,7 +4,6 @@ namespace Laminas\Code\Generator\TypeGenerator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 
-use function array_filter;
 use function array_key_exists;
 use function assert;
 use function implode;
@@ -22,7 +21,7 @@ use function substr;
  *
  * @psalm-immutable
  */
-final class AtomicType implements TypeInterface
+final class AtomicType
 {
     /**
      * Built-in type sorting, ascending.
@@ -129,17 +128,20 @@ final class AtomicType implements TypeInterface
     }
 
     /** @return non-empty-string */
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->type;
     }
 
-    /**
-     * @psalm-param non-empty-array<self> $others
-     * @throws InvalidArgumentException
-     */
-    public function assertCanUnionWith(array $others): void
+    /** @throws InvalidArgumentException */
+    public function assertCanUnionWith(self|IntersectionType $other): void
     {
+        if ($other instanceof IntersectionType) {
+            $other->assertCanUnionWith($this);
+
+            return;
+        }
+
         if (
             'mixed' === $this->type
             || 'void' === $this->type
@@ -151,25 +153,23 @@ final class AtomicType implements TypeInterface
             ));
         }
 
-        foreach ($others as $other) {
-            if ($other->type === $this->type) {
-                throw new InvalidArgumentException(sprintf(
-                    'Type "%s" cannot be composed in a union with the same type "%s"',
-                    $this->type,
-                    $other->type
-                ));
-            }
+        if ($other->type === $this->type) {
+            throw new InvalidArgumentException(sprintf(
+                'Type "%s" cannot be composed in a union with the same type "%s"',
+                $this->type,
+                $other->type
+            ));
+        }
 
-            if (
-                ('true' === $other->type && 'false' === $this->type) ||
-                ('false' === $other->type && 'true' === $this->type)
-            ) {
-                throw new InvalidArgumentException(sprintf(
-                    'Type "%s" cannot be composed in a union with type "%s"',
-                    $this->type,
-                    $other->type
-                ));
-            }
+        if (
+            ('true' === $other->type && 'false' === $this->type) ||
+            ('false' === $other->type && 'true' === $this->type)
+        ) {
+            throw new InvalidArgumentException(sprintf(
+                'Type "%s" cannot be composed in a union with type "%s"',
+                $this->type,
+                $other->type
+            ));
         }
     }
 

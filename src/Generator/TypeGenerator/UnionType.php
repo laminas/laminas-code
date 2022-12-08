@@ -2,6 +2,8 @@
 
 namespace Laminas\Code\Generator\TypeGenerator;
 
+use function array_diff_key;
+use function array_flip;
 use function implode;
 use function usort;
 
@@ -12,7 +14,7 @@ use function usort;
  */
 final class UnionType
 {
-    /** @var non-empty-list<AtomicType|IntersectionType> $types at least 2 values always present */
+    /** @var non-empty-list<AtomicType|IntersectionType> $types sorted, at least 2 values always present */
     private readonly array $types;
 
     /** @param non-empty-list<AtomicType|IntersectionType> $types at least 2 values needed */
@@ -28,6 +30,12 @@ final class UnionType
                     $b->toString(),
                 ]
         );
+
+        foreach ($types as $index => $type) {
+            foreach (array_diff_key($types, array_flip([$index])) as $otherType) {
+                $type->assertCanUnionWith($otherType);
+            }
+        }
 
         $this->types = $types;
     }
