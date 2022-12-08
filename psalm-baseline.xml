@@ -528,7 +528,8 @@
     <DeprecatedMethod occurrences="1">
       <code>getConstants</code>
     </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction occurrences="2">
+      <code>$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject</code>
       <code>$constants instanceof StdlibArrayObject</code>
     </DocblockTypeContradiction>
     <MethodSignatureMustProvideReturnType occurrences="1">
