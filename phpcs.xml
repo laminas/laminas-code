@@ -40,5 +40,9 @@
 
         <!-- This rule produces invalid PHP 7.4 code -->
         <exclude name="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+
+        <!-- Forcing abstract classes to be named `abstract` is silly: `abstract` should be used carefully,
+             and is not used to represent "designed for inheritance" here, most often -->
+        <exclude name="WebimpressCodingStandard.NamingConventions.AbstractClass.Prefix"/>
     </rule>
 </ruleset>
