@@ -11,6 +11,7 @@ use function explode;
 use function preg_match;
 use function sprintf;
 use function str_contains;
+use function trim;
 
 /**
  * @internal the {@see CompositeType} is an implementation detail of the type generator,
@@ -50,7 +51,7 @@ abstract class CompositeType
 
             return new UnionType($typesInUnion);
         }
-        
+
         if (str_contains($type, self::INTERSECTION_SEPARATOR)) {
             /** @var non-empty-list<AtomicType> $typesInIntersection */
             $typesInIntersection = array_map(self::fromString(...), explode(self::INTERSECTION_SEPARATOR, $type));

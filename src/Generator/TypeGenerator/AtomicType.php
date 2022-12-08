@@ -3,7 +3,6 @@
 namespace Laminas\Code\Generator\TypeGenerator;
 
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
-
 use ReflectionClass;
 use ReflectionNamedType;
 
@@ -124,7 +123,7 @@ final class AtomicType
         ReflectionNamedType $type,
         ?ReflectionClass $currentClass
     ): self {
-        $name = $type->getName();
+        $name          = $type->getName();
         $lowerCaseName = strtolower($name);
 
         if ('self' === $lowerCaseName && $currentClass) {

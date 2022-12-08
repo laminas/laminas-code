@@ -4,6 +4,7 @@ namespace Laminas\Code\Generator\TypeGenerator;
 
 use function array_diff_key;
 use function array_flip;
+use function array_map;
 use function implode;
 use function usort;
 
@@ -23,12 +24,12 @@ final class UnionType
         usort(
             $types,
             static fn(AtomicType|IntersectionType $a, AtomicType|IntersectionType $b): int => [
-                    $a instanceof IntersectionType ? -1 : $a->sortIndex,
-                    $a->toString(),
-                ] <=> [
-                    $b instanceof IntersectionType ? -1 : $b->sortIndex,
-                    $b->toString(),
-                ]
+                $a instanceof IntersectionType ? -1 : $a->sortIndex,
+                $a->toString(),
+            ] <=> [
+                $b instanceof IntersectionType ? -1 : $b->sortIndex,
+                $b->toString(),
+            ]
         );
 
         foreach ($types as $index => $type) {

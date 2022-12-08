@@ -14,7 +14,6 @@ class IntersectionTypeTest extends TestCase
 {
     /**
      * @dataProvider sortingExamples
-     *
      * @param non-empty-list<AtomicType> $types
      * @param non-empty-string           $expected
      */
@@ -60,7 +59,6 @@ class IntersectionTypeTest extends TestCase
 
     /**
      * @dataProvider invalidIntersectionsExamples
-     *
      * @param non-empty-list<AtomicType> $types
      */
     public function testWillRejectInvalidIntersections(array $types): void

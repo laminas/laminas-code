@@ -26,8 +26,7 @@ final class IntersectionType
 
     /**
      * @param non-empty-list<AtomicType> $types at least 2 values needed
-     *
-     * @throws InvalidArgumentException if the given types cannot intersect
+     * @throws InvalidArgumentException If the given types cannot intersect.
      */
     public function __construct(array $types)
     {
@@ -63,7 +62,7 @@ final class IntersectionType
         );
     }
 
-    /** @throws InvalidArgumentException */
+    /** @throws InvalidArgumentException When the union is not possible. */
     public function assertCanUnionWith(AtomicType|self $other): void
     {
         if ($other instanceof AtomicType) {
@@ -74,9 +73,9 @@ final class IntersectionType
             return;
         }
 
-        $thisString = $this->toString();
+        $thisString  = $this->toString();
         $otherString = $other->toString();
-        
+
         if (str_contains($thisString, $otherString) || str_contains($otherString, $thisString)) {
             throw new InvalidArgumentException(sprintf(
                 'Types "%s" and "%s" cannot be intersected, as they include each other',

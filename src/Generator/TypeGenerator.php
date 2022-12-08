@@ -26,7 +26,8 @@ final class TypeGenerator implements GeneratorInterface
     private const NULL_MARKER = '?';
 
     private function __construct(
-        private readonly UnionType|IntersectionType|AtomicType $type, private readonly bool $nullable = false
+        private readonly UnionType|IntersectionType|AtomicType $type,
+        private readonly bool $nullable = false
     ) {
         if ($nullable && $type instanceof AtomicType) {
             $type->assertCanBeStandaloneNullable();
@@ -40,7 +41,7 @@ final class TypeGenerator implements GeneratorInterface
      */
     public static function fromReflectionType(
         ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null $type,
-        ?ReflectionClass                                                        $currentClass
+        ?ReflectionClass $currentClass
     ): ?self {
         if (null === $type) {
             return null;
@@ -63,7 +64,7 @@ final class TypeGenerator implements GeneratorInterface
         if ($type instanceof ReflectionIntersectionType) {
             return new self(self::fromIntersectionType($type, $currentClass), false);
         }
-        
+
         $atomicType = AtomicType::fromReflectionNamedTypeAndClass($type, $currentClass);
 
         return new self(
@@ -75,7 +76,7 @@ final class TypeGenerator implements GeneratorInterface
     /** @psalm-pure */
     private static function fromIntersectionType(
         ReflectionIntersectionType $intersectionType,
-        ?ReflectionClass           $currentClass
+        ?ReflectionClass $currentClass
     ): IntersectionType {
         return new IntersectionType(array_map(
             static fn(
