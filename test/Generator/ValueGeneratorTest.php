@@ -12,9 +12,11 @@ use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\PropertyValueGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
+use LaminasTest\Code\Generator\TestAsset\TestEnum;
 use PHPUnit\Framework\TestCase;
 
 use function fopen;
+use function sprintf;
 use function str_replace;
 
 /**
@@ -386,6 +388,20 @@ EOS;
         $valueGenerator2->initEnvironmentConstants();
 
         self::assertNotEquals($valueGenerator1->generate(), $valueGenerator2->generate());
+    }
+
+    public function testPropertyDefaultValueCanHandleEnums(): void
+    {
+        $valueGenerator1 = new ValueGenerator(
+            TestEnum::Test1,
+            ValueGenerator::TYPE_AUTO,
+            ValueGenerator::OUTPUT_MULTIPLE_LINE
+        );
+
+        $valueGenerator2 = new ValueGenerator(TestEnum::Test2);
+
+        self::assertSame('\LaminasTest\Code\Generator\TestAsset\TestEnum::Test1', $valueGenerator1->generate());
+        self::assertSame('\LaminasTest\Code\Generator\TestAsset\TestEnum::Test2', $valueGenerator2->generate());
     }
 
     /**
