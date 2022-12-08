@@ -452,7 +452,7 @@ class ValueGenerator extends AbstractGenerator
                     throw new Exception\RuntimeException('Value is not an object.');
                 }
 
-                $output = sprintf('%s::%s', get_class($value), (string) $value->name);
+                $output = sprintf('%s::%s', $value::class, (string) $value->name);
                 break;
             case self::TYPE_OTHER:
             default:

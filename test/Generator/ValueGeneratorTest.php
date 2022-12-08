@@ -405,11 +405,7 @@ EOS;
             ValueGenerator::OUTPUT_MULTIPLE_LINE
         );
 
-        $valueGenerator1->initEnvironmentConstants();
-        $valueGenerator2->initEnvironmentConstants();
-        /** @var TestEnum $value1 */
         $value1 = $valueGenerator1->generate();
-        /** @var TestEnum $value2 */
         $value2 = $valueGenerator2->generate();
 
         self::assertNotEquals($value1, $value2);
