@@ -13,7 +13,7 @@
     },
     "require-dev": {
         "ext-phar": "*",
-        "doctrine/annotations": "^1.13.3",
+        "doctrine/annotations": "^2.0.0",
         "laminas/laminas-coding-standard": "^2.3.0",
         "laminas/laminas-stdlib": "^3.6.1",
         "phpunit/phpunit": "^9.5.26",
