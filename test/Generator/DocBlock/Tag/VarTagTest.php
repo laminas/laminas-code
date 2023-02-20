@@ -6,11 +6,10 @@ use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 use Laminas\Code\Generator\DocBlock\TagManager;
 use Laminas\Code\Reflection\DocBlock\Tag\VarTag as ReflectionVarTag;
 use Laminas\Code\Reflection\DocBlockReflection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Laminas\Code\Generator\DocBlock\Tag\VarTag
- */
+#[CoversClass(VarTag::class)]
 class VarTagTest extends TestCase
 {
     private VarTag $tag;

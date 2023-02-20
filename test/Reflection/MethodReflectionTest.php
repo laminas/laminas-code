@@ -5,16 +5,15 @@ namespace LaminasTest\Code\Reflection;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\ParameterReflection;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
 use function trim;
 use function uniqid;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_Method
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_Method')]
 class MethodReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()
@@ -102,9 +101,7 @@ class MethodReflectionTest extends TestCase
         self::assertEquals('', $reflectionMethod->getContents());
     }
 
-    /**
-     * @group 6275
-     */
+    #[Group('6275')]
     public function testMethodContentsReturnWithoutDocBlock()
     {
         $contents         = <<<CONTENTS
@@ -285,7 +282,6 @@ CONTENTS;
         );
     }
 
-    /** @requires PHP >= 8.0 */
     public function testGetPrototypeMethodForPromotedParameter(): void
     {
         $reflectionMethod = new MethodReflection(
@@ -316,9 +312,7 @@ CONTENTS;
         );
     }
 
-    /**
-     * @group 5062
-     */
+    #[Group('5062')]
     public function testGetContentsWithCoreClass()
     {
         $reflectionMethod = new MethodReflection('DateTime', 'format');
@@ -343,9 +337,7 @@ CONTENTS;
         self::assertSame('', $reflectionMethod->getContents());
     }
 
-    /**
-     * @group 6275
-     */
+    #[Group('6275')]
     public function testCodeGetContentsDoesNotThrowExceptionOnDocBlock()
     {
         $contents = <<<'CONTENTS'
@@ -374,9 +366,7 @@ CONTENTS;
         self::assertEquals($contents, $reflectionMethod->getContents(false));
     }
 
-    /**
-     * @group 6275
-     */
+    #[Group('6275')]
     public function testCodeGetBodyReturnsEmptyWithCommentedFunction()
     {
         $this->expectException('ReflectionException');
@@ -384,9 +374,7 @@ CONTENTS;
         $reflectionMethod->getBody();
     }
 
-    /**
-     * @group 6620
-     */
+    #[Group('6620')]
     public function testCanParseClassBodyWhenUsingTrait()
     {
         require_once __DIR__ . '/TestAsset/TestTraitClass1.php';

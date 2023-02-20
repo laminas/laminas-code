@@ -4,6 +4,7 @@ namespace LaminasTest\Code\Generator;
 
 use InvalidArgumentException;
 use Laminas\Code\Generator\EnumGenerator\EnumGenerator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionEnum;
 
@@ -12,7 +13,6 @@ use function class_exists;
 final class EnumGeneratorTest extends TestCase
 {
     /**
-     * @dataProvider validOptionSpecifications
      * @psalm-param array{
      *      name: non-empty-string,
      *      pureCases: list<non-empty-string>,
@@ -24,6 +24,7 @@ final class EnumGeneratorTest extends TestCase
      *      },
      * } $options
      */
+    #[DataProvider('validOptionSpecifications')]
     public function testGenerateValidEnums(array $options, string $expected): void
     {
         self::assertSame($expected, EnumGenerator::withConfig($options)->generate());
@@ -123,22 +124,11 @@ final class EnumGeneratorTest extends TestCase
         ];
     }
 
-    /** @requires PHP < 8.1 */
-    public function testReflectionEnumFailsForUnsupportedPhpVersions(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('This feature only works from PHP 8.1 onwards.');
-
-        EnumGenerator::fromReflection(new ReflectionEnum(new class {
-        }));
-    }
-
     /**
-     * @requires PHP >= 8.1
-     * @dataProvider validEnumSpecifications
      * @psalm-param non-empty-string $enumClass
      * @psalm-param non-empty-string $expected
      */
+    #[DataProvider('validEnumSpecifications')]
     public function testReflectionEnumWorks(string $enumClass, string $expected): void
     {
         if (! class_exists($enumClass, false)) {

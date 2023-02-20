@@ -4,13 +4,13 @@ namespace LaminasTest\Code\Reflection;
 
 use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 use Laminas\Code\Reflection;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- * @group      Laminas_Reflection_DocBlock_Tag
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
+#[Group('Laminas_Reflection_DocBlock_Tag')]
 class ReflectionDocBlockTagTest extends TestCase
 {
     public function testTagDescriptionIsReturned()
@@ -90,9 +90,7 @@ class ReflectionDocBlockTagTest extends TestCase
         );
     }
 
-    /**
-     * @group Laminas-8307
-     */
+    #[Group('Laminas-8307')]
     public function testNamespaceInParam()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass7::class);
@@ -125,9 +123,7 @@ class ReflectionDocBlockTagTest extends TestCase
         );
     }
 
-    /**
-     * @group Laminas-8307
-     */
+    #[Group('Laminas-8307')]
     public function testReturnClassWithNamespace()
     {
         $classReflection = new Reflection\ClassReflection(TestAsset\TestSampleClass7::class);
@@ -137,9 +133,7 @@ class ReflectionDocBlockTagTest extends TestCase
         self::assertEquals('Laminas\Code\Reflection\DocBlock', $paramTag->getType());
     }
 
-    /**
-     * @dataProvider propertyVarDocProvider
-     */
+    #[DataProvider('propertyVarDocProvider')]
     public function testPropertyVarDoc(
         string $property,
         array $expectedTypes,

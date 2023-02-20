@@ -13,6 +13,7 @@ use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Generator\TraitGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\Generator\TestAsset\PrototypeClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionException;
@@ -21,10 +22,8 @@ use Throwable;
 
 use function current;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class TraitGeneratorTest extends TestCase
 {
     public function testConstruction(): void
@@ -193,9 +192,7 @@ class TraitGeneratorTest extends TestCase
         $classGenerator->addMethodFromGenerator($methodB);
     }
 
-    /**
-     * @group Laminas-7361
-     */
+    #[Group('Laminas-7361')]
     public function testHasMethod(): void
     {
         $classGenerator = new TraitGenerator();
@@ -214,9 +211,7 @@ class TraitGeneratorTest extends TestCase
         self::assertFalse($classGenerator->hasMethod('methodOne'));
     }
 
-    /**
-     * @group Laminas-7361
-     */
+    #[Group('Laminas-7361')]
     public function testHasProperty(): void
     {
         $classGenerator = new TraitGenerator();
@@ -256,9 +251,7 @@ EOS;
         self::assertSame($expectedOutput, $output, $output);
     }
 
-    /**
-     * @group Laminas-7909
-     */
+    #[Group('Laminas-7909')]
     public function testClassFromReflectionThatImplementsInterfaces(): void
     {
         $reflClass = new ClassReflection(TestAsset\ClassWithInterface::class);
@@ -272,9 +265,7 @@ EOS;
         self::assertStringContainsString($expectedClassDef, $code);
     }
 
-    /**
-     * @group Laminas-7909
-     */
+    #[Group('Laminas-7909')]
     public function testClassFromReflectionDiscardParentImplementedInterfaces(): void
     {
         $reflClass = new ClassReflection(TestAsset\NewClassWithInterface::class);
@@ -288,9 +279,7 @@ EOS;
         self::assertStringContainsString($expectedClassDef, $code);
     }
 
-    /**
-     * @group 4988
-     */
+    #[Group('4988')]
     public function testNonNamespaceClassReturnsAllMethods(): void
     {
         require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
@@ -308,9 +297,7 @@ EOS;
         self::assertCount(1, $classGenerator->getMethods());
     }
 
-    /**
-     * @group Laminas-9602
-     */
+    #[Group('Laminas-9602')]
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate(): void
     {
         $classGeneratorClass = new TraitGenerator();
@@ -327,9 +314,7 @@ CODE;
         self::assertSame($expected, $classGeneratorClass->generate());
     }
 
-    /**
-     * @group Laminas-9602
-     */
+    #[Group('Laminas-9602')]
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate(): void
     {
         $classGeneratorClass = new TraitGenerator();
@@ -346,9 +331,7 @@ CODE;
         self::assertSame($expected, $classGeneratorClass->generate());
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection(): void
     {
         $reflClass      = new ClassReflection(TestAsset\ClassWithNamespace::class);
@@ -367,9 +350,7 @@ CODE;
         self::assertSame($expected, $received, $received);
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testSetNameShouldDetermineIfNamespaceSegmentIsPresent(): void
     {
         $classGeneratorClass = new TraitGenerator();
@@ -377,9 +358,7 @@ CODE;
         self::assertSame('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration(): void
     {
         $classGeneratorClass = new TraitGenerator();
@@ -388,9 +367,7 @@ CODE;
         self::assertStringContainsString('namespace My\Namespaced;', $received, $received);
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace(): void
     {
         $classGeneratorClass = new TraitGenerator();
@@ -399,9 +376,7 @@ CODE;
         self::assertStringContainsString('trait FunClass', $received, $received);
     }
 
-    /**
-     * @group Laminas-151
-     */
+    #[Group('Laminas-151')]
     public function testAddUses(): void
     {
         $classGenerator = new TraitGenerator();
@@ -414,9 +389,7 @@ CODE;
         self::assertStringContainsString('use My\Second\Use\Class as MyAlias;', $generated);
     }
 
-    /**
-     * @group 4990
-     */
+    #[Group('4990')]
     public function testAddOneUseTwiceOnlyAddsOne(): void
     {
         $classGenerator = new TraitGenerator();
@@ -430,9 +403,7 @@ CODE;
         self::assertStringContainsString('use My\First\Use\Class;', $generated);
     }
 
-    /**
-     * @group 4990
-     */
+    #[Group('4990')]
     public function testAddOneUseWithAliasTwiceOnlyAddsOne(): void
     {
         $classGenerator = new TraitGenerator();

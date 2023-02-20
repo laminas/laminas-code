@@ -5,6 +5,10 @@ namespace LaminasTest\Code\Generator;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\GeneratorInterface;
 use Laminas\Code\Generator\TypeGenerator;
+use Laminas\Code\Generator\TypeGenerator\AtomicType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function array_combine;
@@ -16,11 +20,9 @@ use function str_replace;
 use function str_starts_with;
 use function strpos;
 
-/**
- * @group zendframework/zend-code#29
- * @covers \Laminas\Code\Generator\TypeGenerator
- * @covers \Laminas\Code\Generator\TypeGenerator\AtomicType
- */
+#[Group('zendframework/zend-code#29')]
+#[CoversClass(TypeGenerator::class)]
+#[CoversClass(AtomicType::class)]
 class TypeGeneratorTest extends TestCase
 {
     public function testIsAGenerator()
@@ -28,24 +30,16 @@ class TypeGeneratorTest extends TestCase
         self::assertContains(GeneratorInterface::class, class_implements(TypeGenerator::class));
     }
 
-    /**
-     * @dataProvider validType
-     * @param string $typeString
-     * @param string $expectedReturnType
-     */
-    public function testFromValidTypeString($typeString, $expectedReturnType)
+    #[DataProvider('validType')]
+    public function testFromValidTypeString(string $typeString, string $expectedReturnType): void
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
         self::assertSame($expectedReturnType, $generator->generate());
     }
 
-    /**
-     * @dataProvider validType
-     * @param string $typeString
-     * @param string $expectedReturnType
-     */
-    public function testStringCastFromValidTypeString($typeString, $expectedReturnType)
+    #[DataProvider('validType')]
+    public function testStringCastFromValidTypeString(string $typeString, string $expectedReturnType): void
     {
         $generator = TypeGenerator::fromTypeString($typeString);
 
@@ -55,11 +49,8 @@ class TypeGeneratorTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider invalidType
-     * @param string $typeString
-     */
-    public function testRejectsInvalidTypeString($typeString)
+    #[DataProvider('invalidType')]
+    public function testRejectsInvalidTypeString(string $typeString): void
     {
         $this->expectException(InvalidArgumentException::class);
 

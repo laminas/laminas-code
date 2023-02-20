@@ -5,12 +5,11 @@ namespace LaminasTest\Code\Generator;
 use Laminas\Code\Generator\AbstractGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\GeneratorInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class AbstractGeneratorTest extends TestCase
 {
     public function testConstructor()

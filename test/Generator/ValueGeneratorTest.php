@@ -13,17 +13,18 @@ use Laminas\Code\Generator\PropertyValueGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
 use LaminasTest\Code\Generator\TestAsset\TestEnum;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function fopen;
 use function sprintf;
 use function str_replace;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- * @covers \Laminas\Code\Generator\ValueGenerator
- */
+#[CoversClass(ValueGenerator::class)]
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class ValueGeneratorTest extends TestCase
 {
     public function testDefaultInstance(): void
@@ -42,11 +43,8 @@ class ValueGeneratorTest extends TestCase
         new ValueGenerator(null, ValueGenerator::TYPE_AUTO, ValueGenerator::OUTPUT_MULTIPLE_LINE, $constants);
     }
 
-    /**
-     * @dataProvider constantsType
-     * @param SplArrayObject|StdlibArrayObject $constants
-     */
-    public function testAllowedPossibleConstantsType($constants): void
+    #[DataProvider('constantsType')]
+    public function testAllowedPossibleConstantsType(SplArrayObject|StdlibArrayObject $constants): void
     {
         $valueGenerator = new ValueGenerator(
             null,
@@ -71,10 +69,10 @@ class ValueGeneratorTest extends TestCase
     }
 
     /**
-     * @group #94
-     * @dataProvider validConstantTypes
      * @param string $expectedOutput
      */
+    #[DataProvider('validConstantTypes')]
+    #[Group('#94')]
     public function testValidConstantTypes(PropertyValueGenerator $generator, $expectedOutput): void
     {
         $propertyGenerator = new PropertyGenerator('FOO', $generator);
@@ -83,7 +81,6 @@ class ValueGeneratorTest extends TestCase
     }
 
     /**
-     * @return array
      * @psalm-return non-empty-list<array{PropertyValueGenerator, non-empty-string}>
      */
     public static function validConstantTypes(): array
@@ -126,7 +123,6 @@ class ValueGeneratorTest extends TestCase
 
     /**
      * @param string $longOutput
-     * @param array $value
      * @return array
      */
     protected static function generateArrayData($longOutput, array $value)
@@ -336,11 +332,10 @@ EOS;
     }
 
     /**
-     * @dataProvider unsortedKeysArray
      * @param string $type
-     * @param array $value
      * @param string $expected
      */
+    #[DataProvider('unsortedKeysArray')]
     public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
@@ -405,11 +400,10 @@ EOS;
     }
 
     /**
-     * @dataProvider simpleArray
      * @param string $type
-     * @param array $value
      * @param string $expected
      */
+    #[DataProvider('simpleArray')]
     public function testPropertyDefaultValueCanHandleArray($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
@@ -436,11 +430,10 @@ EOS;
     }
 
     /**
-     * @dataProvider complexArray
      * @param string $type
-     * @param array $value
      * @param string $expected
      */
+    #[DataProvider('complexArray')]
     public function testPropertyDefaultValueCanHandleComplexArrayOfTypes($type, array $value, $expected)
     {
         $valueGenerator = new ValueGenerator();
@@ -451,9 +444,7 @@ EOS;
         self::assertSame($expected, $valueGenerator->generate());
     }
 
-    /**
-     * @dataProvider complexArrayWCustomIndent
-     */
+    #[DataProvider('complexArrayWCustomIndent')]
     public function testPropertyDefaultValueCanHandleComplexArrayWCustomIndentOfTypes(
         string $type,
         array $value,
@@ -468,11 +459,11 @@ EOS;
     }
 
     /**
-     * @group 6023
-     * @dataProvider getEscapedParameters
      * @param string $input
      * @param string $expectedEscapedValue
      */
+    #[DataProvider('getEscapedParameters')]
+    #[Group('6023')]
     public function testEscaping($input, $expectedEscapedValue)
     {
         self::assertSame($expectedEscapedValue, ValueGenerator::escape($input, false));
@@ -498,11 +489,8 @@ EOS;
         yield 'resource' => [fopen('php://input', 'r'), 'resource (stream)'];
     }
 
-    /**
-     * @dataProvider invalidValue
-     * @param mixed $value
-     */
-    public function testExceptionInvalidValue($value, string $type): void
+    #[DataProvider('invalidValue')]
+    public function testExceptionInvalidValue(mixed $value, string $type): void
     {
         $valueGenerator = new ValueGenerator($value);
 

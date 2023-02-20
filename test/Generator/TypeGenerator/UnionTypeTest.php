@@ -8,16 +8,18 @@ use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use Laminas\Code\Generator\TypeGenerator\IntersectionType;
 use Laminas\Code\Generator\TypeGenerator\UnionType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Laminas\Code\Generator\TypeGenerator\UnionType */
+#[CoversClass(UnionType::class)]
 class UnionTypeTest extends TestCase
 {
     /**
-     * @dataProvider sortingExamples
      * @param non-empty-list<AtomicType|IntersectionType> $types
      * @param non-empty-string                            $expected
      */
+    #[DataProvider('sortingExamples')]
     public function testTypeSorting(array $types, string $expected): void
     {
         self::assertSame(
@@ -95,9 +97,9 @@ class UnionTypeTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidUnionsExamples
      * @param non-empty-list<AtomicType|IntersectionType> $types
      */
+    #[DataProvider('invalidUnionsExamples')]
     public function testWillRejectInvalidUnions(array $types): void
     {
         $this->expectException(InvalidArgumentException::class);

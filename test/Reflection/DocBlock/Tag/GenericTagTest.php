@@ -3,17 +3,14 @@
 namespace LaminasTest\Code\Reflection\DocBlock\Tag;
 
 use Laminas\Code\Reflection\DocBlock\Tag\GenericTag;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
 class GenericTagTest extends TestCase
 {
-    /**
-     * @group Laminas-146
-     */
+    #[Group('Laminas-146')]
     public function testParse()
     {
         $tag = new GenericTag();

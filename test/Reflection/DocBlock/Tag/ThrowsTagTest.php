@@ -3,12 +3,11 @@
 namespace LaminasTest\Code\Reflection\DocBlock\Tag;
 
 use Laminas\Code\Reflection\DocBlock\Tag\ThrowsTag;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
 class ThrowsTagTest extends TestCase
 {
     public function testAllCharactersFromTypenameAreSupported()

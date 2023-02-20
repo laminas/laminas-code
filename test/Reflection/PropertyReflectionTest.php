@@ -4,12 +4,11 @@ namespace LaminasTest\Code\Reflection;
 
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_Property
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_Property')]
 class PropertyReflectionTest extends TestCase
 {
     public function testDeclaringClassReturn()

@@ -14,6 +14,8 @@ use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use LaminasTest\Code\Generator\TestAsset\ClassWithTypedProperty;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
@@ -23,10 +25,8 @@ use function array_shift;
 use function str_replace;
 use function uniqid;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class PropertyGeneratorTest extends TestCase
 {
     public function testPropertyConstructor(): void
@@ -55,11 +55,8 @@ class PropertyGeneratorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataSetTypeSetValueGenerate
-     * @param  mixed  $value
-     */
-    public function testSetTypeSetValueGenerate(string $type, $value, string $code): void
+    #[DataProvider('dataSetTypeSetValueGenerate')]
+    public function testSetTypeSetValueGenerate(string $type, mixed $value, string $code): void
     {
         $defaultValue = new PropertyValueGenerator();
         $defaultValue->setType($type);
@@ -69,11 +66,8 @@ class PropertyGeneratorTest extends TestCase
         self::assertSame($code, $defaultValue->generate());
     }
 
-    /**
-     * @dataProvider dataSetTypeSetValueGenerate
-     * @param  mixed  $value
-     */
-    public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, $value, string $code): void
+    #[DataProvider('dataSetTypeSetValueGenerate')]
+    public function testSetBogusTypeSetValueGenerateUseAutoDetection(string $type, mixed $value, string $code): void
     {
         if ('constant' === $type) {
             self::markTestSkipped('constant can only be detected explicitly');
@@ -129,9 +123,7 @@ EOS;
         yield 'private' => [PropertyGenerator::FLAG_PRIVATE, 'private'];
     }
 
-    /**
-     * @dataProvider visibility
-     */
+    #[DataProvider('visibility')]
     public function testPropertyCanProduceConstantWithVisibility(int $flag, string $visibility): void
     {
         $codeGenProperty = new PropertyGenerator('FOO', 'bar', [PropertyGenerator::FLAG_CONSTANT, $flag]);
@@ -154,9 +146,7 @@ EOS;
         self::assertSame('    final public const someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    /**
-     * @dataProvider visibility
-     */
+    #[DataProvider('visibility')]
     public function testPropertyCanProduceReadonlyModifier(int $flag, string $visibility): void
     {
         $codeGenProperty = new PropertyGenerator(
@@ -191,9 +181,7 @@ EOS;
         $codeGenProperty->setFlags(PropertyGenerator::FLAG_READONLY | PropertyGenerator::FLAG_CONSTANT);
     }
 
-    /**
-     * @group PR-704
-     */
+    #[Group('PR-704')]
     public function testPropertyCanProduceConstantModifierWithSetter(): void
     {
         $codeGenProperty = new PropertyGenerator('someVal', 'some string value');
@@ -207,9 +195,7 @@ EOS;
         self::assertSame('    public static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    /**
-     * @group Laminas-6444
-     */
+    #[Group('Laminas-6444')]
     public function testPropertyWillLoadFromReflection(): void
     {
         $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
@@ -238,9 +224,7 @@ EOS;
         self::assertSame('private', $cgProp->getVisibility());
     }
 
-    /**
-     * @group Laminas-6444
-     */
+    #[Group('Laminas-6444')]
     public function testPropertyWillEmitStaticModifier(): void
     {
         $codeGenProperty = new PropertyGenerator(
@@ -251,9 +235,7 @@ EOS;
         self::assertSame('    protected static $someVal = \'some string value\';', $codeGenProperty->generate());
     }
 
-    /**
-     * @group Laminas-7205
-     */
+    #[Group('Laminas-7205')]
     public function testPropertyCanHaveDocBlock(): void
     {
         $codeGenProperty = new PropertyGenerator(
@@ -335,9 +317,7 @@ EOS;
         self::assertSame(PropertyGenerator::VISIBILITY_PUBLIC, $propertyGenerator->getVisibility());
     }
 
-    /**
-     * @group 3491
-     */
+    #[Group('3491')]
     public function testPropertyDocBlockWillLoadFromReflection(): void
     {
         $reflectionClass = new ClassReflection(TestAsset\TestClassWithManyProperties::class);
@@ -357,11 +337,8 @@ EOS;
         self::assertSame('var', $tag->getName());
     }
 
-    /**
-     * @dataProvider dataSetTypeSetValueGenerate
-     * @param  mixed  $value
-     */
-    public function testSetDefaultValue(string $type, $value): void
+    #[DataProvider('dataSetTypeSetValueGenerate')]
+    public function testSetDefaultValue(string $type, mixed $value): void
     {
         $property = new PropertyGenerator();
         $property->setDefaultValue($value, $type);
@@ -401,7 +378,6 @@ EOS;
         self::assertSame('    private string $typedProperty;', $code);
     }
 
-    /** @requires PHP >= 8.1 */
     public function testFromReflectionReadonlyProperty(): void
     {
         $className = uniqid('ClassWithReadonlyProperty', false);

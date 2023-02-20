@@ -3,18 +3,15 @@
 namespace LaminasTest\Code\Scanner;
 
 use Laminas\Code\Scanner\DocBlockScanner;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function str_replace;
 
-/**
- * @group      Laminas_Code_Scanner
- */
+#[Group('Laminas_Code_Scanner')]
 class DocBlockScannerTest extends TestCase
 {
-    /**
-     * @group Laminas-110
-     */
+    #[Group('Laminas-110')]
     public function testDocBlockScannerParsesTagsWithNoValuesProperly()
     {
         $docComment   = <<<EOB
