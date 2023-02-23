@@ -10,12 +10,11 @@ use Laminas\Code\Reflection\DocBlock\Tag\ReturnTag;
 use Laminas\Code\Reflection\DocBlock\Tag\TagInterface;
 use Laminas\Code\Reflection\DocBlock\Tag\ThrowsTag;
 use Laminas\Code\Reflection\DocBlockReflection;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
 class DocBlockReflectionTest extends TestCase
 {
     public function testDocBlockShortDescription()

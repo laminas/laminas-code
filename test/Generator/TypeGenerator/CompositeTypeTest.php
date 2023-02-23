@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace LaminasTest\Code\Generator\TypeGenerator;
 
 use Laminas\Code\Generator\TypeGenerator\CompositeType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Laminas\Code\Generator\TypeGenerator\CompositeType */
+#[CoversClass(CompositeType::class)]
 class CompositeTypeTest extends TestCase
 {
-    /**
-     * @dataProvider validType
-     */
+    #[DataProvider('validType')]
     public function testFromValidTypeString(string $typeString, string $expectedReturnType): void
     {
         $type = CompositeType::fromString($typeString);

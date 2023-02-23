@@ -7,16 +7,18 @@ namespace LaminasTest\Code\Generator\TypeGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\TypeGenerator\AtomicType;
 use Laminas\Code\Generator\TypeGenerator\IntersectionType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \Laminas\Code\Generator\TypeGenerator\IntersectionType */
+#[CoversClass(IntersectionType::class)]
 class IntersectionTypeTest extends TestCase
 {
     /**
-     * @dataProvider sortingExamples
      * @param non-empty-list<AtomicType> $types
      * @param non-empty-string           $expected
      */
+    #[DataProvider('sortingExamples')]
     public function testTypeSorting(array $types, string $expected): void
     {
         self::assertSame(
@@ -58,9 +60,9 @@ class IntersectionTypeTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidIntersectionsExamples
      * @param non-empty-list<AtomicType> $types
      */
+    #[DataProvider('invalidIntersectionsExamples')]
     public function testWillRejectInvalidIntersections(array $types): void
     {
         $this->expectException(InvalidArgumentException::class);

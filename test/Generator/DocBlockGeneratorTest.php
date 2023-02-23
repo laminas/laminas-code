@@ -9,12 +9,12 @@ use Laminas\Code\Generator\DocBlock\Tag\ParamTag;
 use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Reflection\DocBlockReflection;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Code_Generator
- * @group      Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class DocBlockGeneratorTest extends TestCase
 {
     /** @var DocBlockGenerator */
@@ -116,9 +116,7 @@ EOS;
         self::assertCount(1, $docBlock->getTags());
     }
 
-    /**
-     * @group #3753
-     */
+    #[Group('#3753')]
     public function testGenerateWordWrapIsEnabledByDefault()
     {
         $largeStr = '@var This is a very large string that will be wrapped if it contains more than 80 characters';
@@ -131,9 +129,7 @@ EOS;
         self::assertSame($expected, $this->docBlockGenerator->generate());
     }
 
-    /**
-     * @group #3753
-     */
+    #[Group('#3753')]
     public function testGenerateWithWordWrapDisabled()
     {
         $largeStr = '@var This is a very large string that will not be wrapped if it contains more than 80 characters';
@@ -161,36 +157,28 @@ EOS;
         self::assertCount(4, $this->reflectionDocBlockGenerator->getTags());
     }
 
-    /**
-     * @depends testDocBlockFromReflectionTagsCount
-     */
+    #[Depends('testDocBlockFromReflectionTagsCount')]
     public function testDocBlockFromReflectionParamTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
         self::assertInstanceOf(ParamTag::class, $tags[0]);
     }
 
-    /**
-     * @depends testDocBlockFromReflectionTagsCount
-     */
+    #[Depends('testDocBlockFromReflectionTagsCount')]
     public function testDocBlockFromReflectionAuthorTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
         self::assertInstanceOf(AuthorTag::class, $tags[1]);
     }
 
-    /**
-     * @depends testDocBlockFromReflectionTagsCount
-     */
+    #[Depends('testDocBlockFromReflectionTagsCount')]
     public function testDocBlockFromReflectionLicenseTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();
         self::assertInstanceOf(LicenseTag::class, $tags[2]);
     }
 
-    /**
-     * @depends testDocBlockFromReflectionTagsCount
-     */
+    #[Depends('testDocBlockFromReflectionTagsCount')]
     public function testDocBlockFromReflectionReturnTag()
     {
         $tags = $this->reflectionDocBlockGenerator->getTags();

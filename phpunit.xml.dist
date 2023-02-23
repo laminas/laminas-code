@@ -2,23 +2,21 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         convertDeprecationsToExceptions="true"
-         colors="true">
+         colors="true"
+>
     <testsuites>
         <testsuite name="laminas-code Test Suite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
-
     <coverage>
         <include>
             <directory suffix=".php">./src</directory>
         </include>
     </coverage>
-
     <php>
         <!-- Enable this if you have installed Doctrine\Common on the
-             include_path or via Composer. -->
-        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false" />
+                 include_path or via Composer. -->
+        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false"/>
     </php>
 </phpunit>

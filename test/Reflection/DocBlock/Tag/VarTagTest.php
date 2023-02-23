@@ -3,17 +3,15 @@
 namespace LaminasTest\Code\Reflection\DocBlock\Tag;
 
 use Laminas\Code\Reflection\DocBlock\Tag\VarTag;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
 class VarTagTest extends TestCase
 {
-    /**
-     * @dataProvider varTagProvider
-     */
+    #[DataProvider('varTagProvider')]
     public function testParse(
         string $line,
         array $expectedTypes,

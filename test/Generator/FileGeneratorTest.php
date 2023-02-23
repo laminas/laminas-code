@@ -7,6 +7,7 @@ use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\Exception\ClassNotFoundException;
 use Laminas\Code\Generator\FileGenerator;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -18,17 +19,15 @@ use function strpos;
 use function strrpos;
 use function sys_get_temp_dir;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- * @group Laminas_Code_Generator_Php_File
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
+#[Group('Laminas_Code_Generator_Php_File')]
 class FileGeneratorTest extends TestCase
 {
     public function testConstruction()
     {
         $file = new FileGenerator();
-        self::assertSame(FileGenerator::class, get_class($file));
+        self::assertSame(FileGenerator::class, $file::class);
     }
 
     public function testSourceContentGetterAndSetter()
@@ -86,9 +85,7 @@ EOS;
         $fileGenerator->getClass('TestClass');
     }
 
-    /**
-     * @group test
-     */
+    #[Group('test')]
     public function testFileLineEndingsAreAlwaysLineFeed()
     {
         $codeGenFile = FileGenerator::fromArray([
@@ -109,9 +106,7 @@ EOS;
         self::assertSame(';', $lines[2][$targetLength - 1]);
     }
 
-    /**
-     * @group Laminas-11218
-     */
+    #[Group('Laminas-11218')]
     public function testGeneratesUseStatements()
     {
         $file = new FileGenerator();
@@ -358,7 +353,7 @@ EOS;
         $generator->setDeclares([new stdClass()]);
     }
 
-    /** @group gh-42 */
+    #[Group('gh-42')]
     public function testDeclareStatementsArePutBeforeNamespace(): void
     {
         $generator = new FileGenerator();

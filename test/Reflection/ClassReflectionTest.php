@@ -6,6 +6,7 @@ use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\MethodReflection;
 use Laminas\Code\Reflection\PropertyReflection;
 use LaminasTest\Code\Reflection\TestAsset\TestTraitClass3;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -13,10 +14,8 @@ use function get_class;
 use function trim;
 use function uniqid;
 
-/**
- * @group Laminas_Reflection
- * @group Laminas_Reflection_Class
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_Class')]
 class ClassReflectionTest extends TestCase
 {
     public function testMethodReturns()
@@ -24,7 +23,7 @@ class ClassReflectionTest extends TestCase
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass2::class);
 
         $methodByName = $reflectionClass->getMethod('getProp1');
-        self::assertEquals(MethodReflection::class, get_class($methodByName));
+        self::assertEquals(MethodReflection::class, $methodByName::class);
 
         $methodsAll = $reflectionClass->getMethods();
         self::assertCount(3, $methodsAll);
@@ -52,7 +51,7 @@ class ClassReflectionTest extends TestCase
         $reflectionClass = new ClassReflection(TestAsset\TestSampleClass::class);
 
         $parent = $reflectionClass->getParentClass();
-        self::assertEquals(ClassReflection::class, get_class($parent));
+        self::assertEquals(ClassReflection::class, $parent::class);
         self::assertEquals('ArrayObject', $parent->getName());
     }
 

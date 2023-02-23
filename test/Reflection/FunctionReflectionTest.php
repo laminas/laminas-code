@@ -6,16 +6,15 @@ use Laminas\Code\Reflection\DocBlockReflection;
 use Laminas\Code\Reflection\Exception\InvalidArgumentException;
 use Laminas\Code\Reflection\FunctionReflection;
 use Laminas\Code\Reflection\ParameterReflection;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
 use function trim;
 use function uniqid;
 
-/**
- * @group Laminas_Reflection
- * @group Laminas_Reflection_Function
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_Function')]
 class FunctionReflectionTest extends TestCase
 {
     public function testParemeterReturn()
@@ -118,6 +117,16 @@ class FunctionReflectionTest extends TestCase
 
     public function testFunctionClosureBodyReturn()
     {
+        $function1  = null;
+        $function2  = null;
+        $function3  = null;
+        $function4  = null;
+        $list1      = [];
+        $list2      = [];
+        $list3      = [];
+        $function8  = null;
+        $function9  = null;
+        $function10 = null;
         require __DIR__ . '/TestAsset/closures.php';
 
         $function = new FunctionReflection($function1);
@@ -222,11 +231,12 @@ class FunctionReflectionTest extends TestCase
         self::assertEquals('function function12() {}', trim($content));
     }
 
-    /**
-     * @group fail
-     */
+    #[Group('fail')]
     public function testFunctionClosureContentsReturnWithoutDocBlock()
     {
+        $function2  = null;
+        $function9  = null;
+        $function10 = null;
         require __DIR__ . '/TestAsset/closures.php';
 
         $function = new FunctionReflection($function2);
@@ -257,6 +267,7 @@ class FunctionReflectionTest extends TestCase
 
     public function testFunctionClosureContentsReturnWithDocBlock()
     {
+        $function9 = null;
         require __DIR__ . '/TestAsset/closures.php';
 
         $function = new FunctionReflection($function9);

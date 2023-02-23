@@ -3,12 +3,11 @@
 namespace LaminasTest\Code\Reflection\DocBlock\Tag;
 
 use Laminas\Code\Reflection\DocBlock\Tag\LicenseTag;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_Reflection
- * @group      Laminas_Reflection_DocBlock
- */
+#[Group('Laminas_Reflection')]
+#[Group('Laminas_Reflection_DocBlock')]
 class LicenseTagTest extends TestCase
 {
     /** @var LicenseTag */

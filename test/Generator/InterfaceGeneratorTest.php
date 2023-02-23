@@ -12,12 +12,11 @@ use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\PropertyGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 use LaminasTest\Code\TestAsset\FooInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class InterfaceGeneratorTest extends TestCase
 {
     public function testAbstractAccessorsReturnsFalse()
@@ -125,9 +124,7 @@ CODE;
         self::assertSame($expected, $classGeneratorClass->generate());
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
         $reflClass      = new ClassReflection(FooInterface::class);
@@ -152,9 +149,7 @@ CODE;
         self::assertSame($expected, $received, $received);
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testSetNameShouldDetermineIfNamespaceSegmentIsPresent()
     {
         $classGeneratorClass = new InterfaceGenerator();
@@ -162,9 +157,7 @@ CODE;
         self::assertSame('My\Namespaced', $classGeneratorClass->getNamespaceName());
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration()
     {
         $classGeneratorClass = new InterfaceGenerator();
@@ -173,9 +166,7 @@ CODE;
         self::assertStringContainsString('namespace My\Namespaced;', $received, $received);
     }
 
-    /**
-     * @group namespace
-     */
+    #[Group('namespace')]
     public function testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace()
     {
         $classGeneratorClass = new InterfaceGenerator();

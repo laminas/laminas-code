@@ -5,13 +5,13 @@ namespace LaminasTest\Code\Generator;
 use Laminas\Code\Generator\AbstractMemberGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class AbstractMemberGeneratorTest extends TestCase
 {
-    /** @var AbstractMemberGenerator */
-    private $fixture;
+    private MockObject&AbstractMemberGenerator $fixture;
 
     protected function setUp(): void
     {

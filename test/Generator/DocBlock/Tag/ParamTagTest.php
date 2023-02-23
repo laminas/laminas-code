@@ -5,12 +5,11 @@ namespace LaminasTest\Code\Generator\DocBlock\Tag;
 use Laminas\Code\Generator\DocBlock\Tag\ParamTag;
 use Laminas\Code\Generator\DocBlock\TagManager;
 use Laminas\Code\Reflection\DocBlockReflection;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group Laminas_Code_Generator
- * @group Laminas_Code_Generator_Php
- */
+#[Group('Laminas_Code_Generator')]
+#[Group('Laminas_Code_Generator_Php')]
 class ParamTagTest extends TestCase
 {
     /** @var ParamTag */
