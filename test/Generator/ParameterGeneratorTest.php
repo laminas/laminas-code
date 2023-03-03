@@ -561,7 +561,7 @@ class ParameterGeneratorTest extends TestCase
         $this->expectNotToPerformAssertions();
         $parameter->setDefaultValue([]);
     }
-    
+
     public function testMakingParameterVariadicWithExistingDefaultValueThrowsInvalidArgumentException(): void
     {
         $parameter = new ParameterGenerator();
@@ -577,7 +577,7 @@ class ParameterGeneratorTest extends TestCase
 
         $parameter->setVariadic(true);
     }
-    
+
     public function testMakingParameterNonVariadicWithExistingDefaultValue(): void
     {
         $parameter = new ParameterGenerator();
