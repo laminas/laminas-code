@@ -257,11 +257,11 @@ class ParameterGenerator extends AbstractGenerator
     public function setVariadic($variadic)
     {
         $this->variadic = (bool) $variadic;
-        
+
         if (true === $this->variadic && isset($this->defaultValue)) {
             throw new Exception\InvalidArgumentException('Variadic parameter cannot have a default value');
         }
-        
+
         return $this;
     }
 
