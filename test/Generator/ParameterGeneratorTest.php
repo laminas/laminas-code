@@ -550,6 +550,19 @@ class ParameterGeneratorTest extends TestCase
         $parameter->setDefaultValue([]);
     }
 
+    public function testAssigningDefaultValueToNonVariadicParameter(): void
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('parameter');
+        $parameter->setType('int');
+        $parameter->setPosition(1);
+        $parameter->setVariadic(false);
+        self::assertSame('int $parameter', $parameter->generate());
+        $parameter->setDefaultValue(7);
+        self::assertSame('int $parameter = 7', $parameter->generate());
+    }
+
     public function testMakingParameterVariadicWithExistingDefaultValueThrowsInvalidArgumentException(): void
     {
         $parameter = new ParameterGenerator();
@@ -564,6 +577,19 @@ class ParameterGeneratorTest extends TestCase
         $this->expectExceptionMessage('Variadic parameter cannot have a default value');
 
         $parameter->setVariadic(true);
+    }
+
+    public function testMakingParameterNonVariadicWithExistingDefaultValue(): void
+    {
+        $parameter = new ParameterGenerator();
+
+        $parameter->setName('parameter');
+        $parameter->setType('int');
+        $parameter->setPosition(1);
+        $parameter->setDefaultValue(7);
+        self::assertSame('int $parameter = 7', $parameter->generate());
+        $parameter->setVariadic(false);
+        self::assertSame('int $parameter = 7', $parameter->generate());
     }
 
     #[Group('zendframework/zend-code#29')]
