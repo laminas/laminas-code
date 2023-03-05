@@ -19,7 +19,6 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function fopen;
-use function sprintf;
 use function str_replace;
 
 #[CoversClass(ValueGenerator::class)]
@@ -497,5 +496,56 @@ EOS;
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Type "' . $type . '" is unknown or cannot be used');
         $valueGenerator->generate();
+    }
+
+    /**
+     * @param ValueGenerator::OUTPUT_* $outputMode
+     */
+    #[DataProvider('multipleOutputArray')]
+    public function testArrayWithOutputMode(
+        array $array,
+        string $type,
+        string $outputMode,
+        string $output
+    ): void {
+        $valueGenerator = new ValueGenerator($array, $type, $outputMode);
+
+        self::assertSame($valueGenerator->generate(), $output);
+    }
+
+    /**
+     * Data provider for testArrayWithOutputMode test
+     */
+    public static function multipleOutputArray(): array
+    {
+        $array = [
+            'foo' => [
+                'bar',
+            ],
+        ];
+
+        $singleLine   = '[\'foo\' => [\'bar\']]';
+        $multipleLine = <<<EOS
+[
+    'foo' => [
+        'bar',
+    ],
+]
+EOS;
+
+        return [
+            'singleLine'   => [
+                $array,
+                ValueGenerator::TYPE_ARRAY_SHORT,
+                ValueGenerator::OUTPUT_SINGLE_LINE,
+                $singleLine,
+            ],
+            'multipleLine' => [
+                $array,
+                ValueGenerator::TYPE_ARRAY_SHORT,
+                ValueGenerator::OUTPUT_MULTIPLE_LINE,
+                $multipleLine,
+            ],
+        ];
     }
 }
