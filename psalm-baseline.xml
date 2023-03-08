@@ -1874,6 +1874,7 @@
       <code>simpleArray</code>
       <code>unsortedKeysArray</code>
       <code>validConstantTypes</code>
+      <code>multipleOutputArray</code>
     </PossiblyUnusedMethod>
   </file>
   <file src="test/Generic/Prototype/PrototypeClassFactoryTest.php">
