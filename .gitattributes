@@ -1,4 +1,6 @@
 /.coveralls.yml export-ignore
+/composer.lock export-ignore
+/renovate.json export-ignore
 /.gitattributes export-ignore
 /.github/ export-ignore
 /.gitignore export-ignore
