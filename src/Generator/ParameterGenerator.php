@@ -168,6 +168,14 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
+     * @return bool
+     */
+    public function getNullable()
+    {
+        return $this->type && $this->type->getNullable();
+    }
+
+    /**
      * @param  string $name
      * @return ParameterGenerator
      */
