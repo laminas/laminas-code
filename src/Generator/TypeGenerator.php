@@ -69,7 +69,7 @@ final class TypeGenerator implements GeneratorInterface
 
         return new self(
             $atomicType,
-            $atomicType->type !== 'mixed' && $atomicType !== 'null' && $type->allowsNull()
+            $atomicType->type !== 'mixed' && $atomicType->type !== 'null' && $type->allowsNull()
         );
     }
 
