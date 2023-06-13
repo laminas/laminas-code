@@ -526,19 +526,18 @@ CODE;
         self::assertInstanceOf(DocBlockGenerator::class, $docBlock);
     }
 
-    public function testCreateFromArrayWithAttributesFromArray(): void
+    public function testCreateFromGeneratorWithAttributes(): void
     {
         $attributeName = 'AnyAttribute';
         $attributeArguments = ['argument' => 2];
+        $attributeGenerator = AttributeGenerator::fromPrototype(new AttributePrototype($attributeName, $attributeArguments));
 
         $classGenerator = ClassGenerator::fromArray([
             'name' => 'AnyClassName',
-            'attribute' => [
-                [$attributeName, $attributeArguments],
-            ],
+            'attribute' => $attributeGenerator,
         ]);
 
-        $expectedGenerator = AttributeGenerator::fromPrototype(new AttributePrototype($attributeName, $attributeArguments));
+        $expectedGenerator = $attributeGenerator;
         $attributeGenerator = $classGenerator->getAttributes();
         self::assertInstanceOf(AttributeGenerator::class, $attributeGenerator);
         self::assertEquals($expectedGenerator, $attributeGenerator);
@@ -546,13 +545,14 @@ CODE;
 
     public function testGenerateAttributes(): void
     {
+        $attributeGenerator = AttributeGenerator::fromPrototype(
+            new AttributePrototype('FirstAttribute', ['firstArgument' => 'abc', 'secondArgument' => 12]),
+            new AttributePrototype('FirstAttribute', ['firstArgument' => 'abc', 'secondArgument' => 13]),
+            new AttributePrototype('SecondAttribute'),
+        );
         $classGenerator = ClassGenerator::fromArray([
             'name' => 'AnyClassName',
-            'attribute' => [
-                ['FirstAttribute', ['firstArgument' => 'abc', 'secondArgument' => 12]],
-                ['FirstAttribute', ['firstArgument' => 'abc', 'secondArgument' => 13]],
-                ['SecondAttribute'],
-            ],
+            'attribute' => $attributeGenerator,
         ]);
 
         $generatedClass = $classGenerator->generate();

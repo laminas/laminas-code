@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Laminas\Code\Generator\AttributeGenerator;
 
-interface AttributeAssembler
+use Laminas\Code\Generator\ValueAssembler;
+
+interface AttributeAssembler extends ValueAssembler
 {
-    public function assemble(): string;
 }

@@ -12,12 +12,12 @@ abstract class AbstractAttributeAssembler implements AttributeAssembler
     {
     }
 
-    protected function getName(): string
+    final protected function getName(): string
     {
         return $this->attributePrototype->getName();
     }
 
-    protected function getArguments(): array
+    final protected function getArguments(): array
     {
         return $this->attributePrototype->getArguments();
     }

@@ -2,6 +2,7 @@
 
 namespace Laminas\Code\Generator;
 
+use InvalidArgumentException;
 use Laminas\Code\Generator\AttributeGenerator\AttributeBuilder;
 use Laminas\Code\Reflection\ClassReflection;
 
@@ -202,8 +203,11 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
                     $cg->setDocBlock($docBlock);
                     break;
                 case 'attribute':
-                    $generator = $value instanceof AttributeGenerator ? $value : AttributeGenerator::fromArray($value);
-                    $cg->setAttributes($generator);
+                    if (!($value instanceof AttributeGenerator)) {
+                        throw new InvalidArgumentException(sprintf('Only %s is supported', AttributeGenerator::class));
+                    }
+
+                    $cg->setAttributes($value);
                     break;
                 case 'flags':
                     $cg->setFlags($value);
