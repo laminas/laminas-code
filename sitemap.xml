@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.laminas.dev/laminas-code/</loc>
-         <lastmod>2022-11-21</lastmod>
+         <lastmod>2023-08-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-code/migration/</loc>
-         <lastmod>2022-11-21</lastmod>
+         <lastmod>2023-08-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-code/generator/examples/</loc>
-         <lastmod>2022-11-21</lastmod>
+         <lastmod>2023-08-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-code/generator/intro/</loc>
-         <lastmod>2022-11-21</lastmod>
+         <lastmod>2023-08-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-code/generator/reference/</loc>
-         <lastmod>2022-11-21</lastmod>
+         <lastmod>2023-08-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
