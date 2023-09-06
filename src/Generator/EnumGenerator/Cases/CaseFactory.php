@@ -26,7 +26,7 @@ final class CaseFactory
      *          cases: array<non-empty-string, int>,
      *      }|array{
      *          type: 'string',
-     *          cases: array<non-empty-string, non-empty-string>,
+     *          cases: array<non-empty-string, string>,
      *      },
      * } $options
      * @return BackedCases|PureCases

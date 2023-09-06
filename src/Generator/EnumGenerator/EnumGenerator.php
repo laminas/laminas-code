@@ -80,7 +80,7 @@ final class EnumGenerator
      *      name: non-empty-string,
      *      backedCases: array{
      *          type: 'int'|'string',
-     *          cases: array<non-empty-string, int|non-empty-string>,
+     *          cases: array<non-empty-string, int|string>,
      *      },
      * } $options
      */
