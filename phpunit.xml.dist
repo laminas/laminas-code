@@ -3,20 +3,24 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         displayDetailsOnSkippedTests="true"
+         displayDetailsOnIncompleteTests="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         failOnWarning="true"
+         failOnNotice="true"
+         failOnDeprecation="true"
 >
     <testsuites>
         <testsuite name="laminas-code Test Suite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
-    <coverage>
+    <source>
         <include>
             <directory suffix=".php">./src</directory>
         </include>
-    </coverage>
-    <php>
-        <!-- Enable this if you have installed Doctrine\Common on the
-                 include_path or via Composer. -->
-        <env name="TESTS_LAMINAS_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false"/>
-    </php>
+    </source>
 </phpunit>
