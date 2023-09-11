@@ -1,7 +1,7 @@
 # laminas-code
 
-[![Build Status](https://travis-ci.com/laminas/laminas-code.svg?branch=master)](https://travis-ci.com/laminas/laminas-code)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-code/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-code?branch=master)
+[![Continuous Integration](https://github.com/laminas/laminas-code/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/laminas/laminas-code/actions/workflows/continuous-integration.yml)
+[![Type Coverage](https://shepherd.dev/github/laminas/laminas-code/coverage.svg)](https://shepherd.dev/github/laminas/laminas-code)
 
 > ## 🇷🇺 Русским гражданам
 >
