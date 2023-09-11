@@ -12,6 +12,7 @@
          failOnWarning="true"
          failOnNotice="true"
          failOnDeprecation="true"
+         cacheDirectory=".phpunit.cache"
 >
     <testsuites>
         <testsuite name="laminas-code Test Suite">
