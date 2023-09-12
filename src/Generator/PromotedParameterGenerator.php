@@ -87,6 +87,10 @@ final class PromotedParameterGenerator extends ParameterGenerator
             );
         }
 
+        if ($type && $generator->getNullable()) {
+            $type = '?' . $type;
+        }
+
         return new self(
             $name,
             $type,

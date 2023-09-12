@@ -141,6 +141,14 @@ final class TypeGenerator implements GeneratorInterface
     }
 
     /**
+     * @return bool Nullable flag
+     */
+    public function getNullable()
+    {
+        return $this->nullable;
+    }
+
+    /**
      * @return bool[]|string[] ordered tuple, first key represents whether the type is nullable, second is the
      *                         trimmed string
      * @psalm-return array{bool, string}
