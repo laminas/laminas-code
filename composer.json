@@ -16,7 +16,7 @@
         "doctrine/annotations": "^2.0.1",
         "laminas/laminas-coding-standard": "^2.5.0",
         "laminas/laminas-stdlib": "^3.17.0",
-        "phpunit/phpunit": "^10.3.3",
+        "phpunit/phpunit": "^11.0.0",
         "psalm/plugin-phpunit": "^0.18.4",
         "vimeo/psalm": "^5.15.0"
     },
