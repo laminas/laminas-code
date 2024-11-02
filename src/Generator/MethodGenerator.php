@@ -3,6 +3,7 @@
 namespace Laminas\Code\Generator;
 
 use Laminas\Code\Reflection\MethodReflection;
+use Stringable;
 
 use function array_map;
 use function explode;
@@ -12,13 +13,14 @@ use function is_string;
 use function preg_replace;
 use function sprintf;
 use function str_replace;
+use function str_starts_with;
 use function strlen;
 use function strtolower;
 use function substr;
 use function trim;
 use function uasort;
 
-class MethodGenerator extends AbstractMemberGenerator
+class MethodGenerator extends AbstractMemberGenerator implements Stringable
 {
     protected ?DocBlockGenerator $docBlock = null;
 
@@ -106,7 +108,7 @@ class MethodGenerator extends AbstractMemberGenerator
         $indention = str_replace(trim($lines[1]), '', $lines[1]);
 
         foreach ($lines as $key => $line) {
-            if (substr($line, 0, strlen($indention)) == $indention) {
+            if (str_starts_with($line, $indention)) {
                 $lines[$key] = substr($line, strlen($indention));
             }
         }
@@ -397,8 +399,7 @@ class MethodGenerator extends AbstractMemberGenerator
         return $output;
     }
 
-    /** @return string */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->generate();
     }

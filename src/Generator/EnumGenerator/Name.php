@@ -12,14 +12,8 @@ use function substr;
  */
 final class Name
 {
-    private string $name;
-
-    private ?string $namespace;
-
-    private function __construct(string $name, ?string $namespace)
+    private function __construct(private readonly string $name, private readonly ?string $namespace)
     {
-        $this->name      = $name;
-        $this->namespace = $namespace;
     }
 
     public function getName(): string

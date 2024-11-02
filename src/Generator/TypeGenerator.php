@@ -13,6 +13,7 @@ use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
 use ReflectionUnionType;
+use Stringable;
 
 use function array_map;
 use function sprintf;
@@ -21,7 +22,7 @@ use function str_starts_with;
 use function substr;
 
 /** @psalm-immutable */
-final class TypeGenerator implements GeneratorInterface
+final class TypeGenerator implements GeneratorInterface, Stringable
 {
     private const NULL_MARKER = '?';
 

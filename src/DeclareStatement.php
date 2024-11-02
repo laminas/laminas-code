@@ -26,16 +26,9 @@ class DeclareStatement
         self::ENCODING     => 'string',
     ];
 
-    protected string $directive;
-
-    /** @var int|string */
-    protected $value;
-
     /** @param int|string $value */
-    private function __construct(string $directive, $value)
+    private function __construct(protected string $directive, protected $value)
     {
-        $this->directive = $directive;
-        $this->value     = $value;
     }
 
     public function getDirective(): string

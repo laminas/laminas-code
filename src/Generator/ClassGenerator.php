@@ -532,11 +532,7 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
      */
     public function getConstant($constantName)
     {
-        if (isset($this->constants[$constantName])) {
-            return $this->constants[$constantName];
-        }
-
-        return false;
+        return $this->constants[$constantName] ?? false;
     }
 
     /**

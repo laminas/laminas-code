@@ -373,9 +373,6 @@
       <code>DocBlockGenerator::fromArray($value)</code>
       <code>ParameterGenerator::fromArray($parameter)</code>
     </DeprecatedMethod>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code>$value</code>
@@ -603,9 +600,6 @@
       <code>$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject</code>
       <code>$constants instanceof StdlibArrayObject</code>
     </DocblockTypeContradiction>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MissingReturnType>
       <code>initEnvironmentConstants</code>
     </MissingReturnType>
@@ -678,9 +672,6 @@
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
     </MethodSignatureMismatch>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MissingImmutableAnnotation>
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
@@ -705,11 +696,6 @@
       <code>getStartLine</code>
     </PossiblyFalseReference>
   </file>
-  <file src="src/Reflection/DocBlock/Tag/AuthorTag.php">
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
-  </file>
   <file src="src/Reflection/DocBlock/Tag/GenericTag.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$this->contentSplitCharacter]]></code>
@@ -717,9 +703,6 @@
     <ImplementedReturnTypeMismatch>
       <code>string|null</code>
     </ImplementedReturnTypeMismatch>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <PossiblyNullOperand>
       <code><![CDATA[$this->name]]></code>
     </PossiblyNullOperand>
@@ -727,33 +710,15 @@
       <code>getContent</code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src/Reflection/DocBlock/Tag/LicenseTag.php">
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
-  </file>
-  <file src="src/Reflection/DocBlock/Tag/MethodTag.php">
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
-  </file>
   <file src="src/Reflection/DocBlock/Tag/ParamTag.php">
     <PossiblyUnusedMethod>
       <code>getDescription</code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src/Reflection/DocBlock/Tag/PropertyTag.php">
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
-  </file>
   <file src="src/Reflection/DocBlockReflection.php">
     <DocblockTypeContradiction>
       <code>! is_string($filter)</code>
     </DocblockTypeContradiction>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MixedArgument>
       <code><![CDATA[$tag['name']]]></code>
       <code><![CDATA[$tag['value']]]></code>
@@ -831,15 +796,10 @@
     <MethodSignatureMismatch>
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
-      <code>public function __toString()</code>
     </MethodSignatureMismatch>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MissingImmutableAnnotation>
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
-      <code>public function __toString()</code>
     </MissingImmutableAnnotation>
     <MixedArgument>
       <code>$returnTypes</code>
@@ -897,9 +857,6 @@
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>
     </MethodSignatureMismatch>
-    <MethodSignatureMustProvideReturnType>
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
     <MissingImmutableAnnotation>
       <code>#[ReturnTypeWillChange]</code>
       <code>#[ReturnTypeWillChange]</code>

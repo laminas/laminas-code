@@ -2,6 +2,7 @@
 
 namespace Laminas\Code\Scanner;
 
+use function array_key_last;
 use function array_pop;
 use function array_push;
 use function current;
@@ -22,9 +23,6 @@ class DocBlockScanner
     protected $isScanned = false;
 
     /** @var string */
-    protected $docComment;
-
-    /** @var string */
     protected $shortDescription = '';
 
     /** @var string */
@@ -36,9 +34,8 @@ class DocBlockScanner
     /**
      * @param  string $docComment
      */
-    public function __construct($docComment)
+    public function __construct(protected $docComment)
     {
-        $this->docComment = $docComment;
     }
 
     /**
@@ -120,8 +117,7 @@ class DocBlockScanner
                     'name'  => $token[1],
                     'value' => '',
                 ]);
-                end($this->tags);
-                $tagIndex = key($this->tags);
+                $tagIndex = array_key_last($this->tags);
                 $mode     = 3;
                 goto SCANNER_CONTINUE;
                 //goto no break needed

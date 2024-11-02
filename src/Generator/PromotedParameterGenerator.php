@@ -15,9 +15,6 @@ final class PromotedParameterGenerator extends ParameterGenerator
     public const VISIBILITY_PROTECTED = 'protected';
     public const VISIBILITY_PRIVATE   = 'private';
 
-    /** @psalm-var PromotedParameterGenerator::VISIBILITY_* */
-    private string $visibility;
-
     /**
      * @psalm-param non-empty-string $name
      * @psalm-param ?non-empty-string $type
@@ -26,7 +23,7 @@ final class PromotedParameterGenerator extends ParameterGenerator
     public function __construct(
         string $name,
         ?string $type = null,
-        string $visibility = self::VISIBILITY_PUBLIC,
+        private readonly string $visibility = self::VISIBILITY_PUBLIC,
         ?int $position = null,
         bool $passByReference = false
     ) {
@@ -37,8 +34,6 @@ final class PromotedParameterGenerator extends ParameterGenerator
             $position,
             $passByReference,
         );
-
-        $this->visibility = $visibility;
     }
 
     /** @psalm-return non-empty-string */

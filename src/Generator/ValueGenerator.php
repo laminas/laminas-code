@@ -5,6 +5,7 @@ namespace Laminas\Code\Generator;
 use ArrayObject as SplArrayObject;
 use Laminas\Code\Exception\InvalidArgumentException;
 use Laminas\Stdlib\ArrayObject as StdlibArrayObject;
+use Stringable;
 use UnitEnum;
 
 use function addcslashes;
@@ -25,7 +26,7 @@ use function sprintf;
 use function str_contains;
 use function str_repeat;
 
-class ValueGenerator extends AbstractGenerator
+class ValueGenerator extends AbstractGenerator implements Stringable
 {
     /**#@+
      * Constant values
@@ -500,8 +501,7 @@ class ValueGenerator extends AbstractGenerator
         return $this->outputMode;
     }
 
-    /** @return string */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->generate();
     }
