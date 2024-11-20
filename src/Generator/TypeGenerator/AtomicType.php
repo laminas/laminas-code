@@ -62,20 +62,14 @@ final class AtomicType
     private const VALID_IDENTIFIER_MATCHER = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*'
         . '(\\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)*$/';
 
-    /** @psalm-var value-of<AtomicType::BUILT_IN_TYPES_PRECEDENCE>|0 */
-    public int $sortIndex;
-
-    /** @psalm-var non-empty-string */
-    public string $type;
-
     /**
      * @psalm-param non-empty-string $type
      * @psalm-param value-of<AtomicType::BUILT_IN_TYPES_PRECEDENCE>|0 $sortIndex
      */
-    private function __construct(string $type, int $sortIndex)
-    {
-        $this->type      = $type;
-        $this->sortIndex = $sortIndex;
+    private function __construct(
+        public string $type,
+        public int $sortIndex
+    ) {
     }
 
     /**

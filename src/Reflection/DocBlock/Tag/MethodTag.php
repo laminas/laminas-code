@@ -2,11 +2,13 @@
 
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
+use Stringable;
+
 use function explode;
 use function preg_match;
 use function rtrim;
 
-class MethodTag implements TagInterface, PhpDocTypedTagInterface
+class MethodTag implements TagInterface, PhpDocTypedTagInterface, Stringable
 {
     /** @var list<string> */
     protected $types = [];
@@ -91,7 +93,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
     }
 
     /** @return non-empty-string */
-    public function __toString()
+    public function __toString(): string
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";
     }

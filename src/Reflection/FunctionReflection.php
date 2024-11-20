@@ -280,9 +280,9 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     /**
      * Required due to bug in php
      *
-     * @return string
+     * @psalm-external-mutation-free
      */
-    public function __toString()
+    public function __toString(): string
     {
         return parent::__toString();
     }

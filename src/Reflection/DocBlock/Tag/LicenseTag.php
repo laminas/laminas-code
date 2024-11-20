@@ -2,10 +2,12 @@
 
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
+use Stringable;
+
 use function preg_match;
 use function trim;
 
-class LicenseTag implements TagInterface
+class LicenseTag implements TagInterface, Stringable
 {
     /** @var string|null */
     protected $url;
@@ -50,7 +52,7 @@ class LicenseTag implements TagInterface
     }
 
     /** @return non-empty-string */
-    public function __toString()
+    public function __toString(): string
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";
     }

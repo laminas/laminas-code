@@ -202,10 +202,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         return parent::__toString();
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return parent::__toString();
     }

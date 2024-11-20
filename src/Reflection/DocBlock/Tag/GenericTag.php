@@ -3,11 +3,12 @@
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
 use Laminas\Code\Generic\Prototype\PrototypeGenericInterface;
+use Stringable;
 
 use function explode;
 use function trim;
 
-class GenericTag implements TagInterface, PrototypeGenericInterface
+class GenericTag implements TagInterface, PrototypeGenericInterface, Stringable
 {
     /** @var string|null */
     protected $name;
@@ -15,18 +16,14 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
     /** @var string|null */
     protected $content;
 
-    /** @var string */
-    protected $contentSplitCharacter;
-
     /** @var list<string> */
     protected $values = [];
 
     /**
      * @param string $contentSplitCharacter
      */
-    public function __construct($contentSplitCharacter = ' ')
+    public function __construct(protected $contentSplitCharacter = ' ')
     {
-        $this->contentSplitCharacter = $contentSplitCharacter;
     }
 
     /** @inheritDoc */
@@ -66,7 +63,7 @@ class GenericTag implements TagInterface, PrototypeGenericInterface
     }
 
     /** @return non-empty-string */
-    public function __toString()
+    public function __toString(): string
     {
         return 'DocBlock Tag [ * @' . $this->name . ' ]' . "\n";
     }

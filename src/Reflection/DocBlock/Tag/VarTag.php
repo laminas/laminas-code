@@ -2,13 +2,15 @@
 
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
+use Stringable;
+
 use function explode;
 use function preg_match;
 use function rtrim;
 
 use const PHP_EOL;
 
-class VarTag implements TagInterface, PhpDocTypedTagInterface
+class VarTag implements TagInterface, PhpDocTypedTagInterface, Stringable
 {
     /**
      * @var string[]

@@ -18,8 +18,6 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     protected bool $isConst = false;
 
-    protected ?TypeGenerator $type = null;
-
     protected ?PropertyValueGenerator $defaultValue = null;
 
     private bool $omitDefaultValue = false;
@@ -32,7 +30,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         ?string $name = null,
         $defaultValue = null,
         $flags = self::FLAG_PUBLIC,
-        ?TypeGenerator $type = null
+        protected ?TypeGenerator $type = null
     ) {
         parent::__construct();
 
@@ -45,8 +43,6 @@ class PropertyGenerator extends AbstractMemberGenerator
         if ($flags !== self::FLAG_PUBLIC) {
             $this->setFlags($flags);
         }
-
-        $this->type = $type;
     }
 
     /** @return static */
@@ -232,9 +228,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /** @inheritDoc */
     public function setFlags($flags)
     {
-        $flags = array_reduce((array) $flags, static function (int $a, int $b): int {
-            return $a | $b;
-        }, 0);
+        $flags = array_reduce((array) $flags, static fn(int $a, int $b): int => $a | $b, 0);
 
         if ($flags & self::FLAG_READONLY && $flags & self::FLAG_STATIC) {
             throw new Exception\RuntimeException('Modifier "readonly" in combination with "static" not permitted.');

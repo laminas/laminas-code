@@ -22,8 +22,6 @@ use function strpos;
 /** @psalm-type Visibility = ReflectionMethod::IS_PRIVATE|ReflectionMethod::IS_PROTECTED|ReflectionMethod::IS_PUBLIC */
 class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterface
 {
-    protected ClassGenerator $classGenerator;
-
     /** @psalm-var array<int, string> Array of trait names */
     protected array $traits = [];
     /**
@@ -43,9 +41,8 @@ class TraitUsageGenerator extends AbstractGenerator implements TraitUsageInterfa
     /** @var array<non-empty-string, non-empty-string> Array of string names */
     protected array $uses = [];
 
-    public function __construct(ClassGenerator $classGenerator)
+    public function __construct(protected ClassGenerator $classGenerator)
     {
-        $this->classGenerator = $classGenerator;
     }
 
     /**

@@ -2,10 +2,12 @@
 
 namespace Laminas\Code\Reflection\DocBlock\Tag;
 
+use Stringable;
+
 use function preg_match;
 use function rtrim;
 
-class AuthorTag implements TagInterface
+class AuthorTag implements TagInterface, Stringable
 {
     /** @var string|null */
     protected $authorName;
@@ -50,7 +52,7 @@ class AuthorTag implements TagInterface
     }
 
     /** @return non-empty-string */
-    public function __toString()
+    public function __toString(): string
     {
         return 'DocBlock Tag [ * @' . $this->getName() . ' ]' . "\n";
     }

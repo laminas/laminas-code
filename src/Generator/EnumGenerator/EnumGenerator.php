@@ -23,18 +23,11 @@ final class EnumGenerator
      */
     private const INDENTATION = '    ';
 
-    private Name $name;
-
-    /** @var BackedCases|PureCases */
-    private $cases;
-
     /**
      * @param BackedCases|PureCases $cases
      */
-    private function __construct(Name $name, $cases)
+    private function __construct(private readonly Name $name, private $cases)
     {
-        $this->name  = $name;
-        $this->cases = $cases;
     }
 
     public function generate(): string

@@ -270,10 +270,8 @@ class DocBlockReflection implements ReflectionInterface
      * Serialize to string
      *
      * Required by the Reflector interface
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }
