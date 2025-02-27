@@ -37,7 +37,7 @@ class PropertyTag extends AbstractTypeableTag implements TagInterface
      */
     public function setPropertyName($propertyName)
     {
-        $this->propertyName = ltrim($propertyName, '$');
+        $this->propertyName = $propertyName ? ltrim($propertyName, '$') : null;
         return $this;
     }
 
