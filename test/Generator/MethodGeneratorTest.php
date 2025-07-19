@@ -127,7 +127,7 @@ class MethodGeneratorTest extends TestCase
 
         $methodGenerator = MethodGenerator::copyMethodSignature($ref);
         $target          = <<<'EOS'
-    protected function withParamsAndReturnType($mixed, array $array, ?callable $callable = null, ?int $int = 0) : bool
+    protected function withParamsAndReturnType($mixed, array $array, ?callable $callable = null, ?int $int = 0): bool
     {
     }
 
@@ -373,7 +373,7 @@ CODE;
         $methodGenerator->setReturnType('bar');
 
         $expected = <<<'PHP'
-    public function foo() : \bar
+    public function foo(): \bar
     {
     }
 
@@ -409,7 +409,7 @@ PHP;
     {
         $methodGenerator = MethodGenerator::fromReflection(new MethodReflection($className, $methodName));
 
-        self::assertStringMatchesFormat('%A) : ' . $expectedReturnSignature . '%w{%A', $methodGenerator->generate());
+        self::assertStringMatchesFormat('%A): ' . $expectedReturnSignature . '%w{%A', $methodGenerator->generate());
     }
 
     /**

@@ -376,7 +376,7 @@ class MethodGenerator extends AbstractMemberGenerator implements Stringable
         $output .= ')';
 
         if ($this->returnType) {
-            $output .= ' : ' . $this->returnType->generate();
+            $output .= ': ' . $this->returnType->generate();
         }
 
         if ($this->isAbstract()) {
