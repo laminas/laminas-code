@@ -14,6 +14,8 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use ReflectionType;
 
+use const PHP_VERSION_ID;
+
 #[Group('Laminas_Reflection')]
 #[Group('Laminas_Reflection_Parameter')]
 class ParameterReflectionTest extends TestCase
@@ -122,12 +124,12 @@ class ParameterReflectionTest extends TestCase
 
         $type = $reflection->getType();
 
-        if(PHP_VERSION_ID >= 80500 && $expectedType == 'self' ){
+        if (PHP_VERSION_ID >= 80500 && $expectedType == 'self') {
             $expectedType = $className;
         }
 
         self::assertInstanceOf(ReflectionType::class, $type);
-        
+
         self::assertSame($expectedType, $type->getName());
     }
 
