@@ -122,7 +122,12 @@ class ParameterReflectionTest extends TestCase
 
         $type = $reflection->getType();
 
+        if(PHP_VERSION_ID >= 80500 && $expectedType == 'self' ){
+            $expectedType = $className;
+        }
+
         self::assertInstanceOf(ReflectionType::class, $type);
+        
         self::assertSame($expectedType, $type->getName());
     }
 
