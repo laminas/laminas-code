@@ -584,14 +584,6 @@
       <code>self</code>
     </PossiblyUnusedReturnValue>
   </file>
-  <file src="src/Generator/TypeGenerator.php">
-    <InvalidArgument>
-      <code>$type</code>
-    </InvalidArgument>
-    <RedundantConditionGivenDocblockType>
-      <code>$type instanceof ReflectionNamedType</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod>
       <code>getConstants</code>

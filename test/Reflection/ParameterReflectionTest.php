@@ -14,6 +14,8 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use ReflectionType;
 
+use const PHP_VERSION_ID;
+
 #[Group('Laminas_Reflection')]
 #[Group('Laminas_Reflection_Parameter')]
 class ParameterReflectionTest extends TestCase
@@ -159,7 +161,13 @@ class ParameterReflectionTest extends TestCase
             [InternalHintsClass::class, 'floatParameter', 'foo', 'float'],
             [InternalHintsClass::class, 'stringParameter', 'foo', 'string'],
             [InternalHintsClass::class, 'boolParameter', 'foo', 'bool'],
-            [ClassTypeHintedClass::class, 'selfParameter', 'foo', 'self'],
+            [
+                ClassTypeHintedClass::class,
+                'selfParameter',
+                'foo',
+                // In PHP >=8.5, `ReflectionType::getName()` does not return 'self'
+                PHP_VERSION_ID >= 80500 ? ClassTypeHintedClass::class : 'self',
+            ],
             [ClassTypeHintedClass::class, 'classParameter', 'foo', ClassTypeHintedClass::class],
             [ClassTypeHintedClass::class, 'otherClassParameter', 'foo', InternalHintsClass::class],
             [ClassTypeHintedClass::class, 'closureParameter', 'foo', Closure::class],
