@@ -534,7 +534,6 @@ CODE;
         $reflectedClass = new ReflectionClass($classGenerator);
 
         $reflection = $reflectedClass->getProperty('flags');
-        $reflection->setAccessible(true);
 
         return $reflection->getValue($classGenerator);
     }

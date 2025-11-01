@@ -584,14 +584,6 @@
       <code>self</code>
     </PossiblyUnusedReturnValue>
   </file>
-  <file src="src/Generator/TypeGenerator.php">
-    <InvalidArgument>
-      <code>$type</code>
-    </InvalidArgument>
-    <RedundantConditionGivenDocblockType>
-      <code>$type instanceof ReflectionNamedType</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod>
       <code>getConstants</code>
@@ -1675,9 +1667,6 @@
       <code>validClassName</code>
       <code>variadicHints</code>
     </PossiblyUnusedMethod>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
     <ArgumentTypeCoercion>
@@ -1742,9 +1731,6 @@
     <RedundantConditionGivenDocblockType>
       <code>assertIsArray</code>
     </RedundantConditionGivenDocblockType>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/PropertyValueGeneratorTest.php">
     <MissingReturnType>
@@ -1798,9 +1784,6 @@
       <code>true</code>
       <code>true</code>
     </InvalidArgument>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/TypeGenerator/CompositeTypeTest.php">
     <PossiblyUnusedMethod>

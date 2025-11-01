@@ -296,8 +296,6 @@ EOS;
         self::assertInstanceOf(TypeGenerator::class, $propertyGenerator->getType());
         $reflectionOmitDefaultValue = new ReflectionProperty($propertyGenerator, 'omitDefaultValue');
 
-        $reflectionOmitDefaultValue->setAccessible(true);
-
         self::assertTrue($reflectionOmitDefaultValue->getValue($propertyGenerator));
     }
 

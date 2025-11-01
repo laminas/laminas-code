@@ -220,8 +220,6 @@ class ParameterGeneratorTest extends TestCase
 
         $reflectionOmitDefaultValue = new ReflectionProperty($parameterGenerator, 'omitDefaultValue');
 
-        $reflectionOmitDefaultValue->setAccessible(true);
-
         self::assertTrue($reflectionOmitDefaultValue->getValue($parameterGenerator));
     }
 
