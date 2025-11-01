@@ -1667,9 +1667,6 @@
       <code>validClassName</code>
       <code>variadicHints</code>
     </PossiblyUnusedMethod>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
     <ArgumentTypeCoercion>
@@ -1734,9 +1731,6 @@
     <RedundantConditionGivenDocblockType>
       <code>assertIsArray</code>
     </RedundantConditionGivenDocblockType>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/PropertyValueGeneratorTest.php">
     <MissingReturnType>
@@ -1790,9 +1784,6 @@
       <code>true</code>
       <code>true</code>
     </InvalidArgument>
-    <UnusedMethodCall>
-      <code>setAccessible</code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Generator/TypeGenerator/CompositeTypeTest.php">
     <PossiblyUnusedMethod>
