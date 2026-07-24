@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Docs
-        uses: laminas/documentation-theme/github-actions/docs@master
+        uses: laminas/documentation-theme/github-actions/docs@39b159ad354dd71260c68cb7f7abe813d999e3ed # master
         env:
           DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
