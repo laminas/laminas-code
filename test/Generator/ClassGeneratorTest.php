@@ -3,6 +3,7 @@
 namespace LaminasTest\Code\Generator;
 
 use DateTime;
+use Laminas\Code\Generator\AttributeGenerator;
 use Laminas\Code\Generator\ClassGenerator;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\Exception\ExceptionInterface;
@@ -1424,5 +1425,64 @@ EOS;
         // @phpcs:enable
 
         self::assertEquals($expectedOutput, $classGenerator->generate());
+    }
+
+    public function testGeneratesClassLevelAttributes(): void
+    {
+        $classGenerator = new ClassGenerator('MyClass');
+
+        $classGenerator->setAttributes([
+            AttributeGenerator::fromName('Foo'),
+            AttributeGenerator::fromName('\Bar\Baz', ['first' => 1, 'second' => 'two']),
+        ]);
+
+        $expectedOutput = <<<'EOS'
+#[\Foo]
+#[\Bar\Baz(first: 1, second: 'two')]
+class MyClass
+{
+}
+
+EOS;
+
+        self::assertSame($expectedOutput, $classGenerator->generate());
+    }
+
+    public function testAttributesArePlacedBetweenDocBlockAndClassDeclaration(): void
+    {
+        $classGenerator = new ClassGenerator('MyClass');
+
+        $classGenerator->setDocBlock(new DocBlockGenerator('A description'));
+        $classGenerator->addAttribute(AttributeGenerator::fromName('Foo'));
+        $classGenerator->setFinal(true);
+
+        $expectedOutput = <<<'EOS'
+/**
+ * A description
+ */
+#[\Foo]
+final class MyClass
+{
+}
+
+EOS;
+
+        self::assertSame($expectedOutput, $classGenerator->generate());
+    }
+
+    public function testAttributesCanBeRetrievedAndReplaced(): void
+    {
+        $classGenerator = new ClassGenerator('MyClass');
+        $attribute      = AttributeGenerator::fromName('Foo');
+
+        self::assertSame([], $classGenerator->getAttributes());
+
+        $classGenerator->addAttribute($attribute);
+
+        self::assertSame([$attribute], $classGenerator->getAttributes());
+
+        $classGenerator->setAttributes([]);
+
+        self::assertSame([], $classGenerator->getAttributes());
     }
 }

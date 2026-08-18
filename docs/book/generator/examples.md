@@ -95,6 +95,68 @@ class Foo
 }
 ```
 
+### Generating PHP classes with attributes
+
+`Laminas\Code\Generator\AttributeGenerator` generates a single PHP attribute declaration, which can
+then be attached to a `Laminas\Code\Generator\ClassGenerator` instance.
+
+Attribute names are always rendered as fully qualified names, so that the generated code is valid
+regardless of the `use` statements surrounding it.
+
+```php
+use Laminas\Code\Generator\AttributeGenerator;
+use Laminas\Code\Generator\ClassGenerator;
+
+$class = new ClassGenerator();
+$class
+    ->setName('MyEntity')
+    ->setAttributes([
+        AttributeGenerator::fromName(\Doctrine\ORM\Mapping\Entity::class),
+        AttributeGenerator::fromName(
+            \Doctrine\ORM\Mapping\Table::class,
+            ['name' => 'my_entity']
+        ),
+    ])
+    ->addAttribute(AttributeGenerator::fromName('My\Attributes\Deprecated', ['since 1.2.0']));
+
+echo $class->generate();
+```
+
+The above results in the following:
+
+```php
+#[\Doctrine\ORM\Mapping\Entity]
+#[\Doctrine\ORM\Mapping\Table(name: 'my_entity')]
+#[\My\Attributes\Deprecated('since 1.2.0')]
+class MyEntity
+{
+}
+```
+
+Arguments with `string` keys are rendered as named arguments, while arguments with `int` keys are
+rendered as positional ones. As in hand-written PHP, positional arguments cannot follow named ones.
+
+Only values that are valid constant expressions may be used as arguments: `null`, `bool`, `int`,
+`float`, `string`, `array` and enum cases. Anything else results in an
+`Laminas\Code\Generator\Exception\InvalidArgumentException`.
+
+Attributes declared on existing symbols can be read back through reflection:
+
+```php
+use Laminas\Code\Generator\AttributeGenerator;
+
+// list<AttributeGenerator>
+$attributes = AttributeGenerator::fromReflector(new ReflectionClass(MyEntity::class));
+
+// a single ReflectionAttribute can be converted too
+$attribute = AttributeGenerator::fromReflectionAttribute(
+    (new ReflectionClass(MyEntity::class))->getAttributes()[0]
+);
+```
+
+`AttributeGenerator::fromReflector()` accepts any reflector that can carry attributes: classes,
+class constants, functions, methods, parameters and properties.
+
 ### Generating PHP classes with class methods
 
 `Laminas\Code\Generator\ClassGenerator` allows you to attach methods with optional content to your
