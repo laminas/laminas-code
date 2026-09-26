@@ -59,7 +59,7 @@ final class EnumGenerator
         return implode(
             '',
             array_map(
-                fn (string $case): string => self::INDENTATION . 'case ' . $case . ';' . self::LINE_FEED,
+                static fn (string $case): string => self::INDENTATION . 'case ' . $case . ';' . self::LINE_FEED,
                 $this->cases->cases
             )
         );
