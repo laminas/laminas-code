@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
+<files psalm-version="6.18.1@79465b8dc674127f442ae31ea114c11bc4dd7ed6">
   <file src="src/DeclareStatement.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeclareStatement]]></code>
+    </ClassMustBeFinal>
     <MixedArgumentTypeCoercion>
-      <code>$directive</code>
+      <code><![CDATA[$directive]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>self</code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
-      <code>self::{$method}($value)</code>
+      <code><![CDATA[self::{$method}($value)]]></code>
     </MixedReturnStatement>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$config]]></code>
+      <code><![CDATA[self::ALLOWED]]></code>
+    </PossiblyNullArrayOffset>
     <PossiblyUnusedMethod>
-      <code>encoding</code>
-      <code>getValue</code>
-      <code>ticks</code>
+      <code><![CDATA[encoding]]></code>
+      <code><![CDATA[getValue]]></code>
+      <code><![CDATA[ticks]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Generator/AbstractGenerator.php">
@@ -24,82 +28,104 @@
       <code><![CDATA[! is_array($options) && ! $options instanceof Traversable]]></code>
     </DocblockTypeContradiction>
     <MixedAssignment>
-      <code>$optionName</code>
-      <code>$optionValue</code>
+      <code><![CDATA[$optionName]]></code>
+      <code><![CDATA[$optionValue]]></code>
     </MixedAssignment>
     <MixedOperand>
-      <code>$optionName</code>
+      <code><![CDATA[$optionName]]></code>
     </MixedOperand>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $isSourceDirty</code>
-      <code>(string) $indentation</code>
+      <code><![CDATA[(bool) $isSourceDirty]]></code>
+      <code><![CDATA[(string) $indentation]]></code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/AbstractMemberGenerator.php">
     <PossiblyUnusedReturnValue>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
     </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
-      <code>(string) $name</code>
+      <code><![CDATA[(string) $name]]></code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/BodyGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[BodyGenerator]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
-      <code>setContent</code>
+      <code><![CDATA[setContent]]></code>
     </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
-      <code>(string) $content</code>
+      <code><![CDATA[(string) $content]]></code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/ClassGenerator.php">
     <ArgumentTypeCoercion>
-      <code>$method</code>
-      <code>$name</code>
+      <code><![CDATA[$method]]></code>
+      <code><![CDATA[$name]]></code>
     </ArgumentTypeCoercion>
     <DeprecatedMethod>
-      <code>DocBlockGenerator::fromArray($value)</code>
+      <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
     <DocblockTypeContradiction>
-      <code>empty($name) || ! is_string($name)</code>
-      <code>is_string($name)</code>
-      <code>is_string($name)</code>
+      <code><![CDATA[empty($name) || ! is_string($name)]]></code>
+      <code><![CDATA[is_string($name)]]></code>
+      <code><![CDATA[is_string($name)]]></code>
     </DocblockTypeContradiction>
     <InvalidNullableReturnType>
-      <code>string</code>
+      <code><![CDATA[string]]></code>
     </InvalidNullableReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function addTrait($trait)]]></code>
+      <code><![CDATA[public function addTraitAlias($method, $alias, $visibility = null)]]></code>
+      <code><![CDATA[public function addTraitOverride($method, $traitsToReplace)]]></code>
+      <code><![CDATA[public function addTraits(array $traits)]]></code>
+      <code><![CDATA[public function addUse($use, $useAlias = null)]]></code>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getTraitAliases()]]></code>
+      <code><![CDATA[public function getTraitOverrides()]]></code>
+      <code><![CDATA[public function getTraits()]]></code>
+      <code><![CDATA[public function getUses()]]></code>
+      <code><![CDATA[public function hasTrait($traitName)]]></code>
+      <code><![CDATA[public function isSourceDirty()]]></code>
+      <code><![CDATA[public function removeTrait($traitName)]]></code>
+      <code><![CDATA[public function removeTraitOverride($method, $overridesToRemove = null)]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>array_values($constant)</code>
-      <code>array_values($constant)</code>
-      <code>array_values($method)</code>
-      <code>array_values($method)</code>
-      <code>array_values($method)</code>
-      <code>array_values($method)</code>
-      <code>array_values($method)</code>
-      <code>array_values($property)</code>
-      <code>array_values($property)</code>
-      <code>array_values($property)</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[array_values($constant)]]></code>
+      <code><![CDATA[array_values($constant)]]></code>
+      <code><![CDATA[array_values($method)]]></code>
+      <code><![CDATA[array_values($method)]]></code>
+      <code><![CDATA[array_values($method)]]></code>
+      <code><![CDATA[array_values($method)]]></code>
+      <code><![CDATA[array_values($method)]]></code>
+      <code><![CDATA[array_values($property)]]></code>
+      <code><![CDATA[array_values($property)]]></code>
+      <code><![CDATA[array_values($property)]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <MixedOperand>
-      <code>static::IMPLEMENTS_KEYWORD</code>
-      <code>static::OBJECT_TYPE</code>
+      <code><![CDATA[static::IMPLEMENTS_KEYWORD]]></code>
+      <code><![CDATA[static::OBJECT_TYPE]]></code>
     </MixedOperand>
     <NullableReturnStatement>
       <code><![CDATA[$this->traitUsageGenerator->getUseAlias($fqnClassName)]]></code>
@@ -114,20 +140,23 @@
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
     <PossiblyNullOperand>
-      <code>$namespaceAlias</code>
+      <code><![CDATA[$namespaceAlias]]></code>
     </PossiblyNullOperand>
     <PossiblyUnusedReturnValue>
-      <code>self</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
+      <code><![CDATA[self]]></code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
+      <code><![CDATA[static]]></code>
     </PossiblyUnusedReturnValue>
     <RedundantConditionGivenDocblockType>
-      <code>is_array($constant)</code>
+      <code><![CDATA[is_array($constant)]]></code>
     </RedundantConditionGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($output)]]></code>
+    </RiskyTruthyFalsyComparison>
     <TypeDoesNotContainType>
-      <code>! is_string($name)</code>
+      <code><![CDATA[! is_string($name)]]></code>
     </TypeDoesNotContainType>
     <UnsafeInstantiation>
       <code><![CDATA[new static($array['name'])]]></code>
@@ -135,125 +164,255 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/DocBlock/Tag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Tag]]></code>
+    </ClassMustBeFinal>
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType>
-      <code>Tag</code>
+      <code><![CDATA[Tag]]></code>
     </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
-      <code>fromReflection</code>
-      <code>getDescription</code>
-      <code>setDescription</code>
+      <code><![CDATA[fromReflection]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[setDescription]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Generator/DocBlock/Tag/AbstractTypeableTag.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($description)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
   <file src="src/Generator/DocBlock/Tag/AuthorTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AuthorTag]]></code>
+    </ClassMustBeFinal>
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
-      <code>AuthorTag</code>
+      <code><![CDATA[AuthorTag]]></code>
     </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
-      <code>fromReflection</code>
+      <code><![CDATA[fromReflection]]></code>
     </PossiblyUnusedMethod>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($authorEmail)]]></code>
+      <code><![CDATA[empty($authorName)]]></code>
+      <code><![CDATA[empty($this->authorEmail)]]></code>
+      <code><![CDATA[empty($this->authorName)]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Generator/DocBlock/Tag/GenericTag.php">
     <ImplementedReturnTypeMismatch>
-      <code>$this</code>
-      <code>$this</code>
-      <code>string|null</code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[string|null]]></code>
     </ImplementedReturnTypeMismatch>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function setName($name)]]></code>
+    </MissingOverrideAttribute>
     <PossiblyNullOperand>
       <code><![CDATA[$this->name]]></code>
     </PossiblyNullOperand>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($content)]]></code>
+      <code><![CDATA[empty($name)]]></code>
+      <code><![CDATA[empty($this->content)]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Generator/DocBlock/Tag/LicenseTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LicenseTag]]></code>
+    </ClassMustBeFinal>
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
-      <code>ReturnTag</code>
+      <code><![CDATA[ReturnTag]]></code>
     </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
-      <code>fromReflection</code>
+      <code><![CDATA[fromReflection]]></code>
     </PossiblyUnusedMethod>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($licenseName)]]></code>
+      <code><![CDATA[empty($this->licenseName)]]></code>
+      <code><![CDATA[empty($this->url)]]></code>
+      <code><![CDATA[empty($url)]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Generator/DocBlock/Tag/MethodTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $isStatic</code>
+      <code><![CDATA[(bool) $isStatic]]></code>
     </RedundantCastGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($methodName)]]></code>
+      <code><![CDATA[empty($this->description)]]></code>
+      <code><![CDATA[empty($this->methodName)]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Generator/DocBlock/Tag/ParamTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ParamTag]]></code>
+    </ClassMustBeFinal>
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
       <code><![CDATA[$this->setTypes($datatype)]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgumentTypeCoercion>
-      <code>$types</code>
+      <code><![CDATA[$types]]></code>
     </MixedArgumentTypeCoercion>
     <MoreSpecificReturnType>
-      <code>ParamTag</code>
-      <code>ParamTag</code>
+      <code><![CDATA[ParamTag]]></code>
+      <code><![CDATA[ParamTag]]></code>
     </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
-      <code>fromReflection</code>
-      <code>getDatatype</code>
-      <code>getParamName</code>
-      <code>setParamName</code>
+      <code><![CDATA[fromReflection]]></code>
+      <code><![CDATA[getDatatype]]></code>
+      <code><![CDATA[getParamName]]></code>
+      <code><![CDATA[setParamName]]></code>
     </PossiblyUnusedMethod>
     <PossiblyUnusedReturnValue>
-      <code>ParamTag</code>
+      <code><![CDATA[ParamTag]]></code>
     </PossiblyUnusedReturnValue>
     <PropertyNotSetInConstructor>
-      <code>$variableName</code>
+      <code><![CDATA[$variableName]]></code>
     </PropertyNotSetInConstructor>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->description)]]></code>
+      <code><![CDATA[empty($variableName)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Generator/DocBlock/Tag/PropertyTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($propertyName)]]></code>
+      <code><![CDATA[empty($this->description)]]></code>
+      <code><![CDATA[empty($this->propertyName)]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Generator/DocBlock/Tag/ReturnTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ReturnTag]]></code>
+    </ClassMustBeFinal>
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
       <code><![CDATA[$this->setTypes($datatype)]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
-      <code>ReturnTag</code>
-      <code>ReturnTag</code>
+      <code><![CDATA[ReturnTag]]></code>
+      <code><![CDATA[ReturnTag]]></code>
     </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
-      <code>fromReflection</code>
-      <code>getDatatype</code>
+      <code><![CDATA[fromReflection]]></code>
+      <code><![CDATA[getDatatype]]></code>
     </PossiblyUnusedMethod>
     <PossiblyUnusedReturnValue>
-      <code>ReturnTag</code>
+      <code><![CDATA[ReturnTag]]></code>
     </PossiblyUnusedReturnValue>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->description)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Generator/DocBlock/Tag/ThrowsTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ThrowsTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getName()]]></code>
+    </MissingOverrideAttribute>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->description)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Generator/DocBlock/Tag/VarTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[VarTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate(): string]]></code>
+      <code><![CDATA[public function getName(): string]]></code>
+    </MissingOverrideAttribute>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->description)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Generator/DocBlock/TagManager.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TagManager]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="src/Generator/DocBlockGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedClass>
-      <code>new Tag()</code>
+      <code><![CDATA[new Tag()]]></code>
     </DeprecatedClass>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <MixedReturnTypeCoercion>
       <code><![CDATA[$this->tags]]></code>
-      <code>TagInterface[]</code>
+      <code><![CDATA[TagInterface[]]]></code>
     </MixedReturnTypeCoercion>
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $value</code>
+      <code><![CDATA[(bool) $value]]></code>
     </RedundantCastGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$longDescription]]></code>
+      <code><![CDATA[$shortDescription]]></code>
+    </RiskyTruthyFalsyComparison>
     <UnsafeInstantiation>
-      <code>new static()</code>
-      <code>new static()</code>
+      <code><![CDATA[new static()]]></code>
+      <code><![CDATA[new static()]]></code>
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/EnumGenerator/Cases/BackedCases.php">
@@ -262,7 +421,7 @@
       <code><![CDATA[$type === 'string']]></code>
     </DocblockTypeContradiction>
     <NoValue>
-      <code>$type</code>
+      <code><![CDATA[$type]]></code>
     </NoValue>
   </file>
   <file src="src/Generator/EnumGenerator/Cases/CaseFactory.php">
@@ -272,90 +431,140 @@
       <code><![CDATA[static fn(ReflectionEnumBackedCase $case): string|int => $case->getBackingValue()]]></code>
     </ArgumentTypeCoercion>
   </file>
+  <file src="src/Generator/Exception/ClassNotFoundException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ClassNotFoundException]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Generator/Exception/InvalidArgumentException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InvalidArgumentException]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Generator/FileGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[FileGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>ClassGenerator::fromArray($class)</code>
-      <code>ClassGenerator::fromArray($value)</code>
+      <code><![CDATA[ClassGenerator::fromArray($class)]]></code>
+      <code><![CDATA[ClassGenerator::fromArray($value)]]></code>
       <code><![CDATA[DeclareStatement::fromArray([$directive => $value])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>$docBlock</code>
+      <code><![CDATA[$docBlock]]></code>
     </InvalidArgument>
     <InvalidArrayOffset>
       <code><![CDATA[[$directive => $value]]]></code>
     </InvalidArrayOffset>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
     <LessSpecificReturnStatement>
-      <code>$uses</code>
+      <code><![CDATA[$uses]]></code>
     </LessSpecificReturnStatement>
     <MissingClosureParamType>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MissingClosureParamType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function isSourceDirty()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <MoreSpecificReturnType>
       <code><![CDATA[array<int, array{string, null|string, false|null|string}>]]></code>
     </MoreSpecificReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$output]]></code>
+    </NullableReturnStatement>
+    <PossiblyFalseArgument>
+      <code><![CDATA[current($use)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
     <PossiblyNullArgument>
-      <code>current($use)</code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[current($use)]]></code>
     </PossiblyNullArgument>
+    <PossiblyNullOperand>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$output]]></code>
+    </PossiblyNullOperand>
     <PossiblyUndefinedArrayOffset>
-      <code>$alias</code>
-      <code>$import</code>
-      <code>$uses[$useIndex][0]</code>
-      <code>$uses[$useIndex][1]</code>
+      <code><![CDATA[$alias]]></code>
+      <code><![CDATA[$import]]></code>
+      <code><![CDATA[$uses[$useIndex][0]]]></code>
+      <code><![CDATA[$uses[$useIndex][1]]]></code>
     </PossiblyUndefinedArrayOffset>
     <PossiblyUnusedMethod>
-      <code>getFilename</code>
-      <code>setBody</code>
-      <code>setClasses</code>
-      <code>setDocBlock</code>
+      <code><![CDATA[getFilename]]></code>
+      <code><![CDATA[setBody]]></code>
+      <code><![CDATA[setClasses]]></code>
+      <code><![CDATA[setDocBlock]]></code>
     </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
-      <code>(string) $body</code>
-      <code>(string) $filename</code>
-      <code>(string) $namespace</code>
+      <code><![CDATA[(string) $body]]></code>
+      <code><![CDATA[(string) $filename]]></code>
+      <code><![CDATA[(string) $namespace]]></code>
     </RedundantCastGivenDocblockType>
     <UnsafeInstantiation>
-      <code>new static()</code>
+      <code><![CDATA[new static()]]></code>
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/InterfaceGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InterfaceGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>DocBlockGenerator::fromArray($value)</code>
+      <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
     <InvalidClassConstantType>
-      <code>IMPLEMENTS_KEYWORD</code>
-      <code>OBJECT_TYPE</code>
+      <code><![CDATA[IMPLEMENTS_KEYWORD]]></code>
+      <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function addMethodFromGenerator(MethodGenerator $method)]]></code>
+      <code><![CDATA[public function addPropertyFromGenerator(PropertyGenerator $property)]]></code>
+      <code><![CDATA[public function setAbstract($isAbstract)]]></code>
+      <code><![CDATA[public function setExtendedClass($extendedClass)]]></code>
+      <code><![CDATA[public static function fromArray(array $array)]]></code>
+      <code><![CDATA[public static function fromReflection(ClassReflection $classReflection)]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
@@ -369,28 +578,35 @@
     <ArgumentTypeCoercion>
       <code><![CDATA[$reflectionMethod->getReturnType()]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>DocBlockGenerator::fromArray($value)</code>
-      <code>ParameterGenerator::fromArray($parameter)</code>
+      <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
+      <code><![CDATA[ParameterGenerator::fromArray($parameter)]]></code>
     </DeprecatedMethod>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <PossiblyFalseArgument>
       <code><![CDATA[$reflectionMethod->getDocBlock()]]></code>
@@ -398,102 +614,151 @@
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
+    <PossiblyNullOperand>
+      <code><![CDATA[preg_replace('#^((?![a-zA-Z0-9_-]+;).+?)$#m', $indent . $indent . '$1', trim($this->body))]]></code>
+    </PossiblyNullOperand>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $returnsReference</code>
+      <code><![CDATA[(bool) $returnsReference]]></code>
     </RedundantCastGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$docBlock]]></code>
+      <code><![CDATA[$name]]></code>
+    </RiskyTruthyFalsyComparison>
     <UnsafeInstantiation>
       <code><![CDATA[new static($array['name'])]]></code>
-      <code>new static()</code>
+      <code><![CDATA[new static()]]></code>
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/ParameterGenerator.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$reflectionParameter->getType()]]></code>
     </ArgumentTypeCoercion>
+    <ImplicitToStringCast>
+      <code><![CDATA[$this->defaultValue]]></code>
+    </ImplicitToStringCast>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $passedByReference</code>
-      <code>(bool) $variadic</code>
-      <code>(int) $position</code>
-      <code>(string) $name</code>
+      <code><![CDATA[(bool) $passedByReference]]></code>
+      <code><![CDATA[(bool) $variadic]]></code>
+      <code><![CDATA[(int) $position]]></code>
+      <code><![CDATA[(string) $name]]></code>
     </RedundantCastGivenDocblockType>
     <UnsafeInstantiation>
       <code><![CDATA[new static($array['name'])]]></code>
     </UnsafeInstantiation>
   </file>
+  <file src="src/Generator/PromotedParameterGenerator.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate(): string]]></code>
+      <code><![CDATA[public static function fromReflection(ParameterReflection $reflectionParameter): self]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Generator/PropertyGenerator.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$reflectionProperty->getType()]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>DocBlockGenerator::fromArray($value)</code>
+      <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function setFlags($flags)]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$defaultValue</code>
+      <code><![CDATA[$defaultValue]]></code>
     </MixedAssignment>
     <PossiblyInvalidArgument>
       <code><![CDATA[str_replace(['.', '-', '_'], '', $name)]]></code>
     </PossiblyInvalidArgument>
     <PossiblyUnusedProperty>
-      <code>$isConst</code>
+      <code><![CDATA[$isConst]]></code>
     </PossiblyUnusedProperty>
     <UnsafeInstantiation>
       <code><![CDATA[new static($array['name'])]]></code>
-      <code>new static()</code>
+      <code><![CDATA[new static()]]></code>
     </UnsafeInstantiation>
   </file>
+  <file src="src/Generator/PropertyValueGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyValueGenerator]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="src/Generator/TraitGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TraitGenerator]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>DocBlockGenerator::fromArray($value)</code>
+      <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
     <InvalidClassConstantType>
-      <code>OBJECT_TYPE</code>
+      <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function addFlag($flag)]]></code>
+      <code><![CDATA[public function removeFlag($flag)]]></code>
+      <code><![CDATA[public function setAbstract($isAbstract)]]></code>
+      <code><![CDATA[public function setExtendedClass($extendedClass)]]></code>
+      <code><![CDATA[public function setFinal($isFinal)]]></code>
+      <code><![CDATA[public function setFlags($flags)]]></code>
+      <code><![CDATA[public function setImplementedInterfaces(array $implementedInterfaces)]]></code>
+      <code><![CDATA[public static function fromArray(array $array)]]></code>
+      <code><![CDATA[public static function fromReflection(ClassReflection $classReflection)]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$name</code>
+      <code><![CDATA[$name]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <PossiblyFalseArgument>
       <code><![CDATA[$classReflection->getDocBlock()]]></code>
@@ -507,19 +772,37 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Generator/TraitUsageGenerator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TraitUsageGenerator]]></code>
+    </ClassMustBeFinal>
     <DocblockTypeContradiction>
-      <code>is_string($alias)</code>
+      <code><![CDATA[is_string($alias)]]></code>
     </DocblockTypeContradiction>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function addTrait($trait)]]></code>
+      <code><![CDATA[public function addTraitAlias($method, $alias, $visibility = null)]]></code>
+      <code><![CDATA[public function addTraitOverride($method, $traitsToReplace)]]></code>
+      <code><![CDATA[public function addTraits(array $traits)]]></code>
+      <code><![CDATA[public function addUse($use, $useAlias = null)]]></code>
+      <code><![CDATA[public function generate()]]></code>
+      <code><![CDATA[public function getTraitAliases()]]></code>
+      <code><![CDATA[public function getTraitOverrides()]]></code>
+      <code><![CDATA[public function getTraits()]]></code>
+      <code><![CDATA[public function getUses()]]></code>
+      <code><![CDATA[public function hasTrait($traitName)]]></code>
+      <code><![CDATA[public function removeTrait($traitName)]]></code>
+      <code><![CDATA[public function removeTraitOverride($method, $overridesToRemove = null)]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
-      <code>$method</code>
+      <code><![CDATA[$method]]></code>
       <code><![CDATA[$this->traitOverrides[$method]]]></code>
       <code><![CDATA[$this->traitOverrides[$traitAndMethod]]]></code>
-      <code>$traitAndMethod</code>
-      <code>$traitAndMethod</code>
-      <code>$traitAndMethod</code>
+      <code><![CDATA[$traitAndMethod]]></code>
+      <code><![CDATA[$traitAndMethod]]></code>
+      <code><![CDATA[$traitAndMethod]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$traits</code>
+      <code><![CDATA[$traits]]></code>
     </MixedArgumentTypeCoercion>
     <MixedArrayAccess>
       <code><![CDATA[$this->traitOverrides[$method][$key]]]></code>
@@ -537,20 +820,26 @@
       <code><![CDATA[$this->traitOverrides[$traitAndMethod]]]></code>
     </MixedArrayTypeCoercion>
     <MixedAssignment>
-      <code>$alias</code>
-      <code>$insteadof</code>
-      <code>$insteadofTrait</code>
-      <code>$insteadofTraits</code>
-      <code>$key</code>
-      <code>$traitAndMethod</code>
-      <code>$traitToRemove</code>
+      <code><![CDATA[$alias]]></code>
+      <code><![CDATA[$insteadof]]></code>
+      <code><![CDATA[$insteadofTrait]]></code>
+      <code><![CDATA[$insteadofTraits]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$traitAndMethod]]></code>
+      <code><![CDATA[$traitToRemove]]></code>
     </MixedAssignment>
     <MixedOperand>
-      <code>$insteadofTrait</code>
+      <code><![CDATA[$insteadofTrait]]></code>
     </MixedOperand>
+    <PossiblyFalseOperand>
+      <code><![CDATA[current(Reflection::getModifierNames($alias['visibility']))]]></code>
+    </PossiblyFalseOperand>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($useAlias)]]></code>
+    </RiskyTruthyFalsyComparison>
     <TooFewArguments>
-      <code>addTraitOverride</code>
-      <code>addTraitOverride</code>
+      <code><![CDATA[addTraitOverride]]></code>
+      <code><![CDATA[addTraitOverride]]></code>
     </TooFewArguments>
     <TypeDoesNotContainType>
       <code><![CDATA[null !== $visibility
@@ -559,69 +848,80 @@
             && $visibility !== ReflectionMethod::IS_PROTECTED]]></code>
     </TypeDoesNotContainType>
     <UndefinedMethod>
-      <code>addAlias</code>
+      <code><![CDATA[addAlias]]></code>
     </UndefinedMethod>
     <UnusedForeachValue>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
     </UnusedForeachValue>
     <UnusedVariable>
-      <code>$key</code>
-      <code>$key</code>
-      <code>$key</code>
-      <code>$key</code>
-      <code>$method</code>
-      <code>$method</code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$method]]></code>
+      <code><![CDATA[$method]]></code>
     </UnusedVariable>
   </file>
   <file src="src/Generator/TraitUsageInterface.php">
     <PossiblyUnusedReturnValue>
-      <code>$this</code>
-      <code>$this</code>
-      <code>self</code>
-      <code>self</code>
-      <code>self</code>
-      <code>self</code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[self]]></code>
+      <code><![CDATA[self]]></code>
+      <code><![CDATA[self]]></code>
+      <code><![CDATA[self]]></code>
     </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Generator/TypeGenerator.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function generate(): string]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod>
-      <code>getConstants</code>
+      <code><![CDATA[getConstants]]></code>
     </DeprecatedMethod>
     <DocblockTypeContradiction>
-      <code>$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject</code>
-      <code>$constants instanceof StdlibArrayObject</code>
+      <code><![CDATA[$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject]]></code>
+      <code><![CDATA[$constants instanceof StdlibArrayObject]]></code>
     </DocblockTypeContradiction>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function generate()]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>initEnvironmentConstants</code>
+      <code><![CDATA[initEnvironmentConstants]]></code>
     </MissingReturnType>
     <MixedArgument>
-      <code>$constant</code>
-      <code>$n</code>
-      <code>$value</code>
+      <code><![CDATA[$n]]></code>
+      <code><![CDATA[$value]]></code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$constant]]></code>
+    </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$constant</code>
-      <code>$curValue</code>
-      <code>$n</code>
-      <code>$v</code>
+      <code><![CDATA[$curValue]]></code>
+      <code><![CDATA[$n]]></code>
+      <code><![CDATA[$v]]></code>
     </MixedAssignment>
     <MixedOperand>
-      <code>$value</code>
+      <code><![CDATA[$value]]></code>
     </MixedOperand>
     <PossiblyUnusedMethod>
-      <code>addConstant</code>
-      <code>deleteConstant</code>
-      <code>getArrayDepth</code>
-      <code>getOutputMode</code>
+      <code><![CDATA[addConstant]]></code>
+      <code><![CDATA[deleteConstant]]></code>
+      <code><![CDATA[getArrayDepth]]></code>
+      <code><![CDATA[getOutputMode]]></code>
     </PossiblyUnusedMethod>
     <PossiblyUnusedProperty>
-      <code>$allowedTypes</code>
+      <code><![CDATA[$allowedTypes]]></code>
     </PossiblyUnusedProperty>
     <RedundantCastGivenDocblockType>
-      <code>(int) $arrayDepth</code>
-      <code>(string) $outputMode</code>
-      <code>(string) $type</code>
+      <code><![CDATA[(int) $arrayDepth]]></code>
+      <code><![CDATA[(string) $outputMode]]></code>
+      <code><![CDATA[(string) $type]]></code>
     </RedundantCastGivenDocblockType>
     <UnevaluatedCode>
       <code><![CDATA['float']]></code>
@@ -629,16 +929,13 @@
   </file>
   <file src="src/Generic/Prototype/PrototypeClassFactory.php">
     <MixedAssignment>
-      <code>$newPrototype</code>
+      <code><![CDATA[$newPrototype]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>PrototypeInterface</code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
-      <code>setName</code>
+      <code><![CDATA[setName]]></code>
     </MixedMethodCall>
     <MixedReturnStatement>
-      <code>$newPrototype</code>
+      <code><![CDATA[$newPrototype]]></code>
     </MixedReturnStatement>
     <PossiblyInvalidClone>
       <code><![CDATA[clone $this->genericPrototype]]></code>
@@ -646,71 +943,196 @@
   </file>
   <file src="src/Reflection/ClassReflection.php">
     <ArgumentTypeCoercion>
-      <code>$filter</code>
-      <code>$filter</code>
+      <code><![CDATA[$filter]]></code>
+      <code><![CDATA[$filter]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[ClassReflection]]></code>
+    </ClassMustBeFinal>
+    <FalsableReturnStatement>
+      <code><![CDATA[strstr(implode('', $lines), '{')]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
     <InvalidThrow>
-      <code>Exception\ExceptionInterface</code>
+      <code><![CDATA[Exception\ExceptionInterface]]></code>
     </InvalidThrow>
     <LessSpecificImplementedReturnType>
-      <code>int|false</code>
+      <code><![CDATA[int|false]]></code>
     </LessSpecificImplementedReturnType>
-    <MethodSignatureMismatch>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-    </MethodSignatureMismatch>
     <MissingImmutableAnnotation>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgumentTypeCoercion>
-      <code>$lines</code>
+      <code><![CDATA[$lines]]></code>
     </MixedArgumentTypeCoercion>
     <PossiblyFalseArgument>
-      <code>$startnum</code>
+      <code><![CDATA[$filelines]]></code>
+      <code><![CDATA[$startnum]]></code>
     </PossiblyFalseArgument>
     <PossiblyFalseOperand>
-      <code>$startnum</code>
+      <code><![CDATA[$startnum]]></code>
       <code><![CDATA[$this->getStartLine()]]></code>
     </PossiblyFalseOperand>
     <PossiblyFalseReference>
-      <code>getStartLine</code>
+      <code><![CDATA[getStartLine]]></code>
     </PossiblyFalseReference>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$filelines[$startnum - 1]]]></code>
+    </PossiblyInvalidArrayAccess>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/AuthorTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AuthorTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/GenericTag.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$this->contentSplitCharacter]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[GenericTag]]></code>
+    </ClassMustBeFinal>
     <ImplementedReturnTypeMismatch>
-      <code>string|null</code>
+      <code><![CDATA[string|null]]></code>
     </ImplementedReturnTypeMismatch>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+      <code><![CDATA[public function setName($name)]]></code>
+    </MissingOverrideAttribute>
     <PossiblyNullOperand>
       <code><![CDATA[$this->name]]></code>
     </PossiblyNullOperand>
     <PossiblyUnusedMethod>
-      <code>getContent</code>
+      <code><![CDATA[getContent]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/LicenseTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LicenseTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/MethodTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function getTypes()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ParamTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ParamTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function getTypes()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyNullArgument>
+      <code><![CDATA[preg_replace('#\s+#', ' ', $matches[3])]]></code>
+    </PossiblyNullArgument>
     <PossiblyUnusedMethod>
-      <code>getDescription</code>
+      <code><![CDATA[getDescription]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Reflection/DocBlock/Tag/PropertyTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function getTypes()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/ReturnTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ReturnTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function getTypes()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyNullArgument>
+      <code><![CDATA[preg_replace('#\s+#', ' ', $matches[2])]]></code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/ThrowsTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ThrowsTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getName()]]></code>
+      <code><![CDATA[public function getTypes()]]></code>
+      <code><![CDATA[public function initialize($content)]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Reflection/DocBlock/Tag/VarTag.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[VarTag]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function getName(): string]]></code>
+      <code><![CDATA[public function getTypes(): array]]></code>
+      <code><![CDATA[public function initialize($content): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Reflection/DocBlock/TagManager.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TagManager]]></code>
+    </ClassMustBeFinal>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$content]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
   <file src="src/Reflection/DocBlockReflection.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockReflection]]></code>
+    </ClassMustBeFinal>
     <DocblockTypeContradiction>
-      <code>! is_string($filter)</code>
+      <code><![CDATA[! is_string($filter)]]></code>
     </DocblockTypeContradiction>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$tag['name']]]></code>
       <code><![CDATA[$tag['value']]]></code>
@@ -721,374 +1143,408 @@
       <code><![CDATA[$tag['value']]]></code>
     </MixedArrayAccess>
     <MixedAssignment>
-      <code>$returnTags[]</code>
-      <code>$tag</code>
-      <code>$tag</code>
-      <code>$tag</code>
-      <code>$tag</code>
-      <code>$tag</code>
+      <code><![CDATA[$returnTags[]]]></code>
+      <code><![CDATA[$tag]]></code>
+      <code><![CDATA[$tag]]></code>
+      <code><![CDATA[$tag]]></code>
+      <code><![CDATA[$tag]]></code>
+      <code><![CDATA[$tag]]></code>
       <code><![CDATA[$this->docComment]]></code>
       <code><![CDATA[$this->endLine]]></code>
       <code><![CDATA[$this->startLine]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>DocBlockTagInterface|false</code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
-      <code>getName</code>
-      <code>getName</code>
-      <code>getName</code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getName]]></code>
     </MixedMethodCall>
     <MixedOperand>
-      <code>$tag</code>
+      <code><![CDATA[$tag]]></code>
     </MixedOperand>
     <MixedReturnStatement>
-      <code>$tag</code>
+      <code><![CDATA[$tag]]></code>
     </MixedReturnStatement>
     <MixedReturnTypeCoercion>
-      <code>$returnTags</code>
+      <code><![CDATA[$returnTags]]></code>
       <code><![CDATA[$this->tags]]></code>
-      <code>DocBlockTagInterface[]</code>
+      <code><![CDATA[DocBlockTagInterface[]]]></code>
     </MixedReturnTypeCoercion>
+    <PossiblyNullArgument>
+      <code><![CDATA[$docComment]]></code>
+      <code><![CDATA[$docComment]]></code>
+      <code><![CDATA[$this->cleanDocComment]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[preg_replace("#[ \t]*(?:/\*\*|\*/|\*)[ ]{0,1}(.*)?#", '$1', $docComment)]]></code>
+    </PossiblyNullPropertyAssignmentValue>
     <PossiblyUnusedMethod>
-      <code>export</code>
+      <code><![CDATA[export]]></code>
     </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
-      <code>$endLine</code>
-      <code>$reflector</code>
-      <code>$startLine</code>
+      <code><![CDATA[$endLine]]></code>
+      <code><![CDATA[$reflector]]></code>
+      <code><![CDATA[$startLine]]></code>
     </PropertyNotSetInConstructor>
     <RedundantConditionGivenDocblockType>
-      <code>is_string($commentOrReflector)</code>
+      <code><![CDATA[is_string($commentOrReflector)]]></code>
     </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod>
-      <code>getStartLine</code>
-      <code>getStartLine</code>
+      <code><![CDATA[getStartLine]]></code>
+      <code><![CDATA[getStartLine]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/Exception/BadMethodCallException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[BadMethodCallException]]></code>
+    </ClassMustBeFinal>
     <UnusedClass>
-      <code>BadMethodCallException</code>
+      <code><![CDATA[BadMethodCallException]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Reflection/Exception/InvalidArgumentException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InvalidArgumentException]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Reflection/Exception/RuntimeException.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RuntimeException]]></code>
+    </ClassMustBeFinal>
+  </file>
   <file src="src/Reflection/FunctionReflection.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[FunctionReflection]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>detectType</code>
+      <code><![CDATA[detectType]]></code>
     </DeprecatedMethod>
     <FalsableReturnStatement>
-      <code>parent::getStartLine()</code>
+      <code><![CDATA[parent::getStartLine()]]></code>
     </FalsableReturnStatement>
     <InvalidFalsableReturnType>
-      <code>int</code>
+      <code><![CDATA[int]]></code>
     </InvalidFalsableReturnType>
     <InvalidOperand>
-      <code>$endLine</code>
-      <code>$endLine</code>
+      <code><![CDATA[$endLine]]></code>
+      <code><![CDATA[$endLine]]></code>
     </InvalidOperand>
-    <MethodSignatureMismatch>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-    </MethodSignatureMismatch>
     <MissingImmutableAnnotation>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
-      <code>$returnTypes</code>
-      <code>$returnTypes</code>
+      <code><![CDATA[$returnTypes]]></code>
+      <code><![CDATA[$returnTypes]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$lines</code>
-      <code>$lines</code>
+      <code><![CDATA[$lines]]></code>
+      <code><![CDATA[$lines]]></code>
     </MixedArgumentTypeCoercion>
     <MixedArrayAccess>
-      <code>$returnTypes[0]</code>
+      <code><![CDATA[$returnTypes[0]]]></code>
     </MixedArrayAccess>
     <MixedAssignment>
-      <code>$returnType</code>
-      <code>$returnTypes</code>
+      <code><![CDATA[$returnType]]></code>
+      <code><![CDATA[$returnTypes]]></code>
     </MixedAssignment>
     <MixedOperand>
       <code><![CDATA[$prototype['return']]]></code>
     </MixedOperand>
+    <PossiblyFalseArgument>
+      <code><![CDATA[file($fileName, FILE_IGNORE_NEW_LINES)]]></code>
+      <code><![CDATA[file($fileName, FILE_IGNORE_NEW_LINES)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyFalseOperand>
       <code><![CDATA[strrpos($this->getName(), '\\')]]></code>
       <code><![CDATA[strrpos($this->getName(), '\\')]]></code>
     </PossiblyFalseOperand>
     <PossiblyFalseReference>
-      <code>getDescription</code>
-      <code>getTypes</code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getTypes]]></code>
     </PossiblyFalseReference>
     <PossiblyInvalidOperand>
-      <code>$startLine</code>
-      <code>$startLine</code>
-      <code>$startLine</code>
-      <code>$startLine</code>
+      <code><![CDATA[$startLine]]></code>
+      <code><![CDATA[$startLine]]></code>
+      <code><![CDATA[$startLine]]></code>
+      <code><![CDATA[$startLine]]></code>
     </PossiblyInvalidOperand>
+    <PossiblyNullArgument>
+      <code><![CDATA[$fileName]]></code>
+      <code><![CDATA[$fileName]]></code>
+    </PossiblyNullArgument>
     <PossiblyUnusedMethod>
-      <code>getReturn</code>
+      <code><![CDATA[getReturn]]></code>
     </PossiblyUnusedMethod>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$argument['type']]]></code>
+      <code><![CDATA[$docComment]]></code>
+    </RiskyTruthyFalsyComparison>
     <UndefinedInterfaceMethod>
-      <code>getDescription</code>
-      <code>getTypes</code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getTypes]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/MethodReflection.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodReflection]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>detectType</code>
+      <code><![CDATA[detectType]]></code>
     </DeprecatedMethod>
     <FalsableReturnStatement>
-      <code>parent::getStartLine()</code>
+      <code><![CDATA[parent::getStartLine()]]></code>
     </FalsableReturnStatement>
     <InvalidFalsableReturnType>
-      <code>int</code>
+      <code><![CDATA[int]]></code>
     </InvalidFalsableReturnType>
-    <MethodSignatureMismatch>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-    </MethodSignatureMismatch>
     <MissingImmutableAnnotation>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
     <MixedArgument>
-      <code>$haystack[$i][0]</code>
-      <code>$haystack[$i][0]</code>
-      <code>$haystack[$i][0]</code>
-      <code>$returnTypes</code>
-      <code>$returnTypes</code>
+      <code><![CDATA[$haystack[$i][0]]]></code>
+      <code><![CDATA[$haystack[$i][0]]]></code>
+      <code><![CDATA[$haystack[$i][0]]]></code>
+      <code><![CDATA[$returnTypes]]></code>
+      <code><![CDATA[$returnTypes]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$lines</code>
+      <code><![CDATA[$lines]]></code>
     </MixedArgumentTypeCoercion>
     <MixedArrayAccess>
-      <code>$returnTypes[0]</code>
+      <code><![CDATA[$returnTypes[0]]]></code>
     </MixedArrayAccess>
     <MixedAssignment>
-      <code>$returnType</code>
-      <code>$returnTypes</code>
-      <code>$tokenType</code>
-      <code>$tokenType</code>
-      <code>$tokenType</code>
-      <code>$tokenValue</code>
-      <code>$tokenValue</code>
+      <code><![CDATA[$returnType]]></code>
+      <code><![CDATA[$returnTypes]]></code>
+      <code><![CDATA[$tokenType]]></code>
+      <code><![CDATA[$tokenType]]></code>
+      <code><![CDATA[$tokenType]]></code>
+      <code><![CDATA[$tokenValue]]></code>
+      <code><![CDATA[$tokenValue]]></code>
     </MixedAssignment>
     <MixedOperand>
       <code><![CDATA[$prototype['return']]]></code>
-      <code>$tokenValue</code>
+      <code><![CDATA[$tokenValue]]></code>
     </MixedOperand>
+    <PossiblyFalseArgument>
+      <code><![CDATA[file($fileName, FILE_IGNORE_NEW_LINES)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyFalseReference>
-      <code>getStartLine</code>
-      <code>getTypes</code>
+      <code><![CDATA[getStartLine]]></code>
+      <code><![CDATA[getTypes]]></code>
     </PossiblyFalseReference>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$argument['type']]]></code>
+      <code><![CDATA[empty($docComment)]]></code>
+    </RiskyTruthyFalsyComparison>
     <UndefinedInterfaceMethod>
-      <code>getTypes</code>
+      <code><![CDATA[getTypes]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Reflection/ParameterReflection.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$function->getName()]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[ParameterReflection]]></code>
+    </ClassMustBeFinal>
     <ImpureMethodCall>
-      <code>getDocBlock</code>
-      <code>getDocBlock</code>
-      <code>getProperty</code>
-      <code>getTags</code>
+      <code><![CDATA[getDocBlock]]></code>
+      <code><![CDATA[getDocBlock]]></code>
+      <code><![CDATA[getProperty]]></code>
+      <code><![CDATA[getTags]]></code>
     </ImpureMethodCall>
-    <MixedInferredReturnType>
-      <code>string|null</code>
-    </MixedInferredReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
     <MixedReturnStatement>
       <code><![CDATA[$type->getName()]]></code>
     </MixedReturnStatement>
     <PossiblyUnusedProperty>
-      <code>$isFromMethod</code>
+      <code><![CDATA[$isFromMethod]]></code>
     </PossiblyUnusedProperty>
     <UndefinedMethod>
-      <code>getName</code>
-      <code>getName</code>
-      <code>isBuiltin</code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[isBuiltin]]></code>
     </UndefinedMethod>
   </file>
   <file src="src/Reflection/PropertyReflection.php">
-    <MethodSignatureMismatch>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
-    </MethodSignatureMismatch>
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyReflection]]></code>
+    </ClassMustBeFinal>
     <MissingImmutableAnnotation>
-      <code>#[ReturnTypeWillChange]</code>
-      <code>#[ReturnTypeWillChange]</code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
+      <code><![CDATA[public function toString()]]></code>
+    </MissingOverrideAttribute>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[! ($docComment = $this->getDocComment())]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Scanner/DocBlockScanner.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockScanner]]></code>
+    </ClassMustBeFinal>
     <InvalidArrayOffset>
       <code><![CDATA[$this->tags[$tagIndex]]]></code>
       <code><![CDATA[$this->tags[$tagIndex]]]></code>
     </InvalidArrayOffset>
     <MissingClosureParamType>
-      <code>$length</code>
-      <code>$positionsForward</code>
-      <code>$type</code>
+      <code><![CDATA[$length]]></code>
+      <code><![CDATA[$positionsForward]]></code>
+      <code><![CDATA[$type]]></code>
     </MissingClosureParamType>
     <MissingClosureReturnType>
-      <code><![CDATA[function ($length) use (&$currentWord, &$tokens, &$tokenIndex) {]]></code>
-      <code>function ($positionsForward = 1) use (</code>
-      <code><![CDATA[function ($type) use (&$tokenIndex, &$tokens) {]]></code>
-      <code><![CDATA[function () use (&$currentChar, &$tokens, &$tokenIndex) {]]></code>
-      <code><![CDATA[function () use (&$currentLine, &$MACRO_STREAM_ADVANCE_CHAR) {]]></code>
-      <code><![CDATA[function () use (&$currentLine, &$tokens, &$tokenIndex) {]]></code>
-      <code><![CDATA[function () use (&$currentWord, &$MACRO_STREAM_ADVANCE_CHAR) {]]></code>
-      <code><![CDATA[function () use (&$currentWord, &$tokens, &$tokenIndex) {]]></code>
-      <code><![CDATA[function () use (&$tokenIndex, &$tokens) {]]></code>
+      <code><![CDATA[static function ($length) use (&$currentWord, &$tokens, &$tokenIndex) {]]></code>
+      <code><![CDATA[static function ($positionsForward = 1) use (]]></code>
+      <code><![CDATA[static function ($type) use (&$tokenIndex, &$tokens) {]]></code>
+      <code><![CDATA[static function () use (&$currentChar, &$tokens, &$tokenIndex) {]]></code>
+      <code><![CDATA[static function () use (&$currentLine, &$MACRO_STREAM_ADVANCE_CHAR) {]]></code>
+      <code><![CDATA[static function () use (&$currentLine, &$tokens, &$tokenIndex) {]]></code>
+      <code><![CDATA[static function () use (&$currentWord, &$MACRO_STREAM_ADVANCE_CHAR) {]]></code>
+      <code><![CDATA[static function () use (&$currentWord, &$tokens, &$tokenIndex) {]]></code>
+      <code><![CDATA[static function () use (&$tokenIndex, &$tokens) {]]></code>
     </MissingClosureReturnType>
     <MixedArgument>
-      <code>$currentLine</code>
-      <code>$currentWord</code>
-      <code>$currentWord</code>
-      <code>$length</code>
-      <code>$stream</code>
-      <code>$stream</code>
-      <code>$streamIndex</code>
-      <code>$streamIndex</code>
-      <code>$tokens</code>
+      <code><![CDATA[$length]]></code>
+      <code><![CDATA[$streamIndex]]></code>
+      <code><![CDATA[$streamIndex]]></code>
     </MixedArgument>
     <MixedArrayAccess>
-      <code>$stream[$streamIndex]</code>
       <code><![CDATA[$this->tags[$tagIndex]['value']]]></code>
       <code><![CDATA[$this->tags[$tagIndex]['value']]]></code>
-      <code>$token[0]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
+      <code><![CDATA[$token[0]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
     </MixedArrayAccess>
     <MixedArrayAssignment>
       <code><![CDATA[$this->tags[$tagIndex]['value']]]></code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex][0]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
     </MixedArrayAssignment>
     <MixedArrayOffset>
-      <code>$stream[$streamIndex]</code>
-      <code>$stream[$streamIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
-      <code>$tokens[$tokenIndex]</code>
+      <code><![CDATA[$stream[$streamIndex]]]></code>
+      <code><![CDATA[$stream[$streamIndex]]]></code>
     </MixedArrayOffset>
     <MixedAssignment>
-      <code>$context</code>
-      <code>$context</code>
-      <code>$context</code>
-      <code>$context</code>
-      <code>$context</code>
-      <code>$currentChar</code>
-      <code>$positionsForward</code>
-      <code>$streamIndex</code>
-      <code>$token</code>
-      <code>$tokenIndex</code>
-      <code>$tokens[$tokenIndex][0]</code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$currentChar]]></code>
+      <code><![CDATA[$positionsForward]]></code>
+      <code><![CDATA[$streamIndex]]></code>
+      <code><![CDATA[$token]]></code>
+      <code><![CDATA[$tokens[$tokenIndex][0]]]></code>
     </MixedAssignment>
-    <MixedFunctionCall>
-      <code>$MACRO_STREAM_ADVANCE_CHAR()</code>
-      <code>$MACRO_STREAM_ADVANCE_CHAR()</code>
-      <code>$MACRO_STREAM_ADVANCE_CHAR()</code>
-      <code>$MACRO_STREAM_ADVANCE_CHAR(strlen($currentLine))</code>
-      <code>$MACRO_STREAM_ADVANCE_CHAR(strlen($currentWord))</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code>array</code>
-    </MixedInferredReturnType>
     <MixedOperand>
-      <code>$CONTEXT_INSIDE_ASTERISK</code>
-      <code>$CONTEXT_INSIDE_ASTERISK</code>
-      <code>$CONTEXT_INSIDE_ASTERISK</code>
-      <code>$CONTEXT_INSIDE_DOCBLOCK</code>
-      <code>$CONTEXT_INSIDE_DOCBLOCK</code>
-      <code>$CONTEXT_INSIDE_DOCBLOCK</code>
-      <code>$context</code>
-      <code>$streamIndex</code>
+      <code><![CDATA[$CONTEXT_INSIDE_ASTERISK]]></code>
+      <code><![CDATA[$CONTEXT_INSIDE_ASTERISK]]></code>
+      <code><![CDATA[$CONTEXT_INSIDE_ASTERISK]]></code>
+      <code><![CDATA[$CONTEXT_INSIDE_DOCBLOCK]]></code>
+      <code><![CDATA[$CONTEXT_INSIDE_DOCBLOCK]]></code>
+      <code><![CDATA[$CONTEXT_INSIDE_DOCBLOCK]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$currentChar]]></code>
+      <code><![CDATA[$positionsForward]]></code>
       <code><![CDATA[$this->tags[$tagIndex]['value']]]></code>
-      <code>$tokenIndex</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$token[1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>$tokens[$tokenIndex][1]</code>
-      <code>~$CONTEXT_INSIDE_ASTERISK</code>
-      <code>~$CONTEXT_INSIDE_DOCBLOCK</code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[$token[1]]]></code>
+      <code><![CDATA[~$CONTEXT_INSIDE_ASTERISK]]></code>
+      <code><![CDATA[~$CONTEXT_INSIDE_DOCBLOCK]]></code>
     </MixedOperand>
-    <MixedReturnStatement>
-      <code>$tokens</code>
-    </MixedReturnStatement>
+    <PossiblyNullArgument>
+      <code><![CDATA[$currentLine]]></code>
+      <code><![CDATA[$currentWord]]></code>
+      <code><![CDATA[$currentWord]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+      <code><![CDATA[$tokens]]></code>
+    </PossiblyNullArrayOffset>
+    <PossiblyNullOperand>
+      <code><![CDATA[$currentLine]]></code>
+      <code><![CDATA[$currentWord]]></code>
+    </PossiblyNullOperand>
     <RedundantCondition>
-      <code>$context === 0x00</code>
+      <code><![CDATA[$context === 0x00]]></code>
       <code><![CDATA[$mode <= 2]]></code>
     </RedundantCondition>
     <TypeDoesNotContainType>
-      <code>$tagIndex !== null</code>
+      <code><![CDATA[$tagIndex !== null]]></code>
     </TypeDoesNotContainType>
     <UnusedVariable>
-      <code>$MACRO_TOKEN_APPEND_WORD_PARTIAL</code>
-      <code>$context</code>
-      <code>$context</code>
-      <code>$mode</code>
-      <code>$tagIndex</code>
+      <code><![CDATA[$MACRO_TOKEN_APPEND_WORD_PARTIAL]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$mode]]></code>
+      <code><![CDATA[$tagIndex]]></code>
     </UnusedVariable>
   </file>
   <file src="test/Generator/AbstractGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AbstractGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getMockForAbstractClass</code>
-      <code>getMockForAbstractClass</code>
+      <code><![CDATA[getMockForAbstractClass]]></code>
+      <code><![CDATA[getMockForAbstractClass]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testConstructor</code>
-      <code>testSetOptionsThrowsExceptionOnInvalidArgument</code>
+      <code><![CDATA[testConstructor]]></code>
+      <code><![CDATA[testSetOptionsThrowsExceptionOnInvalidArgument]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Generator/AbstractMemberGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AbstractMemberGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getMockForAbstractClass</code>
+      <code><![CDATA[getMockForAbstractClass]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>new stdClass()</code>
+      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testSetDocBlockThrowsExceptionWithInvalidType</code>
-      <code>testSetFlagsWithArray</code>
+      <code><![CDATA[testSetDocBlockThrowsExceptionWithInvalidType]]></code>
+      <code><![CDATA[testSetFlagsWithArray]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Generator/Cases/BackedCasesTest.php">
@@ -1106,6 +1562,9 @@
       <code><![CDATA['ParentClass']]></code>
       <code><![CDATA[['Class1', 'Class2']]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[ClassGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[ClassGenerator::fromArray([
             'name'                  => 'SampleClass',
@@ -1152,208 +1611,285 @@
         ])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflector</code>
-      <code>$reflector</code>
-      <code>$reflector</code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflector]]></code>
+      <code><![CDATA[$reflector]]></code>
+      <code><![CDATA[$reflector]]></code>
       <code><![CDATA['']]></code>
       <code><![CDATA['public']]></code>
       <code><![CDATA['public']]></code>
-      <code>ExceptionInterface::class</code>
-      <code>[]</code>
-      <code>new ClassGenerator()</code>
-      <code>new ClassReflection(ClassWithDnfTypes::class)</code>
-      <code>new ClassReflection(ClassWithPromotedParameter::class)</code>
-      <code>new ClassReflection(ReadonlyClassWithPromotedParameter::class)</code>
-      <code>true</code>
-      <code>true</code>
-      <code>true</code>
+      <code><![CDATA[ExceptionInterface::class]]></code>
+      <code><![CDATA[[]]]></code>
+      <code><![CDATA[new ClassGenerator()]]></code>
+      <code><![CDATA[new ClassReflection(ClassWithDnfTypes::class)]]></code>
+      <code><![CDATA[new ClassReflection(ClassWithPromotedParameter::class)]]></code>
+      <code><![CDATA[new ClassReflection(ReadonlyClassWithPromotedParameter::class)]]></code>
+      <code><![CDATA[true]]></code>
+      <code><![CDATA[true]]></code>
+      <code><![CDATA[true]]></code>
     </InvalidArgument>
     <InvalidCast>
-      <code>[]</code>
-      <code>new ClassGenerator()</code>
+      <code><![CDATA[[]]]></code>
+      <code><![CDATA[new ClassGenerator()]]></code>
     </InvalidCast>
     <MissingDependency>
-      <code>FooClass</code>
-      <code>FooClass</code>
+      <code><![CDATA[FooClass]]></code>
+      <code><![CDATA[FooClass]]></code>
     </MissingDependency>
     <MixedArgument>
       <code><![CDATA[$overrides['myTrait::foo']]]></code>
       <code><![CDATA[$overrides['myTrait::foo']]]></code>
       <code><![CDATA[$overrides['myTrait::foo']]]></code>
       <code><![CDATA[$overrides['myTrait::foo']]]></code>
-      <code>FooClass::class</code>
-      <code>FooClass::class</code>
+      <code><![CDATA[FooClass::class]]></code>
+      <code><![CDATA[FooClass::class]]></code>
     </MixedArgument>
     <MixedArrayAccess>
       <code><![CDATA[$overrides['myTrait::foo'][0]]]></code>
       <code><![CDATA[$overrides['myTrait::foo'][1]]]></code>
       <code><![CDATA[$overrides['myTrait::foo'][1]]]></code>
     </MixedArrayAccess>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$resource]]></code>
+    </PossiblyFalseArgument>
     <PossiblyFalseReference>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
-      <code>getDefaultValue</code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
+      <code><![CDATA[getDefaultValue]]></code>
     </PossiblyFalseReference>
     <UndefinedClass>
       <code><![CDATA[['Class1', 'Class2']]]></code>
     </UndefinedClass>
   </file>
   <file src="test/Generator/DocBlock/Tag/AuthorTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AuthorTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testNameIsCorrect</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/GenericTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GenericTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/LicenseTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LicenseTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testLicenseProducesCorrectDocBlockLine</code>
-      <code>testNameIsCorrect</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testLicenseProducesCorrectDocBlockLine]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/MethodTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testGetterForMethodNameTrimsCorrectly</code>
-      <code>testNameIsCorrect</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testGetterForMethodNameTrimsCorrectly]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ParamTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ParamTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testGetterForVariableNameTrimsCorrectly</code>
-      <code>testNameIsCorrect</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testGetterForVariableNameTrimsCorrectly]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/PropertyTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testCreatingTagFromReflection</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testGetterForVariableNameTrimsCorrectly</code>
-      <code>testNameIsCorrect</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testGetterForVariableNameTrimsCorrectly]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ReturnTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ReturnTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testCreatingTagFromReflection</code>
-      <code>testNameIsCorrect</code>
-      <code>testReturnProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testReturnProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/ThrowsTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ThrowsTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testCreatingTagFromReflection</code>
-      <code>testNameIsCorrect</code>
-      <code>testParamProducesCorrectDocBlockLine</code>
+      <code><![CDATA[testCreatingTagFromReflection]]></code>
+      <code><![CDATA[testNameIsCorrect]]></code>
+      <code><![CDATA[testParamProducesCorrectDocBlockLine]]></code>
     </MissingReturnType>
     <PossiblyFalseArgument>
-      <code>$reflectionTag</code>
+      <code><![CDATA[$reflectionTag]]></code>
     </PossiblyFalseArgument>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Generator/DocBlock/Tag/TypableTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TypableTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+      <code><![CDATA[protected function tearDown(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testConstructorWithOptions</code>
-      <code>testGetterAndSetterPersistValue</code>
-      <code>testGetterForTypesAsStringWithMultipleTypes</code>
-      <code>testGetterForTypesAsStringWithMultipleTypesAndDelimiter</code>
-      <code>testGetterForTypesAsStringWithSingleType</code>
-      <code>testGetterForTypesAsStringWithSingleTypeAndDelimiter</code>
+      <code><![CDATA[testConstructorWithOptions]]></code>
+      <code><![CDATA[testGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testGetterForTypesAsStringWithMultipleTypes]]></code>
+      <code><![CDATA[testGetterForTypesAsStringWithMultipleTypesAndDelimiter]]></code>
+      <code><![CDATA[testGetterForTypesAsStringWithSingleType]]></code>
+      <code><![CDATA[testGetterForTypesAsStringWithSingleTypeAndDelimiter]]></code>
     </MissingReturnType>
     <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
+  <file src="test/Generator/DocBlock/Tag/VarTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[VarTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
   <file src="test/Generator/DocBlockGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[DocBlockGenerator::fromArray([
             'shortdescription' => 'foo',
@@ -1365,37 +1901,37 @@
                 ],
             ],
         ])]]></code>
-      <code>setDatatype</code>
-      <code>setDatatype</code>
+      <code><![CDATA[setDatatype]]></code>
+      <code><![CDATA[setDatatype]]></code>
     </DeprecatedMethod>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testCanPassTagsToConstructor</code>
-      <code>testCreateFromArray</code>
-      <code>testDocBlockFromReflectionAuthorTag</code>
-      <code>testDocBlockFromReflectionLicenseTag</code>
-      <code>testDocBlockFromReflectionLongDescription</code>
-      <code>testDocBlockFromReflectionParamTag</code>
-      <code>testDocBlockFromReflectionReturnTag</code>
-      <code>testDocBlockFromReflectionShortDescription</code>
-      <code>testDocBlockFromReflectionTagsCount</code>
-      <code>testGenerateWithWordWrapDisabled</code>
-      <code>testGenerateWordWrapIsEnabledByDefault</code>
-      <code>testGenerationOfDocBlock</code>
-      <code>testLongDescriptionGetterAndSetter</code>
-      <code>testShortDescriptionGetterAndSetter</code>
-      <code>testTagGettersAndSetters</code>
+      <code><![CDATA[testCanPassTagsToConstructor]]></code>
+      <code><![CDATA[testCreateFromArray]]></code>
+      <code><![CDATA[testDocBlockFromReflectionAuthorTag]]></code>
+      <code><![CDATA[testDocBlockFromReflectionLicenseTag]]></code>
+      <code><![CDATA[testDocBlockFromReflectionLongDescription]]></code>
+      <code><![CDATA[testDocBlockFromReflectionParamTag]]></code>
+      <code><![CDATA[testDocBlockFromReflectionReturnTag]]></code>
+      <code><![CDATA[testDocBlockFromReflectionShortDescription]]></code>
+      <code><![CDATA[testDocBlockFromReflectionTagsCount]]></code>
+      <code><![CDATA[testGenerateWithWordWrapDisabled]]></code>
+      <code><![CDATA[testGenerateWordWrapIsEnabledByDefault]]></code>
+      <code><![CDATA[testGenerationOfDocBlock]]></code>
+      <code><![CDATA[testLongDescriptionGetterAndSetter]]></code>
+      <code><![CDATA[testShortDescriptionGetterAndSetter]]></code>
+      <code><![CDATA[testTagGettersAndSetters]]></code>
     </MissingReturnType>
-  </file>
-  <file src="test/Generator/EnumGeneratorTest.php">
-    <PossiblyUnusedMethod>
-      <code>validEnumSpecifications</code>
-      <code>validOptionSpecifications</code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="test/Generator/FileGeneratorTest.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$file->getUses()]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[FileGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[FileGenerator::fromArray([
             'class' => [
@@ -1465,28 +2001,31 @@
         ])]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testClassNotFoundException</code>
-      <code>testConstruction</code>
-      <code>testCreateFromArrayWithClassFromArray</code>
-      <code>testCreateFromArrayWithClassInstance</code>
-      <code>testFileLineEndingsAreAlwaysLineFeed</code>
-      <code>testGeneratesNamespaceStatements</code>
-      <code>testGeneratesUseStatements</code>
-      <code>testIndentationGetterAndSetter</code>
-      <code>testSetUseAllowsMultipleAliasedUseStatements</code>
-      <code>testSetUseDoesntGenerateMultipleIdenticalUseStatements</code>
-      <code>testSetUsesDoesntGenerateMultipleIdenticalUseStatements</code>
-      <code>testSetUsesWithArrays</code>
-      <code>testSetUsesWithGetUses</code>
-      <code>testSetUsesWithString</code>
-      <code>testSourceContentGetterAndSetter</code>
-      <code>testToString</code>
+      <code><![CDATA[testClassNotFoundException]]></code>
+      <code><![CDATA[testConstruction]]></code>
+      <code><![CDATA[testCreateFromArrayWithClassFromArray]]></code>
+      <code><![CDATA[testCreateFromArrayWithClassInstance]]></code>
+      <code><![CDATA[testFileLineEndingsAreAlwaysLineFeed]]></code>
+      <code><![CDATA[testGeneratesNamespaceStatements]]></code>
+      <code><![CDATA[testGeneratesUseStatements]]></code>
+      <code><![CDATA[testIndentationGetterAndSetter]]></code>
+      <code><![CDATA[testSetUseAllowsMultipleAliasedUseStatements]]></code>
+      <code><![CDATA[testSetUseDoesntGenerateMultipleIdenticalUseStatements]]></code>
+      <code><![CDATA[testSetUsesDoesntGenerateMultipleIdenticalUseStatements]]></code>
+      <code><![CDATA[testSetUsesWithArrays]]></code>
+      <code><![CDATA[testSetUsesWithGetUses]]></code>
+      <code><![CDATA[testSetUsesWithString]]></code>
+      <code><![CDATA[testSourceContentGetterAndSetter]]></code>
+      <code><![CDATA[testToString]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Generator/InterfaceGeneratorTest.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[['Class1', 'Class2']]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[InterfaceGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[InterfaceGenerator::fromArray([
             'name'     => 'MyInterface',
@@ -1506,31 +2045,31 @@
         ])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>$reflClass</code>
-      <code>new ClassReflection(self::class)</code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[new ClassReflection(self::class)]]></code>
     </InvalidArgument>
     <MissingReturnType>
-      <code>testAbstractAccessorsReturnsFalse</code>
-      <code>testClassNotAnInterfaceException</code>
-      <code>testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection</code>
-      <code>testCreateFromArrayWithDocBlockFromArray</code>
-      <code>testCreateFromArrayWithDocBlockInstance</code>
-      <code>testExtendedClassAccessors</code>
-      <code>testGenerateClassAndAddMethod</code>
-      <code>testGenerateImplementsInterface</code>
-      <code>testImplementedInterfacesAccessors</code>
-      <code>testMethodAccessors</code>
-      <code>testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace</code>
-      <code>testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration</code>
-      <code>testPropertyAccessors</code>
-      <code>testSetNameShouldDetermineIfNamespaceSegmentIsPresent</code>
-      <code>testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate</code>
-      <code>testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate</code>
-      <code>testToString</code>
+      <code><![CDATA[testAbstractAccessorsReturnsFalse]]></code>
+      <code><![CDATA[testClassNotAnInterfaceException]]></code>
+      <code><![CDATA[testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection]]></code>
+      <code><![CDATA[testCreateFromArrayWithDocBlockFromArray]]></code>
+      <code><![CDATA[testCreateFromArrayWithDocBlockInstance]]></code>
+      <code><![CDATA[testExtendedClassAccessors]]></code>
+      <code><![CDATA[testGenerateClassAndAddMethod]]></code>
+      <code><![CDATA[testGenerateImplementsInterface]]></code>
+      <code><![CDATA[testImplementedInterfacesAccessors]]></code>
+      <code><![CDATA[testMethodAccessors]]></code>
+      <code><![CDATA[testPassingANamespacedClassnameShouldGenerateAClassnameWithoutItsNamespace]]></code>
+      <code><![CDATA[testPassingANamespacedClassnameShouldGenerateANamespaceDeclaration]]></code>
+      <code><![CDATA[testPropertyAccessors]]></code>
+      <code><![CDATA[testSetNameShouldDetermineIfNamespaceSegmentIsPresent]]></code>
+      <code><![CDATA[testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate]]></code>
+      <code><![CDATA[testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate]]></code>
+      <code><![CDATA[testToString]]></code>
     </MissingReturnType>
     <PossiblyFalseReference>
-      <code>isInterface</code>
-      <code>isInterface</code>
+      <code><![CDATA[isInterface]]></code>
+      <code><![CDATA[isInterface]]></code>
     </PossiblyFalseReference>
     <UndefinedClass>
       <code><![CDATA[['Class1', 'Class2']]]></code>
@@ -1538,8 +2077,11 @@
   </file>
   <file src="test/Generator/MethodGeneratorTest.php">
     <ArgumentTypeCoercion>
-      <code>$className</code>
+      <code><![CDATA[$className]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[MethodGenerator::fromArray([
             'name'             => 'SampleMethod',
@@ -1569,45 +2111,43 @@
       <code><![CDATA[ParameterGenerator::fromArray(['name' => 'baz', 'type' => stdClass::class])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>new stdClass()</code>
+      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
     <MissingReturnType>
-      <code>testByRefReturnType</code>
-      <code>testCopyMethodSignature</code>
-      <code>testCreateFromArray</code>
-      <code>testCreateInterfaceMethodFromArray</code>
-      <code>testDefaultValueGenerationDoesNotIncludeTrailingSemicolon</code>
-      <code>testDocBlockGetterAndSetter</code>
-      <code>testFrom</code>
-      <code>testFromByReferenceMethodReflection</code>
-      <code>testMethodBodyGetterAndSetter</code>
-      <code>testMethodCanHaveDocBlock</code>
-      <code>testMethodConstructor</code>
-      <code>testMethodFromReflection</code>
-      <code>testMethodFromReflectionMultiLinesIndention</code>
-      <code>testMethodParameterAccessors</code>
-      <code>testMethodParameterMutator</code>
-      <code>testMethodWithFinalModifierIsEmitted</code>
-      <code>testMethodWithFinalModifierIsNotEmittedWhenMethodIsAbstract</code>
-      <code>testMethodWithStaticModifierIsEmitted</code>
-      <code>testSetMethodParameter</code>
-      <code>testSetMethodParameters</code>
-      <code>testSetReturnType</code>
-      <code>testSetReturnTypeWithNull</code>
+      <code><![CDATA[testByRefReturnType]]></code>
+      <code><![CDATA[testCopyMethodSignature]]></code>
+      <code><![CDATA[testCreateFromArray]]></code>
+      <code><![CDATA[testCreateInterfaceMethodFromArray]]></code>
+      <code><![CDATA[testDefaultValueGenerationDoesNotIncludeTrailingSemicolon]]></code>
+      <code><![CDATA[testDocBlockGetterAndSetter]]></code>
+      <code><![CDATA[testFrom]]></code>
+      <code><![CDATA[testFromByReferenceMethodReflection]]></code>
+      <code><![CDATA[testMethodBodyGetterAndSetter]]></code>
+      <code><![CDATA[testMethodCanHaveDocBlock]]></code>
+      <code><![CDATA[testMethodConstructor]]></code>
+      <code><![CDATA[testMethodFromReflection]]></code>
+      <code><![CDATA[testMethodFromReflectionMultiLinesIndention]]></code>
+      <code><![CDATA[testMethodParameterAccessors]]></code>
+      <code><![CDATA[testMethodParameterMutator]]></code>
+      <code><![CDATA[testMethodWithFinalModifierIsEmitted]]></code>
+      <code><![CDATA[testMethodWithFinalModifierIsNotEmittedWhenMethodIsAbstract]]></code>
+      <code><![CDATA[testMethodWithStaticModifierIsEmitted]]></code>
+      <code><![CDATA[testSetMethodParameter]]></code>
+      <code><![CDATA[testSetMethodParameters]]></code>
+      <code><![CDATA[testSetReturnType]]></code>
+      <code><![CDATA[testSetReturnTypeWithNull]]></code>
     </MissingReturnType>
     <PossiblyNullReference>
-      <code>generate</code>
+      <code><![CDATA[generate]]></code>
     </PossiblyNullReference>
-    <PossiblyUnusedMethod>
-      <code>php80Methods</code>
-      <code>returnTypeHintClasses</code>
-      <code>returnsReferenceValues</code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="test/Generator/ParameterGeneratorTest.php">
     <ArgumentTypeCoercion>
       <code><![CDATA['LaminasTest_Code_NsTest_BarClass']]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[ParameterGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[ParameterGenerator::fromArray([
             'name'              => 'SampleParameter',
@@ -1621,6 +2161,9 @@
             'omitdefaultvalue'  => true,
         ])]]></code>
     </DeprecatedMethod>
+    <InvalidNullableReturnType>
+      <code><![CDATA[ParameterReflection]]></code>
+    </InvalidNullableReturnType>
     <InvalidReturnStatement>
       <code><![CDATA[array_combine(
             array_map(
@@ -1631,48 +2174,46 @@
         )]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code>string[][]</code>
+      <code><![CDATA[string[][]]]></code>
     </InvalidReturnType>
     <MissingReturnType>
-      <code>testCallableTypeHint</code>
-      <code>testCreateFromArray</code>
-      <code>testDefaultValueGetterAndSetterPersistValue</code>
-      <code>testFromReflectionGenerate</code>
-      <code>testFromReflectionGetArrayHint</code>
-      <code>testFromReflectionGetDefaultValue</code>
-      <code>testFromReflectionGetParameterName</code>
-      <code>testFromReflectionGetParameterType</code>
-      <code>testFromReflectionGetReference</code>
-      <code>testFromReflectionGetWithNativeType</code>
-      <code>testGenerateIsCorrect</code>
-      <code>testGeneratedParametersHaveEscapedDefaultValues</code>
-      <code>testGeneratesSimpleHints</code>
-      <code>testGetInternalClassDefaultParameterValue</code>
-      <code>testNameGetterAndSetterPersistValue</code>
-      <code>testOmitType</code>
-      <code>testParameterGeneratorReturnsCorrectTypeForNonNamespaceClasses</code>
-      <code>testPositionGetterAndSetterPersistValue</code>
-      <code>testSetGetVariadic</code>
-      <code>testTypeGetterAndSetterPersistValue</code>
-      <code>testTypeHintFromReflection</code>
-      <code>testTypeHintFromReflectionGeneratedCode</code>
-      <code>testTypeHintWithValidClassName</code>
-      <code>testTypehintsWithNamespaceInNamepsacedClassReturnTypewithBackslash</code>
+      <code><![CDATA[testCallableTypeHint]]></code>
+      <code><![CDATA[testCreateFromArray]]></code>
+      <code><![CDATA[testDefaultValueGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testFromReflectionGenerate]]></code>
+      <code><![CDATA[testFromReflectionGetArrayHint]]></code>
+      <code><![CDATA[testFromReflectionGetDefaultValue]]></code>
+      <code><![CDATA[testFromReflectionGetParameterName]]></code>
+      <code><![CDATA[testFromReflectionGetParameterType]]></code>
+      <code><![CDATA[testFromReflectionGetReference]]></code>
+      <code><![CDATA[testFromReflectionGetWithNativeType]]></code>
+      <code><![CDATA[testGenerateIsCorrect]]></code>
+      <code><![CDATA[testGeneratedParametersHaveEscapedDefaultValues]]></code>
+      <code><![CDATA[testGeneratesSimpleHints]]></code>
+      <code><![CDATA[testGetInternalClassDefaultParameterValue]]></code>
+      <code><![CDATA[testNameGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testOmitType]]></code>
+      <code><![CDATA[testParameterGeneratorReturnsCorrectTypeForNonNamespaceClasses]]></code>
+      <code><![CDATA[testPositionGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testSetGetVariadic]]></code>
+      <code><![CDATA[testTypeGetterAndSetterPersistValue]]></code>
+      <code><![CDATA[testTypeHintFromReflection]]></code>
+      <code><![CDATA[testTypeHintFromReflectionGeneratedCode]]></code>
+      <code><![CDATA[testTypeHintWithValidClassName]]></code>
+      <code><![CDATA[testTypehintsWithNamespaceInNamepsacedClassReturnTypewithBackslash]]></code>
     </MissingReturnType>
-    <PossiblyUnusedMethod>
-      <code>dataFromReflectionGenerate</code>
-      <code>php80Methods</code>
-      <code>reflectionHints</code>
-      <code>simpleHints</code>
-      <code>validClassName</code>
-      <code>variadicHints</code>
-    </PossiblyUnusedMethod>
+    <NullableReturnStatement>
+      <code><![CDATA[array_shift($params)]]></code>
+    </NullableReturnStatement>
   </file>
   <file src="test/Generator/PropertyGeneratorTest.php">
     <ArgumentTypeCoercion>
-      <code>$type</code>
+      <code><![CDATA[$type]]></code>
       <code><![CDATA[__NAMESPACE__ . '\\' . $className]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[PropertyGenerator::fromArray([
             'name'             => 'SampleProperty',
@@ -1698,7 +2239,7 @@
         ])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>new stdClass()</code>
+      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
     <InvalidReturnStatement>
       <code><![CDATA[[
@@ -1716,31 +2257,40 @@
         ]]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code>bool[][]|string[][]|int[][]|null[][]</code>
+      <code><![CDATA[bool[][]|string[][]|int[][]|null[][]]]></code>
     </InvalidReturnType>
     <MissingReturnType>
-      <code>testOmitType</code>
+      <code><![CDATA[testOmitType]]></code>
     </MissingReturnType>
-    <MixedAssignment>
-      <code>$generator</code>
-    </MixedAssignment>
-    <PossiblyUnusedMethod>
-      <code>dataSetTypeSetValueGenerate</code>
-      <code>visibility</code>
-    </PossiblyUnusedMethod>
+    <MixedReturnStatement>
+      <code><![CDATA[Generator]]></code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[testSetBogusTypeSetValueGenerateUseAutoDetection]]></code>
+      <code><![CDATA[testSetBogusTypeSetValueGenerateUseAutoDetection]]></code>
+      <code><![CDATA[testSetDefaultValue]]></code>
+      <code><![CDATA[testSetTypeSetValueGenerate]]></code>
+      <code><![CDATA[testSetTypeSetValueGenerate]]></code>
+    </PossiblyInvalidArgument>
     <RedundantConditionGivenDocblockType>
-      <code>assertIsArray</code>
+      <code><![CDATA[assertIsArray]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Generator/PropertyValueGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyValueGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testPropertyValueAddsSemicolonToValueGenerator</code>
+      <code><![CDATA[testPropertyValueAddsSemicolonToValueGenerator]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Generator/TraitGeneratorTest.php">
     <ArgumentTypeCoercion>
       <code><![CDATA['LaminasTest_Code_NsTest_BarClass']]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[TraitGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
       <code><![CDATA[TraitGenerator::fromArray([
             'docblock' => new DocBlockGenerator('foo'),
@@ -1775,81 +2325,93 @@
         ])]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>$reflClass</code>
-      <code>ExceptionInterface::class</code>
-      <code>true</code>
-      <code>true</code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[$reflClass]]></code>
+      <code><![CDATA[ExceptionInterface::class]]></code>
+      <code><![CDATA[true]]></code>
+      <code><![CDATA[true]]></code>
     </InvalidArgument>
   </file>
   <file src="test/Generator/TypeGenerator/CompositeTypeTest.php">
-    <PossiblyUnusedMethod>
-      <code>validType</code>
-    </PossiblyUnusedMethod>
+    <ClassMustBeFinal>
+      <code><![CDATA[CompositeTypeTest]]></code>
+    </ClassMustBeFinal>
+    <MixedReturnStatement>
+      <code><![CDATA[iterable]]></code>
+    </MixedReturnStatement>
   </file>
   <file src="test/Generator/TypeGenerator/IntersectionTypeTest.php">
-    <PossiblyUnusedMethod>
-      <code>invalidIntersectionsExamples</code>
-      <code>sortingExamples</code>
-    </PossiblyUnusedMethod>
+    <ClassMustBeFinal>
+      <code><![CDATA[IntersectionTypeTest]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="test/Generator/TypeGenerator/UnionTypeTest.php">
-    <PossiblyUnusedMethod>
-      <code>invalidUnionsExamples</code>
-      <code>sortingExamples</code>
-    </PossiblyUnusedMethod>
+    <ClassMustBeFinal>
+      <code><![CDATA[UnionTypeTest]]></code>
+    </ClassMustBeFinal>
   </file>
   <file src="test/Generator/TypeGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TypeGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testIsAGenerator</code>
+      <code><![CDATA[testIsAGenerator]]></code>
     </MissingReturnType>
+    <PossiblyFalseArgument>
+      <code><![CDATA[class_implements(TypeGenerator::class)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyUnusedMethod>
-      <code>invalidType</code>
-      <code>validClassName</code>
+      <code><![CDATA[validClassName]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="test/Generator/ValueGeneratorTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ValueGeneratorTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getConstants</code>
-      <code>getConstants</code>
-      <code>initEnvironmentConstants</code>
-      <code>initEnvironmentConstants</code>
-      <code>initEnvironmentConstants</code>
+      <code><![CDATA[getConstants]]></code>
+      <code><![CDATA[getConstants]]></code>
+      <code><![CDATA[initEnvironmentConstants]]></code>
+      <code><![CDATA[initEnvironmentConstants]]></code>
+      <code><![CDATA[initEnvironmentConstants]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
-      <code>$constants</code>
+      <code><![CDATA[$constants]]></code>
     </InvalidArgument>
     <MissingReturnType>
-      <code>testEscaping</code>
-      <code>testPropertyDefaultValueCanHandleArray</code>
-      <code>testPropertyDefaultValueCanHandleArrayWithUnsortedKeys</code>
-      <code>testPropertyDefaultValueCanHandleBool</code>
-      <code>testPropertyDefaultValueCanHandleComplexArrayOfTypes</code>
-      <code>testPropertyDefaultValueCanHandleStrings</code>
-      <code>testPropertyDefaultValueCanHandleUnquotedString</code>
-      <code>testPropertyDefaultValueConstructor</code>
-      <code>testPropertyDefaultValueIsSettable</code>
+      <code><![CDATA[testEscaping]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleArray]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleArrayWithUnsortedKeys]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleBool]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleComplexArrayOfTypes]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleStrings]]></code>
+      <code><![CDATA[testPropertyDefaultValueCanHandleUnquotedString]]></code>
+      <code><![CDATA[testPropertyDefaultValueConstructor]]></code>
+      <code><![CDATA[testPropertyDefaultValueIsSettable]]></code>
     </MissingReturnType>
-    <PossiblyUnusedMethod>
-      <code>complexArray</code>
-      <code>complexArrayWCustomIndent</code>
-      <code>constantsType</code>
-      <code>getEscapedParameters</code>
-      <code>invalidValue</code>
-      <code>multipleOutputArray</code>
-      <code>simpleArray</code>
-      <code>unsortedKeysArray</code>
-      <code>validConstantTypes</code>
-    </PossiblyUnusedMethod>
+    <MixedReturnStatement>
+      <code><![CDATA[Generator]]></code>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+    </MixedReturnStatement>
   </file>
   <file src="test/Generic/Prototype/PrototypeClassFactoryTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PrototypeClassFactoryTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testAddAndGetPrototype</code>
-      <code>testFallBackToGeneric</code>
-      <code>testSetNameOnGenericIsCalledOnce</code>
+      <code><![CDATA[testAddAndGetPrototype]]></code>
+      <code><![CDATA[testFallBackToGeneric]]></code>
+      <code><![CDATA[testSetNameOnGenericIsCalledOnce]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/ClassReflectionTest.php">
@@ -1857,152 +2419,193 @@
       <code><![CDATA['ReflectionClass']]></code>
       <code><![CDATA[__NAMESPACE__ . '\\' . $className]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[ClassReflectionTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testGetContentsReturnsContents</code>
-      <code>testGetContentsReturnsContentsWithImplementsOnSeparateLine</code>
-      <code>testGetContentsReturnsEmptyContentsOnEvaldCode</code>
-      <code>testGetContentsReturnsEmptyContentsOnInternalCode</code>
-      <code>testGetTraits</code>
-      <code>testInterfaceReturn</code>
-      <code>testMethodReturns</code>
-      <code>testParentReturn</code>
-      <code>testPropertyReturns</code>
-      <code>testStartLine</code>
+      <code><![CDATA[testGetContentsReturnsContents]]></code>
+      <code><![CDATA[testGetContentsReturnsContentsWithImplementsOnSeparateLine]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnEvaldCode]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnInternalCode]]></code>
+      <code><![CDATA[testGetTraits]]></code>
+      <code><![CDATA[testInterfaceReturn]]></code>
+      <code><![CDATA[testMethodReturns]]></code>
+      <code><![CDATA[testParentReturn]]></code>
+      <code><![CDATA[testPropertyReturns]]></code>
+      <code><![CDATA[testStartLine]]></code>
     </MissingReturnType>
     <PossiblyFalseReference>
-      <code>getName</code>
+      <code><![CDATA[getName]]></code>
     </PossiblyFalseReference>
     <PossiblyInvalidArrayOffset>
-      <code>$traitsArray[TestTraitClass3::class]</code>
+      <code><![CDATA[$traitsArray[TestTraitClass3::class]]]></code>
     </PossiblyInvalidArrayOffset>
+    <PossiblyNullReference>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getName]]></code>
+    </PossiblyNullReference>
   </file>
   <file src="test/Reflection/DocBlock/Tag/AuthorTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AuthorTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testParseName</code>
-      <code>testParseNameAndEmail</code>
+      <code><![CDATA[testParseName]]></code>
+      <code><![CDATA[testParseNameAndEmail]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/GenericTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GenericTagTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testParse</code>
+      <code><![CDATA[testParse]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/LicenseTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[LicenseTagTest]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function setUp(): void]]></code>
+    </MissingOverrideAttribute>
     <MissingReturnType>
-      <code>testParseUrl</code>
-      <code>testParseUrlAndLicenseName</code>
+      <code><![CDATA[testParseUrl]]></code>
+      <code><![CDATA[testParseUrlAndLicenseName]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/MethodTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodTagTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getReturnType</code>
-      <code>getReturnType</code>
-      <code>getReturnType</code>
-      <code>getReturnType</code>
-      <code>getReturnType</code>
+      <code><![CDATA[getReturnType]]></code>
+      <code><![CDATA[getReturnType]]></code>
+      <code><![CDATA[getReturnType]]></code>
+      <code><![CDATA[getReturnType]]></code>
+      <code><![CDATA[getReturnType]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testParseName</code>
-      <code>testParseNameAndStatic</code>
-      <code>testParseNameAndStaticAndDescription</code>
-      <code>testParseNameAndType</code>
-      <code>testParseNameAndTypeAndStaticAndDescription</code>
+      <code><![CDATA[testParseName]]></code>
+      <code><![CDATA[testParseNameAndStatic]]></code>
+      <code><![CDATA[testParseNameAndStaticAndDescription]]></code>
+      <code><![CDATA[testParseNameAndType]]></code>
+      <code><![CDATA[testParseNameAndTypeAndStaticAndDescription]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/PropertyTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyTagTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testParseName</code>
-      <code>testParseNameAndDescription</code>
-      <code>testParseTypeAndName</code>
-      <code>testParseTypeAndNameAndDescription</code>
+      <code><![CDATA[testParseName]]></code>
+      <code><![CDATA[testParseNameAndDescription]]></code>
+      <code><![CDATA[testParseTypeAndName]]></code>
+      <code><![CDATA[testParseTypeAndNameAndDescription]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/ThrowsTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ThrowsTagTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testAllCharactersFromTypenameAreSupported</code>
-      <code>testMultipleTypesWithDescription</code>
-      <code>testMultipleTypesWithoutDescription</code>
-      <code>testSingleTypeWithDescription</code>
-      <code>testSingleTypeWithoutDescription</code>
+      <code><![CDATA[testAllCharactersFromTypenameAreSupported]]></code>
+      <code><![CDATA[testMultipleTypesWithDescription]]></code>
+      <code><![CDATA[testMultipleTypesWithoutDescription]]></code>
+      <code><![CDATA[testSingleTypeWithDescription]]></code>
+      <code><![CDATA[testSingleTypeWithoutDescription]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/DocBlock/Tag/VarTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[VarTagTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testParse</code>
+      <code><![CDATA[testParse]]></code>
     </MissingReturnType>
-    <PossiblyUnusedMethod>
-      <code>varTagProvider</code>
-    </PossiblyUnusedMethod>
+    <MixedReturnStatement>
+      <code><![CDATA[array]]></code>
+    </MixedReturnStatement>
   </file>
   <file src="test/Reflection/DocBlockReflectionTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockReflectionTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testDocBlockContents</code>
-      <code>testDocBlockLines</code>
-      <code>testDocBlockLongDescription</code>
-      <code>testDocBlockShortDescription</code>
-      <code>testDocBlockTags</code>
-      <code>testFunctionDocBlockTags</code>
-      <code>testShortDocBlocks</code>
-      <code>testTabbedDocBlockTags</code>
-      <code>testToString</code>
+      <code><![CDATA[testDocBlockContents]]></code>
+      <code><![CDATA[testDocBlockLines]]></code>
+      <code><![CDATA[testDocBlockLongDescription]]></code>
+      <code><![CDATA[testDocBlockShortDescription]]></code>
+      <code><![CDATA[testDocBlockTags]]></code>
+      <code><![CDATA[testFunctionDocBlockTags]]></code>
+      <code><![CDATA[testShortDocBlocks]]></code>
+      <code><![CDATA[testTabbedDocBlockTags]]></code>
+      <code><![CDATA[testToString]]></code>
     </MissingReturnType>
     <PossiblyFalseReference>
-      <code>getContents</code>
-      <code>getLongDescription</code>
-      <code>getShortDescription</code>
-      <code>getShortDescription</code>
-      <code>getShortDescription</code>
-      <code>getStartLine</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>getTags</code>
-      <code>hasTag</code>
-      <code>hasTag</code>
+      <code><![CDATA[getContents]]></code>
+      <code><![CDATA[getLongDescription]]></code>
+      <code><![CDATA[getShortDescription]]></code>
+      <code><![CDATA[getShortDescription]]></code>
+      <code><![CDATA[getShortDescription]]></code>
+      <code><![CDATA[getStartLine]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[getTags]]></code>
+      <code><![CDATA[hasTag]]></code>
+      <code><![CDATA[hasTag]]></code>
     </PossiblyFalseReference>
     <UndefinedInterfaceMethod>
-      <code>getDescription</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="test/Reflection/FunctionReflectionTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[FunctionReflectionTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
     </DeprecatedMethod>
     <EmptyArrayAccess>
       <code><![CDATA[$list1['closure']]]></code>
-      <code>$list2[0]</code>
-      <code>$list3[0]</code>
+      <code><![CDATA[$list2[0]]]></code>
+      <code><![CDATA[$list3[0]]]></code>
     </EmptyArrayAccess>
     <InvalidArgument>
       <code><![CDATA['LaminasTest\Code\Reflection\TestAsset\function1']]></code>
@@ -2030,63 +2633,67 @@
       <code><![CDATA['LaminasTest\Code\Reflection\TestAsset\function9']]></code>
     </InvalidArgument>
     <MissingReturnType>
-      <code>testFunctionBodyReturn</code>
-      <code>testFunctionClosureBodyReturn</code>
-      <code>testFunctionClosureContentsReturnWithDocBlock</code>
-      <code>testFunctionClosureContentsReturnWithoutDocBlock</code>
-      <code>testFunctionContentsReturnWithDocBlock</code>
-      <code>testFunctionContentsReturnWithoutDocBlock</code>
-      <code>testFunctionDocBlockReturn</code>
-      <code>testGetContentsReturnsEmptyContentsOnEvaldCode</code>
-      <code>testGetContentsReturnsEmptyContentsOnInternalCode</code>
-      <code>testGetPrototypeMethod</code>
-      <code>testInternalFunctionBodyReturn</code>
-      <code>testInternalFunctionContentsReturn</code>
-      <code>testParemeterReturn</code>
+      <code><![CDATA[testFunctionBodyReturn]]></code>
+      <code><![CDATA[testFunctionClosureBodyReturn]]></code>
+      <code><![CDATA[testFunctionClosureContentsReturnWithDocBlock]]></code>
+      <code><![CDATA[testFunctionClosureContentsReturnWithoutDocBlock]]></code>
+      <code><![CDATA[testFunctionContentsReturnWithDocBlock]]></code>
+      <code><![CDATA[testFunctionContentsReturnWithoutDocBlock]]></code>
+      <code><![CDATA[testFunctionDocBlockReturn]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnEvaldCode]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnInternalCode]]></code>
+      <code><![CDATA[testGetPrototypeMethod]]></code>
+      <code><![CDATA[testInternalFunctionBodyReturn]]></code>
+      <code><![CDATA[testInternalFunctionContentsReturn]]></code>
+      <code><![CDATA[testParemeterReturn]]></code>
     </MissingReturnType>
     <MixedArgument>
-      <code>$function5</code>
-      <code>$function6</code>
-      <code>$function7</code>
+      <code><![CDATA[$function5]]></code>
+      <code><![CDATA[$function6]]></code>
+      <code><![CDATA[$function7]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code>$function5</code>
-      <code>$function6</code>
-      <code>$function7</code>
+      <code><![CDATA[$function5]]></code>
+      <code><![CDATA[$function6]]></code>
+      <code><![CDATA[$function7]]></code>
     </MixedAssignment>
     <NullArgument>
-      <code>$function1</code>
-      <code>$function10</code>
-      <code>$function10</code>
-      <code>$function2</code>
-      <code>$function2</code>
-      <code>$function3</code>
-      <code>$function4</code>
-      <code>$function8</code>
-      <code>$function9</code>
-      <code>$function9</code>
-      <code>$function9</code>
+      <code><![CDATA[$function1]]></code>
+      <code><![CDATA[$function10]]></code>
+      <code><![CDATA[$function10]]></code>
+      <code><![CDATA[$function2]]></code>
+      <code><![CDATA[$function2]]></code>
+      <code><![CDATA[$function3]]></code>
+      <code><![CDATA[$function4]]></code>
+      <code><![CDATA[$function8]]></code>
+      <code><![CDATA[$function9]]></code>
+      <code><![CDATA[$function9]]></code>
+      <code><![CDATA[$function9]]></code>
     </NullArgument>
     <PossiblyFalseArgument>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
-      <code>$body</code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$body]]></code>
     </PossiblyFalseArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$function->getBody()]]></code>
+      <code><![CDATA[$function->getBody()]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="test/Reflection/MethodReflectionTest.php">
     <ArgumentTypeCoercion>
@@ -2098,143 +2705,152 @@
       <code><![CDATA['ReflectionException']]></code>
       <code><![CDATA[__NAMESPACE__ . '\\' . $className]]></code>
     </ArgumentTypeCoercion>
+    <ClassMustBeFinal>
+      <code><![CDATA[MethodReflectionTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
-      <code>getPrototype</code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
+      <code><![CDATA[getPrototype]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testCanParseClassBodyWhenUsingTrait</code>
-      <code>testCodeGetBodyReturnsEmptyWithCommentedFunction</code>
-      <code>testCodeGetContentsDoesNotThrowExceptionOnDocBlock</code>
-      <code>testDeclaringClassReturn</code>
-      <code>testFunctionContentsReturnWithDocBlock</code>
-      <code>testGetBodyReturnsCorrectBody</code>
-      <code>testGetContentsReturnsEmptyContentsOnEvaldCode</code>
-      <code>testGetContentsReturnsEmptyContentsOnInternalCode</code>
-      <code>testGetContentsWithCoreClass</code>
-      <code>testGetPrototypeMethod</code>
-      <code>testInternalFunctionBodyReturn</code>
-      <code>testInternalMethodContentsReturn</code>
-      <code>testMethodContentsReturnWithoutDocBlock</code>
-      <code>testParemeterReturn</code>
-      <code>testStartLine</code>
+      <code><![CDATA[testCanParseClassBodyWhenUsingTrait]]></code>
+      <code><![CDATA[testCodeGetBodyReturnsEmptyWithCommentedFunction]]></code>
+      <code><![CDATA[testCodeGetContentsDoesNotThrowExceptionOnDocBlock]]></code>
+      <code><![CDATA[testDeclaringClassReturn]]></code>
+      <code><![CDATA[testFunctionContentsReturnWithDocBlock]]></code>
+      <code><![CDATA[testGetBodyReturnsCorrectBody]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnEvaldCode]]></code>
+      <code><![CDATA[testGetContentsReturnsEmptyContentsOnInternalCode]]></code>
+      <code><![CDATA[testGetContentsWithCoreClass]]></code>
+      <code><![CDATA[testGetPrototypeMethod]]></code>
+      <code><![CDATA[testInternalFunctionBodyReturn]]></code>
+      <code><![CDATA[testInternalMethodContentsReturn]]></code>
+      <code><![CDATA[testMethodContentsReturnWithoutDocBlock]]></code>
+      <code><![CDATA[testParemeterReturn]]></code>
+      <code><![CDATA[testStartLine]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/ParameterReflectionTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ParameterReflectionTest]]></code>
+    </ClassMustBeFinal>
     <DeprecatedMethod>
-      <code>detectType</code>
-      <code>detectType</code>
-      <code>detectType</code>
-      <code>detectType</code>
-      <code>detectType</code>
+      <code><![CDATA[detectType]]></code>
+      <code><![CDATA[detectType]]></code>
+      <code><![CDATA[detectType]]></code>
+      <code><![CDATA[detectType]]></code>
+      <code><![CDATA[detectType]]></code>
     </DeprecatedMethod>
     <MissingReturnType>
-      <code>testCallableTypeHint</code>
-      <code>testClassReturn</code>
-      <code>testClassReturnNoClassGivenReturnsNull</code>
-      <code>testDeclaringClassReturn</code>
+      <code><![CDATA[testCallableTypeHint]]></code>
+      <code><![CDATA[testClassReturn]]></code>
+      <code><![CDATA[testClassReturnNoClassGivenReturnsNull]]></code>
+      <code><![CDATA[testDeclaringClassReturn]]></code>
     </MissingReturnType>
-    <PossiblyUnusedMethod>
-      <code>docBlockHints</code>
-      <code>paramType</code>
-      <code>paramTypeWithNotAllParamsDeclared</code>
-      <code>reflectionHints</code>
-    </PossiblyUnusedMethod>
     <UndefinedMethod>
-      <code>getName</code>
+      <code><![CDATA[getName]]></code>
     </UndefinedMethod>
   </file>
   <file src="test/Reflection/PropertyReflectionTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[PropertyReflectionTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testDeclaringClassReturn</code>
+      <code><![CDATA[testDeclaringClassReturn]]></code>
     </MissingReturnType>
   </file>
   <file src="test/Reflection/ReflectionDocBlockTagTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ReflectionDocBlockTagTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testAllowsMultipleSpacesInDocBlockTagLine</code>
-      <code>testAllowsMultipleSpacesInDocBlockTagLine2</code>
-      <code>testNamespaceInParam</code>
-      <code>testPropertyVarDoc</code>
-      <code>testReturnClassWithNamespace</code>
-      <code>testTagDescriptionIsReturned</code>
-      <code>testTagShouldAllowJustTagNameInDocBlockTagLine</code>
-      <code>testTagShouldAllowMultipleWhitespacesBeforeDescription</code>
-      <code>testToString</code>
-      <code>testType</code>
-      <code>testTypeParam</code>
-      <code>testVariableName</code>
+      <code><![CDATA[testAllowsMultipleSpacesInDocBlockTagLine]]></code>
+      <code><![CDATA[testAllowsMultipleSpacesInDocBlockTagLine2]]></code>
+      <code><![CDATA[testNamespaceInParam]]></code>
+      <code><![CDATA[testPropertyVarDoc]]></code>
+      <code><![CDATA[testReturnClassWithNamespace]]></code>
+      <code><![CDATA[testTagDescriptionIsReturned]]></code>
+      <code><![CDATA[testTagShouldAllowJustTagNameInDocBlockTagLine]]></code>
+      <code><![CDATA[testTagShouldAllowMultipleWhitespacesBeforeDescription]]></code>
+      <code><![CDATA[testToString]]></code>
+      <code><![CDATA[testType]]></code>
+      <code><![CDATA[testTypeParam]]></code>
+      <code><![CDATA[testVariableName]]></code>
     </MissingReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[array]]></code>
+    </MixedReturnStatement>
     <PossiblyFalseReference>
-      <code>getAuthorEmail</code>
-      <code>getAuthorName</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getDescription</code>
-      <code>getDescription</code>
-      <code>getDescription</code>
-      <code>getName</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getTag</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getVariableName</code>
-      <code>getVariableName</code>
-      <code>getVariableName</code>
+      <code><![CDATA[getAuthorEmail]]></code>
+      <code><![CDATA[getAuthorName]]></code>
+      <code><![CDATA[getContent]]></code>
+      <code><![CDATA[getContent]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getName]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getTag]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getVariableName]]></code>
+      <code><![CDATA[getVariableName]]></code>
+      <code><![CDATA[getVariableName]]></code>
     </PossiblyFalseReference>
     <PossiblyInvalidCast>
-      <code>$tag</code>
+      <code><![CDATA[$tag]]></code>
     </PossiblyInvalidCast>
-    <PossiblyUnusedMethod>
-      <code>propertyVarDocProvider</code>
-    </PossiblyUnusedMethod>
     <UndefinedInterfaceMethod>
-      <code>getAuthorEmail</code>
-      <code>getAuthorName</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getDescription</code>
-      <code>getDescription</code>
-      <code>getDescription</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getType</code>
-      <code>getVariableName</code>
-      <code>getVariableName</code>
-      <code>getVariableName</code>
+      <code><![CDATA[getAuthorEmail]]></code>
+      <code><![CDATA[getAuthorName]]></code>
+      <code><![CDATA[getContent]]></code>
+      <code><![CDATA[getContent]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getDescription]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getType]]></code>
+      <code><![CDATA[getVariableName]]></code>
+      <code><![CDATA[getVariableName]]></code>
+      <code><![CDATA[getVariableName]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="test/Scanner/DocBlockScannerTest.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DocBlockScannerTest]]></code>
+    </ClassMustBeFinal>
     <MissingReturnType>
-      <code>testDocBlockScannerDescriptions</code>
-      <code>testDocBlockScannerParsesTagsWithNoValuesProperly</code>
-      <code>testInvalidDocBlock</code>
+      <code><![CDATA[testDocBlockScannerDescriptions]]></code>
+      <code><![CDATA[testDocBlockScannerParsesTagsWithNoValuesProperly]]></code>
+      <code><![CDATA[testInvalidDocBlock]]></code>
     </MissingReturnType>
     <MixedArgument>
-      <code>$tags[0]</code>
-      <code>$tags[0]</code>
+      <code><![CDATA[$tags[0]]]></code>
+      <code><![CDATA[$tags[0]]]></code>
     </MixedArgument>
     <MixedArrayAccess>
       <code><![CDATA[$tags[0]['name']]]></code>
