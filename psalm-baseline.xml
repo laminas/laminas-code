@@ -1547,6 +1547,11 @@
       <code><![CDATA[testSetFlagsWithArray]]></code>
     </MissingReturnType>
   </file>
+  <file src="test/Generator/AttributeGeneratorTest.php">
+    <PossiblyUnusedMethod>
+      <code>validAttributes</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="test/Generator/Cases/BackedCasesTest.php">
     <InvalidArgument>
       <code><![CDATA['bool']]></code>
