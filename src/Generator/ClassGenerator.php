@@ -68,6 +68,9 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     /** @var TraitUsageGenerator Object to encapsulate trait usage logic */
     protected TraitUsageGenerator $traitUsageGenerator;
 
+    /** @var list<AttributeGenerator> */
+    protected array $attributes = [];
+
     /**
      * Build a Code Generation Php Object from a Class Reflection
      *
@@ -348,6 +351,39 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
     public function getDocBlock()
     {
         return $this->docBlock;
+    }
+
+    /**
+     * Replaces all the attributes declared on this class
+     *
+     * @param list<AttributeGenerator> $attributes
+     * @return static
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = [];
+
+        foreach ($attributes as $attribute) {
+            $this->addAttribute($attribute);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function addAttribute(AttributeGenerator $attribute)
+    {
+        $this->attributes[] = $attribute;
+
+        return $this;
+    }
+
+    /** @return list<AttributeGenerator> */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 
     /**
@@ -1062,6 +1098,10 @@ class ClassGenerator extends AbstractGenerator implements TraitUsageInterface
         if (null !== ($docBlock = $this->getDocBlock())) {
             $docBlock->setIndentation('');
             $output .= $docBlock->generate();
+        }
+
+        foreach ($this->attributes as $attribute) {
+            $output .= $attribute->generate() . self::LINE_FEED;
         }
 
         if ($this->isAbstract()) {
