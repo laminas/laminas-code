@@ -52,7 +52,7 @@
                             <a href="https://docs.mezzio.dev/" class="dropdown-item">
                                 <div class="row align-items-center">
                                     <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg">
+                                        <img src="https://docs.laminas.dev/img/mezzio-logo.svg">
                                     </div>
                                     <div class="col-md-8 col-sm-12">
                                         <strong>Mezzio</strong><br>
@@ -71,17 +71,6 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="https://docs.laminas.dev/mvc" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-mvc-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>MVC</strong><br>
-                                        MVC for Enterprise Applications
-                                    </div>
-                                </div>
-                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
                                 <div class="row align-items-center">
@@ -97,8 +86,18 @@
                                     </div>
                                 </div>
                             </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/mvc">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        MVC <small><em>(security-only maintenance mode)</em></small>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/integrations/" class="nav-link">Integrations</a>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -220,10 +219,10 @@
                     
 
                     <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
-                        <i class="fa fa-search"></i> Search
+                        <i class="bi bi-search"></i> Search
                     </a>
                     <a href="https://github.com/laminas/laminas-code" class="header__link header__link--github" title="Go to repository of laminas-code">
-                        <i class="fab fa-github"></i> GitHub
+                        <i class="bi-github"></i> GitHub
                     </a>
                 
             </div>
@@ -302,7 +301,7 @@
                 <a rel="next" class="page-nav__link page-nav__link--next" href="generator/intro/">
                     <small class="page-nav__label">Next</small>
                     Introduction
-                    <i class="fa fa-chevron-right"></i>
+                    <i class="bi bi-arrow-right"></i>
                 </a>
             
         </li>
@@ -318,7 +317,7 @@
     <a href="https://getlaminas.org/support/">
         <h2>Donate</h2>
         <p>Support Laminas Developers Directly</p>
-        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
+        <img src="https://getlaminas.org/images/lfx-crowdfunding.svg" alt="Linux Foundation Crowdfunding">
     </a>
 </div>
 
@@ -411,20 +410,33 @@
         
         <div class="row">
             <div class="col-md-12 text-center">
-                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+                <a class="footer__button" href="#page-top"><i class="bi bi-arrow-up-square" aria-hidden="true"></i></a>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <h5>Laminas</h5>
+            <div class="col">
+                <h5 class="text-white">Laminas – The Linux Foundation's only PHP project</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
-                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
                     <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas Components <a href="https://docs.laminas.dev/components">Enterprise-ready PHP components</a></li>
                     <li>Maintenance Overview <a href="https://getlaminas.org/packages-maintenance-status/">Current maintenance status of Laminas &amp; Mezzio packages</a></li>
+                    <li>Laminas Integrations <a href="https://getlaminas.org/integrations/">List of packages using Laminas & Mezzio components</a></li>
                 </ul>
             </div>
+            <div class="col-md-4">
+                <p>
+                    Open-source tooling provided by<br>
+                    <a href="https://jb.gg/OpenSourceSupport" title="JetBrains">
+                        <img src="https://getlaminas.org/images/jetbrains-mono-white.png" alt="JetBrains logo" style="height: 1.5em;">
+                    </a>
+                </p>
+             </div>
         </div>
 
         <div class="row">
@@ -433,32 +445,34 @@
 
                     
                     <div class="col-md-4">
-                        <h4 class="footer__headline">Support</h4>
+                        <h5 class="footer__headline text-white">Support</h5>
                         <ul class="support__list">
                             <li class="support__list-item">
-                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="bi-chat-text-fill"></i><span class="visually-hidden">Laminas &amp; Mezzio Forum</span></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fab fa-slack"></i></a>
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="bi-slack"></i><span class="visually-hidden">Laminas Community Slack</span></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="bi-github"></i><span class="visually-hidden">Laminas GitHub Organisation Page</span></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="fab fa-mastodon"></i></a>
+                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="bi-mastodon"></i><span class="visually-hidden">Laminas on Mastodon</span></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="bi-rss"></i><span class="visually-hidden">Blog article RSS Feed</span></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed">
+                                    <i class="bi-rss-fill"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
 
                     
                     <div class="col-md-4">
-                        <h4 class="footer__headline">License</h4>
+                        <h5 class="footer__headline text-white">License</h5>
                         <p>
                             Code licensed under <a
                                 href="https://github.com/laminas/laminas-code/blob/-/LICENSE.md">BSD 3-Clause</a>.
@@ -467,11 +481,11 @@
 
                     
                     <div class="col-md-4">
-                        <h4 class="footer__headline">Copyright</h4>
+                        <h5 class="footer__headline text-white">Copyright</h5>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-code/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2025 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2026 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
@@ -519,5 +533,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-11-01 09:42:02.400258+00:00
+Build Date UTC : 2026-10-26 23:37:56.683771+00:00
 -->
