@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.18.1@79465b8dc674127f442ae31ea114c11bc4dd7ed6">
+<files psalm-version="6.20.1@376425b8e67b79773add388e16b4f6be5693dc87">
   <file src="src/DeclareStatement.php">
     <ClassMustBeFinal>
       <code><![CDATA[DeclareStatement]]></code>
@@ -54,9 +54,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[BodyGenerator]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
     <PossiblyUnusedMethod>
       <code><![CDATA[setContent]]></code>
     </PossiblyUnusedMethod>
@@ -80,22 +77,6 @@
     <InvalidNullableReturnType>
       <code><![CDATA[string]]></code>
     </InvalidNullableReturnType>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function addTrait($trait)]]></code>
-      <code><![CDATA[public function addTraitAlias($method, $alias, $visibility = null)]]></code>
-      <code><![CDATA[public function addTraitOverride($method, $traitsToReplace)]]></code>
-      <code><![CDATA[public function addTraits(array $traits)]]></code>
-      <code><![CDATA[public function addUse($use, $useAlias = null)]]></code>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getTraitAliases()]]></code>
-      <code><![CDATA[public function getTraitOverrides()]]></code>
-      <code><![CDATA[public function getTraits()]]></code>
-      <code><![CDATA[public function getUses()]]></code>
-      <code><![CDATA[public function hasTrait($traitName)]]></code>
-      <code><![CDATA[public function isSourceDirty()]]></code>
-      <code><![CDATA[public function removeTrait($traitName)]]></code>
-      <code><![CDATA[public function removeTraitOverride($method, $overridesToRemove = null)]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -191,10 +172,6 @@
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
     </LessSpecificReturnStatement>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
       <code><![CDATA[AuthorTag]]></code>
     </MoreSpecificReturnType>
@@ -214,11 +191,6 @@
       <code><![CDATA[$this]]></code>
       <code><![CDATA[string|null]]></code>
     </ImplementedReturnTypeMismatch>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function setName($name)]]></code>
-    </MissingOverrideAttribute>
     <PossiblyNullOperand>
       <code><![CDATA[$this->name]]></code>
     </PossiblyNullOperand>
@@ -235,10 +207,6 @@
     <LessSpecificReturnStatement>
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
     </LessSpecificReturnStatement>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
       <code><![CDATA[ReturnTag]]></code>
     </MoreSpecificReturnType>
@@ -256,10 +224,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[MethodTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $isStatic]]></code>
     </RedundantCastGivenDocblockType>
@@ -277,10 +241,6 @@
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
       <code><![CDATA[$this->setTypes($datatype)]]></code>
     </LessSpecificReturnStatement>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$types]]></code>
     </MixedArgumentTypeCoercion>
@@ -309,10 +269,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[PropertyTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[empty($propertyName)]]></code>
       <code><![CDATA[empty($this->description)]]></code>
@@ -327,10 +283,6 @@
       <code><![CDATA[$tagManager->createTagFromReflection($reflectionTag)]]></code>
       <code><![CDATA[$this->setTypes($datatype)]]></code>
     </LessSpecificReturnStatement>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
       <code><![CDATA[ReturnTag]]></code>
       <code><![CDATA[ReturnTag]]></code>
@@ -350,10 +302,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ThrowsTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getName()]]></code>
-    </MissingOverrideAttribute>
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[empty($this->description)]]></code>
     </RiskyTruthyFalsyComparison>
@@ -362,10 +310,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[VarTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate(): string]]></code>
-      <code><![CDATA[public function getName(): string]]></code>
-    </MissingOverrideAttribute>
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[empty($this->description)]]></code>
     </RiskyTruthyFalsyComparison>
@@ -382,9 +326,6 @@
     <DeprecatedClass>
       <code><![CDATA[new Tag()]]></code>
     </DeprecatedClass>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
@@ -465,10 +406,6 @@
     <MissingClosureParamType>
       <code><![CDATA[$value]]></code>
     </MissingClosureParamType>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function isSourceDirty()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
@@ -543,14 +480,6 @@
       <code><![CDATA[IMPLEMENTS_KEYWORD]]></code>
       <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function addMethodFromGenerator(MethodGenerator $method)]]></code>
-      <code><![CDATA[public function addPropertyFromGenerator(PropertyGenerator $property)]]></code>
-      <code><![CDATA[public function setAbstract($isAbstract)]]></code>
-      <code><![CDATA[public function setExtendedClass($extendedClass)]]></code>
-      <code><![CDATA[public static function fromArray(array $array)]]></code>
-      <code><![CDATA[public static function fromReflection(ClassReflection $classReflection)]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -585,10 +514,6 @@
       <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
       <code><![CDATA[ParameterGenerator::fromArray($parameter)]]></code>
     </DeprecatedMethod>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -637,9 +562,6 @@
     <ImplicitToStringCast>
       <code><![CDATA[$this->defaultValue]]></code>
     </ImplicitToStringCast>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -669,12 +591,6 @@
       <code><![CDATA[new static($array['name'])]]></code>
     </UnsafeInstantiation>
   </file>
-  <file src="src/Generator/PromotedParameterGenerator.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate(): string]]></code>
-      <code><![CDATA[public static function fromReflection(ParameterReflection $reflectionParameter): self]]></code>
-    </MissingOverrideAttribute>
-  </file>
   <file src="src/Generator/PropertyGenerator.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$reflectionProperty->getType()]]></code>
@@ -685,10 +601,6 @@
     <DeprecatedMethod>
       <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function setFlags($flags)]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -721,9 +633,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[PropertyValueGenerator]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Generator/TraitGenerator.php">
     <ClassMustBeFinal>
@@ -735,17 +644,6 @@
     <InvalidClassConstantType>
       <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function addFlag($flag)]]></code>
-      <code><![CDATA[public function removeFlag($flag)]]></code>
-      <code><![CDATA[public function setAbstract($isAbstract)]]></code>
-      <code><![CDATA[public function setExtendedClass($extendedClass)]]></code>
-      <code><![CDATA[public function setFinal($isFinal)]]></code>
-      <code><![CDATA[public function setFlags($flags)]]></code>
-      <code><![CDATA[public function setImplementedInterfaces(array $implementedInterfaces)]]></code>
-      <code><![CDATA[public static function fromArray(array $array)]]></code>
-      <code><![CDATA[public static function fromReflection(ClassReflection $classReflection)]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -778,21 +676,6 @@
     <DocblockTypeContradiction>
       <code><![CDATA[is_string($alias)]]></code>
     </DocblockTypeContradiction>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function addTrait($trait)]]></code>
-      <code><![CDATA[public function addTraitAlias($method, $alias, $visibility = null)]]></code>
-      <code><![CDATA[public function addTraitOverride($method, $traitsToReplace)]]></code>
-      <code><![CDATA[public function addTraits(array $traits)]]></code>
-      <code><![CDATA[public function addUse($use, $useAlias = null)]]></code>
-      <code><![CDATA[public function generate()]]></code>
-      <code><![CDATA[public function getTraitAliases()]]></code>
-      <code><![CDATA[public function getTraitOverrides()]]></code>
-      <code><![CDATA[public function getTraits()]]></code>
-      <code><![CDATA[public function getUses()]]></code>
-      <code><![CDATA[public function hasTrait($traitName)]]></code>
-      <code><![CDATA[public function removeTrait($traitName)]]></code>
-      <code><![CDATA[public function removeTraitOverride($method, $overridesToRemove = null)]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$method]]></code>
       <code><![CDATA[$this->traitOverrides[$method]]]></code>
@@ -873,12 +756,6 @@
       <code><![CDATA[self]]></code>
     </PossiblyUnusedReturnValue>
   </file>
-  <file src="src/Generator/TypeGenerator.php">
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function generate(): string]]></code>
-    </MissingOverrideAttribute>
-  </file>
   <file src="src/Generator/ValueGenerator.php">
     <DeprecatedMethod>
       <code><![CDATA[getConstants]]></code>
@@ -887,10 +764,6 @@
       <code><![CDATA[$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject]]></code>
       <code><![CDATA[$constants instanceof StdlibArrayObject]]></code>
     </DocblockTypeContradiction>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function generate()]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[initEnvironmentConstants]]></code>
     </MissingReturnType>
@@ -971,17 +844,6 @@
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
-    <MissingOverrideAttribute>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$lines]]></code>
     </MixedArgumentTypeCoercion>
@@ -1004,11 +866,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[AuthorTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/GenericTag.php">
     <ArgumentTypeCoercion>
@@ -1020,12 +877,6 @@
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[string|null]]></code>
     </ImplementedReturnTypeMismatch>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-      <code><![CDATA[public function setName($name)]]></code>
-    </MissingOverrideAttribute>
     <PossiblyNullOperand>
       <code><![CDATA[$this->name]]></code>
     </PossiblyNullOperand>
@@ -1037,32 +888,16 @@
     <ClassMustBeFinal>
       <code><![CDATA[LicenseTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/MethodTag.php">
     <ClassMustBeFinal>
       <code><![CDATA[MethodTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function getTypes()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ParamTag.php">
     <ClassMustBeFinal>
       <code><![CDATA[ParamTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function getTypes()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
     <PossiblyNullArgument>
       <code><![CDATA[preg_replace('#\s+#', ' ', $matches[3])]]></code>
     </PossiblyNullArgument>
@@ -1074,22 +909,11 @@
     <ClassMustBeFinal>
       <code><![CDATA[PropertyTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function getTypes()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/ReturnTag.php">
     <ClassMustBeFinal>
       <code><![CDATA[ReturnTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function getTypes()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
     <PossiblyNullArgument>
       <code><![CDATA[preg_replace('#\s+#', ' ', $matches[2])]]></code>
     </PossiblyNullArgument>
@@ -1098,22 +922,11 @@
     <ClassMustBeFinal>
       <code><![CDATA[ThrowsTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function getName()]]></code>
-      <code><![CDATA[public function getTypes()]]></code>
-      <code><![CDATA[public function initialize($content)]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/Tag/VarTag.php">
     <ClassMustBeFinal>
       <code><![CDATA[VarTag]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function __toString(): string]]></code>
-      <code><![CDATA[public function getName(): string]]></code>
-      <code><![CDATA[public function getTypes(): array]]></code>
-      <code><![CDATA[public function initialize($content): void]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="src/Reflection/DocBlock/TagManager.php">
     <ClassMustBeFinal>
@@ -1130,9 +943,6 @@
     <DocblockTypeContradiction>
       <code><![CDATA[! is_string($filter)]]></code>
     </DocblockTypeContradiction>
-    <MissingOverrideAttribute>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$tag['name']]]></code>
       <code><![CDATA[$tag['value']]]></code>
@@ -1232,11 +1042,6 @@
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
-    <MissingOverrideAttribute>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$returnTypes]]></code>
       <code><![CDATA[$returnTypes]]></code>
@@ -1308,13 +1113,6 @@
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
-    <MissingOverrideAttribute>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <MixedArgument>
       <code><![CDATA[$haystack[$i][0]]]></code>
       <code><![CDATA[$haystack[$i][0]]]></code>
@@ -1369,12 +1167,6 @@
       <code><![CDATA[getProperty]]></code>
       <code><![CDATA[getTags]]></code>
     </ImpureMethodCall>
-    <MissingOverrideAttribute>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <MixedReturnStatement>
       <code><![CDATA[$type->getName()]]></code>
     </MixedReturnStatement>
@@ -1395,11 +1187,6 @@
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
     </MissingImmutableAnnotation>
-    <MissingOverrideAttribute>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[#[ReturnTypeWillChange]]]></code>
-      <code><![CDATA[public function toString()]]></code>
-    </MissingOverrideAttribute>
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[! ($docComment = $this->getDocComment())]]></code>
     </RiskyTruthyFalsyComparison>
@@ -1539,18 +1326,10 @@
     <InvalidArgument>
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testSetDocBlockThrowsExceptionWithInvalidType]]></code>
       <code><![CDATA[testSetFlagsWithArray]]></code>
     </MissingReturnType>
-  </file>
-  <file src="test/Generator/AttributeGeneratorTest.php">
-    <PossiblyUnusedMethod>
-      <code>validAttributes</code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="test/Generator/Cases/BackedCasesTest.php">
     <InvalidArgument>
@@ -1685,10 +1464,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[AuthorTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1708,10 +1483,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[GenericTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1730,10 +1501,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[LicenseTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1753,10 +1520,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[MethodTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1777,10 +1540,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ParamTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1801,10 +1560,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[PropertyTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
@@ -1825,10 +1580,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ReturnTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
       <code><![CDATA[testNameIsCorrect]]></code>
@@ -1846,10 +1597,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ThrowsTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testCreatingTagFromReflection]]></code>
       <code><![CDATA[testNameIsCorrect]]></code>
@@ -1867,10 +1614,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[TypableTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-      <code><![CDATA[protected function tearDown(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testConstructorWithOptions]]></code>
       <code><![CDATA[testGetterAndSetterPersistValue]]></code>
@@ -1887,9 +1630,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[VarTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
   </file>
   <file src="test/Generator/DocBlockGeneratorTest.php">
     <ClassMustBeFinal>
@@ -1909,9 +1649,6 @@
       <code><![CDATA[setDatatype]]></code>
       <code><![CDATA[setDatatype]]></code>
     </DeprecatedMethod>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testCanPassTagsToConstructor]]></code>
       <code><![CDATA[testCreateFromArray]]></code>
@@ -2410,9 +2147,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[PrototypeClassFactoryTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testAddAndGetPrototype]]></code>
       <code><![CDATA[testFallBackToGeneric]]></code>
@@ -2455,9 +2189,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[AuthorTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testParseName]]></code>
       <code><![CDATA[testParseNameAndEmail]]></code>
@@ -2475,9 +2206,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[LicenseTagTest]]></code>
     </ClassMustBeFinal>
-    <MissingOverrideAttribute>
-      <code><![CDATA[protected function setUp(): void]]></code>
-    </MissingOverrideAttribute>
     <MissingReturnType>
       <code><![CDATA[testParseUrl]]></code>
       <code><![CDATA[testParseUrlAndLicenseName]]></code>
