@@ -14,7 +14,6 @@
     "require-dev": {
         "ext-phar": "*",
         "boundwize/structarmed": "^0.18.0",
-        "doctrine/annotations": "^2.0.1",
         "laminas/laminas-coding-standard": "^3.0.0",
         "laminas/laminas-stdlib": "^3.18.0",
         "phpunit/phpunit": "^10.5.58",
@@ -22,7 +21,6 @@
         "vimeo/psalm": "^6.17"
     },
     "suggest": {
-        "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
         "laminas/laminas-stdlib": "Laminas\\Stdlib component"
     },
     "config": {
