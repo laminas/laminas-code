@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.20.1@376425b8e67b79773add388e16b4f6be5693dc87">
+<files psalm-version="6.20.10@7fc81490f861c801061836a9010603d2393bf8da">
   <file src="src/DeclareStatement.php">
     <ClassMustBeFinal>
       <code><![CDATA[DeclareStatement]]></code>
@@ -2176,9 +2176,6 @@
     <PossiblyFalseReference>
       <code><![CDATA[getName]]></code>
     </PossiblyFalseReference>
-    <PossiblyInvalidArrayOffset>
-      <code><![CDATA[$traitsArray[TestTraitClass3::class]]]></code>
-    </PossiblyInvalidArrayOffset>
     <PossiblyNullReference>
       <code><![CDATA[getName]]></code>
       <code><![CDATA[getName]]></code>
