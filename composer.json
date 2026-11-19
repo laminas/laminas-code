@@ -17,7 +17,7 @@
         "laminas/laminas-coding-standard": "^3.0.0",
         "laminas/laminas-stdlib": "^3.18.0",
         "phpunit/phpunit": "^10.5.58",
-        "psalm/plugin-phpunit": "^0.22.0",
+        "psalm/plugin-phpunit": "^1.0.0",
         "vimeo/psalm": "^6.17"
     },
     "suggest": {
