@@ -4,6 +4,16 @@
     <ClassMustBeFinal>
       <code><![CDATA[DeclareStatement]]></code>
     </ClassMustBeFinal>
+    <MissingClassConstType>
+      <code><![CDATA[ALLOWED = [
+        self::TICKS        => 'integer',
+        self::STRICT_TYPES => 'integer',
+        self::ENCODING     => 'string',
+    ]]]></code>
+      <code><![CDATA[ENCODING     = 'encoding']]></code>
+      <code><![CDATA[STRICT_TYPES = 'strict_types']]></code>
+      <code><![CDATA[TICKS        = 'ticks']]></code>
+    </MissingClassConstType>
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$directive]]></code>
     </MixedArgumentTypeCoercion>
@@ -27,6 +37,9 @@
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($options) && ! $options instanceof Traversable]]></code>
     </DocblockTypeContradiction>
+    <MissingClassConstType>
+      <code><![CDATA[LINE_FEED = "\n"]]></code>
+    </MissingClassConstType>
     <MixedAssignment>
       <code><![CDATA[$optionName]]></code>
       <code><![CDATA[$optionValue]]></code>
@@ -40,6 +53,18 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Generator/AbstractMemberGenerator.php">
+    <MissingClassConstType>
+      <code><![CDATA[FLAG_ABSTRACT        = 0x01]]></code>
+      <code><![CDATA[FLAG_FINAL           = 0x02]]></code>
+      <code><![CDATA[FLAG_INTERFACE       = 0x08]]></code>
+      <code><![CDATA[FLAG_PRIVATE         = 0x40]]></code>
+      <code><![CDATA[FLAG_PROTECTED       = 0x20]]></code>
+      <code><![CDATA[FLAG_PUBLIC          = 0x10]]></code>
+      <code><![CDATA[FLAG_STATIC          = 0x04]]></code>
+      <code><![CDATA[VISIBILITY_PRIVATE   = 'private']]></code>
+      <code><![CDATA[VISIBILITY_PROTECTED = 'protected']]></code>
+      <code><![CDATA[VISIBILITY_PUBLIC    = 'public']]></code>
+    </MissingClassConstType>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[static]]></code>
       <code><![CDATA[static]]></code>
@@ -77,6 +102,14 @@
     <InvalidNullableReturnType>
       <code><![CDATA[string]]></code>
     </InvalidNullableReturnType>
+    <MissingClassConstType>
+      <code><![CDATA[CONSTRUCTOR_NAME  = '__construct']]></code>
+      <code><![CDATA[FLAG_ABSTRACT      = 0x01]]></code>
+      <code><![CDATA[FLAG_FINAL         = 0x02]]></code>
+      <code><![CDATA[FLAG_READONLY      = 0x04]]></code>
+      <code><![CDATA[IMPLEMENTS_KEYWORD = 'implements']]></code>
+      <code><![CDATA[OBJECT_TYPE        = 'class']]></code>
+    </MissingClassConstType>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -480,6 +513,10 @@
       <code><![CDATA[IMPLEMENTS_KEYWORD]]></code>
       <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
+    <MissingClassConstType>
+      <code><![CDATA[IMPLEMENTS_KEYWORD = 'extends']]></code>
+      <code><![CDATA[OBJECT_TYPE        = 'interface']]></code>
+    </MissingClassConstType>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -601,6 +638,10 @@
     <DeprecatedMethod>
       <code><![CDATA[DocBlockGenerator::fromArray($value)]]></code>
     </DeprecatedMethod>
+    <MissingClassConstType>
+      <code><![CDATA[FLAG_CONSTANT = 0x08]]></code>
+      <code><![CDATA[FLAG_READONLY = 0x80]]></code>
+    </MissingClassConstType>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -644,6 +685,9 @@
     <InvalidClassConstantType>
       <code><![CDATA[OBJECT_TYPE]]></code>
     </InvalidClassConstantType>
+    <MissingClassConstType>
+      <code><![CDATA[OBJECT_TYPE = 'trait']]></code>
+    </MissingClassConstType>
     <MixedArgument>
       <code><![CDATA[$array['name']]]></code>
       <code><![CDATA[$value]]></code>
@@ -764,6 +808,27 @@
       <code><![CDATA[$constants instanceof SplArrayObject || $constants instanceof StdlibArrayObject]]></code>
       <code><![CDATA[$constants instanceof StdlibArrayObject]]></code>
     </DocblockTypeContradiction>
+    <MissingClassConstType>
+      <code><![CDATA[OUTPUT_MULTIPLE_LINE = 'multipleLine']]></code>
+      <code><![CDATA[OUTPUT_SINGLE_LINE   = 'singleLine']]></code>
+      <code><![CDATA[TYPE_ARRAY       = 'array']]></code>
+      <code><![CDATA[TYPE_ARRAY_LONG  = 'array_long']]></code>
+      <code><![CDATA[TYPE_ARRAY_SHORT = 'array_short']]></code>
+      <code><![CDATA[TYPE_AUTO        = 'auto']]></code>
+      <code><![CDATA[TYPE_BOOL        = 'bool']]></code>
+      <code><![CDATA[TYPE_BOOLEAN     = 'boolean']]></code>
+      <code><![CDATA[TYPE_CONSTANT    = 'constant']]></code>
+      <code><![CDATA[TYPE_DOUBLE      = 'double']]></code>
+      <code><![CDATA[TYPE_ENUM        = 'enum']]></code>
+      <code><![CDATA[TYPE_FLOAT       = 'float']]></code>
+      <code><![CDATA[TYPE_INT         = 'int']]></code>
+      <code><![CDATA[TYPE_INTEGER     = 'integer']]></code>
+      <code><![CDATA[TYPE_NULL        = 'null']]></code>
+      <code><![CDATA[TYPE_NUMBER      = 'number']]></code>
+      <code><![CDATA[TYPE_OBJECT      = 'object']]></code>
+      <code><![CDATA[TYPE_OTHER       = 'other']]></code>
+      <code><![CDATA[TYPE_STRING      = 'string']]></code>
+    </MissingClassConstType>
     <MissingReturnType>
       <code><![CDATA[initEnvironmentConstants]]></code>
     </MissingReturnType>
@@ -1038,6 +1103,10 @@
       <code><![CDATA[$endLine]]></code>
       <code><![CDATA[$endLine]]></code>
     </InvalidOperand>
+    <MissingClassConstType>
+      <code><![CDATA[PROTOTYPE_AS_ARRAY = 'prototype_as_array']]></code>
+      <code><![CDATA[PROTOTYPE_AS_STRING = 'prototype_as_string']]></code>
+    </MissingClassConstType>
     <MissingImmutableAnnotation>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
@@ -1107,6 +1176,10 @@
     <InvalidFalsableReturnType>
       <code><![CDATA[int]]></code>
     </InvalidFalsableReturnType>
+    <MissingClassConstType>
+      <code><![CDATA[PROTOTYPE_AS_ARRAY = 'prototype_as_array']]></code>
+      <code><![CDATA[PROTOTYPE_AS_STRING = 'prototype_as_string']]></code>
+    </MissingClassConstType>
     <MissingImmutableAnnotation>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
       <code><![CDATA[#[ReturnTypeWillChange]]]></code>
