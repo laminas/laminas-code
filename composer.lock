@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17eec7d57f85d6ce1ed3653c4c6595b3",
+    "content-hash": "26d439635373f96f5dffbb9a4e25948e",
     "packages": [],
     "packages-dev": [
         {
@@ -907,16 +907,16 @@
         },
         {
             "name": "boundwize/structarmed",
-            "version": "0.21.8",
+            "version": "0.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boundwize/structarmed.git",
-                "reference": "aceafaded72331ef1754b16f5dea34834f6be4a3"
+                "reference": "0ca44dc575ed7b7d3720e5067c7192f0432ed6ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/aceafaded72331ef1754b16f5dea34834f6be4a3",
-                "reference": "aceafaded72331ef1754b16f5dea34834f6be4a3",
+                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/0ca44dc575ed7b7d3720e5067c7192f0432ed6ab",
+                "reference": "0ca44dc575ed7b7d3720e5067c7192f0432ed6ab",
                 "shasum": ""
             },
             "require": {
@@ -973,7 +973,7 @@
             ],
             "support": {
                 "issues": "https://github.com/boundwize/structarmed/issues",
-                "source": "https://github.com/boundwize/structarmed/tree/0.21.8"
+                "source": "https://github.com/boundwize/structarmed/tree/0.22.1"
             },
             "funding": [
                 {
@@ -981,8 +981,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-08T23:46:25+00:00",
-            "published-time": "2026-11-08T23:46:55+00:00"
+            "time": "2026-11-22T08:33:41+00:00",
+            "published-time": "2026-11-22T08:34:02+00:00"
         },
         {
             "name": "composer/pcre",
